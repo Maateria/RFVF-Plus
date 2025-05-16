@@ -208,10 +208,10 @@ static const struct WindowTemplate sStandardBattleWindowTemplates[] = {
         .bg = 0,
         .tilemapLeft = 21,
         .tilemapTop = 55,
-        .width = 3,
+        .width = 4,           // ← +1
         .height = 2,
         .paletteNum = 5,
-        .baseBlock = 0x290
+        .baseBlock = 0x2D0,
     },
     [B_WIN_MOVE_TYPE] = {
         .bg = 0,
@@ -231,14 +231,14 @@ static const struct WindowTemplate sStandardBattleWindowTemplates[] = {
         .paletteNum = 5,
         .baseBlock = 0x2a6
     },
-    [B_WIN_DUMMY] = {
+    [B_WIN_PSS_ICON] = {
         .bg = 0,
-        .tilemapLeft = 25,
-        .tilemapTop = 57,
-        .width = 0,
-        .height = 0,
-        .paletteNum = 5,
-        .baseBlock = 0x2b0
+        .tilemapLeft = 21,
+        .tilemapTop = 55,
+        .width = 2,
+        .height = 2,
+        .paletteNum = 10,
+        .baseBlock = 0x2C0,
     },
     [B_WIN_SWITCH_PROMPT] = {
         .bg = 0,
