@@ -4764,6 +4764,18 @@
       "secondary_tileset": "gTileset_BattleFrontierRankingHall",
       "border_filepath": "data/layouts/BattleFrontier_RankingHall/border.bin",
       "blockdata_filepath": "data/layouts/BattleFrontier_RankingHall/map.bin"
+    },
+    {
+      "id": "LAYOUT_LILYCOVE_CITY",
+      "name": "LilycoveCity_Layout",
+      "width": 80,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_hoenn_general",
+      "secondary_tileset": "gTileset_lilycove",
+      "border_filepath": "data/layouts/LilycoveCity/border.bin",
+      "blockdata_filepath": "data/layouts/LilycoveCity/map.bin"
     }
   ]
 }

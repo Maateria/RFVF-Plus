@@ -560,6 +560,7 @@
 #define MAP_BATTLE_FRONTIER_LOUNGE6                 (19 | (43 << 8))
 #define MAP_BATTLE_FRONTIER_LOUNGE7                 (20 | (43 << 8))
 #define MAP_BATTLE_FRONTIER_LOUNGE8                 (21 | (43 << 8))
+#define MAP_LILYCOVE_CITY                           (22 | (43 << 8))
 
 #define MAP_GROUPS_COUNT 44
 

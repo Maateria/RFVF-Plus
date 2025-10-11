@@ -299,12 +299,68 @@ static void QueueAnimTiles_General_SandWatersEdge(u16 timer)
     AppendTilesetAnimToBuffer(sTilesetAnims_General_SandWatersEdge[timer % ARRAY_COUNT(sTilesetAnims_General_SandWatersEdge)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(464)), 18 * TILE_SIZE_4BPP);
 }
 
+
+
+// ==== HOENN : animation de l’intérieur de l’eau (2 tuiles VRAM 80 et 90) ====
+#ifndef TILE_SIZE_4BPP
+#define TILE_SIZE_4BPP 32
+#endif
+#define TILE_WORDS_4BPP (TILE_SIZE_4BPP / 2) // 16 u16
+
+// Choisis ici les 2 tuiles SOURCE dans la frame (0..29). Essaie d'abord 0 et 1.
+// Si le motif n'est pas bon, essaye 2/3, 4/5, 6/7, etc. (col + 6*row).
+#define SRC_TILE_A 22   // 6*4 + 0
+#define SRC_TILE_B 23   // 6*4 + 1
+
+// Les 2 tuiles DEST dans la VRAM que tu as relevées dans mGBA
+#define DST_TILE_A 80
+#define DST_TILE_B 90
+
+// Frames (8) — tes .4bpp font 960 octets chacun (30 tuiles)
+static const u16 sHoennWater_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/0.4bpp");
+static const u16 sHoennWater_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/1.4bpp");
+static const u16 sHoennWater_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/2.4bpp");
+static const u16 sHoennWater_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/3.4bpp");
+static const u16 sHoennWater_Frame4[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/4.4bpp");
+static const u16 sHoennWater_Frame5[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/5.4bpp");
+static const u16 sHoennWater_Frame6[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/6.4bpp");
+static const u16 sHoennWater_Frame7[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/7.4bpp");
+
+static const u16 *const sHoennWater_Frames[8] = {
+    sHoennWater_Frame0, sHoennWater_Frame1, sHoennWater_Frame2, sHoennWater_Frame3,
+    sHoennWater_Frame4, sHoennWater_Frame5, sHoennWater_Frame6, sHoennWater_Frame7
+};
+
+static void QueueAnimTiles_Hoenn_Water_TilePair(u16 timer)
+{
+    const u16 *src = sHoennWater_Frames[timer & 7];
+
+    // Copie 1 tuile (32 octets) vers la tuile VRAM #80
+    AppendTilesetAnimToBuffer(
+        src + SRC_TILE_A * TILE_WORDS_4BPP,
+        (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(DST_TILE_A)),
+        TILE_SIZE_4BPP
+    );
+
+    // Copie 1 tuile (32 octets) vers la tuile VRAM #90
+    AppendTilesetAnimToBuffer(
+        src + SRC_TILE_B * TILE_WORDS_4BPP,
+        (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(DST_TILE_B)),
+        TILE_SIZE_4BPP
+    );
+}
+
 static void TilesetAnim_General(u16 timer)
 {
     if (timer % 8 == 0)
         QueueAnimTiles_General_SandWatersEdge(timer / 8);
-    if (timer % 16 == 1)
+
+    if (timer % 16 == 1) {
         QueueAnimTiles_General_Water_Current_LandWatersEdge(timer / 16);
+        // >>> Ajout : anime les 2 tuiles 80 & 90 de l'eau Hoenn
+        QueueAnimTiles_Hoenn_Water_TilePair(timer >> 4);
+    }
+
     if (timer % 16 == 2)
         QueueAnimTiles_General_Flower(timer / 16);
 }

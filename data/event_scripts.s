@@ -1328,3 +1328,6 @@ EventScript_NoMoreRoomForPokemon::
 
 	.include "data/maps/BattleFrontier_RankingHall/scripts.inc"
 	.include "data/maps/BattleFrontier_RankingHall/text.inc"
+
+	.include "data/maps/LilycoveCity/scripts.inc"
+	.include "data/maps/LilycoveCity/text.inc"

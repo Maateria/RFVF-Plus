@@ -824,3 +824,25 @@ const struct Tileset gTileset_BattleFrontierRankingHall =
 	.metatileAttributes = gMetatileAttributes_BattleFrontierRankingHall,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_hoenn_general =
+{
+    .isCompressed = TRUE,
+    .isSecondary = FALSE,
+    .tiles = gTilesetTiles_hoenn_general,
+    .palettes = gTilesetPalettes_hoenn_general,
+    .metatiles = gMetatiles_hoenn_general,
+    .metatileAttributes = gMetatileAttributes_hoenn_general,
+    .callback = InitTilesetAnim_General,
+};
+
+const struct Tileset gTileset_lilycove =
+{
+    .isCompressed = TRUE,
+    .isSecondary = TRUE,
+    .tiles = gTilesetTiles_lilycove,
+    .palettes = gTilesetPalettes_lilycove,
+    .metatiles = gMetatiles_lilycove,
+    .metatileAttributes = gMetatileAttributes_lilycove,
+    .callback = NULL,
+};

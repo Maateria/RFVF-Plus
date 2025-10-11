@@ -1540,3 +1540,41 @@ const u16 gTilesetPalettes_BattleFrontierRankingHall[][16] =
 	INCBIN_U16("data/tilesets/secondary/battlefrontierrankinghall/palettes/11.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/battlefrontierrankinghall/palettes/12.gbapal"),
 };
+
+const u16 gTilesetPalettes_hoenn_general[][16] =
+{
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/primary/hoenn_general/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_hoenn_general[] = INCBIN_U32("data/tilesets/primary/hoenn_general/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_lilycove[][16] =
+{
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/00.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/01.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/02.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/03.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/04.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/12.gbapal"),
+};
+
+const u32 gTilesetTiles_lilycove[] = INCBIN_U32("data/tilesets/secondary/lilycove/tiles.4bpp.lz");
