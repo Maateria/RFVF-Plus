@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(python3:*)",
+      "Bash(./tools/gbagfx/gbagfx:*)",
+      "Bash(make:*)",
+      "Bash(wsl pwd:*)",
+      "Bash(wsl make:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

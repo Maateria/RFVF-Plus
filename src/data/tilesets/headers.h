@@ -833,7 +833,7 @@ const struct Tileset gTileset_hoenn_general =
     .palettes = gTilesetPalettes_hoenn_general,
     .metatiles = gMetatiles_hoenn_general,
     .metatileAttributes = gMetatileAttributes_hoenn_general,
-    .callback = InitTilesetAnim_General,
+    .callback = InitTilesetAnim_HoennGeneral,
 };
 
 const struct Tileset gTileset_lilycove =
