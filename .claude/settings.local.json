@@ -5,7 +5,20 @@
       "Bash(./tools/gbagfx/gbagfx:*)",
       "Bash(make:*)",
       "Bash(wsl pwd:*)",
-      "Bash(wsl make:*)"
+      "Bash(wsl make:*)",
+      "Bash(python import_hoenn_map.py:*)",
+      "Bash(wsl python3:*)",
+      "Bash(wsl grep:*)",
+      "Bash(wsl ls:*)",
+      "Bash(wsl rm:*)",
+      "Bash(wsl bash -c \"cd data/tilesets/secondary && if [ -d lilycove.OLD ]; then rm -rf lilycove.OLD; fi && mv lilycove lilycove.OLD && echo ''Ancien tileset sauvegardé''\")",
+      "Bash(wsl identify:*)",
+      "Bash(wsl nproc:*)",
+      "Bash(wsl bash -c \"cd data/layouts/LilycoveCity && if [ -d lilycove.OLD ]; then rm -rf lilycove.OLD; fi && mv map.bin map.bin.emerald && echo ''Map.bin sauvegardé''\")",
+      "Bash(wsl bash:*)",
+      "Bash(where:*)",
+      "Bash(tasklist:*)",
+      "Bash(cp:*)"
     ],
     "deny": [],
     "ask": []
