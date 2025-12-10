@@ -19,7 +19,11 @@
       "Bash(where:*)",
       "Bash(tasklist:*)",
       "Bash(cp:*)",
-      "Bash(wsl wc:*)"
+      "Bash(wsl wc:*)",
+      "Bash(wsl git branch:*)",
+      "Bash(wsl mv:*)",
+      "Bash(wsl which:*)",
+      "Bash(wsl diff:*)"
     ],
     "deny": [],
     "ask": []

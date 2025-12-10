@@ -9,7 +9,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/PalletTown_PlayersHouse_1F/border.bin",
       "blockdata_filepath": "data/layouts/PalletTown_PlayersHouse_1F/map.bin"
     },
@@ -21,7 +21,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/PalletTown_PlayersHouse_2F/border.bin",
       "blockdata_filepath": "data/layouts/PalletTown_PlayersHouse_2F/map.bin"
     },
@@ -45,7 +45,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/LittlerootTown_MaysHouse_2F/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown_MaysHouse_2F/map.bin"
     },
@@ -69,7 +69,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/House1/border.bin",
       "blockdata_filepath": "data/layouts/House1/map.bin"
     },
@@ -249,7 +249,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/House5/border.bin",
       "blockdata_filepath": "data/layouts/House5/map.bin"
     },
@@ -2493,7 +2493,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/SaffronCity_CopycatsHouse_1F/border.bin",
       "blockdata_filepath": "data/layouts/SaffronCity_CopycatsHouse_1F/map.bin"
     },
@@ -2505,7 +2505,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_Building",
-      "secondary_tileset": "gTileset_lilycove",
+      "secondary_tileset": "gTileset_GenericBuilding1",
       "border_filepath": "data/layouts/SaffronCity_CopycatsHouse_2F/border.bin",
       "blockdata_filepath": "data/layouts/SaffronCity_CopycatsHouse_2F/map.bin"
     },
