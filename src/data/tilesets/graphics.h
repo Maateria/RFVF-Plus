@@ -1568,6 +1568,16 @@ const u16 gTilesetPalettes_lilycove[][16] =
     INCBIN_U16("data/tilesets/secondary/lilycove/palettes/03.gbapal"),
     INCBIN_U16("data/tilesets/secondary/lilycove/palettes/04.gbapal"),
     INCBIN_U16("data/tilesets/secondary/lilycove/palettes/05.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/06.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/07.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/08.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/09.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/10.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/11.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/12.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/13.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/14.gbapal"),
+    INCBIN_U16("data/tilesets/secondary/lilycove/palettes/15.gbapal"),
 };
 
 const u32 gTilesetTiles_lilycove[] = INCBIN_U32("data/tilesets/secondary/lilycove/tiles.4bpp.lz");

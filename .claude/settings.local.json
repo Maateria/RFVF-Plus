@@ -18,7 +18,8 @@
       "Bash(wsl bash:*)",
       "Bash(where:*)",
       "Bash(tasklist:*)",
-      "Bash(cp:*)"
+      "Bash(cp:*)",
+      "Bash(wsl wc:*)"
     ],
     "deny": [],
     "ask": []
