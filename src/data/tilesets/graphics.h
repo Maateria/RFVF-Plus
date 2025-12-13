@@ -1581,3 +1581,4 @@ const u16 gTilesetPalettes_lilycove[][16] =
 };
 
 const u32 gTilesetTiles_lilycove[] = INCBIN_U32("data/tilesets/secondary/lilycove/tiles.4bpp.lz");
+

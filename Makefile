@@ -289,6 +289,14 @@ endif
 $(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.s $$(c_asm_dep)
 	$(AS) $(ASFLAGS) -o $@ $<
 
+# Explicit rule for tilesets.o to force compilation from .c
+$(C_BUILDDIR)/tilesets.o: tilesets_c_dep = $(shell $(SCANINC) -I include -I tools/agbcc/include $(C_SUBDIR)/tilesets.c)
+$(C_BUILDDIR)/tilesets.o: $(C_SUBDIR)/tilesets.c $$(tilesets_c_dep)
+	@$(CPP) $(CPPFLAGS) $< -o $(C_BUILDDIR)/tilesets.i
+	@$(PREPROC) $(C_BUILDDIR)/tilesets.i charmap.txt | $(CC1) $(CFLAGS) -o $(C_BUILDDIR)/tilesets.s
+	@echo -e ".text\n\t.align\t2, 0 @ Don't pad with nop\n" >> $(C_BUILDDIR)/tilesets.s
+	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/tilesets.s
+
 ifeq ($(NODEP),1)
 $(DATA_ASM_BUILDDIR)/%.o: data_dep :=
 else

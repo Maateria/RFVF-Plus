@@ -5,3 +5,6 @@
 #include "data/tilesets/graphics.h"
 #include "data/tilesets/metatiles.h"
 #include "data/tilesets/headers.h"
+
+// Force compilation
+void __tilesets_dummy(void) {}

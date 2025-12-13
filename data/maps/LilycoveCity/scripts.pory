@@ -1,1 +1,14 @@
-mapscripts LilycoveCity_MapScripts {}
+// LilycoveCity scripts
+// NOTE: Scripts from Emerald are temporarily disabled due to compilation issues
+// TODO: Convert scripts.inc to Pory format or fix compatibility issues
+
+// Map scripts definition
+raw `
+LilycoveCity_MapScripts::
+	.byte 0
+`
+
+// Temporary empty script to allow compilation
+script LilycoveCity_OnTransition {
+    end
+}

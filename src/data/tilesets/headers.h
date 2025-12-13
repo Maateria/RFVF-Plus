@@ -846,3 +846,4 @@ const struct Tileset gTileset_lilycove =
     .metatileAttributes = gMetatileAttributes_lilycove,
     .callback = NULL,
 };
+

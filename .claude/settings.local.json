@@ -19,7 +19,18 @@
       "Bash(where:*)",
       "Bash(tasklist:*)",
       "Bash(cp:*)",
-      "Bash(wsl wc:*)"
+      "Bash(wsl wc:*)",
+      "Bash(wsl find:*)",
+      "Bash(wsl git diff HEAD~5 data/layouts/layouts.json)",
+      "Bash(wsl git checkout:*)",
+      "Bash(wsl git log:*)",
+      "Bash(wsl sudo apt-get install:*)",
+      "Bash(wsl mv:*)",
+      "Bash(wsl head:*)",
+      "Bash(wsl git status:*)",
+      "Bash(wsl git show:*)",
+      "Bash(wsl touch:*)",
+      "Bash(wsl git diff:*)"
     ],
     "deny": [],
     "ask": []
