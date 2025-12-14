@@ -621,12 +621,14 @@ static void TilesetAnim_HoennGeneral(u16 timer)
 {
     if (timer % 16 == 1)
         QueueAnimTiles_HoennGeneral_Water(timer / 16);
-    if (timer % 16 == 2)
-        QueueAnimTiles_HoennGeneral_SandWaterEdge(timer / 16);
+    // Désactivé : tiles non continus dans FireRed, anime les mauvais tiles
+    // if (timer % 16 == 2)
+    //     QueueAnimTiles_HoennGeneral_SandWaterEdge(timer / 16);
     if (timer % 16 == 3)
         QueueAnimTiles_HoennGeneral_Waterfall(timer / 16);
-    if (timer % 16 == 4)
-        QueueAnimTiles_HoennGeneral_LandWaterEdge(timer / 16);
+    // Désactivé : tiles non continus dans FireRed, anime les arbres au lieu des bords eau
+    // if (timer % 16 == 4)
+    //     QueueAnimTiles_HoennGeneral_LandWaterEdge(timer / 16);
 }
 
 void InitTilesetAnim_HoennGeneral(void)
