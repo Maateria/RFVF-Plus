@@ -204,8 +204,14 @@
 #define OBJ_EVENT_GFX_NOLAND 200
 #define OBJ_EVENT_GFX_LUCY 201
 #define OBJ_EVENT_GFX_BRANDON 202
+#define OBJ_EVENT_GFX_KYOGRE 203
+#define OBJ_EVENT_GFX_GROUDON 204
+#define OBJ_EVENT_GFX_RAYQUAZA 205
+#define OBJ_EVENT_GFX_REGIROCK 206
+#define OBJ_EVENT_GFX_REGICE 207
+#define OBJ_EVENT_GFX_REGISTEEL 208
 
-#define NUM_OBJ_EVENT_GFX     203
+#define NUM_OBJ_EVENT_GFX     209
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.

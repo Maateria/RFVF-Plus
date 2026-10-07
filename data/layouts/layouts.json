@@ -2861,7 +2861,7 @@
       "id": "LAYOUT_SEVEN_ISLAND_TANOBY_RUINS",
       "name": "SevenIsland_TanobyRuins_Layout",
       "width": 144,
-      "height": 20,
+      "height": 40,
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_General",
@@ -4812,6 +4812,42 @@
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/SafariZone_HoennCaveGhost/border.bin",
       "blockdata_filepath": "data/layouts/SafariZone_HoennCaveGhost/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEVEN_ISLAND_TANOBY_RUINS_REGIROCK_CHAMBER",
+      "name": "SevenIsland_TanobyRuins_RegirockChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_TanobyRuins",
+      "border_filepath": "data/layouts/SevenIsland_TanobyRuins_RegirockChamber/border.bin",
+      "blockdata_filepath": "data/layouts/SevenIsland_TanobyRuins_RegirockChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEVEN_ISLAND_TANOBY_RUINS_REGICE_CHAMBER",
+      "name": "SevenIsland_TanobyRuins_RegiceChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_TanobyRuins",
+      "border_filepath": "data/layouts/SevenIsland_TanobyRuins_RegiceChamber/border.bin",
+      "blockdata_filepath": "data/layouts/SevenIsland_TanobyRuins_RegiceChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEVEN_ISLAND_TANOBY_RUINS_REGISTEEL_CHAMBER",
+      "name": "SevenIsland_TanobyRuins_RegisteelChamber_Layout",
+      "width": 23,
+      "height": 17,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_Building",
+      "secondary_tileset": "gTileset_TanobyRuins",
+      "border_filepath": "data/layouts/SevenIsland_TanobyRuins_RegisteelChamber/border.bin",
+      "blockdata_filepath": "data/layouts/SevenIsland_TanobyRuins_RegisteelChamber/map.bin"
     }
   ]
 }

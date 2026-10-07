@@ -220,8 +220,11 @@
 #define MAPSEC_ALTERING_CAVE_E              0xD2
 #define MAPSEC_NAVEL_ROCK_E                 0xD3
 #define MAPSEC_TRAINER_HILL                 0xD4
-#define MAPSEC_NONE                         0xD5
-#define MAPSEC_COUNT                        0xD6
+#define MAPSEC_REGIROCK_CHAMBER             0xD5
+#define MAPSEC_REGICE_CHAMBER               0xD6
+#define MAPSEC_REGISTEEL_CHAMBER            0xD7
+#define MAPSEC_NONE                         0xD8
+#define MAPSEC_COUNT                        0xD9
 
 #define METLOC_SPECIAL_EGG                  0xFD
 #define METLOC_IN_GAME_TRADE                0xFE

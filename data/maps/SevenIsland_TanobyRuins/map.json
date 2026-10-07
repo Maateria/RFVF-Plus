@@ -15,9 +15,9 @@
   "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
   "connections": [
     {
-      "direction": "up",
+      "map": "MAP_SEVEN_ISLAND_SEVAULT_CANYON",
       "offset": 48,
-      "map": "MAP_SEVEN_ISLAND_SEVAULT_CANYON"
+      "direction": "up"
     }
   ],
   "object_events": [
@@ -66,7 +66,6 @@
     {
       "type": "object",
       "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
-      "in_connection": false,
       "x": 85,
       "y": 5,
       "elevation": 3,
@@ -76,7 +75,8 @@
       "trainer_type": "TRAINER_TYPE_NORMAL",
       "trainer_sight_or_berry_tree_id": "1",
       "script": "SevenIsland_TanobyRuins_EventScript_Clifford",
-      "flag": "0"
+      "flag": "0",
+      "in_connection": false
     }
   ],
   "warp_events": [
@@ -127,6 +127,27 @@
       "y": 6,
       "elevation": 3,
       "dest_map": "MAP_SEVEN_ISLAND_TANOBY_RUINS_VIAPOIS_CHAMBER",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 48,
+      "y": 29,
+      "elevation": 0,
+      "dest_map": "MAP_SEVEN_ISLAND_TANOBY_RUINS_REGICE_CHAMBER",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 64,
+      "y": 21,
+      "elevation": 0,
+      "dest_map": "MAP_SEVEN_ISLAND_TANOBY_RUINS_REGIROCK_CHAMBER",
+      "dest_warp_id": "0"
+    },
+    {
+      "x": 80,
+      "y": 29,
+      "elevation": 0,
+      "dest_map": "MAP_SEVEN_ISLAND_TANOBY_RUINS_REGISTEEL_CHAMBER",
       "dest_warp_id": "0"
     }
   ],

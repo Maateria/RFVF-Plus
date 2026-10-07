@@ -256,7 +256,10 @@
     "SafariZone_NorthHoenn",
     "SafariZone_HoennCave",
     "SafariZone_HoennCaveSand",
-    "SafariZone_HoennCaveGhost"
+    "SafariZone_HoennCaveGhost",
+    "SevenIsland_TanobyRuins_RegirockChamber",
+    "SevenIsland_TanobyRuins_RegiceChamber",
+    "SevenIsland_TanobyRuins_RegisteelChamber"
   ],
   "gMapGroup_TownsAndRoutes": [
     "PalletTown",

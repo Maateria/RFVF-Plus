@@ -1,3 +1,9 @@
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Kyogre;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Groudon;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Rayquaza;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Regirock;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Regice;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Registeel;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedNormal;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedBike;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedSurf;
@@ -406,4 +412,10 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_NOLAND]                   = &gObjectEventGraphicsInfo_Noland,
     [OBJ_EVENT_GFX_LUCY]                     = &gObjectEventGraphicsInfo_Lucy,
     [OBJ_EVENT_GFX_BRANDON]                  = &gObjectEventGraphicsInfo_Brandon,
+    [OBJ_EVENT_GFX_KYOGRE]                   = &gObjectEventGraphicsInfo_Kyogre,
+    [OBJ_EVENT_GFX_GROUDON]                  = &gObjectEventGraphicsInfo_Groudon,
+    [OBJ_EVENT_GFX_RAYQUAZA]                 = &gObjectEventGraphicsInfo_Rayquaza,
+    [OBJ_EVENT_GFX_REGIROCK]                 = &gObjectEventGraphicsInfo_Regirock,
+    [OBJ_EVENT_GFX_REGICE]                   = &gObjectEventGraphicsInfo_Regice,
+    [OBJ_EVENT_GFX_REGISTEEL]               = &gObjectEventGraphicsInfo_Registeel,
 };

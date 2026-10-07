@@ -1340,3 +1340,7 @@ EventScript_NoMoreRoomForPokemon::
 
 	.include "data/maps/SafariZone_HoennCaveGhost/scripts.inc"
 	.include "data/maps/SafariZone_HoennCaveGhost/text.inc"
+
+	.include "data/maps/SevenIsland_TanobyRuins_RegirockChamber/scripts.inc"
+	.include "data/maps/SevenIsland_TanobyRuins_RegiceChamber/scripts.inc"
+	.include "data/maps/SevenIsland_TanobyRuins_RegisteelChamber/scripts.inc"
