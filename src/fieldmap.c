@@ -435,7 +435,11 @@ extern const struct Tileset gTileset_HoennInsideBuilding;
 // Hoenn tilesets reuse Kanto metatile ids, so field code with hard-coded metatile ids (doors, escalators) checks this.
 bool32 IsHoennMapLayout(void)
 {
-    const struct Tileset *primary = gMapHeader.mapLayout->primaryTileset;
+    const struct Tileset *primary;
+
+    if (gMapHeader.mapLayout == NULL) // no map loaded yet
+        return FALSE;
+    primary = gMapHeader.mapLayout->primaryTileset;
     return primary == &gTileset_HoennGeneral || primary == &gTileset_HoennInsideBuilding;
 }
 

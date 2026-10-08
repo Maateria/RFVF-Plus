@@ -478,6 +478,14 @@ static const u8 gInitialMovementTypeFacingDirections[MOVEMENT_TYPES_COUNT] = {
 #define OBJ_EVENT_PAL_TAG_33 0x1122
 #define OBJ_EVENT_PAL_TAG_34 0x1123
 #define OBJ_EVENT_PAL_TAG_LADY 0x1124
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_1                 0x1125
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_2                 0x1126
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_3                 0x1127
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_4                 0x1128
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_1_REFLECTION      0x1129
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_2_REFLECTION      0x112A
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_3_REFLECTION      0x112B
+#define OBJ_EVENT_PAL_TAG_HOENN_NPC_4_REFLECTION      0x112C
 #define OBJ_EVENT_PAL_TAG_NONE 0x11FF
 
 #include "data/object_events/object_event_graphics_info_pointers.h"
@@ -512,6 +520,14 @@ static const struct SpritePalette sObjectEventSpritePalettes[] = {
     {gEmMayPalette,                           OBJ_EVENT_PAL_TAG_29},
     {gObjectEventPal_CableCar,                OBJ_EVENT_PAL_TAG_CABLE_CAR},
     {gObjectEventPal_Lady,                    OBJ_EVENT_PAL_TAG_LADY},
+    {gObjectEventPal_HoennNpc1,               OBJ_EVENT_PAL_TAG_HOENN_NPC_1},
+    {gObjectEventPal_HoennNpc2,               OBJ_EVENT_PAL_TAG_HOENN_NPC_2},
+    {gObjectEventPal_HoennNpc3,               OBJ_EVENT_PAL_TAG_HOENN_NPC_3},
+    {gObjectEventPal_HoennNpc4,               OBJ_EVENT_PAL_TAG_HOENN_NPC_4},
+    {gObjectEventPal_HoennNpc1Reflection,     OBJ_EVENT_PAL_TAG_HOENN_NPC_1_REFLECTION},
+    {gObjectEventPal_HoennNpc2Reflection,     OBJ_EVENT_PAL_TAG_HOENN_NPC_2_REFLECTION},
+    {gObjectEventPal_HoennNpc3Reflection,     OBJ_EVENT_PAL_TAG_HOENN_NPC_3_REFLECTION},
+    {gObjectEventPal_HoennNpc4Reflection,     OBJ_EVENT_PAL_TAG_HOENN_NPC_4_REFLECTION},
     {},
 };
 
@@ -671,17 +687,18 @@ static const u16 sObjectPaletteTags1[] = {
     OBJ_EVENT_PAL_TAG_NPC_WHITE_REFLECTION,
 };
 
-static const u16 sObjectPaletteTags2[] = {
+// Was an unused copy of sObjectPaletteTags0. The reflection tables' data[OBJ_PAL_MODE_HOENN] equal their data[0].
+static const u16 sObjectPaletteTags_Hoenn[] = {
     OBJ_EVENT_PAL_TAG_PLAYER_RED,
     OBJ_EVENT_PAL_TAG_PLAYER_RED_REFLECTION,
-    OBJ_EVENT_PAL_TAG_NPC_BLUE,
-    OBJ_EVENT_PAL_TAG_NPC_PINK,
-    OBJ_EVENT_PAL_TAG_NPC_GREEN,
-    OBJ_EVENT_PAL_TAG_NPC_WHITE,
-    OBJ_EVENT_PAL_TAG_NPC_BLUE_REFLECTION,
-    OBJ_EVENT_PAL_TAG_NPC_PINK_REFLECTION,
-    OBJ_EVENT_PAL_TAG_NPC_GREEN_REFLECTION,
-    OBJ_EVENT_PAL_TAG_NPC_WHITE_REFLECTION,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_1,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_2,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_3,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_4,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_1_REFLECTION,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_2_REFLECTION,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_3_REFLECTION,
+    OBJ_EVENT_PAL_TAG_HOENN_NPC_4_REFLECTION,
 };
 
 static const u16 sObjectPaletteTags3[] = {
@@ -700,7 +717,7 @@ static const u16 sObjectPaletteTags3[] = {
 static const u16 *const gObjectPaletteTagSets[] = {
     sObjectPaletteTags0,
     sObjectPaletteTags1,
-    sObjectPaletteTags2,
+    [OBJ_PAL_MODE_HOENN] = sObjectPaletteTags_Hoenn,
     sObjectPaletteTags3,
 };
 
@@ -2078,9 +2095,14 @@ const struct ObjectEventGraphicsInfo *GetObjectEventGraphicsInfo(u8 graphicsId)
     if (graphicsId >= OBJ_EVENT_GFX_VARS)
         graphicsId = VarGetObjectEventGraphicsId(graphicsId - OBJ_EVENT_GFX_VARS);
     
-    if (graphicsId >= NUM_OBJ_EVENT_GFX)
+    // NULL: an id the table skips (203-208, reserved in event_objects.h)
+    if (graphicsId >= NUM_OBJ_EVENT_GFX || gObjectEventGraphicsInfoPointers[graphicsId] == NULL)
         graphicsId = OBJ_EVENT_GFX_LITTLE_BOY;
-    
+
+    // Set with the palettes (ResumeMap), so the NPC palette slots always match the sprites drawn with them
+    if (sCurrentReflectionType == OBJ_PAL_MODE_HOENN && sHoennVariantGraphicsInfoPointers[graphicsId] != NULL)
+        return sHoennVariantGraphicsInfoPointers[graphicsId];
+
     return gObjectEventGraphicsInfoPointers[graphicsId];
 }
 

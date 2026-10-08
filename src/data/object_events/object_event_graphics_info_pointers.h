@@ -201,6 +201,52 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Spenser;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Noland;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Lucy;
 const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_Brandon;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennNinjaBoy;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennTwin;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennBoy1;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennGirl1;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennBoy2;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennGirl2;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennLittleGirl;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennBoy3;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennGirl3;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennRichBoy;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennWoman1;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennFatMan;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennPokefanF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennMan1;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennWoman2;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennExpertM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennExpertF;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennMan2;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennWoman3;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennPokefanM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennWoman4;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennCook;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennLinkReceptionist;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennCamper;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennMan3;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennWoman5;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennYoungster;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennPsychicM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennSchoolKidM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennManiac;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennBlackBelt;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennBeauty;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennLass;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennGentleman;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennSailor;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennFisherman;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennRunningTriathleteM;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennNurse;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennMan4;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennTeala;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennArtist;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennGameboyKid;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennContestJudge;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennKecleon;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennAzumarill;
+const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_HoennScott;
 
 const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
     [OBJ_EVENT_GFX_RED_NORMAL]               = &gObjectEventGraphicsInfo_RedNormal,
@@ -406,4 +452,54 @@ const struct ObjectEventGraphicsInfo *const gObjectEventGraphicsInfoPointers[NUM
     [OBJ_EVENT_GFX_NOLAND]                   = &gObjectEventGraphicsInfo_Noland,
     [OBJ_EVENT_GFX_LUCY]                     = &gObjectEventGraphicsInfo_Lucy,
     [OBJ_EVENT_GFX_BRANDON]                  = &gObjectEventGraphicsInfo_Brandon,
+    [OBJ_EVENT_GFX_HOENN_NINJA_BOY]          = &gObjectEventGraphicsInfo_HoennNinjaBoy,
+    [OBJ_EVENT_GFX_HOENN_BOY_1]              = &gObjectEventGraphicsInfo_HoennBoy1,
+    [OBJ_EVENT_GFX_HOENN_GIRL_1]             = &gObjectEventGraphicsInfo_HoennGirl1,
+    [OBJ_EVENT_GFX_HOENN_BOY_2]              = &gObjectEventGraphicsInfo_HoennBoy2,
+    [OBJ_EVENT_GFX_HOENN_GIRL_2]             = &gObjectEventGraphicsInfo_HoennGirl2,
+    [OBJ_EVENT_GFX_HOENN_BOY_3]              = &gObjectEventGraphicsInfo_HoennBoy3,
+    [OBJ_EVENT_GFX_HOENN_GIRL_3]             = &gObjectEventGraphicsInfo_HoennGirl3,
+    [OBJ_EVENT_GFX_HOENN_RICH_BOY]           = &gObjectEventGraphicsInfo_HoennRichBoy,
+    [OBJ_EVENT_GFX_HOENN_POKEFAN_F]          = &gObjectEventGraphicsInfo_HoennPokefanF,
+    [OBJ_EVENT_GFX_HOENN_MAN_1]              = &gObjectEventGraphicsInfo_HoennMan1,
+    [OBJ_EVENT_GFX_HOENN_EXPERT_M]           = &gObjectEventGraphicsInfo_HoennExpertM,
+    [OBJ_EVENT_GFX_HOENN_EXPERT_F]           = &gObjectEventGraphicsInfo_HoennExpertF,
+    [OBJ_EVENT_GFX_HOENN_MAN_2]              = &gObjectEventGraphicsInfo_HoennMan2,
+    [OBJ_EVENT_GFX_HOENN_POKEFAN_M]          = &gObjectEventGraphicsInfo_HoennPokefanM,
+    [OBJ_EVENT_GFX_HOENN_WOMAN_4]            = &gObjectEventGraphicsInfo_HoennWoman4,
+    [OBJ_EVENT_GFX_HOENN_MAN_3]              = &gObjectEventGraphicsInfo_HoennMan3,
+    [OBJ_EVENT_GFX_HOENN_WOMAN_5]            = &gObjectEventGraphicsInfo_HoennWoman5,
+    [OBJ_EVENT_GFX_HOENN_SCHOOL_KID_M]       = &gObjectEventGraphicsInfo_HoennSchoolKidM,
+    [OBJ_EVENT_GFX_HOENN_RUNNING_TRIATHLETE_M] = &gObjectEventGraphicsInfo_HoennRunningTriathleteM,
+    [OBJ_EVENT_GFX_HOENN_MAN_4]              = &gObjectEventGraphicsInfo_HoennMan4,
+    [OBJ_EVENT_GFX_HOENN_CONTEST_JUDGE]      = &gObjectEventGraphicsInfo_HoennContestJudge,
+    [OBJ_EVENT_GFX_HOENN_KECLEON]            = &gObjectEventGraphicsInfo_HoennKecleon,
+    [OBJ_EVENT_GFX_HOENN_AZUMARILL]          = &gObjectEventGraphicsInfo_HoennAzumarill,
+    [OBJ_EVENT_GFX_HOENN_ARTIST]             = &gObjectEventGraphicsInfo_HoennArtist,
+};
+
+// Hoenn maps (InitObjectEventPalettes(OBJ_PAL_MODE_HOENN)): this repo's gfx id -> pokeemerald sprite of the same character
+static const struct ObjectEventGraphicsInfo *const sHoennVariantGraphicsInfoPointers[NUM_OBJ_EVENT_GFX] = {
+    [OBJ_EVENT_GFX_TWIN]                     = &gObjectEventGraphicsInfo_HoennTwin,
+    [OBJ_EVENT_GFX_LITTLE_GIRL]              = &gObjectEventGraphicsInfo_HoennLittleGirl,
+    [OBJ_EVENT_GFX_WOMAN_1]                  = &gObjectEventGraphicsInfo_HoennWoman1,
+    [OBJ_EVENT_GFX_FAT_MAN]                  = &gObjectEventGraphicsInfo_HoennFatMan,
+    [OBJ_EVENT_GFX_WOMAN_2]                  = &gObjectEventGraphicsInfo_HoennWoman2,
+    [OBJ_EVENT_GFX_WOMAN_3]                  = &gObjectEventGraphicsInfo_HoennWoman3,
+    [OBJ_EVENT_GFX_CHEF]                     = &gObjectEventGraphicsInfo_HoennCook,
+    [OBJ_EVENT_GFX_UNION_ROOM_RECEPTIONIST]  = &gObjectEventGraphicsInfo_HoennLinkReceptionist,
+    [OBJ_EVENT_GFX_CAMPER]                   = &gObjectEventGraphicsInfo_HoennCamper,
+    [OBJ_EVENT_GFX_YOUNGSTER]                = &gObjectEventGraphicsInfo_HoennYoungster,
+    [OBJ_EVENT_GFX_PSYCHIC_M]                = &gObjectEventGraphicsInfo_HoennPsychicM,
+    [OBJ_EVENT_GFX_POKE_MANIAC]              = &gObjectEventGraphicsInfo_HoennManiac,
+    [OBJ_EVENT_GFX_BLACKBELT]                = &gObjectEventGraphicsInfo_HoennBlackBelt,
+    [OBJ_EVENT_GFX_BEAUTY]                   = &gObjectEventGraphicsInfo_HoennBeauty,
+    [OBJ_EVENT_GFX_LASS]                     = &gObjectEventGraphicsInfo_HoennLass,
+    [OBJ_EVENT_GFX_GENTLEMAN]                = &gObjectEventGraphicsInfo_HoennGentleman,
+    [OBJ_EVENT_GFX_SAILOR]                   = &gObjectEventGraphicsInfo_HoennSailor,
+    [OBJ_EVENT_GFX_FISHER]                   = &gObjectEventGraphicsInfo_HoennFisherman,
+    [OBJ_EVENT_GFX_NURSE]                    = &gObjectEventGraphicsInfo_HoennNurse,
+    [OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST]  = &gObjectEventGraphicsInfo_HoennTeala,
+    [OBJ_EVENT_GFX_GBA_KID]                  = &gObjectEventGraphicsInfo_HoennGameboyKid,
+    [OBJ_EVENT_GFX_SCOTT]                    = &gObjectEventGraphicsInfo_HoennScott,
 };

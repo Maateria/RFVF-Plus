@@ -2394,3 +2394,556 @@ static const struct SpriteFrameImage sPicTable_Brandon[] = {
     overworld_frame(gObjectEventPic_Brandon, 2, 4, 8),
     overworld_frame(gObjectEventPic_Brandon, 2, 4, 9),
 };
+
+static const struct SpriteFrameImage sPicTable_HoennNinjaBoy[] = {
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 2),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 3),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 4),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 5),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 6),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 7),
+    overworld_frame(gObjectEventPic_HoennNinjaBoy, 2, 2, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennTwin[] = {
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennTwin, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBoy1[] = {
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennBoy1, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGirl1[] = {
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennGirl1, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBoy2[] = {
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennBoy2, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGirl2[] = {
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennGirl2, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennLittleGirl[] = {
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 2),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 3),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 4),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 5),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 6),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 7),
+    overworld_frame(gObjectEventPic_HoennLittleGirl, 2, 2, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBoy3[] = {
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennBoy3, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGirl3[] = {
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennGirl3, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennRichBoy[] = {
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennRichBoy, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWoman1[] = {
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennWoman1, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennFatMan[] = {
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennFatMan, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennPokefanF[] = {
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennPokefanF, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMan1[] = {
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennMan1, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWoman2[] = {
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennWoman2, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennExpertM[] = {
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennExpertM, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennExpertF[] = {
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennExpertF, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMan2[] = {
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennMan2, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWoman3[] = {
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennWoman3, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennPokefanM[] = {
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennPokefanM, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWoman4[] = {
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennWoman4, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennCook[] = {
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennCook, 2, 4, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennLinkReceptionist[] = {
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennLinkReceptionist, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennCamper[] = {
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennCamper, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMan3[] = {
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennMan3, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWoman5[] = {
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennWoman5, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennYoungster[] = {
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennYoungster, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennPsychicM[] = {
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennPsychicM, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSchoolKidM[] = {
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennSchoolKidM, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennManiac[] = {
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennManiac, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBlackBelt[] = {
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennBlackBelt, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBeauty[] = {
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennBeauty, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennLass[] = {
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennLass, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGentleman[] = {
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennGentleman, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSailor[] = {
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennSailor, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennFisherman[] = {
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennFisherman, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennRunningTriathleteM[] = {
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennRunningTriathleteM, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennNurse[] = {
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennNurse, 2, 4, 3),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMan4[] = {
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennMan4, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennTeala[] = {
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennTeala, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennArtist[] = {
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennArtist, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGameboyKid[] = {
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennGameboyKid, 2, 4, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennContestJudge[] = {
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennContestJudge, 2, 4, 8),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennKecleon[] = {
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 2),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 2),
+    overworld_frame(gObjectEventPic_HoennKecleon, 2, 2, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennAzumarill[] = {
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 2),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 0),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 1),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 2),
+    overworld_frame(gObjectEventPic_HoennAzumarill, 2, 2, 2),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennScott[] = {
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 0),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 1),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 2),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 3),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 4),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 5),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 6),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 7),
+    overworld_frame(gObjectEventPic_HoennScott, 2, 4, 8),
+};

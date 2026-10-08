@@ -135,6 +135,8 @@ u8 GetFishingDirectionAnimNum(u8 direction);
 u8 GetFishingNoCatchDirectionAnimNum(u8 a0);
 void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u8 a1);
 u8 CreateFameCheckerObject(u8 graphicsId, u8 localId, s16 x, s16 y);
+// InitObjectEventPalettes mode of Hoenn maps: pokeemerald's NPC palettes and sprites (see GetObjectEventGraphicsInfo)
+#define OBJ_PAL_MODE_HOENN 2
 void InitObjectEventPalettes(u8 mode);
 bool8 ObjectEventIsMovementOverridden(struct ObjectEvent *objectEvent);
 u8 ObjectEventCheckHeldMovementStatus(struct ObjectEvent *objectEvent);

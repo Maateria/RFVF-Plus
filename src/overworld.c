@@ -2214,10 +2214,12 @@ static void ResumeMap(bool32 inLink)
     ResetAllPicSprites();
     ResetCameraUpdateInfo();
     InstallCameraPanAheadCallback();
-    if (!inLink)
-        InitObjectEventPalettes(0);
-    else
+    if (inLink)
         InitObjectEventPalettes(1);
+    else if (IsHoennMapLayout())
+        InitObjectEventPalettes(OBJ_PAL_MODE_HOENN);
+    else
+        InitObjectEventPalettes(0);
 
     FieldEffectActiveListClear();
     StartWeather();
