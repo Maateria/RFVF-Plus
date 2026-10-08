@@ -75,6 +75,13 @@ struct
 STATIC_ASSERT(sizeof(struct SaveBlock2) <= SECTOR_DATA_SIZE, SaveBlock2FreeSpace);
 STATIC_ASSERT(sizeof(struct SaveBlock1) <= SECTOR_DATA_SIZE * (SECTOR_ID_SAVEBLOCK1_END - SECTOR_ID_SAVEBLOCK1_START + 1), SaveBlock1FreeSpace);
 STATIC_ASSERT(sizeof(struct PokemonStorage) <= SECTOR_DATA_SIZE * (SECTOR_ID_PKMN_STORAGE_END - SECTOR_ID_PKMN_STORAGE_START + 1), PokemonStorageFreeSpace);
+// Graphics ids >= 256 keep their high byte in former padding bytes, and existing saves hold these structs at these
+// offsets: the save layout must not move
+STATIC_ASSERT(sizeof(struct ObjectEvent) == 0x24 && offsetof(struct ObjectEvent, graphicsIdHi) == 0x23, ObjectEventSaveLayout);
+STATIC_ASSERT(sizeof(struct ObjectEventTemplate) == 0x18 && offsetof(struct ObjectEventTemplate, graphicsIdHi) == 3, ObjectEventTemplateSaveLayout);
+STATIC_ASSERT(sizeof(struct QuestLogObjectEvent) == 0x14 && offsetof(struct QuestLogObjectEvent, graphicsIdHi) == 0x12, QuestLogObjectEventSaveLayout);
+STATIC_ASSERT(offsetof(struct SaveBlock1, objectEvents) == 0x6A0 && offsetof(struct SaveBlock1, objectEventTemplates) == 0x8E0
+              && offsetof(struct SaveBlock1, questLog) == 0x1300, SaveBlock1GfxIdStoresLayout);
 
 // Sector num to begin writing save data. Sectors are rotated each time the game is saved. (possibly to avoid wear on flash memory?)
 u16 gLastWrittenSector;

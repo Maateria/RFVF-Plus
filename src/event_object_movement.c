@@ -1405,7 +1405,7 @@ static u8 InitObjectEventStateFromTemplate(const struct ObjectEventTemplate *tem
     }
     objectEvent->active = TRUE;
     objectEvent->triggerGroundEffectsOnMove = TRUE;
-    objectEvent->graphicsId = template->graphicsId;
+    ObjStoreGfxId(objectEvent, ObjTemplateGfxId(template));
     objectEvent->movementType = template->objUnion.normal.movementType;
     objectEvent->localId = template->localId;
     objectEvent->mapNum = mapNum;
@@ -1449,7 +1449,7 @@ static bool8 ShouldInitObjectEventStateFromTemplate(const struct ObjectEventTemp
 
 static bool8 TemplateIsObstacleAndWithinView(const struct ObjectEventTemplate *template, s16 x, s16 y)
 {
-    if (template->graphicsId == OBJ_EVENT_GFX_CUT_TREE || template->graphicsId == OBJ_EVENT_GFX_ROCK_SMASH_ROCK)
+    if (ObjTemplateGfxId(template) == OBJ_EVENT_GFX_CUT_TREE || ObjTemplateGfxId(template) == OBJ_EVENT_GFX_ROCK_SMASH_ROCK)
     {
         if (gSaveBlock1Ptr->pos.x < x)
         {
@@ -1477,7 +1477,7 @@ static bool8 TemplateIsObstacleAndVisibleFromConnectingMap(const struct ObjectEv
         s32 width = VMap.Xsize - MAP_OFFSET_W - 1;
         s32 height = VMap.Ysize - MAP_OFFSET_H - 1;
 
-        if (template->graphicsId == OBJ_EVENT_GFX_CUT_TREE || template->graphicsId == OBJ_EVENT_GFX_ROCK_SMASH_ROCK)
+        if (ObjTemplateGfxId(template) == OBJ_EVENT_GFX_CUT_TREE || ObjTemplateGfxId(template) == OBJ_EVENT_GFX_ROCK_SMASH_ROCK)
         {
             if (gSaveBlock1Ptr->pos.x == 0 && template->x <= (MAP_OFFSET + 1))
             {
@@ -1581,7 +1581,7 @@ void RemoveObjectEventByLocalIdAndMap(u8 localId, u8 mapNum, u8 mapGroup)
 static void RemoveObjectEventInternal(struct ObjectEvent *objectEvent)
 {
     struct SpriteFrameImage image;
-    image.size = GetObjectEventGraphicsInfo(objectEvent->graphicsId)->size;
+    image.size = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent))->size;
     gSprites[objectEvent->spriteId].images = &image;
     DestroySprite(&gSprites[objectEvent->spriteId]);
 }
@@ -1610,7 +1610,7 @@ static u8 TrySetupObjectEventSprite(const struct ObjectEventTemplate *objectEven
         return OBJECT_EVENTS_COUNT;
 
     objectEvent = &gObjectEvents[objectEventId];
-    graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    graphicsInfo = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent));
     if(graphicsInfo->paletteTag == OBJ_EVENT_PAL_TAG_28 || graphicsInfo->paletteTag == OBJ_EVENT_PAL_TAG_29) //em brendan/may
         LoadPlayerObjectReflectionPalette(graphicsInfo->paletteTag, graphicsInfo->paletteSlot);
     if (graphicsInfo->paletteSlot == PALSLOT_PLAYER)
@@ -1657,7 +1657,7 @@ static u8 TrySpawnObjectEventTemplate(const struct ObjectEventTemplate *objectEv
     const struct ObjectEventGraphicsInfo *graphicsInfo;
     const struct SubspriteTable *subspriteTables = NULL;
 
-    graphicsInfo = GetObjectEventGraphicsInfo(objectEventTemplate->graphicsId);
+    graphicsInfo = GetObjectEventGraphicsInfo(ObjTemplateGfxId(objectEventTemplate));
     MakeObjectTemplateFromObjectEventTemplate(objectEventTemplate, &spriteTemplate, &subspriteTables);
     spriteFrameImage.size = graphicsInfo->size;
     spriteTemplate.images = &spriteFrameImage;
@@ -1688,7 +1688,7 @@ int SpawnSpecialObjectEventParameterized(u8 graphicsId, u8 movementBehavior, u8 
     x -= MAP_OFFSET;
     y -= MAP_OFFSET;
     objectEventTemplate.localId = localId;
-    objectEventTemplate.graphicsId = graphicsId;
+    ObjTemplateStoreGfxId(&objectEventTemplate, graphicsId);
     objectEventTemplate.kind = OBJ_KIND_NORMAL;
     objectEventTemplate.x = x;
     objectEventTemplate.y = y;
@@ -1743,7 +1743,7 @@ static void CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(u16 graphics
 
 static void MakeObjectTemplateFromObjectEventTemplate(const struct ObjectEventTemplate *objectEventTemplate, struct SpriteTemplate *spriteTemplate, const struct SubspriteTable **subspriteTables)
 {
-    CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(objectEventTemplate->graphicsId, objectEventTemplate->objUnion.normal.movementType, spriteTemplate, subspriteTables);
+    CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(ObjTemplateGfxId(objectEventTemplate), objectEventTemplate->objUnion.normal.movementType, spriteTemplate, subspriteTables);
 }
 
 // Used to create a sprite using a graphicsId associated with object events.
@@ -1769,7 +1769,7 @@ u8 CreateObjectGraphicsSprite(u16 graphicsId, SpriteCallback callback, s16 x, s1
 #define sVirtualObjId   data[0]
 #define sVirtualObjElev data[1]
 
-u8 CreateVirtualObject(u8 graphicsId, u8 virtualObjId, s16 x, s16 y, u8 elevation, u8 direction)
+u8 CreateVirtualObject(u16 graphicsId, u8 virtualObjId, s16 x, s16 y, u8 elevation, u8 direction)
 {
     u8 spriteId;
     struct Sprite *sprite;
@@ -1941,9 +1941,9 @@ static void SpawnObjectEventOnReturnToField(u8 objectEventId, s16 x, s16 y)
     objectEvent = &gObjectEvents[objectEventId];
     objectEvent++;objectEvent--; // fakematch
     subspriteTables = NULL;
-    graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    graphicsInfo = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent));
     spriteFrameImage.size = graphicsInfo->size;
-    CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(objectEvent->graphicsId, objectEvent->movementType, &spriteTemplate, &subspriteTables);
+    CopyObjectGraphicsInfoToSpriteTemplate_WithMovementType(ObjGfxId(objectEvent), objectEvent->movementType, &spriteTemplate, &subspriteTables);
     spriteTemplate.images = &spriteFrameImage;
 
     *(u16 *)&spriteTemplate.paletteTag = TAG_NONE;
@@ -2001,11 +2001,11 @@ static void SetPlayerAvatarObjectEventIdAndObjectId(u8 objectEventId, u8 spriteI
 {
     gPlayerAvatar.objectEventId = objectEventId;
     gPlayerAvatar.spriteId = spriteId;
-    gPlayerAvatar.gender = GetPlayerAvatarGenderByGraphicsId(gObjectEvents[objectEventId].graphicsId);
-    SetPlayerAvatarExtraStateTransition(gObjectEvents[objectEventId].graphicsId, PLAYER_AVATAR_FLAG_CONTROLLABLE);
+    gPlayerAvatar.gender = GetPlayerAvatarGenderByGraphicsId(ObjGfxId(&gObjectEvents[objectEventId]));
+    SetPlayerAvatarExtraStateTransition(ObjGfxId(&gObjectEvents[objectEventId]), PLAYER_AVATAR_FLAG_CONTROLLABLE);
 }
 
-void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u8 graphicsId)
+void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u16 graphicsId)
 {
     const struct ObjectEventGraphicsInfo *graphicsInfo;
     struct Sprite *sprite;
@@ -2043,7 +2043,7 @@ void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u8 graphicsId)
         sprite->oam.tileNum = var2;
     }
     objectEvent->inanimate = graphicsInfo->inanimate;
-    objectEvent->graphicsId = graphicsId;  
+    ObjStoreGfxId(objectEvent, graphicsId);
     SetSpritePosToMapCoords(objectEvent->currentCoords.x, objectEvent->currentCoords.y, &sprite->x, &sprite->y);
     sprite->centerToCornerVecX = -(graphicsInfo->width >> 1);
     sprite->centerToCornerVecY = -(graphicsInfo->height >> 1);
@@ -2090,12 +2090,13 @@ void PlayerObjectTurn(struct PlayerAvatar *playerAvatar, u8 direction)
     ObjectEventTurn(&gObjectEvents[playerAvatar->objectEventId], direction);
 }
 
-const struct ObjectEventGraphicsInfo *GetObjectEventGraphicsInfo(u8 graphicsId)
+const struct ObjectEventGraphicsInfo *GetObjectEventGraphicsInfo(u16 graphicsId)
 {
-    if (graphicsId >= OBJ_EVENT_GFX_VARS)
+    // Only the Kanto block's 240-255 are VAR ids: a Hoenn id (>= 256) never is
+    if (graphicsId >= OBJ_EVENT_GFX_VAR_0 && graphicsId <= OBJ_EVENT_GFX_VAR_F)
         graphicsId = VarGetObjectEventGraphicsId(graphicsId - OBJ_EVENT_GFX_VARS);
     
-    // NULL: an id the table skips (203-208, reserved in event_objects.h)
+    // NULL: an id the table skips (203-255, gaps between region blocks, see event_objects.h)
     if (graphicsId >= NUM_OBJ_EVENT_GFX || gObjectEventGraphicsInfoPointers[graphicsId] == NULL)
         graphicsId = OBJ_EVENT_GFX_LITTLE_BOY;
 
@@ -2108,10 +2109,10 @@ const struct ObjectEventGraphicsInfo *GetObjectEventGraphicsInfo(u8 graphicsId)
 
 static void SetObjectEventDynamicGraphicsId(struct ObjectEvent *objectEvent)
 {
-    if (objectEvent->graphicsId >= OBJ_EVENT_GFX_VARS)
-    {
-        objectEvent->graphicsId = VarGetObjectEventGraphicsId(objectEvent->graphicsId - OBJ_EVENT_GFX_VARS);
-    }
+    u16 graphicsId = ObjGfxId(objectEvent);
+
+    if (graphicsId >= OBJ_EVENT_GFX_VAR_0 && graphicsId <= OBJ_EVENT_GFX_VAR_F)
+        ObjStoreGfxId(objectEvent, VarGetObjectEventGraphicsId(graphicsId - OBJ_EVENT_GFX_VARS));
 }
 
 void SetObjectInvisibility(u8 localId, u8 mapNum, u8 mapGroup, u8 state)
@@ -2326,7 +2327,7 @@ void MoveObjectEventToMapCoords(struct ObjectEvent *objectEvent, s16 x, s16 y)
     const struct ObjectEventGraphicsInfo *graphicsInfo;
 
     sprite = &gSprites[objectEvent->spriteId];
-    graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    graphicsInfo = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent));
     SetObjectEventCoords(objectEvent, x, y);
     SetSpritePosToMapCoords(objectEvent->currentCoords.x, objectEvent->currentCoords.y, &sprite->x, &sprite->y);
     sprite->centerToCornerVecX = -(graphicsInfo->width >> 1);
@@ -5318,7 +5319,7 @@ static void QuestLogObjectEventExecHeldMovementAction(struct ObjectEvent *object
     if (sMovementActionFuncs[objectEvent->movementActionId][sprite->data[2]](objectEvent, sprite))
     {
         objectEvent->heldMovementFinished = TRUE;
-        if (objectEvent->graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER)
+        if (ObjGfxId(objectEvent) == OBJ_EVENT_GFX_PUSHABLE_BOULDER)
             HandleBoulderFallThroughHole(objectEvent);
     }
 }
@@ -7116,7 +7117,7 @@ static bool8 MovementAction_DisableAnimation_Step0(struct ObjectEvent *objectEve
 
 static bool8 MovementAction_RestoreAnimation_Step0(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    objectEvent->inanimate = GetObjectEventGraphicsInfo(objectEvent->graphicsId)->inanimate;
+    objectEvent->inanimate = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent))->inanimate;
     sprite->data[2] = 1;
     return TRUE;
 }
@@ -8047,7 +8048,7 @@ static void CalcWhetherObjectIsOffscreen(struct ObjectEvent *objectEvent, struct
     s16 var;
 
     objectEvent->offScreen = FALSE;
-    graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    graphicsInfo = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent));
     if (sprite->coordOffsetEnabled)
     {
         x = sprite->x + sprite->x2 + sprite->centerToCornerVecX + gSpriteCoordOffsetX;
@@ -8326,7 +8327,7 @@ static void GetGroundEffectFlags_JumpLanding(struct ObjectEvent *objEvent, u32 *
 
 static u8 ObjectEventCheckForReflectiveSurface(struct ObjectEvent *objEvent)
 {
-    const struct ObjectEventGraphicsInfo *info = GetObjectEventGraphicsInfo(objEvent->graphicsId);
+    const struct ObjectEventGraphicsInfo *info = GetObjectEventGraphicsInfo(ObjGfxId(objEvent));
 
     // ceil div by tile width?
     s16 width = 1;
@@ -8585,13 +8586,13 @@ static void (*const sGroundEffectTracksFuncs[])(struct ObjectEvent *objEvent, st
 
 void GroundEffect_SandTracks(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {
-    const struct ObjectEventGraphicsInfo *info = GetObjectEventGraphicsInfo(objEvent->graphicsId);
+    const struct ObjectEventGraphicsInfo *info = GetObjectEventGraphicsInfo(ObjGfxId(objEvent));
     sGroundEffectTracksFuncs[info->tracks](objEvent, sprite, 0);
 }
 
 void GroundEffect_DeepSandTracks(struct ObjectEvent *objEvent, struct Sprite *sprite)
 {
-    const struct ObjectEventGraphicsInfo *info = GetObjectEventGraphicsInfo(objEvent->graphicsId);
+    const struct ObjectEventGraphicsInfo *info = GetObjectEventGraphicsInfo(ObjGfxId(objEvent));
     sGroundEffectTracksFuncs[info->tracks](objEvent, sprite, 1);
 }
 
@@ -9476,7 +9477,7 @@ void DoShadowFieldEffect(struct ObjectEvent *objectEvent)
 
 static void DoRippleFieldEffect(struct ObjectEvent *objectEvent, struct Sprite *sprite)
 {
-    const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(objectEvent->graphicsId);
+    const struct ObjectEventGraphicsInfo *graphicsInfo = GetObjectEventGraphicsInfo(ObjGfxId(objectEvent));
     gFieldEffectArguments[0] = sprite->x;
     gFieldEffectArguments[1] = sprite->y + (graphicsInfo->height >> 1) - 2;
     gFieldEffectArguments[2] = 151;

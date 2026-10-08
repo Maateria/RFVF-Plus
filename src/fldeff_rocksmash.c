@@ -30,7 +30,7 @@ bool8 CheckObjectGraphicsInFrontOfPlayer(u8 graphicsId)
     GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
     gPlayerFacingPosition.elevation = PlayerGetElevation();
     mapObjId = GetObjectEventIdByPosition(gPlayerFacingPosition.x, gPlayerFacingPosition.y, gPlayerFacingPosition.elevation);
-    if (gObjectEvents[mapObjId].graphicsId != graphicsId)
+    if (ObjGfxId(&gObjectEvents[mapObjId]) != graphicsId)
         return FALSE;
     gSpecialVar_LastTalked = gObjectEvents[mapObjId].localId;
     return TRUE;

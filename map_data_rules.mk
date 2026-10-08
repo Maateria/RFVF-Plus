@@ -25,8 +25,12 @@ $(LAYOUTS_DIR)/layouts.inc: $(LAYOUTS_DIR)/layouts.json
 $(LAYOUTS_DIR)/layouts_table.inc: $(LAYOUTS_DIR)/layouts.inc ;
 include/constants/layouts.h: $(LAYOUTS_DIR)/layouts_table.inc ;
 
-$(DATA_ASM_BUILDDIR)/maps.o: $(DATA_ASM_SUBDIR)/maps.s $(LAYOUTS_DIR)/layouts.inc $(LAYOUTS_DIR)/layouts_table.inc $(MAPS_DIR)/headers.inc $(MAPS_DIR)/groups.inc $(MAPS_DIR)/connections.inc $(MAP_CONNECTIONS) $(MAP_HEADERS)
+# Map data bakes macro and constant values into the ROM (and maps.o incbins the layout .bin files), but these explicit
+# rules get no scaninc dependencies: without this list, an incremental build keeps stale map data when one changes
+MAP_DATA_DEPS := $(wildcard asm/macros.inc asm/macros/*.inc constants/*.inc include/constants/*.h)
+
+$(DATA_ASM_BUILDDIR)/maps.o: $(DATA_ASM_SUBDIR)/maps.s $(LAYOUTS_DIR)/layouts.inc $(LAYOUTS_DIR)/layouts_table.inc $(MAPS_DIR)/headers.inc $(MAPS_DIR)/groups.inc $(MAPS_DIR)/connections.inc $(MAP_CONNECTIONS) $(MAP_HEADERS) $(wildcard $(LAYOUTS_DIR)/*/*.bin) $(MAP_DATA_DEPS)
 	$(PREPROC) $< charmap.txt | $(CPP) -I include -nostdinc -undef -Wno-unicode - | $(AS) $(ASFLAGS) -o $@
-$(DATA_ASM_BUILDDIR)/map_events.o: $(DATA_ASM_SUBDIR)/map_events.s $(MAPS_DIR)/events.inc $(MAP_EVENTS)
+$(DATA_ASM_BUILDDIR)/map_events.o: $(DATA_ASM_SUBDIR)/map_events.s $(MAPS_DIR)/events.inc $(MAP_EVENTS) $(MAP_DATA_DEPS)
 	$(PREPROC) $< charmap.txt | $(CPP) -I include -nostdinc -undef -Wno-unicode - | $(AS) $(ASFLAGS) -o $@
 

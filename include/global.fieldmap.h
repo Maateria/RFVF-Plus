@@ -110,8 +110,9 @@ struct BackupMapLayout
 struct ObjectEventTemplate
 {
     u8 localId;
-    u8 graphicsId;
+    /*0x01*/ u8 graphicsIdLo; // graphics id bits 0-7: use ObjTemplateGfxId / ObjTemplateStoreGfxId
     u8 kind; // The "kind" field determines how to access objUnion union below.
+    /*0x03*/ u8 graphicsIdHi; // bits 8-15; was padding, 0 in every map and save made before ids passed 255
     s16 x, y;
     union {
         struct {
@@ -241,7 +242,7 @@ struct ObjectEvent
              /*26*/ u32 fixedPriority:1;
              /*27*/ u32 hideReflection:1;
     /*0x04*/        u8 spriteId;
-    /*0x05*/        u8 graphicsId;
+    /*0x05*/        u8 graphicsIdLo; // bits 0-7: use ObjGfxId / ObjStoreGfxId
     /*0x06*/        u8 movementType;
     /*0x07*/        u8 trainerType;
     /*0x08*/        u8 localId;
@@ -265,8 +266,35 @@ struct ObjectEvent
     /*0x20*/        u8 previousMovementDirection;
     /*0x21*/        u8 directionSequenceIndex;
     /*0x22*/        u8 playerCopyableMovement;
+    /*0x23*/        u8 graphicsIdHi; // bits 8-15; was padding, 0 in every save made before ids passed 255
     /*size = 0x24*/
 };
+
+// Object graphics ids (OBJ_EVENT_GFX_*) are u16. The structs above live in ROM map data and in the save file, so
+// the low byte stays where the u8 id always was and the high byte uses a former padding byte (0 in older maps and
+// saves): no size or offset moved. Read/write the id only through these helpers. ObjStoreGfxId only stores the id;
+// ObjectEventSetGraphicsId also changes the sprite.
+static inline u16 ObjGfxId(const struct ObjectEvent *objectEvent)
+{
+    return objectEvent->graphicsIdLo | (objectEvent->graphicsIdHi << 8);
+}
+
+static inline void ObjStoreGfxId(struct ObjectEvent *objectEvent, u16 graphicsId)
+{
+    objectEvent->graphicsIdLo = graphicsId;
+    objectEvent->graphicsIdHi = graphicsId >> 8;
+}
+
+static inline u16 ObjTemplateGfxId(const struct ObjectEventTemplate *template)
+{
+    return template->graphicsIdLo | (template->graphicsIdHi << 8);
+}
+
+static inline void ObjTemplateStoreGfxId(struct ObjectEventTemplate *template, u16 graphicsId)
+{
+    template->graphicsIdLo = graphicsId;
+    template->graphicsIdHi = graphicsId >> 8;
+}
 
 struct ObjectEventGraphicsInfo
 {

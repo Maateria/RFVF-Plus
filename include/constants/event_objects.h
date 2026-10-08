@@ -205,36 +205,45 @@
 #define OBJ_EVENT_GFX_LUCY 201
 #define OBJ_EVENT_GFX_BRANDON 202
 // 203-208: reserved for OBJ_EVENT_GFX_KYOGRE..REGISTEEL (branch dev-regi)
-// pokeemerald NPCs, for Hoenn maps (they use pokeemerald's NPC palettes, see InitObjectEventPalettes)
-#define OBJ_EVENT_GFX_HOENN_NINJA_BOY 209
-#define OBJ_EVENT_GFX_HOENN_BOY_1 210
-#define OBJ_EVENT_GFX_HOENN_GIRL_1 211
-#define OBJ_EVENT_GFX_HOENN_BOY_2 212
-#define OBJ_EVENT_GFX_HOENN_GIRL_2 213
-#define OBJ_EVENT_GFX_HOENN_BOY_3 214
-#define OBJ_EVENT_GFX_HOENN_GIRL_3 215
-#define OBJ_EVENT_GFX_HOENN_RICH_BOY 216
-#define OBJ_EVENT_GFX_HOENN_POKEFAN_F 217
-#define OBJ_EVENT_GFX_HOENN_MAN_1 218
-#define OBJ_EVENT_GFX_HOENN_EXPERT_M 219
-#define OBJ_EVENT_GFX_HOENN_EXPERT_F 220
-#define OBJ_EVENT_GFX_HOENN_MAN_2 221
-#define OBJ_EVENT_GFX_HOENN_POKEFAN_M 222
-#define OBJ_EVENT_GFX_HOENN_WOMAN_4 223
-#define OBJ_EVENT_GFX_HOENN_MAN_3 224
-#define OBJ_EVENT_GFX_HOENN_WOMAN_5 225
-#define OBJ_EVENT_GFX_HOENN_SCHOOL_KID_M 226
-#define OBJ_EVENT_GFX_HOENN_RUNNING_TRIATHLETE_M 227
-#define OBJ_EVENT_GFX_HOENN_MAN_4 228
-#define OBJ_EVENT_GFX_HOENN_CONTEST_JUDGE 229
-#define OBJ_EVENT_GFX_HOENN_KECLEON 230
-#define OBJ_EVENT_GFX_HOENN_AZUMARILL 231
-#define OBJ_EVENT_GFX_HOENN_ARTIST 232
+// 209-239: free
 
-#define NUM_OBJ_EVENT_GFX     233
+// Graphics ids are u16 (storage: include/global.fieldmap.h) in region blocks of 256:
+//   0-255 Kanto/FRLG (240-255: the OBJ_EVENT_GFX_VAR_x below), 256-511 Hoenn, 512-767 next region (Johto)...
+// An id without a gObjectEventGraphicsInfoPointers entry draws OBJ_EVENT_GFX_LITTLE_BOY.
+// Ids are stored in saves (objects, templates, quest log, VAR_OBJ_GFX_ID_x): never renumber or reuse an id
+// once a released build used it; add new ids at the end of their region block.
+#define HOENN_OBJ_EVENT_GFX_BASE 256
+// pokeemerald NPCs, for Hoenn maps (they use pokeemerald's NPC palettes, see InitObjectEventPalettes)
+#define OBJ_EVENT_GFX_HOENN_NINJA_BOY 256
+#define OBJ_EVENT_GFX_HOENN_BOY_1 257
+#define OBJ_EVENT_GFX_HOENN_GIRL_1 258
+#define OBJ_EVENT_GFX_HOENN_BOY_2 259
+#define OBJ_EVENT_GFX_HOENN_GIRL_2 260
+#define OBJ_EVENT_GFX_HOENN_BOY_3 261
+#define OBJ_EVENT_GFX_HOENN_GIRL_3 262
+#define OBJ_EVENT_GFX_HOENN_RICH_BOY 263
+#define OBJ_EVENT_GFX_HOENN_POKEFAN_F 264
+#define OBJ_EVENT_GFX_HOENN_MAN_1 265
+#define OBJ_EVENT_GFX_HOENN_EXPERT_M 266
+#define OBJ_EVENT_GFX_HOENN_EXPERT_F 267
+#define OBJ_EVENT_GFX_HOENN_MAN_2 268
+#define OBJ_EVENT_GFX_HOENN_POKEFAN_M 269
+#define OBJ_EVENT_GFX_HOENN_WOMAN_4 270
+#define OBJ_EVENT_GFX_HOENN_MAN_3 271
+#define OBJ_EVENT_GFX_HOENN_WOMAN_5 272
+#define OBJ_EVENT_GFX_HOENN_SCHOOL_KID_M 273
+#define OBJ_EVENT_GFX_HOENN_RUNNING_TRIATHLETE_M 274
+#define OBJ_EVENT_GFX_HOENN_MAN_4 275
+#define OBJ_EVENT_GFX_HOENN_CONTEST_JUDGE 276
+#define OBJ_EVENT_GFX_HOENN_KECLEON 277
+#define OBJ_EVENT_GFX_HOENN_AZUMARILL 278
+#define OBJ_EVENT_GFX_HOENN_ARTIST 279
+
+#define NUM_OBJ_EVENT_GFX     280 // highest id + 1, all regions
 
 // These are dynamic object gfx ids.
 // They correspond with the values of the VAR_OBJ_GFX_ID_X vars.
+// Only the Kanto block's 240-255 are dynamic: ids of other regions are never VAR ids.
 // More info about them in include/constants/vars.h
 #define OBJ_EVENT_GFX_VARS   240
 #define OBJ_EVENT_GFX_VAR_0  (OBJ_EVENT_GFX_VARS + 0x0) // 240

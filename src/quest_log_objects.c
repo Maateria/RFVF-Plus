@@ -30,7 +30,8 @@ void QL_RecordObjects(struct QuestLogScene * questLog)
         questLog->objectEvents[i].facingDirection                = gObjectEvents[i].facingDirection;
         questLog->objectEvents[i].currentElevation               = gObjectEvents[i].currentElevation;
         questLog->objectEvents[i].previousElevation              = gObjectEvents[i].previousElevation;
-        questLog->objectEvents[i].graphicsId                     = gObjectEvents[i].graphicsId;
+        questLog->objectEvents[i].graphicsIdLo                   = gObjectEvents[i].graphicsIdLo;
+        questLog->objectEvents[i].graphicsIdHi                   = gObjectEvents[i].graphicsIdHi;
         questLog->objectEvents[i].movementType                   = gObjectEvents[i].movementType;
         questLog->objectEvents[i].trainerType                    = gObjectEvents[i].trainerType;
         questLog->objectEvents[i].localId                        = gObjectEvents[i].localId;
@@ -74,7 +75,8 @@ void QL_LoadObjects(const struct QuestLogScene * questLog, const struct ObjectEv
         gObjectEvents[i].facingDirection                = questLogObjectEvents[i].facingDirection;
         gObjectEvents[i].currentElevation               = questLogObjectEvents[i].currentElevation;
         gObjectEvents[i].previousElevation              = questLogObjectEvents[i].previousElevation;
-        gObjectEvents[i].graphicsId                     = questLogObjectEvents[i].graphicsId;
+        gObjectEvents[i].graphicsIdLo                   = questLogObjectEvents[i].graphicsIdLo;
+        gObjectEvents[i].graphicsIdHi                   = questLogObjectEvents[i].graphicsIdHi;
         gObjectEvents[i].movementType                   = questLogObjectEvents[i].movementType;
         gObjectEvents[i].trainerType                    = questLogObjectEvents[i].trainerType;
         gObjectEvents[i].localId                        = questLogObjectEvents[i].localId;
