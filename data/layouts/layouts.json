@@ -4812,6 +4812,18 @@
       "secondary_tileset": "gTileset_Cave",
       "border_filepath": "data/layouts/SafariZone_HoennCaveGhost/border.bin",
       "blockdata_filepath": "data/layouts/SafariZone_HoennCaveGhost/map.bin"
+    },
+    {
+      "id": "LAYOUT_LILYCOVE_CITY",
+      "name": "LilycoveCity_Layout",
+      "width": 80,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLilycove",
+      "border_filepath": "data/layouts/LilycoveCity/border.bin",
+      "blockdata_filepath": "data/layouts/LilycoveCity/map.bin"
     }
   ]
 }

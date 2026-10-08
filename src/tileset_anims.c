@@ -212,6 +212,81 @@ static const u16 *const gTilesetAnims_Mossdeep_Tree_Base[] = {
     gTilesetAnims_Mossdeep_Tree_Base_Frame7
 };
 
+// Hoenn General primary tileset: frames and sequences copied 1:1 from pokeemerald's General.
+static const u16 sTilesetAnims_HoennGeneral_Flower_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/flower/0.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Flower_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/flower/1.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Flower_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/flower/2.4bpp");
+
+static const u16 *const sTilesetAnims_HoennGeneral_Flower[] = {
+    sTilesetAnims_HoennGeneral_Flower_Frame0,
+    sTilesetAnims_HoennGeneral_Flower_Frame1,
+    sTilesetAnims_HoennGeneral_Flower_Frame0,
+    sTilesetAnims_HoennGeneral_Flower_Frame2
+};
+
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/0.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/1.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/2.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/3.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame4[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/4.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame5[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/5.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame6[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/6.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Water_Frame7[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/water/7.4bpp");
+
+static const u16 *const sTilesetAnims_HoennGeneral_Water[] = {
+    sTilesetAnims_HoennGeneral_Water_Frame0,
+    sTilesetAnims_HoennGeneral_Water_Frame1,
+    sTilesetAnims_HoennGeneral_Water_Frame2,
+    sTilesetAnims_HoennGeneral_Water_Frame3,
+    sTilesetAnims_HoennGeneral_Water_Frame4,
+    sTilesetAnims_HoennGeneral_Water_Frame5,
+    sTilesetAnims_HoennGeneral_Water_Frame6,
+    sTilesetAnims_HoennGeneral_Water_Frame7
+};
+
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/0.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/1.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/2.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/3.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame4[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/4.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame5[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/5.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_SandWaterEdge_Frame6[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/sand_water_edge/6.4bpp");
+
+static const u16 *const sTilesetAnims_HoennGeneral_SandWaterEdge[] = {
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame0,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame1,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame2,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame3,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame4,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame5,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame6,
+    sTilesetAnims_HoennGeneral_SandWaterEdge_Frame0
+};
+
+static const u16 sTilesetAnims_HoennGeneral_Waterfall_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/waterfall/0.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Waterfall_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/waterfall/1.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Waterfall_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/waterfall/2.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_Waterfall_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/waterfall/3.4bpp");
+
+static const u16 *const sTilesetAnims_HoennGeneral_Waterfall[] = {
+    sTilesetAnims_HoennGeneral_Waterfall_Frame0,
+    sTilesetAnims_HoennGeneral_Waterfall_Frame1,
+    sTilesetAnims_HoennGeneral_Waterfall_Frame2,
+    sTilesetAnims_HoennGeneral_Waterfall_Frame3
+};
+
+static const u16 sTilesetAnims_HoennGeneral_LandWaterEdge_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/land_water_edge/0.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_LandWaterEdge_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/land_water_edge/1.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_LandWaterEdge_Frame2[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/land_water_edge/2.4bpp");
+static const u16 sTilesetAnims_HoennGeneral_LandWaterEdge_Frame3[] = INCBIN_U16("data/tilesets/primary/hoenn_general/anim/land_water_edge/3.4bpp");
+
+static const u16 *const sTilesetAnims_HoennGeneral_LandWaterEdge[] = {
+    sTilesetAnims_HoennGeneral_LandWaterEdge_Frame0,
+    sTilesetAnims_HoennGeneral_LandWaterEdge_Frame1,
+    sTilesetAnims_HoennGeneral_LandWaterEdge_Frame2,
+    sTilesetAnims_HoennGeneral_LandWaterEdge_Frame3
+};
+
 static void ResetTilesetAnimBuffer(void)
 {
     sTilesetDMA3TransferBufferSize = 0;
@@ -314,6 +389,38 @@ void InitTilesetAnim_General(void)
     sPrimaryTilesetAnimCounter = 0;
     sPrimaryTilesetAnimCounterMax = 640;
     sPrimaryTilesetAnimCallback = TilesetAnim_General;
+}
+
+// Same schedule as pokeemerald's TilesetAnim_General / QueueAnimTiles_General_*.
+static void TilesetAnim_HoennGeneral(u16 timer)
+{
+    u16 i = timer / 16;
+
+    switch (timer % 16)
+    {
+    case 0:
+        AppendTilesetAnimToBuffer(sTilesetAnims_HoennGeneral_Flower[i % ARRAY_COUNT(sTilesetAnims_HoennGeneral_Flower)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(508)), 4 * TILE_SIZE_4BPP);
+        break;
+    case 1:
+        AppendTilesetAnimToBuffer(sTilesetAnims_HoennGeneral_Water[i % ARRAY_COUNT(sTilesetAnims_HoennGeneral_Water)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(432)), 30 * TILE_SIZE_4BPP);
+        break;
+    case 2:
+        AppendTilesetAnimToBuffer(sTilesetAnims_HoennGeneral_SandWaterEdge[i % ARRAY_COUNT(sTilesetAnims_HoennGeneral_SandWaterEdge)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(464)), 10 * TILE_SIZE_4BPP);
+        break;
+    case 3:
+        AppendTilesetAnimToBuffer(sTilesetAnims_HoennGeneral_Waterfall[i % ARRAY_COUNT(sTilesetAnims_HoennGeneral_Waterfall)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(496)), 6 * TILE_SIZE_4BPP);
+        break;
+    case 4:
+        AppendTilesetAnimToBuffer(sTilesetAnims_HoennGeneral_LandWaterEdge[i % ARRAY_COUNT(sTilesetAnims_HoennGeneral_LandWaterEdge)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(480)), 10 * TILE_SIZE_4BPP);
+        break;
+    }
+}
+
+void InitTilesetAnim_HoennGeneral(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_HoennGeneral;
 }
 
 static void QueueAnimTiles_CeladonCity_Fountain(u16 timer)

@@ -222,3 +222,9 @@ const u32 gMetatileAttributes_SeviiIslands6[] = INCBIN_U32("data/tilesets/second
 
 const u16 gMetatiles_BattleFrontierRankingHall[] = INCBIN_U16("data/tilesets/secondary/battlefrontierrankinghall/metatiles.bin");
 const u32 gMetatileAttributes_BattleFrontierRankingHall[] = INCBIN_U32("data/tilesets/secondary/battlefrontierrankinghall/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennGeneral[] = INCBIN_U16("data/tilesets/primary/hoenn_general/metatiles.bin");
+const u32 gMetatileAttributes_HoennGeneral[] = INCBIN_U32("data/tilesets/primary/hoenn_general/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennLilycove[] = INCBIN_U16("data/tilesets/secondary/hoenn_lilycove/metatiles.bin");
+const u32 gMetatileAttributes_HoennLilycove[] = INCBIN_U32("data/tilesets/secondary/hoenn_lilycove/metatile_attributes.bin");

@@ -197,3 +197,9 @@ $(TILESETGFXDIR)/secondary/sevii_islands_123/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/island_harbor/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 165 -Wnum_tiles
+
+$(TILESETGFXDIR)/primary/hoenn_general/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_lilycove/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 254 -Wnum_tiles

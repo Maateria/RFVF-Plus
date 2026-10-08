@@ -184,6 +184,13 @@ static const u16 sDoorNullPalette65[16] = {};
 static const u8 sDoorAnimTiles_BattleTowerElevator[] = INCBIN_U8("graphics/door_anims/battle_tower_elevator.4bpp");
 static const u16 sDoorNullPalette66[16] = {};
 
+// Hoenn doors, copied from pokeemerald. Emerald's door size 1 (3 frames of 16x32) is DOOR_SIZE_1x2 here.
+static const u8 sDoorAnimTiles_HoennPokeCenter[] = INCBIN_U8("graphics/door_anims/hoenn_poke_center.4bpp");
+static const u8 sDoorAnimTiles_HoennContest[] = INCBIN_U8("graphics/door_anims/hoenn_contest.4bpp");
+static const u8 sDoorAnimTiles_HoennLilycove[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove.4bpp");
+static const u8 sDoorAnimTiles_HoennLilycoveWooden[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove_wooden.4bpp");
+static const u8 sDoorAnimTiles_HoennLilycoveDeptStore[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove_dept_store.4bpp");
+
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
 static const struct DoorAnimFrame sDoorAnimFrames_OpenSmall[] = {
@@ -250,6 +257,11 @@ static const u8 sDoorAnimPalettes_Sevii67[] = {5, 5, 5, 5, 5, 5, 5, 5};
 static const u8 sDoorAnimPalettes_Teleporter[] = {8, 8, 8, 8, 8, 8, 8, 8};
 static const u8 sDoorAnimPalettes_TrainerTowerLobbyElevator[] = {8, 8, 2, 2, 2, 2, 2, 2};
 static const u8 sDoorAnimPalettes_TrainerTowerRoofElevator[] = {11, 11, 2, 2, 2, 2, 2, 2};
+static const u8 sDoorAnimPalettes_HoennPokeCenter[] = {1, 1, 1, 1, 1, 1, 1, 1};
+static const u8 sDoorAnimPalettes_HoennContest[] = {1, 1, 1, 1, 1, 1, 1, 1};
+static const u8 sDoorAnimPalettes_HoennLilycove[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_HoennLilycoveWooden[] = {5, 5, 5, 5, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_HoennLilycoveDeptStore[] = {5, 5, 5, 5, 5, 5, 5, 5};
 
 static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_General_Door,                                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_General, sDoorAnimPalettes_General},
@@ -293,6 +305,25 @@ static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_BattleFrontier_BattleTowerElevator,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTowerElevator, sDoorAnimPalettes_SSAnne},
     {}
 };
+
+static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
+    {METATILE_HoennGeneral_Door_PokeCenter,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokeCenter, sDoorAnimPalettes_HoennPokeCenter},
+    {METATILE_HoennGeneral_Door_Contest,                   DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennContest, sDoorAnimPalettes_HoennContest},
+    {METATILE_HoennLilycove_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycove, sDoorAnimPalettes_HoennLilycove},
+    {METATILE_HoennLilycove_Door_Wooden,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveWooden, sDoorAnimPalettes_HoennLilycoveWooden},
+    {METATILE_HoennLilycove_Door_DeptStore,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStore, sDoorAnimPalettes_HoennLilycoveDeptStore},
+    {}
+};
+
+extern const struct Tileset gTileset_HoennGeneral;
+
+// Door lookup matches on metatile id only, and Kanto and Hoenn tilesets reuse the same ids, so Hoenn maps get their own table.
+static const struct DoorGraphics *GetDoorGraphicsTable(void)
+{
+    if (gMapHeader.mapLayout->primaryTileset == &gTileset_HoennGeneral)
+        return sDoorGraphics_Hoenn;
+    return sDoorGraphics;
+}
 
 static void DrawDoor(const struct DoorGraphics *gfx, const struct DoorAnimFrame *frames, int x, int y)
 {
@@ -486,27 +517,27 @@ static s8 StartDoorCloseAnimation(const struct DoorGraphics *gfx, int x, int y)
 void FieldSetDoorOpened(int x, int y)
 {
     if (MetatileBehavior_IsWarpDoor_2(MapGridGetMetatileBehaviorAt((s16)x, (s16)y)))
-        DrawOpenedDoor(sDoorGraphics, x, y);
+        DrawOpenedDoor(GetDoorGraphicsTable(), x, y);
 }
 
 void FieldSetDoorClosed(int x, int y)
 {
     if (MetatileBehavior_IsWarpDoor_2(MapGridGetMetatileBehaviorAt((s16)x, (s16)y)))
-        DrawClosedDoor(sDoorGraphics, x, y);
+        DrawClosedDoor(GetDoorGraphicsTable(), x, y);
 }
 
 s8 FieldAnimateDoorClose(int x, int y)
 {
     if (!MetatileBehavior_IsWarpDoor_2(MapGridGetMetatileBehaviorAt((s16)x, (s16)y)))
         return -1;
-    return StartDoorCloseAnimation(sDoorGraphics, x, y);
+    return StartDoorCloseAnimation(GetDoorGraphicsTable(), x, y);
 }
 
 s8 FieldAnimateDoorOpen(int x, int y)
 {
     if (!MetatileBehavior_IsWarpDoor_2(MapGridGetMetatileBehaviorAt((s16)x, (s16)y)))
         return -1;
-    return AnimateDoorOpenInternal(sDoorGraphics, x, y);
+    return AnimateDoorOpenInternal(GetDoorGraphicsTable(), x, y);
 }
 
 bool8 FieldIsDoorAnimationRunning(void)
@@ -516,7 +547,7 @@ bool8 FieldIsDoorAnimationRunning(void)
 
 u16 GetDoorSoundEffect(int x, int y)
 {
-    if (GetDoorSoundType(sDoorGraphics, x, y) == DOOR_SOUND_NORMAL)
+    if (GetDoorSoundType(GetDoorGraphicsTable(), x, y) == DOOR_SOUND_NORMAL)
         return SE_DOOR;
     else // DOOR_SOUND_SLIDING
         return SE_SLIDING_DOOR;

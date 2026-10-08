@@ -1340,3 +1340,5 @@ EventScript_NoMoreRoomForPokemon::
 
 	.include "data/maps/SafariZone_HoennCaveGhost/scripts.inc"
 	.include "data/maps/SafariZone_HoennCaveGhost/text.inc"
+
+	.include "data/maps/LilycoveCity/scripts.inc"
