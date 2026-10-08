@@ -190,6 +190,12 @@ static const u8 sDoorAnimTiles_HoennContest[] = INCBIN_U8("graphics/door_anims/h
 static const u8 sDoorAnimTiles_HoennLilycove[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove.4bpp");
 static const u8 sDoorAnimTiles_HoennLilycoveWooden[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove_wooden.4bpp");
 static const u8 sDoorAnimTiles_HoennLilycoveDeptStore[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove_dept_store.4bpp");
+static const u8 sDoorAnimTiles_HoennGeneral[] = INCBIN_U8("graphics/door_anims/hoenn_general.4bpp");
+static const u8 sDoorAnimTiles_HoennPokeMart[] = INCBIN_U8("graphics/door_anims/hoenn_poke_mart.4bpp");
+static const u8 sDoorAnimTiles_HoennGym[] = INCBIN_U8("graphics/door_anims/hoenn_gym.4bpp");
+static const u8 sDoorAnimTiles_HoennSafariZone[] = INCBIN_U8("graphics/door_anims/hoenn_safari_zone.4bpp");
+static const u8 sDoorAnimTiles_HoennLilycoveDeptStoreElevator[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove_dept_store_elevator.4bpp");
+static const u8 sDoorAnimTiles_HoennCableClub[] = INCBIN_U8("graphics/door_anims/hoenn_cable_club.4bpp");
 
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
@@ -262,6 +268,13 @@ static const u8 sDoorAnimPalettes_HoennContest[] = {1, 1, 1, 1, 1, 1, 1, 1};
 static const u8 sDoorAnimPalettes_HoennLilycove[] = {8, 8, 8, 8, 8, 8, 8, 8};
 static const u8 sDoorAnimPalettes_HoennLilycoveWooden[] = {5, 5, 5, 5, 5, 5, 5, 5};
 static const u8 sDoorAnimPalettes_HoennLilycoveDeptStore[] = {5, 5, 5, 5, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_HoennGeneral[] = {1, 1, 1, 1, 1, 1, 1, 1};
+static const u8 sDoorAnimPalettes_HoennPokeMart[] = {0, 0, 1, 1, 1, 1, 1, 1};
+static const u8 sDoorAnimPalettes_HoennGym[] = {5, 5, 5, 5, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_HoennSafariZone[] = {9, 9, 9, 9, 9, 9, 9, 9};
+// Emerald slot 6 is a primary slot in FRLG: the converter moved HoennShop's palette 6 to 12 and HoennPokemonCenter's to 10.
+static const u8 sDoorAnimPalettes_HoennLilycoveDeptStoreElevator[] = {12, 12, 7, 7, 7, 7, 7, 7}; // Emerald {6, 6, 7, ...}
+static const u8 sDoorAnimPalettes_HoennCableClub[] = {10, 10, 10, 10, 10, 10, 10, 10};              // Emerald {6, ...}
 
 static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_General_Door,                                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_General, sDoorAnimPalettes_General},
@@ -312,15 +325,19 @@ static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
     {METATILE_HoennLilycove_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycove, sDoorAnimPalettes_HoennLilycove},
     {METATILE_HoennLilycove_Door_Wooden,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveWooden, sDoorAnimPalettes_HoennLilycoveWooden},
     {METATILE_HoennLilycove_Door_DeptStore,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStore, sDoorAnimPalettes_HoennLilycoveDeptStore},
+    {METATILE_HoennGeneral_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennGeneral, sDoorAnimPalettes_HoennGeneral},
+    {METATILE_HoennGeneral_Door_PokeMart,                  DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokeMart, sDoorAnimPalettes_HoennPokeMart},
+    {METATILE_HoennGeneral_Door_Gym,                       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennGym, sDoorAnimPalettes_HoennGym},
+    {METATILE_HoennLilycove_Door_SafariZone,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennSafariZone, sDoorAnimPalettes_HoennSafariZone},
+    {METATILE_HoennShop_Door_Elevator,                     DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStoreElevator, sDoorAnimPalettes_HoennLilycoveDeptStoreElevator},
+    {METATILE_HoennPokemonCenter_Door_CableClub,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennCableClub, sDoorAnimPalettes_HoennCableClub},
     {}
 };
-
-extern const struct Tileset gTileset_HoennGeneral;
 
 // Door lookup matches on metatile id only, and Kanto and Hoenn tilesets reuse the same ids, so Hoenn maps get their own table.
 static const struct DoorGraphics *GetDoorGraphicsTable(void)
 {
-    if (gMapHeader.mapLayout->primaryTileset == &gTileset_HoennGeneral)
+    if (IsHoennMapLayout())
         return sDoorGraphics_Hoenn;
     return sDoorGraphics;
 }

@@ -287,6 +287,15 @@ static const u16 *const sTilesetAnims_HoennGeneral_LandWaterEdge[] = {
     sTilesetAnims_HoennGeneral_LandWaterEdge_Frame3
 };
 
+// Hoenn InsideBuilding primary tileset: pokeemerald's Building TV (turned on), frames copied 1:1.
+static const u16 sTilesetAnims_HoennInsideBuilding_TvTurnedOn_Frame0[] = INCBIN_U16("data/tilesets/primary/hoenn_inside_building/anim/tv_turned_on/0.4bpp");
+static const u16 sTilesetAnims_HoennInsideBuilding_TvTurnedOn_Frame1[] = INCBIN_U16("data/tilesets/primary/hoenn_inside_building/anim/tv_turned_on/1.4bpp");
+
+static const u16 *const sTilesetAnims_HoennInsideBuilding_TvTurnedOn[] = {
+    sTilesetAnims_HoennInsideBuilding_TvTurnedOn_Frame0,
+    sTilesetAnims_HoennInsideBuilding_TvTurnedOn_Frame1
+};
+
 static void ResetTilesetAnimBuffer(void)
 {
     sTilesetDMA3TransferBufferSize = 0;
@@ -421,6 +430,20 @@ void InitTilesetAnim_HoennGeneral(void)
     sPrimaryTilesetAnimCounter = 0;
     sPrimaryTilesetAnimCounterMax = 256;
     sPrimaryTilesetAnimCallback = TilesetAnim_HoennGeneral;
+}
+
+// Same schedule as pokeemerald's TilesetAnim_Building / QueueAnimTiles_Building_TVTurnedOn.
+static void TilesetAnim_HoennInsideBuilding(u16 timer)
+{
+    if (timer % 8 == 0)
+        AppendTilesetAnimToBuffer(sTilesetAnims_HoennInsideBuilding_TvTurnedOn[(timer / 8) % ARRAY_COUNT(sTilesetAnims_HoennInsideBuilding_TvTurnedOn)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(496)), 4 * TILE_SIZE_4BPP);
+}
+
+void InitTilesetAnim_HoennInsideBuilding(void)
+{
+    sPrimaryTilesetAnimCounter = 0;
+    sPrimaryTilesetAnimCounterMax = 256;
+    sPrimaryTilesetAnimCallback = TilesetAnim_HoennInsideBuilding;
 }
 
 static void QueueAnimTiles_CeladonCity_Fountain(u16 timer)

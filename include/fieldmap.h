@@ -40,6 +40,7 @@ void SaveMapView(void);
 u32 ExtractMetatileAttribute(u32 attributes, u8 attributeType);
 u32 MapGridGetMetatileAttributeAt(s16 x, s16 y, u8 attributeType);
 void MapGridSetMetatileImpassabilityAt(s32 x, s32 y, bool32 arg2);
+bool32 IsHoennMapLayout(void);
 bool8 CameraMove(s32 x, s32 y);
 void CopyMapTilesetsToVram(struct MapLayout const * mapLayout);
 void LoadMapTilesetPalettes(struct MapLayout const * mapLayout);

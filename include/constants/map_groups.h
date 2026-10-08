@@ -566,6 +566,30 @@
 #define MAP_BATTLE_FRONTIER_LOUNGE7                 (20 | (43 << 8))
 #define MAP_BATTLE_FRONTIER_LOUNGE8                 (21 | (43 << 8))
 
-#define MAP_GROUPS_COUNT 44
+// gMapGroup_IndoorLilycove
+#define MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_1F        (0 | (44 << 8))
+#define MAP_LILYCOVE_CITY_COVE_LILY_MOTEL_2F        (1 | (44 << 8))
+#define MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_1F        (2 | (44 << 8))
+#define MAP_LILYCOVE_CITY_LILYCOVE_MUSEUM_2F        (3 | (44 << 8))
+#define MAP_LILYCOVE_CITY_CONTEST_LOBBY             (4 | (44 << 8))
+#define MAP_LILYCOVE_CITY_CONTEST_HALL              (5 | (44 << 8))
+#define MAP_LILYCOVE_CITY_POKEMON_CENTER_1F         (6 | (44 << 8))
+#define MAP_LILYCOVE_CITY_POKEMON_CENTER_2F         (7 | (44 << 8))
+#define MAP_LILYCOVE_CITY_POKEMON_TRAINER_FAN_CLUB  (8 | (44 << 8))
+#define MAP_LILYCOVE_CITY_HARBOR                    (9 | (44 << 8))
+#define MAP_LILYCOVE_CITY_MOVE_DELETERS_HOUSE       (10 | (44 << 8))
+#define MAP_LILYCOVE_CITY_HOUSE1                    (11 | (44 << 8))
+#define MAP_LILYCOVE_CITY_HOUSE2                    (12 | (44 << 8))
+#define MAP_LILYCOVE_CITY_HOUSE3                    (13 | (44 << 8))
+#define MAP_LILYCOVE_CITY_HOUSE4                    (14 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_1F       (15 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_2F       (16 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_3F       (17 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_4F       (18 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_5F       (19 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_ROOFTOP  (20 | (44 << 8))
+#define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_ELEVATOR (21 | (44 << 8))
+
+#define MAP_GROUPS_COUNT 45
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -429,6 +429,16 @@ void MapGridSetMetatileImpassabilityAt(s32 x, s32 y, bool32 impassable)
     }
 }
 
+extern const struct Tileset gTileset_HoennGeneral;
+extern const struct Tileset gTileset_HoennInsideBuilding;
+
+// Hoenn tilesets reuse Kanto metatile ids, so field code with hard-coded metatile ids (doors, escalators) checks this.
+bool32 IsHoennMapLayout(void)
+{
+    const struct Tileset *primary = gMapHeader.mapLayout->primaryTileset;
+    return primary == &gTileset_HoennGeneral || primary == &gTileset_HoennInsideBuilding;
+}
+
 static u32 GetAttributeByMetatileIdAndMapLayout(const struct MapLayout *mapLayout, u16 metatile, u8 attributeType)
 {
     const u32 * attributes;

@@ -282,6 +282,8 @@ static void PcTurnOnUpdateMetatileId(bool16 flickerOff)
         else if (gSpecialVar_0x8004 == 2)
             metatileId = METATILE_GenericBuilding1_PlayersPCOn;
     }
+    if (IsHoennMapLayout()) // Kanto and Hoenn reuse metatile ids; Hoenn PCs are pokeemerald's Building PC
+        metatileId = flickerOff ? METATILE_HoennInsideBuilding_PC_Off : METATILE_HoennInsideBuilding_PC_On;
     MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + deltaX + MAP_OFFSET, gSaveBlock1Ptr->pos.y + deltaY + MAP_OFFSET, metatileId | MAPGRID_COLLISION_MASK);
 }
 
@@ -313,6 +315,8 @@ void AnimatePcTurnOff()
         metatileId = METATILE_GenericBuilding1_PlayersPCOff;
     else if (gSpecialVar_0x8004 == 2)
         metatileId = METATILE_GenericBuilding1_PlayersPCOff;
+    if (IsHoennMapLayout())
+        metatileId = METATILE_HoennInsideBuilding_PC_Off;
     MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + deltaX + MAP_OFFSET, gSaveBlock1Ptr->pos.y + deltaY + MAP_OFFSET, metatileId | MAPGRID_COLLISION_MASK);
     DrawWholeMapView();
 }

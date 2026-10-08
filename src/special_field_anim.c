@@ -58,11 +58,84 @@ static const u16 sEscalatorMetatiles_Top[ESCALATOR_STAGES] =
     METATILE_PokemonCenter_Escalator_Top_Transition2
 };
 
-static const u16 sEscalatorMetatiles_TopNextRail[ESCALATOR_STAGES] = 
+static const u16 sEscalatorMetatiles_TopNextRail[ESCALATOR_STAGES] =
 {
-    METATILE_PokemonCenter_Escalator_TopNextRail_Normal, 
-    METATILE_PokemonCenter_Escalator_TopNextRail_Transition1, 
+    METATILE_PokemonCenter_Escalator_TopNextRail_Normal,
+    METATILE_PokemonCenter_Escalator_TopNextRail_Transition1,
     METATILE_PokemonCenter_Escalator_TopNextRail_Transition2
+};
+
+// Hoenn Pokemon Centers: pokeemerald's fldeff_escalator.c tables 1F_0..2F_2, in the same section order as above.
+static const u16 sEscalatorMetatiles_Hoenn1F_0[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator1F_Tile0_Frame2,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile0_Frame1,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile0_Frame0
+};
+
+static const u16 sEscalatorMetatiles_Hoenn1F_1[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator1F_Tile1_Frame2,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile1_Frame1,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile1_Frame0
+};
+
+static const u16 sEscalatorMetatiles_Hoenn1F_2[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator1F_Tile2_Frame2,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile2_Frame1,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile2_Frame0
+};
+
+static const u16 sEscalatorMetatiles_Hoenn1F_3[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator1F_Tile3_Frame2,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile3_Frame1,
+    METATILE_HoennPokemonCenter_Escalator1F_Tile3_Frame0
+};
+
+static const u16 sEscalatorMetatiles_Hoenn2F_0[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator2F_Tile0_Frame0,
+    METATILE_HoennPokemonCenter_Escalator2F_Tile0_Frame1,
+    METATILE_HoennPokemonCenter_Escalator2F_Tile0_Frame2
+};
+
+static const u16 sEscalatorMetatiles_Hoenn2F_1[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator2F_Tile1_Frame0,
+    METATILE_HoennPokemonCenter_Escalator2F_Tile1_Frame1,
+    METATILE_HoennPokemonCenter_Escalator2F_Tile1_Frame2
+};
+
+static const u16 sEscalatorMetatiles_Hoenn2F_2[ESCALATOR_STAGES] =
+{
+    METATILE_HoennPokemonCenter_Escalator2F_Tile2_Frame0,
+    METATILE_HoennPokemonCenter_Escalator2F_Tile2_Frame1,
+    METATILE_HoennPokemonCenter_Escalator2F_Tile2_Frame2
+};
+
+// Kanto and Hoenn reuse metatile ids, so each region gets its own tables (indexed by IsHoennMapLayout()).
+static const u16 *const sEscalatorSections[][7] =
+{
+    {
+        sEscalatorMetatiles_BottomNextRail,
+        sEscalatorMetatiles_BottomRail,
+        sEscalatorMetatiles_BottomNext,
+        sEscalatorMetatiles_Bottom,
+        sEscalatorMetatiles_TopNext,
+        sEscalatorMetatiles_Top,
+        sEscalatorMetatiles_TopNextRail
+    },
+    {
+        sEscalatorMetatiles_Hoenn1F_0,
+        sEscalatorMetatiles_Hoenn1F_1,
+        sEscalatorMetatiles_Hoenn1F_2,
+        sEscalatorMetatiles_Hoenn1F_3,
+        sEscalatorMetatiles_Hoenn2F_0,
+        sEscalatorMetatiles_Hoenn2F_1,
+        sEscalatorMetatiles_Hoenn2F_2
+    }
 };
 
 #define tState            data[0]
@@ -124,32 +197,33 @@ static void Task_DrawEscalator(u8 taskId)
 {
     s16 *data = gTasks[taskId].data;
     u16 state;
-    
+    const u16 *const *sections = sEscalatorSections[IsHoennMapLayout()];
+
     tDrawingEscalator = TRUE;
 
     // Set tile for each section of the escalator in sequence for current transition stage
     switch (tState)
     {
     case 0:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_BottomNextRail, 0);
+        SetEscalatorMetatile(taskId, sections[0], 0);
         break;
     case 1:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_BottomRail, 0);
+        SetEscalatorMetatile(taskId, sections[1], 0);
         break;
     case 2:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_BottomNext, MAPGRID_COLLISION_MASK);
+        SetEscalatorMetatile(taskId, sections[2], MAPGRID_COLLISION_MASK);
         break;
     case 3:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_Bottom, 0);
+        SetEscalatorMetatile(taskId, sections[3], 0);
         break;
     case 4:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_TopNext, MAPGRID_COLLISION_MASK);
+        SetEscalatorMetatile(taskId, sections[4], MAPGRID_COLLISION_MASK);
         break;
     case 5:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_Top, 0);
+        SetEscalatorMetatile(taskId, sections[5], 0);
         break;
     case 6:
-        SetEscalatorMetatile(taskId, sEscalatorMetatiles_TopNextRail, 0);
+        SetEscalatorMetatile(taskId, sections[6], 0);
     default:
         break;
     }

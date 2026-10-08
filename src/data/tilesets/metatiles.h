@@ -228,3 +228,27 @@ const u32 gMetatileAttributes_HoennGeneral[] = INCBIN_U32("data/tilesets/primary
 
 const u16 gMetatiles_HoennLilycove[] = INCBIN_U16("data/tilesets/secondary/hoenn_lilycove/metatiles.bin");
 const u32 gMetatileAttributes_HoennLilycove[] = INCBIN_U32("data/tilesets/secondary/hoenn_lilycove/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennInsideBuilding[] = INCBIN_U16("data/tilesets/primary/hoenn_inside_building/metatiles.bin");
+const u32 gMetatileAttributes_HoennInsideBuilding[] = INCBIN_U32("data/tilesets/primary/hoenn_inside_building/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennGenericBuilding[] = INCBIN_U16("data/tilesets/secondary/hoenn_generic_building/metatiles.bin");
+const u32 gMetatileAttributes_HoennGenericBuilding[] = INCBIN_U32("data/tilesets/secondary/hoenn_generic_building/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennLilycoveMuseum[] = INCBIN_U16("data/tilesets/secondary/hoenn_lilycove_museum/metatiles.bin");
+const u32 gMetatileAttributes_HoennLilycoveMuseum[] = INCBIN_U32("data/tilesets/secondary/hoenn_lilycove_museum/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennContest[] = INCBIN_U16("data/tilesets/secondary/hoenn_contest/metatiles.bin");
+const u32 gMetatileAttributes_HoennContest[] = INCBIN_U32("data/tilesets/secondary/hoenn_contest/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennPokemonCenter[] = INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_center/metatiles.bin");
+const u32 gMetatileAttributes_HoennPokemonCenter[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_center/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennFacility[] = INCBIN_U16("data/tilesets/secondary/hoenn_facility/metatiles.bin");
+const u32 gMetatileAttributes_HoennFacility[] = INCBIN_U32("data/tilesets/secondary/hoenn_facility/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennShop[] = INCBIN_U16("data/tilesets/secondary/hoenn_shop/metatiles.bin");
+const u32 gMetatileAttributes_HoennShop[] = INCBIN_U32("data/tilesets/secondary/hoenn_shop/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattleFrontier[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattleFrontier[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier/metatile_attributes.bin");

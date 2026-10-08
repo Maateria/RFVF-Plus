@@ -203,3 +203,27 @@ $(TILESETGFXDIR)/primary/hoenn_general/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_lilycove/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 254 -Wnum_tiles
+
+$(TILESETGFXDIR)/primary/hoenn_inside_building/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_generic_building/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 200 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_lilycove_museum/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 271 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_contest/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 133 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_pokemon_center/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 337 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_facility/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 81 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_shop/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 302 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_frontier/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 21 -Wnum_tiles

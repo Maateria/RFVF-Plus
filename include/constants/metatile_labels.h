@@ -101,6 +101,40 @@
 #define METATILE_GenericBuilding1_PlayersPCOff  0x28F
 #define METATILE_GenericBuilding1_PlayersPCOn   0x28A
 
+// gTileset_HoennBattleFrontier
+#define METATILE_HoennBattleFrontier_CorridorOpenDoor_Bottom  0x291
+#define METATILE_HoennBattleFrontier_CorridorOpenDoor_Top     0x290
+#define METATILE_HoennBattleFrontier_Elevator_Bottom0         0x28E
+#define METATILE_HoennBattleFrontier_Elevator_Bottom1         0x296
+#define METATILE_HoennBattleFrontier_Elevator_Bottom2         0x297
+#define METATILE_HoennBattleFrontier_Elevator_Mid0            0x28B
+#define METATILE_HoennBattleFrontier_Elevator_Mid1            0x294
+#define METATILE_HoennBattleFrontier_Elevator_Mid2            0x295
+#define METATILE_HoennBattleFrontier_Elevator_Top0            0x292
+#define METATILE_HoennBattleFrontier_Elevator_Top1            0x288
+#define METATILE_HoennBattleFrontier_Elevator_Top2            0x293
+
+// gTileset_HoennContest
+#define METATILE_HoennContest_CounterFlap_Bottom  0x359
+#define METATILE_HoennContest_CounterFlap_Top     0x351
+#define METATILE_HoennContest_FloorShadow         0x2E1
+#define METATILE_HoennContest_WallShadow          0x2A1
+
+// gTileset_HoennFacility
+#define METATILE_HoennFacility_DataPad                       0x2AD
+#define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile0  0x2A7
+#define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile1  0x2A8
+#define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile2  0x2A9
+#define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile3  0x2AA
+#define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile4  0x2AB
+#define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile5  0x2AC
+#define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile0    0x2A1
+#define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile1    0x2A2
+#define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile2    0x2A3
+#define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile3    0x2A4
+#define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile4    0x2A5
+#define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile5    0x2A6
+
 // gTileset_HoennGeneral
 #define METATILE_HoennGeneral_BlueCaveIndent        0x1B0
 #define METATILE_HoennGeneral_BlueCaveOpen          0x1B1
@@ -141,6 +175,17 @@
 #define METATILE_HoennGeneral_YellowCaveIndent      0x1A8
 #define METATILE_HoennGeneral_YellowCaveOpen        0x1A9
 
+// gTileset_HoennGenericBuilding
+#define METATILE_HoennGenericBuilding_TableEdge               0x30D
+#define METATILE_HoennGenericBuilding_TrickHouse_Door_Closed  0x30C
+#define METATILE_HoennGenericBuilding_TrickHouse_Stairs_Down  0x291
+
+// gTileset_HoennInsideBuilding
+#define METATILE_HoennInsideBuilding_PC_Off  0x004
+#define METATILE_HoennInsideBuilding_PC_On   0x005
+#define METATILE_HoennInsideBuilding_TV_Off  0x002
+#define METATILE_HoennInsideBuilding_TV_On   0x003
+
 // gTileset_HoennLilycove
 #define METATILE_HoennLilycove_Door             0x2C6
 #define METATILE_HoennLilycove_Door_DeptStore   0x38C
@@ -152,6 +197,53 @@
 #define METATILE_HoennLilycove_Wailmer1_Alt     0x319
 #define METATILE_HoennLilycove_Wailmer2         0x320
 #define METATILE_HoennLilycove_Wailmer3         0x321
+
+// gTileset_HoennLilycoveMuseum
+#define METATILE_HoennLilycoveMuseum_Painting0_Left   0x2DA
+#define METATILE_HoennLilycoveMuseum_Painting0_Right  0x2DB
+#define METATILE_HoennLilycoveMuseum_Painting1_Left   0x2DC
+#define METATILE_HoennLilycoveMuseum_Painting1_Right  0x2DD
+#define METATILE_HoennLilycoveMuseum_Painting2_Left   0x2DE
+#define METATILE_HoennLilycoveMuseum_Painting2_Right  0x2DF
+#define METATILE_HoennLilycoveMuseum_Painting3_Left   0x2E0
+#define METATILE_HoennLilycoveMuseum_Painting3_Right  0x2E1
+#define METATILE_HoennLilycoveMuseum_Painting4_Left   0x2E2
+#define METATILE_HoennLilycoveMuseum_Painting4_Right  0x2E3
+
+// gTileset_HoennPokemonCenter
+#define METATILE_HoennPokemonCenter_CounterBarrier            0x2DD
+#define METATILE_HoennPokemonCenter_Door_CableClub            0x2E4
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile0_Frame0  0x300
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile0_Frame1  0x302
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile0_Frame2  0x304
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile1_Frame0  0x301
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile1_Frame1  0x303
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile1_Frame2  0x305
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile2_Frame0  0x308
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile2_Frame1  0x30A
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile2_Frame2  0x30C
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile3_Frame0  0x309
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile3_Frame1  0x30B
+#define METATILE_HoennPokemonCenter_Escalator1F_Tile3_Frame2  0x30D
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile0_Frame0  0x320
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile0_Frame1  0x322
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile0_Frame2  0x324
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile1_Frame0  0x321
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile1_Frame1  0x323
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile1_Frame2  0x325
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile2_Frame0  0x328
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile2_Frame1  0x32A
+#define METATILE_HoennPokemonCenter_Escalator2F_Tile2_Frame2  0x32C
+#define METATILE_HoennPokemonCenter_Floor_Plain_Alt           0x364
+#define METATILE_HoennPokemonCenter_Floor_ShadowTop           0x29E
+#define METATILE_HoennPokemonCenter_Floor_ShadowTop_Alt       0x35C
+
+// gTileset_HoennShop
+#define METATILE_HoennShop_Door_Elevator   0x305
+#define METATILE_HoennShop_Laptop1_Flash   0x2D8
+#define METATILE_HoennShop_Laptop1_Normal  0x31D
+#define METATILE_HoennShop_Laptop2_Flash   0x2E0
+#define METATILE_HoennShop_Laptop2_Normal  0x325
 
 // gTileset_LavenderTown
 #define METATILE_LavenderTown_Door  0x2A2
