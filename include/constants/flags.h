@@ -1259,9 +1259,10 @@
 
 // Unused?
 #define FLAG_HIDDEN_ITEM_CAPE_BRINK_BIG_PEARL                              (FLAG_HIDDEN_ITEMS_START + 213) // continued from above numbering because of how these are set by GetHiddenItemAttr
-#define FLAG_0x4BE               0x4BE
-#define FLAG_0x4BF               0x4BF
-#define FLAG_0x4C0               0x4C0
+// Hoenn (Lilycove), new. A hidden item flag must stay below FLAG_HIDDEN_ITEMS_START + 256 (0x4E8): its map event stores the offset in a byte.
+#define FLAG_HIDDEN_ITEM_LILYCOVE_CITY_HEART_SCALE                         (FLAG_HIDDEN_ITEMS_START + 214) // 0x4BE
+#define FLAG_HIDDEN_ITEM_LILYCOVE_CITY_PP_UP                               (FLAG_HIDDEN_ITEMS_START + 215) // 0x4BF
+#define FLAG_HIDDEN_ITEM_LILYCOVE_CITY_POKE_BALL                           (FLAG_HIDDEN_ITEMS_START + 216) // 0x4C0
 #define FLAG_0x4C1               0x4C1
 #define FLAG_0x4C2               0x4C2
 #define FLAG_0x4C3               0x4C3
@@ -1301,10 +1302,11 @@
 #define FLAG_0x4E5               0x4E5
 #define FLAG_0x4E6               0x4E6
 #define FLAG_0x4E7               0x4E7
-#define FLAG_0x4E8               0x4E8
-#define FLAG_0x4E9               0x4E9
-#define FLAG_0x4EA               0x4EA
-#define FLAG_0x4EB               0x4EB
+// Hoenn (Lilycove), new; 0x4E8-0x4FF cannot be hidden item flags (see above)
+#define FLAG_ITEM_LILYCOVE_CITY_MAX_REPEL        0x4E8
+#define FLAG_RECEIVED_LILYCOVE_GENTLEMAN_BERRY   0x4E9
+#define FLAG_RECEIVED_LILYCOVE_PECHA_BERRY       0x4EA
+#define FLAG_RECEIVED_LILYCOVE_TM44              0x4EB
 #define FLAG_0x4EC               0x4EC
 #define FLAG_0x4ED               0x4ED
 #define FLAG_0x4EE               0x4EE

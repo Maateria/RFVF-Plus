@@ -1,6 +1,18 @@
 LilycoveCity_DepartmentStore_3F_MapScripts::
 	.byte 0
 
+LilycoveCity_DepartmentStore_3F_EventScript_TriathleteM::
+	msgbox LilycoveCity_DepartmentStore_3F_Text_ItemsBestForTougheningPokemon, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_3F_EventScript_PokefanM::
+	msgbox LilycoveCity_DepartmentStore_3F_Text_WantMoreEndurance, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_3F_EventScript_Woman::
+	msgbox LilycoveCity_DepartmentStore_3F_Text_GaveCarbosToSpeedUpMon, MSGBOX_NPC
+	end
+
 LilycoveCity_DepartmentStore_3F_EventScript_ClerkLeft::
 	goto_if_questlog EventScript_ReleaseEnd
 	lock

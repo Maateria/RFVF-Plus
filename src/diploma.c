@@ -15,6 +15,7 @@ struct Diploma
     u8 mainState;
     u8 gfxState;
     u8 initState;
+    bool8 hoenn; // RFVF+: Hoenn Pokedex diploma (Lilycove Game Designer)
     u16 tilemapBuffer[0x800];
 };
 
@@ -87,15 +88,26 @@ static void VBlankCB_Diploma(void)
     TransferPlttBuffer();
 }
 
-void CB2_ShowDiploma(void)
+static void StartDiploma(bool8 hoenn)
 {
     sDiploma = AllocZeroed(sizeof(*sDiploma));
     sDiploma->mainState = 0;
     sDiploma->gfxState = 0;
     sDiploma->initState = 0;
+    sDiploma->hoenn = hoenn;
     DiplomaReset();
     CreateTask(Task_DiplomaInit, 0);
     SetMainCallback2(CB2_Diploma);
+}
+
+void CB2_ShowDiploma(void)
+{
+    StartDiploma(FALSE);
+}
+
+void CB2_ShowHoennDiploma(void)
+{
+    StartDiploma(TRUE);
 }
 
 static void CB2_Diploma(void)
@@ -124,7 +136,7 @@ static void Task_DiplomaInit(u8 taskId)
         CopyToBgTilemapBuffer(BG_DIPLOMA, sDiplomaTilemap, 0, 0);
         break;
     case 4:
-        if (HasAllMonsNew())
+        if (sDiploma->hoenn || HasAllMonsNew()) // the Hoenn one uses the National art (Torchic)
             SetGpuReg(REG_OFFSET_BG1HOFS, 0x100);
         else
             SetGpuReg(REG_OFFSET_BG1HOFS, 0);
@@ -249,7 +261,9 @@ static void DiplomaPrintText(void)
     u32 width;
     DynamicPlaceholderTextUtil_Reset();
     DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gSaveBlock2Ptr->playerName);
-    if (HasAllMonsNew())
+    if (sDiploma->hoenn)
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gText_Diploma_Hoenn);
+    else if (HasAllMonsNew())
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gText_Diploma_National);
     else
         DynamicPlaceholderTextUtil_SetPlaceholderPtr(1, gText_Diploma_Kanto);

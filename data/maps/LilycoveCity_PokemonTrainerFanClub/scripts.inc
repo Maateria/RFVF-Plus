@@ -1,2 +1,36 @@
 LilycoveCity_PokemonTrainerFanClub_MapScripts::
 	.byte 0
+
+@ No fan system: the club shows its maximum state, every member (the four late ones too) a fan of the player.
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_Lass::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_ImPullingForYou, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_PokefanM::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_YouveSurpassedYourFather, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_LittleGirl::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_OhWoweeItsPlayer, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_NinjaBoy::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_WantToBeStrongLikeYou, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_Boy::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_YoureAmazingAfterAll, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_Man::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_YoureOneWeWantToWin, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_Woman::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_YouChangedMyMind, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonTrainerFanClub_EventScript_ExpertF::
+	msgbox LilycoveCity_PokemonTrainerFanClub_Text_YouImpressive, MSGBOX_NPC
+	end

@@ -129,6 +129,19 @@ bool16 HasAllHoennMons(void)
     return TRUE;
 }
 
+// RFVF+: every Pokemon native to Hoenn caught, Treecko to Rayquaza (Jirachi and Deoxys come after). Lilycove's diploma.
+bool16 HasAllHoennNativeMons(void)
+{
+    u32 i;
+
+    for (i = NATIONAL_DEX_TREECKO; i <= NATIONAL_DEX_RAYQUAZA; i++)
+    {
+        if (!GetSetPokedexFlag(i, FLAG_GET_CAUGHT))
+            return FALSE;
+    }
+    return TRUE;
+}
+
 bool16 HasAllExtendedMons(void)
 {
     u32 i;

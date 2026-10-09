@@ -71,7 +71,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_BlackBelt",
       "flag": "0",
       "in_connection": false
     },
@@ -86,7 +86,7 @@
       "movement_range_y": 2,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_Girl",
       "flag": "0",
       "in_connection": false
     },
@@ -101,7 +101,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_Artist",
       "flag": "0",
       "in_connection": false
     },
@@ -146,7 +146,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_Fisherman",
       "flag": "0",
       "in_connection": false
     },
@@ -161,7 +161,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_FatMan",
       "flag": "0",
       "in_connection": false
     },
@@ -176,7 +176,7 @@
       "movement_range_y": 1,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_NinjaBoy",
       "flag": "0",
       "in_connection": false
     },
@@ -206,7 +206,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "BerryBlender_EventScript_Blender1ExpertM",
       "flag": "0",
       "in_connection": false
     },
@@ -236,7 +236,7 @@
       "movement_range_y": 2,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
+      "script": "LilycoveCity_ContestLobby_EventScript_LittleGirl",
       "flag": "0",
       "in_connection": false
     }

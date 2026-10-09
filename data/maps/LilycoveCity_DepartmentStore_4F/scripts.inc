@@ -1,6 +1,18 @@
 LilycoveCity_DepartmentStore_4F_MapScripts::
 	.byte 0
 
+LilycoveCity_DepartmentStore_4F_EventScript_Gentleman::
+	msgbox LilycoveCity_DepartmentStore_4F_Text_AttackOrDefenseTM, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_4F_EventScript_Woman::
+	msgbox LilycoveCity_DepartmentStore_4F_Text_FiftyDifferentTMs, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_4F_EventScript_Youngster::
+	msgbox LilycoveCity_DepartmentStore_4F_Text_PokemonOnlyHaveFourMoves, MSGBOX_NPC
+	end
+
 LilycoveCity_DepartmentStore_4F_EventScript_ClerkLeft::
 	goto_if_questlog EventScript_ReleaseEnd
 	lock

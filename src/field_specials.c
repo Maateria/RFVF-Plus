@@ -96,6 +96,13 @@ void ShowDiploma(void)
     LockPlayerFieldControls();
 }
 
+void ShowHoennDiploma(void)
+{
+    QuestLog_CutRecording();
+    SetMainCallback2(CB2_ShowHoennDiploma);
+    LockPlayerFieldControls();
+}
+
 void ForcePlayerOntoBike(void)
 {
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ON_FOOT)
@@ -815,6 +822,44 @@ static const u16 sElevatorWindowMetatilesGoingDown[][3] = {
     }
 };
 
+// Lilycove Dept Store elevator (pokeemerald's window lights, same 3x3 spot). Kanto and Hoenn reuse metatile ids,
+// so the Hoenn tables are picked with IsHoennMapLayout().
+static const u16 sHoennElevatorWindowMetatilesGoingUp[][3] = {
+    {
+        METATILE_HoennBattleFrontier_Elevator_Top0,
+        METATILE_HoennBattleFrontier_Elevator_Top1,
+        METATILE_HoennBattleFrontier_Elevator_Top2
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Mid0,
+        METATILE_HoennBattleFrontier_Elevator_Mid1,
+        METATILE_HoennBattleFrontier_Elevator_Mid2
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Bottom0,
+        METATILE_HoennBattleFrontier_Elevator_Bottom1,
+        METATILE_HoennBattleFrontier_Elevator_Bottom2
+    }
+};
+
+static const u16 sHoennElevatorWindowMetatilesGoingDown[][3] = {
+    {
+        METATILE_HoennBattleFrontier_Elevator_Top0,
+        METATILE_HoennBattleFrontier_Elevator_Top2,
+        METATILE_HoennBattleFrontier_Elevator_Top1
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Mid0,
+        METATILE_HoennBattleFrontier_Elevator_Mid2,
+        METATILE_HoennBattleFrontier_Elevator_Mid1
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Bottom0,
+        METATILE_HoennBattleFrontier_Elevator_Bottom2,
+        METATILE_HoennBattleFrontier_Elevator_Bottom1
+    }
+};
+
 static const u8 sElevatorAnimationDuration[] = {
     8,
     16,
@@ -907,6 +952,27 @@ void GetElevatorFloor(void)
             floor = 7;
             break;
         case MAP_NUM(CELADON_CITY_DEPARTMENT_STORE_5F):
+            floor = 8;
+            break;
+        }
+    }
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(LILYCOVE_CITY_DEPARTMENT_STORE_1F))
+    {
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
+        {
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_1F):
+            floor = 4;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_2F):
+            floor = 5;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_3F):
+            floor = 6;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_4F):
+            floor = 7;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_5F):
             floor = 8;
             break;
         }
@@ -1027,6 +1093,27 @@ u16 InitElevatorFloorSelectMenuPos(void)
             break;
         }
     }
+    if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(LILYCOVE_CITY_DEPARTMENT_STORE_1F))
+    {
+        switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
+        {
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_5F):
+            sElevatorCursorPos = 0;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_4F):
+            sElevatorCursorPos = 1;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_3F):
+            sElevatorCursorPos = 2;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_2F):
+            sElevatorCursorPos = 3;
+            break;
+        case MAP_NUM(LILYCOVE_CITY_DEPARTMENT_STORE_1F):
+            sElevatorCursorPos = 4;
+            break;
+        }
+    }
     if (gSaveBlock1Ptr->dynamicWarp.mapGroup == MAP_GROUP(TRAINER_TOWER_1F))
     {
         switch (gSaveBlock1Ptr->dynamicWarp.mapNum)
@@ -1140,24 +1227,18 @@ static void Task_AnimateElevatorWindowView(u8 taskId)
     u32 i;
     u32 j;
     s16 *data = gTasks[taskId].data;
+    const u16 (*metatiles)[3];
     if (data[1] == 6)
     {
         data[0]++;
         if (data[2] == 0)
-        {
-            for (i = 0; i < 3; i++)
-            {
-                for (j = 0; j < 3; j++)
-                    MapGridSetMetatileIdAt(j + 1 + MAP_OFFSET, i + MAP_OFFSET, sElevatorWindowMetatilesGoingUp[i][data[0] % 3] | MAPGRID_COLLISION_MASK);
-            }
-        }
+            metatiles = IsHoennMapLayout() ? sHoennElevatorWindowMetatilesGoingUp : sElevatorWindowMetatilesGoingUp;
         else
+            metatiles = IsHoennMapLayout() ? sHoennElevatorWindowMetatilesGoingDown : sElevatorWindowMetatilesGoingDown;
+        for (i = 0; i < 3; i++)
         {
-            for (i = 0; i < 3; i++)
-            {
-                for (j = 0; j < 3; j++)
-                    MapGridSetMetatileIdAt(j + 1 + MAP_OFFSET, i + MAP_OFFSET, sElevatorWindowMetatilesGoingDown[i][data[0] % 3] | MAPGRID_COLLISION_MASK);
-            }
+            for (j = 0; j < 3; j++)
+                MapGridSetMetatileIdAt(j + 1 + MAP_OFFSET, i + MAP_OFFSET, metatiles[i][data[0] % 3] | MAPGRID_COLLISION_MASK);
         }
         DrawWholeMapView();
         data[1] = 0;
@@ -1165,6 +1246,131 @@ static void Task_AnimateElevatorWindowView(u8 taskId)
             DestroyTask(taskId);
     }
     data[1]++;
+}
+
+// Lilycove Dept Store lottery (pokeemerald's lottery_corner.c + Lottery Corner computer effect), run by callnative.
+// RFVF+: no daily number, every paid draw gets a new ticket.
+static const u16 sLotteryPrizes[] = {
+    ITEM_PP_UP,
+    ITEM_EXP_SHARE,
+    ITEM_MAX_REVIVE,
+    ITEM_MASTER_BALL
+};
+
+// VAR_0x8008 = a new ticket number, STR_VAR_1 = it on 5 digits
+void DrawLotteryTicket(void)
+{
+    gSpecialVar_0x8008 = Random();
+    ConvertIntToDecimalStringN(gStringVar1, gSpecialVar_0x8008, STR_CONV_MODE_LEADING_ZEROS, 5);
+}
+
+// How many last digits the ticket shares with a Trainer ID (the OT ID's low 16 bits)
+static u8 GetLotteryMatchingDigits(u16 winNumber, u16 otId)
+{
+    u8 i;
+
+    for (i = 0; i < 5 && winNumber % 10 == otId % 10; i++)
+    {
+        winNumber /= 10;
+        otId /= 10;
+    }
+    return i;
+}
+
+// Ticket VAR_0x8008 against the party and PC mons (eggs left out), pokeemerald's rules: VAR_0x8004 = 0 (no prize)
+// or 1-4 (2-5 matching digits), VAR_0x8005 = the prize, VAR_0x8006 = 0 party / 1 PC, STR_VAR_1 = the mon's nickname
+void PickLotteryCornerTicket(void)
+{
+    u16 i, j;
+    u8 matching;
+    u32 box = 0, slot = 0;
+
+    gSpecialVar_0x8004 = 0;
+    for (i = 0; i < PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) == SPECIES_NONE)
+            break;
+        if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+        {
+            matching = GetLotteryMatchingDigits(gSpecialVar_0x8008, GetMonData(&gPlayerParty[i], MON_DATA_OT_ID));
+            if (matching > gSpecialVar_0x8004 && matching > 1)
+            {
+                gSpecialVar_0x8004 = matching - 1;
+                box = TOTAL_BOXES_COUNT;
+                slot = i;
+            }
+        }
+    }
+    for (i = 0; i < TOTAL_BOXES_COUNT; i++)
+    {
+        for (j = 0; j < IN_BOX_COUNT; j++)
+        {
+            if (GetBoxMonDataAt(i, j, MON_DATA_SPECIES) != SPECIES_NONE && !GetBoxMonDataAt(i, j, MON_DATA_IS_EGG))
+            {
+                matching = GetLotteryMatchingDigits(gSpecialVar_0x8008, GetBoxMonDataAt(i, j, MON_DATA_OT_ID));
+                if (matching > gSpecialVar_0x8004 && matching > 1)
+                {
+                    gSpecialVar_0x8004 = matching - 1;
+                    box = i;
+                    slot = j;
+                }
+            }
+        }
+    }
+    if (gSpecialVar_0x8004 != 0)
+    {
+        gSpecialVar_0x8005 = sLotteryPrizes[gSpecialVar_0x8004 - 1];
+        if (box == TOTAL_BOXES_COUNT)
+        {
+            gSpecialVar_0x8006 = 0;
+            GetMonData(&gPlayerParty[slot], MON_DATA_NICKNAME, gStringVar1);
+        }
+        else
+        {
+            gSpecialVar_0x8006 = 1;
+            GetBoxMonData(GetBoxedMonPtr(box, slot), MON_DATA_NICKNAME, gStringVar1);
+        }
+        StringGet_Nickname(gStringVar1);
+    }
+}
+
+// The laptop of Lilycove Dept Store 1F, (11,1)-(11,2), flickers 5 times and ends on
+#define tFlickerCount data[0]
+#define tTimer        data[1]
+#define tIsScreenOn   data[2]
+
+static void Task_LotteryCornerComputerEffect(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+
+    if (tTimer == 6)
+    {
+        tTimer = 0;
+        MapGridSetMetatileIdAt(11 + MAP_OFFSET, 1 + MAP_OFFSET, (tIsScreenOn ? METATILE_HoennShop_Laptop1_Normal : METATILE_HoennShop_Laptop1_Flash) | MAPGRID_COLLISION_MASK);
+        MapGridSetMetatileIdAt(11 + MAP_OFFSET, 2 + MAP_OFFSET, (tIsScreenOn ? METATILE_HoennShop_Laptop2_Normal : METATILE_HoennShop_Laptop2_Flash) | MAPGRID_COLLISION_MASK);
+        DrawWholeMapView();
+        tIsScreenOn ^= 1;
+        if (++tFlickerCount == 5)
+            DestroyTask(taskId);
+    }
+    tTimer++;
+}
+
+#undef tFlickerCount
+#undef tTimer
+#undef tIsScreenOn
+
+void DoLotteryCornerComputerEffect(void)
+{
+    if (FuncIsActiveTask(Task_LotteryCornerComputerEffect) != TRUE)
+        CreateTask(Task_LotteryCornerComputerEffect, 8);
+}
+
+void EndLotteryCornerComputerEffect(void)
+{
+    MapGridSetMetatileIdAt(11 + MAP_OFFSET, 1 + MAP_OFFSET, METATILE_HoennShop_Laptop1_Normal | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt(11 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_HoennShop_Laptop2_Normal | MAPGRID_COLLISION_MASK);
+    DrawWholeMapView();
 }
 
 void ListMenu(void)

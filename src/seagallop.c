@@ -75,7 +75,8 @@ static const s8 sSeag[][4] = {
     [SEAGALLOP_BIRTH_ISLAND]    = {MAP(BIRTH_ISLAND_HARBOR), 0x08, 0x05},
     [SEAGALLOP_FARAWAY_ISLAND]  = {MAP(FARAWAY_ISLAND_EXTERIOR), 13, 38},
     [SEAGALLOP_BATTLE_TOWER]    = {MAP(RS_BATTLE_TOWER),     19, 24},
-    [SEAGALLOP_SOUTHERN_ISLAND] = {MAP(SOUTHERN_ISLAND_EXTERIOR), 13, 22}
+    [SEAGALLOP_SOUTHERN_ISLAND] = {MAP(SOUTHERN_ISLAND_EXTERIOR), 13, 22},
+    [SEAGALLOP_LILYCOVE_CITY]   = {MAP(LILYCOVE_CITY_HARBOR),    8, 11} // Emerald's ferry arrival tile
 };
 
 // Bitpacked array.  In the commented section, right-most bit is the

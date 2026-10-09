@@ -1,2 +1,140 @@
 LilycoveCity_DepartmentStore_1F_MapScripts::
 	.byte 0
+
+LilycoveCity_DepartmentStore_1F_EventScript_Greeter::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_WelcomeToDeptStore, MSGBOX_NPC
+	end
+
+@ Emerald's Lottery Corner (same digit matching and prizes; specials in src/field_specials.c, run by callnative).
+@ RFVF+: a ticket costs 250¥ and can be drawn again and again (no daily number). A prize that does not fit in
+@ the bag is kept in VAR_POKELOT_PRIZE_ITEM and given on the next talk, as in Emerald.
+LilycoveCity_DepartmentStore_1F_EventScript_LotteryClerk::
+	goto_if_questlog EventScript_ReleaseEnd
+	lock
+	faceplayer
+	goto_if_ne VAR_POKELOT_PRIZE_ITEM, ITEM_NONE, LilycoveCity_DepartmentStore_1F_EventScript_GivePrizeFromEarlier
+	showmoneybox 0, 0
+	msgbox LilycoveCity_DepartmentStore_1F_Text_LotteryCornerDrawTicket, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain
+	checkmoney 250
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStore_1F_EventScript_NotEnoughMoney
+	removemoney 250
+	updatemoneybox
+	message LilycoveCity_DepartmentStore_1F_Text_PleasePickTicket
+	waitmessage
+	hidemoneybox
+	callnative DrawLotteryTicket
+	msgbox LilycoveCity_DepartmentStore_1F_Text_TicketNumberIsXPleaseWait
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	playse SE_PC_ON
+	callnative DoLotteryCornerComputerEffect
+	callnative PickLotteryCornerTicket
+	delay 220
+	callnative EndLotteryCornerComputerEffect
+	delay 10
+	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	waitmovement 0
+	goto_if_eq VAR_0x8004, 0, LilycoveCity_DepartmentStore_1F_EventScript_NoMatch
+	incrementgamestat GAME_STAT_WON_POKEMON_LOTTERY
+	call_if_eq VAR_0x8006, 0, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPartyMon
+	call_if_eq VAR_0x8006, 1, LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPCMon
+	bufferitemname STR_VAR_1, VAR_0x8005
+	call_if_eq VAR_0x8004, 1, LilycoveCity_DepartmentStore_1F_EventScript_TwoDigitMatch
+	call_if_eq VAR_0x8004, 2, LilycoveCity_DepartmentStore_1F_EventScript_ThreeDigitMatch
+	call_if_eq VAR_0x8004, 3, LilycoveCity_DepartmentStore_1F_EventScript_FourDigitMatch
+	call_if_eq VAR_0x8004, 4, LilycoveCity_DepartmentStore_1F_EventScript_FullMatch
+	giveitem VAR_0x8005
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStore_1F_EventScript_RecordPrizeNoRoom
+	goto LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain2
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPartyMon::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_TicketMatchesPartyMon
+	return
+
+LilycoveCity_DepartmentStore_1F_EventScript_TicketMatchPCMon::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_TicketMatchesPCMon
+	return
+
+LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_PleaseVisitAgain
+	hidemoneybox
+	release
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_NotEnoughMoney::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_NotEnoughMoney
+	hidemoneybox
+	release
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_NoMatch::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_NoNumbersMatched
+	goto LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain2
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_PleaseVisitAgain2::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_PleaseVisitAgain2
+	release
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_TwoDigitMatch::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_TwoDigitsMatched
+	return
+
+LilycoveCity_DepartmentStore_1F_EventScript_ThreeDigitMatch::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_ThreeDigitsMatched
+	return
+
+LilycoveCity_DepartmentStore_1F_EventScript_FourDigitMatch::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_FourDigitsMatched
+	return
+
+LilycoveCity_DepartmentStore_1F_EventScript_FullMatch::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_AllFiveDigitsMatched
+	return
+
+LilycoveCity_DepartmentStore_1F_EventScript_RecordPrizeNoRoom::
+	copyvar VAR_POKELOT_PRIZE_ITEM, VAR_0x8005
+	goto LilycoveCity_DepartmentStore_1F_EventScript_NoRoomForPrize
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_NoRoomForPrize::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_NoRoomForThis
+	release
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_GivePrizeFromEarlier::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_PrizeWeveBeenHolding
+	giveitem VAR_POKELOT_PRIZE_ITEM
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStore_1F_EventScript_NoRoomForPrize
+	setvar VAR_POKELOT_PRIZE_ITEM, ITEM_NONE
+	release
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_PokefanF::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_IBuyAllSortsOfThings, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_LittleGirl::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_MomBuyingMeFurniture, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_PokefanM::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_BuyingSomethingForAzumarill, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_Azumarill::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_AZUMARILL, CRY_MODE_NORMAL
+	msgbox LilycoveCity_DepartmentStore_1F_Text_Azumarill
+	waitmoncry
+	release
+	end
+
+LilycoveCity_DepartmentStore_1F_EventScript_FloorNamesSign::
+	msgbox LilycoveCity_DepartmentStore_1F_Text_FloorNamesSign, MSGBOX_SIGN
+	end

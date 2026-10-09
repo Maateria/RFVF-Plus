@@ -1,2 +1,237 @@
 LilycoveCity_ContestHall_MapScripts::
 	.byte 0
+
+LilycoveCity_ContestHall_EventScript_Boy1::
+	msgbox LilycoveCity_ContestHall_Text_TodayWonSmartnessContest, MSGBOX_NPC
+	end
+
+LilycoveCity_ContestHall_EventScript_Boy2::
+	msgbox LilycoveCity_ContestHall_Text_EnteredBunchOfContests, MSGBOX_NPC
+	end
+
+LilycoveCity_ContestHall_EventScript_Girl::
+	msgbox LilycoveCity_ContestHall_Text_ManWhoWonEarlierHadPokeblocks, MSGBOX_NPC
+	end
+
+LilycoveCity_ContestHall_EventScript_Sailor::
+	msgbox LilycoveCity_ContestHall_Text_IsntThisPlaceHumongous, MSGBOX_NPC
+	end
+
+@ The stage NPCs turn back to the stage after talking.
+LilycoveCity_ContestHall_EventScript_FaceOriginalDirection::
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestMC::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_GiveItBestSmartAppeal
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestJudge::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_AreYouEnjoyingThisContest
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestant1::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_EnteredWrongContest
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestant2::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_RaisedMonToBeSmart
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestant3::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_IfMonPullsSmartMoveNext
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestant4::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_DontAppreciateCuteLeechLife
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestAudience1::
+	msgbox LilycoveCity_ContestHall_Text_YoureBeautifulGrandpa, MSGBOX_SIGN
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestAudience2::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_AllSeemToUseDifferentMoves
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestAudience3::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_PokemonSmarterThanTrainers
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartContestAudience4::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_StillLoveSmartnessContests
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestMC::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_AreYouEnteringBeautyContest
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestJudge::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_EveryPokemonPristineBeauty
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestant1::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_EyesWillBeGluedToMyBeauty
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestant2::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_OverdidGrooming
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestant3::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_JudgeWontSeeAuroraBeam
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestant4::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_PokemonLooksLikeYoungerMe
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestAudience1::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_WinBeautyContestMakesMeHappy
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestAudience2::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_GanderAtAllThosePrettyPokemon
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyContestAudience3::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_CantWinOnBeautyAlone
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestMC::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_InTheMiddleOfContest
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestJudge::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_SuchCharmingCuteAppeals
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestant1::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_MyAzurillWasDistracted
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestant2::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_NeverWonBattleButContest
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestant3::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_PetalDanceIsMarvel
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestant4::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_MyMonAppealSoMuchCuter
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestAudience1::
+	lockall
+	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox LilycoveCity_ContestHall_Text_MyChildIsInContest
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	delay 25
+	msgbox LilycoveCity_ContestHall_Text_ComeOnDear
+	releaseall
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestAudience2::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_WantCuteMonOfMyOwn
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteContestAudience3::
+	lock
+	faceplayer
+	msgbox LilycoveCity_ContestHall_Text_ThatGirlThereIsCutest
+	goto LilycoveCity_ContestHall_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_ContestHall_EventScript_BeautyStageSign::
+	msgbox LilycoveCity_ContestHall_Text_BeautyContestStage, MSGBOX_SIGN
+	end
+
+LilycoveCity_ContestHall_EventScript_CuteStageSign::
+	msgbox LilycoveCity_ContestHall_Text_CuteContestStage, MSGBOX_SIGN
+	end
+
+LilycoveCity_ContestHall_EventScript_SmartStageSign::
+	msgbox LilycoveCity_ContestHall_Text_SmartContestStage, MSGBOX_SIGN
+	end

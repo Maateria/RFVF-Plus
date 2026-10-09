@@ -15,16 +15,18 @@ What it writes (re-running is safe: entries are replaced, never duplicated):
   - data/layouts/<Layout>/{map.bin,border.bin} + layouts.json (a layout shared by several maps is written once; an
     Emerald LAYOUT_X that this repo already uses for a non-Hoenn layout becomes LAYOUT_HOENN_X / Hoenn_<Name>)
   - data/maps/<Map>/map.json, Emerald's map name and MAP_ id. Objects: those a NEW Emerald game shows (flag not set
-    by EventScript_ResetAllMapFlags nor hidden by the map's own script, see HIDDEN_BY_MAP_SCRIPT), minus item balls,
-    berry trees and decorations (sprites hoenn_sprites.py does not import), objects on a warp and still objects that
-    cut the way to a warp; Emerald's OBJ_EVENT_GFX_X becomes
+    by EventScript_ResetAllMapFlags nor hidden by the map's own script, see HIDDEN_BY_MAP_SCRIPT), adjusted to what
+    a League Champion finds (POST_LEAGUE), minus berry trees and decorations (sprites hoenn_sprites.py does not
+    import), objects on a warp and still objects that cut the way to a warp; Emerald's OBJ_EVENT_GFX_X becomes
     OBJ_EVENT_GFX_HOENN_X (npc_gfx: the sprites tools/hoenn_import/hoenn_sprites.py imported; a VAR id goes through
-    VAR_GFX first, so every object of a written map shows its pokeemerald sprite); script = Emerald's
-    label when data/maps/<Map>/scripts.inc defines it, else 0x0; flag = 0. Cut trees, breakable rocks and boulders
-    (FIELD_MOVE_SCRIPTS) keep their shared script and Emerald's flag, and may cut the way to a warp (the field move
-    clears it). Warps keep Emerald's destination when it is a map
-    of this batch or one this tool already imported (or MAP_DYNAMIC), else they warp onto themselves.
-    No connections / signs / triggers. A map that already exists keeps its objects, signs and triggers (hand edits
+    VAR_GFX first, so every object of a written map shows its pokeemerald sprite); script = map_script() (Emerald's
+    label once a data/maps/*/scripts.inc defines it), else 0x0; flag = 0. Cut trees, breakable rocks and boulders
+    (FIELD_MOVE_SCRIPTS) and item balls keep their script and Emerald's flag (an item ball whose flag or script does
+    not exist here is left out), and may cut the way to a warp (the field move / picking the item clears it).
+    Signs and triggers come only once their script exists here (map_script), hidden items once their flag is a
+    hidden item flag here (FLAG_HIDDEN_ITEMS_START + 0..255; quantity 1). Warps keep Emerald's destination when it
+    is a map of this batch or one this tool already imported (or MAP_DYNAMIC), else they warp onto themselves.
+    No connections. A map that already exists keeps its objects, signs and triggers (hand edits
     survive): only its header, layout and warps are regenerated, unless --reset-events.
   - data/maps/<Map>/scripts.inc (only if missing), data/event_scripts.s, data/maps/map_groups.json (--group is
     created at the end of group_order if missing), src/data/tilesets/{headers,graphics,metatiles}.h,
@@ -115,6 +117,25 @@ HIDDEN_BY_MAP_SCRIPT = {
 # (data/scripts/field_moves.inc). Their objects keep Emerald's flag (FLAG_TEMP_11-1F): `removeobject VAR_LAST_TALKED`
 # sets it, else the obstacle comes back on the next step.
 FIELD_MOVE_SCRIPTS = {"EventScript_CutTree", "EventScript_RockSmash", "EventScript_StrengthBoulder"}
+# Emerald scripts shared by many maps -> this repo's script that does the same.
+COMMON_SCRIPTS = dict({s: s for s in FIELD_MOVE_SCRIPTS},
+                      Common_EventScript_ShowPokemonCenterSign="EventScript_PokecenterSign")
+# RFVF+ players reach Hoenn by ferry after the Hall of Fame: they find Emerald's post-League state (Team Aqua gone,
+# Game Freak team and the late Fan Club members there). Object flags whose state differs from a new Emerald game:
+# True = shown (flag dropped), False = left out; with the reason.
+POST_LEAGUE = {
+    "FLAG_HIDE_LILYCOVE_MOTEL_GAME_DESIGNERS": (True, "Game Freak team, there after the League"),
+    "FLAG_HIDE_FANCLUB_OLD_LADY": (True, "Fan Club member, there after the League"),
+    "FLAG_HIDE_FANCLUB_BOY": (True, "Fan Club member, there after the League"),
+    "FLAG_HIDE_FANCLUB_LITTLE_BOY": (True, "Fan Club member, there after the League"),
+    "FLAG_HIDE_FANCLUB_LADY": (True, "Fan Club member, there after the League"),
+    "FLAG_HIDE_LILYCOVE_CITY_AQUA_GRUNTS": (False, "Team Aqua has left Lilycove"),
+    "FLAG_HIDE_LILYCOVE_CITY_RIVAL": (False, "rival battle not ported"),
+    "FLAG_HIDE_LILYCOVE_MOTEL_SCOTT": (False, "Scott left out (RFVF+ choice)"),
+}
+# Emerald signs no tile can read: (map, x, y) -> where RFVF+ puts them. Lilycove Dept Store 1F's floor list lies below
+# the 18x8 map: it goes on the button panel left of the elevator door (read facing north, as in Emerald).
+SIGN_MOVES = {("LilycoveCity_DepartmentStore_1F", 0, 8): (1, 1)}
 FALLBACK_MUSIC = "MUS_VERMILLION"
 
 
@@ -468,6 +489,48 @@ def reached_warps(m, blocked):
             or (m.warp_behaviors[i][0] == "MB_ANIMATED_DOOR" and (w["x"], w["y"] + 1) in tiles)}
 
 
+def script_labels():
+    """Labels the data/maps/*/scripts.inc define (a map may use one of another map: the Museum's bird sculpture)."""
+    return {l for p in (REPO / "data/maps").glob("*/scripts.inc") for l in re.findall(r"^(\w+)::", read(p), re.M)}
+
+
+def map_script(map_name, label, labels):
+    """This repo's script for Emerald's `label` on `map_name`, None if there is none yet: Emerald's label once a
+    data/maps/*/scripts.inc defines it (Common_X: <Map>_X first, a map's own version), else COMMON_SCRIPTS."""
+    local = re.sub(r"^Common_", map_name + "_", label)
+    return next((l for l in (local, label) if l in labels), COMMON_SCRIPTS.get(label))
+
+
+def hidden_item_flag(flag):
+    """True if `flag` is a hidden item flag here (bg_hidden_item_event stores flag - FLAG_HIDDEN_ITEMS_START in a byte)."""
+    m = re.search(r"#define %s\s+\(FLAG_HIDDEN_ITEMS_START\s*\+\s*(\d+)\)" % flag,
+                  read(REPO / "include/constants/flags.h"))
+    return bool(m) and int(m.group(1)) < 256
+
+
+def convert_events(m, labels):
+    """Emerald signs, hidden items and triggers -> this repo's bg_events and coord_events, plus the dropped ones."""
+    bg, coord, dropped = [], [], []
+    for b in m.em_map["bg_events"]:
+        script = map_script(m.name, b.get("script", ""), labels)
+        if b["type"] == "sign" and script:
+            x, y = SIGN_MOVES.get((m.name, b["x"], b["y"]), (b["x"], b["y"]))
+            bg.append(dict(b, script=script, x=x, y=y))
+        elif b["type"] == "hidden_item" and hidden_item_flag(b["flag"]) and defined(b["item"]):
+            bg.append(dict(b, quantity=1, underfoot=False))
+        else:
+            dropped.append("%s (%d,%d) %s: %s" % (b["type"], b["x"], b["y"], b.get("script", b.get("flag")),
+                                                 "no script / hidden item flag here" if b["type"] != "secret_base"
+                                                 else "no secret bases"))
+    for c in m.em_map.get("coord_events", []):
+        script = c["type"] == "trigger" and map_script(m.name, c["script"], labels)
+        if script and defined(c["var"]):
+            coord.append(dict(c, script=script))
+        else:
+            dropped.append("%s (%d,%d) %s: no script or var here" % (c["type"], c["x"], c["y"], c.get("script")))
+    return bg, coord, dropped
+
+
 def convert_objects(m, new_game, labels):
     """Emerald object_events -> this repo's, plus the dropped ones with their reason."""
     movement_types = read(REPO / "include/constants/event_object_movement.h")
@@ -477,10 +540,14 @@ def convert_objects(m, new_game, labels):
         assert o.get("type", "object") == "object", "clone objects are not handled"
         where = "%s (%d,%d)" % (o["graphics_id"], o["x"], o["y"])
         flag = o["flag"]
-        reason = ("item ball" if o["graphics_id"] == "OBJ_EVENT_GFX_ITEM_BALL"
+        shown, why = POST_LEAGUE.get(flag, (None, None))
+        script = map_script(m.name, o["script"], labels)
+        item_ball = o["graphics_id"] == "OBJ_EVENT_GFX_ITEM_BALL"
+        reason = ("item ball: %s or %s missing here" % (flag, o["script"]) if item_ball and not (script and defined(flag))
                   else "sprite not imported (berry tree, decoration: hoenn_sprites.skipped)"
                   if skipped(o["graphics_id"].replace("OBJ_EVENT_GFX_", "", 1))
-                  else "%s set at new game" % flag if flag in new_game
+                  else "%s: %s" % (flag, why) if shown is False
+                  else "%s set at new game" % flag if flag in new_game and not shown
                   else "%s: %s" % (flag, HIDDEN_BY_MAP_SCRIPT[flag]) if flag in HIDDEN_BY_MAP_SCRIPT
                   else "stands on a warp" if (o["x"], o["y"]) in warps else None)
         if reason:
@@ -496,10 +563,10 @@ def convert_objects(m, new_game, labels):
         field_move = o["script"] in FIELD_MOVE_SCRIPTS
         assert not field_move or defined(o["flag"]), "%s on %s: %s does not exist here; define it (removeobject sets " \
             "it, as in Emerald) before importing this map" % (where, m.name, o["flag"])
-        kept.append((o, em_gfx, gfx, moving or field_move))
+        kept.append((o, em_gfx, gfx, moving or field_move or item_ball, script, field_move or item_ball))
     # a still object must not cut the way to a warp (moving ones step aside, a field move clears an obstacle)
     base, obstacles, objects = reached_warps(m, set()), set(), []
-    for o, em_gfx, gfx, passable in kept:
+    for o, em_gfx, gfx, passable, script, keep_flag in kept:
         pos = (o["x"], o["y"])
         lost = sorted(base - reached_warps(m, obstacles | {pos})) if not passable else []
         if lost:
@@ -518,23 +585,21 @@ def convert_objects(m, new_game, labels):
             "movement_range_y": o["movement_range_y"],
             "trainer_type": "TRAINER_TYPE_NONE",
             "trainer_sight_or_berry_tree_id": "0",
-            "script": o["script"] if o["script"] in labels | FIELD_MOVE_SCRIPTS else "0x0",
-            "flag": o["flag"] if o["script"] in FIELD_MOVE_SCRIPTS else "0",
+            "script": script or "0x0",
+            "flag": o["flag"] if keep_flag else "0",
             "in_connection": False,
         })
         m.gfx_used[o["graphics_id"], em_gfx, gfx] += 1
     return objects, dropped
 
 
-def convert_map_json(m, layout_id, warp_counts, new_game, existing):
-    labels = set()
-    scripts = REPO / "data/maps" / m.name / "scripts.inc"
-    if scripts.exists():
-        labels = set(re.findall(r"^(\w+)::", read(scripts), re.M))
+def convert_map_json(m, layout_id, warp_counts, new_game, existing, labels):
     if existing:  # hand edits survive a re-run
-        objects, dropped = existing["object_events"], []
+        objects, bg, coord, dropped = existing["object_events"], existing["bg_events"], existing["coord_events"], []
     else:
         objects, dropped = convert_objects(m, new_game, labels)
+        bg, coord, dropped_events = convert_events(m, labels)
+        dropped += dropped_events
     for o in objects:
         problem = hoenn_gfx_problem(m.name, o["graphics_id"])
         assert not problem, "%s (%d,%d): %s: %s" % (m.name, o["x"], o["y"], o["graphics_id"], problem)
@@ -569,8 +634,8 @@ def convert_map_json(m, layout_id, warp_counts, new_game, existing):
         "connections": 0,  # like the other connection-less maps of this repo
         "object_events": objects,
         "warp_events": warps,
-        "coord_events": existing["coord_events"] if existing else [],
-        "bg_events": existing["bg_events"] if existing else [],
+        "coord_events": coord,
+        "bg_events": bg,
         "level_scaling": "0",  # read by this repo's mapjson; trainer-only
     }
     return out, dropped
@@ -704,7 +769,8 @@ def main():
     parser.add_argument("--emerald", type=Path, default=REPO.parent / "pokeemerald", help="pret/pokeemerald clone")
     parser.add_argument("--group", default="gMapGroup_TownsAndRoutes", help="map group new maps are appended to")
     parser.add_argument("--reset-events", action="store_true",
-                        help="regenerate the objects of maps that already exist (drops their hand edits)")
+                        help="regenerate the objects, signs and triggers of maps that already exist (drops their "
+                             "hand edits)")
     parser.add_argument("--render", type=Path, help="also save each rendered map as <dir>/<Map>.png")
     args = parser.parse_args()
     if args.check_gfx:
@@ -718,6 +784,7 @@ def main():
     repo_layouts = json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"]
     behaviors = Behaviors(em)
     new_game = new_game_flags(em)
+    labels = script_labels()
 
     maps = []
     for name in dict.fromkeys(args.maps):
@@ -779,7 +846,7 @@ def main():
             "data/maps/%s already exists in this repo: not replaced" % m.name
         m.kept_events = existing is not None and not args.reset_events
         m.map_json, m.dropped = convert_map_json(m, m.new_layout["id"], warp_counts, new_game,
-                                                 existing if m.kept_events else None)
+                                                 existing if m.kept_events else None, labels)
 
     # everything is checked: write
     for ts in tilesets.values():
@@ -832,6 +899,8 @@ def report(maps, tilesets, behaviors):
         for o in j["object_events"]:
             print("  NPC  (%2d,%2d) %-38s %-26s %s" % (o["x"], o["y"], o["graphics_id"], o["movement_type"][14:],
                                                     o["script"]))
+        for e in j["bg_events"] + j["coord_events"]:
+            print("  %-4s (%2d,%2d) %s" % (e["type"][:4].upper(), e["x"], e["y"], e.get("script") or e.get("flag")))
         for d in m.dropped:
             print("  DROP " + d)
         for i, (w, (em_beh, fr_beh, em_mt, fr_mt)) in enumerate(zip(j["warp_events"], m.warp_behaviors)):

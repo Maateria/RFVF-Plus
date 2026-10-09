@@ -194,6 +194,7 @@ extern const u8 gText_Diploma_ThisDocument[];
 extern const u8 gText_Diploma_GameFreak[];
 extern const u8 gText_Diploma_National[];
 extern const u8 gText_Diploma_Kanto[];
+extern const u8 gText_Diploma_Hoenn[];
 
 // battle_records
 extern const u8 gString_BattleRecords_PlayersBattleResults[];
@@ -805,6 +806,7 @@ extern const u8 gText_NavelRock[];
 extern const u8 gText_FarawayIsland[];
 extern const u8 gText_BirthIsland[];
 extern const u8 gText_SouthernIsland[];
+extern const u8 gText_LilycoveCity[];
 extern const u8 gText_MiracleSeed_1000Coins[];
 extern const u8 gText_Charcoal_1000Coins[];
 extern const u8 gText_MysticWater_1000Coins[];

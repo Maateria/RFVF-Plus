@@ -88,6 +88,11 @@
 #define MULTICHOICE_SOUTHERN_BIRTH_NAVEL                       81
 #define MULTICHOICE_SOUTHERN_BIRTH_NAVEL_FARAWAY               82
 #define MULTICHOICE_MASTER_YOUNGSTER                           83
+#define MULTICHOICE_SEVII_BATTLE_TOWER_LILYCOVE                84
+#define MULTICHOICE_SEVII_BATTLE_TOWER_OTHER_LILYCOVE          85
+#define MULTICHOICE_SEVII_OTHER_LILYCOVE                       86
+#define MULTICHOICE_SEAGALLOP_123_LILYCOVE                     87
+#define MULTICHOICE_SEAGALLOP_LILYCOVE                         88
 
 
 #define MULTICHOICE_NONE                                      255

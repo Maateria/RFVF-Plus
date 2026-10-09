@@ -1,0 +1,82 @@
+LilycoveCity_House3_Text_LearnFromMasterOfPokeblocks::
+    .string "Oh, ça alors! Tu voyages\n"
+    .string "en solitaire? Mais tu es si\l"
+    .string "jeune! C'est bien pour toi!\p"
+    .string "Je suis sûre que tu pourrais\n"
+    .string "apprendre un truc ou\l"
+    .string "deux à mes enfants!\p"
+    .string "Moi? Je suis une spécialiste\n"
+    .string "des POKéBLOCS.\p"
+    .string "Si je me concentre un peu, je peux\n"
+    .string "concocter de fabuleux POKéBLOCS.\p"
+    .string "Tu veux apprendre des choses de la\n"
+    .string "spécialiste des POKéBLOCS?$"
+
+LilycoveCity_House3_Text_ExplainPokeblocks::
+    .string "Bien! Quelle âme avertie!\n"
+    .string "C'est un peu long,\l"
+    .string "alors écoute bien!\p"
+    .string "C'est bon, je peux commencer?\p"
+    .string "Si tu observes les POKéBLOCS,\n"
+    .string "tu verras qu'ils sont classés\l"
+    .string "selon leur onctuosité.\p"
+    .string "Plus le chiffre est bas, plus c'est\n"
+    .string "onctueux et mieux\l"
+    .string "c'est. N'oublie pas!\p"
+    .string "Un bon POKéBLOC est très onctueux\n"
+    .string "et a un niveau élevé.\p"
+    .string "Un POKéMON peut manger plus de\n"
+    .string "bons POKéBLOCS que de normaux.\p"
+    .string "Et c'est important.\p"
+    .string "Pour faire des POKéBLOCS onctueux,\n"
+    .string "il faut utiliser plusieurs sortes de\l"
+    .string "BAIES.\p"
+    .string "Ne sois pas avare! La variété\n"
+    .string "des BAIES influe sur\l"
+    .string "l'onctuosité des POKéBLOCS.\p"
+    .string "Et autre chose…\p"
+    .string "Plus il y a de personnes qui\n"
+    .string "mixent les BAIES, plus les\l"
+    .string "POKéBLOCS sont onctueux.\p"
+    .string "C'est pourquoi tu dois parler aux\n"
+    .string "autres et faire des\l"
+    .string "POKéBLOCS avec eux.\p"
+    .string "Voilà à peu près tout ce que tu dois\n"
+    .string "savoir pour faire\l"
+    .string "de bons POKéBLOCS.\p"
+    .string "Si chacun avait des POKéMON qu'il\n"
+    .string "aime, d'onctueux POKéBLOCS\l"
+    .string "et une famille aimante, le\l"
+    .string "monde ne serait que bonheur.\p"
+    .string "N'abandonne pas, mon p'tit.$"
+
+LilycoveCity_House3_Text_OhAreYouSure::
+    .string "Tu ne veux vraiment pas?\p"
+    .string "Tu ne devrais pas toujours vouloir\n"
+    .string "tout faire toi-même, mon p'tit!$"
+
+LilycoveCity_House3_Text_HappyToHaveQuadruplets::
+    .string "Quand ma femme a mis au monde des\n"
+    .string "quadruplés, ça a été un choc!\p"
+    .string "Mais maintenant, je suis heureux de\n"
+    .string "les voir jouer ensemble.$"
+
+LilycoveCity_House3_Text_GoingToWinMultiBattles::
+    .string "On va faire des COMBATS MULTI, mais\n"
+    .string "je sais que je vais gagner.$"
+
+LilycoveCity_House3_Text_LikeMixingAtRecordCorner::
+    .string "On aime bien échanger des données\n"
+    .string "au CENTRE DE DONNEES.\p"
+    .string "Mais qu'est-ce qu'on va échanger\n"
+    .string "au juste?$"
+
+LilycoveCity_House3_Text_MakePokeblocksWithBerryBlender::
+    .string "On va faire de super POKéBLOCS\n"
+    .string "avec un MIXEUR!$"
+
+LilycoveCity_House3_Text_GoingToEnterContest::
+    .string "Je veux que tu voies à quel\n"
+    .string "point mon POKéMON est fort.\l"
+    .string "Alors on va tous les deux\l"
+    .string "participer à un CONCOURS.$"

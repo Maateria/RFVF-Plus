@@ -192,7 +192,7 @@
 
 
 #define VAR_FARAWAY_ISLAND_STEP_COUNTER  0x408C
-#define VAR_0x408D                 0x408D
+#define VAR_POKELOT_PRIZE_ITEM     0x408D // Lilycove lottery prize kept while the bag is full (was VAR_0x408D, unused)
 #define VAR_0x408E                 0x408E
 #define VAR_0x408F                 0x408F
 #define VAR_0x4090                 0x4090

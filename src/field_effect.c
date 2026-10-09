@@ -72,6 +72,8 @@ static const u16 sNewGameOakObject_Pal[] = INCBIN_U16("graphics/field_effects/pi
 static const u16 sPokeballGlow_Gfx[] = INCBIN_U16("graphics/field_effects/pics/pokeball_glow.4bpp");
 static const u16 sPokeballGlow_Pal[] = INCBIN_U16("graphics/field_effects/pics/pokeball_glow.gbapal");
 static const u16 sPokecenterMonitor_Gfx[] = INCBIN_U16("graphics/field_effects/pics/pokemoncenter_monitor.4bpp");
+static const u16 sHoennPokecenterMonitor0_Gfx[] = INCBIN_U16("graphics/field_effects/pics/hoenn_pokecenter_monitor/0.4bpp");
+static const u16 sHoennPokecenterMonitor1_Gfx[] = INCBIN_U16("graphics/field_effects/pics/hoenn_pokecenter_monitor/1.4bpp");
 static const u16 sHofMonitor_Pal[] = INCBIN_U16("graphics/field_effects/pics/hof_monitor.gbapal");
 static const u16 sHofMonitor_Gfx[] = INCBIN_U16("graphics/field_effects/pics/hof_monitor.4bpp");
 
@@ -209,6 +211,11 @@ static const struct SpriteFrameImage sPicTable_PokecenterMonitor[] = {
     {sPokecenterMonitor_Gfx + 0x180, 0x100}
 };
 
+static const struct SpriteFrameImage sPicTable_HoennPokecenterMonitor[] = {
+    {sHoennPokecenterMonitor0_Gfx, sizeof(sHoennPokecenterMonitor0_Gfx)},
+    {sHoennPokecenterMonitor1_Gfx, sizeof(sHoennPokecenterMonitor1_Gfx)}
+};
+
 static const struct SpriteFrameImage sPicTable_HofMonitor[] = {
     {sHofMonitor_Gfx + 0x00, 0x80},
     {sHofMonitor_Gfx + 0x40, 0x80},
@@ -216,7 +223,7 @@ static const struct SpriteFrameImage sPicTable_HofMonitor[] = {
     {sHofMonitor_Gfx + 0xC0, 0x80}
 };
 
-// Unused, leftover from RSE
+// RSE's monitor layout (24x16), used by the Hoenn Pokemon Center monitor
 static const struct Subsprite sSubsprites_PokecenterMonitor[] =
 {
     {
@@ -250,7 +257,6 @@ static const struct Subsprite sSubsprites_PokecenterMonitor[] =
     }
 };
 
-// Unused, leftover from RSE
 static const struct SubspriteTable sSubspriteTable_PokecenterMonitor = subsprite_table(sSubsprites_PokecenterMonitor);
 
 // Unused, leftover from RSE
@@ -311,6 +317,24 @@ static const union AnimCmd *const sAnims_Flicker[] = {
     sAnim_Flicker
 };
 
+// pokeemerald's monitor flicker (2 frames)
+static const union AnimCmd sAnim_HoennMonitorFlicker[] = {
+    ANIMCMD_FRAME(0, 16),
+    ANIMCMD_FRAME(1, 16),
+    ANIMCMD_FRAME(0, 16),
+    ANIMCMD_FRAME(1, 16),
+    ANIMCMD_FRAME(0, 16),
+    ANIMCMD_FRAME(1, 16),
+    ANIMCMD_FRAME(0, 16),
+    ANIMCMD_FRAME(1, 16),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sAnims_HoennMonitor[] = {
+    sAnim_Static,
+    sAnim_HoennMonitorFlicker
+};
+
 static const union AnimCmd sAnim_HofMonitor[] = {
     ANIMCMD_FRAME(3, 8),
     ANIMCMD_FRAME(2, 8),
@@ -344,6 +368,17 @@ static const struct SpriteTemplate sSpriteTemplate_PokecenterMonitor = {
     .oam = &sOamData_32x16,
     .anims = sAnims_Flicker,
     .images = sPicTable_PokecenterMonitor,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCB_PokecenterMonitor
+};
+
+// Hoenn Pokemon Centers have pokeemerald's heal machine: pokeemerald's monitor sprite and palette
+static const struct SpriteTemplate sSpriteTemplate_HoennPokecenterMonitor = {
+    .tileTag = TAG_NONE,
+    .paletteTag = FLDEFF_PAL_TAG_GENERAL_0,
+    .oam = &sOamData_16x16,
+    .anims = sAnims_HoennMonitor,
+    .images = sPicTable_HoennPokecenterMonitor,
     .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_PokecenterMonitor
 };
@@ -828,6 +863,8 @@ bool8 FldEff_PokecenterHeal(void)
     task->tFirstBallY = 36;
     task->tMonitorX = 128;
     task->tMonitorY = 24;
+    if (IsHoennMapLayout()) // pokeemerald's values: same balls, its 24 px wide monitor
+        task->tMonitorX = 124;
     if(gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(SEVEN_ISLAND_HOUSE_ROOM2) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(SEVEN_ISLAND_HOUSE_ROOM2))
     {   //for the Battle House healing machine
         task->tFirstBallY = 68;
@@ -1092,7 +1129,15 @@ static u8 CreatePokecenterMonitorSprite(s32 x, s32 y)
 {
     u8 spriteId;
     struct Sprite *sprite;
-    spriteId = CreateSpriteAtEnd(&sSpriteTemplate_PokecenterMonitor, x, y, 0);
+    if (IsHoennMapLayout())
+    {
+        spriteId = CreateSpriteAtEnd(&sSpriteTemplate_HoennPokecenterMonitor, x, y, 0);
+        SetSubspriteTables(&gSprites[spriteId], &sSubspriteTable_PokecenterMonitor);
+    }
+    else
+    {
+        spriteId = CreateSpriteAtEnd(&sSpriteTemplate_PokecenterMonitor, x, y, 0);
+    }
     sprite = &gSprites[spriteId];
     sprite->oam.priority = 2;
     sprite->invisible = TRUE;

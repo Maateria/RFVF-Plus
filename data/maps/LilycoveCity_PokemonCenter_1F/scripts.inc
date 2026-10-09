@@ -1,2 +1,22 @@
 LilycoveCity_PokemonCenter_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_PokemonCenter_1F_OnTransition
 	.byte 0
+
+LilycoveCity_PokemonCenter_1F_OnTransition::
+	setrespawn SPAWN_LILYCOVE_CITY
+	end
+
+LilycoveCity_PokemonCenter_1F_EventScript_Nurse::
+	lock
+	faceplayer
+	call EventScript_PkmnCenterNurse
+	release
+	end
+
+LilycoveCity_PokemonCenter_1F_EventScript_Boy::
+	msgbox LilycoveCity_PokemonCenter_1F_Text_HowManyKindsOfPokemon, MSGBOX_NPC
+	end
+
+LilycoveCity_PokemonCenter_1F_EventScript_Maniac::
+	msgbox LilycoveCity_PokemonCenter_1F_Text_HaventSeenRottenScoundrels, MSGBOX_NPC
+	end

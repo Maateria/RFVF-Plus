@@ -103,8 +103,69 @@ VermilionCity_EventScript_CheckSeagallopPresent::
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
 	goto_if_ge VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 5, VermilionCity_EventScript_ChooseSeagallopDestRainbowPass
 	goto_if_ge VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 1, VermilionCity_EventScript_ChooseSeagallopDestTriPass
+	goto_if_set FLAG_SYS_GAME_CLEAR, VermilionCity_EventScript_ChooseSeagallopDestNoPassLilycove
 	msgbox VermilionCity_Text_TheShipSetSail
 	release
+	end
+
+@ RFVF+: after the Hall of Fame, every Seagallop menu here also offers Lilycove (Nenucrique), right before Exit
+VermilionCity_EventScript_SetSailToLilycove::
+	msgbox VermilionCity_Text_Seagallop13Departing
+	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
+	setvar VAR_0x8006, SEAGALLOP_LILYCOVE_CITY
+	goto EventScript_SetSail
+	end
+
+VermilionCity_EventScript_ChooseSeagallopDestNoPassLilycove::
+	message VermilionCity_Text_BoardSeagallopFerry
+	waitmessage
+	multichoice 19, 8, MULTICHOICE_SEAGALLOP_LILYCOVE, FALSE
+	switch VAR_RESULT
+	case 0, VermilionCity_EventScript_SetSailToLilycove
+	case 1, EventScript_CancelSail
+	case 127, EventScript_CancelSail
+	end
+
+VermilionCity_EventScript_RainbowPassLilycove::
+	multichoice 13, 5, MULTICHOICE_SEVII_BATTLE_TOWER_LILYCOVE, FALSE
+	switch VAR_RESULT
+	case 0, EventScript_SeviiDestinationsPage1
+	case 1, VermilionCity_EventScript_SetSailToBattleTower
+	case 2, VermilionCity_EventScript_SetSailToLilycove
+	case 3, EventScript_CancelSail
+	case 127, EventScript_CancelSail
+	end
+
+VermilionCity_EventScript_HasTicketsRainbowPassLilycove::
+	multichoice 13, 3, MULTICHOICE_SEVII_BATTLE_TOWER_OTHER_LILYCOVE, FALSE
+	switch VAR_RESULT
+	case 0, EventScript_SeviiDestinationsPage1
+	case 1, VermilionCity_EventScript_SetSailToBattleTower
+	case 2, VermilionCity_EventScript_EventIslandsMultichoice
+	case 3, VermilionCity_EventScript_SetSailToLilycove
+	case 4, EventScript_CancelSail
+	case 127, EventScript_CancelSail
+	end
+
+VermilionCity_EventScript_TriPassLilycove::
+	multichoice 19, 3, MULTICHOICE_SEAGALLOP_123_LILYCOVE, FALSE
+	switch VAR_RESULT
+	case 0, EventScript_SailToOneIsland2
+	case 1, EventScript_SailToTwoIsland2
+	case 2, EventScript_SailToThreeIsland2
+	case 3, VermilionCity_EventScript_SetSailToLilycove
+	case 4, EventScript_CancelSail
+	case 127, EventScript_CancelSail
+	end
+
+VermilionCity_EventScript_HasTicketsTriPassLilycove::
+	multichoice 13, 5, MULTICHOICE_SEVII_OTHER_LILYCOVE, FALSE
+	switch VAR_RESULT
+	case 0, VermilionCity_EventScript_TriPassOriginalMultichoice
+	case 1, VermilionCity_EventScript_EventIslandsMultichoice
+	case 2, VermilionCity_EventScript_SetSailToLilycove
+	case 3, EventScript_CancelSail
+	case 127, EventScript_CancelSail
 	end
 
 VermilionCity_EventScript_SetSailToBattleTower::
@@ -142,6 +203,7 @@ VermilionCity_EventScript_ChooseSeagallopDestRainbowPass::
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
 	message VermilionCity_Text_BoardSeagallopRainbowPass
 	waitmessage
+	goto_if_set FLAG_SYS_GAME_CLEAR, VermilionCity_EventScript_RainbowPassLilycove
 	multichoice 13, 6, MULTICHOICE_SEVII_BATTLE_TOWER, FALSE
 	switch VAR_RESULT
 	case 0, EventScript_SeviiDestinationsPage1
@@ -154,6 +216,7 @@ VermilionCity_EventScript_HasTicketsRainbowPass::
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
 	message VermilionCity_Text_BoardSeagallopRainbowPass
 	waitmessage
+	goto_if_set FLAG_SYS_GAME_CLEAR, VermilionCity_EventScript_HasTicketsRainbowPassLilycove
 	multichoice 13, 5, MULTICHOICE_SEVII_BATTLE_TOWER_OTHER, FALSE
 	switch VAR_RESULT
 	case 0, EventScript_SeviiDestinationsPage1
@@ -204,6 +267,7 @@ VermilionCity_EventScript_ChooseSeagallopDestTriPass::
 	message VermilionCity_Text_BoardSeagallopTriPass
 	waitmessage
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
+	goto_if_set FLAG_SYS_GAME_CLEAR, VermilionCity_EventScript_TriPassLilycove
 VermilionCity_EventScript_TriPassOriginalMultichoice:
 	multichoice 19, 5, MULTICHOICE_SEAGALLOP_123, FALSE
 	switch VAR_RESULT
@@ -223,6 +287,7 @@ VermilionCity_EventScript_HasTicketsTriPass::
 	message VermilionCity_Text_BoardSeagallopTriPass
 	waitmessage
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
+	goto_if_set FLAG_SYS_GAME_CLEAR, VermilionCity_EventScript_HasTicketsTriPassLilycove
 	multichoice 13, 6, MULTICHOICE_SEVII_OTHER, FALSE
 	switch VAR_RESULT
 	case 0, VermilionCity_EventScript_TriPassOriginalMultichoice
@@ -429,6 +494,7 @@ VermilionCity_EventScript_CheckSeagallopPresentTrigger::
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
 	goto_if_ge VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 5, VermilionCity_EventScript_ChooseSeagallopDestRainbowPass
 	goto_if_ge VAR_MAP_SCENE_ONE_ISLAND_POKEMON_CENTER_1F, 1, VermilionCity_EventScript_ChooseSeagallopDestTriPass
+	goto_if_set FLAG_SYS_GAME_CLEAR, VermilionCity_EventScript_ChooseSeagallopDestNoPassLilycove
 	msgbox VermilionCity_Text_TheShipSetSail
 	closemessage
 	goto VermilionCity_EventScript_WalkUpPier

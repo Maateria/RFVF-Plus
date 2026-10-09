@@ -1,2 +1,74 @@
 LilycoveCity_DepartmentStoreRooftop_MapScripts::
 	.byte 0
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_Man::
+	msgbox LilycoveCity_DepartmentStoreRooftop_Text_SetDatesForClearOutSales, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_ThirstyMan::
+	msgbox LilycoveCity_DepartmentStoreRooftop_Text_BoneDryThirsty, MSGBOX_NPC
+	end
+
+@ Copy of the Fuchsia Substitute tutor (FuchsiaCity_EventScript_SubstituteTutor, data/scripts/move_tutors.inc): same
+@ rules (free once, then 5000¥ a lesson) and the same FLAG_TUTOR_SUBSTITUTE, with Emerald's lines for this tutor.
+LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteTutor::
+	lock
+	faceplayer
+	goto_if_set FLAG_TUTOR_SUBSTITUTE, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteReteach
+	msgbox MoveTutor_Text_SubstituteTeach, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined
+	call EventScript_CanOnlyBeLearnedOnce
+	goto_if_eq VAR_RESULT, NO, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined
+	msgbox MoveTutor_Text_SubstituteWhichMon
+	setvar VAR_0x8005, MOVETUTOR_SUBSTITUTE
+	call EventScript_ChooseMoveTutorMon
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined
+	setflag FLAG_TUTOR_SUBSTITUTE
+	goto LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteTaught
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined::
+	msgbox MoveTutor_Text_SubstituteDeclined
+	release
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteTaught::
+	msgbox MoveTutor_Text_SubstituteTaught
+	release
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteReteach::
+	msgbox LilycoveCity_DepartmentStoreRooftop_Text_SubstituteReteach
+	showmoneybox 0, 0
+	msgbox Text_SubstituteReteach2, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined2
+	checkmoney 5000, 0
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteNotEnoughMoney
+	msgbox MoveTutor_Text_SubstituteWhichMon
+	setvar VAR_0x8005, MOVETUTOR_SUBSTITUTE
+	call EventScript_ChooseMoveTutorMon
+	goto_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined
+	showmoneybox 0, 0
+	removemoney 5000
+	updatemoneybox
+	msgbox MoveTutor_Text_SubstituteTaught
+	hidemoneybox
+	release
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteDeclined2::
+	msgbox MoveTutor_Text_SubstituteDeclined
+	hidemoneybox
+	release
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_SubstituteNotEnoughMoney::
+	msgbox LilycoveCity_DepartmentStoreRooftop_Text_SubstituteNotEnoughMoney
+	hidemoneybox
+	release
+	end
+
+@ Same machine, drinks and prices as the Celadon Dept Store roof
+LilycoveCity_DepartmentStoreRooftop_EventScript_VendingMachine::
+	goto CeladonCity_DepartmentStore_Roof_EventScript_VendingMachine
+	end

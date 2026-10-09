@@ -1,6 +1,18 @@
 LilycoveCity_DepartmentStore_2F_MapScripts::
 	.byte 0
 
+LilycoveCity_DepartmentStore_2F_EventScript_Cook::
+	msgbox LilycoveCity_DepartmentStore_2F_Text_LearnToUseItemsProperly, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_2F_EventScript_PokefanF::
+	msgbox LilycoveCity_DepartmentStore_2F_Text_GoodGiftForHusband, MSGBOX_NPC
+	end
+
+LilycoveCity_DepartmentStore_2F_EventScript_Sailor::
+	msgbox LilycoveCity_DepartmentStore_2F_Text_StockUpOnItems, MSGBOX_NPC
+	end
+
 LilycoveCity_DepartmentStore_2F_EventScript_ClerkLeft::
 	goto_if_questlog EventScript_ReleaseEnd
 	lock

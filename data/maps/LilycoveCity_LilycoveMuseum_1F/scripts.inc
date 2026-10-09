@@ -1,2 +1,59 @@
 LilycoveCity_LilycoveMuseum_1F_MapScripts::
 	.byte 0
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_Greeter::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_WelcomeToLilycoveMuseum, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_SchoolKidM::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_MustntForgetLoveForFineArts, MSGBOX_NPC
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_Artist1::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_ThisMuseumIsInspiration, MSGBOX_NPC
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_NinjaBoy::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_ThisLadyIsPretty, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_Woman1::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_ThisPokemonIsAdorable, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_OldPainting::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_VeryOldPainting, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_FantasyPainting::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_OddLandscapeFantasticScenery, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_WomanPainting::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_PaintingOfBeautifulWoman, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_LegendaryPokemonPainting::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_PaintingOfLegendaryPokemon, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_GrassPokemonPainting::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_PaintingOfGrassPokemon, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_BerryPainting::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_PaintingOfBerries, MSGBOX_SIGN
+	end
+
+@ Also the two bird sculptures of the 2F
+LilycoveCity_LilycoveMuseum_EventScript_BirdSculpture::
+	msgbox LilycoveCity_LilycoveMuseum_Text_BirdPokemonSculptureReplica, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_PokeBallSculpture::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_BigPokeBallCarvedFromStone, MSGBOX_SIGN
+	end
+
+LilycoveCity_LilycoveMuseum_1F_EventScript_StoneTablet::
+	msgbox LilycoveCity_LilycoveMuseum_1F_Text_StoneTabletWithAncientText, MSGBOX_SIGN
+	end

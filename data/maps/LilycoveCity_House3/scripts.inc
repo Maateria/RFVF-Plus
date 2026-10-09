@@ -1,2 +1,70 @@
 LilycoveCity_House3_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_House3_OnTransition
 	.byte 0
+
+@ What the quadruplets are playing at, drawn on each visit
+LilycoveCity_House3_OnTransition::
+	random 4
+	copyvar VAR_TEMP_1, VAR_RESULT
+	end
+
+LilycoveCity_House3_EventScript_PokefanF::
+	lock
+	faceplayer
+	msgbox LilycoveCity_House3_Text_LearnFromMasterOfPokeblocks, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, LilycoveCity_House3_EventScript_DeclinePokeblockLearn
+	msgbox LilycoveCity_House3_Text_ExplainPokeblocks
+	goto LilycoveCity_House3_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_House3_EventScript_DeclinePokeblockLearn::
+	msgbox LilycoveCity_House3_Text_OhAreYouSure
+	goto LilycoveCity_House3_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_House3_EventScript_Man::
+	lock
+	faceplayer
+	msgbox LilycoveCity_House3_Text_HappyToHaveQuadruplets
+	goto LilycoveCity_House3_EventScript_FaceOriginalDirection
+	end
+
+LilycoveCity_House3_EventScript_FaceOriginalDirection::
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+LilycoveCity_House3_EventScript_GameBoyKid1::
+LilycoveCity_House3_EventScript_GameBoyKid2::
+LilycoveCity_House3_EventScript_GameBoyKid3::
+LilycoveCity_House3_EventScript_GameBoyKid4::
+	lock
+	faceplayer
+	switch VAR_TEMP_1
+	case 0, LilycoveCity_House3_EventScript_WereDoingMultiBattle
+	case 1, LilycoveCity_House3_EventScript_WereMixingRecords
+	case 2, LilycoveCity_House3_EventScript_WereBlendingBerries
+	case 3, LilycoveCity_House3_EventScript_WereDoingContest
+	end
+
+LilycoveCity_House3_EventScript_WereDoingMultiBattle::
+	msgbox LilycoveCity_House3_Text_GoingToWinMultiBattles
+	release
+	end
+
+LilycoveCity_House3_EventScript_WereMixingRecords::
+	msgbox LilycoveCity_House3_Text_LikeMixingAtRecordCorner
+	release
+	end
+
+LilycoveCity_House3_EventScript_WereBlendingBerries::
+	msgbox LilycoveCity_House3_Text_MakePokeblocksWithBerryBlender
+	release
+	end
+
+LilycoveCity_House3_EventScript_WereDoingContest::
+	msgbox LilycoveCity_House3_Text_GoingToEnterContest
+	release
+	end

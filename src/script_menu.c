@@ -620,6 +620,42 @@ static const struct MenuAction sMultichoiceList_Exit[] = {
     { gOtherText_Exit }
 };
 
+// RFVF+: Vermilion's Seagallop menus after the Hall of Fame, with Lilycove
+static const struct MenuAction sMultichoiceList_SeviiBattleTowerLilycove[] = {
+    { gText_SeviiIslands },
+    { gText_BattleTower },
+    { gText_LilycoveCity },
+    { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeviiBattleTowerOtherLilycove[] = {
+    { gText_SeviiIslands },
+    { gText_BattleTower },
+    { gText_Other },
+    { gText_LilycoveCity },
+    { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeviiOtherLilycove[] = {
+    { gText_SeviiIslands },
+    { gText_Other },
+    { gText_LilycoveCity },
+    { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_Seagallop123Lilycove[] = {
+    { gText_OneIsland },
+    { gText_TwoIsland },
+    { gText_ThreeIsland },
+    { gText_LilycoveCity },
+    { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeagallopLilycove[] = {
+    { gText_LilycoveCity },
+    { gOtherText_Exit }
+};
+
 static const struct MultichoiceListStruct sMultichoiceLists[] = {
     [MULTICHOICE_YES_NO]                                     = MULTICHOICE(sMultichoiceList_YesNo),
     [MULTICHOICE_EEVEELUTIONS]                               = MULTICHOICE(sMultichoiceList_Eeveelutions),
@@ -705,6 +741,11 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTICHOICE_SOUTHERN_BIRTH_NAVEL]                       = MULTICHOICE(sMultichoiceList_SouthernBirthNavel),
 	[MULTICHOICE_SOUTHERN_BIRTH_NAVEL_FARAWAY]               = MULTICHOICE(sMultichoiceList_SouthernBirthNavelFaraway),
 	[MULTICHOICE_MASTER_YOUNGSTER]                           = MULTICHOICE(sMultichoiceList_MasterYoungster),
+	[MULTICHOICE_SEVII_BATTLE_TOWER_LILYCOVE]                = MULTICHOICE(sMultichoiceList_SeviiBattleTowerLilycove),
+	[MULTICHOICE_SEVII_BATTLE_TOWER_OTHER_LILYCOVE]          = MULTICHOICE(sMultichoiceList_SeviiBattleTowerOtherLilycove),
+	[MULTICHOICE_SEVII_OTHER_LILYCOVE]                       = MULTICHOICE(sMultichoiceList_SeviiOtherLilycove),
+	[MULTICHOICE_SEAGALLOP_123_LILYCOVE]                     = MULTICHOICE(sMultichoiceList_Seagallop123Lilycove),
+	[MULTICHOICE_SEAGALLOP_LILYCOVE]                         = MULTICHOICE(sMultichoiceList_SeagallopLilycove),
 };
 
 // From Cool to Berries goes unused
