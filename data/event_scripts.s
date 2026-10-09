@@ -913,8 +913,8 @@ Text_Gyaoo::
 	.string "Gyaoo!$"
 
 Text_MoveCanOnlyBeLearnedOnce::
-	.string "This move can only be learned\n"
-	.string "once for free. Is that okay?$"
+	.string "Cette capacité ne peut être apprise\n"
+	.string "gratuitement qu'une fois. D'accord?$"
 
 EventScript_ResetAllMapFlags::
 	setflag FLAG_HIDE_OAK_IN_HIS_LAB
