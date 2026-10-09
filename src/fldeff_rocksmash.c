@@ -23,14 +23,15 @@ static void StartRockSmashFieldEffect(void);
 
 EWRAM_DATA struct MapPosition gPlayerFacingPosition = {};
 
-bool8 CheckObjectGraphicsInFrontOfPlayer(u8 graphicsId)
+// isGraphicsId: IsCutTreeGfxId, IsRockSmashRockGfxId or IsPushableBoulderGfxId (event_object_movement.h)
+bool8 CheckObjectGraphicsInFrontOfPlayer(bool8 (*isGraphicsId)(u16 graphicsId))
 {
     u8 mapObjId;
 
     GetXYCoordsOneStepInFrontOfPlayer(&gPlayerFacingPosition.x, &gPlayerFacingPosition.y);
     gPlayerFacingPosition.elevation = PlayerGetElevation();
     mapObjId = GetObjectEventIdByPosition(gPlayerFacingPosition.x, gPlayerFacingPosition.y, gPlayerFacingPosition.elevation);
-    if (ObjGfxId(&gObjectEvents[mapObjId]) != graphicsId)
+    if (mapObjId == OBJECT_EVENTS_COUNT || !isGraphicsId(ObjGfxId(&gObjectEvents[mapObjId])))
         return FALSE;
     gSpecialVar_LastTalked = gObjectEvents[mapObjId].localId;
     return TRUE;
@@ -105,7 +106,7 @@ static void Task_FieldEffectShowMon_Cleanup(u8 taskId)
 
 bool8 SetUpFieldMove_RockSmash(void)
 {
-    if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_ROCK_SMASH_ROCK) == TRUE)
+    if (CheckObjectGraphicsInFrontOfPlayer(IsRockSmashRockGfxId) == TRUE)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_UseRockSmash;

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "event_object_movement.h"
 #include "field_player_avatar.h"
 #include "field_effect.h"
 #include "party_menu.h"
@@ -13,7 +14,7 @@ static void ShowMonCB_UseStrength(void);
 
 bool8 SetUpFieldMove_Strength(void)
 {
-    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) || CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_PUSHABLE_BOULDER) != TRUE)
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) || CheckObjectGraphicsInFrontOfPlayer(IsPushableBoulderGfxId) != TRUE)
     {
         return FALSE;
     }

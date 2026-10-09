@@ -16,9 +16,13 @@ What it writes (re-running is safe: entries are replaced, never duplicated):
     Emerald LAYOUT_X that this repo already uses for a non-Hoenn layout becomes LAYOUT_HOENN_X / Hoenn_<Name>)
   - data/maps/<Map>/map.json, Emerald's map name and MAP_ id. Objects: those a NEW Emerald game shows (flag not set
     by EventScript_ResetAllMapFlags nor hidden by the map's own script, see HIDDEN_BY_MAP_SCRIPT), minus item balls,
-    objects on a warp and still objects that cut the way to a warp; gfx from NPC_GFX / VAR_GFX (every object of a
-    written map must show a pokeemerald sprite: a Hoenn variant or an OBJ_EVENT_GFX_HOENN_ id); script = Emerald's
-    label when data/maps/<Map>/scripts.inc defines it, else 0x0. Warps keep Emerald's destination when it is a map
+    berry trees and decorations (sprites hoenn_sprites.py does not import), objects on a warp and still objects that
+    cut the way to a warp; Emerald's OBJ_EVENT_GFX_X becomes
+    OBJ_EVENT_GFX_HOENN_X (npc_gfx: the sprites tools/hoenn_import/hoenn_sprites.py imported; a VAR id goes through
+    VAR_GFX first, so every object of a written map shows its pokeemerald sprite); script = Emerald's
+    label when data/maps/<Map>/scripts.inc defines it, else 0x0; flag = 0. Cut trees, breakable rocks and boulders
+    (FIELD_MOVE_SCRIPTS) keep their shared script and Emerald's flag, and may cut the way to a warp (the field move
+    clears it). Warps keep Emerald's destination when it is a map
     of this batch or one this tool already imported (or MAP_DYNAMIC), else they warp onto themselves.
     No connections / signs / triggers. A map that already exists keeps its objects, signs and triggers (hand edits
     survive): only its header, layout and warps are regenerated, unless --reset-events.
@@ -59,6 +63,8 @@ from types import SimpleNamespace
 
 from PIL import Image
 
+from hoenn_sprites import skipped
+
 REPO = Path(__file__).resolve().parents[2]
 EM = {"tiles": 512, "metatiles": 512, "pals": 6}  # pokeemerald include/fieldmap.h
 FR = {"tiles": 640, "metatiles": 640, "pals": 7}  # this repo's include/fieldmap.h
@@ -94,58 +100,6 @@ BEHAVIOR_OVERRIDES = {
     "MB_WIRELESS_BOX_RESULTS": "MB_CABLE_CLUB_WIRELESS_MONITOR",
 }
 
-# Emerald OBJ_EVENT_GFX -> gfx id of this repo showing pokeemerald's own sprite on a Hoenn map (Emerald NPC palettes,
-# src/event_object_movement.c): this repo's id of the same character class, whose Hoenn variant is in
-# sHoennVariantGraphicsInfoPointers (object_event_graphics_info_pointers.h), or an OBJ_EVENT_GFX_HOENN_ id.
-NPC_GFX = {
-    "OBJ_EVENT_GFX_BEAUTY": "OBJ_EVENT_GFX_BEAUTY",
-    "OBJ_EVENT_GFX_BLACK_BELT": "OBJ_EVENT_GFX_BLACKBELT",
-    "OBJ_EVENT_GFX_CAMPER": "OBJ_EVENT_GFX_CAMPER",
-    "OBJ_EVENT_GFX_COOK": "OBJ_EVENT_GFX_CHEF",
-    "OBJ_EVENT_GFX_FAT_MAN": "OBJ_EVENT_GFX_FAT_MAN",
-    "OBJ_EVENT_GFX_FISHERMAN": "OBJ_EVENT_GFX_FISHER",
-    "OBJ_EVENT_GFX_GAMEBOY_KID": "OBJ_EVENT_GFX_GBA_KID",
-    "OBJ_EVENT_GFX_GENTLEMAN": "OBJ_EVENT_GFX_GENTLEMAN",
-    "OBJ_EVENT_GFX_LASS": "OBJ_EVENT_GFX_LASS",
-    "OBJ_EVENT_GFX_LINK_RECEPTIONIST": "OBJ_EVENT_GFX_UNION_ROOM_RECEPTIONIST",
-    "OBJ_EVENT_GFX_LITTLE_GIRL": "OBJ_EVENT_GFX_LITTLE_GIRL",
-    "OBJ_EVENT_GFX_MANIAC": "OBJ_EVENT_GFX_POKE_MANIAC",
-    "OBJ_EVENT_GFX_NURSE": "OBJ_EVENT_GFX_NURSE",
-    "OBJ_EVENT_GFX_PSYCHIC_M": "OBJ_EVENT_GFX_PSYCHIC_M",
-    "OBJ_EVENT_GFX_SAILOR": "OBJ_EVENT_GFX_SAILOR",
-    "OBJ_EVENT_GFX_SCOTT": "OBJ_EVENT_GFX_SCOTT",
-    "OBJ_EVENT_GFX_TEALA": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
-    "OBJ_EVENT_GFX_TWIN": "OBJ_EVENT_GFX_TWIN",
-    "OBJ_EVENT_GFX_WOMAN_1": "OBJ_EVENT_GFX_WOMAN_1",
-    "OBJ_EVENT_GFX_WOMAN_2": "OBJ_EVENT_GFX_WOMAN_2",
-    "OBJ_EVENT_GFX_WOMAN_3": "OBJ_EVENT_GFX_WOMAN_3",
-    "OBJ_EVENT_GFX_YOUNGSTER": "OBJ_EVENT_GFX_YOUNGSTER",
-    "OBJ_EVENT_GFX_ARTIST": "OBJ_EVENT_GFX_HOENN_ARTIST",  # an old man: not FRLG's PAINTER, a young woman (red text)
-    "OBJ_EVENT_GFX_AZUMARILL": "OBJ_EVENT_GFX_HOENN_AZUMARILL",
-    "OBJ_EVENT_GFX_BOY_1": "OBJ_EVENT_GFX_HOENN_BOY_1",
-    "OBJ_EVENT_GFX_BOY_2": "OBJ_EVENT_GFX_HOENN_BOY_2",
-    "OBJ_EVENT_GFX_BOY_3": "OBJ_EVENT_GFX_HOENN_BOY_3",
-    "OBJ_EVENT_GFX_CONTEST_JUDGE": "OBJ_EVENT_GFX_HOENN_CONTEST_JUDGE",
-    "OBJ_EVENT_GFX_EXPERT_F": "OBJ_EVENT_GFX_HOENN_EXPERT_F",
-    "OBJ_EVENT_GFX_EXPERT_M": "OBJ_EVENT_GFX_HOENN_EXPERT_M",
-    "OBJ_EVENT_GFX_GIRL_1": "OBJ_EVENT_GFX_HOENN_GIRL_1",
-    "OBJ_EVENT_GFX_GIRL_2": "OBJ_EVENT_GFX_HOENN_GIRL_2",
-    "OBJ_EVENT_GFX_GIRL_3": "OBJ_EVENT_GFX_HOENN_GIRL_3",
-    "OBJ_EVENT_GFX_KECLEON": "OBJ_EVENT_GFX_HOENN_KECLEON",
-    "OBJ_EVENT_GFX_MAN_1": "OBJ_EVENT_GFX_HOENN_MAN_1",
-    "OBJ_EVENT_GFX_MAN_2": "OBJ_EVENT_GFX_HOENN_MAN_2",
-    "OBJ_EVENT_GFX_MAN_3": "OBJ_EVENT_GFX_HOENN_MAN_3",
-    "OBJ_EVENT_GFX_MAN_4": "OBJ_EVENT_GFX_HOENN_MAN_4",
-    "OBJ_EVENT_GFX_NINJA_BOY": "OBJ_EVENT_GFX_HOENN_NINJA_BOY",
-    "OBJ_EVENT_GFX_POKEFAN_F": "OBJ_EVENT_GFX_HOENN_POKEFAN_F",
-    "OBJ_EVENT_GFX_POKEFAN_M": "OBJ_EVENT_GFX_HOENN_POKEFAN_M",
-    "OBJ_EVENT_GFX_RICH_BOY": "OBJ_EVENT_GFX_HOENN_RICH_BOY",
-    "OBJ_EVENT_GFX_RUNNING_TRIATHLETE_M": "OBJ_EVENT_GFX_HOENN_RUNNING_TRIATHLETE_M",
-    "OBJ_EVENT_GFX_SCHOOL_KID_M": "OBJ_EVENT_GFX_HOENN_SCHOOL_KID_M",
-    "OBJ_EVENT_GFX_WOMAN_4": "OBJ_EVENT_GFX_HOENN_WOMAN_4",
-    "OBJ_EVENT_GFX_WOMAN_5": "OBJ_EVENT_GFX_HOENN_WOMAN_5",
-}
-
 # OBJ_EVENT_GFX_VAR_x: the Emerald gfx that map's script gives a new player.
 VAR_GFX = {
     # SetLilycoveLadyGfx: Quiz (WOMAN_4) / Favor (WOMAN_2) / Contest (GIRL_2) lady, picked by trainer id: Quiz kept
@@ -157,6 +111,10 @@ HIDDEN_BY_MAP_SCRIPT = {
     "FLAG_HIDE_LILYCOVE_DEPARTMENT_STORE_ROOFTOP_SALE_WOMAN": "OnTransition hides her (no POKENEWS_LILYCOVE)",
     "FLAG_HIDE_LILYCOVE_POKEMON_CENTER_CONTEST_LADY_MON": "shown only with the Contest Lady (VAR_0 = Quiz Lady)",
 }
+# Scripts of the field-move obstacles (cut tree, breakable rock, boulder), shared and named as in pokeemerald
+# (data/scripts/field_moves.inc). Their objects keep Emerald's flag (FLAG_TEMP_11-1F): `removeobject VAR_LAST_TALKED`
+# sets it, else the obstacle comes back on the next step.
+FIELD_MOVE_SCRIPTS = {"EventScript_CutTree", "EventScript_RockSmash", "EventScript_StrengthBoulder"}
 FALLBACK_MUSIC = "MUS_VERMILLION"
 
 
@@ -416,18 +374,47 @@ def new_game_flags(em):
 
 
 def hoenn_info(gfx):
-    """Graphics info a Hoenn map shows for this repo's `gfx`: its Hoenn variant or, for an OBJ_EVENT_GFX_HOENN_ id,
-    its own. None for any other gfx: drawn with Emerald's NPC palettes, a Kanto sprite would get wrong colors."""
+    """Graphics info of this repo's OBJ_EVENT_GFX_HOENN_ id `gfx` (a pokeemerald sprite, made for the Emerald NPC
+    palettes Hoenn layouts load), None for any other id."""
+    if not gfx.startswith("OBJ_EVENT_GFX_HOENN_"):
+        return None
     pointers = read(REPO / "src/data/object_events/object_event_graphics_info_pointers.h")
-    m = re.search(r"\[%s\]\s*=\s*&(\w+)" % gfx, table(pointers, "sHoennVariantGraphicsInfoPointers"))
-    if not m and gfx.startswith("OBJ_EVENT_GFX_HOENN_"):
-        m = re.search(r"\[%s\]\s*=\s*&(\w+)" % gfx, table(pointers, "gObjectEventGraphicsInfoPointers"))
+    m = re.search(r"\[%s\]\s*=\s*&(\w+)" % gfx, table(pointers, "gObjectEventGraphicsInfoPointers"))
     return m.group(1) if m else None
 
 
+def npc_gfx(em_gfx):
+    """This repo's id of Emerald's OBJ_EVENT_GFX_X: OBJ_EVENT_GFX_HOENN_X once tools/hoenn_import/hoenn_sprites.py
+    imported it (it skips the player avatar states, link avatars, berry trees, secret base decorations), else None."""
+    gfx = em_gfx.replace("OBJ_EVENT_GFX_", "OBJ_EVENT_GFX_HOENN_", 1)
+    return gfx if hoenn_info(gfx) else None
+
+
+def hoenn_map_gfx(map_name, gfx):
+    """The Hoenn id an object of the Hoenn map `map_name` shows: its own, or for a VAR id the one VAR_GFX gives (the
+    map's script sets the var). None: a Kanto sprite, drawn with the wrong (Emerald) NPC palettes there."""
+    em_gfx = VAR_GFX.get((map_name, gfx))
+    return npc_gfx(em_gfx) if em_gfx else gfx if hoenn_info(gfx) else None
+
+
+def hoenn_gfx_problem(map_name, gfx):
+    """Why an object showing `gfx` on the Hoenn map `map_name` is wrong, None if it is fine."""
+    shown = hoenn_map_gfx(map_name, gfx)
+    if not shown:
+        return "not a pokeemerald sprite (Hoenn maps use Emerald's NPC palettes): use an OBJ_EVENT_GFX_HOENN_ id"
+    path = REPO / "src/data/object_events"
+    inanimate, anims = re.search(r"%s = \{.*?\.inanimate = (\w+),.*?\.anims = (\w+)," % hoenn_info(shown),
+                                 read(path / "object_event_graphics_info.h"), re.S).groups()
+    entries = re.findall(r"\bsAnim_\w+", table(read(path / "object_event_anims.h"), anims + "[]").split("{", 1)[1])
+    if inanimate != "TRUE" and len(entries) < 4:
+        return "%s lacks the 4 facing anims the engine starts (pokeemerald never places it on a map)" % anims
+    return None
+
+
 def check_gfx():
-    """Objects of every map.json (Porymap edits too) drawn with the wrong NPC palettes: a sprite without a Hoenn version
-    on a Hoenn layout, an OBJ_EVENT_GFX_HOENN_ id elsewhere. Porymap previews both with the right colors."""
+    """Objects of every map.json (Porymap edits too) drawn with the wrong NPC palettes: anything but an
+    OBJ_EVENT_GFX_HOENN_ id (or a VAR id VAR_GFX resolves to one) on a Hoenn layout, an OBJ_EVENT_GFX_HOENN_ id
+    elsewhere. Porymap previews both with the right colors. Also a Hoenn sprite that cannot face every way."""
     hoenn_primaries = {"gTileset_HoennGeneral", "gTileset_HoennInsideBuilding"}  # = IsHoennMapLayout(), src/fieldmap.c
     layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
     bad = []
@@ -436,10 +423,10 @@ def check_gfx():
         hoenn = layouts[mj["layout"]]["primary_tileset"] in hoenn_primaries
         for o in mj["object_events"]:
             gfx = o.get("graphics_id", "")
-            ok = hoenn_info(gfx) if hoenn else not gfx.startswith("OBJ_EVENT_GFX_HOENN_")
-            if not ok:
-                bad.append("%s (%d,%d): %s on a %s layout" % (path.parent.name, o["x"], o["y"], gfx,
-                                                              "Hoenn" if hoenn else "non-Hoenn"))
+            problem = hoenn_gfx_problem(path.parent.name, gfx) if hoenn else \
+                gfx.startswith("OBJ_EVENT_GFX_HOENN_") and "a pokeemerald sprite on a non-Hoenn layout"
+            if problem:
+                bad.append("%s (%d,%d): %s: %s" % (path.parent.name, o["x"], o["y"], gfx, problem))
     return bad
 
 
@@ -447,7 +434,8 @@ def sprite_frames(info):
     """Frames of this repo's graphics info `info` (walking needs 9)."""
     path = REPO / "src/data/object_events"
     images = re.search(r"%s = \{.*?\.images = (\w+)" % info, read(path / "object_event_graphics_info.h"), re.S).group(1)
-    return table(read(path / "object_event_pic_tables.h"), images + "[]").count("overworld_frame(")
+    return len(re.findall(r"\b(?:overworld_frame|obj_frame_tiles)\(", table(read(path / "object_event_pic_tables.h"),
+                                                                       images + "[]")))
 
 
 def walkable_from(blocks, width, start, blocked):
@@ -490,6 +478,8 @@ def convert_objects(m, new_game, labels):
         where = "%s (%d,%d)" % (o["graphics_id"], o["x"], o["y"])
         flag = o["flag"]
         reason = ("item ball" if o["graphics_id"] == "OBJ_EVENT_GFX_ITEM_BALL"
+                  else "sprite not imported (berry tree, decoration: hoenn_sprites.skipped)"
+                  if skipped(o["graphics_id"].replace("OBJ_EVENT_GFX_", "", 1))
                   else "%s set at new game" % flag if flag in new_game
                   else "%s: %s" % (flag, HIDDEN_BY_MAP_SCRIPT[flag]) if flag in HIDDEN_BY_MAP_SCRIPT
                   else "stands on a warp" if (o["x"], o["y"]) in warps else None)
@@ -497,26 +487,29 @@ def convert_objects(m, new_game, labels):
             dropped.append("%s: %s" % (where, reason))
             continue
         em_gfx = VAR_GFX.get((m.name, o["graphics_id"]), o["graphics_id"])
-        assert em_gfx in NPC_GFX, "%s on %s: add it to NPC_GFX (or VAR_GFX)" % (o["graphics_id"], m.name)
+        gfx = npc_gfx(em_gfx)
+        assert gfx, "%s on %s: %s not imported (tools/hoenn_import/hoenn_sprites.py skipped() it); a VAR id needs a " \
+            "VAR_GFX entry" % (o["graphics_id"], m.name, em_gfx)
         assert "#define %s " % o["movement_type"] in movement_types, o["movement_type"]
         moving = "WANDER" in o["movement_type"] or "WALK" in o["movement_type"]
-        info = hoenn_info(NPC_GFX[em_gfx])  # None: convert_map_json refuses the object, with the fix to make
-        assert not (moving and info) or sprite_frames(info) >= 9, \
-            "%s walks: %s has no walking frames" % (where, NPC_GFX[em_gfx])
-        kept.append((o, em_gfx, moving))
-    # a still object must not cut the way to a warp (moving ones step aside)
+        assert not moving or sprite_frames(hoenn_info(gfx)) >= 9, "%s walks: %s has no walking frames" % (where, gfx)
+        field_move = o["script"] in FIELD_MOVE_SCRIPTS
+        assert not field_move or defined(o["flag"]), "%s on %s: %s does not exist here; define it (removeobject sets " \
+            "it, as in Emerald) before importing this map" % (where, m.name, o["flag"])
+        kept.append((o, em_gfx, gfx, moving or field_move))
+    # a still object must not cut the way to a warp (moving ones step aside, a field move clears an obstacle)
     base, obstacles, objects = reached_warps(m, set()), set(), []
-    for o, em_gfx, moving in kept:
+    for o, em_gfx, gfx, passable in kept:
         pos = (o["x"], o["y"])
-        lost = sorted(base - reached_warps(m, obstacles | {pos})) if not moving else []
+        lost = sorted(base - reached_warps(m, obstacles | {pos})) if not passable else []
         if lost:
             dropped.append("%s (%d,%d): blocks the way to warp %s" % (o["graphics_id"], o["x"], o["y"], lost))
             continue
-        if not moving:
+        if not passable:
             obstacles.add(pos)
         objects.append({
             "type": "object",
-            "graphics_id": NPC_GFX[em_gfx],
+            "graphics_id": gfx,
             "x": o["x"],
             "y": o["y"],
             "elevation": o["elevation"],
@@ -525,11 +518,11 @@ def convert_objects(m, new_game, labels):
             "movement_range_y": o["movement_range_y"],
             "trainer_type": "TRAINER_TYPE_NONE",
             "trainer_sight_or_berry_tree_id": "0",
-            "script": o["script"] if o["script"] in labels else "0x0",
-            "flag": "0",
+            "script": o["script"] if o["script"] in labels | FIELD_MOVE_SCRIPTS else "0x0",
+            "flag": o["flag"] if o["script"] in FIELD_MOVE_SCRIPTS else "0",
             "in_connection": False,
         })
-        m.gfx_used[o["graphics_id"], em_gfx, NPC_GFX[em_gfx]] += 1
+        m.gfx_used[o["graphics_id"], em_gfx, gfx] += 1
     return objects, dropped
 
 
@@ -543,9 +536,8 @@ def convert_map_json(m, layout_id, warp_counts, new_game, existing):
     else:
         objects, dropped = convert_objects(m, new_game, labels)
     for o in objects:
-        assert hoenn_info(o["graphics_id"]), "%s (%d,%d): %s has no Hoenn sprite (Hoenn maps use Emerald's NPC " \
-            "palettes): map the Emerald gfx in NPC_GFX to a Hoenn variant or an OBJ_EVENT_GFX_HOENN_ id" % (
-                m.name, o["x"], o["y"], o["graphics_id"])
+        problem = hoenn_gfx_problem(m.name, o["graphics_id"])
+        assert not problem, "%s (%d,%d): %s: %s" % (m.name, o["x"], o["y"], o["graphics_id"], problem)
     warps = []
     for i, w in enumerate(m.em_map["warp_events"]):
         dest, dest_id = w["dest_map"], w["dest_warp_id"]

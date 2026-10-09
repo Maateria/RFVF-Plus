@@ -1,6 +1,8 @@
 #ifndef GUARD_EVENT_OBJECT_MOVEMENT_H
 #define GUARD_EVENT_OBJECT_MOVEMENT_H
 
+#include "constants/event_objects.h"
+
 // Palette slots for overworld NPCs.
 // The same standard set of palettes for overworld objects are normally always loaded at the same
 // time while walking around the overworld. The only exceptions are the palettes for the player and
@@ -237,5 +239,22 @@ u8 GetJumpSpecialWithEffectMovementAction(u32 direction);
 u8 GetFishingBiteDirectionAnimNum(u8 direction);
 void TrySpawnObjectEvents(s16 cameraX, s16 cameraY);
 void ResetObjectEvents(void);
+
+// Field-move obstacles: the Kanto sprite or its pokeemerald counterpart (Hoenn maps). Field code identifies them only
+// through these, so both behave the same (Cut, Rock Smash, Strength, map connections, quest log).
+static inline bool8 IsCutTreeGfxId(u16 graphicsId)
+{
+    return graphicsId == OBJ_EVENT_GFX_CUT_TREE || graphicsId == OBJ_EVENT_GFX_HOENN_CUTTABLE_TREE;
+}
+
+static inline bool8 IsRockSmashRockGfxId(u16 graphicsId)
+{
+    return graphicsId == OBJ_EVENT_GFX_ROCK_SMASH_ROCK || graphicsId == OBJ_EVENT_GFX_HOENN_BREAKABLE_ROCK;
+}
+
+static inline bool8 IsPushableBoulderGfxId(u16 graphicsId)
+{
+    return graphicsId == OBJ_EVENT_GFX_PUSHABLE_BOULDER || graphicsId == OBJ_EVENT_GFX_HOENN_PUSHABLE_BOULDER;
+}
 
 #endif // GUARD_EVENT_OBJECT_MOVEMENT_H

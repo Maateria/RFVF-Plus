@@ -17,7 +17,7 @@
   "object_events": [
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_NURSE",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_NURSE",
       "x": 7,
       "y": 2,
       "elevation": 3,
@@ -47,7 +47,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_MANIAC",
       "x": 11,
       "y": 8,
       "elevation": 3,

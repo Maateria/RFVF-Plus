@@ -241,7 +241,7 @@ bool8 SetUpFieldMove_Cut(void)
         return TRUE;
     }
 
-    if (CheckObjectGraphicsInFrontOfPlayer(OBJ_EVENT_GFX_CUT_TREE) == TRUE)
+    if (CheckObjectGraphicsInFrontOfPlayer(IsCutTreeGfxId) == TRUE)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_CutTree;

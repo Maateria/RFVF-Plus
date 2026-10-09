@@ -62,7 +62,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_3",
       "x": 12,
       "y": 22,
       "elevation": 3,
@@ -92,7 +92,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_BLACKBELT",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_BLACK_BELT",
       "x": 10,
       "y": 25,
       "elevation": 3,
@@ -122,7 +122,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_POKE_MANIAC",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_MANIAC",
       "x": 14,
       "y": 25,
       "elevation": 3,
@@ -137,7 +137,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_UNION_ROOM_RECEPTIONIST",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_LINK_RECEPTIONIST",
       "x": 16,
       "y": 25,
       "elevation": 3,
@@ -197,7 +197,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_3",
       "x": 24,
       "y": 10,
       "elevation": 3,
@@ -242,7 +242,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_TWIN",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_TWIN",
       "x": 24,
       "y": 13,
       "elevation": 3,
@@ -257,7 +257,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_PSYCHIC_M",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_PSYCHIC_M",
       "x": 26,
       "y": 13,
       "elevation": 3,
@@ -287,7 +287,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_2",
       "x": 20,
       "y": 10,
       "elevation": 3,
@@ -302,7 +302,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_1",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_1",
       "x": 30,
       "y": 11,
       "elevation": 3,
@@ -332,7 +332,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_CAMPER",
       "x": 13,
       "y": 20,
       "elevation": 3,
@@ -347,7 +347,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_3",
       "x": 36,
       "y": 22,
       "elevation": 3,
@@ -437,7 +437,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_2",
       "x": 32,
       "y": 23,
       "elevation": 3,
@@ -467,7 +467,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_LITTLE_GIRL",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_LITTLE_GIRL",
       "x": 42,
       "y": 24,
       "elevation": 3,
@@ -482,7 +482,7 @@
     },
     {
       "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_SAILOR",
       "x": 23,
       "y": 26,
       "elevation": 3,
