@@ -129,12 +129,15 @@ PERL := perl
 
 $(shell mkdir -p $(C_BUILDDIR) $(ASM_BUILDDIR) $(DATA_ASM_BUILDDIR) $(SONG_BUILDDIR) $(MID_BUILDDIR))
 
-infoshell = $(foreach line, $(shell $1 | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
-
-# Build tools when building the rom
+# Build tools when building the rom (make_tools.mk alone, so this does not re-read all the rules below)
 # Disable dependency scanning for clean/tidy/tools
+# The $(shell) must not sit inside a $(call): .SHELLSTATUS would be set in the call's scope and lost.
+.SHELLSTATUS ?= 0
 ifeq (,$(filter-out all compare syms modern,$(MAKECMDGOALS)))
-$(call infoshell, $(MAKE) tools)
+$(foreach line, $(shell $(MAKE) -f make_tools.mk | sed "s/ /__SPACE__/g"), $(info $(subst __SPACE__, ,$(line))))
+ifneq ($(.SHELLSTATUS),0)
+$(error Errors occurred while building tools. See error messages above for more details)
+endif
 else
 NODEP := 1
 endif
@@ -163,20 +166,17 @@ MID_OBJS := $(patsubst $(MID_SUBDIR)/%.mid,$(MID_BUILDDIR)/%.o,$(MID_SRCS))
 OBJS := $(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS) $(DATA_ASM_OBJS) $(SONG_OBJS) $(MID_OBJS)
 OBJS_REL := $(patsubst $(OBJ_DIR)/%,%,$(OBJS))
 
-TOOLDIRS := $(filter-out tools/agbcc tools/binutils tools/analyze_source tools/poryscript tools/wav2agb tools/hoenn_import,$(wildcard tools/*))
-TOOLBASE = $(TOOLDIRS:tools/%=%)
-TOOLS = $(foreach tool,$(TOOLBASE),tools/$(tool)/$(tool)$(EXE))
-
 ALL_BUILDS := firered firered_rev1 leafgreen leafgreen_rev1
 ALL_BUILDS += $(ALL_BUILDS:%=%_modern)
 
-.PHONY: all rom tools clean-tools mostlyclean clean compare tidy syms $(TOOLDIRS) $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) modern
+.PHONY: all rom tools clean-tools mostlyclean clean compare tidy syms $(ALL_BUILDS) $(ALL_BUILDS:%=compare_%) modern
 
 MAKEFLAGS += --no-print-directory
 
 AUTO_GEN_TARGETS :=
 
-all: tools rom
+# The tools are already built while this file is read (see above)
+all: rom
 
 syms: $(SYM)
 
@@ -185,10 +185,7 @@ ifeq ($(COMPARE),1)
 	@$(SHA1) $(BUILD_NAME).sha1
 endif
 
-tools: $(TOOLDIRS)
-
-$(TOOLDIRS):
-	@$(MAKE) -C $@
+include make_tools.mk
 
 # For contributors to make sure a change didn't affect the contents of the ROM.
 compare:
@@ -203,9 +200,6 @@ mostlyclean: tidy
 	$(RM) $(DATA_ASM_SUBDIR)/maps/connections.inc $(DATA_ASM_SUBDIR)/maps/events.inc $(DATA_ASM_SUBDIR)/maps/groups.inc $(DATA_ASM_SUBDIR)/maps/headers.inc
 	find $(DATA_ASM_SUBDIR)/maps \( -iname 'connections.inc' -o -iname 'events.inc' -o -iname 'header.inc' \) -exec rm {} +
 	$(RM) $(AUTO_GEN_TARGETS)
-
-clean-tools:
-	@$(foreach tooldir,$(TOOLDIRS),$(MAKE) clean -C $(tooldir);)
 
 clean: mostlyclean clean-tools
 
@@ -261,12 +255,6 @@ $(C_BUILDDIR)/battle_tower.o: CFLAGS += -Wno-div-by-zero
 $(C_BUILDDIR)/librfu_intr.o: override CFLAGS += -marm -mthumb-interwork -O2 -mtune=arm7tdmi -march=armv4t -mabi=apcs-gnu -fno-toplevel-reorder -fno-aggressive-loop-optimizations -Wno-pointer-to-int-cast
 endif
 
-ifeq ($(NODEP),1)
-$(C_BUILDDIR)/%.o: c_dep :=
-else
-$(C_BUILDDIR)/%.o: c_dep = $(shell [[ -f $(C_SUBDIR)/$*.c ]] && $(SCANINC) -I include -I tools/agbcc/include $(C_SUBDIR)/$*.c)
-endif
-
 ifeq ($(DINFO),1)
 override CFLAGS += -g
 endif
@@ -277,41 +265,47 @@ $(C_BUILDDIR)/%.o : $(C_SUBDIR)/%.c $$(c_dep)
 	@echo -e ".text\n\t.align\t2, 0 @ Don't pad with nop\n" >> $(C_BUILDDIR)/$*.s
 	$(AS) $(ASFLAGS) -o $@ $(C_BUILDDIR)/$*.s
 
-ifeq ($(NODEP),1)
-$(C_BUILDDIR)/%.o: c_asm_dep :=
-else
-$(C_BUILDDIR)/%.o: c_asm_dep = $(shell [[ -f $(C_SUBDIR)/$*.s ]] && $(SCANINC) -I "" $(C_SUBDIR)/$*.s)
-endif
-
-$(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.s $$(c_asm_dep)
+$(C_BUILDDIR)/%.o: $(C_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) -o $@ $<
 
-ifeq ($(NODEP),1)
-$(DATA_ASM_BUILDDIR)/%.o: data_dep :=
-else
-$(DATA_ASM_BUILDDIR)/%.o: data_dep = $(shell $(SCANINC) -I . $(DATA_ASM_SUBDIR)/$*.s)
-endif
-
-ifeq ($(NODEP),1)
 $(ASM_BUILDDIR)/%.o: $(ASM_SUBDIR)/%.s
 	$(AS) $(ASFLAGS) -o $@ $<
-else
-define ASM_DEP
-$1: $2 $$(shell $(SCANINC) -I include -I "" $2)
-	$$(AS) $$(ASFLAGS) -o $$@ $$<
-endef
-$(foreach src, $(ASM_SRCS), $(eval $(call ASM_DEP,$(patsubst $(ASM_SUBDIR)/%.s,$(ASM_BUILDDIR)/%.o, $(src)),$(src))))
-endif
 
-ifeq ($(NODEP),1)
+# maps.o and map_events.o keep their own rules (map_data_rules.mk)
 $(DATA_ASM_BUILDDIR)/%.o: $(DATA_ASM_SUBDIR)/%.s
 	$(PREPROC) $< charmap.txt | $(CPP) -I include - | $(AS) $(ASFLAGS) -o $@
+
+# Each object's scanned dependencies are cached in a .d file next to it (scaninc -M, as in upstream pret).
+# A .d is rescanned only when its source, a file it includes or scaninc changes; make then restarts to read it.
+# The generated headers must exist before any scan, as scaninc skips includes it cannot find.
+# Under .SECONDARY:, make ignores a missing prerequisite: a .d that lists an include which is gone (moved to
+# another include folder, deleted) is rescanned through FORCE, else its object would keep stale dependencies.
+# A file dated in the future would keep its .d out of date and make would restart forever: from the 4th pass
+# on, the .d files are used as they are.
+SCANINC_RESCAN = $$(if $$(filter $$(SCANINC_GONE),$$^),FORCE)
+ifeq ($(filter-out 1 2,$(MAKE_RESTARTS)),)
+$(C_BUILDDIR)/%.d: $(C_SUBDIR)/%.c $(SCANINC) $(SCANINC_RESCAN) | $(AUTO_GEN_TARGETS)
+	$(SCANINC) -M $@ -I include -I tools/agbcc/include $<
+$(C_BUILDDIR)/%.d: $(C_SUBDIR)/%.s $(SCANINC) $(SCANINC_RESCAN) | $(AUTO_GEN_TARGETS)
+	$(SCANINC) -M $@ -I "" $<
+$(ASM_BUILDDIR)/%.d: $(ASM_SUBDIR)/%.s $(SCANINC) $(SCANINC_RESCAN) | $(AUTO_GEN_TARGETS)
+	$(SCANINC) -M $@ -I include -I "" $<
+$(DATA_ASM_BUILDDIR)/%.d: $(DATA_ASM_SUBDIR)/%.s $(SCANINC) $(SCANINC_RESCAN) | $(AUTO_GEN_TARGETS)
+	$(SCANINC) -M $@ -I include -I "" $<
 else
-define DATA_ASM_DEP
-$1: $2 $$(shell $(SCANINC) -I include -I "" $2)
-	$$(PREPROC) $$< charmap.txt | $$(CPP) -I include - | $$(AS) $$(ASFLAGS) -o $$@
-endef
-$(foreach src, $(REGULAR_DATA_ASM_SRCS), $(eval $(call DATA_ASM_DEP,$(patsubst $(DATA_ASM_SUBDIR)/%.s,$(DATA_ASM_BUILDDIR)/%.o, $(src)),$(src))))
+$(warning Dependency files remade on 3 passes in a row (a file dated in the future?): using them as they are)
+endif
+
+.PHONY: FORCE
+FORCE:
+
+ifneq ($(NODEP),1)
+# include, not -include: a generator that fails while the .d files are remade (mapjson, jsonproc) shows its error.
+# Each .d adds its includes to SCANINC_LISTED, so that one $(wildcard) finds those that are gone.
+SCANINC_LISTED :=
+include $(patsubst %.o,%.d,$(C_OBJS) $(C_ASM_OBJS) $(ASM_OBJS)) $(patsubst $(DATA_ASM_SUBDIR)/%.s,$(DATA_ASM_BUILDDIR)/%.d,$(REGULAR_DATA_ASM_SRCS))
+SCANINC_LISTED := $(sort $(SCANINC_LISTED))
+SCANINC_GONE := $(filter-out $(wildcard $(SCANINC_LISTED)),$(SCANINC_LISTED))
 endif
 
 $(SONG_BUILDDIR)/%.o: $(SONG_SUBDIR)/%.s

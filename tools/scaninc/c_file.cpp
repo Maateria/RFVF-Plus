@@ -38,7 +38,7 @@ CFile::CFile(std::string path)
 
     std::rewind(fp);
 
-    if (std::fread(m_buffer, m_size, 1, fp) != 1)
+    if (m_size > 0 && std::fread(m_buffer, m_size, 1, fp) != 1) // an empty header has nothing to read
         FATAL_ERROR("Failed to read \"%s\".\n", path.c_str());
 
     std::fclose(fp);
