@@ -1562,3 +1562,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route104_MrBrineysHouse/scripts.inc"
 
 	.include "data/maps/Route104_PrettyPetalFlowerShop/scripts.inc"
+
+	.include "data/maps/Route105/scripts.inc"

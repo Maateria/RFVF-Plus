@@ -334,9 +334,9 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_104_POTION        0x13A
 #define FLAG_HIDDEN_ITEM_ROUTE_104_ANTIDOTE      0x13B
 #define FLAG_HIDDEN_ITEM_ROUTE_104_HEART_SCALE   0x13C
-#define FLAG_0x13D               0x13D
-#define FLAG_0x13E               0x13E
-#define FLAG_0x13F               0x13F
+#define FLAG_ITEM_ROUTE_105_IRON                 0x13D
+#define FLAG_HIDDEN_ITEM_ROUTE_105_HEART_SCALE   0x13E
+#define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL     0x13F
 #define FLAG_0x140               0x140
 #define FLAG_0x141               0x141
 #define FLAG_0x142               0x142

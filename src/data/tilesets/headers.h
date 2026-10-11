@@ -1077,3 +1077,14 @@ const struct Tileset gTileset_HoennPrettyPetalFlowerShop =
 	.metatileAttributes = gMetatileAttributes_HoennPrettyPetalFlowerShop,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennDewford = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennDewford,
+	.palettes = gTilesetPalettes_HoennDewford,
+	.metatiles = gMetatiles_HoennDewford,
+	.metatileAttributes = gMetatileAttributes_HoennDewford,
+	.callback = NULL
+};

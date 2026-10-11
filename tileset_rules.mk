@@ -266,3 +266,6 @@ $(TILESETGFXDIR)/secondary/hoenn_pokemon_school/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_pretty_petal_flower_shop/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 103 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_dewford/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 174 -Wnum_tiles

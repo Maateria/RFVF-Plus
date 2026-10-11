@@ -123,6 +123,10 @@
 #define METATILE_HoennContest_FloorShadow         0x2E1
 #define METATILE_HoennContest_WallShadow          0x2A1
 
+// gTileset_HoennDewford
+#define METATILE_HoennDewford_Door              0x2A5
+#define METATILE_HoennDewford_Door_BattleTower  0x2DD
+
 // gTileset_HoennEliteFour
 #define METATILE_HoennEliteFour_EntryDoor_ClosedBottom    0x28E
 #define METATILE_HoennEliteFour_EntryDoor_ClosedTop       0x286

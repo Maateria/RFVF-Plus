@@ -5796,6 +5796,18 @@
       "secondary_tileset": "gTileset_HoennPrettyPetalFlowerShop",
       "border_filepath": "data/layouts/Route104_PrettyPetalFlowerShop/border.bin",
       "blockdata_filepath": "data/layouts/Route104_PrettyPetalFlowerShop/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE105",
+      "name": "Route105_Layout",
+      "width": 40,
+      "height": 80,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennDewford",
+      "border_filepath": "data/layouts/Route105/border.bin",
+      "blockdata_filepath": "data/layouts/Route105/map.bin"
     }
   ]
 }

@@ -291,3 +291,6 @@ const u32 gMetatileAttributes_HoennPokemonSchool[] = INCBIN_U32("data/tilesets/s
 
 const u16 gMetatiles_HoennPrettyPetalFlowerShop[] = INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/metatiles.bin");
 const u32 gMetatileAttributes_HoennPrettyPetalFlowerShop[] = INCBIN_U32("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennDewford[] = INCBIN_U16("data/tilesets/secondary/hoenn_dewford/metatiles.bin");
+const u32 gMetatileAttributes_HoennDewford[] = INCBIN_U32("data/tilesets/secondary/hoenn_dewford/metatile_attributes.bin");
