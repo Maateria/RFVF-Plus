@@ -315,6 +315,7 @@
 #define MAP_PETALBURG_CITY                       (93 | (3 << 8))
 #define MAP_ROUTE102                             (94 | (3 << 8))
 #define MAP_OLDALE_TOWN                          (95 | (3 << 8))
+#define MAP_ROUTE101                             (96 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

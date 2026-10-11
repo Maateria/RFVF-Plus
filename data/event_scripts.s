@@ -1614,3 +1614,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/OldaleTown_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/OldaleTown_Mart/scripts.inc"
+
+	.include "data/maps/Route101/scripts.inc"
