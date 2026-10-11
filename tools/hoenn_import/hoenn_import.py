@@ -1,39 +1,53 @@
 #!/usr/bin/env python3
 """Import Hoenn maps from a local pret/pokeemerald clone into RFVF+ (pokefirered engine).
 
-Usage (Git Bash, from the repo root; several maps = one batch sharing their tilesets):
-    uv run --no-project --with pillow python tools/hoenn_import/hoenn_import.py LilycoveCity
-    uv run --no-project --with pillow python tools/hoenn_import/hoenn_import.py --group gMapGroup_IndoorLilycove \
-        LilycoveCity_CoveLilyMotel_1F LilycoveCity_CoveLilyMotel_2F ... [--emerald ../pokeemerald] [--render /tmp/png]
+The library of tools/hoenn_import/import_map.py, which imports one Emerald town or route with all its interiors (the
+usual way). Its own command line imports the maps it is given, all in one map group, and checks sprites:
+    uv run --no-project --with pillow python tools/hoenn_import/hoenn_import.py [--group G] [--dry-run] Map1 Map2...
+        [--emerald ../pokeemerald] [--render DIR]
     uv run --no-project --with pillow python tools/hoenn_import/hoenn_import.py --check-gfx
         (after placing objects in Porymap: Hoenn layouts draw NPCs with Emerald's palettes, see check_gfx)
 
-What it writes (re-running is safe: entries are replaced, never duplicated):
+A run first writes every file in memory (PENDING), then checks that plan: every new map and every connection strip must
+render like Emerald's pixel for pixel (blocks painted here, e.g. in Porymap, excepted), every older map whose tileset
+grows must render as it does now; files that already exist may only gain lines (a few generated parts excepted); the
+files to write must be clean in git. Every reason to refuse is collected (REFUSALS): one of them and nothing is written
+(exit 1). Then the files are written and read back; an error restores every one of them (exit 3). Re-running gives the
+same files: "nothing to do". What is already here (maps, connections, encounters, labels, tilesets that need nothing
+new) is never rewritten, so hand edits stay.
+
+What a run writes:
   - the tilesets of the maps, each converted once per run: Emerald gTileset_X -> gTileset_HoennY in
     data/tilesets/<kind>/hoenn_y/, Y = the suffix of Emerald's gMetatiles_Y (gTileset_Building -> HoennInsideBuilding)
     (tiles.png, palettes/*.pal, metatiles.bin, metatile_attributes.bin; anim/ is left alone)
-  - data/layouts/<Layout>/{map.bin,border.bin} + layouts.json (a layout shared by several maps is written once; an
-    Emerald LAYOUT_X that this repo already uses for a non-Hoenn layout becomes LAYOUT_HOENN_X / Hoenn_<Name>)
-  - data/maps/<Map>/map.json, Emerald's map name and MAP_ id. Objects: those a NEW Emerald game shows (flag not set
-    by EventScript_ResetAllMapFlags nor hidden by the map's own script, see HIDDEN_BY_MAP_SCRIPT), adjusted to what
-    a League Champion finds (POST_LEAGUE), minus berry trees and decorations (sprites hoenn_sprites.py does not
-    import), objects on a warp and still objects that cut the way to a warp; Emerald's OBJ_EVENT_GFX_X becomes
-    OBJ_EVENT_GFX_HOENN_X (npc_gfx: the sprites tools/hoenn_import/hoenn_sprites.py imported; a VAR id goes through
-    VAR_GFX first, so every object of a written map shows its pokeemerald sprite); script = map_script() (Emerald's
-    label once a data/maps/*/scripts.inc defines it), else 0x0; flag = 0. Cut trees, breakable rocks and boulders
-    (FIELD_MOVE_SCRIPTS) and item balls keep their script and Emerald's flag (an item ball whose flag or script does
-    not exist here is left out), and may cut the way to a warp (the field move / picking the item clears it).
-    Signs and triggers come only once their script exists here (map_script), hidden items once their flag is a
-    hidden item flag here (FLAG_HIDDEN_ITEMS_START + 0..255; quantity 1). Warps keep Emerald's destination when it
-    is a map of this batch or one this tool already imported (or MAP_DYNAMIC), else they warp onto themselves.
-    No connections. A map that already exists keeps its objects, signs and triggers (hand edits
-    survive): only its header, layout and warps are regenerated, unless --reset-events.
-  - data/maps/<Map>/scripts.inc (only if missing), data/event_scripts.s, data/maps/map_groups.json (--group is
-    created at the end of group_order if missing), src/data/tilesets/{headers,graphics,metatiles}.h,
-    tileset_rules.mk, include/constants/metatile_labels.h
-Nothing is written before the whole batch is validated, a map / layout of this repo that this tool did not
-make is never replaced (Emerald and Kanto share names: SafariZone_North, LAYOUT_POKEMON_CENTER_1F...), and a tileset
-whose metatile count changed since this tool wrote it (metatiles added in Porymap) is not overwritten.
+  - data/layouts/<Layout>/{map.bin,border.bin} + layouts.json for a new layout (a layout shared by several maps is
+    written once; an Emerald LAYOUT_X that this repo already uses for a non-Hoenn layout becomes LAYOUT_HOENN_X /
+    Hoenn_<Name>). hoenn_decisions.START_LAYOUT can give a map another Emerald layout than its map.json names.
+  - data/maps/<Map>/map.json for a NEW map (a map already here is never regenerated: only its placeholder warps and
+    missing connections are filled in, see relink()). Emerald's name, MAP_ id, header (music by value, E4 battle scenes
+    as Kanto's), connections to the maps that exist here. Objects: those the decided post-League state shows
+    (hoenn_decisions: POST_LEAGUE, HIDDEN_BY_MAP_SCRIPT; a flag Emerald's story toggles needs a decision), minus berry
+    trees and decorations (sprites hoenn_sprites.py does not import), buried trainers, objects on a warp and still
+    objects that cut the way to a warp. Emerald's OBJ_EVENT_GFX_X becomes OBJ_EVENT_GFX_HOENN_X (a VAR id goes through
+    VAR_GFX first; MOVED_BY_MAP_SCRIPT gives some their post-League place). Trainers become silent NPCs
+    (TRAINER_TYPE_NONE: a stub script would crash CheckTrainer). Cut trees, breakable rocks and boulders
+    (FIELD_MOVE_SCRIPTS) keep their script and Emerald's flag. Item balls and hidden items work as in Emerald: Emerald's
+    flag, item (a TM / HM by its move) and label, the ball's `finditem` script generated. Signs are placed (SIGN_MOVES
+    for the ones outside the map); weather coord events are placed; a trigger only once its script exists here. Every
+    NPC and sign runs Emerald's label: the script that exists here, else a stub.
+  - include/constants/flags.h: an Emerald flag (item ball, hidden item, obstacle) not defined here takes the first free
+    FLAG_0x line of FLAG_RANGES (design 1.4a, append-only).
+  - data/maps/<Map>/scripts.inc when missing: the LOCALID_ .equ of the map's objects, the item ball scripts, the stubs
+    of its labels, and what is left to script; Emerald labels of other maps are stubbed in data/scripts/hoenn_stubs.inc.
+  - src/data/wild_encounters.h: Emerald's encounters of the new maps (tables above gWildMonHeaders, headers above
+    its terminator).
+  - a town's heal location: SPAWN_<TOWN> (include/constants/heal_locations.h, src/data/heal_locations.h).
+  - data/event_scripts.s, data/maps/map_groups.json (a group is created at the end of group_order if missing),
+    src/data/tilesets/{headers,graphics,metatiles}.h, tileset_rules.mk, include/constants/metatile_labels.h (the
+    missing labels), include/constants/{map_groups,layouts}.h (as tools/mapjson makes them: tracked in git)
+A map / layout of this repo that this tool did not make is never replaced (Emerald and Kanto share names:
+SafariZone_North, LAYOUT_POKEMON_CENTER_1F...). A tileset this run adds nothing to is left as it is (Porymap edits
+included); one that must grow is refused if its files are no longer what this tool wrote.
 Not handled here: tileset animations (src/tileset_anims.c: a primary gets .callback = InitTilesetAnim_HoennY, to
 write by hand; a secondary gets NULL) and door graphics (src/field_door.c sDoorGraphics_Hoenn), see the report.
 
@@ -42,29 +56,34 @@ Engine differences handled:
     as is (ids unchanged). An Emerald secondary using palette slot 6 (a primary slot in FRLG) gets it moved to a
     free slot 10-12 (WARNING printed: door palettes naming slot 6 must follow); PALETTE_SWAPS moves others.
   - FRLG secondary = 384 metatiles / 376 tiles (VRAM tiles 1016-1023 are the door animation buffer). A secondary
-    that fits keeps every metatile (FRLG id = Emerald id + 128) and only the tiles they use, re-based at 640. One
-    that does not fit is PRUNED: it keeps only the metatiles used by the maps imported with it plus those Emerald
-    names in metatile_labels.h (scripts and C code set them at runtime; door labels excepted), numbered append-only in
-    <tileset dir>/emerald_ids.json (FRLG metatile 640 + i = Emerald metatiles[i], FRLG tile 640 + i = Emerald
-    tiles[i]); a later batch using the same tileset adds its metatiles at the end, so maps imported before stay valid.
-  - metatile_attributes u16 -> u32: behaviors are mapped by NAME (the values differ between the engines),
-    and FRLG's terrain (surf, Cut) and encounter type, which FRLG reads from the attributes, are filled in.
-At the end every map is rendered from the Emerald files (Emerald rules) and from the converted files
-(FRLG rules): both must match pixel for pixel. This self-test reads the written files, so it runs after writing:
-if it fails, revert the import with git.
+    that fits keeps every metatile (FRLG id = Emerald id + 128) and only the tiles they use, re-based at 640. The ones
+    this repo already holds PRUNED (GenericBuilding, Facility, BattleFrontier) keep only the metatiles used by the maps
+    imported with them plus those Emerald names in metatile_labels.h (scripts and C code set them at runtime; door
+    labels excepted), numbered append-only in <tileset dir>/emerald_ids.json (FRLG metatile 640 + i = Emerald
+    metatiles[i], FRLG tile 640 + i = Emerald tiles[i]). A NEW secondary that does not fit, or a pruned one that
+    overflows, is refused until the natural-id plan and siblings exist (design F11).
+  - metatile_attributes u16 -> u32: behaviors are mapped by NAME (the values differ between the engines), through
+    BEHAVIOR_OVERRIDES (same meaning), DEGRADED and NO_COUNTERPART (both listed in the report); any other Emerald
+    behavior is refused. FRLG's terrain (surf, Cut) and encounter type, which FRLG reads from the attributes, are
+    filled in. A tile that can start a warp in Emerald must be able to here (dead-warp check).
 """
 import argparse
+import io
 import json
 import math
 import re
-import shutil
 import struct
+import subprocess
+import sys
 from collections import Counter, defaultdict
-from pathlib import Path
+from functools import lru_cache
+from pathlib import Path, PurePosixPath
 from types import SimpleNamespace
 
 from PIL import Image
 
+from hoenn_decisions import (HIDDEN_BY_MAP_SCRIPT, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, SIGN_MOVES,
+                             START_LAYOUT, VAR_GFX)
 from hoenn_sprites import skipped
 
 REPO = Path(__file__).resolve().parents[2]
@@ -76,21 +95,31 @@ SEC_MAX_TILES = SEC_MAX - 8  # its tiles: the door animations overwrite the last
 TERRAIN_NORMAL, TERRAIN_GRASS, TERRAIN_WATER, TERRAIN_WATERFALL = 0, 1, 2, 3
 ENC_NONE, ENC_LAND, ENC_WATER = 0, 1, 2
 IDS_FILE = "emerald_ids.json"
-# Emerald secondary palette slot -> FRLG slot, on top of the slot 6 move. FRLG's buy menu loads its frame palette into
-# BG slot 11 (src/shop.c BuyMenuDecompressBgGraphics; Emerald's uses 12), so no palette a clerk's map view shows may
-# sit there. Shop: Emerald 11 shows from Lilycove 3F's right clerk, 8 from every Mart, 10 from no item seller.
-PALETTE_SWAPS = {"gTileset_Shop": {10: 11, 11: 10}}
+HOENN_PRIMARIES = {"gTileset_HoennGeneral", "gTileset_HoennInsideBuilding"}  # = IsHoennMapLayout(), src/fieldmap.c
+DIRECTIONS = ("up", "down", "left", "right")  # Emerald's dive / emerge connections wait for underwater support
+MAP_OFFSET = 7  # blocks of a neighbour map drawn around the current one (fieldmap.c, both engines)
+STUBS = REPO / "data/scripts/hoenn_stubs.inc"
+FLAGS_H = REPO / "include/constants/flags.h"
+# FLAG_0x placeholders an Emerald flag may take (design 1.4a): unused and never cleared. 0x4FF stays (it anchors
+# TRAINER_FLAGS_START). 319 flags: Hoenn's 279 item ball and hidden item flags fit.
+FLAG_RANGES = ((0x0EB, 0x153), (0x206, 0x229), (0x356, 0x359), (0x35C, 0x3CF), (0x4C1, 0x4E7), (0x4EC, 0x4FE))
+ENCOUNTERS = REPO / "src/data/wild_encounters.h"
+ENCOUNTER_TYPES = (("land_mons", "LandMons", "landMonsInfo"), ("water_mons", "WaterMons", "waterMonsInfo"),
+                   ("rock_smash_mons", "RockSmashMons", "rockSmashMonsInfo"),
+                   ("fishing_mons", "FishingMons", "fishingMonsInfo"))
+HEAL_CONSTANTS, HEAL_DATA = REPO / "include/constants/heal_locations.h", REPO / "src/data/heal_locations.h"
+HEAL_TABLES = ("sSpawnPoints", "sWhiteoutRespawnHealCenterMapIdxs", "sWhiteoutRespawnHealerNpcIds")
+# Emerald warp destinations that are Kanto maps here (same targets as ViridianCity_PokemonCenter_2F's warps)
+WARP_ALIASES = {"MAP_UNION_ROOM": "MAP_UNION_ROOM", "MAP_TRADE_CENTER": "MAP_TRADE_CENTER"}
+# Emerald's Elite Four battle backgrounds -> Kanto's (include/constants/map_types.h)
+BATTLE_SCENES = {"MAP_BATTLE_SCENE_SIDNEY": "MAP_BATTLE_SCENE_BRUNO", "MAP_BATTLE_SCENE_PHOEBE": "MAP_BATTLE_SCENE_AGATHA",
+                 "MAP_BATTLE_SCENE_GLACIA": "MAP_BATTLE_SCENE_LORELEI", "MAP_BATTLE_SCENE_DRAKE": "MAP_BATTLE_SCENE_LANCE"}
 
-# Emerald behavior name -> FRLG behavior name, where the name differs or the meaning has to change.
-# Any other behavior keeps its name, or becomes MB_NORMAL (printed in the report) when FRLG lacks it.
+# Emerald behavior name -> FRLG behavior name with the same meaning, where the name differs.
 BEHAVIOR_OVERRIDES = {
     "MB_ANIMATED_DOOR": "MB_WARP_DOOR",
     "MB_NON_ANIMATED_DOOR": "MB_CAVE_DOOR",
     "MB_INTERIOR_DEEP_WATER": "MB_DEEP_WATER",
-    # A surfing player does trigger a MB_CAVE_DOOR warp, but FRLG then lands him ON FOOT on elevation-1
-    # water (MB_CAVE_DOOR is not surfable: overworld.c GetAdjustedInitialTransitionFlags) = soft-lock.
-    # So the water door is plain sea until the engine gets a real water door.
-    "MB_WATER_DOOR": "MB_OCEAN_WATER",
     # Interactive furniture: same flavor text idea (FRLG data/scripts/flavor_text.inc)
     "MB_PICTURE_BOOK_SHELF": "MB_BOOKSHELF",
     "MB_POKEMON_CENTER_BOOKSHELF": "MB_BOOKSHELF",  # "Pokémon magazines" (RHH pairs it with MB_POKEMART_SHELF)
@@ -100,74 +129,298 @@ BEHAVIOR_OVERRIDES = {
     "MB_CABLE_BOX_RESULTS_1": "MB_BATTLE_RECORDS",
     "MB_CABLE_BOX_RESULTS_2": "MB_BATTLE_RECORDS",
     "MB_WIRELESS_BOX_RESULTS": "MB_CABLE_CLUB_WIRELESS_MONITOR",
+    "MB_NO_RUNNING": "MB_RUNNING_DISALLOWED",  # same value and meaning
 }
-
-# OBJ_EVENT_GFX_VAR_x: the Emerald gfx that map's script gives a new player.
-VAR_GFX = {
-    # SetLilycoveLadyGfx: Quiz (WOMAN_4) / Favor (WOMAN_2) / Contest (GIRL_2) lady, picked by trainer id: Quiz kept
-    ("LilycoveCity_PokemonCenter_1F", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_WOMAN_4",
+# Emerald behavior -> the nearest FRLG one: it loses part of its effect (listed in the report).
+DEGRADED = {
+    "MB_DEEP_SAND": "MB_SAND",  # no sinking
+    "MB_SOOTOPOLIS_DEEP_WATER": "MB_DEEP_WATER",
+    "MB_MOSSDEEP_GYM_WARP": "MB_REGULAR_WARP",  # warp pad (DoTeleportWarp)
+    "MB_AQUA_HIDEOUT_WARP": "MB_REGULAR_WARP",
+    "MB_LAVARIDGE_GYM_1F_WARP": "MB_LAVARIDGE_1F_WARP",
+    "MB_MT_PYRE_HOLE": "MB_FALL_WARP",
+    "MB_SHOAL_CAVE_ENTRANCE": "MB_SOUTH_ARROW_WARP",
+    "MB_DEEP_SOUTH_WARP": "MB_CAVE_DOOR",  # the player arrives facing north
+    "MB_STAIRS_OUTSIDE_ABANDONED_SHIP": "MB_NORTH_ARROW_WARP",
+    # A surfing player does trigger a MB_CAVE_DOOR warp, but FRLG then lands him ON FOOT on elevation-1
+    # water (MB_CAVE_DOOR is not surfable: overworld.c GetAdjustedInitialTransitionFlags) = soft-lock.
+    # So water doors (all lead to dungeons) are plain sea until the engine gets a real water door.
+    "MB_WATER_DOOR": "MB_OCEAN_WATER",
+    "MB_WATER_SOUTH_ARROW_WARP": "MB_OCEAN_WATER",
 }
-# Flags NOT set at new game whose object the map's own script still hides from a new player.
-HIDDEN_BY_MAP_SCRIPT = {
-    "FLAG_HIDE_POKEMON_CENTER_2F_MYSTERY_GIFT_MAN": "CableClub_OnTransition hides him (no Wonder Card / Eon Ticket)",
-    "FLAG_HIDE_LILYCOVE_DEPARTMENT_STORE_ROOFTOP_SALE_WOMAN": "OnTransition hides her (no POKENEWS_LILYCOVE)",
-    "FLAG_HIDE_LILYCOVE_POKEMON_CENTER_CONTEST_LADY_MON": "shown only with the Contest Lady (VAR_0 = Quiz Lady)",
-}
+WATER_DOORS = {"MB_WATER_DOOR", "MB_WATER_SOUTH_ARROW_WARP"}
+# Emerald behaviors with no counterpart here: MB_NORMAL (listed in the report, with this reason). MB_SECRET_BASE_*
+# too. A warp tile among them is refused by the dead-warp check.
+NO_COUNTERPART = dict(
+    {b: "Acro Bike rail" for b in ("MB_HORIZONTAL_RAIL", "MB_VERTICAL_RAIL", "MB_ISOLATED_HORIZONTAL_RAIL",
+                                   "MB_ISOLATED_VERTICAL_RAIL")},
+    **{b: "bridge" for b in ("MB_BRIDGE_OVER_OCEAN", "MB_BRIDGE_OVER_POND_LOW", "MB_BRIDGE_OVER_POND_MED",
+                             "MB_BRIDGE_OVER_POND_HIGH", "MB_BRIDGE_OVER_POND_MED_EDGE_1",
+                             "MB_BRIDGE_OVER_POND_MED_EDGE_2", "MB_BRIDGE_OVER_POND_HIGH_EDGE_1",
+                             "MB_BRIDGE_OVER_POND_HIGH_EDGE_2", "MB_FORTREE_BRIDGE", "MB_BIKE_BRIDGE_OVER_BARRIER",
+                             "MB_REFLECTION_UNDER_BRIDGE")},
+    **{b: "Pacifidlog log" for b in ("MB_PACIFIDLOG_HORIZONTAL_LOG_LEFT", "MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT",
+                                     "MB_PACIFIDLOG_VERTICAL_LOG_TOP", "MB_PACIFIDLOG_VERTICAL_LOG_BOTTOM")},
+    **{b: "diagonal jump, no effect in Emerald either" for b in ("MB_JUMP_NORTHEAST", "MB_JUMP_NORTHWEST",
+                                                                 "MB_JUMP_SOUTHEAST", "MB_JUMP_SOUTHWEST")},
+    MB_MUDDY_SLOPE="muddy slope", MB_BUMPY_SLOPE="bumpy slope", MB_VASE="vase", MB_BERRY_TREE_SOIL="berry soil",
+    MB_IMPASSABLE_SOUTH_AND_NORTH="one-way wall", MB_IMPASSABLE_WEST_AND_EAST="one-way wall",
+    MB_HOLDS_LARGE_DECORATION="secret base", MB_HOLDS_SMALL_DECORATION="secret base",
+    MB_TRICK_HOUSE_PUZZLE_DOOR="Trick House door, a script warps", MB_LONG_GRASS_SOUTH_EDGE="grass edge",
+    MB_CRACKED_FLOOR="cracked floor", MB_CRACKED_FLOOR_HOLE="cracked floor", MB_ROULETTE="game corner",
+    MB_SLOT_MACHINE="game corner", MB_CLOSED_SOOTOPOLIS_DOOR="closed door", MB_SKY_PILLAR_CLOSED_DOOR="closed door",
+    MB_PETALBURG_GYM_DOOR="gym door, a script opens it", MB_POKEBLOCK_FEEDER="Safari feeder",
+    MB_PLAYER_ROOM_PC_ON="bedroom PC", MB_RUNNING_SHOES_INSTRUCTION="tutorial sign", MB_TRAINER_HILL_TIMER="Trainer Hill",
+    MB_BATTLE_PYRAMID_WARP="Battle Pyramid", MB_UNUSED_SOOTOPOLIS_DEEP_WATER="unused water, not surfable in Emerald",
+    MB_UNUSED_SOOTOPOLIS_DEEP_WATER_2="unused water, not surfable in Emerald",
+    MB_LAVARIDGE_GYM_B1F_WARP="Lavaridge Gym B1F geyser (engine E3)",
+)
 # Scripts of the field-move obstacles (cut tree, breakable rock, boulder), shared and named as in pokeemerald
 # (data/scripts/field_moves.inc). Their objects keep Emerald's flag (FLAG_TEMP_11-1F): `removeobject VAR_LAST_TALKED`
 # sets it, else the obstacle comes back on the next step.
 FIELD_MOVE_SCRIPTS = {"EventScript_CutTree", "EventScript_RockSmash", "EventScript_StrengthBoulder"}
 # Emerald scripts shared by many maps -> this repo's script that does the same.
 COMMON_SCRIPTS = dict({s: s for s in FIELD_MOVE_SCRIPTS},
-                      Common_EventScript_ShowPokemonCenterSign="EventScript_PokecenterSign")
-# RFVF+ players reach Hoenn by ferry after the Hall of Fame: they find Emerald's post-League state (Team Aqua gone,
-# Game Freak team and the late Fan Club members there). Object flags whose state differs from a new Emerald game:
-# True = shown (flag dropped), False = left out; with the reason.
-POST_LEAGUE = {
-    "FLAG_HIDE_LILYCOVE_MOTEL_GAME_DESIGNERS": (True, "Game Freak team, there after the League"),
-    "FLAG_HIDE_FANCLUB_OLD_LADY": (True, "Fan Club member, there after the League"),
-    "FLAG_HIDE_FANCLUB_BOY": (True, "Fan Club member, there after the League"),
-    "FLAG_HIDE_FANCLUB_LITTLE_BOY": (True, "Fan Club member, there after the League"),
-    "FLAG_HIDE_FANCLUB_LADY": (True, "Fan Club member, there after the League"),
-    "FLAG_HIDE_LILYCOVE_CITY_AQUA_GRUNTS": (False, "Team Aqua has left Lilycove"),
-    "FLAG_HIDE_LILYCOVE_CITY_RIVAL": (False, "rival battle not ported"),
-    "FLAG_HIDE_LILYCOVE_MOTEL_SCOTT": (False, "Scott left out (RFVF+ choice)"),
-}
-# Emerald signs no tile can read: (map, x, y) -> where RFVF+ puts them. Lilycove Dept Store 1F's floor list lies below
-# the 18x8 map: it goes on the button panel left of the elevator door (read facing north, as in Emerald).
-SIGN_MOVES = {("LilycoveCity_DepartmentStore_1F", 0, 8): (1, 1)}
-FALLBACK_MUSIC = "MUS_VERMILLION"
+                      Common_EventScript_ShowPokemonCenterSign="EventScript_PokecenterSign",
+                      Common_EventScript_ShowPokemartSign="EventScript_PokemartSign")
+
+
+# ---------------------------------------------------------------- files: the plan lives in memory until it is checked
+
+PENDING = {}  # Path -> bytes: every file this run writes
+_CONSTANTS = [0]  # bumped when the plan writes include/constants: defined() reads the headers again
+
+
+def read_bytes(path):
+    path = Path(path)
+    return PENDING[path] if path in PENDING else path.read_bytes()
+
+
+def exists(path):
+    path = Path(path)
+    return path in PENDING or path.exists()
+
+
+def put(path, data):
+    path = Path(path)
+    PENDING[path] = data
+    if "include/constants" in path.as_posix():
+        _CONSTANTS[0] += 1
 
 
 def read(path):
-    with open(path, encoding="utf-8", newline="") as f:
-        return f.read()
+    return read_bytes(path).decode("utf-8")
 
 
 def write(path, text):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8", newline="") as f:
-        f.write(text)
+    """Plan `path` with `text`, keeping the line endings of the file it replaces."""
+    if exists(path) and b"\r\n" in read_bytes(path):
+        text = text.replace("\r\n", "\n").replace("\n", "\r\n")
+    put(path, text.encode("utf-8"))
 
 
 def write_json(path, data):
     write(path, json.dumps(data, indent=2, ensure_ascii=False) + "\n")
 
 
+def copy(src, dst):
+    put(dst, read_bytes(src))
+
+
 def read_ints(path, fmt):
-    data = Path(path).read_bytes()
+    data = read_bytes(path)
     return list(struct.unpack("<%d%s" % (len(data) // struct.calcsize(fmt), fmt), data))
 
 
 def write_ints(path, fmt, values):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_bytes(struct.pack("<%d%s" % (len(values), fmt), *values))
+    put(path, struct.pack("<%d%s" % (len(values), fmt), *values))
+
+
+def open_png(path):
+    return Image.open(io.BytesIO(read_bytes(path)))
+
+
+def save_png(img, path):
+    """Plan a 4bpp PNG, unless the file holds these pixels already (PNG bytes depend on the Pillow / zlib version)."""
+    if exists(path):
+        old = open_png(path)
+        if (old.mode, old.size, old.tobytes(), old.getpalette()[:48]) == (img.mode, img.size, img.tobytes(),
+                                                                           img.getpalette()[:48]):
+            return
+    buf = io.BytesIO()
+    img.save(buf, format="PNG", bits=4)
+    put(path, buf.getvalue())
+
+
+def changes():
+    """The planned files that differ from the disk."""
+    return {p: d for p, d in PENDING.items() if not p.exists() or p.read_bytes() != d}
+
+
+def commit(files):
+    """Write `files`, then read them back: the written bytes must be the planned ones, an older file must only have
+    gained lines. On any error, every file gets back its bytes (a created one is deleted, so are the folders made for
+    it) and the error goes on."""
+    originals = {p: p.read_bytes() if p.exists() else None for p in files}
+    new_dirs = set()
+    try:
+        for p, data in files.items():
+            new_dirs |= {d for d in (p.parent, *p.parent.parents) if not d.exists()}
+            p.parent.mkdir(parents=True, exist_ok=True)
+            p.write_bytes(data)
+        bad = [p for p, data in files.items() if p.read_bytes() != data]
+        bad += [p for p, old in originals.items() if old is not None and not additive(p, old, p.read_bytes())]
+        if bad:
+            raise OSError("post-check failed for %s" % ", ".join(p.relative_to(REPO).as_posix() for p in bad))
+    except BaseException:
+        for p, data in originals.items():
+            try:
+                if data is None:
+                    p.unlink(missing_ok=True)
+                elif p.read_bytes() != data:
+                    p.write_bytes(data)
+            except OSError as e:
+                print("ROLLBACK FAILED for %s: %s" % (p, e))
+        for d in sorted(new_dirs, key=lambda d: len(d.parts), reverse=True):
+            try:
+                d.rmdir()
+            except OSError:
+                pass
+        raise
+
+
+# ---------------------------------------------------------------- refusals: all of them are listed, then exit 1
+
+REFUSALS = []
+
+
+class Refused(Exception):
+    """A refusal the plan cannot go past."""
+
+
+def refuse(msg, fatal=False):
+    if msg not in REFUSALS:
+        REFUSALS.append(msg)
+    if fatal:
+        raise Refused(msg)
 
 
 def table(src, start):
     """Body of the C initializer that follows `start` in `src`."""
     body = src[src.index(start):]
     return body[:body.index("};")]
+
+
+# ---------------------------------------------------------------- what is read from pokeemerald
+
+def new_game_flags(em):
+    """Flags a new Emerald game sets (src/new_game.c runs EventScript_ResetAllMapFlags; its only call,
+    EventScript_ResetAllBerries, sets none)."""
+    body = read(em / "data/scripts/new_game.inc").split("EventScript_ResetAllMapFlags::", 1)[1]
+    body = body[:re.search(r"^\tend$", body, re.M).start()]
+    return set(re.findall(r"setflag (FLAG_\w+)", body))
+
+
+def warp_behaviors(root):
+    """Behaviors that can start a warp in the engine at `root`: those that IsWarpMetatileBehavior,
+    IsArrowWarpMetatileBehavior and TryDoorWarp (src/field_control_avatar.c) test, read from the
+    MetatileBehavior_Is* bodies (a stub returning FALSE tests none)."""
+    control, source = read(root / "src/field_control_avatar.c"), read(root / "src/metatile_behavior.c")
+    tests = set()
+    for fn in ("IsWarpMetatileBehavior", "IsArrowWarpMetatileBehavior", "TryDoorWarp"):
+        tests |= set(re.findall(r"MetatileBehavior_(Is\w+)",
+                                re.search(r"\b%s\([^)]*\)\s*\{(.*?)\n\}" % fn, control, re.S).group(1)))
+    names = set()
+    for fn in tests:
+        body = re.search(r"\bMetatileBehavior_%s\([^)]*\)\s*\{(.*?)\n\}" % fn, source, re.S)
+        assert body, "%s/src/metatile_behavior.c: MetatileBehavior_%s not found" % (root, fn)
+        names |= set(re.findall(r"\bMB_\w+", body.group(1)))
+    return names
+
+
+class Emerald:
+    """pokeemerald's maps, layouts, scripts and constants, parsed once."""
+
+    def __init__(self, root):
+        self.root = root
+        self.groups = json.loads(read(root / "data/maps/map_groups.json"))
+        self.maps = {n: json.loads(read(root / "data/maps" / n / "map.json"))
+                     for g in self.groups["group_order"] for n in self.groups[g]}
+        self.layouts = {l["id"]: l for l in json.loads(read(root / "data/layouts/layouts.json"))["layouts"] if "id" in l}
+        self.behaviors = Behaviors(root)
+        self.new_game = new_game_flags(root)
+        self.flag_ops, self.bodies = defaultdict(Counter), {}
+        for p in sorted([*(root / "data/maps").glob("*/scripts.inc"), *(root / "data/scripts").glob("*.inc")]):
+            text = read(p)
+            if p.name != "new_game.inc":
+                for op, flag in re.findall(r"\b(setflag|clearflag)\s+(FLAG_\w+)", text):
+                    self.flag_ops[flag][op] += 1
+            parts = re.split(r"^(\w+)::", text, flags=re.M)
+            self.bodies.update(zip(parts[1::2], parts[2::2]))
+        songs = lambda p: {n: int(v, 0) for n, v in re.findall(r"#define\s+(MUS_\w+)\s+(\d+|0x[0-9A-Fa-f]+)\b", read(p))}
+        self.songs, self.songs_here = songs(root / "include/constants/songs.h"), defaultdict(list)
+        for n, v in songs(REPO / "include/constants/songs.h").items():
+            self.songs_here[v].append(n)
+        self.warp_triggers, self.warp_triggers_here = warp_behaviors(root), warp_behaviors(REPO)
+
+    def music(self, name):
+        """This repo's constant for Emerald's song `name`: the one with the same value (Emerald's songs 350-483 are
+        kept here; the names FRLG's own tracks took became MUS_RS_*), None if there is none."""
+        here = self.songs_here.get(self.songs.get(name), [])
+        return name if name in here else here[0] if here else None
+
+    def story_flag(self, flag):
+        """True if Emerald's story toggles `flag`, an object's visibility: a decision must give its post-League state
+        (a flag set at new game that something clears, or a clear one that something sets)."""
+        ops = self.flag_ops.get(flag, {})
+        return bool(ops.get("clearflag" if flag in self.new_game else "setflag"))
+
+    def trainer_id(self, label):
+        m = re.search(r"\btrainerbattle\w*\s+(TRAINER_\w+)", self.bodies.get(label, ""))
+        return m.group(1) if m else None
+
+    def found_item(self, label):
+        """ITEM_X if Emerald's script `label` is an item ball's (data/scripts/item_ball_scripts.inc: `finditem ITEM_X`,
+        `end`), else None (Steven's Beldum, the rivals' and Birch's balls run a story script)."""
+        m = re.match(r"\s*finditem (ITEM_\w+)\s*\n\s*end\b", self.bodies.get(label, ""))
+        return m.group(1) if m else None
+
+    def map_scripts(self, name):
+        """[(type, label)] of the Emerald map's script table (ON_TRANSITION, ON_FRAME_TABLE...)."""
+        return re.findall(r"map_script\s+MAP_SCRIPT_(\w+),\s*(\w+)",
+                          self.bodies.get(name + "_MapScripts", "").split(".byte 0")[0])
+
+    def layout_of(self, name):
+        return self.layouts[START_LAYOUT.get(name, self.maps[name]["layout"])]
+
+
+@lru_cache(maxsize=None)
+def em_tileset(em, symbol):
+    """(header fields, source folder) of Emerald's tileset `symbol`."""
+    header = re.search(r"const struct Tileset %s =\s*\{(.*?)\};" % symbol, read(em / "src/data/tilesets/headers.h"), re.S)
+    if not header:
+        refuse("%s not found in pokeemerald src/data/tilesets/headers.h" % symbol, fatal=True)
+    fields = dict(re.findall(r"\.(\w+)\s*=\s*(\w+)", header.group(1)))
+    sources = "".join(read(em / p) for p in ("src/data/tilesets/graphics.h", "src/graphics.c",
+                                             "src/data/tilesets/metatiles.h"))
+    dirs = set()
+    for field in ("tiles", "palettes", "metatiles", "metatileAttributes"):
+        m = re.search(r'\b%s\[\](?:\[16\])?\s*=\s*\{?\s*INCBIN_U\d+\("(data/tilesets/[^"]+?)/(?:palettes/)?[^/"]+"'
+                      % fields[field], sources)
+        if not m:
+            refuse("%s of %s not found in pokeemerald src/" % (fields[field], symbol), fatal=True)
+        dirs.add(m.group(1))
+    if len(dirs) != 1:
+        refuse("%s: files spread over %s" % (symbol, dirs), fatal=True)
+    return fields, em / dirs.pop()
+
+
+def repo_tileset_dir(symbol):
+    """This repo's folder of the tileset `symbol` (planned registrations included)."""
+    header = re.search(r"\b%s =\s*\{(.*?)\};" % symbol, read(REPO / "src/data/tilesets/headers.h"), re.S)
+    metatiles = re.search(r"\.metatiles\s*=\s*(\w+)", header.group(1)).group(1)
+    return REPO / re.search(r'\b%s\[\]\s*=\s*INCBIN_U16\("([^"]+)/metatiles.bin"' % metatiles,
+                            read(REPO / "src/data/tilesets/metatiles.h")).group(1)
 
 
 # ---------------------------------------------------------------- behaviors / attributes
@@ -187,28 +440,40 @@ class Behaviors:
         self.used = Counter()  # (emerald name, frlg name) -> metatile count
 
     def fr_name(self, em_name):
-        return BEHAVIOR_OVERRIDES.get(em_name, em_name if em_name in self.fr_values else "MB_NORMAL")
+        """(this repo's behavior for Emerald's `em_name`, None or how it is degraded); an unknown one is refused."""
+        if em_name in BEHAVIOR_OVERRIDES:
+            return BEHAVIOR_OVERRIDES[em_name], None
+        if em_name in DEGRADED:
+            return DEGRADED[em_name], "DEGRADED"
+        if em_name in self.fr_values:
+            return em_name, None
+        why = NO_COUNTERPART.get(em_name) or ("secret base" if em_name.startswith("MB_SECRET_BASE_") else None)
+        if not why:
+            refuse("unknown Emerald behavior %s: map it in hoenn_import.py (BEHAVIOR_OVERRIDES, DEGRADED or "
+                   "NO_COUNTERPART)" % em_name)
+        return "MB_NORMAL", "no counterpart here: %s" % (why or "UNKNOWN")
 
     def convert(self, em_attr):
         """Emerald u16 attribute -> FRLG u32 attribute (see sMetatileAttrMasks in src/fieldmap.c)."""
-        assert not em_attr & 0x0F00, "unknown Emerald attribute bits"
+        if em_attr & 0x0F00 or em_attr >> 12 > 2 or em_attr & 0xFF >= len(self.em_names):
+            refuse("unknown Emerald metatile attribute 0x%04X" % em_attr)
+            return 0
         em_name = self.em_names[em_attr & 0xFF]
-        fr_name = self.fr_name(em_name)
+        fr_name = self.fr_name(em_name)[0]
         self.used[em_name, fr_name] += 1
         surfable = fr_name in self.fr_surfable
-        assert surfable or em_name not in self.em_surfable, \
-            "%s is surfable in Emerald, %s is not here: map it in BEHAVIOR_OVERRIDES" % (em_name, fr_name)
+        if not surfable and em_name in self.em_surfable:
+            refuse("%s is surfable in Emerald, %s is not here: map it in BEHAVIOR_OVERRIDES / DEGRADED" % (em_name, fr_name))
         if fr_name == "MB_WATERFALL":
             terrain = TERRAIN_WATERFALL
         elif surfable:
             terrain = TERRAIN_WATER
-        elif fr_name in ("MB_TALL_GRASS", "MB_LONG_GRASS"):
-            terrain = TERRAIN_GRASS
+        elif fr_name in ("MB_TALL_GRASS", "MB_LONG_GRASS", "MB_ASHGRASS"):  # what Emerald's Cut mows (IsPokeGrass,
+            terrain = TERRAIN_GRASS                                           # IsAshGrass); FRLG's Cut reads the terrain
         else:
             terrain = TERRAIN_NORMAL
         encounter = ENC_WATER if surfable else ENC_LAND if em_name in self.em_encounter else ENC_NONE
         layer = em_attr >> 12  # NORMAL/COVERED/SPLIT: same values and DrawMetatile logic in both engines
-        assert layer <= 2
         return self.fr_values[fr_name] | terrain << 9 | encounter << 24 | layer << 29
 
 
@@ -217,20 +482,8 @@ class Behaviors:
 class Tileset:
     def __init__(self, em, symbol, behaviors, used):
         """Reads, checks and converts Emerald's tileset `symbol`; `used` = its metatile ids in the maps of the batch.
-        write() is the only part that touches the repo."""
-        header = re.search(r"const struct Tileset %s =\s*\{(.*?)\};" % symbol, read(em / "src/data/tilesets/headers.h"), re.S)
-        assert header, "%s not found in pokeemerald src/data/tilesets/headers.h" % symbol
-        fields = dict(re.findall(r"\.(\w+)\s*=\s*(\w+)", header.group(1)))
-        sources = "".join(read(em / p) for p in ("src/data/tilesets/graphics.h", "src/graphics.c",
-                                                 "src/data/tilesets/metatiles.h"))
-        dirs = set()
-        for field in ("tiles", "palettes", "metatiles", "metatileAttributes"):
-            m = re.search(r'\b%s\[\](?:\[16\])?\s*=\s*\{?\s*INCBIN_U\d+\("(data/tilesets/[^"]+?)/(?:palettes/)?[^/"]+"'
-                          % fields[field], sources)
-            assert m, "%s of %s not found in pokeemerald src/" % (fields[field], symbol)
-            dirs.add(m.group(1))
-        assert len(dirs) == 1, "%s: files spread over %s" % (symbol, dirs)
-        self.src = em / dirs.pop()
+        write() plans the files."""
+        fields, self.src = em_tileset(em, symbol)
         self.em_name = symbol.replace("gTileset_", "")  # Emerald labels: METATILE_<em_name>_*
         suffix = fields["metatiles"].replace("gMetatiles_", "")
         self.name = "Hoenn" + suffix
@@ -239,84 +492,108 @@ class Tileset:
         self.em_callback = fields["callback"]
         self.dir = "data/tilesets/%s/hoenn_%s" % (self.kind, re.sub(r"(?<!^)(?=[A-Z])", "_", suffix).lower())
         other = "primary" if self.secondary else "secondary"
-        assert not (REPO / self.dir.replace(self.kind, other, 1)).exists(), \
-            "%s already exists as a %s tileset of this repo: pick another target name" % (self.dir, other)
+        if exists(REPO / self.dir.replace(self.kind, other, 1)):
+            refuse("%s already exists as a %s tileset of this repo: pick another target name" % (self.dir, other),
+                   fatal=True)
         self.em_meta = read_ints(self.src / "metatiles.bin", "H")
         self.em_attrs = read_ints(self.src / "metatile_attributes.bin", "H")
-        assert len(self.em_meta) == 8 * len(self.em_attrs)
-        self.png = png = Image.open(self.src / "tiles.png")
-        assert png.mode == "P" and png.width % 8 == 0 and png.height % 8 == 0
+        self.png = png = open_png(self.src / "tiles.png")
+        if len(self.em_meta) != 8 * len(self.em_attrs) or png.mode != "P" or png.width % 8 or png.height % 8:
+            refuse("%s: unexpected Emerald tileset files in %s" % (symbol, self.src), fatal=True)
         png_tiles = png.width // 8 * (png.height // 8)
-        self.pal_map, self.pruned = {}, False
+        self.pal_map, self.pruned, self.junk = {}, False, []
+        self.new = not exists(REPO / self.dir / "metatiles.bin")
         if not self.secondary:
-            assert len(self.em_attrs) <= EM["metatiles"]
-            assert all((e & 0x3FF) < EM["tiles"] and e >> 12 < EM["pals"] for e in self.em_meta), \
-                "Emerald primary references secondary tiles or palettes"
+            if len(self.em_attrs) > EM["metatiles"] or not all((e & 0x3FF) < EM["tiles"] and e >> 12 < EM["pals"]
+                                                               for e in self.em_meta):
+                refuse("Emerald primary %s references secondary tiles or palettes" % symbol, fatal=True)
             self.metas = list(range(len(self.em_attrs)))
             self.num_tiles = png_tiles
             self.meta = self.em_meta
         else:
+            # Emerald junk: entries naming a tile beyond tiles.png, VRAM garbage in game (Petalburg 0x24A-0x24B, palette
+            # 14, under opaque tiles; MauvilleGym 0x268-0x274, on no map) -> tile 0. render() draws them magenta on the
+            # Emerald side, so the render check fails if one ever shows on a map.
+            beyond = lambda e: e & 0x3FF >= EM["tiles"] + png_tiles
+            self.junk = sorted({EM["metatiles"] + i // 8 for i, e in enumerate(self.em_meta) if beyond(e)})
+            self.em_meta = [0 if beyond(e) else e for e in self.em_meta]
             entries = lambda m: self.em_meta[(m - EM["metatiles"]) * 8:(m - EM["metatiles"]) * 8 + 8]
             sec_tiles = lambda metas: sorted({e & 0x3FF for m in metas for e in entries(m) if e & 0x3FF >= EM["tiles"]})
             every = range(EM["metatiles"], EM["metatiles"] + len(self.em_attrs))
             self.ids_path = REPO / self.dir / IDS_FILE
-            self.pruned = self.ids_path.exists() or len(every) > SEC_MAX or len(sec_tiles(every)) > SEC_MAX_TILES
+            self.pruned = exists(self.ids_path) or len(every) > SEC_MAX or len(sec_tiles(every)) > SEC_MAX_TILES
+            if self.pruned and not exists(self.ids_path):
+                refuse("needs step 3: gTileset_%s has %d metatiles / %d tiles, more than a FRLG secondary holds "
+                       "(%d / %d), and its natural ids are not planned yet (design F11)"
+                       % (self.em_name, len(every), len(sec_tiles(every)), SEC_MAX, SEC_MAX_TILES))
             if self.pruned:  # append-only numbering, shared with the maps imported before
-                ids = json.loads(read(self.ids_path)) if self.ids_path.exists() else {"metatiles": [], "tiles": []}
+                ids = json.loads(read(self.ids_path)) if exists(self.ids_path) else {"metatiles": [], "tiles": []}
                 # + the labelled metatiles, which scripts / C code set at runtime; a door label only feeds the door
                 # animation table, so that door comes with the first map placing it (and gets its table entry then)
                 doors = set(re.findall(r"METATILE_\w+", read(em / "src/field_door.c")))
                 used = set(used) | {v for n, v in em_labels(em, self.em_name)
                                     if "METATILE_%s_%s" % (self.em_name, n) not in doors}
-                assert used <= set(every), "%s: maps use metatiles it does not have" % symbol
+                if not used <= set(every):
+                    refuse("%s: maps use metatiles it does not have" % symbol, fatal=True)
                 self.metas = ids["metatiles"] + sorted(used - set(ids["metatiles"]))
                 self.tiles = ids["tiles"] + [t for t in sec_tiles(self.metas) if t not in ids["tiles"]]
+                known = len(ids["metatiles"])  # what this tool wrote before
             else:
                 self.metas = list(every)
                 self.tiles = sec_tiles(every)
-            assert len(self.metas) <= SEC_MAX, "%s: %d metatiles for a FRLG secondary" % (symbol, len(self.metas))
-            assert len(self.tiles) <= SEC_MAX_TILES, "%s: %d tiles for a FRLG secondary" % (symbol, len(self.tiles))
-            assert not self.tiles or max(self.tiles) - EM["tiles"] < png_tiles, "%s: tile out of tiles.png" % symbol
+            if len(self.metas) > SEC_MAX or len(self.tiles) > SEC_MAX_TILES:  # fatal: the renders would only repeat it
+                refuse("needs step 3: gTileset_%s would hold %d metatiles / %d tiles here (max %d / %d): the maps "
+                       "imported before filled it, and its sibling tileset is not planned yet (design F11)"
+                       % (self.name, len(self.metas), len(self.tiles), SEC_MAX, SEC_MAX_TILES), fatal=True)
             tile_map = {t: FR["tiles"] + i for i, t in enumerate(self.tiles)}
             pals = {e >> 12 for e in self.em_meta}  # every metatile: the slot must not move when a later batch adds some
-            assert max(pals) <= 12
+            if max(pals) > 12:
+                refuse("%s uses palette slot %d" % (symbol, max(pals)))
             if 6 in pals:  # Emerald secondary slot 6 is loaded from the primary in FRLG
                 free = [s for s in (10, 11, 12) if s not in pals]
-                assert free, "secondary uses palette 6 and slots 10-12: no free FRLG slot"
-                self.pal_map[6] = free[0]
+                if not free:
+                    refuse("%s uses palette 6 and slots 10-12: no free FRLG slot" % symbol)
+                self.pal_map[6] = free[0] if free else 6
             self.pal_map.update(PALETTE_SWAPS.get(symbol, {}))
             self.meta = [tile_map.get(e & 0x3FF, e & 0x3FF) | e & 0x0C00 | self.pal_map.get(e >> 12, e >> 12) << 12
                          for m in self.metas for e in entries(m)]
             self.num_tiles = len(self.tiles)
-        # ponytail: only the count is checked (hand-ADDED metatiles would be dropped, or in a pruned set get their id
-        # reused); in-place edits are reverted, which git diff shows. Store hashes of the written files if that bites.
-        written = len(ids["metatiles"]) if self.pruned else len(self.metas)
-        on_disk = REPO / self.dir / "metatiles.bin"
-        assert not on_disk.exists() or on_disk.stat().st_size == 16 * written, \
-            "%s/metatiles.bin holds %d metatiles, hoenn_import wrote %d: edited by hand (Porymap)? Not overwritten " \
-            "(restore it with git, or move the hand-made metatiles to a tileset of your own)" \
-            % (self.dir, on_disk.stat().st_size // 16, written)
         self.index = {m: i for i, m in enumerate(self.metas)}
         base = EM["metatiles"] if self.secondary else 0
         self.attrs = [behaviors.convert(self.em_attrs[m - base]) for m in self.metas]
+        # Metatiles this run adds: only a pruned secondary grows. A tileset here that gets nothing new is left as it is
+        # (write(): Porymap edits stay); one that grows must still hold what this tool wrote (ids are append-only).
+        if self.new or not self.pruned:
+            known = 0 if self.new else len(self.metas)
+        self.grows = len(self.metas) - known
+        if self.grows and not self.new:
+            old_meta = read_ints(REPO / self.dir / "metatiles.bin", "H")
+            old_attrs = read_ints(REPO / self.dir / "metatile_attributes.bin", "I")
+            if old_meta != self.meta[:len(old_meta)] or old_attrs != self.attrs[:len(old_attrs)] \
+                    or len(old_meta) != 8 * len(old_attrs) or len(old_attrs) != known:
+                refuse("%s: metatiles.bin / metatile_attributes.bin are not what hoenn_import wrote (edited in "
+                       "Porymap?) and this import must add metatiles to them: not overwritten. Restore them with git, "
+                       "or move hand-made metatiles to a tileset of your own" % self.dir)
 
     def write(self):
+        if not self.new and not self.grows:
+            return
         dst = REPO / self.dir
-        (dst / "palettes").mkdir(parents=True, exist_ok=True)
         for i in range(16):
-            shutil.copyfile(self.src / ("palettes/%02d.pal" % i), dst / ("palettes/%02d.pal" % i))
+            copy(self.src / ("palettes/%02d.pal" % i), dst / ("palettes/%02d.pal" % i))
         for old, new in self.pal_map.items():
-            shutil.copyfile(self.src / ("palettes/%02d.pal" % old), dst / ("palettes/%02d.pal" % new))
+            copy(self.src / ("palettes/%02d.pal" % old), dst / ("palettes/%02d.pal" % new))
         if not self.secondary:
-            shutil.copyfile(self.src / "tiles.png", dst / "tiles.png")
+            copy(self.src / "tiles.png", dst / "tiles.png")
         else:
             per_row = self.png.width // 8
-            out = Image.new("P", (128, math.ceil(len(self.tiles) / 16) * 8), 0)
+            # never empty: a pruned secondary whose metatiles only use primary tiles still needs an image (gbagfx)
+            out = Image.new("P", (128, max(1, math.ceil(len(self.tiles) / 16)) * 8), 0)
             out.putpalette((self.png.getpalette() + [0] * 48)[:48])
             for i, t in enumerate(self.tiles):
                 x, y = (t - EM["tiles"]) % per_row * 8, (t - EM["tiles"]) // per_row * 8
                 out.paste(self.png.crop((x, y, x + 8, y + 8)), (i % 16 * 8, i // 16 * 8))
-            out.save(dst / "tiles.png", bits=4)
+            save_png(out, dst / "tiles.png")
         write_ints(dst / "metatiles.bin", "H", self.meta)
         write_ints(dst / "metatile_attributes.bin", "I", self.attrs)
         if self.pruned:
@@ -326,14 +603,16 @@ class Tileset:
 
     def remap_metatile(self, m):
         """Emerald metatile id -> FRLG id (primary: unchanged; secondary: 640 + its position, = id + 128 unpruned)."""
-        assert m in self.index, "gTileset_%s has no Emerald metatile 0x%03X" % (self.em_name, m)
+        if m not in self.index:
+            refuse("gTileset_%s has no Emerald metatile 0x%03X" % (self.em_name, m))
+            return 0
         return self.index[m] + (FR["metatiles"] if self.secondary else 0)
 
 
 # ---------------------------------------------------------------- render check
 
-def load_tiles(png):
-    img = Image.open(png)
+def load_tiles(data):
+    img = Image.open(io.BytesIO(data))
     return [img.crop((x, y, x + 8, y + 8)).tobytes()
             for y in range(0, img.height, 8) for x in range(0, img.width, 8)]
 
@@ -347,24 +626,41 @@ def load_pals(directory):
     return pals
 
 
+_TILESETS = {}  # (folder, engine) -> its tiles, palettes, metatiles, attributes; cleared when the checks start
+
+
+def tileset_data(directory, engine):
+    key = (Path(directory), engine)
+    if key not in _TILESETS:
+        planned = dict(PENDING)
+        if engine == "before":  # the files as they are on disk: the plan set aside meanwhile
+            PENDING.clear()
+        try:
+            _TILESETS[key] = (load_tiles(read_bytes(key[0] / "tiles.png")), load_pals(key[0]),
+                              read_ints(key[0] / "metatiles.bin", "H"),
+                              read_ints(key[0] / "metatile_attributes.bin", "H" if engine == "emerald" else "I"))
+        finally:
+            PENDING.update(planned)
+    return _TILESETS[key]
+
+
 def render(blocks, width, primary_dir, secondary_dir, engine):
-    """Draw a map.bin like DrawMetatile (field_camera.c) does: BG3, then BG2, then BG1."""
+    """Draw a map.bin like DrawMetatile (field_camera.c) does: BG3, then BG2, then BG1. A metatile the tileset lacks
+    is magenta. engine: "emerald", "frlg" (this repo, the planned files included) or "before" (this repo's files as
+    they are on disk)."""
     lim = EM if engine == "emerald" else FR
-    fmt = "H" if engine == "emerald" else "I"
     layer_of = (lambda a: a >> 12) if engine == "emerald" else (lambda a: a >> 29 & 3)
-    tiles = [load_tiles(d / "tiles.png") for d in (primary_dir, secondary_dir)]
-    pals = [load_pals(d) for d in (primary_dir, secondary_dir)]
-    meta = [read_ints(d / "metatiles.bin", "H") for d in (primary_dir, secondary_dir)]
-    attrs = [read_ints(d / "metatile_attributes.bin", fmt) for d in (primary_dir, secondary_dir)]
+    tiles, pals, meta, attrs = zip(*(tileset_data(d, engine) for d in (primary_dir, secondary_dir)))
     cache = {}
 
     def tile_img(e):
         if e not in cache:
             t, p = e & 0x3FF, e >> 12
-            data = tiles[0][t] if t < lim["tiles"] else tiles[1][t - lim["tiles"]]
-            pal = pals[0][p] if p < lim["pals"] else pals[1][p]
-            img = Image.new("RGBA", (8, 8))
-            img.putdata([pal[c] if c else (0, 0, 0, 0) for c in data])
+            ts, i = (0, t) if t < lim["tiles"] else (1, t - lim["tiles"])
+            img = Image.new("RGBA", (8, 8), (255, 0, 255, 255))  # beyond tiles.png (Emerald junk): must not show
+            if i < len(tiles[ts]):
+                pal = pals[0][p] if p < lim["pals"] else pals[1][p]
+                img.putdata([pal[c] if c else (0, 0, 0, 0) for c in tiles[ts][i]])
             if e & 0x400:
                 img = img.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
             if e & 0x800:
@@ -376,23 +672,19 @@ def render(blocks, width, primary_dir, secondary_dir, engine):
     for i, block in enumerate(blocks):
         m = block & 0x3FF
         ts, idx = (0, m) if m < lim["metatiles"] else (1, m - lim["metatiles"])
+        x, y = i % width * 16, i // width * 16
+        if idx >= len(attrs[ts]):
+            out.paste((255, 0, 255, 255), (x, y, x + 16, y + 16))
+            continue
         entries, layer = meta[ts][idx * 8:idx * 8 + 8], layer_of(attrs[ts][idx])
         bottom, top, empty = entries[:4], entries[4:], [0] * 4
         for quad in {0: ([0x3014] * 4, bottom, top), 1: (bottom, top, empty), 2: (bottom, empty, top)}[layer]:
             for k, e in enumerate(quad):
-                out.alpha_composite(tile_img(e), (i % width * 16 + k % 2 * 8, i // width * 16 + k // 2 * 8))
+                out.alpha_composite(tile_img(e), (x + k % 2 * 8, y + k // 2 * 8))
     return out
 
 
-# ---------------------------------------------------------------- objects / warps
-
-def new_game_flags(em):
-    """Flags a new Emerald game sets (src/new_game.c runs EventScript_ResetAllMapFlags; its only call,
-    EventScript_ResetAllBerries, sets none)."""
-    body = read(em / "data/scripts/new_game.inc").split("EventScript_ResetAllMapFlags::", 1)[1]
-    body = body[:re.search(r"^\tend$", body, re.M).start()]
-    return set(re.findall(r"setflag (FLAG_\w+)", body))
-
+# ---------------------------------------------------------------- objects / events / warps
 
 def hoenn_info(gfx):
     """Graphics info of this repo's OBJ_EVENT_GFX_HOENN_ id `gfx` (a pokeemerald sprite, made for the Emerald NPC
@@ -436,12 +728,11 @@ def check_gfx():
     """Objects of every map.json (Porymap edits too) drawn with the wrong NPC palettes: anything but an
     OBJ_EVENT_GFX_HOENN_ id (or a VAR id VAR_GFX resolves to one) on a Hoenn layout, an OBJ_EVENT_GFX_HOENN_ id
     elsewhere. Porymap previews both with the right colors. Also a Hoenn sprite that cannot face every way."""
-    hoenn_primaries = {"gTileset_HoennGeneral", "gTileset_HoennInsideBuilding"}  # = IsHoennMapLayout(), src/fieldmap.c
     layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
     bad = []
     for path in sorted((REPO / "data/maps").glob("*/map.json")):
         mj = json.loads(read(path))
-        hoenn = layouts[mj["layout"]]["primary_tileset"] in hoenn_primaries
+        hoenn = layouts[mj["layout"]]["primary_tileset"] in HOENN_PRIMARIES
         for o in mj["object_events"]:
             gfx = o.get("graphics_id", "")
             problem = hoenn_gfx_problem(path.parent.name, gfx) if hoenn else \
@@ -480,18 +771,25 @@ def walkable_from(blocks, width, start, blocked):
     return {pos for pos, _ in seen}
 
 
+def inside(m, x, y):
+    return 0 <= x < m.width and 0 <= y < m.height
+
+
 def reached_warps(m, blocked):
-    """Warps of map `m` the player reaches from warp 0: by stepping on them, or facing north into a warp door."""
-    if not m.em_map["warp_events"]:
+    """Warps of map `m` the player reaches from its first warp: by stepping on them, or facing north into a door.
+    A warp outside the map is only an arrival point."""
+    warps = [(i, w) for i, w in enumerate(m.em_map["warp_events"]) if inside(m, w["x"], w["y"])]
+    if not warps:
         return set()
-    tiles = walkable_from(m.blocks, m.width, (m.em_map["warp_events"][0]["x"], m.em_map["warp_events"][0]["y"]), blocked)
-    return {i for i, w in enumerate(m.em_map["warp_events"]) if (w["x"], w["y"]) in tiles
+    tiles = walkable_from(m.blocks, m.width, (warps[0][1]["x"], warps[0][1]["y"]), blocked)
+    return {i for i, w in warps if (w["x"], w["y"]) in tiles
             or (m.warp_behaviors[i][0] == "MB_ANIMATED_DOOR" and (w["x"], w["y"] + 1) in tiles)}
 
 
-def script_labels():
-    """Labels the data/maps/*/scripts.inc define (a map may use one of another map: the Museum's bird sculpture)."""
-    return {l for p in (REPO / "data/maps").glob("*/scripts.inc") for l in re.findall(r"^(\w+)::", read(p), re.M)}
+def repo_labels():
+    """Script labels this repo defines (a map may use one of another map: the Museum's bird sculpture)."""
+    files = [*(REPO / "data/maps").glob("*/scripts.inc"), *(REPO / "data/scripts").glob("*.inc"), *(REPO / "data").glob("*.s")]
+    return {l for p in files for l in re.findall(r"^(\w+)::", read(p), re.M)}
 
 
 def map_script(map_name, label, labels):
@@ -501,86 +799,183 @@ def map_script(map_name, label, labels):
     return next((l for l in (local, label) if l in labels), COMMON_SCRIPTS.get(label))
 
 
-def hidden_item_flag(flag):
-    """True if `flag` is a hidden item flag here (bg_hidden_item_event stores flag - FLAG_HIDDEN_ITEMS_START in a byte)."""
-    m = re.search(r"#define %s\s+\(FLAG_HIDDEN_ITEMS_START\s*\+\s*(\d+)\)" % flag,
-                  read(REPO / "include/constants/flags.h"))
-    return bool(m) and int(m.group(1)) < 256
+def script_label(ctx, m, label, comment):
+    """The script of an NPC or sign: map_script(), else Emerald's label (Common_X: <Map>_X) as a silent stub, in the
+    map's new scripts.inc when the label is its own, else in data/scripts/hoenn_stubs.inc."""
+    if label in ("0x0", "0", ""):
+        return "0x0"
+    found = map_script(m.name, label, ctx.labels)
+    if found:
+        return found
+    local = re.sub(r"^Common_", m.name + "_", label)
+    ctx.labels.add(local)
+    if m.new_scripts and local.startswith(m.name + "_"):
+        m.stubs.append((local, comment))
+    else:
+        ctx.shared_stubs[local].append("%s %s" % (m.name, comment))
+    return local
 
 
-def convert_events(m, labels):
-    """Emerald signs, hidden items and triggers -> this repo's bg_events and coord_events, plus the dropped ones."""
-    bg, coord, dropped = [], [], []
-    for b in m.em_map["bg_events"]:
-        script = map_script(m.name, b.get("script", ""), labels)
-        if b["type"] == "sign" and script:
-            x, y = SIGN_MOVES.get((m.name, b["x"], b["y"]), (b["x"], b["y"]))
-            bg.append(dict(b, script=script, x=x, y=y))
-        elif b["type"] == "hidden_item" and hidden_item_flag(b["flag"]) and defined(b["item"]):
-            bg.append(dict(b, quantity=1, underfoot=False))
-        else:
-            dropped.append("%s (%d,%d) %s: %s" % (b["type"], b["x"], b["y"], b.get("script", b.get("flag")),
-                                                 "no script / hidden item flag here" if b["type"] != "secret_base"
-                                                 else "no secret bases"))
-    for c in m.em_map.get("coord_events", []):
-        script = c["type"] == "trigger" and map_script(m.name, c["script"], labels)
-        if script and defined(c["var"]):
-            coord.append(dict(c, script=script))
-        else:
-            dropped.append("%s (%d,%d) %s: no script or var here" % (c["type"], c["x"], c["y"], c.get("script")))
-    return bg, coord, dropped
+_DEFINES = [None, set()]
 
 
-def convert_objects(m, new_game, labels):
-    """Emerald object_events -> this repo's, plus the dropped ones with their reason."""
-    movement_types = read(REPO / "include/constants/event_object_movement.h")
+def defined(name):
+    """True if include/constants defines `name` (the planned headers included)."""
+    if _DEFINES[0] != _CONSTANTS[0]:
+        _DEFINES[:] = [_CONSTANTS[0], {n for p in (REPO / "include/constants").glob("*.h")
+                                       for n in re.findall(r"#define\s+(\w+)", read(p))}]
+    return name in _DEFINES[1]
+
+
+def flag_here(ctx, flag, where):
+    """Emerald's `flag` here: its definition if there is one, else it takes the first free FLAG_0x line of FLAG_RANGES
+    in flags.h (design 1.4a: nothing moves, so the flags of saves keep their meaning). Listed in ctx.allocated."""
+    if flag in ("0", 0) or defined(flag):  # "0": no flag
+        return
+    text = read(FLAGS_H)
+    for m in re.finditer(r"^#define FLAG_0x([0-9A-F]{3})[ \t]+0x\1\b", text, re.M):
+        value = int(m.group(1), 16)
+        if any(lo <= value <= hi for lo, hi in FLAG_RANGES):
+            write(FLAGS_H, text[:m.start()] + "#define %-40s 0x%03X" % (flag, value) + text[m.end():])
+            ctx.allocated.append("  %s = 0x%03X  %s" % (flag, value, where))
+            return
+    refuse("no free flag left for %s (%s): the FLAG_0x lines of design 1.4a are all taken" % (flag, where))
+
+
+def item_here(item):
+    """This repo's constant for Emerald's ITEM_X: the same name, or the TM / HM of the same move
+    (ITEM_TM_FOCUS_PUNCH -> ITEM_TM01_FOCUS_PUNCH, include/constants/items.h); None if there is none."""
+    if defined(item):
+        return item
+    tm = re.fullmatch(r"ITEM_(TM|HM)_(\w+)", item)
+    return next((n for n in sorted(_DEFINES[1]) if re.fullmatch(r"ITEM_%s\d\d_%s" % tm.groups(), n)), None) if tm else None
+
+
+def item_ball(ctx, m, o, item):
+    """The script of an item ball placed on map `m`: this repo's for Emerald's label, else that label in the map's new
+    scripts.inc (m.scripts, before the stubs) with the same body as Emerald's: `finditem` of this repo's `item`."""
+    script = map_script(m.name, o["script"], ctx.labels)
+    if script:
+        return script
+    if not m.new_scripts:
+        refuse("%s: item ball (%d,%d): %s is not defined and the map's scripts.inc already exists: add it there"
+               % (m.name, o["x"], o["y"], o["script"]))
+    ctx.labels.add(o["script"])
+    m.scripts.append((o["script"], "item ball, works (%s)" % o["flag"], "\tfinditem %s\n\tend\n" % item))
+    return o["script"]
+
+
+def hidden_item(ctx, m, b):
+    """This repo's bg_event for an Emerald hidden item: this repo's item, Emerald's flag (flag_here; the event stores
+    the absolute flag, engine E1), found by facing it as in Emerald (underfoot false). None if the item is missing."""
+    item = item_here(b["item"])
+    if not item:
+        refuse("%s: hidden item (%d,%d): %s does not exist here" % (m.name, b["x"], b["y"], b["item"]))
+        return None
+    flag_here(ctx, b["flag"], "%s hidden item (%d,%d)" % (m.name, b["x"], b["y"]))
+    return dict(b, item=item, quantity=1, underfoot=False)
+
+
+def hidden_reason(ctx, flag):
+    """Why the decided post-League state hides an object with `flag`; None: it is shown."""
+    if flag in ("0", 0):
+        return None
+    if flag in POST_LEAGUE:
+        shown, why = POST_LEAGUE[flag]
+        return None if shown else "%s: %s" % (flag, why)
+    if flag in HIDDEN_BY_MAP_SCRIPT:
+        return "%s: %s" % (flag, HIDDEN_BY_MAP_SCRIPT[flag])
+    if ctx.story_flag(flag):
+        refuse("missing decision: %s, an object flag Emerald's story toggles: give its post-League state in "
+               "hoenn_decisions.POST_LEAGUE (or HIDDEN_BY_MAP_SCRIPT)" % flag)
+        return "%s: no decision" % flag
+    return "%s set at new game" % flag if flag in ctx.new_game else None
+
+
+def convert_objects(ctx, m):
+    """Emerald object_events -> this repo's; fills m.dropped, m.stubs, m.localids."""
     warps = {(w["x"], w["y"]) for w in m.em_map["warp_events"]}
-    kept, dropped = [], []
+    kept = []
     for o in m.em_map["object_events"]:
-        assert o.get("type", "object") == "object", "clone objects are not handled"
-        where = "%s (%d,%d)" % (o["graphics_id"], o["x"], o["y"])
-        flag = o["flag"]
-        shown, why = POST_LEAGUE.get(flag, (None, None))
-        script = map_script(m.name, o["script"], labels)
-        item_ball = o["graphics_id"] == "OBJ_EVENT_GFX_ITEM_BALL"
-        reason = ("item ball: %s or %s missing here" % (flag, o["script"]) if item_ball and not (script and defined(flag))
-                  else "sprite not imported (berry tree, decoration: hoenn_sprites.skipped)"
-                  if skipped(o["graphics_id"].replace("OBJ_EVENT_GFX_", "", 1))
-                  else "%s: %s" % (flag, why) if shown is False
-                  else "%s set at new game" % flag if flag in new_game and not shown
-                  else "%s: %s" % (flag, HIDDEN_BY_MAP_SCRIPT[flag]) if flag in HIDDEN_BY_MAP_SCRIPT
-                  else "stands on a warp" if (o["x"], o["y"]) in warps else None)
+        where = "%s (%d,%d)" % (o.get("graphics_id"), o.get("x", -1), o.get("y", -1))
+        if o.get("type", "object") != "object":
+            refuse("%s %s: clone objects are not handled" % (m.name, where))
+            continue
+        moved = MOVED_BY_MAP_SCRIPT.get((m.name, o.get("local_id")))
+        if moved:  # where Emerald's map script puts it after the League
+            o = dict(o, x=moved[0], y=moved[1], movement_type=moved[2])
+        # an item ball works at import (`finditem`); a ball that runs a story script is an NPC (Steven's Beldum)
+        em_item = ctx.found_item(o["script"]) if o["graphics_id"] == "OBJ_EVENT_GFX_ITEM_BALL" else None
+        item, field_move = em_item and item_here(em_item), o["script"] in FIELD_MOVE_SCRIPTS
+        reason = None
+        if em_item:
+            if not item:
+                refuse("%s %s: item ball of %s, which does not exist here" % (m.name, where, em_item))
+                reason = "unknown item"
+        elif o["trainer_type"] == "TRAINER_TYPE_BURIED":
+            reason = "buried trainer (only its script shows it)"
+        elif skipped(o["graphics_id"].replace("OBJ_EVENT_GFX_", "", 1)):
+            reason = "sprite not imported (berry tree, decoration: hoenn_sprites.skipped)"
+        elif not field_move:
+            reason = hidden_reason(ctx, o["flag"])
+        if not reason and (o["x"], o["y"]) in warps:
+            reason = "stands on a warp"
         if reason:
-            dropped.append("%s: %s" % (where, reason))
+            m.dropped.append("%s: %s" % (where, reason))
             continue
         em_gfx = VAR_GFX.get((m.name, o["graphics_id"]), o["graphics_id"])
         gfx = npc_gfx(em_gfx)
-        assert gfx, "%s on %s: %s not imported (tools/hoenn_import/hoenn_sprites.py skipped() it); a VAR id needs a " \
-            "VAR_GFX entry" % (o["graphics_id"], m.name, em_gfx)
-        assert "#define %s " % o["movement_type"] in movement_types, o["movement_type"]
-        moving = "WANDER" in o["movement_type"] or "WALK" in o["movement_type"]
-        assert not moving or sprite_frames(hoenn_info(gfx)) >= 9, "%s walks: %s has no walking frames" % (where, gfx)
-        field_move = o["script"] in FIELD_MOVE_SCRIPTS
-        assert not field_move or defined(o["flag"]), "%s on %s: %s does not exist here; define it (removeobject sets " \
-            "it, as in Emerald) before importing this map" % (where, m.name, o["flag"])
-        kept.append((o, em_gfx, gfx, moving or field_move or item_ball, script, field_move or item_ball))
+        if not gfx:
+            refuse("%s on %s: %s not imported (tools/hoenn_import/hoenn_sprites.py skipped() it); a VAR id needs a "
+                   "decision in hoenn_decisions.VAR_GFX" % (o["graphics_id"], m.name, em_gfx))
+            continue
+        movement = o["movement_type"]
+        if not defined(movement):
+            slow = movement.replace("WALK_SLOWLY_IN_PLACE", "WALK_IN_PLACE")
+            if slow != movement and defined(slow):
+                m.dropped.append("%s: %s -> %s (DEGRADED: no slow version here)" % (where, movement, slow))
+                movement = slow
+            else:
+                refuse("%s %s: unknown movement type %s" % (m.name, where, movement))
+        moving = "WANDER" in movement or "WALK" in movement
+        if moving and sprite_frames(hoenn_info(gfx)) < 9:
+            refuse("%s %s walks: %s has no walking frames" % (m.name, where, gfx))
+        kept.append((o, em_gfx, gfx, movement, moving or field_move or bool(item), item, field_move or bool(item)))
     # a still object must not cut the way to a warp (moving ones step aside, a field move clears an obstacle)
     base, obstacles, objects = reached_warps(m, set()), set(), []
-    for o, em_gfx, gfx, passable, script, keep_flag in kept:
+    for o, em_gfx, gfx, movement, passable, item, keep_flag in kept:
         pos = (o["x"], o["y"])
         lost = sorted(base - reached_warps(m, obstacles | {pos})) if not passable else []
         if lost:
-            dropped.append("%s (%d,%d): blocks the way to warp %s" % (o["graphics_id"], o["x"], o["y"], lost))
+            m.dropped.append("%s (%d,%d): blocks the way to warp %s" % (o["graphics_id"], o["x"], o["y"], lost))
             continue
         if not passable:
             obstacles.add(pos)
+        n = len(objects) + 1  # its local id
+        if o["trainer_type"] != "TRAINER_TYPE_NONE":
+            comment = "trainer #%d (%d,%d) %s, Emerald %s sight %s" % (
+                n, o["x"], o["y"], ctx.trainer_id(o["script"]) or "no trainerbattle", o["trainer_type"][13:],
+                o["trainer_sight_or_berry_tree_id"])
+        else:
+            comment = "NPC #%d (%d,%d)" % (n, o["x"], o["y"])
+        if keep_flag:  # removeobject sets it: an item ball or obstacle stays gone (a permanent Emerald flag is allocated)
+            flag_here(ctx, o["flag"], "%s (%d,%d) %s" % (m.name, o["x"], o["y"], "item ball" if item else o["script"]))
+        if item:
+            script = item_ball(ctx, m, o, item)
+        else:
+            script = map_script(m.name, o["script"], ctx.labels) if keep_flag else script_label(ctx, m, o["script"], comment)
+        if o.get("local_id"):
+            if defined(o["local_id"]):
+                m.dropped.append("%s: %s is a constant here, no .equ" % (where, o["local_id"]))
+            else:
+                m.localids.append((o["local_id"], n))
         objects.append({
             "type": "object",
             "graphics_id": gfx,
             "x": o["x"],
             "y": o["y"],
             "elevation": o["elevation"],
-            "movement_type": o["movement_type"],
+            "movement_type": movement,
             "movement_range_x": o["movement_range_x"],
             "movement_range_y": o["movement_range_y"],
             "trainer_type": "TRAINER_TYPE_NONE",
@@ -590,62 +985,142 @@ def convert_objects(m, new_game, labels):
             "in_connection": False,
         })
         m.gfx_used[o["graphics_id"], em_gfx, gfx] += 1
-    return objects, dropped
-
-
-def convert_map_json(m, layout_id, warp_counts, new_game, existing, labels):
-    if existing:  # hand edits survive a re-run
-        objects, bg, coord, dropped = existing["object_events"], existing["bg_events"], existing["coord_events"], []
-    else:
-        objects, dropped = convert_objects(m, new_game, labels)
-        bg, coord, dropped_events = convert_events(m, labels)
-        dropped += dropped_events
     for o in objects:
         problem = hoenn_gfx_problem(m.name, o["graphics_id"])
-        assert not problem, "%s (%d,%d): %s: %s" % (m.name, o["x"], o["y"], o["graphics_id"], problem)
+        if problem:
+            refuse("%s (%d,%d): %s: %s" % (m.name, o["x"], o["y"], o["graphics_id"], problem))
+    return objects
+
+
+def convert_events(ctx, m):
+    """Emerald signs, hidden items, weather events and triggers -> this repo's bg_events and coord_events."""
+    bg, coord = [], []
+    for b in m.em_map["bg_events"]:
+        if b["type"] == "sign":
+            x, y = SIGN_MOVES.get((m.name, b["x"], b["y"]), (b["x"], b["y"]))
+            if not inside(m, x, y):
+                refuse("%s: sign (%d,%d) lies outside the map: give it a place in hoenn_decisions.SIGN_MOVES"
+                       % (m.name, x, y))
+                continue
+            bg.append(dict(b, x=x, y=y, script=script_label(ctx, m, b["script"], "sign (%d,%d)" % (x, y))))
+            continue
+        if b["type"] == "hidden_item":
+            event = hidden_item(ctx, m, b)  # None: refused
+            if event:
+                bg.append(event)
+        else:
+            m.dropped.append("%s (%d,%d): no secret bases" % (b["type"], b["x"], b["y"]))
+    for c in m.em_map.get("coord_events") or []:
+        if c["type"] == "weather":
+            if defined(c["weather"]):
+                coord.append(dict(c))
+            else:
+                refuse("%s: weather event (%d,%d): %s is not defined here" % (m.name, c["x"], c["y"], c["weather"]))
+            continue
+        script = map_script(m.name, c["script"], ctx.labels)
+        if script and defined(c["var"]):
+            coord.append(dict(c, script=script))
+        else:
+            m.left_out.append("trigger (%d,%d) %s==%s -> %s" % (c["x"], c["y"], c["var"], c["var_value"], c["script"]))
+            m.dropped.append("trigger (%d,%d) %s: not placed until scripted" % (c["x"], c["y"], c["script"]))
+    return bg, coord
+
+
+def resolve_warp(w, here):
+    """(dest map, dest warp id) of an Emerald warp here, None if its destination does not exist here (yet)."""
+    dest, dest_id = w["dest_map"], w["dest_warp_id"]
+    if dest == "MAP_DYNAMIC":
+        return dest, dest_id
+    if dest in WARP_ALIASES:
+        return WARP_ALIASES[dest], dest_id
+    if dest not in here:
+        return None
+    if not 0 <= int(dest_id) < here[dest]:
+        refuse("a warp to %s #%s: that map has %d warps" % (dest, dest_id, here[dest]))
+    return dest, dest_id
+
+
+def connections(em_map, here):
+    """Emerald's connections of a map that lead to maps existing here (Emerald lists both sides with matching offsets)."""
+    return [{"direction": c["direction"], "offset": c["offset"], "map": c["map"]}
+            for c in em_map.get("connections") or [] if c["direction"] in DIRECTIONS and c["map"] in here]
+
+
+def convert_header(ctx, m):
+    j = m.em_map
+    music = ctx.music(j["music"])
+    if not music:
+        refuse("%s: music %s has no track with its value here" % (m.name, j["music"]))
+    scene = BATTLE_SCENES.get(j["battle_scene"], j["battle_scene"])
+    for value in (j["region_map_section"], j["weather"], j["map_type"], scene):
+        if not defined(value):
+            refuse("%s: %s does not exist in this repo" % (m.name, value))
+    return {
+        "id": j["id"],
+        "name": m.name,
+        "layout": m.new_layout["id"],
+        "music": music or j["music"],
+        "region_map_section": j["region_map_section"],
+        "requires_flash": j["requires_flash"],
+        "weather": j["weather"],
+        "map_type": j["map_type"],
+        "allow_cycling": j["allow_cycling"],
+        "allow_escaping": j["allow_escaping"],
+        "allow_running": j["allow_running"],
+        "show_map_name": j["show_map_name"],
+        "floor_number": j.get("floor_number", 0),
+        "battle_scene": scene,
+    }
+
+
+def convert_map_json(ctx, m, here):
+    out = convert_header(ctx, m)
+    objects = convert_objects(ctx, m)
+    bg, coord = convert_events(ctx, m)
     warps = []
     for i, w in enumerate(m.em_map["warp_events"]):
-        dest, dest_id = w["dest_map"], w["dest_warp_id"]
-        if dest == "MAP_DYNAMIC":
-            assert dest_id == "WARP_ID_DYNAMIC", dest_id
-        elif dest in warp_counts:
-            assert 0 <= int(dest_id) < warp_counts[dest], "%s warp %d: %s has no warp %s" % (m.name, i, dest, dest_id)
-        else:  # map not imported (yet): warps onto itself
-            dest, dest_id = m.em_map["id"], str(i)
-        warps.append({"x": w["x"], "y": w["y"], "elevation": w["elevation"], "dest_map": dest, "dest_warp_id": dest_id})
-    music = m.em_map["music"] if defined(m.em_map["music"]) else FALLBACK_MUSIC
-    for key in ("region_map_section", "weather", "map_type", "battle_scene"):
-        assert defined(m.em_map[key]), "%s %s does not exist in this repo" % (key, m.em_map[key])
-    out = {
-        "id": m.em_map["id"],
-        "name": m.name,
-        "layout": layout_id,
-        "music": music,
-        "region_map_section": m.em_map["region_map_section"],
-        "requires_flash": m.em_map["requires_flash"],
-        "weather": m.em_map["weather"],
-        "map_type": m.em_map["map_type"],
-        "allow_cycling": m.em_map["allow_cycling"],
-        "allow_escaping": m.em_map["allow_escaping"],
-        "allow_running": m.em_map["allow_running"],
-        "show_map_name": m.em_map["show_map_name"],
-        "floor_number": m.em_map.get("floor_number", 0),
-        "battle_scene": m.em_map["battle_scene"],
-        "connections": 0,  # like the other connection-less maps of this repo
-        "object_events": objects,
-        "warp_events": warps,
-        "coord_events": coord,
-        "bg_events": bg,
-        "level_scaling": "0",  # read by this repo's mapjson; trainer-only
-    }
-    return out, dropped
+        dest = resolve_warp(w, here)
+        if not dest:  # map not imported (yet): warps onto itself, relink() points it once the map is here
+            dest = m.em_map["id"], str(i)
+            m.placeholders.append("%s warp %d -> %s #%s" % (m.name, i, w["dest_map"], w["dest_warp_id"]))
+        warps.append({"x": w["x"], "y": w["y"], "elevation": w["elevation"], "dest_map": dest[0], "dest_warp_id": dest[1]})
+    out.update(connections=connections(m.em_map, here) or 0,  # 0: like the other connection-less maps of this repo
+               object_events=objects, warp_events=warps, coord_events=coord, bg_events=bg,
+               level_scaling="0")  # read by this repo's mapjson; trainer-only
+    return out
+
+
+def stub_scripts(ctx, m):
+    """The new scripts.inc of map `m`: LOCALIDs, the map script table, the stubs of its labels, what is left out."""
+    text = "".join(".equ %s, %d\n" % lid for lid in m.localids) + ("\n" if m.localids else "")
+    text += "%s_MapScripts::\n\t.byte 0\n" % m.name
+    em_scripts = ctx.map_scripts(m.name)
+    if em_scripts:
+        text += "@ hoenn_import: Emerald map scripts not ported: %s\n" % ", ".join("%s (%s)" % s for s in em_scripts)
+    text += "".join(("%s::" % label).ljust(47) + " @ %s\n%s" % (comment, body) for label, comment, body in m.scripts)
+    if m.stubs:
+        text += "@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/%s/scripts.inc\n" % m.name
+        text += "".join(("%s::" % label).ljust(47) + " @ %s\n" % comment for label, comment in m.stubs) + "\tend\n"
+    if m.left_out:
+        text += "@ hoenn_import: left out: %s\n" % "; ".join(m.left_out)
+    return text
+
+
+def write_shared_stubs(ctx):
+    """Stubs of Emerald labels another map owns (PlayersHouse_1F_EventScript_Mom...) in data/scripts/hoenn_stubs.inc."""
+    if not ctx.shared_stubs:
+        return
+    text = read(STUBS) if exists(STUBS) else (
+        "@ hoenn_import: silent stubs of the Emerald scripts that Hoenn maps run and no scripts.inc defines yet.\n"
+        "@ Script one in its map's scripts.inc (or in data/scripts/), then delete its stub here.\n")
+    for label, users in ctx.shared_stubs.items():
+        text += "\n%s @ %s\n\tend\n" % (("%s::" % label).ljust(47), "; ".join(users))
+    write(STUBS, text)
+    include = '\t.include "data/scripts/hoenn_stubs.inc"\n'
+    append_once(REPO / "data/event_scripts.s", include, include)
 
 
 # ---------------------------------------------------------------- repo registration
-
-def defined(name):
-    return any(re.search(r"#define\s+%s\b" % name, read(p)) for p in (REPO / "include/constants").glob("*.h"))
-
 
 def append_once(path, marker, block):
     text = read(path)
@@ -670,13 +1145,14 @@ def register_tileset(ts):
                 'const u32 gMetatileAttributes_%s[] = INCBIN_U32("%s/metatile_attributes.bin");\n' % (t, d, t, d))
     rules = REPO / "tileset_rules.mk"
     target = "$(TILESETGFXDIR)/%s/tiles.4bpp: %%.4bpp: %%.png\n" % d.replace("data/tilesets/", "")
+    num_tiles = max(1, ts.num_tiles)  # gbagfx refuses 0
     text = read(rules)
     if target in text:
-        text = re.sub(re.escape(target) + r"(\t\$\(GFX\) \$< \$@ -num_tiles )\d+",
-                      lambda m: target + m.group(1) + str(ts.num_tiles), text)
-        write(rules, text)
+        if ts.grows:  # a tileset that gets nothing new keeps its rule (hand edits)
+            write(rules, re.sub(re.escape(target) + r"(\t\$\(GFX\) \$< \$@ -num_tiles )\d+",
+                                lambda m: target + m.group(1) + str(num_tiles), text))
     else:
-        append_once(rules, target, target + "\t$(GFX) $< $@ -num_tiles %d -Wnum_tiles\n" % ts.num_tiles)
+        append_once(rules, target, target + "\t$(GFX) $< $@ -num_tiles %d -Wnum_tiles\n" % num_tiles)
 
 
 def em_labels(em, em_name):
@@ -686,18 +1162,45 @@ def em_labels(em, em_name):
 
 
 def register_labels(em, ts):
-    """METATILE_<Emerald set>_X -> METATILE_<FRLG set>_X, for the metatiles the tileset has here."""
+    """METATILE_<Emerald set>_X -> METATILE_<FRLG set>_X for the metatiles the tileset has here: the missing ones end
+    its section (made if needed); the lines already there, hand-made ones too, stay."""
     labels = [(n, ts.remap_metatile(v)) for n, v in em_labels(em, ts.em_name) if v in ts.index]
     path = REPO / "include/constants/metatile_labels.h"
-    text = re.sub(r"// gTileset_%s\n(#define .*\n)*\n" % ts.name, "", read(path))
-    if labels:
-        width = max(len("METATILE_%s_%s" % (ts.name, n)) for n, _ in labels) + 2
-        section = "// gTileset_%s\n%s\n" % (ts.name, "".join(
-            "#define %s0x%03X\n" % (("METATILE_%s_%s" % (ts.name, n)).ljust(width), v) for n, v in labels))
-        after = [m for m in re.finditer(r"^// gTileset_(\w+)\n", text, re.M) if m.group(1) > ts.name]
+    text = read(path)
+    width = max([len("METATILE_%s_%s" % (ts.name, n)) for n, _ in labels], default=0) + 2
+    lines = "".join("#define %s0x%03X\n" % (("METATILE_%s_%s" % (ts.name, n)).ljust(width), v) for n, v in labels
+                    if not re.search(r"#define METATILE_%s_%s\b" % (ts.name, n), text))
+    if not lines:
+        return
+    section = re.search(r"^// gTileset_%s\r?\n(?:#define .*\n)*" % ts.name, text, re.M)
+    if section:
+        pos = section.end()
+    else:
+        after = [m for m in re.finditer(r"^// gTileset_(\w+)\r?\n", text, re.M) if m.group(1) > ts.name]
         pos = after[0].start() if after else text.index("// Other")
-        text = text[:pos] + section + text[pos:]
-    write(path, text)
+        lines = "// gTileset_%s\n%s\n" % (ts.name, lines)
+    write(path, text[:pos] + lines + text[pos:])
+
+
+def write_map_constants():
+    """include/constants/map_groups.h and layouts.h exactly as tools/mapjson makes them from the planned JSON files.
+    They are tracked in git: committed with the import, no build compiles with stale ones (make takes the copies a
+    fresh build mirror gets after the JSON files for up to date)."""
+    groups = json.loads(read(REPO / "data/maps/map_groups.json"))
+    text = ("#ifndef GUARD_CONSTANTS_MAP_GROUPS_H\n#define GUARD_CONSTANTS_MAP_GROUPS_H\n\n"
+            "//\n// DO NOT MODIFY THIS FILE! It is auto-generated from data/maps/map_groups.json\n//\n\n")
+    for g, group in enumerate(groups["group_order"]):
+        ids = [json.loads(read(REPO / "data/maps" / name / "map.json"))["id"] for name in groups[group]]
+        width = max(map(len, ids), default=0)
+        text += "// %s\n%s\n" % (group, "".join("#define %s (%d | (%d << 8))\n" % (i.ljust(width), n, g)
+                                               for n, i in enumerate(ids)))
+    write(REPO / "include/constants/map_groups.h", text + "#define MAP_GROUPS_COUNT %d\n\n"
+          "#endif // GUARD_CONSTANTS_MAP_GROUPS_H\n" % len(groups["group_order"]))
+    layouts = json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"]
+    write(REPO / "include/constants/layouts.h", "#ifndef GUARD_CONSTANTS_LAYOUTS_H\n#define GUARD_CONSTANTS_LAYOUTS_H\n\n"
+          "//\n// DO NOT MODIFY THIS FILE! It is auto-generated from data/layouts/layouts.json\n//\n\n%s\n"
+          "#endif // GUARD_CONSTANTS_LAYOUTS_H\n" % "".join("#define %s %d\n" % (l["id"], i)
+                                                           for i, l in enumerate(layouts, 1) if l))
 
 
 def plan_layout(em_layout, repo_layouts):
@@ -708,10 +1211,10 @@ def plan_layout(em_layout, repo_layouts):
     renamed = any(l.get("id") == lid and not ours(l) for l in repo_layouts)
     if renamed:
         lid, name, folder = "LAYOUT_HOENN_" + lid[len("LAYOUT_"):], "Hoenn_" + name, "Hoenn_" + folder
-    for l in repo_layouts:  # only a layout this tool made may be replaced
+    for l in repo_layouts:  # only a layout this tool made may be reused
         if l.get("id") == lid or l.get("blockdata_filepath", "").startswith("data/layouts/%s/" % folder):
-            assert ours(l) and l["id"] == lid, "%s (%s) already exists in this repo: not replaced" \
-                                              % (l.get("id"), l.get("blockdata_filepath"))
+            if not (ours(l) and l["id"] == lid):
+                refuse("%s (%s) already exists in this repo: not replaced" % (l.get("id"), l.get("blockdata_filepath")))
     return renamed, {
         "id": lid,
         "name": name,
@@ -726,76 +1229,50 @@ def plan_layout(em_layout, repo_layouts):
     }
 
 
-def register_maps(maps, layouts, group):
-    path = REPO / "data/layouts/layouts.json"
-    data = json.loads(read(path))
-    for layout in layouts:
-        ids = [l.get("id") for l in data["layouts"]]
-        if layout["id"] in ids:  # replace in place: LAYOUT_* ids are positions, saves store them
-            data["layouts"][ids.index(layout["id"])] = layout
-        else:
-            data["layouts"].append(layout)
-    write_json(path, data)
-    path = REPO / "data/maps/map_groups.json"
-    groups = json.loads(read(path))
-    if group not in groups:
-        groups["group_order"].append(group)
-        groups[group] = []
-    for m in maps:
-        if not any(m.name in groups[g] for g in groups["group_order"]):
-            groups[group].append(m.name)
-    write_json(path, groups)
-    includes = ""
-    for m in maps:
-        scripts = REPO / "data/maps" / m.name / "scripts.inc"
-        if not scripts.exists():
-            write(scripts, "%s_MapScripts::\n\t.byte 0\n" % m.name)
-        include = '\t.include "data/maps/%s/scripts.inc"\n' % m.name
-        if include not in read(REPO / "data/event_scripts.s"):
-            includes += include
-    if includes:
-        append_once(REPO / "data/event_scripts.s", includes, includes)
+# ---------------------------------------------------------------- plan
+
+def hoenn_maps(ctx):
+    """{MAP_ id: folder} of this repo's maps imported from Emerald (an Emerald map name on a Hoenn layout)."""
+    layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
+    out = {}
+    for p in (REPO / "data/maps").glob("*/map.json"):
+        if p.parent.name in ctx.maps:
+            mj = json.loads(read(p))
+            if layouts.get(mj.get("layout"), {}).get("primary_tileset") in HOENN_PRIMARIES:
+                out[mj["id"]] = p.parent.name
+    return out
 
 
-# ---------------------------------------------------------------- main
-
-def main():
-    if not __debug__:
-        raise SystemExit("hoenn_import's safety checks are asserts: run it without python -O / PYTHONOPTIMIZE")
-    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
-    parser.add_argument("maps", nargs="*", help="Emerald map names, e.g. LilycoveCity (kept as the target names)")
-    parser.add_argument("--check-gfx", action="store_true",
-                        help="only check the sprites of every map.json against its layout's NPC palettes (exit 1 if bad)")
-    parser.add_argument("--emerald", type=Path, default=REPO.parent / "pokeemerald", help="pret/pokeemerald clone")
-    parser.add_argument("--group", default="gMapGroup_TownsAndRoutes", help="map group new maps are appended to")
-    parser.add_argument("--reset-events", action="store_true",
-                        help="regenerate the objects, signs and triggers of maps that already exist (drops their "
-                             "hand edits)")
-    parser.add_argument("--render", type=Path, help="also save each rendered map as <dir>/<Map>.png")
-    args = parser.parse_args()
-    if args.check_gfx:
-        bad = check_gfx()
-        print("\n".join(bad) or "check-gfx: every object shows the sprite its layout's NPC palettes are made for")
-        raise SystemExit(1 if bad else 0)
-    if not args.maps:
-        parser.error("no map given")
-    em = args.emerald.resolve()
-    em_layouts = {l["id"]: l for l in json.loads(read(em / "data/layouts/layouts.json"))["layouts"] if "id" in l}
+def plan(ctx, names, group_of):
+    """Plan the import of the Emerald maps `names` (group_of[name]: the map group a new one joins) in PENDING."""
+    em = ctx.root
     repo_layouts = json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"]
-    behaviors = Behaviors(em)
-    new_game = new_game_flags(em)
-    labels = script_labels()
-
+    existing = hoenn_maps(ctx)
+    groups = json.loads(read(REPO / "data/maps/map_groups.json"))
+    # a folder no group lists is what an undone import left (git checkout keeps untracked files): the same files are
+    # planned over it, and a different one is refused as uncommitted (check_files)
+    folders = {name for g in groups["group_order"] for name in groups[g]}
+    ctx.labels, ctx.shared_stubs, ctx.allocated = repo_labels(), defaultdict(list), []
     maps = []
-    for name in dict.fromkeys(args.maps):
-        em_map = json.loads(read(em / "data/maps" / name / "map.json"))
-        layout = em_layouts[em_map["layout"]]
-        blocks = read_ints(em / layout["blockdata_filepath"], "H")
-        assert len(blocks) == layout["width"] * layout["height"]
-        border = read_ints(em / layout["border_filepath"], "H")
-        assert len(border) == 4
-        maps.append(SimpleNamespace(name=name, em_map=em_map, layout=layout, blocks=blocks, border=border,
-                                    width=layout["width"], gfx_used=Counter()))
+    for name in dict.fromkeys(names):
+        if name not in ctx.maps:
+            refuse("%s is not an Emerald map" % name, fatal=True)
+        em_map = ctx.maps[name]
+        layout = ctx.layout_of(name)
+        blocks, border = read_ints(em / layout["blockdata_filepath"], "H"), read_ints(em / layout["border_filepath"], "H")
+        if len(blocks) != layout["width"] * layout["height"] or len(border) != 4:
+            refuse("%s: unexpected Emerald layout files" % name, fatal=True)
+        m = SimpleNamespace(name=name, em_map=em_map, layout=layout, blocks=blocks, border=border, width=layout["width"],
+                            height=layout["height"], group=group_of[name], exists=existing.get(em_map["id"]) == name,
+                            gfx_used=Counter(), dropped=[], scripts=[], stubs=[], localids=[], left_out=[],
+                            placeholders=[], differences=[], map_json=None)
+        if not m.exists and name in folders:
+            refuse("data/maps/%s already exists and is not the Hoenn map this tool makes: not replaced" % name)
+        group = groups.get(m.group)
+        if not m.exists and group and m.group != "gMapGroup_TownsAndRoutes" and any(n not in ctx.maps for n in group):
+            refuse("%s holds maps that are not Emerald's: %s does not go there" % (m.group, name))
+        m.new_scripts = not exists(REPO / "data/maps" / name / "scripts.inc")
+        maps.append(m)
 
     # tilesets: each converted once, with the metatiles of every map of the batch that uses it
     used = defaultdict(set)
@@ -807,76 +1284,395 @@ def main():
     for m in maps:
         for key in ("primary_tileset", "secondary_tileset"):
             if m.layout[key] not in tilesets:
-                tilesets[m.layout[key]] = Tileset(em, m.layout[key], behaviors, used[m.layout[key]])
+                tilesets[m.layout[key]] = Tileset(em, m.layout[key], ctx.behaviors, used[m.layout[key]])
         m.primary, m.secondary = tilesets[m.layout["primary_tileset"]], tilesets[m.layout["secondary_tileset"]]
-        assert not m.primary.secondary and m.secondary.secondary
+        if m.primary.secondary or not m.secondary.secondary:
+            refuse("%s: primary / secondary tilesets swapped" % m.name, fatal=True)
         remap = lambda b: b & ~0x3FF | (m.primary.remap_metatile(b & 0x3FF) if b & 0x3FF < EM["metatiles"]
                                         else m.secondary.remap_metatile(b & 0x3FF))  # collision/elevation untouched
         m.new_blocks, m.new_border = [remap(b) for b in m.blocks], [remap(b) for b in m.border]
-        m.warp_behaviors = []
-        for w in m.em_map["warp_events"]:
+        m.warp_behaviors, dead = [], defaultdict(list)
+        for i, w in enumerate(m.em_map["warp_events"]):
+            if not inside(m, w["x"], w["y"]):
+                m.warp_behaviors.append((None, None, None, None))  # outside the map: an arrival point only
+                continue
             mid = m.blocks[w["y"] * m.width + w["x"]] & 0x3FF
             ts = m.primary if mid < EM["metatiles"] else m.secondary
-            em_beh = behaviors.em_names[ts.em_attrs[mid - (EM["metatiles"] if ts.secondary else 0)] & 0xFF]
-            m.warp_behaviors.append((em_beh, behaviors.fr_name(em_beh), mid, ts.remap_metatile(mid)))
+            em_beh = ctx.behaviors.em_names[ts.em_attrs[mid - (EM["metatiles"] if ts.secondary else 0)] & 0xFF]
+            fr_beh = ctx.behaviors.fr_name(em_beh)[0]
+            m.warp_behaviors.append((em_beh, fr_beh, mid, ts.remap_metatile(mid)))
+            # a water door only leads to a dungeon (excluded): the sea there is a listed degrade, not a dead warp
+            if not m.exists and em_beh in ctx.warp_triggers - WATER_DOORS and fr_beh not in ctx.warp_triggers_here:
+                dead[em_beh, fr_beh].append(str(i))
+        for (em_beh, fr_beh), warps in dead.items():
+            refuse(("needs step 3: Lavaridge Gym B1F geyser warps (engine E3): %s warps %s" % (m.name, " ".join(warps)))
+                   if em_beh == "MB_LAVARIDGE_GYM_B1F_WARP" else "dead warp: %s warps %s are %s in Emerald, %s here "
+                   "cannot warp" % (m.name, " ".join(warps), em_beh, fr_beh))
 
-    # layouts (shared ones once) and the maps this tool owns, to wire warps and refuse foreign maps
-    layouts = {}
+    # layouts (shared ones once; one already here is reused, never rewritten)
+    layouts, repo_ids = {}, {l.get("id"): l for l in repo_layouts}
     for m in maps:
         if m.layout["id"] not in layouts:
             renamed, layout = plan_layout(m.layout, repo_layouts)
             layout["primary_tileset"], layout["secondary_tileset"] = "gTileset_" + m.primary.name, "gTileset_" + m.secondary.name
             layouts[m.layout["id"]] = (renamed, layout)
         m.renamed, m.new_layout = layouts[m.layout["id"]]
-    repo_layout_ids = {l["id"]: l for l in repo_layouts if "id" in l}
-    warp_counts, map_folders = {}, {}
-    for path in (REPO / "data/maps").glob("*/map.json"):
-        mj = json.loads(read(path))
-        map_folders[mj["id"]] = path.parent.name
-        if repo_layout_ids.get(mj.get("layout"), {}).get("primary_tileset", "").startswith("gTileset_Hoenn"):
-            warp_counts[mj["id"]] = len(mj["warp_events"])
-    for m in maps:
-        assert map_folders.get(m.em_map["id"], m.name) == m.name, \
-            "%s is already data/maps/%s" % (m.em_map["id"], map_folders[m.em_map["id"]])
-        warp_counts[m.em_map["id"]] = len(m.em_map["warp_events"])
-    for m in maps:
-        path = REPO / "data/maps" / m.name / "map.json"
-        existing = json.loads(read(path)) if path.exists() else None
-        assert not existing or existing["layout"] == m.new_layout["id"], \
-            "data/maps/%s already exists in this repo: not replaced" % m.name
-        m.kept_events = existing is not None and not args.reset_events
-        m.map_json, m.dropped = convert_map_json(m, m.new_layout["id"], warp_counts, new_game,
-                                                 existing if m.kept_events else None, labels)
+        known = repo_ids.get(m.new_layout["id"])
+        if known:
+            if known != m.new_layout:
+                m.differences.append("layouts.json entry %s differs from Emerald's" % known["id"])
+            elif read_ints(REPO / known["blockdata_filepath"], "H") != m.new_blocks:
+                m.differences.append("%s differs from Emerald's layout" % known["blockdata_filepath"])
 
-    # everything is checked: write
+    # the maps here a warp or connection may lead to: Emerald maps imported before, and this batch
+    here = {map_id: len(json.loads(read(REPO / "data/maps" / folder / "map.json"))["warp_events"])
+            for map_id, folder in existing.items()}
+    here.update({m.em_map["id"]: len(m.em_map["warp_events"]) for m in maps})
+    for m in maps:
+        if m.exists:  # never regenerated: its header is compared only
+            old = json.loads(read(REPO / "data/maps" / m.name / "map.json"))
+            m.differences += ["%s is %s here, %s from Emerald" % (k, old.get(k), v)
+                              for k, v in convert_header(ctx, m).items() if old.get(k) != v]
+        else:
+            m.map_json = convert_map_json(ctx, m, here)
+
+    # everything planned in memory
     for ts in tilesets.values():
         ts.write()
-    for m in maps:
-        write_ints(REPO / m.new_layout["blockdata_filepath"], "H", m.new_blocks)
-        write_ints(REPO / m.new_layout["border_filepath"], "H", m.new_border)
-        write_json(REPO / "data/maps" / m.name / "map.json", m.map_json)
-    for ts in tilesets.values():
         register_tileset(ts)
         register_labels(em, ts)
-    register_maps(maps, [layout for _, layout in layouts.values()], args.group)
-
+    data = json.loads(read(REPO / "data/layouts/layouts.json"))
+    for _, layout in layouts.values():
+        if layout["id"] not in repo_ids:
+            data["layouts"].append(layout)
+            m = next(m for m in maps if m.new_layout is layout)
+            write_ints(REPO / layout["blockdata_filepath"], "H", m.new_blocks)
+            write_ints(REPO / layout["border_filepath"], "H", m.new_border)
+    write_json(REPO / "data/layouts/layouts.json", data)
     for m in maps:
-        before = render(m.blocks, m.width, m.primary.src, m.secondary.src, "emerald")
-        after = render(read_ints(REPO / m.new_layout["blockdata_filepath"], "H"), m.width,
-                       REPO / m.primary.dir, REPO / m.secondary.dir, "frlg")
-        assert before.tobytes() == after.tobytes(), "%s does not render like the Emerald one" % m.name
-        if args.render:
-            args.render.mkdir(parents=True, exist_ok=True)
-            after.save(args.render / (m.name + ".png"))
-    report(maps, tilesets, behaviors)
+        if m.exists:
+            continue
+        if m.group not in groups:
+            groups["group_order"].append(m.group)
+            groups[m.group] = []
+        groups[m.group].append(m.name)
+        write_json(REPO / "data/maps" / m.name / "map.json", m.map_json)
+        if m.new_scripts:
+            write(REPO / "data/maps" / m.name / "scripts.inc", stub_scripts(ctx, m))
+        include = '\t.include "data/maps/%s/scripts.inc"\n' % m.name
+        append_once(REPO / "data/event_scripts.s", include, include)
+    for g in {m.group for m in maps if not m.exists}:
+        if len(groups[g]) > 128:
+            refuse("%s would hold %d maps: a warp stores the map number as an s8 (struct WarpData), 128 maps at most"
+                   % (g, len(groups[g])))
+    write_json(REPO / "data/maps/map_groups.json", groups)
+    write_map_constants()
+    write_shared_stubs(ctx)
+    batch = SimpleNamespace(maps=maps, tilesets=tilesets, here=here, relinks=[], strips=[], extras=[], rendered=None,
+                            folders=dict(existing, **{m.em_map["id"]: m.name for m in maps}))
+    relink(ctx, batch, existing)
+    for m in maps:
+        if m.map_json:
+            batch.strips += [(m.em_map["id"], c) for c in m.map_json["connections"] or []]
+    if ctx.allocated:
+        batch.extras += ["Flags allocated in %s (Emerald's names):" % FLAGS_H.relative_to(REPO).as_posix()] + ctx.allocated
+    batch.extras += plan_encounters(ctx, batch) + plan_heal_location(ctx, batch)
+    return batch
 
 
-def report(maps, tilesets, behaviors):
+def plan_encounters(ctx, batch):
+    """Emerald's wild encounters (pokeemerald src/data/wild_encounters.json) of the new maps of this batch, added to
+    src/data/wild_encounters.h: their tables above gWildMonHeaders, their headers above its terminator entry. FireRed
+    and LeafGreen get the same tables. The entries already here are never touched (hand edits stay). Returns report
+    lines."""
+    groups = json.loads(read(ctx.root / "src/data/wild_encounters.json"))["wild_encounter_groups"]
+    entries = next(g for g in groups if g["label"] == "gWildMonHeaders")["encounters"]
+    new = {m.em_map["id"] for m in batch.maps if m.map_json}
+    text = read(ENCOUNTERS)
+    term = re.search(r"^(?:[ \t]*//.*\n)*[ \t]*\{\s*\.mapGroup = MAP_GROUP\(UNDEFINED\)", text, re.M)
+    if not term:
+        refuse("%s has no terminator entry (MAP_GROUP(UNDEFINED)): apply the engine fix that restores it first"
+               % ENCOUNTERS.relative_to(REPO).as_posix())
+        return []
+    tables, headers, added, seen = [], [], [], set()
+    for e in entries:
+        if e["map"] not in new or e["map"] in seen or "MAP_GROUP(%s)" % e["map"][4:] in text:
+            continue  # not new, already here, or a second entry of the map (Altering Cave's): the engine reads the first
+        seen.add(e["map"])
+        fields, kinds = "", []
+        for key, suffix, field in ENCOUNTER_TYPES:
+            info, label = e.get(key), "%s_%s" % (e["base_label"], suffix)
+            if info:
+                kinds.append(key[:-5].replace("_", " "))
+                for mon in info["mons"]:
+                    if not defined(mon["species"]):
+                        refuse("%s: wild %s does not exist here" % (batch.folders[e["map"]], mon["species"]))
+                tables.append("const struct WildPokemon %s[] =\n{\n%s};\n\nconst struct WildPokemonInfo %sInfo = { %d, %s };\n\n"
+                              % (label, "".join("    { %d, %d, %s },\n" % (mon["min_level"], mon["max_level"],
+                                                                        mon["species"]) for mon in info["mons"]),
+                                 label, info["encounter_rate"], label))
+            fields += "".join("        .%s_%s = %s,\n" % (field, v, "&%sInfo" % label if info else "NULL")
+                              for v in ("FR", "LG"))
+        headers.append("    {\n        .mapGroup = MAP_GROUP(%s),\n        .mapNum = MAP_NUM(%s),\n%s    },\n"
+                       % (e["map"][4:], e["map"][4:], fields))
+        added.append("%s (%s)" % (batch.folders[e["map"]], ", ".join(kinds)))
+    if headers:
+        text = text[:term.start()] + "".join(headers) + text[term.start():]
+        at = text.index("const struct WildPokemonHeader gWildMonHeaders[]")
+        write(ENCOUNTERS, text[:at] + "".join(tables) + text[at:])
+    return ["Wild encounters added to %s: %s" % (ENCOUNTERS.relative_to(REPO).as_posix(), ", ".join(added) or "none")]
+
+
+def plan_heal_location(ctx, batch):
+    """SPAWN_<TOWN> for each Emerald heal location whose Pokemon Center 1F this batch imports: the constant appended to
+    include/constants/heal_locations.h, a row in the 3 tables of src/data/heal_locations.h (Emerald's position from
+    pokeemerald src/data/heal_locations.json, the PC 1F, its nurse's local id). `setrespawn` stays script work."""
+    new = {m.em_map["id"]: m for m in batch.maps if m.map_json}
+    lines = []
+    for h in json.loads(read(ctx.root / "src/data/heal_locations.json"))["heal_locations"]:
+        town = h["id"][len("HEAL_LOCATION_"):]
+        spawn, pc = "SPAWN_" + town, new.get("MAP_%s_POKEMON_CENTER_1F" % town) or new.get("MAP_%s_1F" % town)
+        if not pc or h["map"] not in batch.folders or defined(spawn):
+            continue
+        nurse = next((i + 1 for i, o in enumerate(pc.map_json["object_events"])
+                      if o["graphics_id"] == "OBJ_EVENT_GFX_HOENN_NURSE"), None)
+        if not nurse:
+            lines.append("Heal location %s left out: %s has no nurse" % (spawn, pc.name))
+            continue
+        text = read(HEAL_CONSTANTS)
+        spawns = list(re.finditer(r"^#define SPAWN_\w+ (\d+)\r?\n", text, re.M))
+        value = max(int(s.group(1)) for s in spawns) + 1
+        write(HEAL_CONSTANTS, text[:spawns[-1].end()] + "#define %s %d\n" % (spawn, value) + text[spawns[-1].end():])
+        rows = ("{MAP_GROUP(%s), MAP_NUM(%s), %d, %d}" % (h["map"][4:], h["map"][4:], h["x"], h["y"]),
+                "{MAP_GROUP(%s), MAP_NUM(%s)}" % (pc.em_map["id"][4:], pc.em_map["id"][4:]), str(nurse))
+        text = read(HEAL_DATA)
+        for name, row in zip(HEAL_TABLES, rows):
+            end = text.index("};", text.index(name))
+            text = text[:end] + "    [%s - 1] = %s,\n" % (spawn, row) + text[end:]
+        write(HEAL_DATA, text)
+        lines.append("Heal location %s = %d: %s (%d,%d), whiteout in %s, nurse local id %d (setrespawn in its "
+                     "scripts.inc is script work)" % (spawn, value, batch.folders[h["map"]], h["x"], h["y"], pc.name, nurse))
+    return lines
+
+
+def relink(ctx, batch, existing):
+    """Maps imported before get what the new maps of this batch make possible, and nothing else: a placeholder warp
+    (one onto itself; Porymap 4 writes its id as a number) whose Emerald destination is a new map is pointed there,
+    Emerald's connections toward a new map are added. A connection removed here (Porymap) toward an older map stays
+    removed."""
+    new = {m.em_map["id"] for m in batch.maps if not m.exists}
+    for map_id, folder in sorted(existing.items(), key=lambda e: e[1]):
+        if map_id in new:
+            continue
+        path = REPO / "data/maps" / folder / "map.json"
+        mj, em_map = json.loads(read(path)), ctx.maps[folder]
+        changed = False
+        for i, (w, em_w) in enumerate(zip(mj["warp_events"], em_map["warp_events"])):
+            if (w["dest_map"], str(w["dest_warp_id"])) != (mj["id"], str(i)) or em_w["dest_map"] not in new:
+                continue
+            dest = resolve_warp(em_w, batch.here)
+            if dest and dest != (mj["id"], str(i)):
+                w["dest_map"], w["dest_warp_id"] = dest
+                batch.relinks.append("%s warp %d -> %s #%s" % (folder, i, dest[0], dest[1]))
+                changed = True
+        have = {(c["direction"], c["map"]) for c in mj.get("connections") or []}
+        for c in connections(em_map, batch.here):
+            if c["map"] in new and (c["direction"], c["map"]) not in have:
+                mj["connections"] = (mj.get("connections") or []) + [c]
+                batch.relinks.append("%s: connection %s -> %s (offset %d)" % (folder, c["direction"], c["map"], c["offset"]))
+                batch.strips.append((map_id, c))
+                changed = True
+        if changed:
+            write_json(path, mj)
+
+
+# ---------------------------------------------------------------- checks
+
+def view(ctx, folder, layouts):
+    """A map of this repo as both engines draw it: Emerald's blocks and tileset folders, and this repo's. `edited`:
+    the cells whose block is not the conversion of Emerald's (painted here, e.g. in Porymap; all if resized)."""
+    mj = json.loads(read(REPO / "data/maps" / folder / "map.json"))
+    layout, em_layout = layouts[mj["layout"]], ctx.layout_of(folder)
+    em_dirs = [em_tileset(ctx.root, em_layout[k])[1] for k in ("primary_tileset", "secondary_tileset")]
+    v = SimpleNamespace(
+        name=folder, width=layout["width"], height=layout["height"],
+        em_blocks=read_ints(ctx.root / em_layout["blockdata_filepath"], "H"), em_dirs=em_dirs,
+        em_counts=[len(read_bytes(d / "metatile_attributes.bin")) // 2 for d in em_dirs],
+        fr_blocks=read_ints(REPO / layout["blockdata_filepath"], "H"),
+        fr_dirs=[repo_tileset_dir(layout[k]) for k in ("primary_tileset", "secondary_tileset")])
+    ids = v.fr_dirs[1] / IDS_FILE  # Tileset.remap_metatile: secondary id = 640 + its place (pruned: in IDS_FILE)
+    order = json.loads(read(ids))["metatiles"] if exists(ids) else range(EM["metatiles"], TOTAL)
+    to_fr = {m: FR["metatiles"] + i for i, m in enumerate(order)}
+    conv = lambda b: b if b & 0x3FF < EM["metatiles"] else b & ~0x3FF | to_fr.get(b & 0x3FF, 0x3FF)
+    v.edited = {i for i, (e, f) in enumerate(zip(v.em_blocks, v.fr_blocks)) if conv(e) != f} \
+        if (v.width, v.height) == (em_layout["width"], em_layout["height"]) else set(range(len(v.fr_blocks)))
+    return v
+
+
+def same_render(em_blocks, fr_blocks, width, v, png, ref="emerald"):
+    """True if both engines draw these blocks alike with the tilesets of the map `v` (ref "before": this repo's
+    tilesets as they are on disk, before this run, instead of Emerald's)."""
+    before = render(em_blocks, width, *(v.em_dirs if ref == "emerald" else v.fr_dirs), ref)
+    after = render(fr_blocks, width, *v.fr_dirs, "frlg")
+    if png:
+        png.parent.mkdir(parents=True, exist_ok=True)
+        after.save(png)
+    return before.tobytes() == after.tobytes()
+
+
+def strip(v, n, c):
+    """Emerald and FRLG blocks of the neighbour `n` that standing in `v` shows through the connection `c`
+    (fieldmap.c Fill*Connection: MAP_OFFSET blocks around `v`), to draw with v's tilesets, and the strip's width.
+    A cell whose id v's Emerald tileset lacks is left out (Emerald draws garbage there), so is a cell painted here
+    (n.edited: Emerald has nothing to compare it with): metatile 0 on both sides."""
+    o = c["offset"]
+    if c["direction"] in ("up", "down"):
+        xs = range(max(0, -MAP_OFFSET - o), min(n.width, v.width + MAP_OFFSET - o))
+        ys = range(max(0, n.height - MAP_OFFSET), n.height) if c["direction"] == "up" else range(min(MAP_OFFSET, n.height))
+    else:
+        ys = range(max(0, -MAP_OFFSET - o), min(n.height, v.height + MAP_OFFSET - o))
+        xs = range(max(0, n.width - MAP_OFFSET), n.width) if c["direction"] == "left" else range(min(MAP_OFFSET, n.width))
+    em_blocks, fr_blocks = [], []
+    for y in ys:
+        for x in xs:
+            i = y * n.width + x
+            e, f = (0, 0) if i in n.edited else (n.em_blocks[i], n.fr_blocks[i])
+            mid = e & 0x3FF
+            drawable = mid < v.em_counts[0] if mid < EM["metatiles"] else mid - EM["metatiles"] < v.em_counts[1]
+            em_blocks.append(e if drawable else 0)
+            fr_blocks.append(f if drawable else 0)
+    return em_blocks, fr_blocks, len(xs)
+
+
+def check_renders(ctx, batch, render_dir):
+    """Pixel checks: every new map and every connection strip both ways render like Emerald's, every older map whose
+    tileset grows renders as it does now (its blocks may be painted here: Emerald is no reference for them)."""
+    _TILESETS.clear()
+    layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
+    png = lambda name: render_dir / (name + ".png") if render_dir else None
+    changed = changes()
+    grown = {REPO / ts.dir for ts in batch.tilesets.values() if any(p.parent == REPO / ts.dir for p in changed)}
+    new = {m.name for m in batch.maps if not m.exists}
+    batch.rendered = []
+    for folder in sorted(batch.folders.values()):
+        if folder not in new and not grown:
+            continue
+        v = view(ctx, folder, layouts)
+        if folder not in new and not grown & set(v.fr_dirs):
+            continue
+        batch.rendered.append(folder)
+        if folder in new and not same_render(v.em_blocks, v.fr_blocks, v.width, v, png(folder)):
+            refuse("%s does not render like the Emerald one" % folder)
+        if folder not in new and not same_render(v.fr_blocks, v.fr_blocks, v.width, v, png(folder), "before"):
+            refuse("%s would no longer render as it does now (its grown tileset changed)" % folder)
+    for map_id, c in batch.strips:
+        v, n = view(ctx, batch.folders[map_id], layouts), view(ctx, batch.folders[c["map"]], layouts)
+        em_blocks, fr_blocks, width = strip(v, n, c)
+        if width and not same_render(em_blocks, fr_blocks, width, v, png("%s_%s_%s" % (v.name, c["direction"], n.name))):
+            refuse("connection strip %s -> %s (%s) does not render like Emerald's (tileset ids differ: design F11)"
+                   % (v.name, n.name, c["direction"]))
+
+
+def kept_lines(text):
+    """The lines of a text file that an import must keep: not those of -num_tiles rules or FLAG_0x placeholders;
+    JSON's trailing commas ignored."""
+    return [line.rstrip().rstrip(",") for line in text.splitlines()
+            if "-num_tiles" not in line and not line.startswith("#define FLAG_0x")]
+
+
+def additive(path, old, new):
+    """True if `new` only adds to `old`, the bytes of a file that existed before the run."""
+    rel = path.relative_to(REPO).as_posix()
+    if rel in ("include/constants/map_groups.h", "include/constants/layouts.h"):  # made from the checked JSON files
+        return True
+    if rel.startswith("data/maps/") and path.name == "map.json":  # relink(): placeholder warps, connections
+        o, n = json.loads(old), json.loads(new)
+        oc, nc = o.get("connections") or [], n.get("connections") or []
+        if nc[:len(oc)] != oc or len(o["warp_events"]) != len(n["warp_events"]):
+            return False
+        for i, (a, b) in enumerate(zip(o["warp_events"], n["warp_events"])):
+            if a != b and ((a["dest_map"], str(a["dest_warp_id"])) != (o["id"], str(i)) or
+                           {k: v for k, v in a.items() if not k.startswith("dest")} !=
+                           {k: v for k, v in b.items() if not k.startswith("dest")}):
+                return False
+        rest = lambda j: {k: v for k, v in j.items() if k not in ("connections", "warp_events")}
+        return rest(o) == rest(n)
+    if rel.startswith("data/tilesets/") and path.suffix == ".bin":  # metatiles / attributes: appended
+        return new.startswith(old)
+    if rel.startswith("data/tilesets/") and path.suffix == ".png":  # tiles appended (the last row's blank padding
+        o = load_tiles(old)                                          # may get tiles)
+        while o and not any(o[-1]):
+            o.pop()
+        return load_tiles(new)[:len(o)] == o
+    if path.name == IDS_FILE:
+        o, n = json.loads(old), json.loads(new)
+        return all(n[k][:len(o[k])] == o[k] for k in ("metatiles", "tiles"))
+    if path.suffix in (".bin", ".pal", ".png"):
+        return False
+    it = iter(kept_lines(new.decode("utf-8")))
+    return all(line in it for line in kept_lines(old.decode("utf-8")))
+
+
+def git(*args):
+    """Git for Windows on this repo (devkitPro's MSYS2 git sees every CRLF file as modified), else the git on the
+    PATH; returncode 1 if it cannot start."""
+    exe = Path("C:/Program Files/Git/cmd/git.exe")
+    try:
+        return subprocess.run([str(exe) if exe.exists() else "git", "-C", str(REPO), "-c", "core.autocrlf=true", *args],
+                              capture_output=True, text=True)
+    except OSError as e:
+        return SimpleNamespace(returncode=1, stderr=str(e), stdout="")
+
+
+def check_files(files):
+    """Older files only gain lines; the files to write are clean in git (hand edits are never overwritten)."""
+    for p, data in files.items():
+        if p.exists() and not additive(p, p.read_bytes(), data):
+            refuse("%s: the import would change existing lines (only additions are allowed)" % p.relative_to(REPO).as_posix())
+    rel = [p.relative_to(REPO).as_posix() for p in files if p.exists()]
+    dirty = []
+    for i in range(0, len(rel), 200):
+        r = git("status", "--porcelain", "--untracked-files=all", "--", *rel[i:i + 200])
+        if r.returncode:
+            refuse("cannot check that the files to write are clean: git status failed (%s)" % r.stderr.strip())
+            return
+        dirty += [line[3:] for line in r.stdout.splitlines()]
+    if dirty:
+        refuse("files to write have uncommitted changes (commit, restore or delete them first): %s" % ", ".join(dirty))
+
+
+# ---------------------------------------------------------------- report
+
+def reachable(batch, start="MAP_LILYCOVE_CITY"):
+    """MAP_ ids reached from `start` through connections and linked warps (both ways), planned files included. The
+    link rooms every Pokemon Center shares are no way through."""
+    edges = defaultdict(set)
+    for map_id, folder in batch.folders.items():
+        mj = json.loads(read(REPO / "data/maps" / folder / "map.json"))
+        for dest in [c["map"] for c in mj.get("connections") or []] + [w["dest_map"] for w in mj["warp_events"]]:
+            if dest not in WARP_ALIASES and dest != "MAP_DYNAMIC":
+                edges[map_id].add(dest)
+                edges[dest].add(map_id)
+    seen, todo = set(), [start]
+    while todo:
+        cur = todo.pop()
+        if cur not in seen:
+            seen.add(cur)
+            todo += edges[cur] - seen
+    return seen
+
+
+def report(ctx, batch, unit=None):
     print("Tilesets:")
-    for ts in tilesets.values():
-        print("  gTileset_%-26s %-9s %3d metatiles %3d tiles  %s%s" % (
-            ts.name, ts.kind, len(ts.metas), ts.num_tiles, ts.dir,
+    for ts in batch.tilesets.values():
+        state = "new" if ts.new else "+%d metatiles" % ts.grows if ts.grows else "unchanged"
+        room = "/%d" % SEC_MAX if ts.secondary else "    "  # a secondary's room: a pruned one fills up import by import
+        print("  gTileset_%-26s %-9s %3d%s metatiles %3d tiles  %-14s %s%s" % (
+            ts.name, ts.kind, len(ts.metas), room, ts.num_tiles, state, ts.dir,
             "  PRUNED, ids in " + IDS_FILE if ts.pruned else ""))
+        if ts.junk:
+            print("NOTE: Emerald metatiles %s name tiles beyond tiles.png: drawn with tile 0 here"
+                  % " ".join("0x%03X" % m for m in ts.junk))
         for old, new in ts.pal_map.items():
             print("WARNING: Emerald palette %d of gTileset_%s is slot %d here (door/anim palettes naming slot %d "
                   "must follow)" % (old, ts.name, new, old))
@@ -885,35 +1681,142 @@ def report(maps, tilesets, behaviors):
         if not ts.secondary and ts.em_callback != "NULL":
             print("NOTE: gTileset_%s.callback = InitTilesetAnim_%s (src/tileset_anims.c, port of Emerald %s)"
                   % (ts.name, ts.name, ts.em_callback))
-    print("Behaviors (Emerald -> FRLG: metatiles):")
-    for (e, f), n in sorted(behaviors.used.items()):
-        lost = " <- no FRLG equivalent" if f == "MB_NORMAL" and e != "MB_NORMAL" else ""
-        print("  %-38s -> %-30s %3d%s" % (e, f, n, lost))
-    for m in maps:
+    print("Behaviors (Emerald -> here: metatiles of these tilesets):")
+    for (e, f), n in sorted(ctx.behaviors.used.items()):
+        note = ctx.behaviors.fr_name(e)[1]
+        print("  %-38s -> %-30s %3d%s" % (e, f, n, "  " + note if note else ""))
+    for m in batch.maps:
         j = m.map_json
-        print("%s  %s%s  %s  %dx%d  %s + %s" % (
-            j["id"], j["layout"], " (Emerald %s)" % m.layout["id"] if m.renamed else "", j["music"],
-            m.width, len(m.blocks) // m.width, m.new_layout["primary_tileset"], m.new_layout["secondary_tileset"]))
-        if m.kept_events:
-            print("  objects / signs / triggers: those of the existing map.json (--reset-events regenerates them)")
+        if not j:
+            print("%s  already here: not regenerated" % m.em_map["id"])
+        else:
+            print("%s  %s%s  %s  %dx%d  %s + %s  %s" % (
+                j["id"], j["layout"], " (Emerald %s)" % m.layout["id"] if m.renamed else "", j["music"],
+                m.width, m.height, m.new_layout["primary_tileset"], m.new_layout["secondary_tileset"], m.group))
+        for d in m.differences:
+            print("  DIFFERS (not written): " + d)
+        if not j:
+            continue
+        for c in j["connections"] or []:
+            print("  CONN %-5s -> %s (offset %d)" % (c["direction"], c["map"], c["offset"]))
         for o in j["object_events"]:
             print("  NPC  (%2d,%2d) %-38s %-26s %s" % (o["x"], o["y"], o["graphics_id"], o["movement_type"][14:],
                                                     o["script"]))
         for e in j["bg_events"] + j["coord_events"]:
-            print("  %-4s (%2d,%2d) %s" % (e["type"][:4].upper(), e["x"], e["y"], e.get("script") or e.get("flag")))
+            print("  %-4s (%2d,%2d) %s" % (e["type"][:4].upper(), e["x"], e["y"], e.get("script") or e.get("flag")
+                                           or e.get("weather")))
         for d in m.dropped:
             print("  DROP " + d)
         for i, (w, (em_beh, fr_beh, em_mt, fr_mt)) in enumerate(zip(j["warp_events"], m.warp_behaviors)):
-            print("  WARP %d (%2d,%2d) %-20s mt 0x%03X (Emerald 0x%03X) -> %s #%s" % (
-                i, w["x"], w["y"], fr_beh, fr_mt, em_mt, w["dest_map"], w["dest_warp_id"]))
+            print("  WARP %d (%2d,%2d) %-20s %s -> %s #%s%s" % (
+                i, w["x"], w["y"], fr_beh or "outside the map", "mt 0x%03X (Emerald 0x%03X)" % (fr_mt, em_mt)
+                if em_mt is not None else "", w["dest_map"], w["dest_warp_id"],
+                "  (placeholder)" if (w["dest_map"], w["dest_warp_id"]) == (j["id"], str(i)) else ""))
+        if m.new_scripts:
+            print("  new scripts.inc: %d stubs, %d LOCALIDs" % (len(m.stubs), len(m.localids)))
     gfx = Counter()
-    for m in maps:
+    for m in batch.maps:
         gfx.update(m.gfx_used)
     if gfx:
         print("Sprites (Emerald -> here: objects):")
         for (em_gfx, var_gfx, fr_gfx), n in sorted(gfx.items()):
             print("  %-36s -> %-40s %2d" % (em_gfx if em_gfx == var_gfx else "%s=%s" % (em_gfx, var_gfx), fr_gfx, n))
-    print("Render check: every converted map is pixel-identical to Emerald's.")
+    if ctx.shared_stubs:
+        print("Stubs in %s: %s" % (STUBS.relative_to(REPO).as_posix(), ", ".join(ctx.shared_stubs)))
+    print("Re-linked in maps already here:" if batch.relinks else "Re-linked in maps already here: nothing")
+    for r in batch.relinks:
+        print("  " + r)
+    placeholders = [p for m in batch.maps for p in m.placeholders]
+    if placeholders:
+        print("Warps left onto themselves until their map is imported:")
+        for p in placeholders:
+            print("  " + p)
+    for line in batch.extras:
+        print(line)
+    if batch.rendered is not None:
+        print("Render check: %d maps and %d connection strips compared with Emerald's" % (len(batch.rendered),
+                                                                                         len(batch.strips)))
+    if unit:
+        print("%s %s from LilycoveCity (connections and warps)" % (
+            unit, "can be reached" if ctx.maps[unit]["id"] in reachable(batch) else "can NOT be reached yet"))
+
+
+# ---------------------------------------------------------------- run
+
+def run(names, group_of, em, render_dir=None, dry_run=False, unit=None):
+    """Import the Emerald maps `names` (group_of: map -> group of a new map). Returns the exit code."""
+    if not __debug__:
+        raise SystemExit("hoenn_import's checks use asserts: run it without python -O / PYTHONOPTIMIZE")
+    em = Path(em).resolve()
+    if not (em / "data/maps/map_groups.json").exists():
+        print("pokeemerald not found at %s (--emerald DIR)" % em)
+        return 2
+    sys.stdout.reconfigure(errors="backslashreplace")  # a console without UTF-8 must not stop the report
+    PENDING.clear()
+    REFUSALS.clear()
+    ctx = Emerald(em)
+    batch, files = None, {}
+    try:
+        batch = plan(ctx, names, group_of)
+        check_renders(ctx, batch, render_dir)
+        files = changes()
+        check_files(files)
+    except Refused:
+        pass
+    if batch:
+        report(ctx, batch, unit)
+    if REFUSALS:
+        print("REFUSED, nothing written:")
+        for r in REFUSALS:
+            print("  - " + r)
+        return 1
+    if not files:
+        print("Nothing to do: everything is already here.")
+        return 0
+    print("Files %s:" % ("that would be written (--dry-run: nothing written)" if dry_run else "written"))
+    for p in sorted(files):
+        print("  %s %s" % ("M" if p.exists() else "A", p.relative_to(REPO).as_posix()))
+    if dry_run:
+        return 0
+    try:
+        commit(files)
+    except Exception as e:
+        print("ERROR while writing (%s: %s): every file was restored" % (type(e).__name__, e))
+        return 3
+    print("Done. Build with .\\fast_build.cmd, check the maps in game, then commit every file above.")
+    r = git("ls-files")
+    if not r.returncode:
+        rel = lambda p: p.relative_to(REPO).as_posix()
+        tracked = set(r.stdout.splitlines())
+        tracked_dirs = {str(d) for f in tracked for d in PurePosixPath(f).parents}
+        # the planned files git does not track (new, or left by an undone run), by their topmost untracked folder
+        tops = sorted({next((str(d) for d in reversed(PurePosixPath(rel(p)).parents)
+                             if str(d) not in tracked_dirs), rel(p)) for p in PENDING if rel(p) not in tracked})
+        print("To undo this import before committing it (these commands touch only its files):")
+        for command, paths in (("git restore --", [rel(p) for p in sorted(files) if rel(p) in tracked]),
+                               ("git clean -fdq --", tops)):
+            if paths:
+                print("  %s %s" % (command, " ".join(paths)))
+    return 0
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0])
+    parser.add_argument("maps", nargs="*", help="Emerald map names, e.g. LilycoveCity (kept as the target names)")
+    parser.add_argument("--check-gfx", action="store_true",
+                        help="only check the sprites of every map.json against its layout's NPC palettes (exit 1 if bad)")
+    parser.add_argument("--emerald", type=Path, default=REPO.parent / "pokeemerald", help="pret/pokeemerald clone")
+    parser.add_argument("--group", default="gMapGroup_TownsAndRoutes", help="map group new maps are appended to")
+    parser.add_argument("--dry-run", action="store_true", help="plan and check everything, write nothing")
+    parser.add_argument("--render", type=Path, help="also save each rendered map and connection strip in this folder")
+    args = parser.parse_args()
+    if args.check_gfx:
+        bad = check_gfx()
+        print("\n".join(bad) or "check-gfx: every object shows the sprite its layout's NPC palettes are made for")
+        raise SystemExit(1 if bad else 0)
+    if not args.maps:
+        parser.error("no map given")
+    raise SystemExit(run(args.maps, {m: args.group for m in args.maps}, args.emerald, args.render, args.dry_run))
 
 
 if __name__ == "__main__":
