@@ -9174,4 +9174,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .fishingMonsInfo_FR = NULL,
         .fishingMonsInfo_LG = NULL,
     },
+    // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
+    // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).
+    {
+        .mapGroup = MAP_GROUP(UNDEFINED),
+        .mapNum = MAP_NUM(UNDEFINED),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
 };
