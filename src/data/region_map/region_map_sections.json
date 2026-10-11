@@ -18,7 +18,7 @@
     },
     {
       "map_section": "MAPSEC_DEWFORD_TOWN",
-      "name": "MYOKARA",
+      "name": "VILLAGE MYOKARA",
       "x": 2,
       "y": 14,
       "width": 1,
@@ -74,7 +74,7 @@
     },
     {
       "map_section": "MAPSEC_MAUVILLE_CITY",
-      "name": "MAUVILLE",
+      "name": "LAVANDIA",
       "x": 8,
       "y": 6,
       "width": 2,
@@ -162,7 +162,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_105",
-      "name": "ROUTE 105",
+      "name": "CHENAL 105",
       "x": 0,
       "y": 10,
       "width": 1,
@@ -170,7 +170,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_106",
-      "name": "ROUTE 106",
+      "name": "CHENAL 106",
       "x": 0,
       "y": 13,
       "width": 2,
@@ -178,7 +178,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_107",
-      "name": "ROUTE 107",
+      "name": "CHENAL 107",
       "x": 3,
       "y": 14,
       "width": 3,
@@ -186,7 +186,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_108",
-      "name": "ROUTE 108",
+      "name": "CHENAL 108",
       "x": 6,
       "y": 14,
       "width": 2,
@@ -194,7 +194,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_109",
-      "name": "ROUTE 109",
+      "name": "CHENAL 109",
       "x": 8,
       "y": 12,
       "width": 1,
@@ -298,7 +298,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_122",
-      "name": "ROUTE 122",
+      "name": "CHENAL 122",
       "x": 16,
       "y": 4,
       "width": 1,
@@ -314,7 +314,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_124",
-      "name": "ROUTE 124",
+      "name": "CHENAL 124",
       "x": 20,
       "y": 3,
       "width": 4,
@@ -322,7 +322,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_125",
-      "name": "ROUTE 125",
+      "name": "CHENAL 125",
       "x": 24,
       "y": 3,
       "width": 2,
@@ -330,7 +330,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_126",
-      "name": "ROUTE 126",
+      "name": "CHENAL 126",
       "x": 20,
       "y": 6,
       "width": 3,
@@ -338,7 +338,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_127",
-      "name": "ROUTE 127",
+      "name": "CHENAL 127",
       "x": 23,
       "y": 6,
       "width": 3,
@@ -346,7 +346,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_128",
-      "name": "ROUTE 128",
+      "name": "CHENAL 128",
       "x": 23,
       "y": 9,
       "width": 4,
@@ -354,7 +354,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_129",
-      "name": "ROUTE 129",
+      "name": "CHENAL 129",
       "x": 24,
       "y": 10,
       "width": 2,
@@ -362,7 +362,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_130",
-      "name": "ROUTE 130",
+      "name": "CHENAL 130",
       "x": 21,
       "y": 10,
       "width": 3,
@@ -370,7 +370,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_131",
-      "name": "ROUTE 131",
+      "name": "CHENAL 131",
       "x": 18,
       "y": 10,
       "width": 3,
@@ -378,7 +378,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_132",
-      "name": "ROUTE 132",
+      "name": "CHENAL 132",
       "x": 15,
       "y": 10,
       "width": 2,
@@ -386,7 +386,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_133",
-      "name": "ROUTE 133",
+      "name": "CHENAL 133",
       "x": 12,
       "y": 10,
       "width": 3,
@@ -394,7 +394,7 @@
     },
     {
       "map_section": "MAPSEC_ROUTE_134",
-      "name": "ROUTE 134",
+      "name": "CHENAL 134",
       "x": 9,
       "y": 10,
       "width": 3,
@@ -410,7 +410,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_126",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 20,
       "y": 6,
       "width": 3,
@@ -418,7 +418,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_127",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 23,
       "y": 6,
       "width": 3,
@@ -426,7 +426,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_128",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 23,
       "y": 9,
       "width": 4,
@@ -434,7 +434,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_SOOTOPOLIS",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 21,
       "y": 7,
       "width": 1,
@@ -530,7 +530,7 @@
     },
     {
       "map_section": "MAPSEC_AQUA_HIDEOUT_OLD",
-      "name": "REPAIRE",
+      "name": "PLANQUE AQUA",
       "name_clone": true,
       "x": 19,
       "y": 3,
@@ -555,7 +555,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_SEAFLOOR_CAVERN",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 24,
       "y": 9,
       "width": 1,
@@ -635,7 +635,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_SEALED_CHAMBER",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 11,
       "y": 10,
       "width": 1,
@@ -651,7 +651,7 @@
     },
     {
       "map_section": "MAPSEC_ISLAND_CAVE",
-      "name": "GROTTE DE L'ILOT",
+      "name": "GROTTE ISLAND",
       "x": 0,
       "y": 10,
       "width": 1,
@@ -675,7 +675,7 @@
     },
     {
       "map_section": "MAPSEC_INSIDE_OF_TRUCK",
-      "name": "CAMION",
+      "name": "CAMIONNETTE",
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1639,7 +1639,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_MARINE_CAVE",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 0,
       "y": 0,
       "width": 1,
@@ -1655,7 +1655,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_105",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 0,
       "y": 10,
       "width": 1,
@@ -1663,7 +1663,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_125",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 24,
       "y": 3,
       "width": 2,
@@ -1671,7 +1671,7 @@
     },
     {
       "map_section": "MAPSEC_UNDERWATER_129",
-      "name": "FONDS MARINS",
+      "name": "FOND MARIN",
       "x": 24,
       "y": 10,
       "width": 2,
@@ -1703,7 +1703,7 @@
     },
     {
       "map_section": "MAPSEC_TRAINER_HILL",
-      "name": "COLLINE DRESSEUR",
+      "name": "MONT DRESSEURS",
       "x": 8,
       "y": 4,
       "width": 1,
