@@ -5928,6 +5928,18 @@
       "secondary_tileset": "gTileset_HoennPetalburg",
       "border_filepath": "data/layouts/Route102/border.bin",
       "blockdata_filepath": "data/layouts/Route102/map.bin"
+    },
+    {
+      "id": "LAYOUT_OLDALE_TOWN",
+      "name": "OldaleTown_Layout",
+      "width": 20,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPetalburg",
+      "border_filepath": "data/layouts/OldaleTown/border.bin",
+      "blockdata_filepath": "data/layouts/OldaleTown/map.bin"
     }
   ]
 }

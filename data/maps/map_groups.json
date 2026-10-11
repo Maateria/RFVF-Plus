@@ -58,7 +58,8 @@
     "gMapGroup_IndoorRoute116",
     "gMapGroup_IndoorRoute104",
     "gMapGroup_IndoorDewford",
-    "gMapGroup_IndoorPetalburg"
+    "gMapGroup_IndoorPetalburg",
+    "gMapGroup_IndoorOldale"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -368,7 +369,8 @@
     "DewfordTown",
     "Route107",
     "PetalburgCity",
-    "Route102"
+    "Route102",
+    "OldaleTown"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -779,5 +781,12 @@
     "PetalburgCity_PokemonCenter_1F",
     "PetalburgCity_PokemonCenter_2F",
     "PetalburgCity_Mart"
+  ],
+  "gMapGroup_IndoorOldale": [
+    "OldaleTown_House1",
+    "OldaleTown_House2",
+    "OldaleTown_PokemonCenter_1F",
+    "OldaleTown_PokemonCenter_2F",
+    "OldaleTown_Mart"
   ]
 }

@@ -314,6 +314,7 @@
 #define MAP_ROUTE107                             (92 | (3 << 8))
 #define MAP_PETALBURG_CITY                       (93 | (3 << 8))
 #define MAP_ROUTE102                             (94 | (3 << 8))
+#define MAP_OLDALE_TOWN                          (95 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -725,6 +726,13 @@
 #define MAP_PETALBURG_CITY_POKEMON_CENTER_2F (5 | (58 << 8))
 #define MAP_PETALBURG_CITY_MART              (6 | (58 << 8))
 
-#define MAP_GROUPS_COUNT 59
+// gMapGroup_IndoorOldale
+#define MAP_OLDALE_TOWN_HOUSE1            (0 | (59 << 8))
+#define MAP_OLDALE_TOWN_HOUSE2            (1 | (59 << 8))
+#define MAP_OLDALE_TOWN_POKEMON_CENTER_1F (2 | (59 << 8))
+#define MAP_OLDALE_TOWN_POKEMON_CENTER_2F (3 | (59 << 8))
+#define MAP_OLDALE_TOWN_MART              (4 | (59 << 8))
+
+#define MAP_GROUPS_COUNT 60
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

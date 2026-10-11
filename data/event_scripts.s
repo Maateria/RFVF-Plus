@@ -1602,3 +1602,15 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/scripts/hoenn_stubs.inc"
 
 	.include "data/maps/Route102/scripts.inc"
+
+	.include "data/maps/OldaleTown/scripts.inc"
+
+	.include "data/maps/OldaleTown_House1/scripts.inc"
+
+	.include "data/maps/OldaleTown_House2/scripts.inc"
+
+	.include "data/maps/OldaleTown_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/OldaleTown_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/OldaleTown_Mart/scripts.inc"
