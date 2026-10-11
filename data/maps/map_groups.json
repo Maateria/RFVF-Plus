@@ -45,7 +45,8 @@
     "gMapGroup_IndoorSevenIslandRoute",
     "gMapGroup_RSE",
     "gMapGroup_IndoorLilycove",
-    "gMapGroup_IndoorRoute121"
+    "gMapGroup_IndoorRoute121",
+    "gMapGroup_IndoorRoute123"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -332,7 +333,8 @@
     "FourIsland_Base",
     "LilycoveCity",
     "Route121",
-    "Route122"
+    "Route122",
+    "Route123"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -636,5 +638,8 @@
   ],
   "gMapGroup_IndoorRoute121": [
     "Route121_SafariZoneEntrance"
+  ],
+  "gMapGroup_IndoorRoute123": [
+    "Route123_BerryMastersHouse"
   ]
 }

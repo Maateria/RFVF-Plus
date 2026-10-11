@@ -291,6 +291,7 @@
 #define MAP_LILYCOVE_CITY                        (69 | (3 << 8))
 #define MAP_ROUTE121                             (70 | (3 << 8))
 #define MAP_ROUTE122                             (71 | (3 << 8))
+#define MAP_ROUTE123                             (72 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -595,6 +596,9 @@
 // gMapGroup_IndoorRoute121
 #define MAP_ROUTE121_SAFARI_ZONE_ENTRANCE (0 | (45 << 8))
 
-#define MAP_GROUPS_COUNT 46
+// gMapGroup_IndoorRoute123
+#define MAP_ROUTE123_BERRY_MASTERS_HOUSE (0 | (46 << 8))
+
+#define MAP_GROUPS_COUNT 47
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H
