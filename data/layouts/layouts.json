@@ -5868,6 +5868,18 @@
       "secondary_tileset": "gTileset_HoennGenericBuilding",
       "border_filepath": "data/layouts/DewfordTown_Hall/border.bin",
       "blockdata_filepath": "data/layouts/DewfordTown_Hall/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE107",
+      "name": "Route107_Layout",
+      "width": 60,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennDewford",
+      "border_filepath": "data/layouts/Route107/border.bin",
+      "blockdata_filepath": "data/layouts/Route107/map.bin"
     }
   ]
 }
