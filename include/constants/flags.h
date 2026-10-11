@@ -291,8 +291,8 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_119_ULTRA_BALL    0x10F
 #define FLAG_HIDDEN_ITEM_ROUTE_119_FULL_HEAL     0x110
 #define FLAG_HIDDEN_ITEM_ROUTE_119_MAX_ETHER     0x111
-#define FLAG_0x112               0x112
-#define FLAG_0x113               0x113
+#define FLAG_ITEM_ROUTE_132_RARE_CANDY           0x112
+#define FLAG_ITEM_ROUTE_132_PROTEIN              0x113
 #define FLAG_0x114               0x114
 #define FLAG_0x115               0x115
 #define FLAG_0x116               0x116
