@@ -5088,6 +5088,18 @@
       "secondary_tileset": "gTileset_HoennShop",
       "border_filepath": "data/layouts/Route121_SafariZoneEntrance/border.bin",
       "blockdata_filepath": "data/layouts/Route121_SafariZoneEntrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE122",
+      "name": "Route122_Layout",
+      "width": 40,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLilycove",
+      "border_filepath": "data/layouts/Route122/border.bin",
+      "blockdata_filepath": "data/layouts/Route122/map.bin"
     }
   ]
 }

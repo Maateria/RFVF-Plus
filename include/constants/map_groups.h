@@ -290,6 +290,7 @@
 #define MAP_FOUR_ISLAND_BASE                     (68 | (3 << 8))
 #define MAP_LILYCOVE_CITY                        (69 | (3 << 8))
 #define MAP_ROUTE121                             (70 | (3 << 8))
+#define MAP_ROUTE122                             (71 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
