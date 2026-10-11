@@ -7585,6 +7585,51 @@ const struct WildPokemon gRoute120_FishingMons[] =
 
 const struct WildPokemonInfo gRoute120_FishingMonsInfo = { 30, gRoute120_FishingMons };
 
+const struct WildPokemon gRoute119_LandMons[] =
+{
+    { 25, 25, SPECIES_ZIGZAGOON },
+    { 25, 25, SPECIES_LINOONE },
+    { 27, 27, SPECIES_ZIGZAGOON },
+    { 25, 25, SPECIES_ODDISH },
+    { 27, 27, SPECIES_LINOONE },
+    { 26, 26, SPECIES_ODDISH },
+    { 27, 27, SPECIES_ODDISH },
+    { 24, 24, SPECIES_ODDISH },
+    { 25, 25, SPECIES_TROPIUS },
+    { 26, 26, SPECIES_TROPIUS },
+    { 27, 27, SPECIES_TROPIUS },
+    { 25, 25, SPECIES_KECLEON },
+};
+
+const struct WildPokemonInfo gRoute119_LandMonsInfo = { 15, gRoute119_LandMons };
+
+const struct WildPokemon gRoute119_WaterMons[] =
+{
+    { 5, 35, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_WINGULL },
+    { 15, 25, SPECIES_WINGULL },
+    { 25, 30, SPECIES_PELIPPER },
+    { 25, 30, SPECIES_PELIPPER },
+};
+
+const struct WildPokemonInfo gRoute119_WaterMonsInfo = { 4, gRoute119_WaterMons };
+
+const struct WildPokemon gRoute119_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_CARVANHA },
+    { 25, 30, SPECIES_CARVANHA },
+    { 30, 35, SPECIES_CARVANHA },
+    { 20, 25, SPECIES_CARVANHA },
+    { 35, 40, SPECIES_CARVANHA },
+    { 40, 45, SPECIES_CARVANHA },
+};
+
+const struct WildPokemonInfo gRoute119_FishingMonsInfo = { 30, gRoute119_FishingMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -9422,6 +9467,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gRoute120_FishingMonsInfo,
         .fishingMonsInfo_LG = &gRoute120_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(ROUTE119),
+        .mapNum = MAP_NUM(ROUTE119),
+        .landMonsInfo_FR = &gRoute119_LandMonsInfo,
+        .landMonsInfo_LG = &gRoute119_LandMonsInfo,
+        .waterMonsInfo_FR = &gRoute119_WaterMonsInfo,
+        .waterMonsInfo_LG = &gRoute119_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gRoute119_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gRoute119_FishingMonsInfo,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).

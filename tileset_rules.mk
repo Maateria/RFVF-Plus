@@ -233,3 +233,6 @@ $(TILESETGFXDIR)/secondary/hoenn_fortree/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_fortree_gym/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 59 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_lab/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 206 -Wnum_tiles

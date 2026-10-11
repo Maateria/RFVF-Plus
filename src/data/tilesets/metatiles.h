@@ -258,3 +258,6 @@ const u32 gMetatileAttributes_HoennFortree[] = INCBIN_U32("data/tilesets/seconda
 
 const u16 gMetatiles_HoennFortreeGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_fortree_gym/metatiles.bin");
 const u32 gMetatileAttributes_HoennFortreeGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_fortree_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennLab[] = INCBIN_U16("data/tilesets/secondary/hoenn_lab/metatiles.bin");
+const u32 gMetatileAttributes_HoennLab[] = INCBIN_U32("data/tilesets/secondary/hoenn_lab/metatile_attributes.bin");

@@ -1420,3 +1420,11 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/FortreeCity_House5/scripts.inc"
 
 	.include "data/maps/FortreeCity_DecorationShop/scripts.inc"
+
+	.include "data/maps/Route119/scripts.inc"
+
+	.include "data/maps/Route119_WeatherInstitute_1F/scripts.inc"
+
+	.include "data/maps/Route119_WeatherInstitute_2F/scripts.inc"
+
+	.include "data/maps/Route119_House/scripts.inc"

@@ -294,6 +294,7 @@
 #define MAP_ROUTE123                             (72 | (3 << 8))
 #define MAP_ROUTE120                             (73 | (3 << 8))
 #define MAP_FORTREE_CITY                         (74 | (3 << 8))
+#define MAP_ROUTE119                             (75 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -613,6 +614,11 @@
 #define MAP_FORTREE_CITY_HOUSE5            (8 | (47 << 8))
 #define MAP_FORTREE_CITY_DECORATION_SHOP   (9 | (47 << 8))
 
-#define MAP_GROUPS_COUNT 48
+// gMapGroup_IndoorRoute119
+#define MAP_ROUTE119_WEATHER_INSTITUTE_1F (0 | (48 << 8))
+#define MAP_ROUTE119_WEATHER_INSTITUTE_2F (1 | (48 << 8))
+#define MAP_ROUTE119_HOUSE                (2 | (48 << 8))
+
+#define MAP_GROUPS_COUNT 49
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H
