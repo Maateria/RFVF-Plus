@@ -83,20 +83,13 @@
 
 	@ Defines a generic background event for map data. Mirrors the struct layout of BgEvent in include/global.fieldmap.h
 	@ 'kind' is any BG_EVENT_* constant (see include/constants/event_bg.h).
-	@ 'arg6' is used differently depending on the bg event type. 'arg7' and 'arg8' are only used by bg_hidden_item_event.
-	@ See macros below.
-	.macro bg_event x:req, y, elevation:req, kind:req, arg6:req, arg7, arg8
+	@ 'arg6' is used differently depending on the bg event type. See macros below.
+	.macro bg_event x:req, y, elevation:req, kind:req, arg6:req
 	.2byte \x, \y
 	.byte \elevation
 	.byte \kind
 	.space 2  @ Padding
-	.if \kind != BG_EVENT_HIDDEN_ITEM
-		.4byte \arg6
-	.else
-		.2byte \arg6
-		.byte \arg7
-		.byte \arg8
-	.endif
+	.4byte \arg6
 	inc _num_signs
 	.endm
 
@@ -105,9 +98,13 @@
 	bg_event \x, \y, \elevation, \facing_dir, \script
 	.endm
 
-	@ Defines a background hidden item event for map data
+	@ Defines a background hidden item event for map data. Packed into BgEvent's u32 hiddenItem
+	@ (HIDDEN_ITEM_* in include/global.fieldmap.h): item 12 bits, absolute flag 12 bits, quantity 7 bits, underfoot 1 bit.
 	.macro bg_hidden_item_event x:req, y:req, elevation:req, item:req, flag:req, quantity:req, underfoot:req
-	bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, \item, ((\flag) - FLAG_HIDDEN_ITEMS_START), \quantity | (\underfoot << 7)
+	.if ((\item) >> 12) || ((\flag) >> 12) || ((\quantity) >> 7) || ((\underfoot) >> 1)
+	.error "bg_hidden_item_event: item, flag, quantity or underfoot does not fit in its field"
+	.endif
+	bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, (\item) | ((\flag) << 12) | ((\quantity) << 24) | ((\underfoot) << 31)
 	.endm
 
 	@ Defines a background secret base event for map data.

@@ -2085,7 +2085,7 @@ u16 GetHiddenItemAttr(u32 hiddenItem, u8 attr)
     if (attr == HIDDEN_ITEM_ITEM)
         return GET_HIDDEN_ITEM_ITEM(hiddenItem);
     else if (attr == HIDDEN_ITEM_FLAG)
-        return GET_HIDDEN_ITEM_FLAG(hiddenItem) + FLAG_HIDDEN_ITEMS_START;
+        return GET_HIDDEN_ITEM_FLAG(hiddenItem);
     else if (attr == HIDDEN_ITEM_QUANTITY)
         return GET_HIDDEN_ITEM_QUANTITY(hiddenItem);
     else if (attr == HIDDEN_ITEM_UNDERFOOT)
