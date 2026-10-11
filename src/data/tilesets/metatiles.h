@@ -252,3 +252,6 @@ const u32 gMetatileAttributes_HoennShop[] = INCBIN_U32("data/tilesets/secondary/
 
 const u16 gMetatiles_HoennBattleFrontier[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_frontier/metatiles.bin");
 const u32 gMetatileAttributes_HoennBattleFrontier[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_frontier/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennFortree[] = INCBIN_U16("data/tilesets/secondary/hoenn_fortree/metatiles.bin");
+const u32 gMetatileAttributes_HoennFortree[] = INCBIN_U32("data/tilesets/secondary/hoenn_fortree/metatile_attributes.bin");

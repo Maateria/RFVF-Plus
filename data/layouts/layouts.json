@@ -5112,6 +5112,18 @@
       "secondary_tileset": "gTileset_HoennLilycove",
       "border_filepath": "data/layouts/Route123/border.bin",
       "blockdata_filepath": "data/layouts/Route123/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE120",
+      "name": "Route120_Layout",
+      "width": 40,
+      "height": 100,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFortree",
+      "border_filepath": "data/layouts/Route120/border.bin",
+      "blockdata_filepath": "data/layouts/Route120/map.bin"
     }
   ]
 }

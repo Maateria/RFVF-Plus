@@ -135,6 +135,23 @@
 #define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile4    0x2A5
 #define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile5    0x2A6
 
+// gTileset_HoennFortree
+#define METATILE_HoennFortree_BridgeOverGrass_Lowered           0x2CF
+#define METATILE_HoennFortree_BridgeOverGrass_Raised            0x2CE
+#define METATILE_HoennFortree_BridgeOverTrees_Lowered           0x2D7
+#define METATILE_HoennFortree_BridgeOverTrees_Raised            0x2D6
+#define METATILE_HoennFortree_LongGrass_Root                    0x288
+#define METATILE_HoennFortree_SecretBase_LongGrass_BottomLeft   0x301
+#define METATILE_HoennFortree_SecretBase_LongGrass_BottomMid    0x302
+#define METATILE_HoennFortree_SecretBase_LongGrass_BottomRight  0x303
+#define METATILE_HoennFortree_SecretBase_LongGrass_TopLeft      0x2F9
+#define METATILE_HoennFortree_SecretBase_LongGrass_TopMid       0x2FA
+#define METATILE_HoennFortree_SecretBase_LongGrass_TopRight     0x2FB
+#define METATILE_HoennFortree_SecretBase_Shrub                  0x2F1
+#define METATILE_HoennFortree_SecretBase_ShrubOpen              0x2F8
+#define METATILE_HoennFortree_WoodBridge1_Bottom                0x31F
+#define METATILE_HoennFortree_WoodBridge1_Top                   0x317
+
 // gTileset_HoennGeneral
 #define METATILE_HoennGeneral_BlueCaveIndent        0x1B0
 #define METATILE_HoennGeneral_BlueCaveOpen          0x1B1

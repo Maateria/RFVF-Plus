@@ -227,3 +227,6 @@ $(TILESETGFXDIR)/secondary/hoenn_shop/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_battle_frontier/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 21 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_fortree/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 181 -Wnum_tiles

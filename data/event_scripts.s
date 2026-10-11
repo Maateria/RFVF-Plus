@@ -1396,3 +1396,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route123/scripts.inc"
 
 	.include "data/maps/Route123_BerryMastersHouse/scripts.inc"
+
+	.include "data/maps/Route120/scripts.inc"
