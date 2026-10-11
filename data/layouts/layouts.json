@@ -5808,6 +5808,18 @@
       "secondary_tileset": "gTileset_HoennDewford",
       "border_filepath": "data/layouts/Route105/border.bin",
       "blockdata_filepath": "data/layouts/Route105/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE106",
+      "name": "Route106_Layout",
+      "width": 80,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennDewford",
+      "border_filepath": "data/layouts/Route106/border.bin",
+      "blockdata_filepath": "data/layouts/Route106/map.bin"
     }
   ]
 }

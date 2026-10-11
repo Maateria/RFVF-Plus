@@ -1564,3 +1564,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route104_PrettyPetalFlowerShop/scripts.inc"
 
 	.include "data/maps/Route105/scripts.inc"
+
+	.include "data/maps/Route106/scripts.inc"

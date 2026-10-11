@@ -337,10 +337,10 @@
 #define FLAG_ITEM_ROUTE_105_IRON                 0x13D
 #define FLAG_HIDDEN_ITEM_ROUTE_105_HEART_SCALE   0x13E
 #define FLAG_HIDDEN_ITEM_ROUTE_105_BIG_PEARL     0x13F
-#define FLAG_0x140               0x140
-#define FLAG_0x141               0x141
-#define FLAG_0x142               0x142
-#define FLAG_0x143               0x143
+#define FLAG_ITEM_ROUTE_106_PROTEIN              0x140
+#define FLAG_HIDDEN_ITEM_ROUTE_106_POKE_BALL     0x141
+#define FLAG_HIDDEN_ITEM_ROUTE_106_STARDUST      0x142
+#define FLAG_HIDDEN_ITEM_ROUTE_106_HEART_SCALE   0x143
 #define FLAG_0x144               0x144
 #define FLAG_0x145               0x145
 #define FLAG_0x146               0x146
