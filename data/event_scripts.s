@@ -1516,3 +1516,39 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route114_LanettesHouse/scripts.inc"
 
 	.include "data/maps/Route115/scripts.inc"
+
+	.include "data/maps/RustboroCity/scripts.inc"
+
+	.include "data/maps/RustboroCity_DevonCorp_1F/scripts.inc"
+
+	.include "data/maps/RustboroCity_DevonCorp_2F/scripts.inc"
+
+	.include "data/maps/RustboroCity_DevonCorp_3F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Gym/scripts.inc"
+
+	.include "data/maps/RustboroCity_PokemonSchool/scripts.inc"
+
+	.include "data/maps/RustboroCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/RustboroCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Mart/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat1_1F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat1_2F/scripts.inc"
+
+	.include "data/maps/RustboroCity_House1/scripts.inc"
+
+	.include "data/maps/RustboroCity_CuttersHouse/scripts.inc"
+
+	.include "data/maps/RustboroCity_House2/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat2_1F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat2_2F/scripts.inc"
+
+	.include "data/maps/RustboroCity_Flat2_3F/scripts.inc"
+
+	.include "data/maps/RustboroCity_House3/scripts.inc"

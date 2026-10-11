@@ -53,7 +53,8 @@
     "gMapGroup_IndoorPacifidlog",
     "gMapGroup_IndoorRoute113",
     "gMapGroup_IndoorFallarbor",
-    "gMapGroup_IndoorRoute114"
+    "gMapGroup_IndoorRoute114",
+    "gMapGroup_IndoorRustboro"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -354,7 +355,8 @@
     "Route113",
     "FallarborTown",
     "Route114",
-    "Route115"
+    "Route115",
+    "RustboroCity"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -722,5 +724,24 @@
     "Route114_FossilManiacsHouse",
     "Route114_FossilManiacsTunnel",
     "Route114_LanettesHouse"
+  ],
+  "gMapGroup_IndoorRustboro": [
+    "RustboroCity_DevonCorp_1F",
+    "RustboroCity_DevonCorp_2F",
+    "RustboroCity_DevonCorp_3F",
+    "RustboroCity_Gym",
+    "RustboroCity_PokemonSchool",
+    "RustboroCity_PokemonCenter_1F",
+    "RustboroCity_PokemonCenter_2F",
+    "RustboroCity_Mart",
+    "RustboroCity_Flat1_1F",
+    "RustboroCity_Flat1_2F",
+    "RustboroCity_House1",
+    "RustboroCity_CuttersHouse",
+    "RustboroCity_House2",
+    "RustboroCity_Flat2_1F",
+    "RustboroCity_Flat2_2F",
+    "RustboroCity_Flat2_3F",
+    "RustboroCity_House3"
   ]
 }

@@ -1958,3 +1958,69 @@ const u16 gTilesetPalettes_HoennBattleTent[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_battle_tent/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_battle_tent/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennRustboro[] = INCBIN_U32("data/tilesets/secondary/hoenn_rustboro/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennRustboro[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennRustboroGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_rustboro_gym/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennRustboroGym[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennPokemonSchool[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_school/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennPokemonSchool[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/15.gbapal"),
+};

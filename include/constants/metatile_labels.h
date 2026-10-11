@@ -305,6 +305,10 @@
 #define METATILE_HoennPokemonCenter_Floor_ShadowTop           0x29E
 #define METATILE_HoennPokemonCenter_Floor_ShadowTop_Alt       0x35C
 
+// gTileset_HoennRustboro
+#define METATILE_HoennRustboro_Door_Gray  0x29F
+#define METATILE_HoennRustboro_Door_Tan   0x2AF
+
 // gTileset_HoennShop
 #define METATILE_HoennShop_Door_Elevator   0x305
 #define METATILE_HoennShop_Laptop1_Flash   0x2D8

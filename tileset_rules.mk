@@ -208,7 +208,7 @@ $(TILESETGFXDIR)/primary/hoenn_inside_building/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_generic_building/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 256 -Wnum_tiles
+	$(GFX) $< $@ -num_tiles 323 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_lilycove_museum/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 271 -Wnum_tiles
@@ -220,7 +220,7 @@ $(TILESETGFXDIR)/secondary/hoenn_pokemon_center/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 337 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_facility/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 81 -Wnum_tiles
+	$(GFX) $< $@ -num_tiles 189 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_shop/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 302 -Wnum_tiles
@@ -254,3 +254,12 @@ $(TILESETGFXDIR)/secondary/hoenn_fallarbor/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_battle_tent/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 179 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_rustboro/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 276 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_rustboro_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 49 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_pokemon_school/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 72 -Wnum_tiles

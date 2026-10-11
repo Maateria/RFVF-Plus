@@ -317,7 +317,7 @@
 #define FLAG_ITEM_ROUTE_115_PP_UP                0x129
 #define FLAG_ITEM_ROUTE_115_HEAL_POWDER          0x12A
 #define FLAG_HIDDEN_ITEM_ROUTE_115_HEART_SCALE   0x12B
-#define FLAG_0x12C               0x12C
+#define FLAG_ITEM_RUSTBORO_CITY_X_DEFEND         0x12C
 #define FLAG_0x12D               0x12D
 #define FLAG_0x12E               0x12E
 #define FLAG_0x12F               0x12F

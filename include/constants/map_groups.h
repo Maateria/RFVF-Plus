@@ -305,6 +305,7 @@
 #define MAP_FALLARBOR_TOWN                       (83 | (3 << 8))
 #define MAP_ROUTE114                             (84 | (3 << 8))
 #define MAP_ROUTE115                             (85 | (3 << 8))
+#define MAP_RUSTBORO_CITY                        (86 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -673,6 +674,25 @@
 #define MAP_ROUTE114_FOSSIL_MANIACS_TUNNEL (1 | (53 << 8))
 #define MAP_ROUTE114_LANETTES_HOUSE        (2 | (53 << 8))
 
-#define MAP_GROUPS_COUNT 54
+// gMapGroup_IndoorRustboro
+#define MAP_RUSTBORO_CITY_DEVON_CORP_1F     (0 | (54 << 8))
+#define MAP_RUSTBORO_CITY_DEVON_CORP_2F     (1 | (54 << 8))
+#define MAP_RUSTBORO_CITY_DEVON_CORP_3F     (2 | (54 << 8))
+#define MAP_RUSTBORO_CITY_GYM               (3 | (54 << 8))
+#define MAP_RUSTBORO_CITY_POKEMON_SCHOOL    (4 | (54 << 8))
+#define MAP_RUSTBORO_CITY_POKEMON_CENTER_1F (5 | (54 << 8))
+#define MAP_RUSTBORO_CITY_POKEMON_CENTER_2F (6 | (54 << 8))
+#define MAP_RUSTBORO_CITY_MART              (7 | (54 << 8))
+#define MAP_RUSTBORO_CITY_FLAT1_1F          (8 | (54 << 8))
+#define MAP_RUSTBORO_CITY_FLAT1_2F          (9 | (54 << 8))
+#define MAP_RUSTBORO_CITY_HOUSE1            (10 | (54 << 8))
+#define MAP_RUSTBORO_CITY_CUTTERS_HOUSE     (11 | (54 << 8))
+#define MAP_RUSTBORO_CITY_HOUSE2            (12 | (54 << 8))
+#define MAP_RUSTBORO_CITY_FLAT2_1F          (13 | (54 << 8))
+#define MAP_RUSTBORO_CITY_FLAT2_2F          (14 | (54 << 8))
+#define MAP_RUSTBORO_CITY_FLAT2_3F          (15 | (54 << 8))
+#define MAP_RUSTBORO_CITY_HOUSE3            (16 | (54 << 8))
+
+#define MAP_GROUPS_COUNT 55
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

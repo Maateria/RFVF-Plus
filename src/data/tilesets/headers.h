@@ -1033,3 +1033,36 @@ const struct Tileset gTileset_HoennBattleTent =
 	.metatileAttributes = gMetatileAttributes_HoennBattleTent,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennRustboro = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennRustboro,
+	.palettes = gTilesetPalettes_HoennRustboro,
+	.metatiles = gMetatiles_HoennRustboro,
+	.metatileAttributes = gMetatileAttributes_HoennRustboro,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennRustboroGym = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennRustboroGym,
+	.palettes = gTilesetPalettes_HoennRustboroGym,
+	.metatiles = gMetatiles_HoennRustboroGym,
+	.metatileAttributes = gMetatileAttributes_HoennRustboroGym,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennPokemonSchool = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennPokemonSchool,
+	.palettes = gTilesetPalettes_HoennPokemonSchool,
+	.metatiles = gMetatiles_HoennPokemonSchool,
+	.metatileAttributes = gMetatileAttributes_HoennPokemonSchool,
+	.callback = NULL
+};

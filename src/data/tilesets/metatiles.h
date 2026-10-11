@@ -279,3 +279,12 @@ const u32 gMetatileAttributes_HoennFallarbor[] = INCBIN_U32("data/tilesets/secon
 
 const u16 gMetatiles_HoennBattleTent[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_tent/metatiles.bin");
 const u32 gMetatileAttributes_HoennBattleTent[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_tent/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennRustboro[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/metatiles.bin");
+const u32 gMetatileAttributes_HoennRustboro[] = INCBIN_U32("data/tilesets/secondary/hoenn_rustboro/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennRustboroGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennRustboroGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_rustboro_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennPokemonSchool[] = INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/metatiles.bin");
+const u32 gMetatileAttributes_HoennPokemonSchool[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_school/metatile_attributes.bin");
