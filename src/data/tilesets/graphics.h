@@ -1892,3 +1892,25 @@ const u16 gTilesetPalettes_HoennCableClub[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_cable_club/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_cable_club/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennPacifidlog[] = INCBIN_U32("data/tilesets/secondary/hoenn_pacifidlog/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennPacifidlog[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/palettes/15.gbapal"),
+};

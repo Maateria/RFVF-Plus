@@ -245,3 +245,6 @@ $(TILESETGFXDIR)/secondary/hoenn_elite_four/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_cable_club/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 194 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_pacifidlog/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 261 -Wnum_tiles

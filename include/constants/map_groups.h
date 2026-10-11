@@ -296,6 +296,7 @@
 #define MAP_FORTREE_CITY                         (74 | (3 << 8))
 #define MAP_ROUTE119                             (75 | (3 << 8))
 #define MAP_EVER_GRANDE_CITY                     (76 | (3 << 8))
+#define MAP_ROUTE131                             (77 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

@@ -1460,3 +1460,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/EverGrandeCity_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/EverGrandeCity_PokemonLeague_2F/scripts.inc"
+
+	.include "data/maps/Route131/scripts.inc"

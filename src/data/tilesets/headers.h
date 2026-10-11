@@ -1000,3 +1000,14 @@ const struct Tileset gTileset_HoennCableClub =
 	.metatileAttributes = gMetatileAttributes_HoennCableClub,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennPacifidlog = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennPacifidlog,
+	.palettes = gTilesetPalettes_HoennPacifidlog,
+	.metatiles = gMetatiles_HoennPacifidlog,
+	.metatileAttributes = gMetatileAttributes_HoennPacifidlog,
+	.callback = NULL
+};

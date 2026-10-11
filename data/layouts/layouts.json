@@ -5352,6 +5352,18 @@
       "secondary_tileset": "gTileset_HoennCableClub",
       "border_filepath": "data/layouts/Hoenn_EverGrandeCity_HallOfFame/border.bin",
       "blockdata_filepath": "data/layouts/Hoenn_EverGrandeCity_HallOfFame/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE131_SKY_PILLAR",
+      "name": "Route131_SkyPillar_Layout",
+      "width": 60,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/Route131_SkyPillar/border.bin",
+      "blockdata_filepath": "data/layouts/Route131_SkyPillar/map.bin"
     }
   ]
 }

@@ -240,6 +240,24 @@
 #define METATILE_HoennLilycoveMuseum_Painting4_Left   0x2E2
 #define METATILE_HoennLilycoveMuseum_Painting4_Right  0x2E3
 
+// gTileset_HoennPacifidlog
+#define METATILE_HoennPacifidlog_Door                               0x29A
+#define METATILE_HoennPacifidlog_FloatingLogs_HorizontalLeft        0x2D0
+#define METATILE_HoennPacifidlog_FloatingLogs_HorizontalRight       0x2D1
+#define METATILE_HoennPacifidlog_FloatingLogs_VerticalBottom        0x2E0
+#define METATILE_HoennPacifidlog_FloatingLogs_VerticalTop           0x2D8
+#define METATILE_HoennPacifidlog_HalfSubmergedLogs_HorizontalLeft   0x2D2
+#define METATILE_HoennPacifidlog_HalfSubmergedLogs_HorizontalRight  0x2D3
+#define METATILE_HoennPacifidlog_HalfSubmergedLogs_VerticalBottom   0x2E1
+#define METATILE_HoennPacifidlog_HalfSubmergedLogs_VerticalTop      0x2D9
+#define METATILE_HoennPacifidlog_SkyPillar_CrackedFloor_Hole        0x2B7
+#define METATILE_HoennPacifidlog_SkyPillar_DoorOpen_Bottom          0x332
+#define METATILE_HoennPacifidlog_SkyPillar_DoorOpen_Top             0x32A
+#define METATILE_HoennPacifidlog_SubmergedLogs_HorizontalLeft       0x2D4
+#define METATILE_HoennPacifidlog_SubmergedLogs_HorizontalRight      0x2D5
+#define METATILE_HoennPacifidlog_SubmergedLogs_VerticalBottom       0x2E2
+#define METATILE_HoennPacifidlog_SubmergedLogs_VerticalTop          0x2DA
+
 // gTileset_HoennPokemonCenter
 #define METATILE_HoennPokemonCenter_CounterBarrier            0x2DD
 #define METATILE_HoennPokemonCenter_Door_CableClub            0x2E4
