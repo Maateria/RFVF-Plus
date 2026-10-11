@@ -345,8 +345,8 @@
 #define FLAG_ITEM_PETALBURG_CITY_ETHER           0x145
 #define FLAG_HIDDEN_ITEM_PETALBURG_CITY_RARE_CANDY 0x146
 #define FLAG_ITEM_ROUTE_102_POTION               0x147
-#define FLAG_0x148               0x148
-#define FLAG_0x149               0x149
+#define FLAG_ITEM_ROUTE_103_GUARD_SPEC           0x148
+#define FLAG_ITEM_ROUTE_103_PP_UP                0x149
 #define FLAG_0x14A               0x14A
 #define FLAG_0x14B               0x14B
 #define FLAG_0x14C               0x14C

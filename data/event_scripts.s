@@ -1628,3 +1628,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/LittlerootTown_MaysHouse_2F/scripts.inc"
 
 	.include "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc"
+
+	.include "data/maps/Route103/scripts.inc"

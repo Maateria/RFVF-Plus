@@ -6024,6 +6024,18 @@
       "secondary_tileset": "gTileset_HoennLab",
       "border_filepath": "data/layouts/LittlerootTown_ProfessorBirchsLab/border.bin",
       "blockdata_filepath": "data/layouts/LittlerootTown_ProfessorBirchsLab/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE103",
+      "name": "Route103_Layout",
+      "width": 80,
+      "height": 22,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPetalburg",
+      "border_filepath": "data/layouts/Route103/border.bin",
+      "blockdata_filepath": "data/layouts/Route103/map.bin"
     }
   ]
 }
