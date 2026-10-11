@@ -1514,3 +1514,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route114_FossilManiacsTunnel/scripts.inc"
 
 	.include "data/maps/Route114_LanettesHouse/scripts.inc"
+
+	.include "data/maps/Route115/scripts.inc"

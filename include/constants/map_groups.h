@@ -304,6 +304,7 @@
 #define MAP_ROUTE113                             (82 | (3 << 8))
 #define MAP_FALLARBOR_TOWN                       (83 | (3 << 8))
 #define MAP_ROUTE114                             (84 | (3 << 8))
+#define MAP_ROUTE115                             (85 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

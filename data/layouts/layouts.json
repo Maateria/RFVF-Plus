@@ -5556,6 +5556,18 @@
       "secondary_tileset": "gTileset_HoennLab",
       "border_filepath": "data/layouts/Route114_LanettesHouse/border.bin",
       "blockdata_filepath": "data/layouts/Route114_LanettesHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE115",
+      "name": "Route115_Layout",
+      "width": 40,
+      "height": 80,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFallarbor",
+      "border_filepath": "data/layouts/Route115/border.bin",
+      "blockdata_filepath": "data/layouts/Route115/map.bin"
     }
   ]
 }
