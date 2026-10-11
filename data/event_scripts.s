@@ -1398,3 +1398,25 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route123_BerryMastersHouse/scripts.inc"
 
 	.include "data/maps/Route120/scripts.inc"
+
+	.include "data/maps/FortreeCity/scripts.inc"
+
+	.include "data/maps/FortreeCity_House1/scripts.inc"
+
+	.include "data/maps/FortreeCity_Gym/scripts.inc"
+
+	.include "data/maps/FortreeCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/FortreeCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/FortreeCity_Mart/scripts.inc"
+
+	.include "data/maps/FortreeCity_House2/scripts.inc"
+
+	.include "data/maps/FortreeCity_House3/scripts.inc"
+
+	.include "data/maps/FortreeCity_House4/scripts.inc"
+
+	.include "data/maps/FortreeCity_House5/scripts.inc"
+
+	.include "data/maps/FortreeCity_DecorationShop/scripts.inc"

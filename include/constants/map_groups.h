@@ -293,6 +293,7 @@
 #define MAP_ROUTE122                             (71 | (3 << 8))
 #define MAP_ROUTE123                             (72 | (3 << 8))
 #define MAP_ROUTE120                             (73 | (3 << 8))
+#define MAP_FORTREE_CITY                         (74 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -600,6 +601,18 @@
 // gMapGroup_IndoorRoute123
 #define MAP_ROUTE123_BERRY_MASTERS_HOUSE (0 | (46 << 8))
 
-#define MAP_GROUPS_COUNT 47
+// gMapGroup_IndoorFortree
+#define MAP_FORTREE_CITY_HOUSE1            (0 | (47 << 8))
+#define MAP_FORTREE_CITY_GYM               (1 | (47 << 8))
+#define MAP_FORTREE_CITY_POKEMON_CENTER_1F (2 | (47 << 8))
+#define MAP_FORTREE_CITY_POKEMON_CENTER_2F (3 | (47 << 8))
+#define MAP_FORTREE_CITY_MART              (4 | (47 << 8))
+#define MAP_FORTREE_CITY_HOUSE2            (5 | (47 << 8))
+#define MAP_FORTREE_CITY_HOUSE3            (6 | (47 << 8))
+#define MAP_FORTREE_CITY_HOUSE4            (7 | (47 << 8))
+#define MAP_FORTREE_CITY_HOUSE5            (8 | (47 << 8))
+#define MAP_FORTREE_CITY_DECORATION_SHOP   (9 | (47 << 8))
+
+#define MAP_GROUPS_COUNT 48
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

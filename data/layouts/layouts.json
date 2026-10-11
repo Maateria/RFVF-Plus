@@ -5124,6 +5124,78 @@
       "secondary_tileset": "gTileset_HoennFortree",
       "border_filepath": "data/layouts/Route120/border.bin",
       "blockdata_filepath": "data/layouts/Route120/map.bin"
+    },
+    {
+      "id": "LAYOUT_FORTREE_CITY",
+      "name": "FortreeCity_Layout",
+      "width": 40,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFortree",
+      "border_filepath": "data/layouts/FortreeCity/border.bin",
+      "blockdata_filepath": "data/layouts/FortreeCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_FORTREE_CITY_HOUSE1",
+      "name": "Hoenn_FortreeCity_House1_Layout",
+      "width": 8,
+      "height": 6,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Hoenn_FortreeCity_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_FortreeCity_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_FORTREE_CITY_GYM",
+      "name": "FortreeCity_Gym_Layout",
+      "width": 20,
+      "height": 25,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennFortreeGym",
+      "border_filepath": "data/layouts/FortreeCity_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/FortreeCity_Gym/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_MART",
+      "name": "Hoenn_Mart_Layout",
+      "width": 11,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennShop",
+      "border_filepath": "data/layouts/Hoenn_Mart/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_Mart/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_FORTREE_CITY_HOUSE2",
+      "name": "Hoenn_FortreeCity_House2_Layout",
+      "width": 8,
+      "height": 6,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Hoenn_FortreeCity_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_FortreeCity_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_FORTREE_CITY_DECORATION_SHOP",
+      "name": "Hoenn_FortreeCity_DecorationShop_Layout",
+      "width": 8,
+      "height": 6,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Hoenn_FortreeCity_DecorationShop/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_FortreeCity_DecorationShop/map.bin"
     }
   ]
 }

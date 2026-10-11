@@ -208,7 +208,7 @@ $(TILESETGFXDIR)/primary/hoenn_inside_building/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_generic_building/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 200 -Wnum_tiles
+	$(GFX) $< $@ -num_tiles 217 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_lilycove_museum/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 271 -Wnum_tiles
@@ -230,3 +230,6 @@ $(TILESETGFXDIR)/secondary/hoenn_battle_frontier/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_fortree/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 181 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_fortree_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 59 -Wnum_tiles

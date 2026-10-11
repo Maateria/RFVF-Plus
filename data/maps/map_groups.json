@@ -46,7 +46,8 @@
     "gMapGroup_RSE",
     "gMapGroup_IndoorLilycove",
     "gMapGroup_IndoorRoute121",
-    "gMapGroup_IndoorRoute123"
+    "gMapGroup_IndoorRoute123",
+    "gMapGroup_IndoorFortree"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -335,7 +336,8 @@
     "Route121",
     "Route122",
     "Route123",
-    "Route120"
+    "Route120",
+    "FortreeCity"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -642,5 +644,17 @@
   ],
   "gMapGroup_IndoorRoute123": [
     "Route123_BerryMastersHouse"
+  ],
+  "gMapGroup_IndoorFortree": [
+    "FortreeCity_House1",
+    "FortreeCity_Gym",
+    "FortreeCity_PokemonCenter_1F",
+    "FortreeCity_PokemonCenter_2F",
+    "FortreeCity_Mart",
+    "FortreeCity_House2",
+    "FortreeCity_House3",
+    "FortreeCity_House4",
+    "FortreeCity_House5",
+    "FortreeCity_DecorationShop"
   ]
 }

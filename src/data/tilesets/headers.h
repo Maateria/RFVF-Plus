@@ -945,3 +945,14 @@ const struct Tileset gTileset_HoennFortree =
 	.metatileAttributes = gMetatileAttributes_HoennFortree,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennFortreeGym = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennFortreeGym,
+	.palettes = gTilesetPalettes_HoennFortreeGym,
+	.metatiles = gMetatiles_HoennFortreeGym,
+	.metatileAttributes = gMetatileAttributes_HoennFortreeGym,
+	.callback = NULL
+};
