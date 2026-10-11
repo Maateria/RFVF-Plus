@@ -1566,3 +1566,17 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route105/scripts.inc"
 
 	.include "data/maps/Route106/scripts.inc"
+
+	.include "data/maps/DewfordTown/scripts.inc"
+
+	.include "data/maps/DewfordTown_House1/scripts.inc"
+
+	.include "data/maps/DewfordTown_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/DewfordTown_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/DewfordTown_Gym/scripts.inc"
+
+	.include "data/maps/DewfordTown_Hall/scripts.inc"
+
+	.include "data/maps/DewfordTown_House2/scripts.inc"

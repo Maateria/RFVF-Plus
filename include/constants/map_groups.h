@@ -310,6 +310,7 @@
 #define MAP_ROUTE104                             (88 | (3 << 8))
 #define MAP_ROUTE105                             (89 | (3 << 8))
 #define MAP_ROUTE106                             (90 | (3 << 8))
+#define MAP_DEWFORD_TOWN                         (91 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -704,6 +705,14 @@
 #define MAP_ROUTE104_MR_BRINEYS_HOUSE         (0 | (56 << 8))
 #define MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP (1 | (56 << 8))
 
-#define MAP_GROUPS_COUNT 57
+// gMapGroup_IndoorDewford
+#define MAP_DEWFORD_TOWN_HOUSE1            (0 | (57 << 8))
+#define MAP_DEWFORD_TOWN_POKEMON_CENTER_1F (1 | (57 << 8))
+#define MAP_DEWFORD_TOWN_POKEMON_CENTER_2F (2 | (57 << 8))
+#define MAP_DEWFORD_TOWN_GYM               (3 | (57 << 8))
+#define MAP_DEWFORD_TOWN_HALL              (4 | (57 << 8))
+#define MAP_DEWFORD_TOWN_HOUSE2            (5 | (57 << 8))
+
+#define MAP_GROUPS_COUNT 58
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -294,3 +294,6 @@ const u32 gMetatileAttributes_HoennPrettyPetalFlowerShop[] = INCBIN_U32("data/ti
 
 const u16 gMetatiles_HoennDewford[] = INCBIN_U16("data/tilesets/secondary/hoenn_dewford/metatiles.bin");
 const u32 gMetatileAttributes_HoennDewford[] = INCBIN_U32("data/tilesets/secondary/hoenn_dewford/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennDewfordGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_dewford_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennDewfordGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_dewford_gym/metatile_attributes.bin");

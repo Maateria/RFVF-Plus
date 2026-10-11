@@ -1088,3 +1088,14 @@ const struct Tileset gTileset_HoennDewford =
 	.metatileAttributes = gMetatileAttributes_HoennDewford,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennDewfordGym = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennDewfordGym,
+	.palettes = gTilesetPalettes_HoennDewfordGym,
+	.metatiles = gMetatiles_HoennDewfordGym,
+	.metatileAttributes = gMetatileAttributes_HoennDewfordGym,
+	.callback = NULL
+};

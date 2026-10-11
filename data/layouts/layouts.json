@@ -5820,6 +5820,54 @@
       "secondary_tileset": "gTileset_HoennDewford",
       "border_filepath": "data/layouts/Route106/border.bin",
       "blockdata_filepath": "data/layouts/Route106/map.bin"
+    },
+    {
+      "id": "LAYOUT_DEWFORD_TOWN",
+      "name": "DewfordTown_Layout",
+      "width": 20,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennDewford",
+      "border_filepath": "data/layouts/DewfordTown/border.bin",
+      "blockdata_filepath": "data/layouts/DewfordTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_HOUSE3",
+      "name": "Hoenn_House3_Layout",
+      "width": 10,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Hoenn_House3/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_House3/map.bin"
+    },
+    {
+      "id": "LAYOUT_DEWFORD_TOWN_GYM",
+      "name": "DewfordTown_Gym_Layout",
+      "width": 18,
+      "height": 28,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennDewfordGym",
+      "border_filepath": "data/layouts/DewfordTown_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/DewfordTown_Gym/map.bin"
+    },
+    {
+      "id": "LAYOUT_DEWFORD_TOWN_HALL",
+      "name": "DewfordTown_Hall_Layout",
+      "width": 17,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/DewfordTown_Hall/border.bin",
+      "blockdata_filepath": "data/layouts/DewfordTown_Hall/map.bin"
     }
   ]
 }
