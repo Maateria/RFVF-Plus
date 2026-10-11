@@ -32,6 +32,8 @@ VAR_GFX = {
     ("SootopolisCity_MysteryEventsHouse_B1F", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
     # no script sets it (same room as the Mystery Events B1F): the same stand-in
     ("MossdeepCity_GameCorner_B1F", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
+    # the rival after the HoF (AddRivalObject sets VAR_OBJ_GFX_ID_0 by the player's gender): May until a script picks it
+    ("LittlerootTown_ProfessorBirchsLab", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_RIVAL_MAY_NORMAL",
 }
 # Flags NOT set at new game whose object the map's own script still hides on load after the HoF.
 HIDDEN_BY_MAP_SCRIPT = {
@@ -123,9 +125,9 @@ POST_LEAGUE = {
     # MauvilleCity: New Mauville done (optional; until then Wattson waits outside his Gym)
     "FLAG_HIDE_MAUVILLE_CITY_WALLY": (False, "removed by MauvilleCity_EventScript_DefeatedWally"),
     "FLAG_HIDE_MAUVILLE_CITY_WALLYS_UNCLE": (False, "removed by MauvilleCity_EventScript_DefeatedWally"),
-    "FLAG_HIDE_MAUVILLE_CITY_WATTSON": (False, "New Mauville done: set by MauvilleCity_EventScript_MoveWattsonBackToGym"),
+    "FLAG_HIDE_MAUVILLE_CITY_WATTSON": (False, "RFVF+ (user): Wattson stays in his Gym; New Mauville is NOT done, its quest is left to the script phase"),
     "FLAG_HIDE_MAUVILLE_CITY_SCOTT": (False, "cutscene only: addobject in MauvilleCity_EventScript_ScottApproachPlayerNorth"),
-    "FLAG_HIDE_MAUVILLE_GYM_WATTSON": (True, "New Mauville done: cleared by MauvilleCity_EventScript_MoveWattsonBackToGym"),
+    "FLAG_HIDE_MAUVILLE_GYM_WATTSON": (True, "RFVF+ (user): Wattson in his Gym although New Mauville is NOT done (Emerald would send him outside)"),
     # RustboroCity
     "FLAG_HIDE_RUSTBORO_CITY_DEVON_EMPLOYEE_1": (False, "Devon Goods theft only: set by RustboroCity_EventScript_ReturnGoods"),
     "FLAG_HIDE_RUSTBORO_CITY_AQUA_GRUNT": (False, "cutscene only: RustboroCity_EventScript_StolenGoodsScene"),
@@ -189,7 +191,7 @@ POST_LEAGUE = {
     "FLAG_HIDE_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F_SWABLU_DOLL": (False, "doll (LilycoveCity_EventScript_DefeatedBrendan): decoration sprites are not imported"),
     "FLAG_HIDE_LITTLEROOT_TOWN_MAYS_HOUSE_2F_PICHU_DOLL": (False, "doll (LilycoveCity_EventScript_DefeatedMay): decoration sprites are not imported"),
     "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_BIRCH": (True, "after the HoF ProfBirch_EventScript_UpdateLocation keeps him in his lab (ProfBirch_EventScript_MoveToLab)"),
-    "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL": (False, "RFVF+ no rival; Emerald adds them after the HoF (LittlerootTown_ProfessorBirchsLab_EventScript_AddRivalObject)"),
+    "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_RIVAL": (True, "RFVF+ (user): in the lab after the HoF, as Emerald adds them (LittlerootTown_ProfessorBirchsLab_EventScript_AddRivalObject)"),
     "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CYNDAQUIL": (False, "all Hoenn Pokemon caught only: LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters"),
     "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_TOTODILE": (False, "all Hoenn Pokemon caught only: LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters"),
     "FLAG_HIDE_LITTLEROOT_TOWN_BIRCHS_LAB_POKEBALL_CHIKORITA": (False, "all Hoenn Pokemon caught only: LittlerootTown_ProfessorBirchsLab_EventScript_SetObjectPosForJohtoStarters"),
