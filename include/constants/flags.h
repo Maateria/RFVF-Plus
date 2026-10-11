@@ -305,11 +305,11 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_113_TM_DOUBLE_TEAM 0x11D
 #define FLAG_HIDDEN_ITEM_ROUTE_113_NUGGET        0x11E
 #define FLAG_HIDDEN_ITEM_FALLARBOR_TOWN_NUGGET   0x11F
-#define FLAG_0x120               0x120
-#define FLAG_0x121               0x121
-#define FLAG_0x122               0x122
-#define FLAG_0x123               0x123
-#define FLAG_0x124               0x124
+#define FLAG_ITEM_ROUTE_114_RARE_CANDY           0x120
+#define FLAG_ITEM_ROUTE_114_PROTEIN              0x121
+#define FLAG_ITEM_ROUTE_114_ENERGY_POWDER        0x122
+#define FLAG_HIDDEN_ITEM_ROUTE_114_CARBOS        0x123
+#define FLAG_HIDDEN_ITEM_ROUTE_114_REVIVE        0x124
 #define FLAG_0x125               0x125
 #define FLAG_0x126               0x126
 #define FLAG_0x127               0x127

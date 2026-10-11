@@ -1506,3 +1506,11 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/FallarborTown_CozmosHouse/scripts.inc"
 
 	.include "data/maps/FallarborTown_MoveRelearnersHouse/scripts.inc"
+
+	.include "data/maps/Route114/scripts.inc"
+
+	.include "data/maps/Route114_FossilManiacsHouse/scripts.inc"
+
+	.include "data/maps/Route114_FossilManiacsTunnel/scripts.inc"
+
+	.include "data/maps/Route114_LanettesHouse/scripts.inc"
