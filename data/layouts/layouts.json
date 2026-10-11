@@ -5364,6 +5364,42 @@
       "secondary_tileset": "gTileset_HoennPacifidlog",
       "border_filepath": "data/layouts/Route131_SkyPillar/border.bin",
       "blockdata_filepath": "data/layouts/Route131_SkyPillar/map.bin"
+    },
+    {
+      "id": "LAYOUT_PACIFIDLOG_TOWN",
+      "name": "PacifidlogTown_Layout",
+      "width": 20,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/PacifidlogTown/border.bin",
+      "blockdata_filepath": "data/layouts/PacifidlogTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_PACIFIDLOG_TOWN_HOUSE1",
+      "name": "Hoenn_PacifidlogTown_House1_Layout",
+      "width": 10,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Hoenn_PacifidlogTown_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_PacifidlogTown_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_PACIFIDLOG_TOWN_HOUSE2",
+      "name": "Hoenn_PacifidlogTown_House2_Layout",
+      "width": 10,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Hoenn_PacifidlogTown_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_PacifidlogTown_House2/map.bin"
     }
   ]
 }

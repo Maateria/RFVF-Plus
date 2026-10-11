@@ -49,7 +49,8 @@
     "gMapGroup_IndoorRoute123",
     "gMapGroup_IndoorFortree",
     "gMapGroup_IndoorRoute119",
-    "gMapGroup_IndoorEverGrande"
+    "gMapGroup_IndoorEverGrande",
+    "gMapGroup_IndoorPacifidlog"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -342,7 +343,8 @@
     "FortreeCity",
     "Route119",
     "EverGrandeCity",
-    "Route131"
+    "Route131",
+    "PacifidlogTown"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -683,5 +685,14 @@
     "EverGrandeCity_PokemonCenter_1F",
     "EverGrandeCity_PokemonCenter_2F",
     "EverGrandeCity_PokemonLeague_2F"
+  ],
+  "gMapGroup_IndoorPacifidlog": [
+    "PacifidlogTown_PokemonCenter_1F",
+    "PacifidlogTown_PokemonCenter_2F",
+    "PacifidlogTown_House1",
+    "PacifidlogTown_House2",
+    "PacifidlogTown_House3",
+    "PacifidlogTown_House4",
+    "PacifidlogTown_House5"
   ]
 }

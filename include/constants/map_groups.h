@@ -297,6 +297,7 @@
 #define MAP_ROUTE119                             (75 | (3 << 8))
 #define MAP_EVER_GRANDE_CITY                     (76 | (3 << 8))
 #define MAP_ROUTE131                             (77 | (3 << 8))
+#define MAP_PACIFIDLOG_TOWN                      (78 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -638,6 +639,15 @@
 #define MAP_EVER_GRANDE_CITY_POKEMON_CENTER_2F (13 | (49 << 8))
 #define MAP_EVER_GRANDE_CITY_POKEMON_LEAGUE_2F (14 | (49 << 8))
 
-#define MAP_GROUPS_COUNT 50
+// gMapGroup_IndoorPacifidlog
+#define MAP_PACIFIDLOG_TOWN_POKEMON_CENTER_1F (0 | (50 << 8))
+#define MAP_PACIFIDLOG_TOWN_POKEMON_CENTER_2F (1 | (50 << 8))
+#define MAP_PACIFIDLOG_TOWN_HOUSE1            (2 | (50 << 8))
+#define MAP_PACIFIDLOG_TOWN_HOUSE2            (3 | (50 << 8))
+#define MAP_PACIFIDLOG_TOWN_HOUSE3            (4 | (50 << 8))
+#define MAP_PACIFIDLOG_TOWN_HOUSE4            (5 | (50 << 8))
+#define MAP_PACIFIDLOG_TOWN_HOUSE5            (6 | (50 << 8))
+
+#define MAP_GROUPS_COUNT 51
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

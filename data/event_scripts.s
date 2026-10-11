@@ -1462,3 +1462,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/EverGrandeCity_PokemonLeague_2F/scripts.inc"
 
 	.include "data/maps/Route131/scripts.inc"
+
+	.include "data/maps/PacifidlogTown/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_House1/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_House2/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_House3/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_House4/scripts.inc"
+
+	.include "data/maps/PacifidlogTown_House5/scripts.inc"
