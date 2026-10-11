@@ -307,6 +307,7 @@
 #define MAP_ROUTE115                             (85 | (3 << 8))
 #define MAP_RUSTBORO_CITY                        (86 | (3 << 8))
 #define MAP_ROUTE116                             (87 | (3 << 8))
+#define MAP_ROUTE104                             (88 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -697,6 +698,10 @@
 // gMapGroup_IndoorRoute116
 #define MAP_ROUTE116_TUNNELERS_REST_HOUSE (0 | (55 << 8))
 
-#define MAP_GROUPS_COUNT 56
+// gMapGroup_IndoorRoute104
+#define MAP_ROUTE104_MR_BRINEYS_HOUSE         (0 | (56 << 8))
+#define MAP_ROUTE104_PRETTY_PETAL_FLOWER_SHOP (1 | (56 << 8))
+
+#define MAP_GROUPS_COUNT 57
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

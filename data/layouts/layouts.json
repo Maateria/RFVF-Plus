@@ -5760,6 +5760,42 @@
       "secondary_tileset": "gTileset_HoennGenericBuilding",
       "border_filepath": "data/layouts/Route116_TunnelersRestHouse/border.bin",
       "blockdata_filepath": "data/layouts/Route116_TunnelersRestHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE104",
+      "name": "Route104_Layout",
+      "width": 40,
+      "height": 80,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennRustboro",
+      "border_filepath": "data/layouts/Route104/border.bin",
+      "blockdata_filepath": "data/layouts/Route104/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE104_MR_BRINEYS_HOUSE",
+      "name": "Route104_MrBrineysHouse_Layout",
+      "width": 12,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/Route104_MrBrineysHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Route104_MrBrineysHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE104_PRETTY_PETAL_FLOWER_SHOP",
+      "name": "Route104_PrettyPetalFlowerShop_Layout",
+      "width": 15,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennPrettyPetalFlowerShop",
+      "border_filepath": "data/layouts/Route104_PrettyPetalFlowerShop/border.bin",
+      "blockdata_filepath": "data/layouts/Route104_PrettyPetalFlowerShop/map.bin"
     }
   ]
 }

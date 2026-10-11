@@ -55,7 +55,8 @@
     "gMapGroup_IndoorFallarbor",
     "gMapGroup_IndoorRoute114",
     "gMapGroup_IndoorRustboro",
-    "gMapGroup_IndoorRoute116"
+    "gMapGroup_IndoorRoute116",
+    "gMapGroup_IndoorRoute104"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -358,7 +359,8 @@
     "Route114",
     "Route115",
     "RustboroCity",
-    "Route116"
+    "Route116",
+    "Route104"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -748,5 +750,9 @@
   ],
   "gMapGroup_IndoorRoute116": [
     "Route116_TunnelersRestHouse"
+  ],
+  "gMapGroup_IndoorRoute104": [
+    "Route104_MrBrineysHouse",
+    "Route104_PrettyPetalFlowerShop"
   ]
 }

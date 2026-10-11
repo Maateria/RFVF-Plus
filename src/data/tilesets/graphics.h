@@ -2024,3 +2024,25 @@ const u16 gTilesetPalettes_HoennPokemonSchool[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_school/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennPrettyPetalFlowerShop[] = INCBIN_U32("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennPrettyPetalFlowerShop[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pretty_petal_flower_shop/palettes/15.gbapal"),
+};

@@ -263,3 +263,6 @@ $(TILESETGFXDIR)/secondary/hoenn_rustboro_gym/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_pokemon_school/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 72 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_pretty_petal_flower_shop/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 103 -Wnum_tiles
