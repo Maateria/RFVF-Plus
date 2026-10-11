@@ -1386,3 +1386,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/LilycoveCity_DepartmentStoreRooftop/text.inc"
 	.include "data/maps/LilycoveCity_DepartmentStoreElevator/scripts.inc"
 	.include "data/maps/LilycoveCity_DepartmentStoreElevator/text.inc"
+
+	.include "data/maps/Route121/scripts.inc"
+
+	.include "data/maps/Route121_SafariZoneEntrance/scripts.inc"

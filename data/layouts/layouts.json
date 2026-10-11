@@ -5064,6 +5064,30 @@
       "secondary_tileset": "gTileset_HoennBattleFrontier",
       "border_filepath": "data/layouts/LilycoveCity_DepartmentStoreElevator/border.bin",
       "blockdata_filepath": "data/layouts/LilycoveCity_DepartmentStoreElevator/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE121",
+      "name": "Route121_Layout",
+      "width": 80,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLilycove",
+      "border_filepath": "data/layouts/Route121/border.bin",
+      "blockdata_filepath": "data/layouts/Route121/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE121_SAFARI_ZONE_ENTRANCE",
+      "name": "Route121_SafariZoneEntrance_Layout",
+      "width": 18,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennShop",
+      "border_filepath": "data/layouts/Route121_SafariZoneEntrance/border.bin",
+      "blockdata_filepath": "data/layouts/Route121_SafariZoneEntrance/map.bin"
     }
   ]
 }

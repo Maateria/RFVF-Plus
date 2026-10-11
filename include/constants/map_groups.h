@@ -289,6 +289,7 @@
 #define MAP_THREE_ISLAND_BOND_BRIDGE_UNDERWATER  (67 | (3 << 8))
 #define MAP_FOUR_ISLAND_BASE                     (68 | (3 << 8))
 #define MAP_LILYCOVE_CITY                        (69 | (3 << 8))
+#define MAP_ROUTE121                             (70 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -590,6 +591,9 @@
 #define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_ROOFTOP  (20 | (44 << 8))
 #define MAP_LILYCOVE_CITY_DEPARTMENT_STORE_ELEVATOR (21 | (44 << 8))
 
-#define MAP_GROUPS_COUNT 45
+// gMapGroup_IndoorRoute121
+#define MAP_ROUTE121_SAFARI_ZONE_ENTRANCE (0 | (45 << 8))
+
+#define MAP_GROUPS_COUNT 46
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -44,7 +44,8 @@
     "gMapGroup_IndoorSixIslandRoute",
     "gMapGroup_IndoorSevenIslandRoute",
     "gMapGroup_RSE",
-    "gMapGroup_IndoorLilycove"
+    "gMapGroup_IndoorLilycove",
+    "gMapGroup_IndoorRoute121"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -329,7 +330,8 @@
     "Route20_Underwater",
     "ThreeIsland_BondBridge_Underwater",
     "FourIsland_Base",
-    "LilycoveCity"
+    "LilycoveCity",
+    "Route121"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -630,5 +632,8 @@
     "LilycoveCity_DepartmentStore_5F",
     "LilycoveCity_DepartmentStoreRooftop",
     "LilycoveCity_DepartmentStoreElevator"
+  ],
+  "gMapGroup_IndoorRoute121": [
+    "Route121_SafariZoneEntrance"
   ]
 }
