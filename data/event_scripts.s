@@ -1488,3 +1488,21 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route113/scripts.inc"
 
 	.include "data/maps/Route113_GlassWorkshop/scripts.inc"
+
+	.include "data/maps/FallarborTown/scripts.inc"
+
+	.include "data/maps/FallarborTown_Mart/scripts.inc"
+
+	.include "data/maps/FallarborTown_BattleTentLobby/scripts.inc"
+
+	.include "data/maps/FallarborTown_BattleTentCorridor/scripts.inc"
+
+	.include "data/maps/FallarborTown_BattleTentBattleRoom/scripts.inc"
+
+	.include "data/maps/FallarborTown_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/FallarborTown_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/FallarborTown_CozmosHouse/scripts.inc"
+
+	.include "data/maps/FallarborTown_MoveRelearnersHouse/scripts.inc"

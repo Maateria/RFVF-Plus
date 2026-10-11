@@ -302,6 +302,7 @@
 #define MAP_ROUTE133                             (80 | (3 << 8))
 #define MAP_ROUTE134                             (81 | (3 << 8))
 #define MAP_ROUTE113                             (82 | (3 << 8))
+#define MAP_FALLARBOR_TOWN                       (83 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -655,6 +656,16 @@
 // gMapGroup_IndoorRoute113
 #define MAP_ROUTE113_GLASS_WORKSHOP (0 | (51 << 8))
 
-#define MAP_GROUPS_COUNT 52
+// gMapGroup_IndoorFallarbor
+#define MAP_FALLARBOR_TOWN_MART                    (0 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_BATTLE_TENT_LOBBY       (1 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_BATTLE_TENT_CORRIDOR    (2 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_BATTLE_TENT_BATTLE_ROOM (3 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_POKEMON_CENTER_1F       (4 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_POKEMON_CENTER_2F       (5 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_COZMOS_HOUSE            (6 | (52 << 8))
+#define MAP_FALLARBOR_TOWN_MOVE_RELEARNERS_HOUSE   (7 | (52 << 8))
+
+#define MAP_GROUPS_COUNT 53
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

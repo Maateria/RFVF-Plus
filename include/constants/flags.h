@@ -304,7 +304,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_113_ETHER         0x11C
 #define FLAG_HIDDEN_ITEM_ROUTE_113_TM_DOUBLE_TEAM 0x11D
 #define FLAG_HIDDEN_ITEM_ROUTE_113_NUGGET        0x11E
-#define FLAG_0x11F               0x11F
+#define FLAG_HIDDEN_ITEM_FALLARBOR_TOWN_NUGGET   0x11F
 #define FLAG_0x120               0x120
 #define FLAG_0x121               0x121
 #define FLAG_0x122               0x122

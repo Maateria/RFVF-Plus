@@ -114,6 +114,9 @@
 #define METATILE_HoennBattleFrontier_Elevator_Top1            0x288
 #define METATILE_HoennBattleFrontier_Elevator_Top2            0x293
 
+// gTileset_HoennBattleTent
+#define METATILE_HoennBattleTent_Door  0x2EB
+
 // gTileset_HoennContest
 #define METATILE_HoennContest_CounterFlap_Bottom  0x359
 #define METATILE_HoennContest_CounterFlap_Top     0x351

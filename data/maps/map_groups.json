@@ -51,7 +51,8 @@
     "gMapGroup_IndoorRoute119",
     "gMapGroup_IndoorEverGrande",
     "gMapGroup_IndoorPacifidlog",
-    "gMapGroup_IndoorRoute113"
+    "gMapGroup_IndoorRoute113",
+    "gMapGroup_IndoorFallarbor"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -349,7 +350,8 @@
     "Route132",
     "Route133",
     "Route134",
-    "Route113"
+    "Route113",
+    "FallarborTown"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -702,5 +704,15 @@
   ],
   "gMapGroup_IndoorRoute113": [
     "Route113_GlassWorkshop"
+  ],
+  "gMapGroup_IndoorFallarbor": [
+    "FallarborTown_Mart",
+    "FallarborTown_BattleTentLobby",
+    "FallarborTown_BattleTentCorridor",
+    "FallarborTown_BattleTentBattleRoom",
+    "FallarborTown_PokemonCenter_1F",
+    "FallarborTown_PokemonCenter_2F",
+    "FallarborTown_CozmosHouse",
+    "FallarborTown_MoveRelearnersHouse"
   ]
 }

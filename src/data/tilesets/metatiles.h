@@ -276,3 +276,6 @@ const u32 gMetatileAttributes_HoennPacifidlog[] = INCBIN_U32("data/tilesets/seco
 
 const u16 gMetatiles_HoennFallarbor[] = INCBIN_U16("data/tilesets/secondary/hoenn_fallarbor/metatiles.bin");
 const u32 gMetatileAttributes_HoennFallarbor[] = INCBIN_U32("data/tilesets/secondary/hoenn_fallarbor/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattleTent[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_tent/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattleTent[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_tent/metatile_attributes.bin");
