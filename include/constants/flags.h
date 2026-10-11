@@ -296,8 +296,8 @@
 #define FLAG_ITEM_ROUTE_133_BIG_PEARL            0x114
 #define FLAG_ITEM_ROUTE_133_STAR_PIECE           0x115
 #define FLAG_ITEM_ROUTE_133_MAX_REVIVE           0x116
-#define FLAG_0x117               0x117
-#define FLAG_0x118               0x118
+#define FLAG_ITEM_ROUTE_134_CARBOS               0x117
+#define FLAG_ITEM_ROUTE_134_STAR_PIECE           0x118
 #define FLAG_0x119               0x119
 #define FLAG_0x11A               0x11A
 #define FLAG_0x11B               0x11B

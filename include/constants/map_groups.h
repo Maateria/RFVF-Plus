@@ -300,6 +300,7 @@
 #define MAP_PACIFIDLOG_TOWN                      (78 | (3 << 8))
 #define MAP_ROUTE132                             (79 | (3 << 8))
 #define MAP_ROUTE133                             (80 | (3 << 8))
+#define MAP_ROUTE134                             (81 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

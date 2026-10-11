@@ -5424,6 +5424,18 @@
       "secondary_tileset": "gTileset_HoennPacifidlog",
       "border_filepath": "data/layouts/Route133/border.bin",
       "blockdata_filepath": "data/layouts/Route133/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE134",
+      "name": "Route134_Layout",
+      "width": 80,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/Route134/border.bin",
+      "blockdata_filepath": "data/layouts/Route134/map.bin"
     }
   ]
 }
