@@ -1011,3 +1011,14 @@ const struct Tileset gTileset_HoennPacifidlog =
 	.metatileAttributes = gMetatileAttributes_HoennPacifidlog,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennFallarbor = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennFallarbor,
+	.palettes = gTilesetPalettes_HoennFallarbor,
+	.metatiles = gMetatiles_HoennFallarbor,
+	.metatileAttributes = gMetatileAttributes_HoennFallarbor,
+	.callback = NULL
+};

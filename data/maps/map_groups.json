@@ -50,7 +50,8 @@
     "gMapGroup_IndoorFortree",
     "gMapGroup_IndoorRoute119",
     "gMapGroup_IndoorEverGrande",
-    "gMapGroup_IndoorPacifidlog"
+    "gMapGroup_IndoorPacifidlog",
+    "gMapGroup_IndoorRoute113"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -347,7 +348,8 @@
     "PacifidlogTown",
     "Route132",
     "Route133",
-    "Route134"
+    "Route134",
+    "Route113"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -697,5 +699,8 @@
     "PacifidlogTown_House3",
     "PacifidlogTown_House4",
     "PacifidlogTown_House5"
+  ],
+  "gMapGroup_IndoorRoute113": [
+    "Route113_GlassWorkshop"
   ]
 }

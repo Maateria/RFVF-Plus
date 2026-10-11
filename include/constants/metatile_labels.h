@@ -148,6 +148,22 @@
 #define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile4    0x2A5
 #define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile5    0x2A6
 
+// gTileset_HoennFallarbor
+#define METATILE_HoennFallarbor_AshField                  0x298
+#define METATILE_HoennFallarbor_AshGrass                  0x28A
+#define METATILE_HoennFallarbor_BrownCaveEntrance_Bottom  0x2E1
+#define METATILE_HoennFallarbor_BrownCaveEntrance_Top     0x2D9
+#define METATILE_HoennFallarbor_BrownCaveIndent           0x288
+#define METATILE_HoennFallarbor_BrownCaveOpen             0x290
+#define METATILE_HoennFallarbor_BrownRockWall             0x2E5
+#define METATILE_HoennFallarbor_Door_BattleTent           0x3EC
+#define METATILE_HoennFallarbor_Door_DarkRoof             0x377
+#define METATILE_HoennFallarbor_Door_LightRoof            0x325
+#define METATILE_HoennFallarbor_NormalGrass               0x292
+#define METATILE_HoennFallarbor_RedCaveEntrance_Bottom    0x3CF
+#define METATILE_HoennFallarbor_RedCaveEntrance_Top       0x3C7
+#define METATILE_HoennFallarbor_RedRockWall               0x2E9
+
 // gTileset_HoennFortree
 #define METATILE_HoennFortree_BridgeOverGrass_Lowered           0x2CF
 #define METATILE_HoennFortree_BridgeOverGrass_Raised            0x2CE

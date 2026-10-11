@@ -301,6 +301,7 @@
 #define MAP_ROUTE132                             (79 | (3 << 8))
 #define MAP_ROUTE133                             (80 | (3 << 8))
 #define MAP_ROUTE134                             (81 | (3 << 8))
+#define MAP_ROUTE113                             (82 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -651,6 +652,9 @@
 #define MAP_PACIFIDLOG_TOWN_HOUSE4            (5 | (50 << 8))
 #define MAP_PACIFIDLOG_TOWN_HOUSE5            (6 | (50 << 8))
 
-#define MAP_GROUPS_COUNT 51
+// gMapGroup_IndoorRoute113
+#define MAP_ROUTE113_GLASS_WORKSHOP (0 | (51 << 8))
+
+#define MAP_GROUPS_COUNT 52
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -1484,3 +1484,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route133/scripts.inc"
 
 	.include "data/maps/Route134/scripts.inc"
+
+	.include "data/maps/Route113/scripts.inc"
+
+	.include "data/maps/Route113_GlassWorkshop/scripts.inc"
