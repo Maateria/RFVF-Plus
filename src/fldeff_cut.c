@@ -180,6 +180,39 @@ static const u16 sCutGrassMetatileMapping[][2] = {
     }
 };
 
+// Hoenn layouts (IsHoennMapLayout): pokeemerald's own Cut table (its SetCutGrassMetatile and
+// SetCutGrassMetatiles). Ids as the Hoenn import gives them: HoennGeneral keeps Emerald's ids,
+// a secondary tileset adds 0x80 (its natural ids).
+#define HOENN_SECONDARY(emeraldId) ((emeraldId) + 0x80)
+#define HOENN_GENERAL_GRASS          0x001
+#define HOENN_GENERAL_LONG_GRASS     0x015
+#define HOENN_FORTREE_LONG_GRASS_ROOT HOENN_SECONDARY(0x208)
+
+static const u16 sCutGrassMetatileMapping_Hoenn[][2] = {
+    {HOENN_FORTREE_LONG_GRASS_ROOT, HOENN_GENERAL_GRASS},           // Fortree_LongGrass_Root
+    {HOENN_GENERAL_LONG_GRASS,      HOENN_GENERAL_GRASS},           // General_LongGrass
+    {0x00D,                         HOENN_GENERAL_GRASS},           // General_TallGrass
+    {0x1C6,                         0x1CE},                         // General_TallGrass_TreeLeft -> Grass_TreeLeft
+    {0x1C7,                         0x1CF},                         // General_TallGrass_TreeRight -> Grass_TreeRight
+    {HOENN_SECONDARY(0x281),        HOENN_SECONDARY(0x279)},        // Fortree_SecretBase_LongGrass_BottomLeft -> TopLeft
+    {HOENN_SECONDARY(0x282),        HOENN_SECONDARY(0x27A)},        // Fortree_SecretBase_LongGrass_BottomMid -> TopMid
+    {HOENN_SECONDARY(0x283),        HOENN_SECONDARY(0x27B)},        // Fortree_SecretBase_LongGrass_BottomRight -> TopRight
+    {HOENN_SECONDARY(0x206),        HOENN_SECONDARY(0x271)},        // Lavaridge_NormalGrass -> LavaField
+    {HOENN_SECONDARY(0x207),        HOENN_SECONDARY(0x271)},        // Lavaridge_AshGrass -> LavaField
+    {HOENN_SECONDARY(0x212),        HOENN_SECONDARY(0x218)},        // Fallarbor_NormalGrass -> AshField
+    {HOENN_SECONDARY(0x20A),        HOENN_SECONDARY(0x218)},        // Fallarbor_AshGrass -> AshField
+    {0x025,                         0x00E},                         // General_TallGrass_TreeUp -> Grass_TreeUp
+    {0xFFFF,                        0xFFFF}
+};
+
+// Mowed tile below long grass -> the tile that shows the long grass overhanging it
+static const u16 sLongGrassRoots_Hoenn[][2] = {
+    {HOENN_GENERAL_GRASS,    HOENN_FORTREE_LONG_GRASS_ROOT},
+    {HOENN_SECONDARY(0x279), HOENN_SECONDARY(0x281)}, // Fortree_SecretBase_LongGrass_TopLeft -> BottomLeft
+    {HOENN_SECONDARY(0x27A), HOENN_SECONDARY(0x282)}, // Fortree_SecretBase_LongGrass_TopMid -> BottomMid
+    {HOENN_SECONDARY(0x27B), HOENN_SECONDARY(0x283)}, // Fortree_SecretBase_LongGrass_TopRight -> BottomRight
+};
+
 static const struct OamData sOamData_FldEff_CutGrass = {
     .y = 0,
     .affineMode = ST_OAM_AFFINE_OFF,
@@ -375,16 +408,39 @@ static void SetCutGrassMetatileAt(s16 x, s16 y)
 {
     u16 i = 0;
     u16 metatileId = MapGridGetMetatileIdAt(x, y);
+    const u16 (*mapping)[2] = IsHoennMapLayout() ? sCutGrassMetatileMapping_Hoenn : sCutGrassMetatileMapping;
     while (1)
     {
-        if (sCutGrassMetatileMapping[i][0] == 0xFFFF)
+        if (mapping[i][0] == 0xFFFF)
             return;
-        if (sCutGrassMetatileMapping[i][0] == metatileId)
+        if (mapping[i][0] == metatileId)
         {
-            MapGridSetMetatileIdAt(x, y, sCutGrassMetatileMapping[i][1]);
+            MapGridSetMetatileIdAt(x, y, mapping[i][1]);
             break;
         }
         i++;
+    }
+}
+
+// pokeemerald's SetCutGrassMetatiles: x, y is the row above the cut square, lowerY its last row.
+static void CleanupLongGrass_Hoenn(s16 x, s16 y, s16 lowerY, u8 cutRange)
+{
+    s32 i;
+    u32 j;
+
+    for (i = 0; i < cutRange; i++)
+    {
+        for (j = 0; j < ARRAY_COUNT(sLongGrassRoots_Hoenn); j++)
+        {
+            // long grass above the square overhangs the mowed tile below it
+            if (MapGridGetMetatileIdAt(x + i, y) == HOENN_GENERAL_LONG_GRASS
+             && MapGridGetMetatileIdAt(x + i, y + 1) == sLongGrassRoots_Hoenn[j][0])
+                MapGridSetMetatileIdAt(x + i, y + 1, sLongGrassRoots_Hoenn[j][1]);
+            // the long grass of the last row is gone: so is its overhang below
+            if (MapGridGetMetatileIdAt(x + i, lowerY) == HOENN_GENERAL_GRASS
+             && MapGridGetMetatileIdAt(x + i, lowerY + 1) == sLongGrassRoots_Hoenn[j][1])
+                MapGridSetMetatileIdAt(x + i, lowerY + 1, sLongGrassRoots_Hoenn[j][0]);
+        }
     }
 }
 
@@ -489,6 +545,12 @@ static void CleanupLongGrass(s16 x, s16 y)
     }
 
     lowerY = y + cutRange;
+
+    if (IsHoennMapLayout())
+    {
+        CleanupLongGrass_Hoenn(x, y, lowerY, cutRange);
+        return;
+    }
 
     for (i = 0; i < cutRange; i++)
     {
