@@ -117,6 +117,15 @@
 // gTileset_HoennBattleTent
 #define METATILE_HoennBattleTent_Door  0x2EB
 
+// gTileset_HoennBrendansMaysHouse
+#define METATILE_HoennBrendansMaysHouse_BookOnTable       0x313
+#define METATILE_HoennBrendansMaysHouse_BrendanPC_Off     0x2DA
+#define METATILE_HoennBrendansMaysHouse_BrendanPC_On      0x2FF
+#define METATILE_HoennBrendansMaysHouse_MayPC_Off         0x2D9
+#define METATILE_HoennBrendansMaysHouse_MayPC_On          0x2FE
+#define METATILE_HoennBrendansMaysHouse_MovingBox_Closed  0x2E8
+#define METATILE_HoennBrendansMaysHouse_MovingBox_Open    0x2F0
+
 // gTileset_HoennContest
 #define METATILE_HoennContest_CounterFlap_Bottom  0x359
 #define METATILE_HoennContest_CounterFlap_Top     0x351

@@ -2134,3 +2134,25 @@ const u16 gTilesetPalettes_HoennPetalburgGym[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_petalburg_gym/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_petalburg_gym/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennBrendansMaysHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_brendans_mays_house/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBrendansMaysHouse[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/palettes/15.gbapal"),
+};

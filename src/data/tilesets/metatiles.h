@@ -303,3 +303,6 @@ const u32 gMetatileAttributes_HoennPetalburg[] = INCBIN_U32("data/tilesets/secon
 
 const u16 gMetatiles_HoennPetalburgGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_petalburg_gym/metatiles.bin");
 const u32 gMetatileAttributes_HoennPetalburgGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_petalburg_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBrendansMaysHouse[] = INCBIN_U16("data/tilesets/secondary/hoenn_brendans_mays_house/metatiles.bin");
+const u32 gMetatileAttributes_HoennBrendansMaysHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_brendans_mays_house/metatile_attributes.bin");

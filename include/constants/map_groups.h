@@ -316,6 +316,7 @@
 #define MAP_ROUTE102                             (94 | (3 << 8))
 #define MAP_OLDALE_TOWN                          (95 | (3 << 8))
 #define MAP_ROUTE101                             (96 | (3 << 8))
+#define MAP_LITTLEROOT_TOWN                      (97 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -734,6 +735,13 @@
 #define MAP_OLDALE_TOWN_POKEMON_CENTER_2F (3 | (59 << 8))
 #define MAP_OLDALE_TOWN_MART              (4 | (59 << 8))
 
-#define MAP_GROUPS_COUNT 60
+// gMapGroup_IndoorLittleroot
+#define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_1F    (0 | (60 << 8))
+#define MAP_LITTLEROOT_TOWN_BRENDANS_HOUSE_2F    (1 | (60 << 8))
+#define MAP_LITTLEROOT_TOWN_MAYS_HOUSE_1F        (2 | (60 << 8))
+#define MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F        (3 | (60 << 8))
+#define MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB (4 | (60 << 8))
+
+#define MAP_GROUPS_COUNT 61
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -3,3 +3,15 @@
 
 ProfileMan_EventScript_Man::                    @ PetalburgCity_PokemonCenter_1F NPC #2 (11,2)
 	end
+
+RivalsHouse_1F_EventScript_RivalMom::           @ LittlerootTown_BrendansHouse_1F NPC #1 (2,7)
+	end
+
+RivalsHouse_1F_EventScript_RivalSibling::       @ LittlerootTown_BrendansHouse_1F NPC #2 (1,5)
+	end
+
+PlayersHouse_2F_EventScript_Notebook::          @ LittlerootTown_BrendansHouse_2F sign (1,1)
+	end
+
+PlayersHouse_2F_EventScript_GameCube::          @ LittlerootTown_BrendansHouse_2F sign (3,1)
+	end
