@@ -281,6 +281,21 @@
 #define METATILE_HoennPacifidlog_SubmergedLogs_VerticalBottom       0x2E2
 #define METATILE_HoennPacifidlog_SubmergedLogs_VerticalTop          0x2DA
 
+// gTileset_HoennPetalburg
+#define METATILE_HoennPetalburg_Door_BirchsLab   0x2C9
+#define METATILE_HoennPetalburg_Door_Littleroot  0x2C8
+#define METATILE_HoennPetalburg_Door_Oldale      0x307
+
+// gTileset_HoennPetalburgGym
+#define METATILE_HoennPetalburgGym_Door                0x2A4
+#define METATILE_HoennPetalburgGym_RoomEntrance_Left   0x290
+#define METATILE_HoennPetalburgGym_RoomEntrance_Right  0x291
+#define METATILE_HoennPetalburgGym_SlidingDoor_Frame0  0x298
+#define METATILE_HoennPetalburgGym_SlidingDoor_Frame1  0x299
+#define METATILE_HoennPetalburgGym_SlidingDoor_Frame2  0x29A
+#define METATILE_HoennPetalburgGym_SlidingDoor_Frame3  0x29B
+#define METATILE_HoennPetalburgGym_SlidingDoor_Frame4  0x29C
+
 // gTileset_HoennPokemonCenter
 #define METATILE_HoennPokemonCenter_CounterBarrier            0x2DD
 #define METATILE_HoennPokemonCenter_Door_CableClub            0x2E4

@@ -57,7 +57,8 @@
     "gMapGroup_IndoorRustboro",
     "gMapGroup_IndoorRoute116",
     "gMapGroup_IndoorRoute104",
-    "gMapGroup_IndoorDewford"
+    "gMapGroup_IndoorDewford",
+    "gMapGroup_IndoorPetalburg"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -365,7 +366,8 @@
     "Route105",
     "Route106",
     "DewfordTown",
-    "Route107"
+    "Route107",
+    "PetalburgCity"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -767,5 +769,14 @@
     "DewfordTown_Gym",
     "DewfordTown_Hall",
     "DewfordTown_House2"
+  ],
+  "gMapGroup_IndoorPetalburg": [
+    "PetalburgCity_WallysHouse",
+    "PetalburgCity_Gym",
+    "PetalburgCity_House1",
+    "PetalburgCity_House2",
+    "PetalburgCity_PokemonCenter_1F",
+    "PetalburgCity_PokemonCenter_2F",
+    "PetalburgCity_Mart"
   ]
 }

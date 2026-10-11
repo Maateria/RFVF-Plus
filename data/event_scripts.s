@@ -1582,3 +1582,21 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/DewfordTown_House2/scripts.inc"
 
 	.include "data/maps/Route107/scripts.inc"
+
+	.include "data/maps/PetalburgCity/scripts.inc"
+
+	.include "data/maps/PetalburgCity_WallysHouse/scripts.inc"
+
+	.include "data/maps/PetalburgCity_Gym/scripts.inc"
+
+	.include "data/maps/PetalburgCity_House1/scripts.inc"
+
+	.include "data/maps/PetalburgCity_House2/scripts.inc"
+
+	.include "data/maps/PetalburgCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/PetalburgCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/PetalburgCity_Mart/scripts.inc"
+
+	.include "data/scripts/hoenn_stubs.inc"

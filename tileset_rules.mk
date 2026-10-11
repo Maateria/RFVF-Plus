@@ -208,7 +208,7 @@ $(TILESETGFXDIR)/primary/hoenn_inside_building/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_generic_building/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 329 -Wnum_tiles
+	$(GFX) $< $@ -num_tiles 345 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_lilycove_museum/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 271 -Wnum_tiles
@@ -272,3 +272,9 @@ $(TILESETGFXDIR)/secondary/hoenn_dewford/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_dewford_gym/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 50 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_petalburg/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 122 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_petalburg_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 117 -Wnum_tiles

@@ -341,9 +341,9 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_106_POKE_BALL     0x141
 #define FLAG_HIDDEN_ITEM_ROUTE_106_STARDUST      0x142
 #define FLAG_HIDDEN_ITEM_ROUTE_106_HEART_SCALE   0x143
-#define FLAG_0x144               0x144
-#define FLAG_0x145               0x145
-#define FLAG_0x146               0x146
+#define FLAG_ITEM_PETALBURG_CITY_MAX_REVIVE      0x144
+#define FLAG_ITEM_PETALBURG_CITY_ETHER           0x145
+#define FLAG_HIDDEN_ITEM_PETALBURG_CITY_RARE_CANDY 0x146
 #define FLAG_0x147               0x147
 #define FLAG_0x148               0x148
 #define FLAG_0x149               0x149

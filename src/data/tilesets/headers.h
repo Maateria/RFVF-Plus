@@ -1099,3 +1099,25 @@ const struct Tileset gTileset_HoennDewfordGym =
 	.metatileAttributes = gMetatileAttributes_HoennDewfordGym,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennPetalburg = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennPetalburg,
+	.palettes = gTilesetPalettes_HoennPetalburg,
+	.metatiles = gMetatiles_HoennPetalburg,
+	.metatileAttributes = gMetatileAttributes_HoennPetalburg,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennPetalburgGym = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennPetalburgGym,
+	.palettes = gTilesetPalettes_HoennPetalburgGym,
+	.metatiles = gMetatiles_HoennPetalburgGym,
+	.metatileAttributes = gMetatileAttributes_HoennPetalburgGym,
+	.callback = NULL
+};

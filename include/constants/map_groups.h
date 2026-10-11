@@ -312,6 +312,7 @@
 #define MAP_ROUTE106                             (90 | (3 << 8))
 #define MAP_DEWFORD_TOWN                         (91 | (3 << 8))
 #define MAP_ROUTE107                             (92 | (3 << 8))
+#define MAP_PETALBURG_CITY                       (93 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -714,6 +715,15 @@
 #define MAP_DEWFORD_TOWN_HALL              (4 | (57 << 8))
 #define MAP_DEWFORD_TOWN_HOUSE2            (5 | (57 << 8))
 
-#define MAP_GROUPS_COUNT 58
+// gMapGroup_IndoorPetalburg
+#define MAP_PETALBURG_CITY_WALLYS_HOUSE      (0 | (58 << 8))
+#define MAP_PETALBURG_CITY_GYM               (1 | (58 << 8))
+#define MAP_PETALBURG_CITY_HOUSE1            (2 | (58 << 8))
+#define MAP_PETALBURG_CITY_HOUSE2            (3 | (58 << 8))
+#define MAP_PETALBURG_CITY_POKEMON_CENTER_1F (4 | (58 << 8))
+#define MAP_PETALBURG_CITY_POKEMON_CENTER_2F (5 | (58 << 8))
+#define MAP_PETALBURG_CITY_MART              (6 | (58 << 8))
+
+#define MAP_GROUPS_COUNT 59
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

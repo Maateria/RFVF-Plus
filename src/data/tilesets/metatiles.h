@@ -297,3 +297,9 @@ const u32 gMetatileAttributes_HoennDewford[] = INCBIN_U32("data/tilesets/seconda
 
 const u16 gMetatiles_HoennDewfordGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_dewford_gym/metatiles.bin");
 const u32 gMetatileAttributes_HoennDewfordGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_dewford_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennPetalburg[] = INCBIN_U16("data/tilesets/secondary/hoenn_petalburg/metatiles.bin");
+const u32 gMetatileAttributes_HoennPetalburg[] = INCBIN_U32("data/tilesets/secondary/hoenn_petalburg/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennPetalburgGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_petalburg_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennPetalburgGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_petalburg_gym/metatile_attributes.bin");

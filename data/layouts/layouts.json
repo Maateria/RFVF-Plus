@@ -5880,6 +5880,42 @@
       "secondary_tileset": "gTileset_HoennDewford",
       "border_filepath": "data/layouts/Route107/border.bin",
       "blockdata_filepath": "data/layouts/Route107/map.bin"
+    },
+    {
+      "id": "LAYOUT_PETALBURG_CITY",
+      "name": "PetalburgCity_Layout",
+      "width": 30,
+      "height": 30,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPetalburg",
+      "border_filepath": "data/layouts/PetalburgCity/border.bin",
+      "blockdata_filepath": "data/layouts/PetalburgCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_PETALBURG_CITY_GYM",
+      "name": "PetalburgCity_Gym_Layout",
+      "width": 9,
+      "height": 112,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennPetalburgGym",
+      "border_filepath": "data/layouts/PetalburgCity_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/PetalburgCity_Gym/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOUSE_WITH_BED",
+      "name": "HouseWithBed_Layout",
+      "width": 10,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding",
+      "border_filepath": "data/layouts/HouseWithBed/border.bin",
+      "blockdata_filepath": "data/layouts/HouseWithBed/map.bin"
     }
   ]
 }
