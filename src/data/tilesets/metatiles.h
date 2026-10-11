@@ -261,3 +261,12 @@ const u32 gMetatileAttributes_HoennFortreeGym[] = INCBIN_U32("data/tilesets/seco
 
 const u16 gMetatiles_HoennLab[] = INCBIN_U16("data/tilesets/secondary/hoenn_lab/metatiles.bin");
 const u32 gMetatileAttributes_HoennLab[] = INCBIN_U32("data/tilesets/secondary/hoenn_lab/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennEverGrande[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/metatiles.bin");
+const u32 gMetatileAttributes_HoennEverGrande[] = INCBIN_U32("data/tilesets/secondary/hoenn_ever_grande/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennEliteFour[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/metatiles.bin");
+const u32 gMetatileAttributes_HoennEliteFour[] = INCBIN_U32("data/tilesets/secondary/hoenn_elite_four/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennCableClub[] = INCBIN_U16("data/tilesets/secondary/hoenn_cable_club/metatiles.bin");
+const u32 gMetatileAttributes_HoennCableClub[] = INCBIN_U32("data/tilesets/secondary/hoenn_cable_club/metatile_attributes.bin");

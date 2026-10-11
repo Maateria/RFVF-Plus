@@ -120,6 +120,19 @@
 #define METATILE_HoennContest_FloorShadow         0x2E1
 #define METATILE_HoennContest_WallShadow          0x2A1
 
+// gTileset_HoennEliteFour
+#define METATILE_HoennEliteFour_EntryDoor_ClosedBottom    0x28E
+#define METATILE_HoennEliteFour_EntryDoor_ClosedTop       0x286
+#define METATILE_HoennEliteFour_LeftSpotlightOff          0x35D
+#define METATILE_HoennEliteFour_OpenDoorChampion_Frame    0x3C6
+#define METATILE_HoennEliteFour_OpenDoorChampion_Opening  0x3C7
+#define METATILE_HoennEliteFour_OpenDoor_Frame            0x3C4
+#define METATILE_HoennEliteFour_OpenDoor_Opening          0x3C5
+#define METATILE_HoennEliteFour_RightSpotlightOff         0x35E
+
+// gTileset_HoennEverGrande
+#define METATILE_HoennEverGrande_Door_PokemonLeague  0x29D
+
 // gTileset_HoennFacility
 #define METATILE_HoennFacility_DataPad                       0x2AD
 #define METATILE_HoennFacility_NewMauvilleDoor_Closed_Tile0  0x2A7

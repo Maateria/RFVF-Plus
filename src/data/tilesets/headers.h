@@ -967,3 +967,36 @@ const struct Tileset gTileset_HoennLab =
 	.metatileAttributes = gMetatileAttributes_HoennLab,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennEverGrande = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennEverGrande,
+	.palettes = gTilesetPalettes_HoennEverGrande,
+	.metatiles = gMetatiles_HoennEverGrande,
+	.metatileAttributes = gMetatileAttributes_HoennEverGrande,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennEliteFour = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennEliteFour,
+	.palettes = gTilesetPalettes_HoennEliteFour,
+	.metatiles = gMetatiles_HoennEliteFour,
+	.metatileAttributes = gMetatileAttributes_HoennEliteFour,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennCableClub = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennCableClub,
+	.palettes = gTilesetPalettes_HoennCableClub,
+	.metatiles = gMetatiles_HoennCableClub,
+	.metatileAttributes = gMetatileAttributes_HoennCableClub,
+	.callback = NULL
+};

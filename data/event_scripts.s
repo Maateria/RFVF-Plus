@@ -1428,3 +1428,35 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route119_WeatherInstitute_2F/scripts.inc"
 
 	.include "data/maps/Route119_House/scripts.inc"
+
+	.include "data/maps/EverGrandeCity/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_SidneysRoom/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_PhoebesRoom/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_GlaciasRoom/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_DrakesRoom/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_ChampionsRoom/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_Hall1/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_Hall2/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_Hall3/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_Hall4/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_Hall5/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_PokemonLeague_1F/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_HallOfFame/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/EverGrandeCity_PokemonLeague_2F/scripts.inc"

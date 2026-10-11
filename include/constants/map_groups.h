@@ -295,6 +295,7 @@
 #define MAP_ROUTE120                             (73 | (3 << 8))
 #define MAP_FORTREE_CITY                         (74 | (3 << 8))
 #define MAP_ROUTE119                             (75 | (3 << 8))
+#define MAP_EVER_GRANDE_CITY                     (76 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -619,6 +620,23 @@
 #define MAP_ROUTE119_WEATHER_INSTITUTE_2F (1 | (48 << 8))
 #define MAP_ROUTE119_HOUSE                (2 | (48 << 8))
 
-#define MAP_GROUPS_COUNT 49
+// gMapGroup_IndoorEverGrande
+#define MAP_EVER_GRANDE_CITY_SIDNEYS_ROOM      (0 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_PHOEBES_ROOM      (1 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_GLACIAS_ROOM      (2 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_DRAKES_ROOM       (3 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_CHAMPIONS_ROOM    (4 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_HALL1             (5 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_HALL2             (6 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_HALL3             (7 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_HALL4             (8 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_HALL5             (9 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_POKEMON_LEAGUE_1F (10 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_HALL_OF_FAME      (11 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_POKEMON_CENTER_1F (12 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_POKEMON_CENTER_2F (13 | (49 << 8))
+#define MAP_EVER_GRANDE_CITY_POKEMON_LEAGUE_2F (14 | (49 << 8))
+
+#define MAP_GROUPS_COUNT 50
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H
