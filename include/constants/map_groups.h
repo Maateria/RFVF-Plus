@@ -306,6 +306,7 @@
 #define MAP_ROUTE114                             (84 | (3 << 8))
 #define MAP_ROUTE115                             (85 | (3 << 8))
 #define MAP_RUSTBORO_CITY                        (86 | (3 << 8))
+#define MAP_ROUTE116                             (87 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -693,6 +694,9 @@
 #define MAP_RUSTBORO_CITY_FLAT2_3F          (15 | (54 << 8))
 #define MAP_RUSTBORO_CITY_HOUSE3            (16 | (54 << 8))
 
-#define MAP_GROUPS_COUNT 55
+// gMapGroup_IndoorRoute116
+#define MAP_ROUTE116_TUNNELERS_REST_HOUSE (0 | (55 << 8))
+
+#define MAP_GROUPS_COUNT 56
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

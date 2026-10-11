@@ -1552,3 +1552,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/RustboroCity_Flat2_3F/scripts.inc"
 
 	.include "data/maps/RustboroCity_House3/scripts.inc"
+
+	.include "data/maps/Route116/scripts.inc"
+
+	.include "data/maps/Route116_TunnelersRestHouse/scripts.inc"
