@@ -1600,3 +1600,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/PetalburgCity_Mart/scripts.inc"
 
 	.include "data/scripts/hoenn_stubs.inc"
+
+	.include "data/maps/Route102/scripts.inc"

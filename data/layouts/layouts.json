@@ -5916,6 +5916,18 @@
       "secondary_tileset": "gTileset_HoennGenericBuilding",
       "border_filepath": "data/layouts/HouseWithBed/border.bin",
       "blockdata_filepath": "data/layouts/HouseWithBed/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE102",
+      "name": "Route102_Layout",
+      "width": 50,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPetalburg",
+      "border_filepath": "data/layouts/Route102/border.bin",
+      "blockdata_filepath": "data/layouts/Route102/map.bin"
     }
   ]
 }

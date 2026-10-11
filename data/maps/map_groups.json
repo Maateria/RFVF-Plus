@@ -367,7 +367,8 @@
     "Route106",
     "DewfordTown",
     "Route107",
-    "PetalburgCity"
+    "PetalburgCity",
+    "Route102"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",

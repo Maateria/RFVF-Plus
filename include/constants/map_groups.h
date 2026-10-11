@@ -313,6 +313,7 @@
 #define MAP_DEWFORD_TOWN                         (91 | (3 << 8))
 #define MAP_ROUTE107                             (92 | (3 << 8))
 #define MAP_PETALBURG_CITY                       (93 | (3 << 8))
+#define MAP_ROUTE102                             (94 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
