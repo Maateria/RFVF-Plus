@@ -6804,6 +6804,18 @@
       "secondary_tileset": "gTileset_HoennMysteryEventsHouse",
       "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_B1F/border.bin",
       "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_UNDERWATER_ROUTE124",
+      "name": "Underwater_Route124_Layout",
+      "width": 80,
+      "height": 80,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennUnderwater",
+      "border_filepath": "data/layouts/Underwater_Route124/border.bin",
+      "blockdata_filepath": "data/layouts/Underwater_Route124/map.bin"
     }
   ]
 }

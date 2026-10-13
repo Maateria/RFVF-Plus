@@ -551,6 +551,10 @@
 #define METATILE_HoennTrickHousePuzzle_RedDoorV_Retracted          0x2CA
 #define METATILE_HoennTrickHousePuzzle_Stairs_Down                 0x28B
 
+// gTileset_HoennUnderwater
+#define METATILE_HoennUnderwater_FloorShadow  0x2A8
+#define METATILE_HoennUnderwater_RockWall     0x29E
+
 // gTileset_LavenderTown
 #define METATILE_LavenderTown_Door  0x2A2
 

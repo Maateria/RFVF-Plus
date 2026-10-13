@@ -372,3 +372,6 @@ const u32 gMetatileAttributes_HoennSootopolisGym[] = INCBIN_U32("data/tilesets/s
 
 const u16 gMetatiles_HoennMysteryEventsHouse[] = INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/metatiles.bin");
 const u32 gMetatileAttributes_HoennMysteryEventsHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_mystery_events_house/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennUnderwater[] = INCBIN_U16("data/tilesets/secondary/hoenn_underwater/metatiles.bin");
+const u32 gMetatileAttributes_HoennUnderwater[] = INCBIN_U32("data/tilesets/secondary/hoenn_underwater/metatile_attributes.bin");

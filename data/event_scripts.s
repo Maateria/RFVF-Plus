@@ -1842,3 +1842,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/SootopolisCity_MysteryEventsHouse_1F/scripts.inc"
 
 	.include "data/maps/SootopolisCity_MysteryEventsHouse_B1F/scripts.inc"
+
+	.include "data/maps/Underwater_Route124/scripts.inc"

@@ -8768,6 +8768,17 @@ const struct WildPokemon gSootopolisCity_FishingMons[] =
 
 const struct WildPokemonInfo gSootopolisCity_FishingMonsInfo = { 10, gSootopolisCity_FishingMons };
 
+const struct WildPokemon gUnderwater_Route124_WaterMons[] =
+{
+    { 20, 30, SPECIES_CLAMPERL },
+    { 20, 30, SPECIES_CHINCHOU },
+    { 30, 35, SPECIES_CLAMPERL },
+    { 30, 35, SPECIES_RELICANTH },
+    { 30, 35, SPECIES_RELICANTH },
+};
+
+const struct WildPokemonInfo gUnderwater_Route124_WaterMonsInfo = { 4, gUnderwater_Route124_WaterMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11049,6 +11060,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gSootopolisCity_FishingMonsInfo,
         .fishingMonsInfo_LG = &gSootopolisCity_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(UNDERWATER_ROUTE124),
+        .mapNum = MAP_NUM(UNDERWATER_ROUTE124),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = &gUnderwater_Route124_WaterMonsInfo,
+        .waterMonsInfo_LG = &gUnderwater_Route124_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).
