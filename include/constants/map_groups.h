@@ -982,6 +982,9 @@
 #define MAP_SCORCHED_SLAB                            (98 | (73 << 8))
 #define MAP_DESERT_UNDERPASS                         (99 | (73 << 8))
 #define MAP_ALTERING_CAVE                            (100 | (73 << 8))
+#define MAP_UNDERWATER_MARINE_CAVE                   (101 | (73 << 8))
+#define MAP_MARINE_CAVE_ENTRANCE                     (102 | (73 << 8))
+#define MAP_MARINE_CAVE_END                          (103 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

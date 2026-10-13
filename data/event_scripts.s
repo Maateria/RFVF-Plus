@@ -2058,3 +2058,9 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/DesertUnderpass/scripts.inc"
 
 	.include "data/maps/AlteringCave/scripts.inc"
+
+	.include "data/maps/Underwater_MarineCave/scripts.inc"
+
+	.include "data/maps/MarineCave_Entrance/scripts.inc"
+
+	.include "data/maps/MarineCave_End/scripts.inc"

@@ -1051,6 +1051,9 @@
     "MirageTower_4F",
     "ScorchedSlab",
     "DesertUnderpass",
-    "AlteringCave"
+    "AlteringCave",
+    "Underwater_MarineCave",
+    "MarineCave_Entrance",
+    "MarineCave_End"
   ]
 }
