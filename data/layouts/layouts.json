@@ -7848,6 +7848,18 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/DesertRuins/border.bin",
       "blockdata_filepath": "data/layouts/DesertRuins/map.bin"
+    },
+    {
+      "id": "LAYOUT_ISLAND_CAVE",
+      "name": "IslandCave_Layout",
+      "width": 17,
+      "height": 33,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/IslandCave/border.bin",
+      "blockdata_filepath": "data/layouts/IslandCave/map.bin"
     }
   ]
 }
