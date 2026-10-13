@@ -6876,6 +6876,18 @@
       "secondary_tileset": "gTileset_HoennUnderwater",
       "border_filepath": "data/layouts/Underwater_Route105/border.bin",
       "blockdata_filepath": "data/layouts/Underwater_Route105/map.bin"
+    },
+    {
+      "id": "LAYOUT_UNDERWATER_ROUTE125",
+      "name": "Underwater_Route125_Layout",
+      "width": 80,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennUnderwater",
+      "border_filepath": "data/layouts/Underwater_Route125/border.bin",
+      "blockdata_filepath": "data/layouts/Underwater_Route125/map.bin"
     }
   ]
 }
