@@ -15,7 +15,8 @@ routes and LavaridgeTown once the engine work of step 3 is in: without it they a
 import). A refused unit is skipped with its reasons (import_map.py writes nothing for it); a unit already imported
 says "Nothing to do", so running it again only imports what is still missing. The order does not change the
 tilesets (natural ids, design 1.8). Each import becomes its own commit,
-"[FEAT] - Import <unit> from Emerald (import_map.py)", so `git revert <commit>` undoes one unit. Nothing is pushed.
+"[FEAT] - Import <unit> from Emerald (import_map.py)". Nothing is pushed. Only the last one can be undone on its own
+(`git revert`): the units imported after a unit number their maps and flags after its own (LISEZMOI.md).
 Full tool output per unit: build/import_all/<unit>.txt.
 """
 import argparse
@@ -66,8 +67,8 @@ def changed(tracked_only=False):
 def porymap_running():
     if os.name != "nt":
         return False
-    r = subprocess.run(["tasklist", "/FI", "IMAGENAME eq porymap.exe", "/NH"], capture_output=True, text=True)
-    return "porymap.exe" in r.stdout.lower()
+    r = subprocess.run(["tasklist", "/FI", "IMAGENAME eq porymap.exe", "/NH"], capture_output=True)  # bytes: the
+    return b"porymap.exe" in r.stdout.lower()  # console code page (cp850) is no text Python can always decode
 
 
 def main():
@@ -120,7 +121,9 @@ def main():
         if r.returncode != 0:
             print("ERREUR (code %d)" % r.returncode)
             sys.exit("Arrêt. Sortie complète : build/import_all/%s.txt\n%s" % (unit, "\n".join(out.splitlines()[-15:])))
-        new = changed() - before
+        # what changed, plus every file the import lists: one left untracked by an undone import changes nothing here
+        new = (changed() - before) | {l[4:] for l in out.partition("\nFiles written:\n")[2].splitlines()
+                                    if l[:4] in ("  A ", "  M ")}
         if args.dry_run:
             if "Nothing to do" in out:
                 nothing.append(unit)

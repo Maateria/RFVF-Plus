@@ -95,8 +95,8 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
 - **Avant :** fermez Porymap et commitez votre travail, sinon l'outil s'arrête sans rien faire.
 - **Ordre :** les zones partent de Nénucrique. Une zone déjà importée est sautée (`déjà là`). L'ordre ne change pas
   les tilesets : importer la Route 118 avant ou après Lavandia donne les mêmes fichiers.
-- **Commits :** chaque zone devient un commit `[FEAT] - Import <zone> from Emerald (import_map.py)`, donc
-  `git revert <commit>` annule une zone. Rien n'est poussé.
+- **Commits :** chaque zone devient un commit `[FEAT] - Import <zone> from Emerald (import_map.py)`. Rien n'est
+  poussé. Seul le dernier commit s'annule directement (voir « Annuler un import »).
 - **Options :** `--no-build` saute la compilation de la fin ; `--emerald CHEMIN` donne pokeemerald.
 - **Détail :** le rapport complet de chaque zone est dans `build/import_all/<zone>.txt`.
 
@@ -148,5 +148,8 @@ uv run --no-project --with pillow python tools/hoenn_import/hoenn_import.py --ch
   Elles ne touchent que les fichiers de cet import : copiez-les telles quelles.
 - **À éviter :** `git checkout -- .`, `git restore .` et `git clean -fd` sans chemin. Elles touchent aussi vos autres
   fichiers, `.claude/` compris. Si c'est déjà fait, relancer l'import fonctionne quand même.
-- **Déjà commité :** `git revert <commit>` est sûr. `git reset --hard HEAD~1` annule aussi le dernier commit, mais
-  efface en plus tout ce qui n'est pas commité.
+- **Déjà commité :** seul le dernier import s'annule, avec `git revert <commit>`. `git reset --hard HEAD~1` l'annule
+  aussi, mais efface en plus tout ce qui n'est pas commité.
+- **Un import plus ancien ne s'annule pas seul :** `git revert` s'arrête sur des conflits. Et les zones importées
+  après lui ont leurs numéros de maps et de flags à la suite des siens : l'enlever décalerait ces numéros, que les
+  sauvegardes retiennent. Annulez d'abord les imports suivants, du plus récent au plus ancien.

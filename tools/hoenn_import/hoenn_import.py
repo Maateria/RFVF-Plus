@@ -1773,6 +1773,8 @@ def kept_lines(text):
 
 def additive(path, old, new):
     """True if `new` only adds to `old`, the bytes of a file that existed before the run."""
+    if new == old:
+        return True
     rel = path.relative_to(REPO).as_posix()
     if rel in ("include/constants/map_groups.h", "include/constants/layouts.h"):  # made from the checked JSON files
         return True
@@ -1956,6 +1958,12 @@ def run(names, group_of, em, render_dir=None, dry_run=False, unit=None):
         check_renders(ctx, batch, render_dir)
         files = changes()
         check_files(files)
+        # files of this import already on disk but not in git (left by an undone import, see plan()): the planned ones
+        # (same bytes) and the scripts.inc a new map keeps (m.new_scripts). Written and listed too, so that committing
+        # the listed files commits the whole import
+        untracked = {REPO / f for f in git("ls-files", "--others", "--exclude-standard", "-z").stdout.split("\0") if f}
+        mine = set(PENDING) | {REPO / "data/maps" / m.name / "scripts.inc" for m in batch.maps if not m.exists}
+        files.update({p: read_bytes(p) for p in untracked & mine})
     except Refused:
         pass
     if batch:
