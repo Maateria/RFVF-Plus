@@ -7872,6 +7872,54 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/AncientTomb/border.bin",
       "blockdata_filepath": "data/layouts/AncientTomb/map.bin"
+    },
+    {
+      "id": "LAYOUT_UNDERWATER_ROUTE134",
+      "name": "Underwater_Route134_Layout",
+      "width": 18,
+      "height": 10,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennUnderwater",
+      "border_filepath": "data/layouts/Underwater_Route134/border.bin",
+      "blockdata_filepath": "data/layouts/Underwater_Route134/map.bin"
+    },
+    {
+      "id": "LAYOUT_UNDERWATER_SEALED_CHAMBER",
+      "name": "Underwater_SealedChamber_Layout",
+      "width": 22,
+      "height": 48,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennUnderwater",
+      "border_filepath": "data/layouts/Underwater_SealedChamber/border.bin",
+      "blockdata_filepath": "data/layouts/Underwater_SealedChamber/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEALED_CHAMBER_OUTER_ROOM",
+      "name": "SealedChamber_OuterRoom_Layout",
+      "width": 21,
+      "height": 23,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/SealedChamber_OuterRoom/border.bin",
+      "blockdata_filepath": "data/layouts/SealedChamber_OuterRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SEALED_CHAMBER_INNER_ROOM",
+      "name": "SealedChamber_InnerRoom_Layout",
+      "width": 21,
+      "height": 23,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/SealedChamber_InnerRoom/border.bin",
+      "blockdata_filepath": "data/layouts/SealedChamber_InnerRoom/map.bin"
     }
   ]
 }

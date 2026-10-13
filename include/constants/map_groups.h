@@ -963,6 +963,10 @@
 #define MAP_DESERT_RUINS                             (79 | (73 << 8))
 #define MAP_ISLAND_CAVE                              (80 | (73 << 8))
 #define MAP_ANCIENT_TOMB                             (81 | (73 << 8))
+#define MAP_UNDERWATER_ROUTE134                      (82 | (73 << 8))
+#define MAP_UNDERWATER_SEALED_CHAMBER                (83 | (73 << 8))
+#define MAP_SEALED_CHAMBER_OUTER_ROOM                (84 | (73 << 8))
+#define MAP_SEALED_CHAMBER_INNER_ROOM                (85 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

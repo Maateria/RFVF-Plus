@@ -1032,6 +1032,10 @@
     "Underwater_SootopolisCity",
     "DesertRuins",
     "IslandCave",
-    "AncientTomb"
+    "AncientTomb",
+    "Underwater_Route134",
+    "Underwater_SealedChamber",
+    "SealedChamber_OuterRoom",
+    "SealedChamber_InnerRoom"
   ]
 }

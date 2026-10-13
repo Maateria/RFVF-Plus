@@ -2020,3 +2020,11 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/IslandCave/scripts.inc"
 
 	.include "data/maps/AncientTomb/scripts.inc"
+
+	.include "data/maps/Underwater_Route134/scripts.inc"
+
+	.include "data/maps/Underwater_SealedChamber/scripts.inc"
+
+	.include "data/maps/SealedChamber_OuterRoom/scripts.inc"
+
+	.include "data/maps/SealedChamber_InnerRoom/scripts.inc"
