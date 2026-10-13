@@ -1884,3 +1884,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/JaggedPass/scripts.inc"
 
 	.include "data/maps/FieryPath/scripts.inc"
+
+	.include "data/maps/MagmaHideout_1F/scripts.inc"
+
+	.include "data/maps/MagmaHideout_2F_1R/scripts.inc"
+
+	.include "data/maps/MagmaHideout_2F_2R/scripts.inc"
+
+	.include "data/maps/MagmaHideout_3F_1R/scripts.inc"
+
+	.include "data/maps/MagmaHideout_3F_2R/scripts.inc"
+
+	.include "data/maps/MagmaHideout_4F/scripts.inc"
+
+	.include "data/maps/MagmaHideout_3F_3R/scripts.inc"
+
+	.include "data/maps/MagmaHideout_2F_3R/scripts.inc"

@@ -895,6 +895,14 @@
 #define MAP_MT_CHIMNEY                (11 | (73 << 8))
 #define MAP_JAGGED_PASS               (12 | (73 << 8))
 #define MAP_FIERY_PATH                (13 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_1F          (14 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_2F_1R       (15 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_2F_2R       (16 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_3F_1R       (17 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_3F_2R       (18 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_4F          (19 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_3F_3R       (20 | (73 << 8))
+#define MAP_MAGMA_HIDEOUT_2F_3R       (21 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

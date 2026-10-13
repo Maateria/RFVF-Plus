@@ -7056,6 +7056,102 @@
       "secondary_tileset": "gTileset_HoennLavaridge",
       "border_filepath": "data/layouts/FieryPath/border.bin",
       "blockdata_filepath": "data/layouts/FieryPath/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_1F",
+      "name": "MagmaHideout_1F_Layout",
+      "width": 37,
+      "height": 38,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_1F/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_2F_1R",
+      "name": "MagmaHideout_2F_1R_Layout",
+      "width": 33,
+      "height": 39,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_2F_1R/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_2F_1R/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_2F_2R",
+      "name": "MagmaHideout_2F_2R_Layout",
+      "width": 49,
+      "height": 28,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_2F_2R/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_2F_2R/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_3F_1R",
+      "name": "MagmaHideout_3F_1R_Layout",
+      "width": 28,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_3F_1R/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_3F_1R/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_3F_2R",
+      "name": "MagmaHideout_3F_2R_Layout",
+      "width": 24,
+      "height": 17,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_3F_2R/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_3F_2R/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_4F",
+      "name": "MagmaHideout_4F_Layout",
+      "width": 59,
+      "height": 28,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_4F/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_4F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_3F_3R",
+      "name": "MagmaHideout_3F_3R_Layout",
+      "width": 33,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_3F_3R/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_3F_3R/map.bin"
+    },
+    {
+      "id": "LAYOUT_MAGMA_HIDEOUT_2F_3R",
+      "name": "MagmaHideout_2F_3R_Layout",
+      "width": 60,
+      "height": 19,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MagmaHideout_2F_3R/border.bin",
+      "blockdata_filepath": "data/layouts/MagmaHideout_2F_3R/map.bin"
     }
   ]
 }
