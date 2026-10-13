@@ -72,7 +72,8 @@
     "gMapGroup_IndoorLavaridge",
     "gMapGroup_IndoorRoute109",
     "gMapGroup_IndoorSlateport",
-    "gMapGroup_IndoorSootopolis"
+    "gMapGroup_IndoorSootopolis",
+    "gMapGroup_HoennDungeons"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -948,5 +949,8 @@
     "SootopolisCity_LotadAndSeedotHouse",
     "SootopolisCity_MysteryEventsHouse_1F",
     "SootopolisCity_MysteryEventsHouse_B1F"
+  ],
+  "gMapGroup_HoennDungeons": [
+    "PetalburgWoods"
   ]
 }
