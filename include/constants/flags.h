@@ -992,11 +992,11 @@
 #define FLAG_ITEM_AQUA_HIDEOUT_B1F_MASTER_BALL   0x3B8
 #define FLAG_ITEM_AQUA_HIDEOUT_B1F_NUGGET        0x3B9
 #define FLAG_ITEM_AQUA_HIDEOUT_B2F_NEST_BALL     0x3BA
-#define FLAG_0x3BB               0x3BB
-#define FLAG_0x3BC               0x3BC
-#define FLAG_0x3BD               0x3BD
-#define FLAG_0x3BE               0x3BE
-#define FLAG_0x3BF               0x3BF
+#define FLAG_ITEM_SHOAL_CAVE_ENTRANCE_BIG_PEARL  0x3BB
+#define FLAG_ITEM_SHOAL_CAVE_INNER_ROOM_RARE_CANDY 0x3BC
+#define FLAG_ITEM_SHOAL_CAVE_STAIRS_ROOM_ICE_HEAL 0x3BD
+#define FLAG_ITEM_SHOAL_CAVE_ICE_ROOM_TM_HAIL    0x3BE
+#define FLAG_ITEM_SHOAL_CAVE_ICE_ROOM_NEVER_MELT_ICE 0x3BF
 #define FLAG_0x3C0               0x3C0
 #define FLAG_0x3C1               0x3C1
 #define FLAG_0x3C2               0x3C2

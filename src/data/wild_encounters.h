@@ -9521,6 +9521,150 @@ const struct WildPokemon gMtPyre_Summit_LandMons[] =
 
 const struct WildPokemonInfo gMtPyre_Summit_LandMonsInfo = { 10, gMtPyre_Summit_LandMons };
 
+const struct WildPokemon gShoalCave_LowTideStairsRoom_LandMons[] =
+{
+    { 26, 26, SPECIES_ZUBAT },
+    { 26, 26, SPECIES_SPHEAL },
+    { 28, 28, SPECIES_ZUBAT },
+    { 28, 28, SPECIES_SPHEAL },
+    { 30, 30, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideStairsRoom_LandMonsInfo = { 10, gShoalCave_LowTideStairsRoom_LandMons };
+
+const struct WildPokemon gShoalCave_LowTideLowerRoom_LandMons[] =
+{
+    { 26, 26, SPECIES_ZUBAT },
+    { 26, 26, SPECIES_SPHEAL },
+    { 28, 28, SPECIES_ZUBAT },
+    { 28, 28, SPECIES_SPHEAL },
+    { 30, 30, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideLowerRoom_LandMonsInfo = { 10, gShoalCave_LowTideLowerRoom_LandMons };
+
+const struct WildPokemon gShoalCave_LowTideInnerRoom_LandMons[] =
+{
+    { 26, 26, SPECIES_ZUBAT },
+    { 26, 26, SPECIES_SPHEAL },
+    { 28, 28, SPECIES_ZUBAT },
+    { 28, 28, SPECIES_SPHEAL },
+    { 30, 30, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideInnerRoom_LandMonsInfo = { 10, gShoalCave_LowTideInnerRoom_LandMons };
+
+const struct WildPokemon gShoalCave_LowTideInnerRoom_WaterMons[] =
+{
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_ZUBAT },
+    { 25, 30, SPECIES_SPHEAL },
+    { 25, 30, SPECIES_SPHEAL },
+    { 25, 35, SPECIES_SPHEAL },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideInnerRoom_WaterMonsInfo = { 4, gShoalCave_LowTideInnerRoom_WaterMons };
+
+const struct WildPokemon gShoalCave_LowTideInnerRoom_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_WAILMER },
+    { 25, 30, SPECIES_WAILMER },
+    { 30, 35, SPECIES_WAILMER },
+    { 20, 25, SPECIES_WAILMER },
+    { 35, 40, SPECIES_WAILMER },
+    { 40, 45, SPECIES_WAILMER },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideInnerRoom_FishingMonsInfo = { 10, gShoalCave_LowTideInnerRoom_FishingMons };
+
+const struct WildPokemon gShoalCave_LowTideEntranceRoom_LandMons[] =
+{
+    { 26, 26, SPECIES_ZUBAT },
+    { 26, 26, SPECIES_SPHEAL },
+    { 28, 28, SPECIES_ZUBAT },
+    { 28, 28, SPECIES_SPHEAL },
+    { 30, 30, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 32, 32, SPECIES_GOLBAT },
+    { 32, 32, SPECIES_SPHEAL },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideEntranceRoom_LandMonsInfo = { 10, gShoalCave_LowTideEntranceRoom_LandMons };
+
+const struct WildPokemon gShoalCave_LowTideEntranceRoom_WaterMons[] =
+{
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_ZUBAT },
+    { 25, 30, SPECIES_SPHEAL },
+    { 25, 30, SPECIES_SPHEAL },
+    { 25, 35, SPECIES_SPHEAL },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideEntranceRoom_WaterMonsInfo = { 4, gShoalCave_LowTideEntranceRoom_WaterMons };
+
+const struct WildPokemon gShoalCave_LowTideEntranceRoom_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_WAILMER },
+    { 25, 30, SPECIES_WAILMER },
+    { 30, 35, SPECIES_WAILMER },
+    { 20, 25, SPECIES_WAILMER },
+    { 35, 40, SPECIES_WAILMER },
+    { 40, 45, SPECIES_WAILMER },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideEntranceRoom_FishingMonsInfo = { 10, gShoalCave_LowTideEntranceRoom_FishingMons };
+
+const struct WildPokemon gShoalCave_LowTideIceRoom_LandMons[] =
+{
+    { 26, 26, SPECIES_ZUBAT },
+    { 26, 26, SPECIES_SPHEAL },
+    { 28, 28, SPECIES_ZUBAT },
+    { 28, 28, SPECIES_SPHEAL },
+    { 30, 30, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SPHEAL },
+    { 26, 26, SPECIES_SNORUNT },
+    { 32, 32, SPECIES_SPHEAL },
+    { 30, 30, SPECIES_GOLBAT },
+    { 28, 28, SPECIES_SNORUNT },
+    { 32, 32, SPECIES_GOLBAT },
+    { 30, 30, SPECIES_SNORUNT },
+};
+
+const struct WildPokemonInfo gShoalCave_LowTideIceRoom_LandMonsInfo = { 10, gShoalCave_LowTideIceRoom_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -12216,6 +12360,66 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(MT_PYRE_SUMMIT),
         .landMonsInfo_FR = &gMtPyre_Summit_LandMonsInfo,
         .landMonsInfo_LG = &gMtPyre_Summit_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(SHOAL_CAVE_LOW_TIDE_STAIRS_ROOM),
+        .mapNum = MAP_NUM(SHOAL_CAVE_LOW_TIDE_STAIRS_ROOM),
+        .landMonsInfo_FR = &gShoalCave_LowTideStairsRoom_LandMonsInfo,
+        .landMonsInfo_LG = &gShoalCave_LowTideStairsRoom_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(SHOAL_CAVE_LOW_TIDE_LOWER_ROOM),
+        .mapNum = MAP_NUM(SHOAL_CAVE_LOW_TIDE_LOWER_ROOM),
+        .landMonsInfo_FR = &gShoalCave_LowTideLowerRoom_LandMonsInfo,
+        .landMonsInfo_LG = &gShoalCave_LowTideLowerRoom_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(SHOAL_CAVE_LOW_TIDE_INNER_ROOM),
+        .mapNum = MAP_NUM(SHOAL_CAVE_LOW_TIDE_INNER_ROOM),
+        .landMonsInfo_FR = &gShoalCave_LowTideInnerRoom_LandMonsInfo,
+        .landMonsInfo_LG = &gShoalCave_LowTideInnerRoom_LandMonsInfo,
+        .waterMonsInfo_FR = &gShoalCave_LowTideInnerRoom_WaterMonsInfo,
+        .waterMonsInfo_LG = &gShoalCave_LowTideInnerRoom_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gShoalCave_LowTideInnerRoom_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gShoalCave_LowTideInnerRoom_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM),
+        .mapNum = MAP_NUM(SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM),
+        .landMonsInfo_FR = &gShoalCave_LowTideEntranceRoom_LandMonsInfo,
+        .landMonsInfo_LG = &gShoalCave_LowTideEntranceRoom_LandMonsInfo,
+        .waterMonsInfo_FR = &gShoalCave_LowTideEntranceRoom_WaterMonsInfo,
+        .waterMonsInfo_LG = &gShoalCave_LowTideEntranceRoom_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gShoalCave_LowTideEntranceRoom_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gShoalCave_LowTideEntranceRoom_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(SHOAL_CAVE_LOW_TIDE_ICE_ROOM),
+        .mapNum = MAP_NUM(SHOAL_CAVE_LOW_TIDE_ICE_ROOM),
+        .landMonsInfo_FR = &gShoalCave_LowTideIceRoom_LandMonsInfo,
+        .landMonsInfo_LG = &gShoalCave_LowTideIceRoom_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

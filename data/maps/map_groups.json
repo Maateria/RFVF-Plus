@@ -1001,6 +1001,13 @@
     "AquaHideout_B2F",
     "AquaHideout_UnusedRubyMap1",
     "AquaHideout_UnusedRubyMap2",
-    "AquaHideout_UnusedRubyMap3"
+    "AquaHideout_UnusedRubyMap3",
+    "ShoalCave_LowTideEntranceRoom",
+    "ShoalCave_LowTideInnerRoom",
+    "ShoalCave_LowTideStairsRoom",
+    "ShoalCave_LowTideLowerRoom",
+    "ShoalCave_HighTideEntranceRoom",
+    "ShoalCave_HighTideInnerRoom",
+    "ShoalCave_LowTideIceRoom"
   ]
 }

@@ -1958,3 +1958,17 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/AquaHideout_UnusedRubyMap2/scripts.inc"
 
 	.include "data/maps/AquaHideout_UnusedRubyMap3/scripts.inc"
+
+	.include "data/maps/ShoalCave_LowTideEntranceRoom/scripts.inc"
+
+	.include "data/maps/ShoalCave_LowTideInnerRoom/scripts.inc"
+
+	.include "data/maps/ShoalCave_LowTideStairsRoom/scripts.inc"
+
+	.include "data/maps/ShoalCave_LowTideLowerRoom/scripts.inc"
+
+	.include "data/maps/ShoalCave_HighTideEntranceRoom/scripts.inc"
+
+	.include "data/maps/ShoalCave_HighTideInnerRoom/scripts.inc"
+
+	.include "data/maps/ShoalCave_LowTideIceRoom/scripts.inc"

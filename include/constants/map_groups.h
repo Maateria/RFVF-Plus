@@ -932,6 +932,13 @@
 #define MAP_AQUA_HIDEOUT_UNUSED_RUBY_MAP1         (48 | (73 << 8))
 #define MAP_AQUA_HIDEOUT_UNUSED_RUBY_MAP2         (49 | (73 << 8))
 #define MAP_AQUA_HIDEOUT_UNUSED_RUBY_MAP3         (50 | (73 << 8))
+#define MAP_SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM     (51 | (73 << 8))
+#define MAP_SHOAL_CAVE_LOW_TIDE_INNER_ROOM        (52 | (73 << 8))
+#define MAP_SHOAL_CAVE_LOW_TIDE_STAIRS_ROOM       (53 | (73 << 8))
+#define MAP_SHOAL_CAVE_LOW_TIDE_LOWER_ROOM        (54 | (73 << 8))
+#define MAP_SHOAL_CAVE_HIGH_TIDE_ENTRANCE_ROOM    (55 | (73 << 8))
+#define MAP_SHOAL_CAVE_HIGH_TIDE_INNER_ROOM       (56 | (73 << 8))
+#define MAP_SHOAL_CAVE_LOW_TIDE_ICE_ROOM          (57 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

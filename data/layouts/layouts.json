@@ -7500,6 +7500,90 @@
       "secondary_tileset": "gTileset_HoennFacility2",
       "border_filepath": "data/layouts/AquaHideout_UnusedRubyMap3/border.bin",
       "blockdata_filepath": "data/layouts/AquaHideout_UnusedRubyMap3/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_LOW_TIDE_ENTRANCE_ROOM",
+      "name": "ShoalCave_LowTideEntranceRoom_Layout",
+      "width": 35,
+      "height": 35,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_LowTideEntranceRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_LowTideEntranceRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_LOW_TIDE_INNER_ROOM",
+      "name": "ShoalCave_LowTideInnerRoom_Layout",
+      "width": 46,
+      "height": 38,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_LowTideInnerRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_LowTideInnerRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_LOW_TIDE_STAIRS_ROOM",
+      "name": "ShoalCave_LowTideStairsRoom_Layout",
+      "width": 21,
+      "height": 15,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_LowTideStairsRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_LowTideStairsRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_LOW_TIDE_LOWER_ROOM",
+      "name": "ShoalCave_LowTideLowerRoom_Layout",
+      "width": 31,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_LowTideLowerRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_LowTideLowerRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_HIGH_TIDE_ENTRANCE_ROOM",
+      "name": "ShoalCave_HighTideEntranceRoom_Layout",
+      "width": 35,
+      "height": 35,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_HighTideEntranceRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_HighTideEntranceRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_HIGH_TIDE_INNER_ROOM",
+      "name": "ShoalCave_HighTideInnerRoom_Layout",
+      "width": 46,
+      "height": 38,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_HighTideInnerRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_HighTideInnerRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SHOAL_CAVE_LOW_TIDE_ICE_ROOM",
+      "name": "ShoalCave_LowTideIceRoom_Layout",
+      "width": 20,
+      "height": 30,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ShoalCave_LowTideIceRoom/border.bin",
+      "blockdata_filepath": "data/layouts/ShoalCave_LowTideIceRoom/map.bin"
     }
   ]
 }
