@@ -952,6 +952,8 @@ static bool8 IsWarpMetatileBehavior(u16 metatileBehavior)
         return TRUE;
     if (MetatileBehavior_IsUnionRoomWarp(metatileBehavior) == TRUE)
         return TRUE;
+    if (MetatileBehavior_IsHoennWaterWarp(metatileBehavior) == TRUE)
+        return TRUE;
     return FALSE;
 }
 

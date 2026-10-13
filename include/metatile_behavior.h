@@ -80,6 +80,7 @@ bool8 MetatileBehavior_IsLavaridgeB1FWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsLavaridge1FWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsWarpPad(u8 metatileBehavior);
 bool8 MetatileBehavior_IsUnionRoomWarp(u8 metatileBehavior);
+bool8 MetatileBehavior_IsHoennWaterWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsWater(u8 metatileBehavior);
 bool8 MetatileBehavior_IsFallWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsCrackedFloor(u8 metatileBehavior);

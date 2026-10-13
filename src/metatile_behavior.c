@@ -1,4 +1,5 @@
 #include "global.h"
+#include "fieldmap.h"
 #include "metatile_behavior.h"
 #include "constants/metatile_behaviors.h"
 
@@ -662,6 +663,15 @@ bool8 MetatileBehavior_IsUnionRoomWarp(u8 metatileBehavior)
         return TRUE;
     else
         return FALSE;
+}
+
+// The Hoenn import turns Emerald's water doors and water arrow warps (MB_WATER_DOOR, MB_WATER_SOUTH_ARROW_WARP: the
+// ways into Aqua Hideout, Scorched Slab and the underwater caves of Sootopolis, Seafloor Cavern, Sealed Chamber...)
+// into ocean water. On a Hoenn layout a warp event on ocean water fires when the player swims onto it; Kanto keeps
+// its rule (SSAnne_Exterior holds a warp on ocean water that never fires).
+bool8 MetatileBehavior_IsHoennWaterWarp(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_OCEAN_WATER && IsHoennMapLayout();
 }
 
 bool8 MetatileBehavior_IsWater(u8 metatileBehavior)
