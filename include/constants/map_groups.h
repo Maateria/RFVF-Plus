@@ -323,6 +323,7 @@
 #define MAP_MOSSDEEP_CITY                        (101 | (3 << 8))
 #define MAP_ROUTE125                             (102 | (3 << 8))
 #define MAP_ROUTE127                             (103 | (3 << 8))
+#define MAP_ROUTE128                             (104 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

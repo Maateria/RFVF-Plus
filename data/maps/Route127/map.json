@@ -18,6 +18,11 @@
       "direction": "up",
       "offset": 0,
       "map": "MAP_MOSSDEEP_CITY"
+    },
+    {
+      "direction": "down",
+      "offset": 0,
+      "map": "MAP_ROUTE128"
     }
   ],
   "object_events": [
