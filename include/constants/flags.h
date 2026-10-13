@@ -949,8 +949,8 @@
 #define FLAG_ITEM_JAGGED_PASS_BURN_HEAL          0x38D
 #define FLAG_HIDDEN_ITEM_JAGGED_PASS_FULL_HEAL   0x38E
 #define FLAG_HIDDEN_ITEM_JAGGED_PASS_GREAT_BALL  0x38F
-#define FLAG_0x390               0x390
-#define FLAG_0x391               0x391
+#define FLAG_ITEM_FIERY_PATH_TM_TOXIC            0x390
+#define FLAG_ITEM_FIERY_PATH_FIRE_STONE          0x391
 #define FLAG_0x392               0x392
 #define FLAG_0x393               0x393
 #define FLAG_0x394               0x394

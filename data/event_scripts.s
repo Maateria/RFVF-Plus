@@ -1882,3 +1882,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MtChimney/scripts.inc"
 
 	.include "data/maps/JaggedPass/scripts.inc"
+
+	.include "data/maps/FieryPath/scripts.inc"

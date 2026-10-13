@@ -9125,6 +9125,24 @@ const struct WildPokemon gJaggedPass_LandMons[] =
 
 const struct WildPokemonInfo gJaggedPass_LandMonsInfo = { 20, gJaggedPass_LandMons };
 
+const struct WildPokemon gFieryPath_LandMons[] =
+{
+    { 15, 15, SPECIES_NUMEL },
+    { 15, 15, SPECIES_KOFFING },
+    { 16, 16, SPECIES_NUMEL },
+    { 15, 15, SPECIES_MACHOP },
+    { 15, 15, SPECIES_TORKOAL },
+    { 15, 15, SPECIES_SLUGMA },
+    { 16, 16, SPECIES_KOFFING },
+    { 16, 16, SPECIES_MACHOP },
+    { 14, 14, SPECIES_TORKOAL },
+    { 16, 16, SPECIES_TORKOAL },
+    { 14, 14, SPECIES_GRIMER },
+    { 14, 14, SPECIES_GRIMER },
+};
+
+const struct WildPokemonInfo gFieryPath_LandMonsInfo = { 10, gFieryPath_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11568,6 +11586,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(JAGGED_PASS),
         .landMonsInfo_FR = &gJaggedPass_LandMonsInfo,
         .landMonsInfo_LG = &gJaggedPass_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(FIERY_PATH),
+        .mapNum = MAP_NUM(FIERY_PATH),
+        .landMonsInfo_FR = &gFieryPath_LandMonsInfo,
+        .landMonsInfo_LG = &gFieryPath_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

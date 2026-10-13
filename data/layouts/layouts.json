@@ -7044,6 +7044,18 @@
       "secondary_tileset": "gTileset_HoennLavaridge",
       "border_filepath": "data/layouts/JaggedPass/border.bin",
       "blockdata_filepath": "data/layouts/JaggedPass/map.bin"
+    },
+    {
+      "id": "LAYOUT_FIERY_PATH",
+      "name": "FieryPath_Layout",
+      "width": 35,
+      "height": 38,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/FieryPath/border.bin",
+      "blockdata_filepath": "data/layouts/FieryPath/map.bin"
     }
   ]
 }
