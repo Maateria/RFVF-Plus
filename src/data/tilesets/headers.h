@@ -1242,3 +1242,25 @@ const struct Tileset gTileset_HoennMauvilleGameCorner =
 	.metatileAttributes = gMetatileAttributes_HoennMauvilleGameCorner,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennMauville2 = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMauville2,
+	.palettes = gTilesetPalettes_HoennMauville2,
+	.metatiles = gMetatiles_HoennMauville2,
+	.metatileAttributes = gMetatileAttributes_HoennMauville2,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennTrickHousePuzzle = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennTrickHousePuzzle,
+	.palettes = gTilesetPalettes_HoennTrickHousePuzzle,
+	.metatiles = gMetatiles_HoennTrickHousePuzzle,
+	.metatileAttributes = gMetatileAttributes_HoennTrickHousePuzzle,
+	.callback = NULL
+};

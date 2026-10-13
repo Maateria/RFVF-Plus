@@ -336,3 +336,9 @@ const u32 gMetatileAttributes_HoennBikeShop[] = INCBIN_U32("data/tilesets/second
 
 const u16 gMetatiles_HoennMauvilleGameCorner[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/metatiles.bin");
 const u32 gMetatileAttributes_HoennMauvilleGameCorner[] = INCBIN_U32("data/tilesets/secondary/hoenn_mauville_game_corner/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMauville2[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville2/metatiles.bin");
+const u32 gMetatileAttributes_HoennMauville2[] = INCBIN_U32("data/tilesets/secondary/hoenn_mauville2/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennTrickHousePuzzle[] = INCBIN_U16("data/tilesets/secondary/hoenn_trick_house_puzzle/metatiles.bin");
+const u32 gMetatileAttributes_HoennTrickHousePuzzle[] = INCBIN_U32("data/tilesets/secondary/hoenn_trick_house_puzzle/metatile_attributes.bin");

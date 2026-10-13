@@ -344,6 +344,32 @@
 #define METATILE_HoennMauville_MirageTower_TileE   0x2DF
 #define METATILE_HoennMauville_MirageTower_TileF   0x2EE
 
+// gTileset_HoennMauville2
+#define METATILE_HoennMauville2_DeepSand_BottomMid  0x2D9
+#define METATILE_HoennMauville2_DeepSand_Center     0x2D1
+#define METATILE_HoennMauville2_Door                0x32C
+#define METATILE_HoennMauville2_Door_BattleTent     0x2D3
+#define METATILE_HoennMauville2_Door_CyclingRoad    0x309
+#define METATILE_HoennMauville2_Door_Verdanturf     0x2A8
+#define METATILE_HoennMauville2_MirageTower_Tile0   0x2D5
+#define METATILE_HoennMauville2_MirageTower_Tile1   0x2D6
+#define METATILE_HoennMauville2_MirageTower_Tile10  0x2F6
+#define METATILE_HoennMauville2_MirageTower_Tile11  0x2FC
+#define METATILE_HoennMauville2_MirageTower_Tile2   0x2D7
+#define METATILE_HoennMauville2_MirageTower_Tile3   0x2E1
+#define METATILE_HoennMauville2_MirageTower_Tile4   0x2E6
+#define METATILE_HoennMauville2_MirageTower_Tile5   0x2E7
+#define METATILE_HoennMauville2_MirageTower_Tile6   0x2FD
+#define METATILE_HoennMauville2_MirageTower_Tile7   0x32E
+#define METATILE_HoennMauville2_MirageTower_Tile8   0x330
+#define METATILE_HoennMauville2_MirageTower_Tile9   0x335
+#define METATILE_HoennMauville2_MirageTower_TileA   0x336
+#define METATILE_HoennMauville2_MirageTower_TileB   0x338
+#define METATILE_HoennMauville2_MirageTower_TileC   0x2DB
+#define METATILE_HoennMauville2_MirageTower_TileD   0x2DC
+#define METATILE_HoennMauville2_MirageTower_TileE   0x2DF
+#define METATILE_HoennMauville2_MirageTower_TileF   0x2EE
+
 // gTileset_HoennMauvilleGym
 #define METATILE_HoennMauvilleGym_FloorTile        0x29A
 #define METATILE_HoennMauvilleGym_GreenBeamH1_Off  0x2B0
@@ -457,6 +483,45 @@
 #define METATILE_HoennShop_Laptop1_Normal  0x31D
 #define METATILE_HoennShop_Laptop2_Flash   0x2E0
 #define METATILE_HoennShop_Laptop2_Normal  0x325
+
+// gTileset_HoennTrickHousePuzzle
+#define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Down       0x2E3
+#define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Left       0x2E1
+#define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Left_Alt   0x2FB
+#define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Right      0x2E0
+#define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Right_Alt  0x2FC
+#define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Up         0x2E2
+#define METATILE_HoennTrickHousePuzzle_Arrow_YellowOnWhite_Right   0x318
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Closed_Tile0      0x2BB
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Closed_Tile1      0x2BC
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Closed_Tile2      0x2C3
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Closed_Tile3      0x2C4
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Open_Tile0        0x2CB
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Open_Tile1        0x2CC
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Open_Tile2        0x2D3
+#define METATILE_HoennTrickHousePuzzle_BlueDoorH_Open_Tile3        0x2D4
+#define METATILE_HoennTrickHousePuzzle_BlueDoorV_Open0             0x2BD
+#define METATILE_HoennTrickHousePuzzle_BlueDoorV_Open1             0x2C5
+#define METATILE_HoennTrickHousePuzzle_BlueDoorV_Retracted         0x2CD
+#define METATILE_HoennTrickHousePuzzle_Button_Pressed              0x2D9
+#define METATILE_HoennTrickHousePuzzle_Button_Up                   0x2D8
+#define METATILE_HoennTrickHousePuzzle_Door_Shuttered              0x2EA
+#define METATILE_HoennTrickHousePuzzle_Floor_ShadowTop             0x2D5
+#define METATILE_HoennTrickHousePuzzle_Floor_ShadowTop_Alt         0x2D2
+#define METATILE_HoennTrickHousePuzzle_Lever_Off                   0x2BE
+#define METATILE_HoennTrickHousePuzzle_Lever_On                    0x2BF
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Closed_Tile0       0x2B8
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Closed_Tile1       0x2B9
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Closed_Tile2       0x2C0
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Closed_Tile3       0x2C1
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Open_Tile0         0x2C8
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Open_Tile1         0x2C9
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Open_Tile2         0x2D0
+#define METATILE_HoennTrickHousePuzzle_RedDoorH_Open_Tile3         0x2D1
+#define METATILE_HoennTrickHousePuzzle_RedDoorV_Open0              0x2BA
+#define METATILE_HoennTrickHousePuzzle_RedDoorV_Open1              0x2C2
+#define METATILE_HoennTrickHousePuzzle_RedDoorV_Retracted          0x2CA
+#define METATILE_HoennTrickHousePuzzle_Stairs_Down                 0x28B
 
 // gTileset_LavenderTown
 #define METATILE_LavenderTown_Door  0x2A2

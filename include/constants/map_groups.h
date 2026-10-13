@@ -330,6 +330,7 @@
 #define MAP_ROUTE117                             (108 | (3 << 8))
 #define MAP_VERDANTURF_TOWN                      (109 | (3 << 8))
 #define MAP_MAUVILLE_CITY                        (110 | (3 << 8))
+#define MAP_ROUTE110                             (111 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -797,6 +798,21 @@
 #define MAP_MAUVILLE_CITY_POKEMON_CENTER_2F (6 | (65 << 8))
 #define MAP_MAUVILLE_CITY_MART              (7 | (65 << 8))
 
-#define MAP_GROUPS_COUNT 66
+// gMapGroup_IndoorRoute110
+#define MAP_ROUTE110_TRICK_HOUSE_ENTRANCE                (0 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_END                     (1 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_CORRIDOR                (2 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE1                 (3 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE2                 (4 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE3                 (5 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE4                 (6 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE5                 (7 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE6                 (8 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE7                 (9 | (66 << 8))
+#define MAP_ROUTE110_TRICK_HOUSE_PUZZLE8                 (10 | (66 << 8))
+#define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_SOUTH_ENTRANCE (11 | (66 << 8))
+#define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_NORTH_ENTRANCE (12 | (66 << 8))
+
+#define MAP_GROUPS_COUNT 67
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

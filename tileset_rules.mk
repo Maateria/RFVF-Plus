@@ -311,3 +311,9 @@ $(TILESETGFXDIR)/secondary/hoenn_bike_shop/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_mauville_game_corner/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 137 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mauville2/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 342 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_trick_house_puzzle/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 204 -Wnum_tiles

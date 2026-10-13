@@ -1718,3 +1718,31 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MauvilleCity_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/MauvilleCity_Mart/scripts.inc"
+
+	.include "data/maps/Route110/scripts.inc"
+
+	.include "data/maps/Route110_TrickHouseEntrance/scripts.inc"
+
+	.include "data/maps/Route110_TrickHouseEnd/scripts.inc"
+
+	.include "data/maps/Route110_TrickHouseCorridor/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle1/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle2/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle3/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle4/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle5/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle6/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle7/scripts.inc"
+
+	.include "data/maps/Route110_TrickHousePuzzle8/scripts.inc"
+
+	.include "data/maps/Route110_SeasideCyclingRoadSouthEntrance/scripts.inc"
+
+	.include "data/maps/Route110_SeasideCyclingRoadNorthEntrance/scripts.inc"
