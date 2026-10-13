@@ -8064,6 +8064,18 @@
       "secondary_tileset": "gTileset_HoennMirageTower",
       "border_filepath": "data/layouts/MirageTower_4F/border.bin",
       "blockdata_filepath": "data/layouts/MirageTower_4F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SCORCHED_SLAB",
+      "name": "ScorchedSlab_Layout",
+      "width": 15,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/ScorchedSlab/border.bin",
+      "blockdata_filepath": "data/layouts/ScorchedSlab/map.bin"
     }
   ]
 }

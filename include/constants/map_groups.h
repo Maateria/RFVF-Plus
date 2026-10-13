@@ -979,6 +979,7 @@
 #define MAP_MIRAGE_TOWER_2F                          (95 | (73 << 8))
 #define MAP_MIRAGE_TOWER_3F                          (96 | (73 << 8))
 #define MAP_MIRAGE_TOWER_4F                          (97 | (73 << 8))
+#define MAP_SCORCHED_SLAB                            (98 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

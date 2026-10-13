@@ -2052,3 +2052,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MirageTower_3F/scripts.inc"
 
 	.include "data/maps/MirageTower_4F/scripts.inc"
+
+	.include "data/maps/ScorchedSlab/scripts.inc"
