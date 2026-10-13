@@ -1900,3 +1900,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MagmaHideout_3F_3R/scripts.inc"
 
 	.include "data/maps/MagmaHideout_2F_3R/scripts.inc"
+
+	.include "data/maps/NewMauville_Entrance/scripts.inc"
+
+	.include "data/maps/NewMauville_Inside/scripts.inc"

@@ -205,6 +205,21 @@
 #define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile4    0x2A5
 #define METATILE_HoennFacility_NewMauvilleDoor_Open_Tile5    0x2A6
 
+// gTileset_HoennFacility2
+#define METATILE_HoennFacility2_DataPad                       0x318
+#define METATILE_HoennFacility2_NewMauvilleDoor_Closed_Tile0  0x394
+#define METATILE_HoennFacility2_NewMauvilleDoor_Closed_Tile1  0x395
+#define METATILE_HoennFacility2_NewMauvilleDoor_Closed_Tile2  0x396
+#define METATILE_HoennFacility2_NewMauvilleDoor_Closed_Tile3  0x39C
+#define METATILE_HoennFacility2_NewMauvilleDoor_Closed_Tile4  0x39D
+#define METATILE_HoennFacility2_NewMauvilleDoor_Closed_Tile5  0x39E
+#define METATILE_HoennFacility2_NewMauvilleDoor_Open_Tile0    0x343
+#define METATILE_HoennFacility2_NewMauvilleDoor_Open_Tile1    0x344
+#define METATILE_HoennFacility2_NewMauvilleDoor_Open_Tile2    0x345
+#define METATILE_HoennFacility2_NewMauvilleDoor_Open_Tile3    0x34B
+#define METATILE_HoennFacility2_NewMauvilleDoor_Open_Tile4    0x34C
+#define METATILE_HoennFacility2_NewMauvilleDoor_Open_Tile5    0x34D
+
 // gTileset_HoennFallarbor
 #define METATILE_HoennFallarbor_AshField                  0x298
 #define METATILE_HoennFallarbor_AshGrass                  0x28A

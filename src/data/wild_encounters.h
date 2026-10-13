@@ -9287,6 +9287,42 @@ const struct WildPokemon gMagmaHideout_2F_3R_LandMons[] =
 
 const struct WildPokemonInfo gMagmaHideout_2F_3R_LandMonsInfo = { 10, gMagmaHideout_2F_3R_LandMons };
 
+const struct WildPokemon gNewMauville_Inside_LandMons[] =
+{
+    { 24, 24, SPECIES_VOLTORB },
+    { 24, 24, SPECIES_MAGNEMITE },
+    { 25, 25, SPECIES_VOLTORB },
+    { 25, 25, SPECIES_MAGNEMITE },
+    { 23, 23, SPECIES_VOLTORB },
+    { 23, 23, SPECIES_MAGNEMITE },
+    { 26, 26, SPECIES_VOLTORB },
+    { 26, 26, SPECIES_MAGNEMITE },
+    { 22, 22, SPECIES_VOLTORB },
+    { 22, 22, SPECIES_MAGNEMITE },
+    { 26, 26, SPECIES_ELECTRODE },
+    { 26, 26, SPECIES_MAGNETON },
+};
+
+const struct WildPokemonInfo gNewMauville_Inside_LandMonsInfo = { 10, gNewMauville_Inside_LandMons };
+
+const struct WildPokemon gNewMauville_Entrance_LandMons[] =
+{
+    { 24, 24, SPECIES_VOLTORB },
+    { 24, 24, SPECIES_MAGNEMITE },
+    { 25, 25, SPECIES_VOLTORB },
+    { 25, 25, SPECIES_MAGNEMITE },
+    { 23, 23, SPECIES_VOLTORB },
+    { 23, 23, SPECIES_MAGNEMITE },
+    { 26, 26, SPECIES_VOLTORB },
+    { 26, 26, SPECIES_MAGNEMITE },
+    { 22, 22, SPECIES_VOLTORB },
+    { 22, 22, SPECIES_MAGNEMITE },
+    { 22, 22, SPECIES_VOLTORB },
+    { 22, 22, SPECIES_MAGNEMITE },
+};
+
+const struct WildPokemonInfo gNewMauville_Entrance_LandMonsInfo = { 10, gNewMauville_Entrance_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11838,6 +11874,30 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(MAGMA_HIDEOUT_2F_3R),
         .landMonsInfo_FR = &gMagmaHideout_2F_3R_LandMonsInfo,
         .landMonsInfo_LG = &gMagmaHideout_2F_3R_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(NEW_MAUVILLE_INSIDE),
+        .mapNum = MAP_NUM(NEW_MAUVILLE_INSIDE),
+        .landMonsInfo_FR = &gNewMauville_Inside_LandMonsInfo,
+        .landMonsInfo_LG = &gNewMauville_Inside_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(NEW_MAUVILLE_ENTRANCE),
+        .mapNum = MAP_NUM(NEW_MAUVILLE_ENTRANCE),
+        .landMonsInfo_FR = &gNewMauville_Entrance_LandMonsInfo,
+        .landMonsInfo_LG = &gNewMauville_Entrance_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

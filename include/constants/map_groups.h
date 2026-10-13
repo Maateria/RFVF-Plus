@@ -903,6 +903,8 @@
 #define MAP_MAGMA_HIDEOUT_4F          (19 | (73 << 8))
 #define MAP_MAGMA_HIDEOUT_3F_3R       (20 | (73 << 8))
 #define MAP_MAGMA_HIDEOUT_2F_3R       (21 | (73 << 8))
+#define MAP_NEW_MAUVILLE_ENTRANCE     (22 | (73 << 8))
+#define MAP_NEW_MAUVILLE_INSIDE       (23 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

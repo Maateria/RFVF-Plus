@@ -958,11 +958,11 @@
 #define FLAG_ITEM_MAGMA_HIDEOUT_3F_2R_PP_MAX     0x396
 #define FLAG_ITEM_MAGMA_HIDEOUT_4F_MAX_REVIVE    0x397
 #define FLAG_ITEM_MAGMA_HIDEOUT_3F_3R_ECAPE_ROPE 0x398
-#define FLAG_0x399               0x399
-#define FLAG_0x39A               0x39A
-#define FLAG_0x39B               0x39B
-#define FLAG_0x39C               0x39C
-#define FLAG_0x39D               0x39D
+#define FLAG_ITEM_NEW_MAUVILLE_ULTRA_BALL        0x399
+#define FLAG_ITEM_NEW_MAUVILLE_ESCAPE_ROPE       0x39A
+#define FLAG_ITEM_NEW_MAUVILLE_THUNDER_STONE     0x39B
+#define FLAG_ITEM_NEW_MAUVILLE_FULL_HEAL         0x39C
+#define FLAG_ITEM_NEW_MAUVILLE_PARALYZE_HEAL     0x39D
 #define FLAG_0x39E               0x39E
 #define FLAG_0x39F               0x39F
 #define FLAG_0x3A0               0x3A0
