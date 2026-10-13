@@ -1850,3 +1850,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Underwater_Route127/scripts.inc"
 
 	.include "data/maps/Underwater_Route128/scripts.inc"
+
+	.include "data/maps/Underwater_Route129/scripts.inc"
