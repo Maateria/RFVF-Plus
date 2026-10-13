@@ -8088,6 +8088,18 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/DesertUnderpass/border.bin",
       "blockdata_filepath": "data/layouts/DesertUnderpass/map.bin"
+    },
+    {
+      "id": "LAYOUT_ALTERING_CAVE",
+      "name": "AlteringCave_Layout",
+      "width": 32,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/AlteringCave/border.bin",
+      "blockdata_filepath": "data/layouts/AlteringCave/map.bin"
     }
   ]
 }

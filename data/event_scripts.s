@@ -2056,3 +2056,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/ScorchedSlab/scripts.inc"
 
 	.include "data/maps/DesertUnderpass/scripts.inc"
+
+	.include "data/maps/AlteringCave/scripts.inc"

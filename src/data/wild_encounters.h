@@ -10216,6 +10216,24 @@ const struct WildPokemon gDesertUnderpass_LandMons[] =
 
 const struct WildPokemonInfo gDesertUnderpass_LandMonsInfo = { 10, gDesertUnderpass_LandMons };
 
+const struct WildPokemon gAlteringCave1_LandMons[] =
+{
+    { 10, 10, SPECIES_ZUBAT },
+    { 12, 12, SPECIES_ZUBAT },
+    { 8, 8, SPECIES_ZUBAT },
+    { 14, 14, SPECIES_ZUBAT },
+    { 10, 10, SPECIES_ZUBAT },
+    { 12, 12, SPECIES_ZUBAT },
+    { 16, 16, SPECIES_ZUBAT },
+    { 6, 6, SPECIES_ZUBAT },
+    { 8, 8, SPECIES_ZUBAT },
+    { 14, 14, SPECIES_ZUBAT },
+    { 8, 8, SPECIES_ZUBAT },
+    { 14, 14, SPECIES_ZUBAT },
+};
+
+const struct WildPokemonInfo gAlteringCave1_LandMonsInfo = { 7, gAlteringCave1_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -13271,6 +13289,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(DESERT_UNDERPASS),
         .landMonsInfo_FR = &gDesertUnderpass_LandMonsInfo,
         .landMonsInfo_LG = &gDesertUnderpass_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(ALTERING_CAVE),
+        .mapNum = MAP_NUM(ALTERING_CAVE),
+        .landMonsInfo_FR = &gAlteringCave1_LandMonsInfo,
+        .landMonsInfo_LG = &gAlteringCave1_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,
