@@ -1776,3 +1776,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/LavaridgeTown_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/Route108/scripts.inc"
+
+	.include "data/maps/Route109/scripts.inc"
+
+	.include "data/maps/Route109_SeashoreHouse/scripts.inc"

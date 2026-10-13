@@ -351,3 +351,6 @@ const u32 gMetatileAttributes_HoennLavaridgeGym[] = INCBIN_U32("data/tilesets/se
 
 const u16 gMetatiles_HoennSlateport2[] = INCBIN_U16("data/tilesets/secondary/hoenn_slateport2/metatiles.bin");
 const u32 gMetatileAttributes_HoennSlateport2[] = INCBIN_U32("data/tilesets/secondary/hoenn_slateport2/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennSeashoreHouse[] = INCBIN_U16("data/tilesets/secondary/hoenn_seashore_house/metatiles.bin");
+const u32 gMetatileAttributes_HoennSeashoreHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_seashore_house/metatile_attributes.bin");

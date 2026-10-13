@@ -335,6 +335,7 @@
 #define MAP_ROUTE112                             (113 | (3 << 8))
 #define MAP_LAVARIDGE_TOWN                       (114 | (3 << 8))
 #define MAP_ROUTE108                             (115 | (3 << 8))
+#define MAP_ROUTE109                             (116 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -834,6 +835,9 @@
 #define MAP_LAVARIDGE_TOWN_POKEMON_CENTER_1F (5 | (69 << 8))
 #define MAP_LAVARIDGE_TOWN_POKEMON_CENTER_2F (6 | (69 << 8))
 
-#define MAP_GROUPS_COUNT 70
+// gMapGroup_IndoorRoute109
+#define MAP_ROUTE109_SEASHORE_HOUSE (0 | (70 << 8))
+
+#define MAP_GROUPS_COUNT 71
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

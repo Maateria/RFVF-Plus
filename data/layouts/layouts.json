@@ -6600,6 +6600,30 @@
       "secondary_tileset": "gTileset_HoennSlateport2",
       "border_filepath": "data/layouts/Route108/border.bin",
       "blockdata_filepath": "data/layouts/Route108/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE109",
+      "name": "Route109_Layout",
+      "width": 40,
+      "height": 63,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennSlateport2",
+      "border_filepath": "data/layouts/Route109/border.bin",
+      "blockdata_filepath": "data/layouts/Route109/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE109_SEASHORE_HOUSE",
+      "name": "Route109_SeashoreHouse_Layout",
+      "width": 15,
+      "height": 10,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennSeashoreHouse",
+      "border_filepath": "data/layouts/Route109_SeashoreHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Route109_SeashoreHouse/map.bin"
     }
   ]
 }

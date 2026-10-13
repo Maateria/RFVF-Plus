@@ -69,7 +69,8 @@
     "gMapGroup_IndoorRoute110",
     "gMapGroup_IndoorRoute111",
     "gMapGroup_IndoorRoute112",
-    "gMapGroup_IndoorLavaridge"
+    "gMapGroup_IndoorLavaridge",
+    "gMapGroup_IndoorRoute109"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -400,7 +401,8 @@
     "Route111",
     "Route112",
     "LavaridgeTown",
-    "Route108"
+    "Route108",
+    "Route109"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -899,5 +901,8 @@
     "LavaridgeTown_Mart",
     "LavaridgeTown_PokemonCenter_1F",
     "LavaridgeTown_PokemonCenter_2F"
+  ],
+  "gMapGroup_IndoorRoute109": [
+    "Route109_SeashoreHouse"
   ]
 }

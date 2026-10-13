@@ -1297,3 +1297,14 @@ const struct Tileset gTileset_HoennSlateport2 =
 	.metatileAttributes = gMetatileAttributes_HoennSlateport2,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennSeashoreHouse = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSeashoreHouse,
+	.palettes = gTilesetPalettes_HoennSeashoreHouse,
+	.metatiles = gMetatiles_HoennSeashoreHouse,
+	.metatileAttributes = gMetatileAttributes_HoennSeashoreHouse,
+	.callback = NULL
+};

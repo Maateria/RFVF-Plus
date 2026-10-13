@@ -889,19 +889,19 @@
 
 // Unused?
 #define FLAG_HIDDEN_ITEM_ROUTE_108_RARE_CANDY    0x356
-#define FLAG_0x357               0x357
-#define FLAG_0x358               0x358
-#define FLAG_0x359               0x359
+#define FLAG_ITEM_ROUTE_109_PP_UP                0x357
+#define FLAG_ITEM_ROUTE_109_POTION               0x358
+#define FLAG_HIDDEN_ITEM_ROUTE_109_REVIVE        0x359
 
 #define FLAG_TOLD_SAFARI_EXPANSION     0x35A
 #define FLAG_FOUR_ISLAND_SNOW          0x35B
 
 // Unused?
-#define FLAG_0x35C               0x35C
-#define FLAG_0x35D               0x35D
-#define FLAG_0x35E               0x35E
-#define FLAG_0x35F               0x35F
-#define FLAG_0x360               0x360
+#define FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_1 0x35C
+#define FLAG_HIDDEN_ITEM_ROUTE_109_GREAT_BALL    0x35D
+#define FLAG_HIDDEN_ITEM_ROUTE_109_ETHER         0x35E
+#define FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_2 0x35F
+#define FLAG_HIDDEN_ITEM_ROUTE_109_HEART_SCALE_3 0x360
 #define FLAG_0x361               0x361
 #define FLAG_0x362               0x362
 #define FLAG_0x363               0x363
