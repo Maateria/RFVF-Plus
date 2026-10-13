@@ -6252,6 +6252,42 @@
       "secondary_tileset": "gTileset_HoennPokemonDayCare",
       "border_filepath": "data/layouts/Route117_PokemonDayCare/border.bin",
       "blockdata_filepath": "data/layouts/Route117_PokemonDayCare/map.bin"
+    },
+    {
+      "id": "LAYOUT_VERDANTURF_TOWN",
+      "name": "VerdanturfTown_Layout",
+      "width": 20,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennMauville",
+      "border_filepath": "data/layouts/VerdanturfTown/border.bin",
+      "blockdata_filepath": "data/layouts/VerdanturfTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM",
+      "name": "VerdanturfTown_BattleTentBattleRoom_Layout",
+      "width": 13,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennBattleTent",
+      "border_filepath": "data/layouts/VerdanturfTown_BattleTentBattleRoom/border.bin",
+      "blockdata_filepath": "data/layouts/VerdanturfTown_BattleTentBattleRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_VERDANTURF_TOWN_WANDAS_HOUSE",
+      "name": "VerdanturfTown_WandasHouse_Layout",
+      "width": 17,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/VerdanturfTown_WandasHouse/border.bin",
+      "blockdata_filepath": "data/layouts/VerdanturfTown_WandasHouse/map.bin"
     }
   ]
 }

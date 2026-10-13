@@ -328,6 +328,7 @@
 #define MAP_ROUTE129                             (106 | (3 << 8))
 #define MAP_ROUTE130                             (107 | (3 << 8))
 #define MAP_ROUTE117                             (108 | (3 << 8))
+#define MAP_VERDANTURF_TOWN                      (109 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -774,6 +775,17 @@
 // gMapGroup_IndoorRoute117
 #define MAP_ROUTE117_POKEMON_DAY_CARE (0 | (63 << 8))
 
-#define MAP_GROUPS_COUNT 64
+// gMapGroup_IndoorVerdanturf
+#define MAP_VERDANTURF_TOWN_BATTLE_TENT_LOBBY       (0 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_BATTLE_TENT_CORRIDOR    (1 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_BATTLE_TENT_BATTLE_ROOM (2 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_MART                    (3 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_POKEMON_CENTER_1F       (4 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_POKEMON_CENTER_2F       (5 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_WANDAS_HOUSE            (6 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_FRIENDSHIP_RATERS_HOUSE (7 | (64 << 8))
+#define MAP_VERDANTURF_TOWN_HOUSE                   (8 | (64 << 8))
+
+#define MAP_GROUPS_COUNT 65
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H
