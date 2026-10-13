@@ -23,6 +23,11 @@
       "direction": "emerge",
       "offset": 0,
       "map": "MAP_ROUTE126"
+    },
+    {
+      "direction": "right",
+      "offset": 0,
+      "map": "MAP_UNDERWATER_ROUTE127"
     }
   ],
   "object_events": [],
