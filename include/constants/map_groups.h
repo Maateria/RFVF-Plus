@@ -327,6 +327,7 @@
 #define MAP_ROUTE126                             (105 | (3 << 8))
 #define MAP_ROUTE129                             (106 | (3 << 8))
 #define MAP_ROUTE130                             (107 | (3 << 8))
+#define MAP_ROUTE117                             (108 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -770,6 +771,9 @@
 #define MAP_MOSSDEEP_CITY_GAME_CORNER_1F    (11 | (62 << 8))
 #define MAP_MOSSDEEP_CITY_GAME_CORNER_B1F   (12 | (62 << 8))
 
-#define MAP_GROUPS_COUNT 63
+// gMapGroup_IndoorRoute117
+#define MAP_ROUTE117_POKEMON_DAY_CARE (0 | (63 << 8))
+
+#define MAP_GROUPS_COUNT 64
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

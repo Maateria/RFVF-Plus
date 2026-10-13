@@ -2288,3 +2288,25 @@ const u16 gTilesetPalettes_HoennCave[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_cave/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_cave/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennPokemonDayCare[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_day_care/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennPokemonDayCare[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/15.gbapal"),
+};

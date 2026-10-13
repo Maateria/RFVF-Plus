@@ -62,7 +62,8 @@
     "gMapGroup_IndoorOldale",
     "gMapGroup_IndoorLittleroot",
     "gMapGroup_IndoorRoute124",
-    "gMapGroup_IndoorMossdeep"
+    "gMapGroup_IndoorMossdeep",
+    "gMapGroup_IndoorRoute117"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -385,7 +386,8 @@
     "Route128",
     "Route126",
     "Route129",
-    "Route130"
+    "Route130",
+    "Route117"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -828,5 +830,8 @@
     "MossdeepCity_SpaceCenter_2F",
     "MossdeepCity_GameCorner_1F",
     "MossdeepCity_GameCorner_B1F"
+  ],
+  "gMapGroup_IndoorRoute117": [
+    "Route117_PokemonDayCare"
   ]
 }

@@ -1198,3 +1198,14 @@ const struct Tileset gTileset_HoennCave =
 	.metatileAttributes = gMetatileAttributes_HoennCave,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennPokemonDayCare = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennPokemonDayCare,
+	.palettes = gTilesetPalettes_HoennPokemonDayCare,
+	.metatiles = gMetatiles_HoennPokemonDayCare,
+	.metatileAttributes = gMetatileAttributes_HoennPokemonDayCare,
+	.callback = NULL
+};
