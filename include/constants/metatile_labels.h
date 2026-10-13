@@ -492,6 +492,10 @@
 #define METATILE_HoennShop_Laptop2_Flash   0x2E0
 #define METATILE_HoennShop_Laptop2_Normal  0x325
 
+// gTileset_HoennSlateport
+#define METATILE_HoennSlateport_Door             0x35C
+#define METATILE_HoennSlateport_Door_BattleTent  0x2B8
+
 // gTileset_HoennSlateport2
 #define METATILE_HoennSlateport2_Door             0x35C
 #define METATILE_HoennSlateport2_Door_BattleTent  0x2B8

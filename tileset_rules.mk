@@ -329,3 +329,12 @@ $(TILESETGFXDIR)/secondary/hoenn_slateport2/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_seashore_house/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 69 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_slateport/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 349 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_pokemon_fan_club/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 98 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_oceanic_museum/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 212 -Wnum_tiles

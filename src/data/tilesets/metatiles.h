@@ -354,3 +354,12 @@ const u32 gMetatileAttributes_HoennSlateport2[] = INCBIN_U32("data/tilesets/seco
 
 const u16 gMetatiles_HoennSeashoreHouse[] = INCBIN_U16("data/tilesets/secondary/hoenn_seashore_house/metatiles.bin");
 const u32 gMetatileAttributes_HoennSeashoreHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_seashore_house/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennSlateport[] = INCBIN_U16("data/tilesets/secondary/hoenn_slateport/metatiles.bin");
+const u32 gMetatileAttributes_HoennSlateport[] = INCBIN_U32("data/tilesets/secondary/hoenn_slateport/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennPokemonFanClub[] = INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/metatiles.bin");
+const u32 gMetatileAttributes_HoennPokemonFanClub[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_fan_club/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennOceanicMuseum[] = INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/metatiles.bin");
+const u32 gMetatileAttributes_HoennOceanicMuseum[] = INCBIN_U32("data/tilesets/secondary/hoenn_oceanic_museum/metatile_attributes.bin");

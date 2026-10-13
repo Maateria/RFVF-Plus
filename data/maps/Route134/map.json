@@ -18,6 +18,11 @@
       "direction": "right",
       "offset": 0,
       "map": "MAP_ROUTE133"
+    },
+    {
+      "direction": "left",
+      "offset": 0,
+      "map": "MAP_SLATEPORT_CITY"
     }
   ],
   "object_events": [

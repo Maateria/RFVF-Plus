@@ -1780,3 +1780,33 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route109/scripts.inc"
 
 	.include "data/maps/Route109_SeashoreHouse/scripts.inc"
+
+	.include "data/maps/SlateportCity/scripts.inc"
+
+	.include "data/maps/SlateportCity_SternsShipyard_1F/scripts.inc"
+
+	.include "data/maps/SlateportCity_SternsShipyard_2F/scripts.inc"
+
+	.include "data/maps/SlateportCity_BattleTentLobby/scripts.inc"
+
+	.include "data/maps/SlateportCity_BattleTentCorridor/scripts.inc"
+
+	.include "data/maps/SlateportCity_BattleTentBattleRoom/scripts.inc"
+
+	.include "data/maps/SlateportCity_NameRatersHouse/scripts.inc"
+
+	.include "data/maps/SlateportCity_PokemonFanClub/scripts.inc"
+
+	.include "data/maps/SlateportCity_OceanicMuseum_1F/scripts.inc"
+
+	.include "data/maps/SlateportCity_OceanicMuseum_2F/scripts.inc"
+
+	.include "data/maps/SlateportCity_Harbor/scripts.inc"
+
+	.include "data/maps/SlateportCity_House/scripts.inc"
+
+	.include "data/maps/SlateportCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/SlateportCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/SlateportCity_Mart/scripts.inc"

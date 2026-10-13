@@ -336,6 +336,7 @@
 #define MAP_LAVARIDGE_TOWN                       (114 | (3 << 8))
 #define MAP_ROUTE108                             (115 | (3 << 8))
 #define MAP_ROUTE109                             (116 | (3 << 8))
+#define MAP_SLATEPORT_CITY                       (117 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -838,6 +839,22 @@
 // gMapGroup_IndoorRoute109
 #define MAP_ROUTE109_SEASHORE_HOUSE (0 | (70 << 8))
 
-#define MAP_GROUPS_COUNT 71
+// gMapGroup_IndoorSlateport
+#define MAP_SLATEPORT_CITY_STERNS_SHIPYARD_1F      (0 | (71 << 8))
+#define MAP_SLATEPORT_CITY_STERNS_SHIPYARD_2F      (1 | (71 << 8))
+#define MAP_SLATEPORT_CITY_BATTLE_TENT_LOBBY       (2 | (71 << 8))
+#define MAP_SLATEPORT_CITY_BATTLE_TENT_CORRIDOR    (3 | (71 << 8))
+#define MAP_SLATEPORT_CITY_BATTLE_TENT_BATTLE_ROOM (4 | (71 << 8))
+#define MAP_SLATEPORT_CITY_NAME_RATERS_HOUSE       (5 | (71 << 8))
+#define MAP_SLATEPORT_CITY_POKEMON_FAN_CLUB        (6 | (71 << 8))
+#define MAP_SLATEPORT_CITY_OCEANIC_MUSEUM_1F       (7 | (71 << 8))
+#define MAP_SLATEPORT_CITY_OCEANIC_MUSEUM_2F       (8 | (71 << 8))
+#define MAP_SLATEPORT_CITY_HARBOR                  (9 | (71 << 8))
+#define MAP_SLATEPORT_CITY_HOUSE                   (10 | (71 << 8))
+#define MAP_SLATEPORT_CITY_POKEMON_CENTER_1F       (11 | (71 << 8))
+#define MAP_SLATEPORT_CITY_POKEMON_CENTER_2F       (12 | (71 << 8))
+#define MAP_SLATEPORT_CITY_MART                    (13 | (71 << 8))
+
+#define MAP_GROUPS_COUNT 72
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

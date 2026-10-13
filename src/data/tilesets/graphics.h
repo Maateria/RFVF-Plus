@@ -2508,3 +2508,69 @@ const u16 gTilesetPalettes_HoennSeashoreHouse[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_seashore_house/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_seashore_house/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennSlateport[] = INCBIN_U32("data/tilesets/secondary/hoenn_slateport/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSlateport[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_slateport/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennPokemonFanClub[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_fan_club/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennPokemonFanClub[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_fan_club/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennOceanicMuseum[] = INCBIN_U32("data/tilesets/secondary/hoenn_oceanic_museum/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennOceanicMuseum[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/15.gbapal"),
+};
