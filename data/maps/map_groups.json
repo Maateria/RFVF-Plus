@@ -67,7 +67,8 @@
     "gMapGroup_IndoorVerdanturf",
     "gMapGroup_IndoorMauville",
     "gMapGroup_IndoorRoute110",
-    "gMapGroup_IndoorRoute111"
+    "gMapGroup_IndoorRoute111",
+    "gMapGroup_IndoorRoute112"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -395,7 +396,8 @@
     "VerdanturfTown",
     "MauvilleCity",
     "Route110",
-    "Route111"
+    "Route111",
+    "Route112"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -881,5 +883,9 @@
   "gMapGroup_IndoorRoute111": [
     "Route111_WinstrateFamilysHouse",
     "Route111_OldLadysRestStop"
+  ],
+  "gMapGroup_IndoorRoute112": [
+    "Route112_CableCarStation",
+    "MtChimney_CableCarStation"
   ]
 }

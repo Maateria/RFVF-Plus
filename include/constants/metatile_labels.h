@@ -294,6 +294,14 @@
 #define METATILE_HoennInsideBuilding_TV_Off  0x002
 #define METATILE_HoennInsideBuilding_TV_On   0x003
 
+// gTileset_HoennLavaridge
+#define METATILE_HoennLavaridge_AshGrass             0x287
+#define METATILE_HoennLavaridge_CaveEntrance_Bottom  0x2DE
+#define METATILE_HoennLavaridge_CaveEntrance_Top     0x2D6
+#define METATILE_HoennLavaridge_LavaField            0x2F1
+#define METATILE_HoennLavaridge_NormalGrass          0x286
+#define METATILE_HoennLavaridge_RockWall             0x2F4
+
 // gTileset_HoennLilycove
 #define METATILE_HoennLilycove_Door             0x2C6
 #define METATILE_HoennLilycove_Door_DeptStore   0x38C

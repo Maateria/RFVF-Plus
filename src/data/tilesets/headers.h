@@ -1264,3 +1264,14 @@ const struct Tileset gTileset_HoennTrickHousePuzzle =
 	.metatileAttributes = gMetatileAttributes_HoennTrickHousePuzzle,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennLavaridge = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennLavaridge,
+	.palettes = gTilesetPalettes_HoennLavaridge,
+	.metatiles = gMetatiles_HoennLavaridge,
+	.metatileAttributes = gMetatileAttributes_HoennLavaridge,
+	.callback = NULL
+};

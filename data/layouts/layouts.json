@@ -6504,6 +6504,30 @@
       "secondary_tileset": "gTileset_HoennMauville2",
       "border_filepath": "data/layouts/Route111/border.bin",
       "blockdata_filepath": "data/layouts/Route111/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE112",
+      "name": "Route112_Layout",
+      "width": 40,
+      "height": 60,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/Route112/border.bin",
+      "blockdata_filepath": "data/layouts/Route112/map.bin"
+    },
+    {
+      "id": "LAYOUT_CABLE_CAR_STATION",
+      "name": "CableCarStation_Layout",
+      "width": 13,
+      "height": 12,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility",
+      "border_filepath": "data/layouts/CableCarStation/border.bin",
+      "blockdata_filepath": "data/layouts/CableCarStation/map.bin"
     }
   ]
 }

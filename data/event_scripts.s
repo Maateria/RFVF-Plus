@@ -1752,3 +1752,9 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route111_WinstrateFamilysHouse/scripts.inc"
 
 	.include "data/maps/Route111_OldLadysRestStop/scripts.inc"
+
+	.include "data/maps/Route112/scripts.inc"
+
+	.include "data/maps/Route112_CableCarStation/scripts.inc"
+
+	.include "data/maps/MtChimney_CableCarStation/scripts.inc"
