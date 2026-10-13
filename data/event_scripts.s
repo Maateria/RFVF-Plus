@@ -2014,3 +2014,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/HoennVictoryRoad_B2F/scripts.inc"
 
 	.include "data/maps/Underwater_SootopolisCity/scripts.inc"
+
+	.include "data/maps/DesertRuins/scripts.inc"

@@ -960,6 +960,7 @@
 #define MAP_HOENN_VICTORY_ROAD_B1F                   (76 | (73 << 8))
 #define MAP_HOENN_VICTORY_ROAD_B2F                   (77 | (73 << 8))
 #define MAP_UNDERWATER_SOOTOPOLIS_CITY               (78 | (73 << 8))
+#define MAP_DESERT_RUINS                             (79 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

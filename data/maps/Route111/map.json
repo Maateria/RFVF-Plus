@@ -494,8 +494,8 @@
       "x": 29,
       "y": 87,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE111",
-      "dest_warp_id": "1"
+      "dest_map": "MAP_DESERT_RUINS",
+      "dest_warp_id": "0"
     },
     {
       "x": 26,
