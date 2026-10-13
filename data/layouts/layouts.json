@@ -7020,6 +7020,18 @@
       "secondary_tileset": "gTileset_HoennMeteorFalls",
       "border_filepath": "data/layouts/MeteorFalls_StevensCave/border.bin",
       "blockdata_filepath": "data/layouts/MeteorFalls_StevensCave/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_CHIMNEY",
+      "name": "MtChimney_Layout",
+      "width": 40,
+      "height": 47,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/MtChimney/border.bin",
+      "blockdata_filepath": "data/layouts/MtChimney/map.bin"
     }
   ]
 }

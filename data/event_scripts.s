@@ -1878,3 +1878,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MeteorFalls_B1F_2R/scripts.inc"
 
 	.include "data/maps/MeteorFalls_StevensCave/scripts.inc"
+
+	.include "data/maps/MtChimney/scripts.inc"
