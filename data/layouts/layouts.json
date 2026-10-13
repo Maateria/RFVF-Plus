@@ -6192,6 +6192,18 @@
       "secondary_tileset": "gTileset_HoennMossdeep",
       "border_filepath": "data/layouts/Route128/border.bin",
       "blockdata_filepath": "data/layouts/Route128/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE126",
+      "name": "Route126_Layout",
+      "width": 80,
+      "height": 80,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennMossdeep",
+      "border_filepath": "data/layouts/Route126/border.bin",
+      "blockdata_filepath": "data/layouts/Route126/map.bin"
     }
   ]
 }

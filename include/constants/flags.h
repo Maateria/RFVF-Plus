@@ -543,7 +543,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_1 0x207
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_2 0x208
 #define FLAG_HIDDEN_ITEM_ROUTE_128_HEART_SCALE_3 0x209
-#define FLAG_0x20A               0x20A
+#define FLAG_ITEM_ROUTE_126_GREEN_SHARD          0x20A
 #define FLAG_0x20B               0x20B
 #define FLAG_0x20C               0x20C
 #define FLAG_0x20D               0x20D
