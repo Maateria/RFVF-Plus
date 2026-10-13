@@ -9107,6 +9107,24 @@ const struct WildPokemon gMeteorFalls_StevensCave_LandMons[] =
 
 const struct WildPokemonInfo gMeteorFalls_StevensCave_LandMonsInfo = { 10, gMeteorFalls_StevensCave_LandMons };
 
+const struct WildPokemon gJaggedPass_LandMons[] =
+{
+    { 21, 21, SPECIES_NUMEL },
+    { 21, 21, SPECIES_NUMEL },
+    { 21, 21, SPECIES_MACHOP },
+    { 20, 20, SPECIES_NUMEL },
+    { 20, 20, SPECIES_SPOINK },
+    { 20, 20, SPECIES_MACHOP },
+    { 21, 21, SPECIES_SPOINK },
+    { 22, 22, SPECIES_MACHOP },
+    { 22, 22, SPECIES_NUMEL },
+    { 22, 22, SPECIES_SPOINK },
+    { 22, 22, SPECIES_NUMEL },
+    { 22, 22, SPECIES_SPOINK },
+};
+
+const struct WildPokemonInfo gJaggedPass_LandMonsInfo = { 20, gJaggedPass_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11538,6 +11556,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(METEOR_FALLS_STEVENS_CAVE),
         .landMonsInfo_FR = &gMeteorFalls_StevensCave_LandMonsInfo,
         .landMonsInfo_LG = &gMeteorFalls_StevensCave_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(JAGGED_PASS),
+        .mapNum = MAP_NUM(JAGGED_PASS),
+        .landMonsInfo_FR = &gJaggedPass_LandMonsInfo,
+        .landMonsInfo_LG = &gJaggedPass_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

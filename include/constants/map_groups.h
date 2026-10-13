@@ -893,6 +893,7 @@
 #define MAP_METEOR_FALLS_B1F_2R       (9 | (73 << 8))
 #define MAP_METEOR_FALLS_STEVENS_CAVE (10 | (73 << 8))
 #define MAP_MT_CHIMNEY                (11 | (73 << 8))
+#define MAP_JAGGED_PASS               (12 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

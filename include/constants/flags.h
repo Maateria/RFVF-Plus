@@ -946,9 +946,9 @@
 #define FLAG_ITEM_METEOR_FALLS_1F_1R_FULL_HEAL   0x38A
 #define FLAG_ITEM_METEOR_FALLS_1F_1R_PP_UP       0x38B
 #define FLAG_ITEM_METEOR_FALLS_B1F_2R_TM_DRAGON_CLAW 0x38C
-#define FLAG_0x38D               0x38D
-#define FLAG_0x38E               0x38E
-#define FLAG_0x38F               0x38F
+#define FLAG_ITEM_JAGGED_PASS_BURN_HEAL          0x38D
+#define FLAG_HIDDEN_ITEM_JAGGED_PASS_FULL_HEAL   0x38E
+#define FLAG_HIDDEN_ITEM_JAGGED_PASS_GREAT_BALL  0x38F
 #define FLAG_0x390               0x390
 #define FLAG_0x391               0x391
 #define FLAG_0x392               0x392

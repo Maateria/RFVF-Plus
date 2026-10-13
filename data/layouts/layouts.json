@@ -7032,6 +7032,18 @@
       "secondary_tileset": "gTileset_HoennLavaridge",
       "border_filepath": "data/layouts/MtChimney/border.bin",
       "blockdata_filepath": "data/layouts/MtChimney/map.bin"
+    },
+    {
+      "id": "LAYOUT_JAGGED_PASS",
+      "name": "JaggedPass_Layout",
+      "width": 30,
+      "height": 46,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/JaggedPass/border.bin",
+      "blockdata_filepath": "data/layouts/JaggedPass/map.bin"
     }
   ]
 }
