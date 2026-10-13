@@ -2310,3 +2310,69 @@ const u16 gTilesetPalettes_HoennPokemonDayCare[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennMauvilleGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_mauville_gym/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMauvilleGym[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBikeShop[] = INCBIN_U32("data/tilesets/secondary/hoenn_bike_shop/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBikeShop[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennMauvilleGameCorner[] = INCBIN_U32("data/tilesets/secondary/hoenn_mauville_game_corner/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMauvilleGameCorner[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/palettes/15.gbapal"),
+};

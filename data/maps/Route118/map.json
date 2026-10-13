@@ -23,6 +23,11 @@
       "direction": "right",
       "offset": 0,
       "map": "MAP_ROUTE123"
+    },
+    {
+      "direction": "left",
+      "offset": 0,
+      "map": "MAP_MAUVILLE_CITY"
     }
   ],
   "object_events": [

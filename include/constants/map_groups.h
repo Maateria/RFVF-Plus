@@ -329,6 +329,7 @@
 #define MAP_ROUTE130                             (107 | (3 << 8))
 #define MAP_ROUTE117                             (108 | (3 << 8))
 #define MAP_VERDANTURF_TOWN                      (109 | (3 << 8))
+#define MAP_MAUVILLE_CITY                        (110 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -786,6 +787,16 @@
 #define MAP_VERDANTURF_TOWN_FRIENDSHIP_RATERS_HOUSE (7 | (64 << 8))
 #define MAP_VERDANTURF_TOWN_HOUSE                   (8 | (64 << 8))
 
-#define MAP_GROUPS_COUNT 65
+// gMapGroup_IndoorMauville
+#define MAP_MAUVILLE_CITY_GYM               (0 | (65 << 8))
+#define MAP_MAUVILLE_CITY_BIKE_SHOP         (1 | (65 << 8))
+#define MAP_MAUVILLE_CITY_HOUSE1            (2 | (65 << 8))
+#define MAP_MAUVILLE_CITY_GAME_CORNER       (3 | (65 << 8))
+#define MAP_MAUVILLE_CITY_HOUSE2            (4 | (65 << 8))
+#define MAP_MAUVILLE_CITY_POKEMON_CENTER_1F (5 | (65 << 8))
+#define MAP_MAUVILLE_CITY_POKEMON_CENTER_2F (6 | (65 << 8))
+#define MAP_MAUVILLE_CITY_MART              (7 | (65 << 8))
+
+#define MAP_GROUPS_COUNT 66
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

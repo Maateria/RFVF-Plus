@@ -547,7 +547,7 @@
 #define FLAG_ITEM_ROUTE_117_GREAT_BALL           0x20B
 #define FLAG_ITEM_ROUTE_117_REVIVE               0x20C
 #define FLAG_HIDDEN_ITEM_ROUTE_117_REPEL         0x20D
-#define FLAG_0x20E               0x20E
+#define FLAG_ITEM_MAUVILLE_CITY_X_SPEED          0x20E
 #define FLAG_0x20F               0x20F
 #define FLAG_0x210               0x210
 #define FLAG_0x211               0x211

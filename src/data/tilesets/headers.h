@@ -1209,3 +1209,36 @@ const struct Tileset gTileset_HoennPokemonDayCare =
 	.metatileAttributes = gMetatileAttributes_HoennPokemonDayCare,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennMauvilleGym = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMauvilleGym,
+	.palettes = gTilesetPalettes_HoennMauvilleGym,
+	.metatiles = gMetatiles_HoennMauvilleGym,
+	.metatileAttributes = gMetatileAttributes_HoennMauvilleGym,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennBikeShop = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBikeShop,
+	.palettes = gTilesetPalettes_HoennBikeShop,
+	.metatiles = gMetatiles_HoennBikeShop,
+	.metatileAttributes = gMetatileAttributes_HoennBikeShop,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennMauvilleGameCorner = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMauvilleGameCorner,
+	.palettes = gTilesetPalettes_HoennMauvilleGameCorner,
+	.metatiles = gMetatiles_HoennMauvilleGameCorner,
+	.metatileAttributes = gMetatileAttributes_HoennMauvilleGameCorner,
+	.callback = NULL
+};

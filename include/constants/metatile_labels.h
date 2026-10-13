@@ -117,6 +117,31 @@
 // gTileset_HoennBattleTent
 #define METATILE_HoennBattleTent_Door  0x2EB
 
+// gTileset_HoennBikeShop
+#define METATILE_HoennBikeShop_Barrier_Blue_Bottom      0x34F
+#define METATILE_HoennBikeShop_Barrier_Blue_BottomMid   0x347
+#define METATILE_HoennBikeShop_Barrier_Blue_Top         0x337
+#define METATILE_HoennBikeShop_Barrier_Blue_TopMid      0x33F
+#define METATILE_HoennBikeShop_Barrier_Green_Bottom     0x34E
+#define METATILE_HoennBikeShop_Barrier_Green_BottomMid  0x346
+#define METATILE_HoennBikeShop_Barrier_Green_Top        0x336
+#define METATILE_HoennBikeShop_Barrier_Green_TopMid     0x33E
+#define METATILE_HoennBikeShop_Barrier_Hidden_Bottom    0x2F1
+#define METATILE_HoennBikeShop_Barrier_Hidden_Top       0x2E9
+#define METATILE_HoennBikeShop_Button_Blue              0x2B6
+#define METATILE_HoennBikeShop_Button_Green             0x2AE
+#define METATILE_HoennBikeShop_Button_Pressed           0x2CF
+#define METATILE_HoennBikeShop_Floor_Shadow_Top         0x2ED
+#define METATILE_HoennBikeShop_Generator_Off_Tile0      0x370
+#define METATILE_HoennBikeShop_Generator_Off_Tile1      0x371
+#define METATILE_HoennBikeShop_Generator_Off_Tile2      0x372
+#define METATILE_HoennBikeShop_Generator_Off_Tile3      0x373
+#define METATILE_HoennBikeShop_Generator_Off_Tile4      0x374
+#define METATILE_HoennBikeShop_Generator_Off_Tile5      0x375
+#define METATILE_HoennBikeShop_Generator_Off_Tile6      0x376
+#define METATILE_HoennBikeShop_Generator_Off_Tile7      0x377
+#define METATILE_HoennBikeShop_Wall_Edge_Top            0x301
+
 // gTileset_HoennBrendansMaysHouse
 #define METATILE_HoennBrendansMaysHouse_BookOnTable       0x313
 #define METATILE_HoennBrendansMaysHouse_BrendanPC_Off     0x2DA
@@ -318,6 +343,35 @@
 #define METATILE_HoennMauville_MirageTower_TileD   0x2DC
 #define METATILE_HoennMauville_MirageTower_TileE   0x2DF
 #define METATILE_HoennMauville_MirageTower_TileF   0x2EE
+
+// gTileset_HoennMauvilleGym
+#define METATILE_HoennMauvilleGym_FloorTile        0x29A
+#define METATILE_HoennMauvilleGym_GreenBeamH1_Off  0x2B0
+#define METATILE_HoennMauvilleGym_GreenBeamH1_On   0x2A0
+#define METATILE_HoennMauvilleGym_GreenBeamH2_Off  0x2B1
+#define METATILE_HoennMauvilleGym_GreenBeamH2_On   0x2A1
+#define METATILE_HoennMauvilleGym_GreenBeamH3_Off  0x2B8
+#define METATILE_HoennMauvilleGym_GreenBeamH3_On   0x2A8
+#define METATILE_HoennMauvilleGym_GreenBeamH4_Off  0x2B9
+#define METATILE_HoennMauvilleGym_GreenBeamH4_On   0x2A9
+#define METATILE_HoennMauvilleGym_GreenBeamV1_On   0x2C0
+#define METATILE_HoennMauvilleGym_GreenBeamV2_On   0x2C8
+#define METATILE_HoennMauvilleGym_PoleBottom_Off   0x2C3
+#define METATILE_HoennMauvilleGym_PoleBottom_On    0x2C2
+#define METATILE_HoennMauvilleGym_PoleTop_Off      0x2D1
+#define METATILE_HoennMauvilleGym_PoleTop_On       0x2D0
+#define METATILE_HoennMauvilleGym_PressedSwitch    0x286
+#define METATILE_HoennMauvilleGym_RaisedSwitch     0x285
+#define METATILE_HoennMauvilleGym_RedBeamH1_Off    0x2B2
+#define METATILE_HoennMauvilleGym_RedBeamH1_On     0x2A2
+#define METATILE_HoennMauvilleGym_RedBeamH2_Off    0x2B3
+#define METATILE_HoennMauvilleGym_RedBeamH2_On     0x2A3
+#define METATILE_HoennMauvilleGym_RedBeamH3_Off    0x2BA
+#define METATILE_HoennMauvilleGym_RedBeamH3_On     0x2AA
+#define METATILE_HoennMauvilleGym_RedBeamH4_Off    0x2BB
+#define METATILE_HoennMauvilleGym_RedBeamH4_On     0x2AB
+#define METATILE_HoennMauvilleGym_RedBeamV1_On     0x2C1
+#define METATILE_HoennMauvilleGym_RedBeamV2_On     0x2C9
 
 // gTileset_HoennMossdeep
 #define METATILE_HoennMossdeep_Door              0x321

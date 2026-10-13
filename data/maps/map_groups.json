@@ -64,7 +64,8 @@
     "gMapGroup_IndoorRoute124",
     "gMapGroup_IndoorMossdeep",
     "gMapGroup_IndoorRoute117",
-    "gMapGroup_IndoorVerdanturf"
+    "gMapGroup_IndoorVerdanturf",
+    "gMapGroup_IndoorMauville"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -389,7 +390,8 @@
     "Route129",
     "Route130",
     "Route117",
-    "VerdanturfTown"
+    "VerdanturfTown",
+    "MauvilleCity"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -846,5 +848,15 @@
     "VerdanturfTown_WandasHouse",
     "VerdanturfTown_FriendshipRatersHouse",
     "VerdanturfTown_House"
+  ],
+  "gMapGroup_IndoorMauville": [
+    "MauvilleCity_Gym",
+    "MauvilleCity_BikeShop",
+    "MauvilleCity_House1",
+    "MauvilleCity_GameCorner",
+    "MauvilleCity_House2",
+    "MauvilleCity_PokemonCenter_1F",
+    "MauvilleCity_PokemonCenter_2F",
+    "MauvilleCity_Mart"
   ]
 }

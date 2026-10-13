@@ -1,0 +1,28 @@
+MauvilleCity_GameCorner_MapScripts::
+	.byte 0
+@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MauvilleCity_GameCorner/scripts.inc
+MauvilleCity_GameCorner_EventScript_Woman2::    @ NPC #1 (12,7)
+MauvilleCity_GameCorner_EventScript_Gentleman:: @ NPC #2 (16,5)
+MauvilleCity_GameCorner_EventScript_CoinsClerk:: @ NPC #3 (11,2)
+MauvilleCity_GameCorner_EventScript_PrizeCornerDolls:: @ NPC #4 (14,2)
+MauvilleCity_GameCorner_EventScript_Girl::      @ NPC #5 (7,3)
+MauvilleCity_GameCorner_EventScript_PokefanM::  @ NPC #6 (19,4)
+MauvilleCity_GameCorner_EventScript_OldMan::    @ NPC #7 (20,8)
+MauvilleCity_GameCorner_EventScript_Cook::      @ NPC #8 (6,8)
+MauvilleCity_GameCorner_EventScript_PrizeCornerTMs:: @ NPC #9 (13,2)
+MauvilleCity_GameCorner_EventScript_Man::       @ NPC #10 (1,7)
+MauvilleCity_GameCorner_EventScript_Maniac::    @ NPC #11 (9,8)
+MauvilleCity_GameCorner_EventScript_Woman::     @ NPC #12 (4,6)
+MauvilleCity_GameCorner_EventScript_SlotMachine0:: @ sign (2,6)
+MauvilleCity_GameCorner_EventScript_SlotMachine1:: @ sign (2,8)
+MauvilleCity_GameCorner_EventScript_SlotMachine2:: @ sign (2,9)
+MauvilleCity_GameCorner_EventScript_SlotMachine3:: @ sign (3,7)
+MauvilleCity_GameCorner_EventScript_SlotMachine4:: @ sign (3,8)
+MauvilleCity_GameCorner_EventScript_SlotMachine5:: @ sign (3,9)
+MauvilleCity_GameCorner_EventScript_SlotMachine6:: @ sign (7,6)
+MauvilleCity_GameCorner_EventScript_SlotMachine7:: @ sign (7,7)
+MauvilleCity_GameCorner_EventScript_SlotMachine8:: @ sign (7,9)
+MauvilleCity_GameCorner_EventScript_SlotMachine9:: @ sign (8,6)
+MauvilleCity_GameCorner_EventScript_SlotMachine10:: @ sign (8,7)
+MauvilleCity_GameCorner_EventScript_SlotMachine11:: @ sign (8,9)
+	end

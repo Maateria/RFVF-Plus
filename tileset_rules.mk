@@ -302,3 +302,12 @@ $(TILESETGFXDIR)/secondary/hoenn_cave/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_pokemon_day_care/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 111 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mauville_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 82 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_bike_shop/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 242 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mauville_game_corner/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 137 -Wnum_tiles

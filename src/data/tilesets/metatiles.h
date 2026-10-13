@@ -327,3 +327,12 @@ const u32 gMetatileAttributes_HoennCave[] = INCBIN_U32("data/tilesets/secondary/
 
 const u16 gMetatiles_HoennPokemonDayCare[] = INCBIN_U16("data/tilesets/secondary/hoenn_pokemon_day_care/metatiles.bin");
 const u32 gMetatileAttributes_HoennPokemonDayCare[] = INCBIN_U32("data/tilesets/secondary/hoenn_pokemon_day_care/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMauvilleGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennMauvilleGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_mauville_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBikeShop[] = INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/metatiles.bin");
+const u32 gMetatileAttributes_HoennBikeShop[] = INCBIN_U32("data/tilesets/secondary/hoenn_bike_shop/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMauvilleGameCorner[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville_game_corner/metatiles.bin");
+const u32 gMetatileAttributes_HoennMauvilleGameCorner[] = INCBIN_U32("data/tilesets/secondary/hoenn_mauville_game_corner/metatile_attributes.bin");
