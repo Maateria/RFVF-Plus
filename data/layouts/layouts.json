@@ -7716,6 +7716,78 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/SeafloorCavern_Room9/border.bin",
       "blockdata_filepath": "data/layouts/SeafloorCavern_Room9/map.bin"
+    },
+    {
+      "id": "LAYOUT_CAVE_OF_ORIGIN_ENTRANCE",
+      "name": "CaveOfOrigin_Entrance_Layout",
+      "width": 19,
+      "height": 26,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/CaveOfOrigin_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/CaveOfOrigin_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_CAVE_OF_ORIGIN_1F",
+      "name": "CaveOfOrigin_1F_Layout",
+      "width": 23,
+      "height": 23,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/CaveOfOrigin_1F/border.bin",
+      "blockdata_filepath": "data/layouts/CaveOfOrigin_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP1",
+      "name": "CaveOfOrigin_UnusedRubySapphireMap1_Layout",
+      "width": 23,
+      "height": 23,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/CaveOfOrigin_UnusedRubySapphireMap1/border.bin",
+      "blockdata_filepath": "data/layouts/CaveOfOrigin_UnusedRubySapphireMap1/map.bin"
+    },
+    {
+      "id": "LAYOUT_CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP2",
+      "name": "CaveOfOrigin_UnusedRubySapphireMap2_Layout",
+      "width": 21,
+      "height": 21,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/CaveOfOrigin_UnusedRubySapphireMap2/border.bin",
+      "blockdata_filepath": "data/layouts/CaveOfOrigin_UnusedRubySapphireMap2/map.bin"
+    },
+    {
+      "id": "LAYOUT_CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP3",
+      "name": "CaveOfOrigin_UnusedRubySapphireMap3_Layout",
+      "width": 19,
+      "height": 21,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/CaveOfOrigin_UnusedRubySapphireMap3/border.bin",
+      "blockdata_filepath": "data/layouts/CaveOfOrigin_UnusedRubySapphireMap3/map.bin"
+    },
+    {
+      "id": "LAYOUT_CAVE_OF_ORIGIN_B1F",
+      "name": "CaveOfOrigin_B1F_Layout",
+      "width": 19,
+      "height": 19,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/CaveOfOrigin_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/CaveOfOrigin_B1F/map.bin"
     }
   ]
 }

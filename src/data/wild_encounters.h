@@ -9890,6 +9890,96 @@ const struct WildPokemon gSeafloorCavern_Entrance_FishingMons[] =
 
 const struct WildPokemonInfo gSeafloorCavern_Entrance_FishingMonsInfo = { 10, gSeafloorCavern_Entrance_FishingMons };
 
+const struct WildPokemon gCaveOfOrigin_Entrance_LandMons[] =
+{
+    { 30, 30, SPECIES_ZUBAT },
+    { 31, 31, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_ZUBAT },
+    { 33, 33, SPECIES_ZUBAT },
+    { 28, 28, SPECIES_ZUBAT },
+    { 29, 29, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_ZUBAT },
+    { 35, 35, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 36, 36, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gCaveOfOrigin_Entrance_LandMonsInfo = { 4, gCaveOfOrigin_Entrance_LandMons };
+
+const struct WildPokemon gCaveOfOrigin_1F_LandMons[] =
+{
+    { 30, 30, SPECIES_ZUBAT },
+    { 31, 31, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SABLEYE },
+    { 32, 32, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_SABLEYE },
+    { 33, 33, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 36, 36, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gCaveOfOrigin_1F_LandMonsInfo = { 4, gCaveOfOrigin_1F_LandMons };
+
+const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap1_LandMons[] =
+{
+    { 30, 30, SPECIES_ZUBAT },
+    { 31, 31, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SABLEYE },
+    { 32, 32, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_SABLEYE },
+    { 33, 33, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 36, 36, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap1_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap1_LandMons };
+
+const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap2_LandMons[] =
+{
+    { 30, 30, SPECIES_ZUBAT },
+    { 31, 31, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SABLEYE },
+    { 32, 32, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_SABLEYE },
+    { 33, 33, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 36, 36, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap2_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap2_LandMons };
+
+const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap3_LandMons[] =
+{
+    { 30, 30, SPECIES_ZUBAT },
+    { 31, 31, SPECIES_ZUBAT },
+    { 32, 32, SPECIES_ZUBAT },
+    { 30, 30, SPECIES_SABLEYE },
+    { 32, 32, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_SABLEYE },
+    { 33, 33, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_ZUBAT },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 36, 36, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap3_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -12759,6 +12849,66 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gSeafloorCavern_Entrance_FishingMonsInfo,
         .fishingMonsInfo_LG = &gSeafloorCavern_Entrance_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(CAVE_OF_ORIGIN_ENTRANCE),
+        .mapNum = MAP_NUM(CAVE_OF_ORIGIN_ENTRANCE),
+        .landMonsInfo_FR = &gCaveOfOrigin_Entrance_LandMonsInfo,
+        .landMonsInfo_LG = &gCaveOfOrigin_Entrance_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(CAVE_OF_ORIGIN_1F),
+        .mapNum = MAP_NUM(CAVE_OF_ORIGIN_1F),
+        .landMonsInfo_FR = &gCaveOfOrigin_1F_LandMonsInfo,
+        .landMonsInfo_LG = &gCaveOfOrigin_1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP1),
+        .mapNum = MAP_NUM(CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP1),
+        .landMonsInfo_FR = &gCaveOfOrigin_UnusedRubySapphireMap1_LandMonsInfo,
+        .landMonsInfo_LG = &gCaveOfOrigin_UnusedRubySapphireMap1_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP2),
+        .mapNum = MAP_NUM(CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP2),
+        .landMonsInfo_FR = &gCaveOfOrigin_UnusedRubySapphireMap2_LandMonsInfo,
+        .landMonsInfo_LG = &gCaveOfOrigin_UnusedRubySapphireMap2_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP3),
+        .mapNum = MAP_NUM(CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP3),
+        .landMonsInfo_FR = &gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo,
+        .landMonsInfo_LG = &gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).
