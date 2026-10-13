@@ -80,13 +80,16 @@ bool8 MetatileBehavior_IsSand(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsSandOrShallowFlowingWater(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_SAND || metatileBehavior == MB_SHALLOW_WATER)
+    if (metatileBehavior == MB_SAND || metatileBehavior == MB_SHALLOW_WATER || metatileBehavior == MB_DEEP_SAND)
         return TRUE;
     else
         return FALSE;
 }
 
-bool8 MetatileBehavior_IsDeepSand(u8 metatileBehavior) { return FALSE; }
+bool8 MetatileBehavior_IsDeepSand(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_DEEP_SAND;
+}
 
 bool8 MetatileBehavior_IsReflective(u8 metatileBehavior)
 {
@@ -94,7 +97,8 @@ bool8 MetatileBehavior_IsReflective(u8 metatileBehavior)
      || metatileBehavior == MB_PUDDLE
      || metatileBehavior == MB_UNUSED_WATER
      || metatileBehavior == MB_CYCLING_ROAD_WATER
-     || metatileBehavior == MB_ICE)
+     || metatileBehavior == MB_ICE
+     || metatileBehavior == MB_REFLECTION_UNDER_BRIDGE)
         return TRUE;
     else
         return FALSE;
@@ -447,8 +451,27 @@ bool8 MetatileBehavior_IsLongGrass(u8 metatileBehavior)
 }
 
 bool8 MetatileBehavior_IsFootprints(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsBridge(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_GetBridgeType(u8 metatileBehavior) { return FALSE; }
+
+// Emerald's IsBridgeOverWater: surfing under these gives water encounters (its MED edges are left out, as there)
+bool8 MetatileBehavior_IsBridge(u8 metatileBehavior)
+{
+    return (metatileBehavior >= MB_BRIDGE_OVER_OCEAN && metatileBehavior <= MB_BRIDGE_OVER_POND_HIGH)
+        || metatileBehavior == MB_BRIDGE_OVER_POND_HIGH_EDGE_1
+        || metatileBehavior == MB_BRIDGE_OVER_POND_HIGH_EDGE_2
+        || metatileBehavior == MB_BIKE_BRIDGE_OVER_BARRIER;
+}
+
+// Emerald's BRIDGE_TYPE_*: 0 ocean (or no bridge), 1-3 pond low/med/high (the reflection is drawn lower)
+bool8 MetatileBehavior_GetBridgeType(u8 metatileBehavior)
+{
+    if (metatileBehavior >= MB_BRIDGE_OVER_OCEAN && metatileBehavior <= MB_BRIDGE_OVER_POND_HIGH)
+        return metatileBehavior - MB_BRIDGE_OVER_OCEAN;
+    if (metatileBehavior == MB_BRIDGE_OVER_POND_MED_EDGE_1 || metatileBehavior == MB_BRIDGE_OVER_POND_MED_EDGE_2)
+        return MB_BRIDGE_OVER_POND_MED - MB_BRIDGE_OVER_OCEAN;
+    if (metatileBehavior == MB_BRIDGE_OVER_POND_HIGH_EDGE_1 || metatileBehavior == MB_BRIDGE_OVER_POND_HIGH_EDGE_2)
+        return MB_BRIDGE_OVER_POND_HIGH - MB_BRIDGE_OVER_OCEAN;
+    return 0;
+}
 
 bool8 MetatileBehavior_IsUnused01(u8 metatileBehavior)
 {
@@ -612,12 +635,16 @@ bool8 MetatileBehavior_IsWaterfall(u8 metatileBehavior)
         return FALSE;
 }
 
-bool8 MetatileBehavior_IsFortreeBridge(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsPacifidlogVerticalLogTop(u8 metatileBehavior){ return FALSE; }
-bool8 MetatileBehavior_IsPacifidlogVerticalLogBottom(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsPacifidlogHorizontalLogLeft(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsPacifidlogHorizontalLogRight(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsPacifidlogLog(u8 metatileBehavior) { return FALSE; }
+bool8 MetatileBehavior_IsFortreeBridge(u8 metatileBehavior) { return metatileBehavior == MB_FORTREE_BRIDGE; }
+bool8 MetatileBehavior_IsPacifidlogVerticalLogTop(u8 metatileBehavior) { return metatileBehavior == MB_PACIFIDLOG_VERTICAL_LOG_TOP; }
+bool8 MetatileBehavior_IsPacifidlogVerticalLogBottom(u8 metatileBehavior) { return metatileBehavior == MB_PACIFIDLOG_VERTICAL_LOG_BOTTOM; }
+bool8 MetatileBehavior_IsPacifidlogHorizontalLogLeft(u8 metatileBehavior) { return metatileBehavior == MB_PACIFIDLOG_HORIZONTAL_LOG_LEFT; }
+bool8 MetatileBehavior_IsPacifidlogHorizontalLogRight(u8 metatileBehavior) { return metatileBehavior == MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT; }
+
+bool8 MetatileBehavior_IsPacifidlogLog(u8 metatileBehavior)
+{
+    return metatileBehavior >= MB_PACIFIDLOG_VERTICAL_LOG_TOP && metatileBehavior <= MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT;
+}
 bool8 MetatileBehavior_IsTrickHousePuzzleDoor(u8 metatileBehavior) { return FALSE; }
 
 bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior)
@@ -723,7 +750,7 @@ bool8 MetatileBehavior_IsSeaweed(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsRunningDisallowed(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_RUNNING_DISALLOWED)
+    if (metatileBehavior == MB_RUNNING_DISALLOWED || MetatileBehavior_IsPacifidlogLog(metatileBehavior))
         return TRUE;
     else
         return FALSE;

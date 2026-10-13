@@ -336,6 +336,10 @@
 
 #define SPECIAL_VARS_END           0x8014
 
+// A coord event with this var runs its script at once, without locking the player (field_control_avatar.c
+// TryRunCoordEventScript). Emerald's name: Route 111's desert edges use it.
+#define TRIGGER_RUN_IMMEDIATELY    0
+
 // Text color ids for VAR_TEXT_COLOR / VAR_PREV_TEXT_COLOR
 #define NPC_TEXT_COLOR_MALE      0 // Blue, for male NPCs
 #define NPC_TEXT_COLOR_FEMALE    1 // Red, for female NPCs

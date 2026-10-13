@@ -125,6 +125,24 @@
 #define MB_VIDEO_GAME 0xA1
 #define MB_BURGLARY 0xA2
 #define MB_TRAINER_TOWER_MONITOR 0xA3
+// Emerald's, same names (the Hoenn import maps behaviors by name). No Kanto tileset uses 0xA4-0xBF; FRLG's
+// gTileset_HoennBuilding still holds RS values 0xC0, 0xE0, 0xE1 and 0xE3, which no code reads: keep them free
+#define MB_DEEP_SAND 0xA4 // Route 111 desert: deep footprints, sand pile
+#define MB_REFLECTION_UNDER_BRIDGE 0xA5
+#define MB_BRIDGE_OVER_OCEAN 0xA6 // bridges: water encounters and fishing under them, reflection offset (pond)
+#define MB_BRIDGE_OVER_POND_LOW 0xA7
+#define MB_BRIDGE_OVER_POND_MED 0xA8
+#define MB_BRIDGE_OVER_POND_HIGH 0xA9
+#define MB_PACIFIDLOG_VERTICAL_LOG_TOP 0xAA // Pacifidlog log bridges: STEP_CB_PACIFIDLOG_BRIDGE sinks them
+#define MB_PACIFIDLOG_VERTICAL_LOG_BOTTOM 0xAB
+#define MB_PACIFIDLOG_HORIZONTAL_LOG_LEFT 0xAC
+#define MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT 0xAD
+#define MB_FORTREE_BRIDGE 0xAE // Fortree: STEP_CB_FORTREE_BRIDGE bends it, no running or biking on it
+#define MB_BRIDGE_OVER_POND_MED_EDGE_1 0xAF
+#define MB_BRIDGE_OVER_POND_MED_EDGE_2 0xB0
+#define MB_BRIDGE_OVER_POND_HIGH_EDGE_1 0xB1
+#define MB_BRIDGE_OVER_POND_HIGH_EDGE_2 0xB2
+#define MB_BIKE_BRIDGE_OVER_BARRIER 0xB3
 //
 #define MB_CYCLING_ROAD_PULL_DOWN 0xD0
 #define MB_CYCLING_ROAD_PULL_DOWN_GRASS 0xD1
