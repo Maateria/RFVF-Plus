@@ -956,6 +956,9 @@
 #define MAP_CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP2 (72 | (73 << 8))
 #define MAP_CAVE_OF_ORIGIN_UNUSED_RUBY_SAPPHIRE_MAP3 (73 | (73 << 8))
 #define MAP_CAVE_OF_ORIGIN_B1F                       (74 | (73 << 8))
+#define MAP_HOENN_VICTORY_ROAD_1F                    (75 | (73 << 8))
+#define MAP_HOENN_VICTORY_ROAD_B1F                   (76 | (73 << 8))
+#define MAP_HOENN_VICTORY_ROAD_B2F                   (77 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

@@ -7788,6 +7788,42 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/CaveOfOrigin_B1F/border.bin",
       "blockdata_filepath": "data/layouts/CaveOfOrigin_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_VICTORY_ROAD_1F",
+      "name": "HoennVictoryRoad_1F_Layout",
+      "width": 46,
+      "height": 45,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/HoennVictoryRoad_1F/border.bin",
+      "blockdata_filepath": "data/layouts/HoennVictoryRoad_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_VICTORY_ROAD_B1F",
+      "name": "HoennVictoryRoad_B1F_Layout",
+      "width": 46,
+      "height": 31,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/HoennVictoryRoad_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/HoennVictoryRoad_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_VICTORY_ROAD_B2F",
+      "name": "HoennVictoryRoad_B2F_Layout",
+      "width": 46,
+      "height": 31,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/HoennVictoryRoad_B2F/border.bin",
+      "blockdata_filepath": "data/layouts/HoennVictoryRoad_B2F/map.bin"
     }
   ]
 }

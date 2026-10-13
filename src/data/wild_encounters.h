@@ -9980,6 +9980,98 @@ const struct WildPokemon gCaveOfOrigin_UnusedRubySapphireMap3_LandMons[] =
 
 const struct WildPokemonInfo gCaveOfOrigin_UnusedRubySapphireMap3_LandMonsInfo = { 4, gCaveOfOrigin_UnusedRubySapphireMap3_LandMons };
 
+const struct WildPokemon gHoennVictoryRoad_1F_LandMons[] =
+{
+    { 40, 40, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_HARIYAMA },
+    { 40, 40, SPECIES_LAIRON },
+    { 40, 40, SPECIES_LOUDRED },
+    { 36, 36, SPECIES_ZUBAT },
+    { 36, 36, SPECIES_MAKUHITA },
+    { 38, 38, SPECIES_GOLBAT },
+    { 38, 38, SPECIES_HARIYAMA },
+    { 36, 36, SPECIES_ARON },
+    { 36, 36, SPECIES_WHISMUR },
+    { 36, 36, SPECIES_ARON },
+    { 36, 36, SPECIES_WHISMUR },
+};
+
+const struct WildPokemonInfo gHoennVictoryRoad_1F_LandMonsInfo = { 10, gHoennVictoryRoad_1F_LandMons };
+
+const struct WildPokemon gHoennVictoryRoad_B1F_LandMons[] =
+{
+    { 40, 40, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_HARIYAMA },
+    { 40, 40, SPECIES_LAIRON },
+    { 40, 40, SPECIES_LAIRON },
+    { 38, 38, SPECIES_GOLBAT },
+    { 38, 38, SPECIES_HARIYAMA },
+    { 42, 42, SPECIES_GOLBAT },
+    { 42, 42, SPECIES_HARIYAMA },
+    { 42, 42, SPECIES_LAIRON },
+    { 38, 38, SPECIES_MAWILE },
+    { 42, 42, SPECIES_LAIRON },
+    { 38, 38, SPECIES_MAWILE },
+};
+
+const struct WildPokemonInfo gHoennVictoryRoad_B1F_LandMonsInfo = { 10, gHoennVictoryRoad_B1F_LandMons };
+
+const struct WildPokemon gHoennVictoryRoad_B1F_RockSmashMons[] =
+{
+    { 30, 40, SPECIES_GRAVELER },
+    { 30, 40, SPECIES_GEODUDE },
+    { 35, 40, SPECIES_GRAVELER },
+    { 35, 40, SPECIES_GRAVELER },
+    { 35, 40, SPECIES_GRAVELER },
+};
+
+const struct WildPokemonInfo gHoennVictoryRoad_B1F_RockSmashMonsInfo = { 20, gHoennVictoryRoad_B1F_RockSmashMons };
+
+const struct WildPokemon gHoennVictoryRoad_B2F_LandMons[] =
+{
+    { 40, 40, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_SABLEYE },
+    { 40, 40, SPECIES_LAIRON },
+    { 40, 40, SPECIES_LAIRON },
+    { 42, 42, SPECIES_GOLBAT },
+    { 42, 42, SPECIES_SABLEYE },
+    { 44, 44, SPECIES_GOLBAT },
+    { 44, 44, SPECIES_SABLEYE },
+    { 42, 42, SPECIES_LAIRON },
+    { 42, 42, SPECIES_MAWILE },
+    { 44, 44, SPECIES_LAIRON },
+    { 44, 44, SPECIES_MAWILE },
+};
+
+const struct WildPokemonInfo gHoennVictoryRoad_B2F_LandMonsInfo = { 10, gHoennVictoryRoad_B2F_LandMons };
+
+const struct WildPokemon gHoennVictoryRoad_B2F_WaterMons[] =
+{
+    { 30, 35, SPECIES_GOLBAT },
+    { 25, 30, SPECIES_GOLBAT },
+    { 35, 40, SPECIES_GOLBAT },
+    { 35, 40, SPECIES_GOLBAT },
+    { 35, 40, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gHoennVictoryRoad_B2F_WaterMonsInfo = { 4, gHoennVictoryRoad_B2F_WaterMons };
+
+const struct WildPokemon gHoennVictoryRoad_B2F_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_BARBOACH },
+    { 25, 30, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_WHISCASH },
+    { 35, 40, SPECIES_WHISCASH },
+    { 40, 45, SPECIES_WHISCASH },
+};
+
+const struct WildPokemonInfo gHoennVictoryRoad_B2F_FishingMonsInfo = { 30, gHoennVictoryRoad_B2F_FishingMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -12909,6 +13001,42 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = NULL,
         .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_VICTORY_ROAD_1F),
+        .mapNum = MAP_NUM(HOENN_VICTORY_ROAD_1F),
+        .landMonsInfo_FR = &gHoennVictoryRoad_1F_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennVictoryRoad_1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_VICTORY_ROAD_B1F),
+        .mapNum = MAP_NUM(HOENN_VICTORY_ROAD_B1F),
+        .landMonsInfo_FR = &gHoennVictoryRoad_B1F_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennVictoryRoad_B1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = &gHoennVictoryRoad_B1F_RockSmashMonsInfo,
+        .rockSmashMonsInfo_LG = &gHoennVictoryRoad_B1F_RockSmashMonsInfo,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_VICTORY_ROAD_B2F),
+        .mapNum = MAP_NUM(HOENN_VICTORY_ROAD_B2F),
+        .landMonsInfo_FR = &gHoennVictoryRoad_B2F_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennVictoryRoad_B2F_LandMonsInfo,
+        .waterMonsInfo_FR = &gHoennVictoryRoad_B2F_WaterMonsInfo,
+        .waterMonsInfo_LG = &gHoennVictoryRoad_B2F_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gHoennVictoryRoad_B2F_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gHoennVictoryRoad_B2F_FishingMonsInfo,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).

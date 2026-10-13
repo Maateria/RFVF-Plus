@@ -2006,3 +2006,9 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/CaveOfOrigin_UnusedRubySapphireMap3/scripts.inc"
 
 	.include "data/maps/CaveOfOrigin_B1F/scripts.inc"
+
+	.include "data/maps/HoennVictoryRoad_1F/scripts.inc"
+
+	.include "data/maps/HoennVictoryRoad_B1F/scripts.inc"
+
+	.include "data/maps/HoennVictoryRoad_B2F/scripts.inc"
