@@ -1273,7 +1273,10 @@ static bool32 TrySetupDiveDownScript(void)
 
 static bool32 TrySetupDiveEmergeScript(void)
 {
-    if(GetCurrentRegionMapSectionId() == MAPSEC_UNDERWATER_124)
+    // Bond Bridge underwater surfaces on its metatile 0x296 only. Tested by map, not by MAPSEC_UNDERWATER_124:
+    // Emerald's Underwater_Route124 shares that section and follows the generic rule below
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(THREE_ISLAND_BOND_BRIDGE_UNDERWATER)
+     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(THREE_ISLAND_BOND_BRIDGE_UNDERWATER))
     {
         s16 x, y;
         PlayerGetDestCoords(&x, &y);
