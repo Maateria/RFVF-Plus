@@ -500,6 +500,18 @@
 #define METATILE_HoennSlateport2_Door             0x35C
 #define METATILE_HoennSlateport2_Door_BattleTent  0x2B8
 
+// gTileset_HoennSootopolis
+#define METATILE_HoennSootopolis_Door             0x29E
+#define METATILE_HoennSootopolis_Door_Closed      0x2C8
+#define METATILE_HoennSootopolis_Door_PeakedRoof  0x29C
+#define METATILE_HoennSootopolis_GymDoor_Closed   0x2D0
+#define METATILE_HoennSootopolis_RoughWater       0x310
+
+// gTileset_HoennSootopolisGym
+#define METATILE_HoennSootopolisGym_Ice_Broken   0x286
+#define METATILE_HoennSootopolisGym_Ice_Cracked  0x28E
+#define METATILE_HoennSootopolisGym_Stairs       0x287
+
 // gTileset_HoennTrickHousePuzzle
 #define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Down       0x2E3
 #define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Left       0x2E1

@@ -1341,3 +1341,36 @@ const struct Tileset gTileset_HoennOceanicMuseum =
 	.metatileAttributes = gMetatileAttributes_HoennOceanicMuseum,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennSootopolis = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSootopolis,
+	.palettes = gTilesetPalettes_HoennSootopolis,
+	.metatiles = gMetatiles_HoennSootopolis,
+	.metatileAttributes = gMetatileAttributes_HoennSootopolis,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSootopolisGym = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSootopolisGym,
+	.palettes = gTilesetPalettes_HoennSootopolisGym,
+	.metatiles = gMetatiles_HoennSootopolisGym,
+	.metatileAttributes = gMetatileAttributes_HoennSootopolisGym,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennMysteryEventsHouse = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMysteryEventsHouse,
+	.palettes = gTilesetPalettes_HoennMysteryEventsHouse,
+	.metatiles = gMetatiles_HoennMysteryEventsHouse,
+	.metatileAttributes = gMetatileAttributes_HoennMysteryEventsHouse,
+	.callback = NULL
+};

@@ -337,6 +337,7 @@
 #define MAP_ROUTE108                             (115 | (3 << 8))
 #define MAP_ROUTE109                             (116 | (3 << 8))
 #define MAP_SLATEPORT_CITY                       (117 | (3 << 8))
+#define MAP_SOOTOPOLIS_CITY                      (118 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -855,6 +856,23 @@
 #define MAP_SLATEPORT_CITY_POKEMON_CENTER_2F       (12 | (71 << 8))
 #define MAP_SLATEPORT_CITY_MART                    (13 | (71 << 8))
 
-#define MAP_GROUPS_COUNT 72
+// gMapGroup_IndoorSootopolis
+#define MAP_SOOTOPOLIS_CITY_GYM_1F                   (0 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_GYM_B1F                  (1 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_POKEMON_CENTER_1F        (2 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_POKEMON_CENTER_2F        (3 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_MART                     (4 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE1                   (5 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE2                   (6 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE3                   (7 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE4                   (8 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE5                   (9 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE6                   (10 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_HOUSE7                   (11 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_LOTAD_AND_SEEDOT_HOUSE   (12 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_MYSTERY_EVENTS_HOUSE_1F  (13 | (72 << 8))
+#define MAP_SOOTOPOLIS_CITY_MYSTERY_EVENTS_HOUSE_B1F (14 | (72 << 8))
+
+#define MAP_GROUPS_COUNT 73
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -1810,3 +1810,35 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/SlateportCity_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/SlateportCity_Mart/scripts.inc"
+
+	.include "data/maps/SootopolisCity/scripts.inc"
+
+	.include "data/maps/SootopolisCity_Gym_1F/scripts.inc"
+
+	.include "data/maps/SootopolisCity_Gym_B1F/scripts.inc"
+
+	.include "data/maps/SootopolisCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/SootopolisCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/SootopolisCity_Mart/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House1/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House2/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House3/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House4/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House5/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House6/scripts.inc"
+
+	.include "data/maps/SootopolisCity_House7/scripts.inc"
+
+	.include "data/maps/SootopolisCity_LotadAndSeedotHouse/scripts.inc"
+
+	.include "data/maps/SootopolisCity_MysteryEventsHouse_1F/scripts.inc"
+
+	.include "data/maps/SootopolisCity_MysteryEventsHouse_B1F/scripts.inc"

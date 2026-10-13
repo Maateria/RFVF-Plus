@@ -8741,6 +8741,33 @@ const struct WildPokemon gSlateportCity_FishingMons[] =
 
 const struct WildPokemonInfo gSlateportCity_FishingMonsInfo = { 10, gSlateportCity_FishingMons };
 
+const struct WildPokemon gSootopolisCity_WaterMons[] =
+{
+    { 5, 35, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 15, 25, SPECIES_MAGIKARP },
+    { 25, 30, SPECIES_MAGIKARP },
+    { 25, 30, SPECIES_MAGIKARP },
+};
+
+const struct WildPokemonInfo gSootopolisCity_WaterMonsInfo = { 1, gSootopolisCity_WaterMons };
+
+const struct WildPokemon gSootopolisCity_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 30, 35, SPECIES_MAGIKARP },
+    { 30, 35, SPECIES_MAGIKARP },
+    { 35, 40, SPECIES_GYARADOS },
+    { 35, 45, SPECIES_GYARADOS },
+    { 5, 45, SPECIES_GYARADOS },
+};
+
+const struct WildPokemonInfo gSootopolisCity_FishingMonsInfo = { 10, gSootopolisCity_FishingMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11010,6 +11037,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gSlateportCity_FishingMonsInfo,
         .fishingMonsInfo_LG = &gSlateportCity_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(SOOTOPOLIS_CITY),
+        .mapNum = MAP_NUM(SOOTOPOLIS_CITY),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = &gSootopolisCity_WaterMonsInfo,
+        .waterMonsInfo_LG = &gSootopolisCity_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gSootopolisCity_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gSootopolisCity_FishingMonsInfo,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).

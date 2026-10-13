@@ -6696,6 +6696,114 @@
       "secondary_tileset": "gTileset_HoennOceanicMuseum",
       "border_filepath": "data/layouts/SlateportCity_OceanicMuseum_2F/border.bin",
       "blockdata_filepath": "data/layouts/SlateportCity_OceanicMuseum_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SOOTOPOLIS_CITY",
+      "name": "SootopolisCity_Layout",
+      "width": 60,
+      "height": 60,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennSootopolis",
+      "border_filepath": "data/layouts/SootopolisCity/border.bin",
+      "blockdata_filepath": "data/layouts/SootopolisCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_SOOTOPOLIS_CITY_GYM_1F",
+      "name": "SootopolisCity_Gym_1F_Layout",
+      "width": 17,
+      "height": 26,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennSootopolisGym",
+      "border_filepath": "data/layouts/SootopolisCity_Gym_1F/border.bin",
+      "blockdata_filepath": "data/layouts/SootopolisCity_Gym_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SOOTOPOLIS_CITY_GYM_B1F",
+      "name": "SootopolisCity_Gym_B1F_Layout",
+      "width": 17,
+      "height": 26,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennSootopolisGym",
+      "border_filepath": "data/layouts/SootopolisCity_Gym_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/SootopolisCity_Gym_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_SOOTOPOLIS_CITY_HOUSE1",
+      "name": "Hoenn_SootopolisCity_House1_Layout",
+      "width": 8,
+      "height": 7,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/Hoenn_SootopolisCity_House1/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_SootopolisCity_House1/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_SOOTOPOLIS_CITY_HOUSE2",
+      "name": "Hoenn_SootopolisCity_House2_Layout",
+      "width": 8,
+      "height": 7,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/Hoenn_SootopolisCity_House2/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_SootopolisCity_House2/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_SOOTOPOLIS_CITY_HOUSE3",
+      "name": "Hoenn_SootopolisCity_House3_Layout",
+      "width": 8,
+      "height": 7,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/Hoenn_SootopolisCity_House3/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_SootopolisCity_House3/map.bin"
+    },
+    {
+      "id": "LAYOUT_SOOTOPOLIS_CITY_LOTAD_AND_SEEDOT_HOUSE",
+      "name": "SootopolisCity_LotadAndSeedotHouse_Layout",
+      "width": 8,
+      "height": 7,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/SootopolisCity_LotadAndSeedotHouse/border.bin",
+      "blockdata_filepath": "data/layouts/SootopolisCity_LotadAndSeedotHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_SOOTOPOLIS_CITY_MYSTERY_EVENTS_HOUSE_1F",
+      "name": "SootopolisCity_MysteryEventsHouse_1F_Layout",
+      "width": 11,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennMysteryEventsHouse",
+      "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F/border.bin",
+      "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SOOTOPOLIS_CITY_MYSTERY_EVENTS_HOUSE_B1F",
+      "name": "SootopolisCity_MysteryEventsHouse_B1F_Layout",
+      "width": 12,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennMysteryEventsHouse",
+      "border_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/SootopolisCity_MysteryEventsHouse_B1F/map.bin"
     }
   ]
 }

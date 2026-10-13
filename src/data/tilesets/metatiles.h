@@ -363,3 +363,12 @@ const u32 gMetatileAttributes_HoennPokemonFanClub[] = INCBIN_U32("data/tilesets/
 
 const u16 gMetatiles_HoennOceanicMuseum[] = INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/metatiles.bin");
 const u32 gMetatileAttributes_HoennOceanicMuseum[] = INCBIN_U32("data/tilesets/secondary/hoenn_oceanic_museum/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennSootopolis[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/metatiles.bin");
+const u32 gMetatileAttributes_HoennSootopolis[] = INCBIN_U32("data/tilesets/secondary/hoenn_sootopolis/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennSootopolisGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennSootopolisGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_sootopolis_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMysteryEventsHouse[] = INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/metatiles.bin");
+const u32 gMetatileAttributes_HoennMysteryEventsHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_mystery_events_house/metatile_attributes.bin");

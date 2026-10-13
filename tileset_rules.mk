@@ -338,3 +338,12 @@ $(TILESETGFXDIR)/secondary/hoenn_pokemon_fan_club/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_oceanic_museum/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 212 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_sootopolis/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 216 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_sootopolis_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 191 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mystery_events_house/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 75 -Wnum_tiles

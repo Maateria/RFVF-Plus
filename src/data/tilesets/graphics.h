@@ -2574,3 +2574,69 @@ const u16 gTilesetPalettes_HoennOceanicMuseum[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_oceanic_museum/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennSootopolis[] = INCBIN_U32("data/tilesets/secondary/hoenn_sootopolis/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSootopolis[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSootopolisGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_sootopolis_gym/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSootopolisGym[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennMysteryEventsHouse[] = INCBIN_U32("data/tilesets/secondary/hoenn_mystery_events_house/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMysteryEventsHouse[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mystery_events_house/palettes/15.gbapal"),
+};
