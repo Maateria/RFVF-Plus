@@ -631,7 +631,14 @@ bool8 MetatileBehavior_IsRoulette(u8 metatileBehavior) { return FALSE; }
 bool8 MetatileBehavior_IsPokeblockFeeder(u8 metatileBehavior) { return FALSE; }
 bool8 MetatileBehavior_IsSecretBaseJumpMat(u8 metatileBehavior) { return FALSE; }
 bool8 MetatileBehavior_IsSecretBaseSpinMat(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsLavaridgeB1FWarp(u8 metatileBehavior) { return FALSE; }
+
+bool8 MetatileBehavior_IsLavaridgeB1FWarp(u8 metatileBehavior)
+{
+    if (metatileBehavior == MB_LAVARIDGE_GYM_B1F_WARP)
+        return TRUE;
+    else
+        return FALSE;
+}
 
 bool8 MetatileBehavior_IsLavaridge1FWarp(u8 metatileBehavior)
 {
