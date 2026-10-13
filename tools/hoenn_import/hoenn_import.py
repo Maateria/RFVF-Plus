@@ -40,7 +40,8 @@ What a run writes:
     its script exists here. Every NPC and sign runs Emerald's label: the script that exists here, else a stub.
   - include/constants/flags.h: an Emerald flag (item ball, hidden item, obstacle) not defined here takes the first free
     FLAG_0x line of FLAG_RANGES (design 1.4a, append-only).
-  - data/maps/<Map>/scripts.inc when missing: the LOCALID_ .equ of the map's objects, the item ball scripts, the stubs
+  - data/maps/<Map>/scripts.inc when missing: the LOCALID_ .equ of the map's objects, Emerald's mechanical map scripts
+    (hoenn_decisions.MECHANICAL_SCRIPTS: step callbacks, desert and ash weather), the item ball scripts, the stubs
     of its labels, and what is left to script; Emerald labels of other maps are stubbed in data/scripts/hoenn_stubs.inc.
   - src/data/wild_encounters.h: Emerald's encounters of the new maps (tables above gWildMonHeaders, headers above
     its terminator).
@@ -97,8 +98,8 @@ from types import SimpleNamespace
 from PIL import Image
 
 from hoenn_decisions import (BLOCKED_WAYS, CLOSED_WARPS, DUNGEON_GROUP, DUNGEON_UNIT_OF, HIDDEN_BY_MAP_SCRIPT,
-                             MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, RENAMES, SIBLINGS, SIGN_MOVES,
-                             START_LAYOUT, VAR_GFX)
+                             MECHANICAL_SCRIPTS, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, RENAMES, SIBLINGS,
+                             SIGN_MOVES, START_LAYOUT, VAR_GFX)
 from hoenn_sprites import skipped
 
 REPO = Path(__file__).resolve().parents[2]
@@ -181,7 +182,6 @@ BEHAVIOR_OVERRIDES = {
 UNDERWATER = {"MB_UNDERWATER_BLOCKED_ABOVE", "MB_SEAWEED", "MB_SEAWEED_NO_SURFACING"}
 # Emerald behavior -> the nearest FRLG one: it loses part of its effect (listed in the report).
 DEGRADED = {
-    "MB_DEEP_SAND": "MB_SAND",  # no sinking
     "MB_SOOTOPOLIS_DEEP_WATER": "MB_DEEP_WATER",
     "MB_MOSSDEEP_GYM_WARP": "MB_REGULAR_WARP",  # warp pad (DoTeleportWarp)
     "MB_AQUA_HIDEOUT_WARP": "MB_REGULAR_WARP",
@@ -203,13 +203,6 @@ WATER_DOORS = {"MB_WATER_DOOR", "MB_WATER_SOUTH_ARROW_WARP"}
 NO_COUNTERPART = dict(
     {b: "Acro Bike rail" for b in ("MB_HORIZONTAL_RAIL", "MB_VERTICAL_RAIL", "MB_ISOLATED_HORIZONTAL_RAIL",
                                    "MB_ISOLATED_VERTICAL_RAIL")},
-    **{b: "bridge" for b in ("MB_BRIDGE_OVER_OCEAN", "MB_BRIDGE_OVER_POND_LOW", "MB_BRIDGE_OVER_POND_MED",
-                             "MB_BRIDGE_OVER_POND_HIGH", "MB_BRIDGE_OVER_POND_MED_EDGE_1",
-                             "MB_BRIDGE_OVER_POND_MED_EDGE_2", "MB_BRIDGE_OVER_POND_HIGH_EDGE_1",
-                             "MB_BRIDGE_OVER_POND_HIGH_EDGE_2", "MB_FORTREE_BRIDGE", "MB_BIKE_BRIDGE_OVER_BARRIER",
-                             "MB_REFLECTION_UNDER_BRIDGE")},
-    **{b: "Pacifidlog log" for b in ("MB_PACIFIDLOG_HORIZONTAL_LOG_LEFT", "MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT",
-                                     "MB_PACIFIDLOG_VERTICAL_LOG_TOP", "MB_PACIFIDLOG_VERTICAL_LOG_BOTTOM")},
     **{b: "diagonal jump, no effect in Emerald either" for b in ("MB_JUMP_NORTHEAST", "MB_JUMP_NORTHWEST",
                                                                  "MB_JUMP_SOUTHEAST", "MB_JUMP_SOUTHWEST")},
     MB_MUDDY_SLOPE="muddy slope", MB_BUMPY_SLOPE="bumpy slope", MB_VASE="vase", MB_BERRY_TREE_SOIL="berry soil",
@@ -1345,10 +1338,14 @@ def convert_map_json(ctx, m, here):
 def stub_scripts(ctx, m):
     """The new scripts.inc of map `m`: LOCALIDs, the map script table, the stubs of its labels, what is left out."""
     text = "".join(".equ %s, %d\n" % lid for lid in m.localids) + ("\n" if m.localids else "")
-    text += "%s_MapScripts::\n\t.byte 0\n" % m.name
-    em_scripts = ctx.map_scripts(m.name)
+    table, mechanics = MECHANICAL_SCRIPTS.get(m.name, ((), ""))
+    text += "%s_MapScripts::\n%s\t.byte 0\n" % (m.name, "".join("\tmap_script MAP_SCRIPT_%s, %s\n" % e for e in table))
+    em_scripts = [s for s in ctx.map_scripts(m.name) if s not in table]
     if em_scripts:
         text += "@ hoenn_import: Emerald map scripts not ported: %s\n" % ", ".join("%s (%s)" % s for s in em_scripts)
+    if mechanics:
+        text += ("@ hoenn_import: Emerald's mechanics, without its story lines (hoenn_decisions.MECHANICAL_SCRIPTS)\n"
+                 + mechanics)
     text += "".join(("%s::" % label).ljust(47) + " @ %s\n%s" % (comment, body) for label, comment, body in m.scripts)
     if m.stubs:
         text += ("@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/%s/scripts.inc\n"
@@ -1628,6 +1625,9 @@ def plan(ctx, names, group_of):
     # planned over it, and a different one is refused as uncommitted (check_files)
     folders = {name for g in groups["group_order"] for name in groups[g]}
     ctx.labels, ctx.shared_stubs, ctx.allocated = repo_labels(), defaultdict(list), []
+    for name in names:  # the mechanical scripts a new scripts.inc gets (stub_scripts): its triggers may run them
+        for label in re.findall(r"^(\w+)::", MECHANICAL_SCRIPTS.get(name, ((), ""))[1], re.M):
+            ctx.labels.setdefault(label, name)
     maps = []
     for name in dict.fromkeys(names):
         if name not in ctx.maps:

@@ -1,6 +1,11 @@
 JaggedPass_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, JaggedPass_OnResume
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_RESUME (JaggedPass_OnResume), ON_TRANSITION (JaggedPass_OnTransition), ON_LOAD (JaggedPass_OnLoad)
+@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (JaggedPass_OnTransition), ON_LOAD (JaggedPass_OnLoad)
+@ hoenn_import: Emerald's mechanics, without its story lines (hoenn_decisions.MECHANICAL_SCRIPTS)
+JaggedPass_OnResume:
+	setstepcallback STEP_CB_ASH
+	end
 JaggedPass_EventScript_ItemBurnHeal::           @ item ball, works (FLAG_ITEM_JAGGED_PASS_BURN_HEAL)
 	finditem ITEM_BURN_HEAL
 	end

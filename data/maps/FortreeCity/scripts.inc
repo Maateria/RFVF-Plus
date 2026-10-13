@@ -1,6 +1,11 @@
 FortreeCity_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, FortreeCity_OnResume
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (FortreeCity_OnTransition), ON_RESUME (FortreeCity_OnResume)
+@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (FortreeCity_OnTransition)
+@ hoenn_import: Emerald's mechanics, without its story lines (hoenn_decisions.MECHANICAL_SCRIPTS)
+FortreeCity_OnResume:
+	setstepcallback STEP_CB_FORTREE_BRIDGE
+	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/FortreeCity/scripts.inc
 FortreeCity_EventScript_Man::                   @ NPC #1 (31,3)
 FortreeCity_EventScript_Girl::                  @ NPC #2 (32,16)

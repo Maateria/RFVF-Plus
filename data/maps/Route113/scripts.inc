@@ -1,6 +1,25 @@
 Route113_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, Route113_OnResume
+	map_script MAP_SCRIPT_ON_TRANSITION, Route113_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_RESUME (Route113_OnResume), ON_TRANSITION (Route113_OnTransition)
+@ hoenn_import: Emerald's mechanics, without its story lines (hoenn_decisions.MECHANICAL_SCRIPTS)
+Route113_OnResume:
+	setstepcallback STEP_CB_ASH
+	end
+
+Route113_OnTransition:
+	call Route113_EventScript_CheckSetAshWeather
+	end
+
+Route113_EventScript_CheckSetAshWeather::
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	goto_if_lt VAR_TEMP_0, 19, Route113_EventScript_DontSetAshWeather
+	goto_if_gt VAR_TEMP_0, 84, Route113_EventScript_DontSetAshWeather
+	setweather WEATHER_VOLCANIC_ASH
+	return
+
+Route113_EventScript_DontSetAshWeather::
+	return
 Route113_EventScript_ItemMaxEther::             @ item ball, works (FLAG_ITEM_ROUTE_113_MAX_ETHER)
 	finditem ITEM_MAX_ETHER
 	end

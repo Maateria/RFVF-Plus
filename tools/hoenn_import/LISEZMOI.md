@@ -6,6 +6,9 @@ scripts :
 
 - **Ce qui est importé :** les maps et leurs liaisons, les portes, les objets au sol et cachés (ramassables), les
   Pokémon sauvages, la météo, la musique d'Émeraude et le point de retour du Centre Pokémon.
+- **Les mécanismes aussi :** les passerelles qui plient (Cimetronelle) ou coulent (Pacifiville), les cendres de la
+  Route 113 et du Sentier Sinuroc, la tempête de sable du désert de la Route 111. Ce sont les lignes des scripts
+  d'Émeraude sans l'histoire (`MECHANICAL_SCRIPTS` dans `hoenn_decisions.py`).
 - **Ce qui reste muet :** les PNJ, les panneaux et les dresseurs (pas de combat) sont placés mais attendent leurs
   scripts. Ils sont listés dans le `scripts.inc` de chaque map.
 
@@ -102,7 +105,7 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
     lave...). L'animation est portée dans `src/tileset_anims.c` ; l'outil génère son point d'entrée dans
     `src/data/tilesets/hoenn_anims.h` avec les tuiles où le tileset a mis chaque animation.
 - **`Behaviors` :** les comportements des tuiles (eau, herbe, porte...). `DEGRADED` ou `no counterpart` signale un
-  effet perdu, par exemple le sable profond devient du sable normal.
+  effet perdu, par exemple une pente de boue devient un sol normal.
 - **Une ligne `MAP_...` par map,** suivie de :
   - `CONN` : les liaisons. `dive` et `emerge` (`needs Dive in game`) : on y passe en plongeant ;
   - `NPC` : les objets (PNJ, dresseurs, objets au sol) ;

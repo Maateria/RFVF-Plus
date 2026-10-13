@@ -2,8 +2,38 @@
 .equ LOCALID_ROUTE111_GABBY_1, 8
 
 Route111_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route111_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_LOAD (Route111_OnLoad), ON_TRANSITION (Route111_OnTransition), ON_WARP_INTO_MAP_TABLE (Route111_OnWarp), ON_FRAME_TABLE (Route111_OnFrame)
+@ hoenn_import: Emerald map scripts not ported: ON_LOAD (Route111_OnLoad), ON_WARP_INTO_MAP_TABLE (Route111_OnWarp), ON_FRAME_TABLE (Route111_OnFrame)
+@ hoenn_import: Emerald's mechanics, without its story lines (hoenn_decisions.MECHANICAL_SCRIPTS)
+Route111_OnTransition:
+	call Route111_EventScript_CheckSetSandstorm
+	end
+
+Route111_EventScript_CheckSetSandstorm::
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	goto_if_lt VAR_TEMP_1, 34, Route111_EventScript_EndCheckSetSandstorm
+	goto_if_gt VAR_TEMP_1, 107, Route111_EventScript_EndCheckSetSandstorm
+	goto_if_gt VAR_TEMP_1, 72, Route111_EventScript_SetSandstorm
+	goto_if_gt VAR_TEMP_0, 2000, Route111_EventScript_EndCheckSetSandstorm
+	goto_if_lt VAR_TEMP_0, 8, Route111_EventScript_EndCheckSetSandstorm
+Route111_EventScript_SetSandstorm::
+	setweather WEATHER_SANDSTORM
+Route111_EventScript_EndCheckSetSandstorm::
+	return
+
+Route111_EventScript_SunTrigger::
+	setweather WEATHER_SUNNY
+	fadenewbgm MUS_ROUTE110
+	doweather
+	setvar VAR_TEMP_3, 0
+	end
+
+Route111_EventScript_SandstormTrigger::
+	setweather WEATHER_SANDSTORM
+	fadenewbgm MUS_ROUTE111
+	doweather
+	end
 Route111_EventScript_ItemTMSandstorm::          @ item ball, works (FLAG_ITEM_ROUTE_111_TM_SANDSTORM)
 	finditem ITEM_TM37_SANDSTORM
 	end
@@ -46,4 +76,4 @@ Route111_EventScript_OldLadysRestStopSign::     @ sign (25,19)
 Route111_EventScript_TrainerTipsSpAtkSpDef::    @ sign (7,84)
 Route111_EventScript_TrainerHillSign::          @ sign (24,116)
 	end
-@ hoenn_import: left out: trigger (12,62) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (11,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (12,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (13,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (7,63) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (12,44) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (13,43) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (14,42) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (16,40) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (14,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (18,32) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (17,31) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (9,37) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (10,36) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (17,39) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (18,38) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (8,64) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (9,65) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (10,65) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (11,66) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (12,67) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (13,68) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (14,69) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SunTrigger; trigger (10,61) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (11,62) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (13,62) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (14,62) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (17,38) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (16,39) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (15,40) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (14,41) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (13,42) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (12,43) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger; trigger (11,44) TRIGGER_RUN_IMMEDIATELY==0 -> Route111_EventScript_SandstormTrigger
+@ hoenn_import: left out: trigger (11,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (12,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (13,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (12,44) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (13,43) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (14,42) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (16,40) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (14,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (17,39) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (18,38) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft

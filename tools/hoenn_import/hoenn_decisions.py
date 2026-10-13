@@ -441,3 +441,78 @@ SIBLINGS = {
         "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP2", "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP3", "LAYOUT_NEW_MAUVILLE_ENTRANCE",
         "LAYOUT_ABANDONED_SHIP_DECK", "LAYOUT_ABANDONED_SHIP_CAPTAINS_OFFICE"}],
 }
+# Emerald map scripts that only run mechanics (a step callback, the weather of a place, its music), written into the
+# new map's scripts.inc under Emerald's labels, without their story lines: map -> (map_script entries, script text).
+# A trigger coord event whose script this text defines is placed (Route 111's desert edges). MUS_ROUTE111 here is
+# Emerald's MUS_DESERT (song 409).
+MECHANICAL_SCRIPTS = {
+    "FortreeCity": ([("ON_RESUME", "FortreeCity_OnResume")], """\
+FortreeCity_OnResume:
+\tsetstepcallback STEP_CB_FORTREE_BRIDGE
+\tend
+"""),
+    "PacifidlogTown": ([("ON_RESUME", "PacifidlogTown_OnResume")], """\
+PacifidlogTown_OnResume:
+\tsetstepcallback STEP_CB_PACIFIDLOG_BRIDGE
+\tend
+"""),
+    "MtChimney": ([("ON_RESUME", "MtChimney_OnResume")], """\
+MtChimney_OnResume:
+\tsetstepcallback STEP_CB_ASH
+\tend
+"""),
+    "JaggedPass": ([("ON_RESUME", "JaggedPass_OnResume")], """\
+JaggedPass_OnResume:
+\tsetstepcallback STEP_CB_ASH
+\tend
+"""),
+    "Route113": ([("ON_RESUME", "Route113_OnResume"), ("ON_TRANSITION", "Route113_OnTransition")], """\
+Route113_OnResume:
+\tsetstepcallback STEP_CB_ASH
+\tend
+
+Route113_OnTransition:
+\tcall Route113_EventScript_CheckSetAshWeather
+\tend
+
+Route113_EventScript_CheckSetAshWeather::
+\tgetplayerxy VAR_TEMP_0, VAR_TEMP_1
+\tgoto_if_lt VAR_TEMP_0, 19, Route113_EventScript_DontSetAshWeather
+\tgoto_if_gt VAR_TEMP_0, 84, Route113_EventScript_DontSetAshWeather
+\tsetweather WEATHER_VOLCANIC_ASH
+\treturn
+
+Route113_EventScript_DontSetAshWeather::
+\treturn
+"""),
+    "Route111": ([("ON_TRANSITION", "Route111_OnTransition")], """\
+Route111_OnTransition:
+\tcall Route111_EventScript_CheckSetSandstorm
+\tend
+
+Route111_EventScript_CheckSetSandstorm::
+\tgetplayerxy VAR_TEMP_0, VAR_TEMP_1
+\tgoto_if_lt VAR_TEMP_1, 34, Route111_EventScript_EndCheckSetSandstorm
+\tgoto_if_gt VAR_TEMP_1, 107, Route111_EventScript_EndCheckSetSandstorm
+\tgoto_if_gt VAR_TEMP_1, 72, Route111_EventScript_SetSandstorm
+\tgoto_if_gt VAR_TEMP_0, 2000, Route111_EventScript_EndCheckSetSandstorm
+\tgoto_if_lt VAR_TEMP_0, 8, Route111_EventScript_EndCheckSetSandstorm
+Route111_EventScript_SetSandstorm::
+\tsetweather WEATHER_SANDSTORM
+Route111_EventScript_EndCheckSetSandstorm::
+\treturn
+
+Route111_EventScript_SunTrigger::
+\tsetweather WEATHER_SUNNY
+\tfadenewbgm MUS_ROUTE110
+\tdoweather
+\tsetvar VAR_TEMP_3, 0
+\tend
+
+Route111_EventScript_SandstormTrigger::
+\tsetweather WEATHER_SANDSTORM
+\tfadenewbgm MUS_ROUTE111
+\tdoweather
+\tend
+"""),
+}
