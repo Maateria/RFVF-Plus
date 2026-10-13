@@ -61,7 +61,8 @@
     "gMapGroup_IndoorPetalburg",
     "gMapGroup_IndoorOldale",
     "gMapGroup_IndoorLittleroot",
-    "gMapGroup_IndoorRoute124"
+    "gMapGroup_IndoorRoute124",
+    "gMapGroup_IndoorMossdeep"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -377,7 +378,8 @@
     "LittlerootTown",
     "Route103",
     "Route118",
-    "Route124"
+    "Route124",
+    "MossdeepCity"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -805,5 +807,20 @@
   ],
   "gMapGroup_IndoorRoute124": [
     "Route124_DivingTreasureHuntersHouse"
+  ],
+  "gMapGroup_IndoorMossdeep": [
+    "MossdeepCity_Gym",
+    "MossdeepCity_House1",
+    "MossdeepCity_House2",
+    "MossdeepCity_PokemonCenter_1F",
+    "MossdeepCity_PokemonCenter_2F",
+    "MossdeepCity_Mart",
+    "MossdeepCity_House3",
+    "MossdeepCity_StevensHouse",
+    "MossdeepCity_House4",
+    "MossdeepCity_SpaceCenter_1F",
+    "MossdeepCity_SpaceCenter_2F",
+    "MossdeepCity_GameCorner_1F",
+    "MossdeepCity_GameCorner_B1F"
   ]
 }

@@ -320,6 +320,7 @@
 #define MAP_ROUTE103                             (98 | (3 << 8))
 #define MAP_ROUTE118                             (99 | (3 << 8))
 #define MAP_ROUTE124                             (100 | (3 << 8))
+#define MAP_MOSSDEEP_CITY                        (101 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -748,6 +749,21 @@
 // gMapGroup_IndoorRoute124
 #define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (61 << 8))
 
-#define MAP_GROUPS_COUNT 62
+// gMapGroup_IndoorMossdeep
+#define MAP_MOSSDEEP_CITY_GYM               (0 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_HOUSE1            (1 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_HOUSE2            (2 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_POKEMON_CENTER_1F (3 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_POKEMON_CENTER_2F (4 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_MART              (5 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_HOUSE3            (6 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_STEVENS_HOUSE     (7 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_HOUSE4            (8 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_SPACE_CENTER_1F   (9 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_SPACE_CENTER_2F   (10 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_GAME_CORNER_1F    (11 | (62 << 8))
+#define MAP_MOSSDEEP_CITY_GAME_CORNER_B1F   (12 | (62 << 8))
+
+#define MAP_GROUPS_COUNT 63
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

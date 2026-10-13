@@ -1636,3 +1636,31 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route124/scripts.inc"
 
 	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"
+
+	.include "data/maps/MossdeepCity/scripts.inc"
+
+	.include "data/maps/MossdeepCity_Gym/scripts.inc"
+
+	.include "data/maps/MossdeepCity_House1/scripts.inc"
+
+	.include "data/maps/MossdeepCity_House2/scripts.inc"
+
+	.include "data/maps/MossdeepCity_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/MossdeepCity_PokemonCenter_2F/scripts.inc"
+
+	.include "data/maps/MossdeepCity_Mart/scripts.inc"
+
+	.include "data/maps/MossdeepCity_House3/scripts.inc"
+
+	.include "data/maps/MossdeepCity_StevensHouse/scripts.inc"
+
+	.include "data/maps/MossdeepCity_House4/scripts.inc"
+
+	.include "data/maps/MossdeepCity_SpaceCenter_1F/scripts.inc"
+
+	.include "data/maps/MossdeepCity_SpaceCenter_2F/scripts.inc"
+
+	.include "data/maps/MossdeepCity_GameCorner_1F/scripts.inc"
+
+	.include "data/maps/MossdeepCity_GameCorner_B1F/scripts.inc"

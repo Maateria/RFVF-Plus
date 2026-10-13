@@ -353,7 +353,7 @@
 #define FLAG_ITEM_ROUTE_124_RED_SHARD            0x14D
 #define FLAG_ITEM_ROUTE_124_BLUE_SHARD           0x14E
 #define FLAG_ITEM_ROUTE_124_YELLOW_SHARD         0x14F
-#define FLAG_0x150               0x150
+#define FLAG_ITEM_MOSSDEEP_CITY_NET_BALL         0x150
 #define FLAG_0x151               0x151
 #define FLAG_0x152               0x152
 #define FLAG_0x153               0x153

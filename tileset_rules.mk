@@ -220,7 +220,7 @@ $(TILESETGFXDIR)/secondary/hoenn_pokemon_center/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 337 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_facility/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 189 -Wnum_tiles
+	$(GFX) $< $@ -num_tiles 369 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_shop/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 302 -Wnum_tiles
@@ -290,3 +290,9 @@ $(TILESETGFXDIR)/secondary/hoenn_mossdeep/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_generic_building2/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 274 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mossdeep_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 65 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mossdeep_game_corner/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 70 -Wnum_tiles

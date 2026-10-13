@@ -307,6 +307,15 @@
 #define METATILE_HoennMossdeep_Door              0x321
 #define METATILE_HoennMossdeep_Door_SpaceCenter  0x36D
 
+// gTileset_HoennMossdeepGameCorner
+#define METATILE_HoennMossdeepGameCorner_CounterClosed_Bottom  0x2B2
+#define METATILE_HoennMossdeepGameCorner_CounterClosed_Top     0x2AA
+#define METATILE_HoennMossdeepGameCorner_CounterOpen_Bottom    0x2B4
+#define METATILE_HoennMossdeepGameCorner_CounterOpen_Top       0x2AC
+
+// gTileset_HoennMossdeepGym
+#define METATILE_HoennMossdeepGym_YellowArrow_Right  0x2D0
+
 // gTileset_HoennPacifidlog
 #define METATILE_HoennPacifidlog_Door                               0x29A
 #define METATILE_HoennPacifidlog_FloatingLogs_HorizontalLeft        0x2D0

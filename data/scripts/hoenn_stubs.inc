@@ -15,3 +15,6 @@ PlayersHouse_2F_EventScript_Notebook::          @ LittlerootTown_BrendansHouse_2
 
 PlayersHouse_2F_EventScript_GameCube::          @ LittlerootTown_BrendansHouse_2F sign (3,1)
 	end
+
+RS_MysteryEventsHouse_EventScript_Door::        @ MossdeepCity_GameCorner_1F sign (3,0)
+	end

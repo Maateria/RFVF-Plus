@@ -2222,3 +2222,47 @@ const u16 gTilesetPalettes_HoennGenericBuilding2[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_generic_building2/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_generic_building2/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennMossdeepGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_mossdeep_gym/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMossdeepGym[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennMossdeepGameCorner[] = INCBIN_U32("data/tilesets/secondary/hoenn_mossdeep_game_corner/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMossdeepGameCorner[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/palettes/15.gbapal"),
+};

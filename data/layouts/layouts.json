@@ -6072,6 +6072,90 @@
       "secondary_tileset": "gTileset_HoennGenericBuilding2",
       "border_filepath": "data/layouts/Route124_DivingTreasureHuntersHouse/border.bin",
       "blockdata_filepath": "data/layouts/Route124_DivingTreasureHuntersHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY",
+      "name": "MossdeepCity_Layout",
+      "width": 80,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennMossdeep",
+      "border_filepath": "data/layouts/MossdeepCity/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_GYM",
+      "name": "MossdeepCity_Gym_Layout",
+      "width": 26,
+      "height": 36,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennMossdeepGym",
+      "border_filepath": "data/layouts/MossdeepCity_Gym/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_Gym/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_STEVENS_HOUSE",
+      "name": "MossdeepCity_StevensHouse_Layout",
+      "width": 11,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/MossdeepCity_StevensHouse/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_StevensHouse/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_SPACE_CENTER_1F",
+      "name": "MossdeepCity_SpaceCenter_1F_Layout",
+      "width": 16,
+      "height": 10,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility",
+      "border_filepath": "data/layouts/MossdeepCity_SpaceCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_SpaceCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_SPACE_CENTER_2F",
+      "name": "MossdeepCity_SpaceCenter_2F_Layout",
+      "width": 16,
+      "height": 10,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility",
+      "border_filepath": "data/layouts/MossdeepCity_SpaceCenter_2F/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_SpaceCenter_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_GAME_CORNER_1F",
+      "name": "MossdeepCity_GameCorner_1F_Layout",
+      "width": 12,
+      "height": 10,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennMossdeepGameCorner",
+      "border_filepath": "data/layouts/MossdeepCity_GameCorner_1F/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_GameCorner_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MOSSDEEP_CITY_GAME_CORNER_B1F",
+      "name": "MossdeepCity_GameCorner_B1F_Layout",
+      "width": 12,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/MossdeepCity_GameCorner_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/MossdeepCity_GameCorner_B1F/map.bin"
     }
   ]
 }

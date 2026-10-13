@@ -315,3 +315,9 @@ const u32 gMetatileAttributes_HoennMossdeep[] = INCBIN_U32("data/tilesets/second
 
 const u16 gMetatiles_HoennGenericBuilding2[] = INCBIN_U16("data/tilesets/secondary/hoenn_generic_building2/metatiles.bin");
 const u32 gMetatileAttributes_HoennGenericBuilding2[] = INCBIN_U32("data/tilesets/secondary/hoenn_generic_building2/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMossdeepGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennMossdeepGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_mossdeep_gym/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMossdeepGameCorner[] = INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/metatiles.bin");
+const u32 gMetatileAttributes_HoennMossdeepGameCorner[] = INCBIN_U32("data/tilesets/secondary/hoenn_mossdeep_game_corner/metatile_attributes.bin");
