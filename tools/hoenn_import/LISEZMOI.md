@@ -1,7 +1,8 @@
 # Importer Hoenn : `import_map.py`
 
 `import_map.py` importe une ville ou une route d'Émeraude depuis pokeemerald, avec tous ses intérieurs (maisons,
-Centre Pokémon, Boutique, Arène...), en une seule commande. Il importe tout sauf les scripts :
+Centre Pokémon, Boutique, Arène...), ou un donjon avec tous ses étages, en une seule commande. Il importe tout sauf les
+scripts :
 
 - **Ce qui est importé :** les maps et leurs liaisons, les portes, les objets au sol et cachés (ramassables), les
   Pokémon sauvages, la météo, la musique d'Émeraude et le point de retour du Centre Pokémon.
@@ -29,8 +30,48 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
   `FallarborTown` (Autéquia), `LavaridgeTown` (Vermilava), `FortreeCity` (Cimetronelle), `LilycoveCity`
   (Nénucrique), `MossdeepCity` (Algatia), `SootopolisCity` (Atalanopolis), `PacifidlogTown` (Pacifiville),
   `EverGrandeCity` (Éternara).
-- **Nom inconnu :** l'outil affiche la liste des noms valides.
+- **Nom inconnu :** l'outil affiche la liste des noms valides (`--help` aussi).
 - **Images :** `--render DOSSIER` enregistre aussi une image PNG de chaque map convertie.
+
+## Les donjons
+
+Un donjon s'importe comme une ville, par son nom anglais d'Émeraude, avec tous ses étages :
+
+```powershell
+uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
+```
+
+- **Les 28 donjons :** `PetalburgWoods` (Bois Clémenti), `RusturfTunnel` (Tunnel Mérazon), `GraniteCave` (Grotte
+  Granite), `MeteorFalls` (Site Météore), `MtChimney` (Mont Chimnée), `JaggedPass` (Sentier Sinuroc), `FieryPath`
+  (Chemin Ardent), `MagmaHideout` (Planque Magma), `NewMauville` (New Lavandia), `AbandonedShip` (Épave), `MtPyre`
+  (Mont Mémoria), `AquaHideout` (Planque Aqua), `ShoalCave` (Grotte Tréfonds), `SeafloorCavern` (Caverne Fondmer),
+  `CaveOfOrigin` (Grotte Origine), `HoennVictoryRoad` (Route Victoire), `Underwater_SootopolisCity` (le passage
+  sous-marin d'Atalanopolis), `DesertRuins` (Ruines Désert), `IslandCave` (Grotte Island), `AncientTomb` (Tombeau
+  Antique), `SealedChamber` (Sanctuaire), `SkyPillar` (Pilier Céleste), `MirageTower` (Tour Mirage), `ScorchedSlab`
+  (Grotte Zénith), `DesertUnderpass` (Voie du Désert), `AlteringCave` (Grotte Métamo), `MarineCave` (Grotte Marine) et
+  `TerraCave` (Grotte Terra). Les fonds marins d'un donjon viennent avec lui (`SeafloorCavern`, `SealedChamber`,
+  `MarineCave`).
+- **Groupe :** leurs maps vont dans `gMapGroup_HoennDungeons` (FRLG a déjà son `gMapGroup_Dungeons`).
+- **Noms déjà pris :** la Route Victoire de Kanto s'appelle déjà `VictoryRoad_1F`. Celle de Hoenn devient
+  `HoennVictoryRoad_1F`, `_B1F` et `_B2F`, avec ses constantes (`MAP_HOENN_VICTORY_ROAD_1F`...), ses labels et ses
+  flags d'objets ; les portes d'Éternara y mènent quand même. C'est `RENAMES` dans `hoenn_decisions.py`. Tout autre
+  nom déjà pris (map, constante, label, flag) est refusé.
+- **Portes rebranchées :** les portes des villes et routes qui attendaient un donjon (`(placeholder)`) y mènent dès
+  qu'il est importé (lignes `Re-linked`).
+- **État après la Ligue :** les Teams Aqua et Magma sont parties, Steven et Wallace aussi ; Wally attend à la sortie
+  de la Route Victoire, Rayquaza, Groudon, Kyogre et les trois Regi attendent qu'on les capture (muets en attendant
+  leurs scripts).
+- **Pas encore accessibles :** le rapport liste les maps qu'on ne peut pas encore atteindre
+  (`can NOT be reached yet`). Elles sont importées quand même :
+  - un script les ouvre : la grotte de Steven au Site Météore et la Grotte Métamo (après la Ligue), la porte du
+    Pilier Céleste, les entrées des Grottes Marine et Terra ;
+  - un script fait plonger : le Sanctuaire, le bas de l'Épave ;
+  - une porte d'eau, que le moteur n'a pas encore (elle reste de la mer) : la Planque Aqua, la Caverne Fondmer, la
+    Grotte Zénith, le passage sous-marin d'Atalanopolis, donc aussi Atalanopolis et la Grotte Origine ;
+  - aucune porte : la marée haute de la Grotte Tréfonds.
+- **`WARNING: no way back` :** une map d'où l'on ne pourrait pas revenir si on y arrivait. Le calcul se fait map par
+  map : pour la Grotte Marine, le fond marin annoncé `with Dive only` est en fait muré (seule la plongée du script y
+  mène).
 
 ## Lire le rapport
 
@@ -58,8 +99,9 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
   - `Wild encounters added` : les Pokémon sauvages ajoutés ;
   - `Heal location` : le point de retour après un K.O. ;
   - `Render check` : chaque nouvelle map et chaque bande de liaison, comparées pixel par pixel à Émeraude ;
-  - `can be reached from LilycoveCity` : la zone est accessible depuis Nénucrique (`with Dive only` : seulement en
-    plongeant).
+  - `can be reached from LilycoveCity` : la zone (pour un donjon, chacune de ses maps) est accessible depuis Nénucrique
+    par des liaisons et des portes qui marchent ici (`with Dive only` : seulement en plongeant ; `can NOT be reached
+    yet` : pas encore).
 - **`REFUSED, nothing written:` :** l'import est refusé, avec toutes les raisons. Rien n'est écrit.
 - **`Files written` :** les fichiers écrits (`A` = ajouté, `M` = modifié), suivis des commandes pour annuler.
 - **Code de sortie :**
@@ -93,8 +135,9 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
 ```
 
 - **Avant :** fermez Porymap et commitez votre travail, sinon l'outil s'arrête sans rien faire.
-- **Ordre :** les zones partent de Nénucrique. Une zone déjà importée est sautée (`déjà là`). L'ordre ne change pas
-  les tilesets : importer la Route 118 avant ou après Lavandia donne les mêmes fichiers.
+- **Ordre :** les villes et routes partent de Nénucrique, puis viennent les 28 donjons. Une zone déjà importée est
+  sautée (`déjà là`). L'ordre ne change pas les tilesets : importer la Route 118 avant ou après Lavandia, ou les
+  donjons dans l'ordre inverse, donne les mêmes fichiers.
 - **Commits :** chaque zone devient un commit `[FEAT] - Import <zone> from Emerald (import_map.py)`. Rien n'est
   poussé. Seul le dernier commit s'annule directement (voir « Annuler un import »).
 - **Options :** `--no-build` saute la compilation de la fin ; `--emerald CHEMIN` donne pokeemerald.
@@ -102,21 +145,27 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
 
 ## Limites
 
-- **Les 57 zones sont acceptées.** Deux cas attendent le travail moteur de l'étape 3, c'est-à-dire la constante
-  `MB_LAVARIDGE_GYM_B1F_WARP` dans `include/constants/metatile_behaviors.h`. Sans elle, ils sont refusés proprement,
-  rien n'est écrit et la raison le dit :
+- **Les 85 zones (57 villes et routes, 28 donjons) sont acceptées.** Certaines attendent le travail moteur de
+  l'étape 3, c'est-à-dire la constante `MB_LAVARIDGE_GYM_B1F_WARP` dans `include/constants/metatile_behaviors.h`.
+  Sans elle, elles sont refusées proprement, rien n'est écrit et la raison le dit :
   - **Vermilava :** les geysers du sous-sol de l'Arène sont la seule sortie ;
-  - **les 7 fonds marins** (`Underwater_Route105`, `Underwater_Route124` à `Underwater_Route129`) : plongée,
-    remontée et carte de la région.
+  - **les 7 fonds marins** (`Underwater_Route105`, `Underwater_Route124` à `Underwater_Route129`) et les donjons qui
+    en ont un (`SeafloorCavern`, `SealedChamber`, `MarineCave`, `AbandonedShip`, `Underwater_SootopolisCity`) :
+    plongée, remontée et carte de la région.
 - **Plongée :** les liaisons `dive` et `emerge` d'Émeraude sont copiées, et le rapport les marque
   `needs Dive in game`. On n'atteint les fonds marins qu'en plongeant. Atalanopolis n'a aucune liaison : on y
-  arrive par le passage sous-marin `Underwater_SootopolisCity`, qui viendra avec les donjons (le rapport dit
+  arrive par le passage sous-marin `Underwater_SootopolisCity`, dont la porte d'eau attend le moteur (le rapport dit
   `can NOT be reached yet`).
+- **Donjons :** les sols fragiles (Grotte Granite, Tour Mirage, Pilier Céleste), les pentes de boue et les rails du
+  Vélo Cross se marchent comme un sol normal ; les combats des Planques Aqua et Magma ont le décor normal ; les
+  plongées, les portes et les marées que règlent les scripts attendent la phase des scripts.
 - **Tilesets jumeaux :** un tileset secondaire FRLG contient au plus 384 metatiles et 376 tuiles. Les plus grands
   d'Émeraude sont coupés en deux (`SIBLINGS` dans `hoenn_decisions.py`) :
   - `HoennMauville2` pour les Routes 110 et 111 ;
   - `HoennSlateport2` pour les Routes 108 et 109 ;
-  - `HoennGenericBuilding2` pour les maisons d'Algatia, d'Atalanopolis, de Vergazon et des Routes 110 et 124.
+  - `HoennGenericBuilding2` pour les maisons d'Algatia, d'Atalanopolis, de Vergazon et des Routes 110 et 124 ;
+  - `HoennFacility2` pour les donjons (Mont Mémoria, Planque Aqua, entrée de New Lavandia, pont de l'Épave) :
+    `HoennFacility` ne change plus.
 - **Pour plus tard :** les scripts, les animations des tilesets secondaires, les portes sans animation (elles
   marchent quand même) et les effets perdus (`DEGRADED`, `no counterpart`). Le rapport les liste.
 

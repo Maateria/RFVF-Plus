@@ -2,7 +2,7 @@
 # requires-python = ">=3.9"
 # dependencies = ["pillow"]
 # ///
-"""Import every Emerald town and route that import_map.py accepts, one after the other, one git commit each.
+"""Import every Emerald town, route and dungeon that import_map.py accepts, one after the other, one git commit each.
 
 Usage, from the repo root in PowerShell (close Porymap and commit your work first):
     uv run tools/hoenn_import/import_all.py --dry-run          (what each unit gives today, writes nothing)
@@ -10,11 +10,14 @@ Usage, from the repo root in PowerShell (close Porymap and commit your work firs
     uv run tools/hoenn_import/import_all.py Route121 Route122  (only these units, in this order)
 Options: --no-build (skip .\\fast_build.cmd at the end), --emerald DIR (pokeemerald, default ..\\pokeemerald).
 
-Units are tried in ORDER, outward from Lilycove where players arrive. The tool accepts all 57 (the 7 underwater
-routes and LavaridgeTown once the engine work of step 3 is in: without it they are refused, the others still
-import). A refused unit is skipped with its reasons (import_map.py writes nothing for it); a unit already imported
-says "Nothing to do", so running it again only imports what is still missing. The order does not change the
-tilesets (natural ids, design 1.8). Each import becomes its own commit,
+Units are tried in ORDER: the 57 towns and routes outward from Lilycove where players arrive, then the 28 dungeons
+(GraniteCave, MtPyre, HoennVictoryRoad...: import_map.py --help lists them), whose maps join gMapGroup_HoennDungeons.
+The tool accepts all 85 (the 7 underwater routes, LavaridgeTown and the underwater dungeon maps once the engine work
+of step 3 is in: without it they are refused, the others still import). A dungeon only scripts open (Marine and Terra
+Cave...) is imported anyway: its report lists the maps the player cannot reach yet. A refused unit is skipped with its
+reasons (import_map.py writes nothing for it); a unit already imported says "Nothing to do", so running it again only
+imports what is still missing. The order does not change the tilesets (natural ids, design 1.8). Each import becomes
+its own commit,
 "[FEAT] - Import <unit> from Emerald (import_map.py)". Nothing is pushed. Only the last one can be undone on its own
 (`git revert`): the units imported after a unit number their maps and flags after its own (LISEZMOI.md).
 Full tool output per unit: build/import_all/<unit>.txt.
@@ -30,7 +33,8 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 IMPORT_MAP = HERE / "import_map.py"
 LOGS = REPO / "build" / "import_all"
-# Outward from Lilycove (survey order). Underwater units last: only Dive reaches them.
+# Towns and routes outward from Lilycove (survey order), underwater units last: only Dive reaches them. Then the
+# dungeons (hoenn_import.dungeon_units), in story order, the optional ones and those only scripts open last.
 ORDER = """LilycoveCity Route121 Route122 Route123 Route120 FortreeCity Route119 Route118
 Route124 MossdeepCity Route125 Route127 Route128 EverGrandeCity Route126 Route129 Route130
 Route131 PacifidlogTown Route132 Route133 Route134
@@ -38,7 +42,11 @@ Route117 VerdanturfTown MauvilleCity Route110 Route111 Route112 LavaridgeTown Ro
 RustboroCity Route116 Route104 Route105 Route106 DewfordTown Route107 Route108 Route109 SlateportCity
 PetalburgCity Route102 OldaleTown Route101 LittlerootTown Route103
 SootopolisCity Underwater_Route124 Underwater_Route126 Underwater_Route127 Underwater_Route128 Underwater_Route129
-Underwater_Route105 Underwater_Route125""".split()
+Underwater_Route105 Underwater_Route125
+PetalburgWoods RusturfTunnel GraniteCave MeteorFalls MtChimney JaggedPass FieryPath MagmaHideout NewMauville
+AbandonedShip MtPyre AquaHideout ShoalCave SeafloorCavern CaveOfOrigin HoennVictoryRoad Underwater_SootopolisCity
+DesertRuins IslandCave AncientTomb SealedChamber SkyPillar MirageTower ScorchedSlab DesertUnderpass AlteringCave
+MarineCave TerraCave""".split()
 # Git for Windows: in PowerShell the first git on the PATH can be devkitPro's, which has no core.autocrlf
 GIT = next((g for g in (r"C:\Program Files\Git\cmd\git.exe",) if os.path.exists(g)), "git")
 

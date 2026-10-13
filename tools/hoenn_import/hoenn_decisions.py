@@ -1,12 +1,31 @@
 """Per-map decisions for importing Hoenn from pret/pokeemerald (plain data, no logic).
 
-Scope: the 57 units of Emerald's gMapGroup_TownsAndRoutes and their interiors (closure rule: design spec 1.3).
+Scope: the 57 units of Emerald's gMapGroup_TownsAndRoutes and their interiors (closure rule: design spec 1.3), and the
+28 dungeon units of its gMapGroup_Dungeons (hoenn_import.dungeon_units).
 RFVF+ players reach Hoenn by ferry after the Hall of Fame, so the tables describe what a player finds after the HoF in
 a normal Emerald playthrough (user decision D1); "RFVF+:" marks a choice made for RFVF+ instead.
 Every object flag of the scope is decided exactly once, in POST_LEAGUE or HIDDEN_BY_MAP_SCRIPT, except item balls'
 FLAG_ITEM_* and field-move obstacles' FLAG_TEMP_* (they keep their flag, spec 1.4 / 1.4a). Objects with flag 0 are
-always placed. Reasons cite the pokeemerald script that sets or clears the flag.
+always placed. Reasons cite the pokeemerald script that sets or clears the flag. Map names are the names here (RENAMES).
 """
+
+# Emerald names that this repo already uses, -> the names here. A map name prefix renames those maps everywhere: their
+# folders, MAP_ and LAYOUT_ constants, layout folders and names, script labels and item flags, and every Emerald warp to
+# them (VictoryRoad_1F -> HoennVictoryRoad_1F, MAP_HOENN_VICTORY_ROAD_1F; Kanto has VictoryRoad_1F and
+# FLAG_HIDDEN_ITEM_VICTORY_ROAD_1F_ULTRA_BALL). Any other clash is refused.
+RENAMES = {"VictoryRoad": "HoennVictoryRoad"}
+# The map group of the dungeons here: FRLG already has a gMapGroup_Dungeons (126 maps).
+DUNGEON_GROUP = "gMapGroup_HoennDungeons"
+# Dungeon units (import_map.py): a map's unit is its name up to the first "_" (GraniteCave_B1F: GraniteCave), except
+# these underwater maps, which go with the place they lead to. Underwater_SootopolisCity is Sootopolis's only way in:
+# a unit of its own, like the Underwater_Route units.
+DUNGEON_UNIT_OF = {
+    "Underwater_SootopolisCity": "Underwater_SootopolisCity",
+    "Underwater_SeafloorCavern": "SeafloorCavern",
+    "Underwater_Route134": "SealedChamber",
+    "Underwater_SealedChamber": "SealedChamber",
+    "Underwater_MarineCave": "MarineCave",
+}
 
 # Emerald secondary palette slot -> FRLG slot, on top of the slot 6 move. FRLG's buy menu loads its frame palette into
 # BG slot 11 (src/shop.c BuyMenuDecompressBgGraphics; Emerald's uses 12), so no palette a clerk's map view shows may
@@ -63,6 +82,9 @@ MOVED_BY_MAP_SCRIPT = {
     ("Route114_FossilManiacsTunnel", "LOCALID_FOSSIL_MANIAC"): (6, 5, "MOVEMENT_TYPE_FACE_DOWN"),
     # Route119_WeatherInstitute_2F_OnTransition (FLAG_SYS_GAME_CLEAR): ..._EventScript_SetScientistPosGameClear
     ("Route119_WeatherInstitute_2F", "LOCALID_WEATHER_INSTITUTE_2F_SCIENTIST"): (2, 2, "MOVEMENT_TYPE_FACE_UP"),
+    # MtPyre_Summit_OnTransition (VAR_MT_PYRE_STATE 2, set by SootopolisCity_EventScript_MaxieArchieLeave): Archie
+    # stands beside Maxie, who keeps map.json's (23,6)
+    ("MtPyre_Summit", "LOCALID_MT_PYRE_SUMMIT_ARCHIE"): (22, 6, "MOVEMENT_TYPE_FACE_UP"),
 }
 # RFVF+ players reach Hoenn by ferry after the Hall of Fame: they find Emerald's post-League state (Team Aqua gone,
 # Game Freak team and the late Fan Club members there). Object flag -> True = shown (flag dropped), False = left out;
@@ -294,6 +316,61 @@ POST_LEAGUE = {
     "FLAG_HIDE_ROUTE_128_STEVEN": (False, "cutscene only: addobject in Route128_EventScript_KyogreAwakenedScene"),
     "FLAG_HIDE_ROUTE_128_ARCHIE": (False, "removed by Route128_EventScript_KyogreAwakenedScene"),
     "FLAG_HIDE_ROUTE_128_MAXIE": (False, "removed by Route128_EventScript_KyogreAwakenedScene"),
+    # Dungeons. Team Aqua and Magma are gone, Steven and Wallace left; the legendaries not caught in a normal
+    # playthrough wait where Emerald puts them after the HoF (silent until scripted, like every NPC)
+    "FLAG_HIDE_PETALBURG_WOODS_AQUA_GRUNT": (False, "removed by PetalburgWoods_EventScript_DevonResearcherPostBattle"),
+    "FLAG_HIDE_PETALBURG_WOODS_DEVON_EMPLOYEE": (False, "removed by PetalburgWoods_EventScript_RemoveDevonResearcher"),
+    "FLAG_HIDE_RUSTURF_TUNNEL_AQUA_GRUNT": (False, "removed by RusturfTunnel_EventScript_Grunt (Peeko rescued)"),
+    "FLAG_HIDE_RUSTURF_TUNNEL_PEEKO": (False, "removed by RusturfTunnel_EventScript_Grunt (Peeko rescued)"),
+    "FLAG_HIDE_RUSTURF_TUNNEL_BRINEY": (False, "removed by RusturfTunnel_EventScript_Grunt (Peeko rescued)"),
+    "FLAG_HIDE_RUSTURF_TUNNEL_WANDA": (False, "tunnel opened (as in Verdanturf): removed by RusturfTunnel_EventScript_SetRusturfTunnelOpen"),
+    "FLAG_HIDE_RUSTURF_TUNNEL_WANDAS_BOYFRIEND": (False, "tunnel opened (as in Verdanturf): removed by RusturfTunnel_EventScript_SetRusturfTunnelOpen"),
+    "FLAG_HIDE_GRANITE_CAVE_STEVEN": (False, "letter delivered: removed by GraniteCave_StevensRoom_EventScript_Steven"),
+    "FLAG_HIDE_METEOR_FALLS_TEAM_MAGMA": (False, "removed by MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene"),
+    "FLAG_HIDE_METEOR_FALLS_TEAM_AQUA": (False, "cutscene only: MeteorFalls_1F_1R_EventScript_MagmaStealsMeteoriteScene"),
+    "FLAG_HIDE_METEOR_FALLS_1F_1R_COZMO": (False, "set by MtChimney_EventScript_Maxie (he is home in Fallarbor)"),
+    "FLAG_HIDE_MT_CHIMNEY_TEAM_MAGMA": (False, "set by MtChimney_EventScript_Maxie"),
+    "FLAG_HIDE_MT_CHIMNEY_TEAM_AQUA": (False, "set by MtChimney_EventScript_Maxie"),
+    "FLAG_HIDE_MT_CHIMNEY_LAVA_COOKIE_LADY": (True, "cleared by MtChimney_EventScript_Maxie"),
+    "FLAG_HIDE_MT_CHIMNEY_TRAINERS": (True, "cleared by LavaridgeTown_EventScript_ShowMtChimneyTrainers"),
+    "FLAG_HIDE_JAGGED_PASS_MAGMA_GUARD": (False, "set by MtPyre_Summit_EventScript_TeamAquaExits"),
+    "FLAG_HIDE_MAGMA_HIDEOUT_GRUNTS": (False, "set by MagmaHideout_4F_EventScript_Maxie"),
+    "FLAG_HIDE_MAGMA_HIDEOUT_4F_GROUDON": (False, "cutscene only: MagmaHideout_4F_EventScript_Maxie"),
+    "FLAG_HIDE_MAGMA_HIDEOUT_4F_GROUDON_ASLEEP": (False, "Groudon awakened: removed by MagmaHideout_4F_EventScript_Maxie"),
+    "FLAG_HIDE_NEW_MAUVILLE_VOLTORB_1": (True, "a Voltorb posing as an item ball until battled (NewMauville_Inside_EventScript_Voltorb1)"),
+    "FLAG_HIDE_NEW_MAUVILLE_VOLTORB_2": (True, "a Voltorb posing as an item ball until battled (NewMauville_Inside_EventScript_Voltorb2)"),
+    "FLAG_HIDE_NEW_MAUVILLE_VOLTORB_3": (True, "a Voltorb posing as an item ball until battled (NewMauville_Inside_EventScript_Voltorb3)"),
+    "FLAG_HIDE_MT_PYRE_SUMMIT_TEAM_AQUA": (False, "set by MtPyre_Summit_EventScript_TeamAquaExits"),
+    "FLAG_HIDE_MT_PYRE_SUMMIT_ARCHIE": (True, "cleared by SootopolisCity_EventScript_MaxieArchieLeave: waits to return the orbs (MtPyre_Summit_EventScript_ArchieMaxieReturnOrbs)"),
+    "FLAG_HIDE_MT_PYRE_SUMMIT_MAXIE": (True, "cleared by SootopolisCity_EventScript_MaxieArchieLeave: waits to return the orbs (MtPyre_Summit_EventScript_ArchieMaxieReturnOrbs)"),
+    "FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNT_1_BLOCKING_ENTRANCE": (False, "set by SlateportCity_Harbor_EventScript_AquaEscapeScene"),
+    "FLAG_HIDE_AQUA_HIDEOUT_1F_GRUNT_2_BLOCKING_ENTRANCE": (False, "set by SlateportCity_Harbor_EventScript_AquaEscapeScene"),
+    "FLAG_HIDE_AQUA_HIDEOUT_GRUNTS": (False, "set by MossdeepCity_Gym_EventScript_TateAndLizaDefeated"),
+    "FLAG_HIDE_AQUA_HIDEOUT_B1F_ELECTRODE_1": (True, "an Electrode posing as an item ball until battled (AquaHideout_B1F_EventScript_Electrode1)"),
+    "FLAG_HIDE_AQUA_HIDEOUT_B1F_ELECTRODE_2": (True, "an Electrode posing as an item ball until battled (AquaHideout_B1F_EventScript_Electrode2)"),
+    "FLAG_HIDE_AQUA_HIDEOUT_B2F_SUBMARINE_SHADOW": (False, "removed by AquaHideout_B2F_EventScript_SubmarineEscape"),
+    "FLAG_HIDE_UNDERWATER_SEA_FLOOR_CAVERN_STOLEN_SUBMARINE": (False, "set by Underwater_SeafloorCavern_EventScript_HideSubmarine (Kyogre awakened)"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_ENTRANCE_AQUA_GRUNT": (False, "set by MossdeepCity_StevensHouse_EventScript_StevenGivesDive"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_AQUA_GRUNTS": (False, "set by SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE": (False, "cutscene only: SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_ARCHIE": (False, "cutscene only: SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_MAXIE": (False, "cutscene only: SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_MAGMA_GRUNTS": (False, "cutscene only: SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre"),
+    "FLAG_HIDE_SEAFLOOR_CAVERN_ROOM_9_KYOGRE_ASLEEP": (False, "Kyogre awakened: removed by SeafloorCavern_Room9_EventScript_ArchieAwakenKyogre"),
+    "FLAG_HIDE_CAVE_OF_ORIGIN_B1F_WALLACE": (False, "removed by CaveOfOrigin_B1F_EventScript_AtSkyPillar"),
+    "FLAG_HIDE_SKY_PILLAR_WALLACE": (False, "crisis only: removed by SkyPillar_Outside_EventScript_WallaceScene"),
+    "FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA": (False, "removed by SkyPillar_Top_EventScript_AwakenRayquaza (it flew to Sootopolis)"),
+    "FLAG_HIDE_SKY_PILLAR_TOP_RAYQUAZA_STILL": (True, "back after the crisis until caught: SkyPillar_Top_EventScript_ShowRayquaza"),
+    "FLAG_HIDE_VICTORY_ROAD_ENTRANCE_WALLY": (False, "set by the HoF (EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags)"),
+    "FLAG_HIDE_VICTORY_ROAD_EXIT_WALLY": (True, "waits for a rematch: cleared by the HoF (EverGrandeCity_HallOfFame_EventScript_SetGameClearFlags)"),
+    "FLAG_HIDE_REGIROCK": (True, "in its chamber until caught (DesertRuins_EventScript_ShowRegirock)"),
+    "FLAG_HIDE_REGICE": (True, "in its chamber until caught (IslandCave_EventScript_ShowRegice)"),
+    "FLAG_HIDE_REGISTEEL": (True, "in its chamber until caught (AncientTomb_EventScript_ShowRegisteel)"),
+    "FLAG_HIDE_MIRAGE_TOWER_ROOT_FOSSIL": (True, "no fossil taken: the tower still stands on Route 111 (its map.json layout)"),
+    "FLAG_HIDE_MIRAGE_TOWER_CLAW_FOSSIL": (True, "no fossil taken: the tower still stands on Route 111 (its map.json layout)"),
+    "FLAG_HIDE_DESERT_UNDERPASS_FOSSIL": (False, "no Mirage Tower fossil taken: only Route111_EventScript_MirageTowerDisappear clears it"),
+    "FLAG_HIDE_MARINE_CAVE_KYOGRE": (True, "there after the HoF until caught (MarineCave_End_EventScript_ShowKyogre)"),
+    "FLAG_HIDE_TERRA_CAVE_GROUDON": (True, "there after the HoF until caught (TerraCave_End_EventScript_ShowGroudon)"),
 }
 # Emerald signs no tile can read: (map, x, y) -> where RFVF+ puts them. Lilycove Dept Store 1F's floor list lies below
 # the 18x8 map: it goes on the button panel left of the elevator door (read facing north, as in Emerald).
@@ -303,7 +380,9 @@ SIGN_MOVES = {("LilycoveCity_DepartmentStore_1F", 0, 8): (1, 1)}
 # IsMirageIslandPresent), Route111 (LAYOUT_ROUTE111_NO_MIRAGE_TOWER: SetMirageTowerVisibility, random until the fossil
 # is taken), SootopolisCity (LEGENDS_BATTLE: weather crisis only), SootopolisCity_MysteryEventsHouse_1F
 # (STAIRS_UNBLOCKED: an e-Reader trainer visits), LittlerootTown_ProfessorBirchsLab (WITH_TABLE: every Hoenn Pokemon
-# caught, Johto starters).
+# caught, Johto starters). Dungeons: the Sky Pillar keeps its cracked floors (map.json; the CLEAN layouts are for
+# VAR_SKY_PILLAR_STATE < 2, before the Sootopolis crisis), Shoal Cave its low tide (the high tide layouts only by
+# UpdateShoalTideFlag, a clock), the Mirage Tower has no other layout.
 START_LAYOUT = {"Route131": "LAYOUT_ROUTE131_SKY_PILLAR"}  # Route131_OnTransition: Route131_EventScript_SetLayout
 # Emerald secondary tilesets one FRLG secondary cannot hold (384 metatiles, 376 tiles): the Emerald layouts of each extra
 # sibling, gTileset_Hoenn<Name>2, 3... (design 1.8); every other layout keeps gTileset_Hoenn<Name>. Siblings share the
@@ -321,4 +400,12 @@ SIBLINGS = {
         "LAYOUT_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE", "LAYOUT_SOOTOPOLIS_CITY_HOUSE1", "LAYOUT_SOOTOPOLIS_CITY_HOUSE2",
         "LAYOUT_SOOTOPOLIS_CITY_HOUSE3", "LAYOUT_SOOTOPOLIS_CITY_LOTAD_AND_SEEDOT_HOUSE",
         "LAYOUT_VERDANTURF_TOWN_WANDAS_HOUSE"}],
+    # HoennFacility, pruned before natural ids, holds what the towns and routes need (266/384); with the dungeons it
+    # would need 431. Their Facility layouts come here, so HoennFacility never grows again.
+    "gTileset_Facility": [{
+        "LAYOUT_MT_PYRE_1F", "LAYOUT_MT_PYRE_2F", "LAYOUT_MT_PYRE_3F", "LAYOUT_MT_PYRE_4F", "LAYOUT_MT_PYRE_5F",
+        "LAYOUT_MT_PYRE_6F", "LAYOUT_MT_PYRE_EXTERIOR", "LAYOUT_MT_PYRE_SUMMIT", "LAYOUT_AQUA_HIDEOUT_1F",
+        "LAYOUT_AQUA_HIDEOUT_B1F", "LAYOUT_AQUA_HIDEOUT_B2F", "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP1",
+        "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP2", "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP3", "LAYOUT_NEW_MAUVILLE_ENTRANCE",
+        "LAYOUT_ABANDONED_SHIP_DECK", "LAYOUT_ABANDONED_SHIP_CAPTAINS_OFFICE"}],
 }
