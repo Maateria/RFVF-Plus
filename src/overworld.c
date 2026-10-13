@@ -1070,6 +1070,8 @@ static u16 GetLocationMusic(struct WarpData * warp)
     return Overworld_GetMapHeaderByGroupAndId(warp->mapGroup, warp->mapNum)->music;
 }
 
+// MUS_ROUTE118 (0x7FFF) is no song: Emerald's Route 118 plays Route 110's music on its Mauville side, Route 119's
+// elsewhere (pokeemerald src/overworld.c). Played as is, 0x7FFF would read far past gSongTable.
 static u16 GetCurrLocationDefaultMusic(void)
 {
     u16 music;
@@ -1078,6 +1080,8 @@ static u16 GetCurrLocationDefaultMusic(void)
     {
         music = MUS_GSC_PEWTER;
     }
+    if (music == MUS_ROUTE118)
+        music = gSaveBlock1Ptr->pos.x < 24 ? MUS_ROUTE110 : MUS_ROUTE119;
     return music;
 }
 
@@ -1088,6 +1092,8 @@ static u16 GetWarpDestinationMusic(void)
     {
         music = MUS_GSC_PEWTER;
     }
+    if (music == MUS_ROUTE118) // Emerald tests for the map Mauville City: its section is the same
+        music = gMapHeader.regionMapSectionId == MAPSEC_MAUVILLE_CITY ? MUS_ROUTE110 : MUS_ROUTE119;
     return music;
 }
 
