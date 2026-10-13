@@ -31,7 +31,7 @@
       "x": 38,
       "y": 26,
       "elevation": 3,
-      "dest_map": "MAP_UNDERWATER_ROUTE128",
+      "dest_map": "MAP_UNDERWATER_SEAFLOOR_CAVERN",
       "dest_warp_id": "0"
     }
   ],

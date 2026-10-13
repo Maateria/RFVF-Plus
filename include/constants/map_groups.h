@@ -939,6 +939,17 @@
 #define MAP_SHOAL_CAVE_HIGH_TIDE_ENTRANCE_ROOM    (55 | (73 << 8))
 #define MAP_SHOAL_CAVE_HIGH_TIDE_INNER_ROOM       (56 | (73 << 8))
 #define MAP_SHOAL_CAVE_LOW_TIDE_ICE_ROOM          (57 | (73 << 8))
+#define MAP_UNDERWATER_SEAFLOOR_CAVERN            (58 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ENTRANCE              (59 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM1                 (60 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM2                 (61 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM3                 (62 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM4                 (63 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM5                 (64 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM6                 (65 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM7                 (66 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM8                 (67 | (73 << 8))
+#define MAP_SEAFLOOR_CAVERN_ROOM9                 (68 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

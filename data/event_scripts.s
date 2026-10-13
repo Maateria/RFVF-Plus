@@ -1972,3 +1972,25 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/ShoalCave_HighTideInnerRoom/scripts.inc"
 
 	.include "data/maps/ShoalCave_LowTideIceRoom/scripts.inc"
+
+	.include "data/maps/Underwater_SeafloorCavern/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Entrance/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room1/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room2/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room3/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room4/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room5/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room6/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room7/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room8/scripts.inc"
+
+	.include "data/maps/SeafloorCavern_Room9/scripts.inc"
