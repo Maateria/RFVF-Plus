@@ -10072,6 +10072,60 @@ const struct WildPokemon gHoennVictoryRoad_B2F_FishingMons[] =
 
 const struct WildPokemonInfo gHoennVictoryRoad_B2F_FishingMonsInfo = { 30, gHoennVictoryRoad_B2F_FishingMons };
 
+const struct WildPokemon gSkyPillar_1F_LandMons[] =
+{
+    { 33, 33, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 34, 34, SPECIES_SABLEYE },
+    { 36, 36, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_BANETTE },
+    { 38, 38, SPECIES_BANETTE },
+    { 36, 36, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_CLAYDOL },
+    { 38, 38, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_CLAYDOL },
+    { 38, 38, SPECIES_CLAYDOL },
+};
+
+const struct WildPokemonInfo gSkyPillar_1F_LandMonsInfo = { 10, gSkyPillar_1F_LandMons };
+
+const struct WildPokemon gSkyPillar_3F_LandMons[] =
+{
+    { 33, 33, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 34, 34, SPECIES_SABLEYE },
+    { 36, 36, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_BANETTE },
+    { 38, 38, SPECIES_BANETTE },
+    { 36, 36, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_CLAYDOL },
+    { 38, 38, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_CLAYDOL },
+    { 38, 38, SPECIES_CLAYDOL },
+};
+
+const struct WildPokemonInfo gSkyPillar_3F_LandMonsInfo = { 10, gSkyPillar_3F_LandMons };
+
+const struct WildPokemon gSkyPillar_5F_LandMons[] =
+{
+    { 33, 33, SPECIES_SABLEYE },
+    { 34, 34, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 34, 34, SPECIES_SABLEYE },
+    { 36, 36, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_BANETTE },
+    { 38, 38, SPECIES_BANETTE },
+    { 36, 36, SPECIES_CLAYDOL },
+    { 37, 37, SPECIES_CLAYDOL },
+    { 38, 38, SPECIES_ALTARIA },
+    { 39, 39, SPECIES_ALTARIA },
+    { 39, 39, SPECIES_ALTARIA },
+};
+
+const struct WildPokemonInfo gSkyPillar_5F_LandMonsInfo = { 10, gSkyPillar_5F_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -13037,6 +13091,42 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gHoennVictoryRoad_B2F_FishingMonsInfo,
         .fishingMonsInfo_LG = &gHoennVictoryRoad_B2F_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(SKY_PILLAR_1F),
+        .mapNum = MAP_NUM(SKY_PILLAR_1F),
+        .landMonsInfo_FR = &gSkyPillar_1F_LandMonsInfo,
+        .landMonsInfo_LG = &gSkyPillar_1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(SKY_PILLAR_3F),
+        .mapNum = MAP_NUM(SKY_PILLAR_3F),
+        .landMonsInfo_FR = &gSkyPillar_3F_LandMonsInfo,
+        .landMonsInfo_LG = &gSkyPillar_3F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(SKY_PILLAR_5F),
+        .mapNum = MAP_NUM(SKY_PILLAR_5F),
+        .landMonsInfo_FR = &gSkyPillar_5F_LandMonsInfo,
+        .landMonsInfo_LG = &gSkyPillar_5F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).

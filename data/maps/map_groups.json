@@ -1036,6 +1036,14 @@
     "Underwater_Route134",
     "Underwater_SealedChamber",
     "SealedChamber_OuterRoom",
-    "SealedChamber_InnerRoom"
+    "SealedChamber_InnerRoom",
+    "SkyPillar_Entrance",
+    "SkyPillar_Outside",
+    "SkyPillar_1F",
+    "SkyPillar_2F",
+    "SkyPillar_3F",
+    "SkyPillar_4F",
+    "SkyPillar_5F",
+    "SkyPillar_Top"
   ]
 }

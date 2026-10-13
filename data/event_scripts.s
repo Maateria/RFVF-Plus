@@ -2028,3 +2028,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/SealedChamber_OuterRoom/scripts.inc"
 
 	.include "data/maps/SealedChamber_InnerRoom/scripts.inc"
+
+	.include "data/maps/SkyPillar_Entrance/scripts.inc"
+
+	.include "data/maps/SkyPillar_Outside/scripts.inc"
+
+	.include "data/maps/SkyPillar_1F/scripts.inc"
+
+	.include "data/maps/SkyPillar_2F/scripts.inc"
+
+	.include "data/maps/SkyPillar_3F/scripts.inc"
+
+	.include "data/maps/SkyPillar_4F/scripts.inc"
+
+	.include "data/maps/SkyPillar_5F/scripts.inc"
+
+	.include "data/maps/SkyPillar_Top/scripts.inc"

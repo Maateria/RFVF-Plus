@@ -967,6 +967,14 @@
 #define MAP_UNDERWATER_SEALED_CHAMBER                (83 | (73 << 8))
 #define MAP_SEALED_CHAMBER_OUTER_ROOM                (84 | (73 << 8))
 #define MAP_SEALED_CHAMBER_INNER_ROOM                (85 | (73 << 8))
+#define MAP_SKY_PILLAR_ENTRANCE                      (86 | (73 << 8))
+#define MAP_SKY_PILLAR_OUTSIDE                       (87 | (73 << 8))
+#define MAP_SKY_PILLAR_1F                            (88 | (73 << 8))
+#define MAP_SKY_PILLAR_2F                            (89 | (73 << 8))
+#define MAP_SKY_PILLAR_3F                            (90 | (73 << 8))
+#define MAP_SKY_PILLAR_4F                            (91 | (73 << 8))
+#define MAP_SKY_PILLAR_5F                            (92 | (73 << 8))
+#define MAP_SKY_PILLAR_TOP                           (93 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

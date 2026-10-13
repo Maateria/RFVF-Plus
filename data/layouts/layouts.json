@@ -7920,6 +7920,102 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/SealedChamber_InnerRoom/border.bin",
       "blockdata_filepath": "data/layouts/SealedChamber_InnerRoom/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_ENTRANCE",
+      "name": "SkyPillar_Entrance_Layout",
+      "width": 18,
+      "height": 18,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/SkyPillar_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_OUTSIDE",
+      "name": "SkyPillar_Outside_Layout",
+      "width": 28,
+      "height": 23,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_Outside/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_Outside/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_1F",
+      "name": "SkyPillar_1F_Layout",
+      "width": 14,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_1F/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_2F",
+      "name": "SkyPillar_2F_Layout",
+      "width": 14,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_2F/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_3F",
+      "name": "SkyPillar_3F_Layout",
+      "width": 14,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_3F/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_3F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_4F",
+      "name": "SkyPillar_4F_Layout",
+      "width": 14,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_4F/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_4F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_5F",
+      "name": "SkyPillar_5F_Layout",
+      "width": 14,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_5F/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_5F/map.bin"
+    },
+    {
+      "id": "LAYOUT_SKY_PILLAR_TOP",
+      "name": "SkyPillar_Top_Layout",
+      "width": 27,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennPacifidlog",
+      "border_filepath": "data/layouts/SkyPillar_Top/border.bin",
+      "blockdata_filepath": "data/layouts/SkyPillar_Top/map.bin"
     }
   ]
 }
