@@ -339,6 +339,7 @@
 #define MAP_SLATEPORT_CITY                       (117 | (3 << 8))
 #define MAP_SOOTOPOLIS_CITY                      (118 | (3 << 8))
 #define MAP_UNDERWATER_ROUTE124                  (119 | (3 << 8))
+#define MAP_UNDERWATER_ROUTE126                  (120 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

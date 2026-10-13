@@ -8779,6 +8779,17 @@ const struct WildPokemon gUnderwater_Route124_WaterMons[] =
 
 const struct WildPokemonInfo gUnderwater_Route124_WaterMonsInfo = { 4, gUnderwater_Route124_WaterMons };
 
+const struct WildPokemon gUnderwater_Route126_WaterMons[] =
+{
+    { 20, 30, SPECIES_CLAMPERL },
+    { 20, 30, SPECIES_CHINCHOU },
+    { 30, 35, SPECIES_CLAMPERL },
+    { 30, 35, SPECIES_RELICANTH },
+    { 30, 35, SPECIES_RELICANTH },
+};
+
+const struct WildPokemonInfo gUnderwater_Route126_WaterMonsInfo = { 4, gUnderwater_Route126_WaterMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11068,6 +11079,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .landMonsInfo_LG = NULL,
         .waterMonsInfo_FR = &gUnderwater_Route124_WaterMonsInfo,
         .waterMonsInfo_LG = &gUnderwater_Route124_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(UNDERWATER_ROUTE126),
+        .mapNum = MAP_NUM(UNDERWATER_ROUTE126),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = &gUnderwater_Route126_WaterMonsInfo,
+        .waterMonsInfo_LG = &gUnderwater_Route126_WaterMonsInfo,
         .rockSmashMonsInfo_FR = NULL,
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = NULL,
