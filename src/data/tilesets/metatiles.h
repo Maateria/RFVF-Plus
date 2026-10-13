@@ -321,3 +321,6 @@ const u32 gMetatileAttributes_HoennMossdeepGym[] = INCBIN_U32("data/tilesets/sec
 
 const u16 gMetatiles_HoennMossdeepGameCorner[] = INCBIN_U16("data/tilesets/secondary/hoenn_mossdeep_game_corner/metatiles.bin");
 const u32 gMetatileAttributes_HoennMossdeepGameCorner[] = INCBIN_U32("data/tilesets/secondary/hoenn_mossdeep_game_corner/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennCave[] = INCBIN_U16("data/tilesets/secondary/hoenn_cave/metatiles.bin");
+const u32 gMetatileAttributes_HoennCave[] = INCBIN_U32("data/tilesets/secondary/hoenn_cave/metatile_attributes.bin");

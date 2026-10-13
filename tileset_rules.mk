@@ -296,3 +296,6 @@ $(TILESETGFXDIR)/secondary/hoenn_mossdeep_gym/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_mossdeep_game_corner/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 70 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_cave/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 282 -Wnum_tiles

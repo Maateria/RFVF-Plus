@@ -1187,3 +1187,14 @@ const struct Tileset gTileset_HoennMossdeepGameCorner =
 	.metatileAttributes = gMetatileAttributes_HoennMossdeepGameCorner,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennCave = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennCave,
+	.palettes = gTilesetPalettes_HoennCave,
+	.metatiles = gMetatiles_HoennCave,
+	.metatileAttributes = gMetatileAttributes_HoennCave,
+	.callback = NULL
+};

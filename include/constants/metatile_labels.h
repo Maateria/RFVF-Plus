@@ -126,6 +126,22 @@
 #define METATILE_HoennBrendansMaysHouse_MovingBox_Closed  0x2E8
 #define METATILE_HoennBrendansMaysHouse_MovingBox_Open    0x2F0
 
+// gTileset_HoennCave
+#define METATILE_HoennCave_CrackedFloor                       0x2AF
+#define METATILE_HoennCave_CrackedFloor_Hole                  0x286
+#define METATILE_HoennCave_EntranceCover                      0x2A9
+#define METATILE_HoennCave_SealedChamberBraille_Mid           0x2B5
+#define METATILE_HoennCave_SealedChamberEntrance_BottomLeft   0x2B2
+#define METATILE_HoennCave_SealedChamberEntrance_BottomMid    0x2B3
+#define METATILE_HoennCave_SealedChamberEntrance_BottomRight  0x2B4
+#define METATILE_HoennCave_SealedChamberEntrance_TopLeft      0x2AA
+#define METATILE_HoennCave_SealedChamberEntrance_TopMid       0x2AB
+#define METATILE_HoennCave_SealedChamberEntrance_TopRight     0x2AC
+#define METATILE_HoennCave_ShoalCave_BlueStone_Large          0x3D9
+#define METATILE_HoennCave_ShoalCave_BlueStone_Small          0x3DB
+#define METATILE_HoennCave_ShoalCave_DirtPile_Large           0x3D8
+#define METATILE_HoennCave_ShoalCave_DirtPile_Small           0x3DA
+
 // gTileset_HoennContest
 #define METATILE_HoennContest_CounterFlap_Bottom  0x359
 #define METATILE_HoennContest_CounterFlap_Top     0x351
