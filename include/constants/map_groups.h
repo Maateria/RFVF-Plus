@@ -881,8 +881,12 @@
 #define MAP_SOOTOPOLIS_CITY_MYSTERY_EVENTS_HOUSE_B1F (14 | (72 << 8))
 
 // gMapGroup_HoennDungeons
-#define MAP_PETALBURG_WOODS (0 | (73 << 8))
-#define MAP_RUSTURF_TUNNEL  (1 | (73 << 8))
+#define MAP_PETALBURG_WOODS           (0 | (73 << 8))
+#define MAP_RUSTURF_TUNNEL            (1 | (73 << 8))
+#define MAP_GRANITE_CAVE_1F           (2 | (73 << 8))
+#define MAP_GRANITE_CAVE_B1F          (3 | (73 << 8))
+#define MAP_GRANITE_CAVE_B2F          (4 | (73 << 8))
+#define MAP_GRANITE_CAVE_STEVENS_ROOM (5 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

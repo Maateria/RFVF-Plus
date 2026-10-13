@@ -952,6 +952,10 @@
   ],
   "gMapGroup_HoennDungeons": [
     "PetalburgWoods",
-    "RusturfTunnel"
+    "RusturfTunnel",
+    "GraniteCave_1F",
+    "GraniteCave_B1F",
+    "GraniteCave_B2F",
+    "GraniteCave_StevensRoom"
   ]
 }

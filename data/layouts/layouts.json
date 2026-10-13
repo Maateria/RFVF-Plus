@@ -6912,6 +6912,54 @@
       "secondary_tileset": "gTileset_HoennRusturfTunnel",
       "border_filepath": "data/layouts/RusturfTunnel/border.bin",
       "blockdata_filepath": "data/layouts/RusturfTunnel/map.bin"
+    },
+    {
+      "id": "LAYOUT_GRANITE_CAVE_1F",
+      "name": "GraniteCave_1F_Layout",
+      "width": 42,
+      "height": 15,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/GraniteCave_1F/border.bin",
+      "blockdata_filepath": "data/layouts/GraniteCave_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_GRANITE_CAVE_B1F",
+      "name": "GraniteCave_B1F_Layout",
+      "width": 32,
+      "height": 26,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/GraniteCave_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/GraniteCave_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_GRANITE_CAVE_B2F",
+      "name": "GraniteCave_B2F_Layout",
+      "width": 32,
+      "height": 26,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/GraniteCave_B2F/border.bin",
+      "blockdata_filepath": "data/layouts/GraniteCave_B2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_GRANITE_CAVE_STEVENS_ROOM",
+      "name": "GraniteCave_StevensRoom_Layout",
+      "width": 15,
+      "height": 14,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/GraniteCave_StevensRoom/border.bin",
+      "blockdata_filepath": "data/layouts/GraniteCave_StevensRoom/map.bin"
     }
   ]
 }

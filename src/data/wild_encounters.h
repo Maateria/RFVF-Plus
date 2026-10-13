@@ -8826,6 +8826,89 @@ const struct WildPokemon gRusturfTunnel_LandMons[] =
 
 const struct WildPokemonInfo gRusturfTunnel_LandMonsInfo = { 10, gRusturfTunnel_LandMons };
 
+const struct WildPokemon gGraniteCave_1F_LandMons[] =
+{
+    { 7, 7, SPECIES_ZUBAT },
+    { 8, 8, SPECIES_MAKUHITA },
+    { 7, 7, SPECIES_MAKUHITA },
+    { 8, 8, SPECIES_ZUBAT },
+    { 9, 9, SPECIES_MAKUHITA },
+    { 8, 8, SPECIES_ABRA },
+    { 10, 10, SPECIES_MAKUHITA },
+    { 6, 6, SPECIES_MAKUHITA },
+    { 7, 7, SPECIES_GEODUDE },
+    { 8, 8, SPECIES_GEODUDE },
+    { 6, 6, SPECIES_GEODUDE },
+    { 9, 9, SPECIES_GEODUDE },
+};
+
+const struct WildPokemonInfo gGraniteCave_1F_LandMonsInfo = { 10, gGraniteCave_1F_LandMons };
+
+const struct WildPokemon gGraniteCave_B1F_LandMons[] =
+{
+    { 9, 9, SPECIES_ZUBAT },
+    { 10, 10, SPECIES_ARON },
+    { 9, 9, SPECIES_ARON },
+    { 11, 11, SPECIES_ARON },
+    { 10, 10, SPECIES_ZUBAT },
+    { 9, 9, SPECIES_ABRA },
+    { 10, 10, SPECIES_MAKUHITA },
+    { 11, 11, SPECIES_MAKUHITA },
+    { 10, 10, SPECIES_SABLEYE },
+    { 10, 10, SPECIES_SABLEYE },
+    { 9, 9, SPECIES_SABLEYE },
+    { 11, 11, SPECIES_SABLEYE },
+};
+
+const struct WildPokemonInfo gGraniteCave_B1F_LandMonsInfo = { 10, gGraniteCave_B1F_LandMons };
+
+const struct WildPokemon gGraniteCave_B2F_LandMons[] =
+{
+    { 10, 10, SPECIES_ZUBAT },
+    { 11, 11, SPECIES_ARON },
+    { 10, 10, SPECIES_ARON },
+    { 11, 11, SPECIES_ZUBAT },
+    { 12, 12, SPECIES_ARON },
+    { 10, 10, SPECIES_ABRA },
+    { 10, 10, SPECIES_SABLEYE },
+    { 11, 11, SPECIES_SABLEYE },
+    { 12, 12, SPECIES_SABLEYE },
+    { 10, 10, SPECIES_SABLEYE },
+    { 12, 12, SPECIES_SABLEYE },
+    { 10, 10, SPECIES_SABLEYE },
+};
+
+const struct WildPokemonInfo gGraniteCave_B2F_LandMonsInfo = { 10, gGraniteCave_B2F_LandMons };
+
+const struct WildPokemon gGraniteCave_B2F_RockSmashMons[] =
+{
+    { 10, 15, SPECIES_GEODUDE },
+    { 10, 20, SPECIES_NOSEPASS },
+    { 5, 10, SPECIES_GEODUDE },
+    { 15, 20, SPECIES_GEODUDE },
+    { 15, 20, SPECIES_GEODUDE },
+};
+
+const struct WildPokemonInfo gGraniteCave_B2F_RockSmashMonsInfo = { 20, gGraniteCave_B2F_RockSmashMons };
+
+const struct WildPokemon gGraniteCave_StevensRoom_LandMons[] =
+{
+    { 7, 7, SPECIES_ZUBAT },
+    { 8, 8, SPECIES_MAKUHITA },
+    { 7, 7, SPECIES_MAKUHITA },
+    { 8, 8, SPECIES_ZUBAT },
+    { 9, 9, SPECIES_MAKUHITA },
+    { 8, 8, SPECIES_ABRA },
+    { 10, 10, SPECIES_MAKUHITA },
+    { 6, 6, SPECIES_MAKUHITA },
+    { 7, 7, SPECIES_ARON },
+    { 8, 8, SPECIES_ARON },
+    { 7, 7, SPECIES_ARON },
+    { 8, 8, SPECIES_ARON },
+};
+
+const struct WildPokemonInfo gGraniteCave_StevensRoom_LandMonsInfo = { 10, gGraniteCave_StevensRoom_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11149,6 +11232,54 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(RUSTURF_TUNNEL),
         .landMonsInfo_FR = &gRusturfTunnel_LandMonsInfo,
         .landMonsInfo_LG = &gRusturfTunnel_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(GRANITE_CAVE_1F),
+        .mapNum = MAP_NUM(GRANITE_CAVE_1F),
+        .landMonsInfo_FR = &gGraniteCave_1F_LandMonsInfo,
+        .landMonsInfo_LG = &gGraniteCave_1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(GRANITE_CAVE_B1F),
+        .mapNum = MAP_NUM(GRANITE_CAVE_B1F),
+        .landMonsInfo_FR = &gGraniteCave_B1F_LandMonsInfo,
+        .landMonsInfo_LG = &gGraniteCave_B1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(GRANITE_CAVE_B2F),
+        .mapNum = MAP_NUM(GRANITE_CAVE_B2F),
+        .landMonsInfo_FR = &gGraniteCave_B2F_LandMonsInfo,
+        .landMonsInfo_LG = &gGraniteCave_B2F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = &gGraniteCave_B2F_RockSmashMonsInfo,
+        .rockSmashMonsInfo_LG = &gGraniteCave_B2F_RockSmashMonsInfo,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(GRANITE_CAVE_STEVENS_ROOM),
+        .mapNum = MAP_NUM(GRANITE_CAVE_STEVENS_ROOM),
+        .landMonsInfo_FR = &gGraniteCave_StevensRoom_LandMonsInfo,
+        .landMonsInfo_LG = &gGraniteCave_StevensRoom_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

@@ -1860,3 +1860,11 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/PetalburgWoods/scripts.inc"
 
 	.include "data/maps/RusturfTunnel/scripts.inc"
+
+	.include "data/maps/GraniteCave_1F/scripts.inc"
+
+	.include "data/maps/GraniteCave_B1F/scripts.inc"
+
+	.include "data/maps/GraniteCave_B2F/scripts.inc"
+
+	.include "data/maps/GraniteCave_StevensRoom/scripts.inc"
