@@ -8136,6 +8136,30 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/MarineCave_End/border.bin",
       "blockdata_filepath": "data/layouts/MarineCave_End/map.bin"
+    },
+    {
+      "id": "LAYOUT_TERRA_CAVE_ENTRANCE",
+      "name": "TerraCave_Entrance_Layout",
+      "width": 20,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/TerraCave_Entrance/border.bin",
+      "blockdata_filepath": "data/layouts/TerraCave_Entrance/map.bin"
+    },
+    {
+      "id": "LAYOUT_TERRA_CAVE_END",
+      "name": "TerraCave_End_Layout",
+      "width": 27,
+      "height": 30,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennCave",
+      "border_filepath": "data/layouts/TerraCave_End/border.bin",
+      "blockdata_filepath": "data/layouts/TerraCave_End/map.bin"
     }
   ]
 }

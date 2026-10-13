@@ -985,6 +985,8 @@
 #define MAP_UNDERWATER_MARINE_CAVE                   (101 | (73 << 8))
 #define MAP_MARINE_CAVE_ENTRANCE                     (102 | (73 << 8))
 #define MAP_MARINE_CAVE_END                          (103 | (73 << 8))
+#define MAP_TERRA_CAVE_ENTRANCE                      (104 | (73 << 8))
+#define MAP_TERRA_CAVE_END                           (105 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

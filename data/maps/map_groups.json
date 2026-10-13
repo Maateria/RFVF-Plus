@@ -1054,6 +1054,8 @@
     "AlteringCave",
     "Underwater_MarineCave",
     "MarineCave_Entrance",
-    "MarineCave_End"
+    "MarineCave_End",
+    "TerraCave_Entrance",
+    "TerraCave_End"
   ]
 }

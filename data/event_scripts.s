@@ -2064,3 +2064,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MarineCave_Entrance/scripts.inc"
 
 	.include "data/maps/MarineCave_End/scripts.inc"
+
+	.include "data/maps/TerraCave_Entrance/scripts.inc"
+
+	.include "data/maps/TerraCave_End/scripts.inc"
