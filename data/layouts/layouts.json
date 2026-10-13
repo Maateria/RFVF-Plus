@@ -6156,6 +6156,18 @@
       "secondary_tileset": "gTileset_HoennGenericBuilding2",
       "border_filepath": "data/layouts/MossdeepCity_GameCorner_B1F/border.bin",
       "blockdata_filepath": "data/layouts/MossdeepCity_GameCorner_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE125",
+      "name": "Route125_Layout",
+      "width": 80,
+      "height": 40,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennMossdeep",
+      "border_filepath": "data/layouts/Route125/border.bin",
+      "blockdata_filepath": "data/layouts/Route125/map.bin"
     }
   ]
 }
