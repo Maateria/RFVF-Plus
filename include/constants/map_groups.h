@@ -343,6 +343,7 @@
 #define MAP_UNDERWATER_ROUTE127                  (121 | (3 << 8))
 #define MAP_UNDERWATER_ROUTE128                  (122 | (3 << 8))
 #define MAP_UNDERWATER_ROUTE129                  (123 | (3 << 8))
+#define MAP_UNDERWATER_ROUTE105                  (124 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
