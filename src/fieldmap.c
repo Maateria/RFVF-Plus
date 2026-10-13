@@ -5,6 +5,7 @@
 #include "new_menu_helpers.h"
 #include "quest_log.h"
 #include "fieldmap.h"
+#include "metatile_behavior.h"
 
 struct ConnectionFlags
 {
@@ -803,6 +804,32 @@ const struct MapConnection *GetMapConnectionAtPos(s16 x, s16 y)
         }
     }
     return NULL;
+}
+
+// TRUE if surfacing at map cell (x, y) lands on water. Emerald never lets the player stand on its few underwater
+// cells under land (door warps into dungeons, water doors), but here a warp into a dungeon not imported yet is a
+// placeholder and a water door is degraded to sea: surfacing there would leave the player on foot on rocks.
+// Without an emerge connection (a map script's fixed dive warp) nothing is known: TRUE.
+bool8 IsEmergeDestinationSurfable(s16 x, s16 y)
+{
+    const struct MapConnection *connection;
+    const struct MapLayout *layout;
+    s32 i;
+
+    if (gMapHeader.connections == NULL)
+        return TRUE;
+    connection = gMapHeader.connections->connections;
+    for (i = 0; i < gMapHeader.connections->count; i++, connection++)
+    {
+        if (connection->direction != CONNECTION_EMERGE)
+            continue;
+        layout = GetMapHeaderFromConnection(connection)->mapLayout;
+        if (x < 0 || y < 0 || x >= layout->width || y >= layout->height)
+            return FALSE;
+        return MetatileBehavior_IsSurfable(GetAttributeByMetatileIdAndMapLayout(layout,
+            layout->map[x + y * layout->width] & MAPGRID_METATILE_ID_MASK, METATILE_ATTRIBUTE_BEHAVIOR));
+    }
+    return TRUE;
 }
 
 void SetCameraFocusCoords(u16 x, u16 y)
