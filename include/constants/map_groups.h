@@ -962,6 +962,7 @@
 #define MAP_UNDERWATER_SOOTOPOLIS_CITY               (78 | (73 << 8))
 #define MAP_DESERT_RUINS                             (79 | (73 << 8))
 #define MAP_ISLAND_CAVE                              (80 | (73 << 8))
+#define MAP_ANCIENT_TOMB                             (81 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

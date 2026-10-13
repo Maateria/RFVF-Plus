@@ -2018,3 +2018,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/DesertRuins/scripts.inc"
 
 	.include "data/maps/IslandCave/scripts.inc"
+
+	.include "data/maps/AncientTomb/scripts.inc"
