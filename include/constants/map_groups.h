@@ -331,6 +331,7 @@
 #define MAP_VERDANTURF_TOWN                      (109 | (3 << 8))
 #define MAP_MAUVILLE_CITY                        (110 | (3 << 8))
 #define MAP_ROUTE110                             (111 | (3 << 8))
+#define MAP_ROUTE111                             (112 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -813,6 +814,10 @@
 #define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_SOUTH_ENTRANCE (11 | (66 << 8))
 #define MAP_ROUTE110_SEASIDE_CYCLING_ROAD_NORTH_ENTRANCE (12 | (66 << 8))
 
-#define MAP_GROUPS_COUNT 67
+// gMapGroup_IndoorRoute111
+#define MAP_ROUTE111_WINSTRATE_FAMILYS_HOUSE (0 | (67 << 8))
+#define MAP_ROUTE111_OLD_LADYS_REST_STOP     (1 | (67 << 8))
+
+#define MAP_GROUPS_COUNT 68
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

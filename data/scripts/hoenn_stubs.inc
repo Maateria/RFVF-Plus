@@ -24,3 +24,9 @@ Roulette_EventScript_Table1::                   @ MauvilleCity_GameCorner sign (
 
 Roulette_EventScript_Table2::                   @ MauvilleCity_GameCorner sign (18,6)
 	end
+
+GabbyAndTy_EventScript_TyBattle1::              @ Route111 NPC #7 (14,86)
+	end
+
+GabbyAndTy_EventScript_GabbyBattle1::           @ Route111 NPC #8 (13,86)
+	end

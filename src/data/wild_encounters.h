@@ -8586,6 +8586,62 @@ const struct WildPokemon gRoute110_FishingMons[] =
 
 const struct WildPokemonInfo gRoute110_FishingMonsInfo = { 30, gRoute110_FishingMons };
 
+const struct WildPokemon gRoute111_LandMons[] =
+{
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 21, 21, SPECIES_SANDSHREW },
+    { 21, 21, SPECIES_TRAPINCH },
+    { 19, 19, SPECIES_BALTOY },
+    { 21, 21, SPECIES_BALTOY },
+    { 19, 19, SPECIES_SANDSHREW },
+    { 19, 19, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_BALTOY },
+    { 20, 20, SPECIES_CACNEA },
+    { 22, 22, SPECIES_CACNEA },
+    { 22, 22, SPECIES_CACNEA },
+};
+
+const struct WildPokemonInfo gRoute111_LandMonsInfo = { 10, gRoute111_LandMons };
+
+const struct WildPokemon gRoute111_WaterMons[] =
+{
+    { 20, 30, SPECIES_MARILL },
+    { 10, 20, SPECIES_MARILL },
+    { 30, 35, SPECIES_MARILL },
+    { 5, 10, SPECIES_MARILL },
+    { 20, 30, SPECIES_GOLDEEN },
+};
+
+const struct WildPokemonInfo gRoute111_WaterMonsInfo = { 4, gRoute111_WaterMons };
+
+const struct WildPokemon gRoute111_RockSmashMons[] =
+{
+    { 10, 15, SPECIES_GEODUDE },
+    { 5, 10, SPECIES_GEODUDE },
+    { 15, 20, SPECIES_GEODUDE },
+    { 15, 20, SPECIES_GEODUDE },
+    { 15, 20, SPECIES_GEODUDE },
+};
+
+const struct WildPokemonInfo gRoute111_RockSmashMonsInfo = { 20, gRoute111_RockSmashMons };
+
+const struct WildPokemon gRoute111_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_BARBOACH },
+    { 25, 30, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_BARBOACH },
+    { 20, 25, SPECIES_BARBOACH },
+    { 35, 40, SPECIES_BARBOACH },
+    { 40, 45, SPECIES_BARBOACH },
+};
+
+const struct WildPokemonInfo gRoute111_FishingMonsInfo = { 30, gRoute111_FishingMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -10795,6 +10851,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gRoute110_FishingMonsInfo,
         .fishingMonsInfo_LG = &gRoute110_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(ROUTE111),
+        .mapNum = MAP_NUM(ROUTE111),
+        .landMonsInfo_FR = &gRoute111_LandMonsInfo,
+        .landMonsInfo_LG = &gRoute111_LandMonsInfo,
+        .waterMonsInfo_FR = &gRoute111_WaterMonsInfo,
+        .waterMonsInfo_LG = &gRoute111_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = &gRoute111_RockSmashMonsInfo,
+        .rockSmashMonsInfo_LG = &gRoute111_RockSmashMonsInfo,
+        .fishingMonsInfo_FR = &gRoute111_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gRoute111_FishingMonsInfo,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).
