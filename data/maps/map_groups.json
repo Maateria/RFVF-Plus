@@ -987,6 +987,14 @@
     "AbandonedShip_CaptainsOffice",
     "AbandonedShip_Underwater2",
     "AbandonedShip_HiddenFloorCorridors",
-    "AbandonedShip_HiddenFloorRooms"
+    "AbandonedShip_HiddenFloorRooms",
+    "MtPyre_1F",
+    "MtPyre_2F",
+    "MtPyre_3F",
+    "MtPyre_4F",
+    "MtPyre_5F",
+    "MtPyre_6F",
+    "MtPyre_Exterior",
+    "MtPyre_Summit"
   ]
 }

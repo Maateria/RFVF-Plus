@@ -7332,6 +7332,102 @@
       "secondary_tileset": "gTileset_HoennInsideShip",
       "border_filepath": "data/layouts/AbandonedShip_HiddenFloorRooms/border.bin",
       "blockdata_filepath": "data/layouts/AbandonedShip_HiddenFloorRooms/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_1F",
+      "name": "MtPyre_1F_Layout",
+      "width": 22,
+      "height": 19,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_1F/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_2F",
+      "name": "MtPyre_2F_Layout",
+      "width": 13,
+      "height": 13,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_2F/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_3F",
+      "name": "MtPyre_3F_Layout",
+      "width": 13,
+      "height": 13,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_3F/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_3F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_4F",
+      "name": "MtPyre_4F_Layout",
+      "width": 13,
+      "height": 13,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_4F/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_4F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_5F",
+      "name": "MtPyre_5F_Layout",
+      "width": 13,
+      "height": 13,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_5F/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_5F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_6F",
+      "name": "MtPyre_6F_Layout",
+      "width": 13,
+      "height": 13,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_6F/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_6F/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_EXTERIOR",
+      "name": "MtPyre_Exterior_Layout",
+      "width": 38,
+      "height": 51,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_Exterior/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_Exterior/map.bin"
+    },
+    {
+      "id": "LAYOUT_MT_PYRE_SUMMIT",
+      "name": "MtPyre_Summit_Layout",
+      "width": 50,
+      "height": 37,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/MtPyre_Summit/border.bin",
+      "blockdata_filepath": "data/layouts/MtPyre_Summit/map.bin"
     }
   ]
 }

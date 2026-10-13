@@ -918,6 +918,14 @@
 #define MAP_ABANDONED_SHIP_UNDERWATER2            (34 | (73 << 8))
 #define MAP_ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS (35 | (73 << 8))
 #define MAP_ABANDONED_SHIP_HIDDEN_FLOOR_ROOMS     (36 | (73 << 8))
+#define MAP_MT_PYRE_1F                            (37 | (73 << 8))
+#define MAP_MT_PYRE_2F                            (38 | (73 << 8))
+#define MAP_MT_PYRE_3F                            (39 | (73 << 8))
+#define MAP_MT_PYRE_4F                            (40 | (73 << 8))
+#define MAP_MT_PYRE_5F                            (41 | (73 << 8))
+#define MAP_MT_PYRE_6F                            (42 | (73 << 8))
+#define MAP_MT_PYRE_EXTERIOR                      (43 | (73 << 8))
+#define MAP_MT_PYRE_SUMMIT                        (44 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

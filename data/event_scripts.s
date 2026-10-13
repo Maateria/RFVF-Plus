@@ -1930,3 +1930,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/AbandonedShip_HiddenFloorCorridors/scripts.inc"
 
 	.include "data/maps/AbandonedShip_HiddenFloorRooms/scripts.inc"
+
+	.include "data/maps/MtPyre_1F/scripts.inc"
+
+	.include "data/maps/MtPyre_2F/scripts.inc"
+
+	.include "data/maps/MtPyre_3F/scripts.inc"
+
+	.include "data/maps/MtPyre_4F/scripts.inc"
+
+	.include "data/maps/MtPyre_5F/scripts.inc"
+
+	.include "data/maps/MtPyre_6F/scripts.inc"
+
+	.include "data/maps/MtPyre_Exterior/scripts.inc"
+
+	.include "data/maps/MtPyre_Summit/scripts.inc"

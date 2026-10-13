@@ -9377,6 +9377,150 @@ const struct WildPokemon gAbandonedShip_HiddenFloorCorridors_FishingMons[] =
 
 const struct WildPokemonInfo gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo = { 20, gAbandonedShip_HiddenFloorCorridors_FishingMons };
 
+const struct WildPokemon gMtPyre_1F_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 23, 23, SPECIES_SHUPPET },
+    { 22, 22, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+};
+
+const struct WildPokemonInfo gMtPyre_1F_LandMonsInfo = { 10, gMtPyre_1F_LandMons };
+
+const struct WildPokemon gMtPyre_2F_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 23, 23, SPECIES_SHUPPET },
+    { 22, 22, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+};
+
+const struct WildPokemonInfo gMtPyre_2F_LandMonsInfo = { 10, gMtPyre_2F_LandMons };
+
+const struct WildPokemon gMtPyre_3F_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 23, 23, SPECIES_SHUPPET },
+    { 22, 22, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+};
+
+const struct WildPokemonInfo gMtPyre_3F_LandMonsInfo = { 10, gMtPyre_3F_LandMons };
+
+const struct WildPokemon gMtPyre_4F_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 23, 23, SPECIES_SHUPPET },
+    { 22, 22, SPECIES_SHUPPET },
+    { 27, 27, SPECIES_DUSKULL },
+    { 27, 27, SPECIES_DUSKULL },
+    { 25, 25, SPECIES_DUSKULL },
+    { 29, 29, SPECIES_DUSKULL },
+};
+
+const struct WildPokemonInfo gMtPyre_4F_LandMonsInfo = { 10, gMtPyre_4F_LandMons };
+
+const struct WildPokemon gMtPyre_5F_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 23, 23, SPECIES_SHUPPET },
+    { 22, 22, SPECIES_SHUPPET },
+    { 27, 27, SPECIES_DUSKULL },
+    { 27, 27, SPECIES_DUSKULL },
+    { 25, 25, SPECIES_DUSKULL },
+    { 29, 29, SPECIES_DUSKULL },
+};
+
+const struct WildPokemonInfo gMtPyre_5F_LandMonsInfo = { 10, gMtPyre_5F_LandMons };
+
+const struct WildPokemon gMtPyre_6F_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 23, 23, SPECIES_SHUPPET },
+    { 22, 22, SPECIES_SHUPPET },
+    { 27, 27, SPECIES_DUSKULL },
+    { 27, 27, SPECIES_DUSKULL },
+    { 25, 25, SPECIES_DUSKULL },
+    { 29, 29, SPECIES_DUSKULL },
+};
+
+const struct WildPokemonInfo gMtPyre_6F_LandMonsInfo = { 10, gMtPyre_6F_LandMons };
+
+const struct WildPokemon gMtPyre_Exterior_LandMons[] =
+{
+    { 27, 27, SPECIES_SHUPPET },
+    { 27, 27, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_VULPIX },
+    { 27, 27, SPECIES_VULPIX },
+    { 29, 29, SPECIES_VULPIX },
+    { 25, 25, SPECIES_VULPIX },
+    { 27, 27, SPECIES_WINGULL },
+    { 27, 27, SPECIES_WINGULL },
+    { 26, 26, SPECIES_WINGULL },
+    { 28, 28, SPECIES_WINGULL },
+};
+
+const struct WildPokemonInfo gMtPyre_Exterior_LandMonsInfo = { 10, gMtPyre_Exterior_LandMons };
+
+const struct WildPokemon gMtPyre_Summit_LandMons[] =
+{
+    { 28, 28, SPECIES_SHUPPET },
+    { 29, 29, SPECIES_SHUPPET },
+    { 27, 27, SPECIES_SHUPPET },
+    { 26, 26, SPECIES_SHUPPET },
+    { 30, 30, SPECIES_SHUPPET },
+    { 25, 25, SPECIES_SHUPPET },
+    { 24, 24, SPECIES_SHUPPET },
+    { 28, 28, SPECIES_DUSKULL },
+    { 26, 26, SPECIES_DUSKULL },
+    { 30, 30, SPECIES_DUSKULL },
+    { 28, 28, SPECIES_CHIMECHO },
+    { 28, 28, SPECIES_CHIMECHO },
+};
+
+const struct WildPokemonInfo gMtPyre_Summit_LandMonsInfo = { 10, gMtPyre_Summit_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11982,6 +12126,102 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo,
         .fishingMonsInfo_LG = &gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_1F),
+        .mapNum = MAP_NUM(MT_PYRE_1F),
+        .landMonsInfo_FR = &gMtPyre_1F_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_2F),
+        .mapNum = MAP_NUM(MT_PYRE_2F),
+        .landMonsInfo_FR = &gMtPyre_2F_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_2F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_3F),
+        .mapNum = MAP_NUM(MT_PYRE_3F),
+        .landMonsInfo_FR = &gMtPyre_3F_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_3F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_4F),
+        .mapNum = MAP_NUM(MT_PYRE_4F),
+        .landMonsInfo_FR = &gMtPyre_4F_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_4F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_5F),
+        .mapNum = MAP_NUM(MT_PYRE_5F),
+        .landMonsInfo_FR = &gMtPyre_5F_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_5F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_6F),
+        .mapNum = MAP_NUM(MT_PYRE_6F),
+        .landMonsInfo_FR = &gMtPyre_6F_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_6F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_EXTERIOR),
+        .mapNum = MAP_NUM(MT_PYRE_EXTERIOR),
+        .landMonsInfo_FR = &gMtPyre_Exterior_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_Exterior_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MT_PYRE_SUMMIT),
+        .mapNum = MAP_NUM(MT_PYRE_SUMMIT),
+        .landMonsInfo_FR = &gMtPyre_Summit_LandMonsInfo,
+        .landMonsInfo_LG = &gMtPyre_Summit_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).
