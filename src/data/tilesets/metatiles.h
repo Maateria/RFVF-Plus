@@ -387,3 +387,6 @@ const u32 gMetatileAttributes_HoennFacility2[] = INCBIN_U32("data/tilesets/secon
 
 const u16 gMetatiles_HoennInsideShip[] = INCBIN_U16("data/tilesets/secondary/hoenn_inside_ship/metatiles.bin");
 const u32 gMetatileAttributes_HoennInsideShip[] = INCBIN_U32("data/tilesets/secondary/hoenn_inside_ship/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMirageTower[] = INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/metatiles.bin");
+const u32 gMetatileAttributes_HoennMirageTower[] = INCBIN_U32("data/tilesets/secondary/hoenn_mirage_tower/metatile_attributes.bin");

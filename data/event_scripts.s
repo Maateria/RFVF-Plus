@@ -2044,3 +2044,11 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/SkyPillar_5F/scripts.inc"
 
 	.include "data/maps/SkyPillar_Top/scripts.inc"
+
+	.include "data/maps/MirageTower_1F/scripts.inc"
+
+	.include "data/maps/MirageTower_2F/scripts.inc"
+
+	.include "data/maps/MirageTower_3F/scripts.inc"
+
+	.include "data/maps/MirageTower_4F/scripts.inc"

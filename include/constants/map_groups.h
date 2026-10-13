@@ -975,6 +975,10 @@
 #define MAP_SKY_PILLAR_4F                            (91 | (73 << 8))
 #define MAP_SKY_PILLAR_5F                            (92 | (73 << 8))
 #define MAP_SKY_PILLAR_TOP                           (93 | (73 << 8))
+#define MAP_MIRAGE_TOWER_1F                          (94 | (73 << 8))
+#define MAP_MIRAGE_TOWER_2F                          (95 | (73 << 8))
+#define MAP_MIRAGE_TOWER_3F                          (96 | (73 << 8))
+#define MAP_MIRAGE_TOWER_4F                          (97 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

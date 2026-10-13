@@ -10126,6 +10126,78 @@ const struct WildPokemon gSkyPillar_5F_LandMons[] =
 
 const struct WildPokemonInfo gSkyPillar_5F_LandMonsInfo = { 10, gSkyPillar_5F_LandMons };
 
+const struct WildPokemon gMirageTower_1F_LandMons[] =
+{
+    { 21, 21, SPECIES_SANDSHREW },
+    { 21, 21, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 22, 22, SPECIES_SANDSHREW },
+    { 22, 22, SPECIES_TRAPINCH },
+    { 23, 23, SPECIES_SANDSHREW },
+    { 23, 23, SPECIES_TRAPINCH },
+    { 24, 24, SPECIES_SANDSHREW },
+    { 24, 24, SPECIES_TRAPINCH },
+};
+
+const struct WildPokemonInfo gMirageTower_1F_LandMonsInfo = { 10, gMirageTower_1F_LandMons };
+
+const struct WildPokemon gMirageTower_2F_LandMons[] =
+{
+    { 21, 21, SPECIES_SANDSHREW },
+    { 21, 21, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 22, 22, SPECIES_SANDSHREW },
+    { 22, 22, SPECIES_TRAPINCH },
+    { 23, 23, SPECIES_SANDSHREW },
+    { 23, 23, SPECIES_TRAPINCH },
+    { 24, 24, SPECIES_SANDSHREW },
+    { 24, 24, SPECIES_TRAPINCH },
+};
+
+const struct WildPokemonInfo gMirageTower_2F_LandMonsInfo = { 10, gMirageTower_2F_LandMons };
+
+const struct WildPokemon gMirageTower_3F_LandMons[] =
+{
+    { 21, 21, SPECIES_SANDSHREW },
+    { 21, 21, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 22, 22, SPECIES_SANDSHREW },
+    { 22, 22, SPECIES_TRAPINCH },
+    { 23, 23, SPECIES_SANDSHREW },
+    { 23, 23, SPECIES_TRAPINCH },
+    { 24, 24, SPECIES_SANDSHREW },
+    { 24, 24, SPECIES_TRAPINCH },
+};
+
+const struct WildPokemonInfo gMirageTower_3F_LandMonsInfo = { 10, gMirageTower_3F_LandMons };
+
+const struct WildPokemon gMirageTower_4F_LandMons[] =
+{
+    { 21, 21, SPECIES_SANDSHREW },
+    { 21, 21, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 20, 20, SPECIES_SANDSHREW },
+    { 20, 20, SPECIES_TRAPINCH },
+    { 22, 22, SPECIES_SANDSHREW },
+    { 22, 22, SPECIES_TRAPINCH },
+    { 23, 23, SPECIES_SANDSHREW },
+    { 23, 23, SPECIES_TRAPINCH },
+    { 24, 24, SPECIES_SANDSHREW },
+    { 24, 24, SPECIES_TRAPINCH },
+};
+
+const struct WildPokemonInfo gMirageTower_4F_LandMonsInfo = { 10, gMirageTower_4F_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -13121,6 +13193,54 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(SKY_PILLAR_5F),
         .landMonsInfo_FR = &gSkyPillar_5F_LandMonsInfo,
         .landMonsInfo_LG = &gSkyPillar_5F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MIRAGE_TOWER_1F),
+        .mapNum = MAP_NUM(MIRAGE_TOWER_1F),
+        .landMonsInfo_FR = &gMirageTower_1F_LandMonsInfo,
+        .landMonsInfo_LG = &gMirageTower_1F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MIRAGE_TOWER_2F),
+        .mapNum = MAP_NUM(MIRAGE_TOWER_2F),
+        .landMonsInfo_FR = &gMirageTower_2F_LandMonsInfo,
+        .landMonsInfo_LG = &gMirageTower_2F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MIRAGE_TOWER_3F),
+        .mapNum = MAP_NUM(MIRAGE_TOWER_3F),
+        .landMonsInfo_FR = &gMirageTower_3F_LandMonsInfo,
+        .landMonsInfo_LG = &gMirageTower_3F_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(MIRAGE_TOWER_4F),
+        .mapNum = MAP_NUM(MIRAGE_TOWER_4F),
+        .landMonsInfo_FR = &gMirageTower_4F_LandMonsInfo,
+        .landMonsInfo_LG = &gMirageTower_4F_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

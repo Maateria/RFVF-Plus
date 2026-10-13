@@ -362,3 +362,6 @@ $(TILESETGFXDIR)/secondary/hoenn_facility2/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_inside_ship/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 170 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mirage_tower/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 112 -Wnum_tiles

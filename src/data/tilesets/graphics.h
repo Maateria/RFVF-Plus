@@ -2750,3 +2750,25 @@ const u16 gTilesetPalettes_HoennInsideShip[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_inside_ship/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_inside_ship/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennMirageTower[] = INCBIN_U32("data/tilesets/secondary/hoenn_mirage_tower/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMirageTower[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/15.gbapal"),
+};

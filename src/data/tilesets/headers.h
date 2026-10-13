@@ -1429,3 +1429,14 @@ const struct Tileset gTileset_HoennInsideShip =
 	.metatileAttributes = gMetatileAttributes_HoennInsideShip,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennMirageTower = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMirageTower,
+	.palettes = gTilesetPalettes_HoennMirageTower,
+	.metatiles = gMetatiles_HoennMirageTower,
+	.metatileAttributes = gMetatileAttributes_HoennMirageTower,
+	.callback = NULL
+};
