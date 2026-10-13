@@ -149,6 +149,9 @@ WARP_ALIASES = {"MAP_UNION_ROOM": "MAP_UNION_ROOM", "MAP_TRADE_CENTER": "MAP_TRA
 BATTLE_SCENES = {"MAP_BATTLE_SCENE_SIDNEY": "MAP_BATTLE_SCENE_BRUNO", "MAP_BATTLE_SCENE_PHOEBE": "MAP_BATTLE_SCENE_AGATHA",
                  "MAP_BATTLE_SCENE_GLACIA": "MAP_BATTLE_SCENE_LORELEI", "MAP_BATTLE_SCENE_DRAKE": "MAP_BATTLE_SCENE_LANCE",
                  "MAP_BATTLE_SCENE_AQUA": "MAP_BATTLE_SCENE_NORMAL", "MAP_BATTLE_SCENE_MAGMA": "MAP_BATTLE_SCENE_NORMAL"}
+# Emerald map sections whose name here is another place: MAPSEC_ALTERING_CAVE is FRLG's Sevii cave (0xB7), Emerald's
+# value 0xD2 is MAPSEC_ALTERING_CAVE_E (include/constants/region_map_sections.h)
+MAPSECS = {"MAPSEC_ALTERING_CAVE": "MAPSEC_ALTERING_CAVE_E"}
 
 # Emerald behavior name -> FRLG behavior name with the same meaning, where the name differs.
 BEHAVIOR_OVERRIDES = {
@@ -1291,7 +1294,8 @@ def convert_header(ctx, m):
     scene = j["battle_scene"] if defined(j["battle_scene"]) else BATTLE_SCENES.get(j["battle_scene"], j["battle_scene"])
     if scene == "MAP_BATTLE_SCENE_NORMAL" != j["battle_scene"]:
         m.dropped.append("battle scene %s -> %s (DEGRADED: no such background here)" % (j["battle_scene"], scene))
-    for value in (j["region_map_section"], j["weather"], j["map_type"], scene):
+    mapsec = MAPSECS.get(j["region_map_section"], j["region_map_section"])
+    for value in (mapsec, j["weather"], j["map_type"], scene):
         if not defined(value):
             refuse("%s: %s does not exist in this repo" % (m.name, value))
     return {
@@ -1299,7 +1303,7 @@ def convert_header(ctx, m):
         "name": m.name,
         "layout": m.new_layout["id"],
         "music": music or j["music"],
-        "region_map_section": j["region_map_section"],
+        "region_map_section": mapsec,
         "requires_flash": j["requires_flash"],
         "weather": j["weather"],
         "map_type": j["map_type"],
@@ -1901,23 +1905,33 @@ def check_files(files):
 def ways(ctx, batch):
     """{(map, map it leads to, by Dive)} of the MAP_ ids here, planned files included: connections (both ways, Dive
     for dive and emerge ones) and the warps whose tile can start a warp here (not a wall a script opens, nor a water door
-    turned into sea). The link rooms every Pokemon Center shares are no way through."""
+    turned into sea), Dive for the engine's fixed dive spots (src/overworld.c sHoennDiveWarps), and a MAP_DYNAMIC exit
+    back to every map that leads in (SetupWarp sets it on the way in). The link rooms every Pokemon Center shares are no
+    way through."""
     layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
     triggers = {ctx.behaviors.fr_values[n] for n in ctx.warp_triggers_here if n in ctx.behaviors.fr_values}
-    out = set()
+    out, dynamic = set(), set()
     for map_id, folder in batch.folders.items():
         mj, v = json.loads(read(REPO / "data/maps" / folder / "map.json")), view(ctx, folder, layouts)
         for c in mj.get("connections") or []:
             out |= {(map_id, c["map"], c["direction"] in DIVE), (c["map"], map_id, c["direction"] in DIVE)}
         attrs = [tileset_data(d, "frlg")[3] for d in v.fr_dirs]
         for w in mj["warp_events"]:
-            if w["dest_map"] in WARP_ALIASES or w["dest_map"] == "MAP_DYNAMIC" or not inside(v, w["x"], w["y"]):
+            if w["dest_map"] in WARP_ALIASES or not inside(v, w["x"], w["y"]):
                 continue
             mt = v.fr_blocks[w["y"] * v.width + w["x"]] & 0x3FF
             ts, i = (0, mt) if mt < FR["metatiles"] else (1, mt - FR["metatiles"])
             if i < len(attrs[ts]) and attrs[ts][i] & 0x1FF in triggers:
-                out.add((map_id, w["dest_map"], False))
-    return out
+                if w["dest_map"] == "MAP_DYNAMIC":
+                    dynamic.add(map_id)
+                else:
+                    out.add((map_id, w["dest_map"], False))
+    src = read(REPO / "src/overworld.c")
+    if "sHoennDiveWarps[]" in src:
+        table = src[src.index("sHoennDiveWarps[]"):]
+        rows = re.findall(r"\{\s*(MAP_\w+),\s*-?\d+,\s*-?\d+,\s*(MAP_\w+),", table[:table.index("};")])
+        out |= {(a, b, True) for a, b in rows if a in batch.folders and b in batch.folders}
+    return out | {(b, a, d) for a, b, d in out if b in dynamic}
 
 
 def reachable(edges, start="MAP_LILYCOVE_CITY"):

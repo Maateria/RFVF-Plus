@@ -61,17 +61,18 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
 - **État après la Ligue :** les Teams Aqua et Magma sont parties, Steven et Wallace aussi ; Wally attend à la sortie
   de la Route Victoire, Rayquaza, Groudon, Kyogre et les trois Regi attendent qu'on les capture (muets en attendant
   leurs scripts).
+- **Plongée et portes d'eau :** le moteur fait marcher les portes d'eau d'Émeraude (Planque Aqua, Grotte Zénith,
+  fonds marins d'Atalanopolis et de la Caverne Fondmer) et ses plongées fixes (`sHoennDiveWarps` dans
+  `src/overworld.c` : Atalanopolis, Sanctuaire, Caverne Fondmer, Grotte Marine, bas de l'Épave). Le rapport en tient
+  compte (`with Dive only`).
 - **Pas encore accessibles :** le rapport liste les maps qu'on ne peut pas encore atteindre
   (`can NOT be reached yet`). Elles sont importées quand même :
   - un script les ouvre : la grotte de Steven au Site Météore et la Grotte Métamo (après la Ligue), la porte du
-    Pilier Céleste, les entrées des Grottes Marine et Terra ;
-  - un script fait plonger : le Sanctuaire, le bas de l'Épave ;
-  - une porte d'eau, que le moteur n'a pas encore (elle reste de la mer) : la Planque Aqua, la Caverne Fondmer, la
-    Grotte Zénith, le passage sous-marin d'Atalanopolis, donc aussi Atalanopolis et la Grotte Origine ;
-  - aucune porte : la marée haute de la Grotte Tréfonds.
-- **`WARNING: no way back` :** une map d'où l'on ne pourrait pas revenir si on y arrivait. Le calcul se fait map par
-  map : pour la Grotte Marine, le fond marin annoncé `with Dive only` est en fait muré (seule la plongée du script y
-  mène).
+    Pilier Céleste, les entrées des Grottes Marine et Terra (celles de la Grotte Marine sont murées au fond de l'eau :
+    le rapport la dit `with Dive only`, à tort) ;
+  - aucune porte : la marée haute de la Grotte Tréfonds, les 6 maps inutilisées de Rubis et Saphir.
+- **`WARNING: no way back` :** une map d'où l'on ne pourrait pas revenir si on y arrivait. Une sortie `MAP_DYNAMIC`
+  ramène d'où l'on vient (ascenseurs, Grotte Marine).
 
 ## Lire le rapport
 
