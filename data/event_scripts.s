@@ -1758,3 +1758,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route112_CableCarStation/scripts.inc"
 
 	.include "data/maps/MtChimney_CableCarStation/scripts.inc"
+
+	.include "data/maps/LavaridgeTown/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_HerbShop/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_Gym_1F/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_Gym_B1F/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_House/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_Mart/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_PokemonCenter_1F/scripts.inc"
+
+	.include "data/maps/LavaridgeTown_PokemonCenter_2F/scripts.inc"

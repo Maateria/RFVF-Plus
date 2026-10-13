@@ -6528,6 +6528,66 @@
       "secondary_tileset": "gTileset_HoennFacility",
       "border_filepath": "data/layouts/CableCarStation/border.bin",
       "blockdata_filepath": "data/layouts/CableCarStation/map.bin"
+    },
+    {
+      "id": "LAYOUT_LAVARIDGE_TOWN",
+      "name": "LavaridgeTown_Layout",
+      "width": 20,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennLavaridge",
+      "border_filepath": "data/layouts/LavaridgeTown/border.bin",
+      "blockdata_filepath": "data/layouts/LavaridgeTown/map.bin"
+    },
+    {
+      "id": "LAYOUT_HOENN_LAVARIDGE_TOWN_HERB_SHOP",
+      "name": "Hoenn_LavaridgeTown_HerbShop_Layout",
+      "width": 11,
+      "height": 8,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennShop",
+      "border_filepath": "data/layouts/Hoenn_LavaridgeTown_HerbShop/border.bin",
+      "blockdata_filepath": "data/layouts/Hoenn_LavaridgeTown_HerbShop/map.bin"
+    },
+    {
+      "id": "LAYOUT_LAVARIDGE_TOWN_GYM_1F",
+      "name": "LavaridgeTown_Gym_1F_Layout",
+      "width": 17,
+      "height": 19,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennLavaridgeGym",
+      "border_filepath": "data/layouts/LavaridgeTown_Gym_1F/border.bin",
+      "blockdata_filepath": "data/layouts/LavaridgeTown_Gym_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_LAVARIDGE_TOWN_GYM_B1F",
+      "name": "LavaridgeTown_Gym_B1F_Layout",
+      "width": 17,
+      "height": 19,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennLavaridgeGym",
+      "border_filepath": "data/layouts/LavaridgeTown_Gym_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/LavaridgeTown_Gym_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_LAVARIDGE_TOWN_POKEMON_CENTER_1F",
+      "name": "LavaridgeTown_PokemonCenter_1F_Layout",
+      "width": 14,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennPokemonCenter",
+      "border_filepath": "data/layouts/LavaridgeTown_PokemonCenter_1F/border.bin",
+      "blockdata_filepath": "data/layouts/LavaridgeTown_PokemonCenter_1F/map.bin"
     }
   ]
 }

@@ -573,7 +573,7 @@
 #define FLAG_HIDDEN_ITEM_ROUTE_111_PROTEIN       0x225
 #define FLAG_HIDDEN_ITEM_ROUTE_111_RARE_CANDY    0x226
 #define FLAG_ITEM_ROUTE_112_NUGGET               0x227
-#define FLAG_0x228               0x228
+#define FLAG_HIDDEN_ITEM_LAVARIDGE_TOWN_ICE_HEAL 0x228
 #define FLAG_0x229               0x229
 
 #define FLAG_HIDE_LATI                                   0x22A

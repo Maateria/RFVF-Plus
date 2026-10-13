@@ -345,3 +345,6 @@ const u32 gMetatileAttributes_HoennTrickHousePuzzle[] = INCBIN_U32("data/tileset
 
 const u16 gMetatiles_HoennLavaridge[] = INCBIN_U16("data/tilesets/secondary/hoenn_lavaridge/metatiles.bin");
 const u32 gMetatileAttributes_HoennLavaridge[] = INCBIN_U32("data/tilesets/secondary/hoenn_lavaridge/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennLavaridgeGym[] = INCBIN_U16("data/tilesets/secondary/hoenn_lavaridge_gym/metatiles.bin");
+const u32 gMetatileAttributes_HoennLavaridgeGym[] = INCBIN_U32("data/tilesets/secondary/hoenn_lavaridge_gym/metatile_attributes.bin");

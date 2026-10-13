@@ -68,7 +68,8 @@
     "gMapGroup_IndoorMauville",
     "gMapGroup_IndoorRoute110",
     "gMapGroup_IndoorRoute111",
-    "gMapGroup_IndoorRoute112"
+    "gMapGroup_IndoorRoute112",
+    "gMapGroup_IndoorLavaridge"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -397,7 +398,8 @@
     "MauvilleCity",
     "Route110",
     "Route111",
-    "Route112"
+    "Route112",
+    "LavaridgeTown"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -887,5 +889,14 @@
   "gMapGroup_IndoorRoute112": [
     "Route112_CableCarStation",
     "MtChimney_CableCarStation"
+  ],
+  "gMapGroup_IndoorLavaridge": [
+    "LavaridgeTown_HerbShop",
+    "LavaridgeTown_Gym_1F",
+    "LavaridgeTown_Gym_B1F",
+    "LavaridgeTown_House",
+    "LavaridgeTown_Mart",
+    "LavaridgeTown_PokemonCenter_1F",
+    "LavaridgeTown_PokemonCenter_2F"
   ]
 }

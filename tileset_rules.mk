@@ -320,3 +320,6 @@ $(TILESETGFXDIR)/secondary/hoenn_trick_house_puzzle/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_lavaridge/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 208 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_lavaridge_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 45 -Wnum_tiles

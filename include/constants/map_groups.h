@@ -333,6 +333,7 @@
 #define MAP_ROUTE110                             (111 | (3 << 8))
 #define MAP_ROUTE111                             (112 | (3 << 8))
 #define MAP_ROUTE112                             (113 | (3 << 8))
+#define MAP_LAVARIDGE_TOWN                       (114 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -823,6 +824,15 @@
 #define MAP_ROUTE112_CABLE_CAR_STATION   (0 | (68 << 8))
 #define MAP_MT_CHIMNEY_CABLE_CAR_STATION (1 | (68 << 8))
 
-#define MAP_GROUPS_COUNT 69
+// gMapGroup_IndoorLavaridge
+#define MAP_LAVARIDGE_TOWN_HERB_SHOP         (0 | (69 << 8))
+#define MAP_LAVARIDGE_TOWN_GYM_1F            (1 | (69 << 8))
+#define MAP_LAVARIDGE_TOWN_GYM_B1F           (2 | (69 << 8))
+#define MAP_LAVARIDGE_TOWN_HOUSE             (3 | (69 << 8))
+#define MAP_LAVARIDGE_TOWN_MART              (4 | (69 << 8))
+#define MAP_LAVARIDGE_TOWN_POKEMON_CENTER_1F (5 | (69 << 8))
+#define MAP_LAVARIDGE_TOWN_POKEMON_CENTER_2F (6 | (69 << 8))
+
+#define MAP_GROUPS_COUNT 70
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H
