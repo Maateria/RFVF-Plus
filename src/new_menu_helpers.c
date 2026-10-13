@@ -158,7 +158,6 @@ static void WindowFunc_DrawDialogueFrame(u8 bg, u8 tilemapLeft, u8 tilemapTop, u
 static void WindowFunc_DrawStandardFrame(u8 bg, u8 tilemapLeft, u8 tilemapTop, u8 width, u8 height, u8 paletteNum);
 static void WindowFunc_ClearDialogWindowAndFrame(u8 bg, u8 tilemapLeft, u8 tilemapTop, u8 width, u8 height, u8 paletteNum);
 static void WindowFunc_ClearStdWindowAndFrame(u8 bg, u8 tilemapLeft, u8 tilemapTop, u8 width, u8 height, u8 paletteNum);
-static void TaskFreeBufAfterCopyingTileDataToVram(u8 taskId);
 
 void ClearScheduledBgCopiesToVram(void)
 {
@@ -295,7 +294,7 @@ void DecompressAndLoadBgGfxUsingHeap2(u8 bgId, const void *src, u32 size, u16 of
     }
 }
 
-static void TaskFreeBufAfterCopyingTileDataToVram(u8 taskId)
+void TaskFreeBufAfterCopyingTileDataToVram(u8 taskId)
 {
     if (!WaitDma3Request(gTasks[taskId].data[0]))
     {

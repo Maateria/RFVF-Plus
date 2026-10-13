@@ -893,6 +893,7 @@ bool8 SetDiveWarpDive(u16 x, u16 y)
 void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
 {
     int paletteIndex;
+    const struct Tileset *secondaryTileset = gMapHeader.mapLayout->secondaryTileset;
 
     SetWarpDestination(mapGroup, mapNum, -1, -1, -1);
     Overworld_TryMapConnectionMusicTransition();
@@ -911,10 +912,15 @@ void LoadMapFromCameraTransition(u8 mapGroup, u8 mapNum)
     RunOnTransitionMapScript();
     TryRegenerateRenewableHiddenItems();
     InitMap();
-    CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
-    LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
-    for (paletteIndex = 7; paletteIndex < 13; paletteIndex++)
-        ApplyWeatherGammaShiftToPal(paletteIndex);
+    // A Hoenn layout with another secondary tileset gets it with its redrawn map view, all in one VBlank
+    // (CameraUpdate -> RedrawMapViewAfterTilesetChange).
+    if (gMapHeader.mapLayout->secondaryTileset == secondaryTileset || !IsHoennMapLayout())
+    {
+        CopySecondaryTilesetToVramUsingHeap(gMapHeader.mapLayout);
+        LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
+        for (paletteIndex = 7; paletteIndex < 13; paletteIndex++)
+            ApplyWeatherGammaShiftToPal(paletteIndex);
+    }
     InitSecondaryTilesetAnimation();
     UpdateLocationHistoryForRoamer();
     RoamerMove();

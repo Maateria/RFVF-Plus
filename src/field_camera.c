@@ -3,6 +3,7 @@
 #include "field_camera.h"
 #include "field_player_avatar.h"
 #include "fieldmap.h"
+#include "field_weather.h"
 #include "event_object_movement.h"
 #include "new_menu_helpers.h"
 #include "overworld.h"
@@ -132,6 +133,93 @@ static void RedrawMapSlicesForCameraUpdate(struct FieldCameraOffset *cameraOffse
     if (y < 0)
         RedrawMapSliceSouth(cameraOffset, mapLayout);
     cameraOffset->copyBGToVRAM = TRUE;
+}
+
+static bool32 IsSecondaryTilemapEntry(u16 entry)
+{
+    return (entry & 0x3FF) >= NUM_TILES_IN_PRIMARY || (entry >> 12) >= NUM_PALS_IN_PRIMARY;
+}
+
+// Does the camera cell at this tilemap offset show a tile or a palette of the secondary tileset?
+static bool32 IsDrawnWithSecondaryTileset(s32 offset)
+{
+    static const u8 sQuarters[] = {0, 1, 0x20, 0x21};
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sQuarters); i++)
+    {
+        s32 quarter = offset + sQuarters[i];
+
+        if (IsSecondaryTilemapEntry(gBGTilemapBuffers1[quarter]) || IsSecondaryTilemapEntry(gBGTilemapBuffers2[quarter])
+         || IsSecondaryTilemapEntry(gBGTilemapBuffers3[quarter]))
+            return TRUE;
+    }
+    return FALSE;
+}
+
+// A map connection reloads only the secondary tileset, and the cells already drawn keep the old one's tile numbers:
+// garbage between Hoenn twin tilesets (HoennMauville/HoennMauville2...: same metatile ids, other tile numbers). So
+// for a Hoenn crossing that changes the secondary tileset, LoadMapFromCameraTransition leaves it to this function:
+// - the cells drawn with the old secondary tileset are redrawn from the new map grid, among those that can come into
+//   view before a slice redraws them: rows 0-14 and columns 0-15 of the new camera position. Column 15 leaves the
+//   view during a westward crossing step; during an eastward one, that slot holds the old map's column leaving the
+//   view, outside the new grid, kept as drawn like in vanilla. Cells drawn with primary tiles only stay as they are;
+// - the tiles are decompressed (long: VBlanks meanwhile still show the old view), then tiles, palettes and BG
+//   tilemaps are queued with interrupts off, so that they all reach VRAM in the same VBlank.
+static void RedrawMapViewAfterTilesetChange(const struct Tileset *oldSecondaryTileset, int deltaX)
+{
+    const struct Tileset *tileset = gMapHeader.mapLayout->secondaryTileset;
+    u32 size = (NUM_TILES_TOTAL - NUM_TILES_IN_PRIMARY) * TILE_SIZE_4BPP;
+    const void *tiles = tileset->tiles;
+    void *buffer = NULL;
+    u16 ime;
+    int x, y;
+
+    if (tileset == oldSecondaryTileset || !IsHoennMapLayout())
+        return;
+    for (y = gSaveBlock1Ptr->pos.y; y < gSaveBlock1Ptr->pos.y + 15; y++)
+    {
+        for (x = gSaveBlock1Ptr->pos.x; x < gSaveBlock1Ptr->pos.x + (deltaX > 0 ? 15 : 16); x++)
+        {
+            s32 offset;
+
+            // gTileset_HoennGeneral metatiles use only its own tiles and palettes: skip them with a direct read of the
+            // grid (the crossing frame already lasts several VBlanks)
+            if (x >= 0 && x < VMap.Xsize && y >= 0 && y < VMap.Ysize
+             && (VMap.map[x + VMap.Xsize * y] & MAPGRID_METATILE_ID_MASK) < NUM_METATILES_IN_PRIMARY)
+                continue;
+            offset = MapPosToBgTilemapOffset(&sFieldCameraOffset, x, y);
+            if (IsDrawnWithSecondaryTileset(offset))
+                DrawMetatileAt(gMapHeader.mapLayout, offset, x, y);
+        }
+    }
+    if (tileset->isCompressed)
+    {
+        u32 sizeOut;
+
+        tiles = buffer = MallocAndDecompress(tileset->tiles, &sizeOut);
+        if (sizeOut < size)
+            size = sizeOut;
+    }
+    ime = REG_IME;
+    REG_IME = 0;
+    if (tiles != NULL)
+    {
+        u16 request = LoadBgTiles(2, tiles, size, NUM_TILES_IN_PRIMARY);
+
+        if (buffer != NULL)
+        {
+            u8 taskId = CreateTask(TaskFreeBufAfterCopyingTileDataToVram, 0);
+
+            gTasks[taskId].data[0] = request;
+            SetWordTaskArg(taskId, 1, (u32)buffer);
+        }
+    }
+    LoadSecondaryTilesetPalette(gMapHeader.mapLayout);
+    for (x = 7; x < 13; x++)
+        ApplyWeatherGammaShiftToPal(x);
+    DoScheduledBgTilemapCopiesToVram();
+    REG_IME = ime;
 }
 
 static void RedrawMapSliceNorth(struct FieldCameraOffset *cameraOffset, const struct MapLayout *mapLayout)
@@ -409,12 +497,15 @@ void CameraUpdate(void)
 
     if (deltaX != 0 || deltaY != 0)
     {
+        const struct Tileset *secondaryTileset = gMapHeader.mapLayout->secondaryTileset;
+
         CameraMove(deltaX, deltaY);
         UpdateObjectEventsForCameraUpdate(deltaX, deltaY);
         // RotatingGatePuzzleCameraUpdate(deltaX, deltaY);
         // ResetBerryTreeSparkleFlags();
         tilemap_move_something(&sFieldCameraOffset, deltaX * 2, deltaY * 2);
         RedrawMapSlicesForCameraUpdate(&sFieldCameraOffset, deltaX * 2, deltaY * 2);
+        RedrawMapViewAfterTilesetChange(secondaryTileset, deltaX);
     }
 
     coords8_add(&sFieldCameraOffset, movementSpeedX, movementSpeedY);
@@ -424,9 +515,12 @@ void CameraUpdate(void)
 
 void MoveCameraAndRedrawMap(int deltaX, int deltaY) // unused
 {
+    const struct Tileset *secondaryTileset = gMapHeader.mapLayout->secondaryTileset;
+
     CameraMove(deltaX, deltaY);
     UpdateObjectEventsForCameraUpdate(deltaX, deltaY);
     DrawWholeMapView();
+    RedrawMapViewAfterTilesetChange(secondaryTileset, deltaX);
     gTotalCameraPixelOffsetX -= deltaX * 16;
     gTotalCameraPixelOffsetY -= deltaY * 16;
 }
@@ -486,12 +580,15 @@ void CameraUpdateNoObjectRefresh(void)
 
     if (deltaX != 0 || deltaY != 0)
     {
+        const struct Tileset *secondaryTileset = gMapHeader.mapLayout->secondaryTileset;
+
         CameraMove(deltaX, deltaY);
         // UpdateObjectEventsForCameraUpdate(deltaX, deltaY);
         // RotatingGatePuzzleCameraUpdate(deltaX, deltaY);
         // ResetBerryTreeSparkleFlags();
         tilemap_move_something(&sFieldCameraOffset, deltaX * 2, deltaY * 2);
         RedrawMapSlicesForCameraUpdate(&sFieldCameraOffset, deltaX * 2, deltaY * 2);
+        RedrawMapViewAfterTilesetChange(secondaryTileset, deltaX);
     }
 
     coords8_add(&sFieldCameraOffset, movementSpeedX, movementSpeedY);
