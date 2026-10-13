@@ -272,6 +272,32 @@
 #define METATILE_HoennLilycoveMuseum_Painting4_Left   0x2E2
 #define METATILE_HoennLilycoveMuseum_Painting4_Right  0x2E3
 
+// gTileset_HoennMauville
+#define METATILE_HoennMauville_DeepSand_BottomMid  0x2D9
+#define METATILE_HoennMauville_DeepSand_Center     0x2D1
+#define METATILE_HoennMauville_Door                0x32C
+#define METATILE_HoennMauville_Door_BattleTent     0x2D3
+#define METATILE_HoennMauville_Door_CyclingRoad    0x309
+#define METATILE_HoennMauville_Door_Verdanturf     0x2A8
+#define METATILE_HoennMauville_MirageTower_Tile0   0x2D5
+#define METATILE_HoennMauville_MirageTower_Tile1   0x2D6
+#define METATILE_HoennMauville_MirageTower_Tile10  0x2F6
+#define METATILE_HoennMauville_MirageTower_Tile11  0x2FC
+#define METATILE_HoennMauville_MirageTower_Tile2   0x2D7
+#define METATILE_HoennMauville_MirageTower_Tile3   0x2E1
+#define METATILE_HoennMauville_MirageTower_Tile4   0x2E6
+#define METATILE_HoennMauville_MirageTower_Tile5   0x2E7
+#define METATILE_HoennMauville_MirageTower_Tile6   0x2FD
+#define METATILE_HoennMauville_MirageTower_Tile7   0x32E
+#define METATILE_HoennMauville_MirageTower_Tile8   0x330
+#define METATILE_HoennMauville_MirageTower_Tile9   0x335
+#define METATILE_HoennMauville_MirageTower_TileA   0x336
+#define METATILE_HoennMauville_MirageTower_TileB   0x338
+#define METATILE_HoennMauville_MirageTower_TileC   0x2DB
+#define METATILE_HoennMauville_MirageTower_TileD   0x2DC
+#define METATILE_HoennMauville_MirageTower_TileE   0x2DF
+#define METATILE_HoennMauville_MirageTower_TileF   0x2EE
+
 // gTileset_HoennPacifidlog
 #define METATILE_HoennPacifidlog_Door                               0x29A
 #define METATILE_HoennPacifidlog_FloatingLogs_HorizontalLeft        0x2D0

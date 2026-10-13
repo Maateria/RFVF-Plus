@@ -318,6 +318,7 @@
 #define MAP_ROUTE101                             (96 | (3 << 8))
 #define MAP_LITTLEROOT_TOWN                      (97 | (3 << 8))
 #define MAP_ROUTE103                             (98 | (3 << 8))
+#define MAP_ROUTE118                             (99 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

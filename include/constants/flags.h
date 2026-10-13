@@ -347,9 +347,9 @@
 #define FLAG_ITEM_ROUTE_102_POTION               0x147
 #define FLAG_ITEM_ROUTE_103_GUARD_SPEC           0x148
 #define FLAG_ITEM_ROUTE_103_PP_UP                0x149
-#define FLAG_0x14A               0x14A
-#define FLAG_0x14B               0x14B
-#define FLAG_0x14C               0x14C
+#define FLAG_ITEM_ROUTE_118_HYPER_POTION         0x14A
+#define FLAG_HIDDEN_ITEM_ROUTE_118_IRON          0x14B
+#define FLAG_HIDDEN_ITEM_ROUTE_118_HEART_SCALE   0x14C
 #define FLAG_0x14D               0x14D
 #define FLAG_0x14E               0x14E
 #define FLAG_0x14F               0x14F

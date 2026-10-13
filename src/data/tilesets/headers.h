@@ -1132,3 +1132,14 @@ const struct Tileset gTileset_HoennBrendansMaysHouse =
 	.metatileAttributes = gMetatileAttributes_HoennBrendansMaysHouse,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennMauville = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMauville,
+	.palettes = gTilesetPalettes_HoennMauville,
+	.metatiles = gMetatiles_HoennMauville,
+	.metatileAttributes = gMetatileAttributes_HoennMauville,
+	.callback = NULL
+};

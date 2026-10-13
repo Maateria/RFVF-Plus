@@ -6036,6 +6036,18 @@
       "secondary_tileset": "gTileset_HoennPetalburg",
       "border_filepath": "data/layouts/Route103/border.bin",
       "blockdata_filepath": "data/layouts/Route103/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE118",
+      "name": "Route118_Layout",
+      "width": 80,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennMauville",
+      "border_filepath": "data/layouts/Route118/border.bin",
+      "blockdata_filepath": "data/layouts/Route118/map.bin"
     }
   ]
 }

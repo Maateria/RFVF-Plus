@@ -18,6 +18,11 @@
       "direction": "right",
       "offset": 0,
       "map": "MAP_FORTREE_CITY"
+    },
+    {
+      "direction": "down",
+      "offset": -40,
+      "map": "MAP_ROUTE118"
     }
   ],
   "object_events": [
