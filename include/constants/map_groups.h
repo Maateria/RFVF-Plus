@@ -325,6 +325,7 @@
 #define MAP_ROUTE127                             (103 | (3 << 8))
 #define MAP_ROUTE128                             (104 | (3 << 8))
 #define MAP_ROUTE126                             (105 | (3 << 8))
+#define MAP_ROUTE129                             (106 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))

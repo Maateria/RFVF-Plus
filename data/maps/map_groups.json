@@ -383,7 +383,8 @@
     "Route125",
     "Route127",
     "Route128",
-    "Route126"
+    "Route126",
+    "Route129"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",

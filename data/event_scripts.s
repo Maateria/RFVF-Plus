@@ -1672,3 +1672,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route128/scripts.inc"
 
 	.include "data/maps/Route126/scripts.inc"
+
+	.include "data/maps/Route129/scripts.inc"
