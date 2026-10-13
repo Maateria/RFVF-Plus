@@ -36,10 +36,15 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
 
 - **`Tilesets` :** les tilesets utilisés. `351/384 metatiles` est la place occupée dans un tileset secondaire (384 au
   maximum). Ensuite : `new` (nouveau), `+N metatiles` (agrandi) ou `unchanged` (inchangé).
+  - `natural ids` : un grand tileset d'Émeraude garde ses numéros, et seulement les metatiles que ses maps utilisent.
+    S'il ne tient pas dans un seul tileset, il est coupé en jumeaux (`gTileset_HoennMauville2`...). Il est écrit en
+    entier la première fois et ne change plus.
+  - `PRUNED` : un tileset compacté avant l'étape 3 (`HoennGenericBuilding`, `HoennFacility`,
+    `HoennBattleFrontier`). Il ne fait que grandir.
 - **`Behaviors` :** les comportements des tuiles (eau, herbe, porte...). `DEGRADED` ou `no counterpart` signale un
   effet perdu, par exemple le sable profond devient du sable normal.
 - **Une ligne `MAP_...` par map,** suivie de :
-  - `CONN` : les liaisons ;
+  - `CONN` : les liaisons. `dive` et `emerge` (`needs Dive in game`) : on y passe en plongeant ;
   - `NPC` : les objets (PNJ, dresseurs, objets au sol) ;
   - `SIGN`, `HIDD` et `WEAT` : les panneaux, les objets cachés et la météo ;
   - `DROP` : ce qui n'est pas placé, avec la raison ;
@@ -53,7 +58,8 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
   - `Wild encounters added` : les Pokémon sauvages ajoutés ;
   - `Heal location` : le point de retour après un K.O. ;
   - `Render check` : chaque nouvelle map et chaque bande de liaison, comparées pixel par pixel à Émeraude ;
-  - `can be reached from LilycoveCity` : la zone est accessible depuis Nénucrique.
+  - `can be reached from LilycoveCity` : la zone est accessible depuis Nénucrique (`with Dive only` : seulement en
+    plongeant).
 - **`REFUSED, nothing written:` :** l'import est refusé, avec toutes les raisons. Rien n'est écrit.
 - **`Files written` :** les fichiers écrits (`A` = ajouté, `M` = modifié), suivis des commandes pour annuler.
 - **Code de sortie :**
@@ -76,22 +82,43 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
 4. Les PNJ muets et les dresseurs qui ne combattent pas sont normaux.
 5. Commitez tous les fichiers listés, y compris `include/constants/map_groups.h` et `layouts.h`.
 
-## Ce que l'outil refuse pour l'instant (étape 3)
+## Tout importer d'un coup
 
-Ces refus sont propres : rien n'est écrit et la raison commence par `needs step 3`.
+`import_all.py` importe toutes les zones qui manquent, une par une, avec un commit par zone :
 
-- **Tilesets trop gros.** Un tileset secondaire FRLG contient au plus 384 metatiles. Ceux-ci doivent d'abord être
-  découpés en tilesets jumeaux :
-  - Lavandia, Vergazon et les Routes 110, 111, 117 et 118 ;
-  - Poivressel et les Routes 108 et 109 ;
-  - Algatia et les Routes 124 à 129 ;
-  - Vermilava et la Route 112 ;
-  - les grottes, pour la Route 130.
-- **L'Arène de Vermilava :** les geysers de son sous-sol.
-- **Les fonds marins :** ils attendent la Plongée.
-- **Le tileset des maisons (`HoennGenericBuilding`).** Il est partagé et se remplit à chaque import : le rapport
-  affiche `N/384`. Toutes les maisons des zones acceptées demandent environ 410 metatiles, donc les dernières zones
-  importées qui l'agrandissent seront refusées jusqu'à l'étape 3. Dans l'ordre testé, seule Atalanopolis l'a été.
+```powershell
+uv run tools/hoenn_import/import_all.py --dry-run           # ce que chaque zone donnerait, n'écrit rien
+uv run tools/hoenn_import/import_all.py                     # importe tout ce qui manque, puis compile
+uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces zones, dans cet ordre
+```
+
+- **Avant :** fermez Porymap et commitez votre travail, sinon l'outil s'arrête sans rien faire.
+- **Ordre :** les zones partent de Nénucrique. Une zone déjà importée est sautée (`déjà là`). L'ordre ne change pas
+  les tilesets : importer la Route 118 avant ou après Lavandia donne les mêmes fichiers.
+- **Commits :** chaque zone devient un commit `[FEAT] - Import <zone> from Emerald (import_map.py)`, donc
+  `git revert <commit>` annule une zone. Rien n'est poussé.
+- **Options :** `--no-build` saute la compilation de la fin ; `--emerald CHEMIN` donne pokeemerald.
+- **Détail :** le rapport complet de chaque zone est dans `build/import_all/<zone>.txt`.
+
+## Limites
+
+- **Les 57 zones sont acceptées.** Deux cas attendent le travail moteur de l'étape 3, c'est-à-dire la constante
+  `MB_LAVARIDGE_GYM_B1F_WARP` dans `include/constants/metatile_behaviors.h`. Sans elle, ils sont refusés proprement,
+  rien n'est écrit et la raison le dit :
+  - **Vermilava :** les geysers du sous-sol de l'Arène sont la seule sortie ;
+  - **les 7 fonds marins** (`Underwater_Route105`, `Underwater_Route124` à `Underwater_Route129`) : plongée,
+    remontée et carte de la région.
+- **Plongée :** les liaisons `dive` et `emerge` d'Émeraude sont copiées, et le rapport les marque
+  `needs Dive in game`. On n'atteint les fonds marins qu'en plongeant. Atalanopolis n'a aucune liaison : on y
+  arrive par le passage sous-marin `Underwater_SootopolisCity`, qui viendra avec les donjons (le rapport dit
+  `can NOT be reached yet`).
+- **Tilesets jumeaux :** un tileset secondaire FRLG contient au plus 384 metatiles et 376 tuiles. Les plus grands
+  d'Émeraude sont coupés en deux (`SIBLINGS` dans `hoenn_decisions.py`) :
+  - `HoennMauville2` pour les Routes 110 et 111 ;
+  - `HoennSlateport2` pour les Routes 108 et 109 ;
+  - `HoennGenericBuilding2` pour les maisons d'Algatia, d'Atalanopolis, de Vergazon et des Routes 110 et 124.
+- **Pour plus tard :** les scripts, les animations des tilesets secondaires, les portes sans animation (elles
+  marchent quand même) et les effets perdus (`DEGRADED`, `no counterpart`). Le rapport les liste.
 
 ## Vos modifications dans Porymap sont gardées
 
@@ -106,7 +133,7 @@ L'outil ne réécrit jamais ce qui existe déjà. Les imports suivants gardent d
 - un tileset modifié.
 
 Une seule exception : si un import doit ajouter des metatiles à un tileset partagé que vous avez modifié (par exemple
-`HoennGenericBuilding`), il refuse. Restaurez ce tileset avec git, ou mettez vos metatiles dans votre propre tileset.
+`HoennFacility`), il refuse. Restaurez ce tileset avec git, ou mettez vos metatiles dans votre propre tileset.
 
 Après avoir placé ou changé des PNJ sur une map Hoenn, vérifiez leurs sprites (les maps Hoenn utilisent les palettes
 d'Émeraude) :

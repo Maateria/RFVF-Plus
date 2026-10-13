@@ -10,9 +10,11 @@ Usage, from the repo root in PowerShell (close Porymap and commit your work firs
     uv run tools/hoenn_import/import_all.py Route121 Route122  (only these units, in this order)
 Options: --no-build (skip .\\fast_build.cmd at the end), --emerald DIR (pokeemerald, default ..\\pokeemerald).
 
-Units are tried in ORDER, outward from Lilycove where players arrive. A refused unit is skipped with its reasons
-(import_map.py writes nothing for it); a unit already imported says "Nothing to do". Run it again once the tool
-accepts more (step 3): only what is still missing gets imported. Each import becomes its own commit,
+Units are tried in ORDER, outward from Lilycove where players arrive. The tool accepts all 57 (the 7 underwater
+routes and LavaridgeTown once the engine work of step 3 is in: without it they are refused, the others still
+import). A refused unit is skipped with its reasons (import_map.py writes nothing for it); a unit already imported
+says "Nothing to do", so running it again only imports what is still missing. The order does not change the
+tilesets (natural ids, design 1.8). Each import becomes its own commit,
 "[FEAT] - Import <unit> from Emerald (import_map.py)", so `git revert <commit>` undoes one unit. Nothing is pushed.
 Full tool output per unit: build/import_all/<unit>.txt.
 """
@@ -27,8 +29,7 @@ HERE = Path(__file__).resolve().parent
 REPO = HERE.parent.parent
 IMPORT_MAP = HERE / "import_map.py"
 LOGS = REPO / "build" / "import_all"
-# Outward from Lilycove (survey order). SootopolisCity late: it fills the shared house tileset. Underwater units
-# last: they wait for Dive.
+# Outward from Lilycove (survey order). Underwater units last: only Dive reaches them.
 ORDER = """LilycoveCity Route121 Route122 Route123 Route120 FortreeCity Route119 Route118
 Route124 MossdeepCity Route125 Route127 Route128 EverGrandeCity Route126 Route129 Route130
 Route131 PacifidlogTown Route132 Route133 Route134
@@ -142,7 +143,7 @@ def main():
     print("\n=== Bilan (%.0f min) ===" % ((time.time() - start) / 60))
     if args.dry_run:
         print("Simulation : chaque zone est testée sur le dépôt actuel, sans les imports des zones d'avant. Un vrai")
-        print("lancement peut donc en refuser une de plus (par exemple quand le tileset des maisons se remplit).")
+        print("lancement vérifie en plus les bandes de liaison entre deux zones nouvelles.")
     print("%s (%d) : %s" % ("Acceptées" if args.dry_run else "Importées", len(done),
                             " ".join(u + (" (%s)" % s if s else "") for u, s in done) or "-"))
     print("Déjà là (%d) : %s" % (len(nothing), " ".join(nothing) or "-"))

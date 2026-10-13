@@ -305,3 +305,20 @@ SIGN_MOVES = {("LilycoveCity_DepartmentStore_1F", 0, 8): (1, 1)}
 # (STAIRS_UNBLOCKED: an e-Reader trainer visits), LittlerootTown_ProfessorBirchsLab (WITH_TABLE: every Hoenn Pokemon
 # caught, Johto starters).
 START_LAYOUT = {"Route131": "LAYOUT_ROUTE131_SKY_PILLAR"}  # Route131_OnTransition: Route131_EventScript_SetLayout
+# Emerald secondary tilesets one FRLG secondary cannot hold (384 metatiles, 376 tiles): the Emerald layouts of each extra
+# sibling, gTileset_Hoenn<Name>2, 3... (design 1.8); every other layout keeps gTileset_Hoenn<Name>. Siblings share the
+# natural ids, and every connection strip between two siblings only shows metatiles below 384 (the render check
+# compares every strip). Alternate layouts go with their map: LAYOUT_ROUTE111_NO_MIRAGE_TOWER with Route111.
+SIBLINGS = {
+    "gTileset_Mauville": [{"LAYOUT_ROUTE110", "LAYOUT_ROUTE111", "LAYOUT_ROUTE111_NO_MIRAGE_TOWER"}],
+    "gTileset_Slateport": [{"LAYOUT_ROUTE108", "LAYOUT_ROUTE109"}],
+    # HoennGenericBuilding, pruned before natural ids, holds the houses of the first 30 units (371/384). The houses
+    # none of them uses, those of MossdeepCity, Route110, Route124, SootopolisCity and VerdanturfTown, come here
+    # whatever the import order (MossdeepCity's LAYOUT_HOUSE1 and the other shared ones are already there).
+    "gTileset_GenericBuilding": [{
+        "LAYOUT_MOSSDEEP_CITY_GAME_CORNER_B1F", "LAYOUT_MOSSDEEP_CITY_STEVENS_HOUSE", "LAYOUT_ROUTE110_TRICK_HOUSE_CORRIDOR",
+        "LAYOUT_ROUTE110_TRICK_HOUSE_END", "LAYOUT_ROUTE110_TRICK_HOUSE_ENTRANCE",
+        "LAYOUT_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE", "LAYOUT_SOOTOPOLIS_CITY_HOUSE1", "LAYOUT_SOOTOPOLIS_CITY_HOUSE2",
+        "LAYOUT_SOOTOPOLIS_CITY_HOUSE3", "LAYOUT_SOOTOPOLIS_CITY_LOTAD_AND_SEEDOT_HOUSE",
+        "LAYOUT_VERDANTURF_TOWN_WANDAS_HOUSE"}],
+}

@@ -56,12 +56,18 @@ Engine differences handled:
     as is (ids unchanged). An Emerald secondary using palette slot 6 (a primary slot in FRLG) gets it moved to a
     free slot 10-12 (WARNING printed: door palettes naming slot 6 must follow); PALETTE_SWAPS moves others.
   - FRLG secondary = 384 metatiles / 376 tiles (VRAM tiles 1016-1023 are the door animation buffer). A secondary
-    that fits keeps every metatile (FRLG id = Emerald id + 128) and only the tiles they use, re-based at 640. The ones
-    this repo already holds PRUNED (GenericBuilding, Facility, BattleFrontier) keep only the metatiles used by the maps
-    imported with them plus those Emerald names in metatile_labels.h (scripts and C code set them at runtime; door
-    labels excepted), numbered append-only in <tileset dir>/emerald_ids.json (FRLG metatile 640 + i = Emerald
-    metatiles[i], FRLG tile 640 + i = Emerald tiles[i]). A NEW secondary that does not fit, or a pruned one that
-    overflows, is refused until the natural-id plan and siblings exist (design F11).
+    that fits keeps every metatile (FRLG id = Emerald id + 128) and only the tiles they use, re-based at 640 (an
+    animated range stays whole: ANIMATED_TILES). One that does not fit (Mauville, Slateport, Mossdeep, Lavaridge, Cave)
+    gets natural ids (natural_plan, design 1.8): Emerald metatile 512 + i keeps slot 640 + i if i < 384, a later one
+    takes a dead slot, and only what Emerald's layouts, strips and labels need is kept; hoenn_decisions.SIBLINGS
+    splits the too big ones into gTileset_Hoenn<Name>2. Written whole on first use, they never change, whatever the
+    order of imports. The secondaries this repo held PRUNED before (LEGACY_PRUNED: GenericBuilding, Facility,
+    BattleFrontier) keep their compact append-only ids (+ the labels of metatile_labels.h, scripts and C code set them;
+    door labels excepted); one that must grow takes at once all that import_map's maps need from it. Their ids, and the
+    natural ones, are in <tileset dir>/emerald_ids.json (FRLG metatile 640 + i = Emerald metatiles[i], null = empty
+    slot; FRLG tile 640 + i = Emerald tiles[i]).
+  - Underwater maps and Lavaridge Gym B1F need the engine work of step 3 (ENGINE_STEP3): refused without it. Dive and
+    emerge connections are copied as Emerald has them (the report says they need Dive).
   - metatile_attributes u16 -> u32: behaviors are mapped by NAME (the values differ between the engines), through
     BEHAVIOR_OVERRIDES (same meaning), DEGRADED and NO_COUNTERPART (both listed in the report); any other Emerald
     behavior is refused. FRLG's terrain (surf, Cut) and encounter type, which FRLG reads from the attributes, are
@@ -82,7 +88,7 @@ from types import SimpleNamespace
 
 from PIL import Image
 
-from hoenn_decisions import (HIDDEN_BY_MAP_SCRIPT, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, SIGN_MOVES,
+from hoenn_decisions import (HIDDEN_BY_MAP_SCRIPT, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, SIBLINGS, SIGN_MOVES,
                              START_LAYOUT, VAR_GFX)
 from hoenn_sprites import skipped
 
@@ -95,9 +101,29 @@ SEC_MAX_TILES = SEC_MAX - 8  # its tiles: the door animations overwrite the last
 TERRAIN_NORMAL, TERRAIN_GRASS, TERRAIN_WATER, TERRAIN_WATERFALL = 0, 1, 2, 3
 ENC_NONE, ENC_LAND, ENC_WATER = 0, 1, 2
 IDS_FILE = "emerald_ids.json"
+# Secondaries this tool pruned before natural ids (design 1.8): compact ids, append-only, in IDS_FILE
+LEGACY_PRUNED = {"gTileset_GenericBuilding", "gTileset_Facility", "gTileset_BattleFrontier"}
+# Emerald's secondary tile animations (pokeemerald src/tileset_anims.c): (first tile - 512, tiles). Compaction keeps a
+# range whole and contiguous once a kept metatile shows one of its tiles, so the animation can be ported later.
+ANIMATED_TILES = {
+    "gTileset_Rustboro": ((128, 32), (448, 4)), "gTileset_Dewford": ((170, 6),), "gTileset_Slateport": ((224, 4),),
+    "gTileset_Mauville": ((96, 32), (128, 32)), "gTileset_Lavaridge": ((288, 8), (160, 4)),
+    "gTileset_EverGrande": ((224, 32),), "gTileset_Pacifidlog": ((464, 30), (496, 8)),
+    "gTileset_Sootopolis": ((240, 96),), "gTileset_Underwater": ((496, 4),),
+    "gTileset_SootopolisGym": ((496, 12), (464, 20)), "gTileset_Cave": ((416, 4),),
+    "gTileset_EliteFour": ((480, 4), (504, 1)), "gTileset_MauvilleGym": ((144, 16),), "gTileset_BikeShop": ((496, 9),),
+    "gTileset_BattlePyramid": ((151, 8), (135, 8)), "gTileset_BattleFrontierOutsideWest": ((218, 6),),
+    "gTileset_BattleFrontierOutsideEast": ((218, 6),)}
 HOENN_PRIMARIES = {"gTileset_HoennGeneral", "gTileset_HoennInsideBuilding"}  # = IsHoennMapLayout(), src/fieldmap.c
-DIRECTIONS = ("up", "down", "left", "right")  # Emerald's dive / emerge connections wait for underwater support
+DIRECTIONS = ("up", "down", "left", "right")  # connections drawn as strips
+DIVE = ("dive", "emerge")  # connections too (Emerald's, copied as they are): the Dive field move takes them
+# Defined by the engine work underwater maps and Lavaridge Gym B1F need (step 3: the B1F geysers, Hoenn dive / emerge,
+# the region map guard): without it those maps are refused
+ENGINE_STEP3 = "MB_LAVARIDGE_GYM_B1F_WARP"
 MAP_OFFSET = 7  # blocks of a neighbour map drawn around the current one (fieldmap.c, both engines)
+OUTDOOR = "gMapGroup_TownsAndRoutes"
+# Emerald indoor-group maps nothing reaches (survey): never imported
+NEVER = {"LilycoveCity_UnusedMart", "Route104_Prototype", "Route104_PrototypePrettyPetalFlowerShop"}
 STUBS = REPO / "data/scripts/hoenn_stubs.inc"
 FLAGS_H = REPO / "include/constants/flags.h"
 # FLAG_0x placeholders an Emerald flag may take (design 1.4a): unused and never cleared. 0x4FF stays (it anchors
@@ -130,7 +156,11 @@ BEHAVIOR_OVERRIDES = {
     "MB_CABLE_BOX_RESULTS_2": "MB_BATTLE_RECORDS",
     "MB_WIRELESS_BOX_RESULTS": "MB_CABLE_CLUB_WIRELESS_MONITOR",
     "MB_NO_RUNNING": "MB_RUNNING_DISALLOWED",  # same value and meaning
+    "MB_NO_SURFACING": "MB_UNDERWATER_BLOCKED_ABOVE",  # same value and meaning: a diver cannot emerge there
 }
+# Underwater floor: Emerald flags it surfable (a diver swims there), FRLG moves a diver by collision and elevation only.
+# Its encounters are Emerald's water ones (seaweed).
+UNDERWATER = {"MB_UNDERWATER_BLOCKED_ABOVE", "MB_SEAWEED", "MB_SEAWEED_NO_SURFACING"}
 # Emerald behavior -> the nearest FRLG one: it loses part of its effect (listed in the report).
 DEGRADED = {
     "MB_DEEP_SAND": "MB_SAND",  # no sinking
@@ -461,8 +491,8 @@ class Behaviors:
         em_name = self.em_names[em_attr & 0xFF]
         fr_name = self.fr_name(em_name)[0]
         self.used[em_name, fr_name] += 1
-        surfable = fr_name in self.fr_surfable
-        if not surfable and em_name in self.em_surfable:
+        surfable, underwater = fr_name in self.fr_surfable, fr_name in UNDERWATER
+        if not surfable and not underwater and em_name in self.em_surfable:
             refuse("%s is surfable in Emerald, %s is not here: map it in BEHAVIOR_OVERRIDES / DEGRADED" % (em_name, fr_name))
         if fr_name == "MB_WATERFALL":
             terrain = TERRAIN_WATERFALL
@@ -472,20 +502,159 @@ class Behaviors:
             terrain = TERRAIN_GRASS                                           # IsAshGrass); FRLG's Cut reads the terrain
         else:
             terrain = TERRAIN_NORMAL
-        encounter = ENC_WATER if surfable else ENC_LAND if em_name in self.em_encounter else ENC_NONE
+        encounter = ENC_WATER if surfable or underwater and em_name in self.em_encounter else \
+            ENC_LAND if em_name in self.em_encounter else ENC_NONE
         layer = em_attr >> 12  # NORMAL/COVERED/SPLIT: same values and DrawMetatile logic in both engines
         return self.fr_values[fr_name] | terrain << 9 | encounter << 24 | layer << 29
 
 
 # ---------------------------------------------------------------- tilesets
 
+def sibling_of(symbol, layout_id):
+    """Which FRLG tileset holds Emerald's secondary `symbol` for the Emerald layout `layout_id`: 0 for
+    gTileset_Hoenn<Name>, k for gTileset_Hoenn<Name><k + 1> (hoenn_decisions.SIBLINGS)."""
+    return next((k + 1 for k, s in enumerate(SIBLINGS.get(symbol, ())) if layout_id in s), 0)
+
+
+def closure(groups, unit):
+    """The unit and the maps of its Emerald indoor group, in Emerald's order: {map: its group here}."""
+    group = "gMapGroup_Indoor" + re.sub(r"(Town|City)$", "", unit)
+    return dict({unit: OUTDOOR}, **{m: group for m in groups.get(group, []) if m not in NEVER})
+
+
+@lru_cache(maxsize=None)
+def em_layout_blocks(ctx, layout_id):
+    """(map.bin, border.bin) of Emerald's layout `layout_id`."""
+    layout = ctx.layouts[layout_id]
+    return read_ints(ctx.root / layout["blockdata_filepath"], "H"), read_ints(ctx.root / layout["border_filepath"], "H")
+
+
+def secondary_ids(blocks):
+    return {b & 0x3FF for b in blocks if b & 0x3FF >= EM["metatiles"]}
+
+
+def with_anims(symbol, tiles, png_tiles):
+    """Sorted Emerald tiles: `tiles` plus the rest of every animated range (ANIMATED_TILES) one of them is in."""
+    out = set(tiles)
+    for first, count in ANIMATED_TILES.get(symbol, ()):
+        span = set(range(EM["tiles"] + first, EM["tiles"] + min(first + count, png_tiles)))
+        if span & out:
+            out |= span
+    return sorted(out)
+
+
+@lru_cache(maxsize=None)
+def scope_needs(ctx, symbol):
+    """Secondary metatiles of `symbol` that the maps import_map.py imports (the 57 units) need from its first FRLG
+    tileset: a pruned one gets them all with the first import that grows it, whatever the order of imports."""
+    layouts = {ctx.layout_of(m)["id"] for u in ctx.groups[OUTDOOR] for m in closure(ctx.groups, u)}
+    return {m for lid in layouts if ctx.layouts[lid]["secondary_tileset"] == symbol and not sibling_of(symbol, lid)
+            for m in secondary_ids(sum(em_layout_blocks(ctx, lid), []))}
+
+
+def em_count(ctx, symbol):
+    """Metatiles of Emerald's tileset `symbol`."""
+    return len(read_bytes(em_tileset(ctx.root, symbol)[1] / "metatile_attributes.bin")) // 2
+
+
+@lru_cache(maxsize=None)
+def strips_shown(ctx):
+    """[(tileset, sibling) of a map, (tileset, sibling) of its neighbour, the Emerald secondary metatiles of the
+    neighbour that the map shows through their connection strip and its own Emerald tileset can draw)]."""
+    by_id = {mj["id"]: name for name, mj in ctx.maps.items()}
+    out = []
+    for name, mj in ctx.maps.items():
+        layout = ctx.layout_of(name)
+        sym = layout["secondary_tileset"]
+        for c in mj.get("connections") or []:
+            if c["direction"] in DIRECTIONS and c["map"] in by_id:
+                nl = ctx.layout_of(by_id[c["map"]])
+                v = SimpleNamespace(width=layout["width"], height=layout["height"],
+                                    em_counts=[EM["metatiles"], em_count(ctx, sym)])
+                blocks = em_layout_blocks(ctx, nl["id"])[0]
+                n = SimpleNamespace(width=nl["width"], height=nl["height"], em_blocks=blocks, fr_blocks=blocks, edited=())
+                out.append(((sym, sibling_of(sym, layout["id"])),
+                            (nl["secondary_tileset"], sibling_of(nl["secondary_tileset"], nl["id"])),
+                            secondary_ids(strip(v, n, c)[0])))
+    return out
+
+
+@lru_cache(maxsize=None)
+def tileset_needs(ctx, symbol):
+    """For each FRLG tileset Emerald's secondary `symbol` becomes (sibling_of), the Emerald metatiles it holds: what its
+    Emerald layouts use (blocks, border), what their maps show of their neighbours (connection strips, cells Emerald
+    can draw) and the labelled metatiles (scripts and C code set them)."""
+    need = [set() for _ in range(len(SIBLINGS.get(symbol, ())) + 1)]
+    for lid, layout in ctx.layouts.items():
+        if layout["secondary_tileset"] == symbol:
+            need[sibling_of(symbol, lid)] |= secondary_ids(sum(em_layout_blocks(ctx, lid), []))
+    for (sym, k), _, shown in strips_shown(ctx):
+        if sym == symbol:
+            need[k] |= shown
+    own = {v for _, v in em_labels(ctx.root, symbol[len("gTileset_"):])}
+    return [{m for m in s | own if EM["metatiles"] <= m < EM["metatiles"] + em_count(ctx, symbol)} for s in need]
+
+
+@lru_cache(maxsize=None)
+def natural_plan(ctx, symbol):
+    """Natural ids (design 1.8) of Emerald's secondary `symbol`, for each FRLG tileset it becomes: [the Emerald
+    metatile of slot 640 + i, None if empty], holding tileset_needs(). Metatile 512 + i sits in slot i if i < 384,
+    else in a dead slot: the lowest one that no tileset needing the metatile uses for itself (nor one whose strip shows
+    it) and that holds no door of another Hoenn tileset, so siblings share ids. A metatile a strip shows from another
+    tileset's dead slot takes that slot (Route111 sees Route112's 0x3B8). Emerald's data alone fixes it: the order of
+    imports never changes it."""
+    em_name = symbol[len("gTileset_"):]
+    need = tileset_needs(ctx, symbol)
+    align, avoid = {}, defaultdict(set)  # metatile -> the dead slot it must take / the slots it must not take
+    for (sym, k), (other, ok), shown in strips_shown(ctx):
+        for m in shown:
+            if m - EM["metatiles"] < SEC_MAX or sym == other:
+                continue
+            if sym == symbol:  # ponytail: recursion, a loop if two tilesets ever showed each other's dead slots
+                plan = natural_plan(ctx, other)[ok]
+                align[m] = plan.index(m) if m in plan else None
+            elif other == symbol:
+                avoid[m] |= {i - EM["metatiles"] for i in tileset_needs(ctx, sym)[k]}
+    labels = re.findall(r"#define (METATILE_\w+)\s+(0x[0-9A-Fa-f]+)",
+                        read(ctx.root / "include/constants/metatile_labels.h"))
+    doors = set(re.findall(r"METATILE_\w+", read(ctx.root / "src/field_door.c")))
+    door_slots = {int(v, 16) - EM["metatiles"] for n, v in labels
+                  if n in doors and not n.startswith("METATILE_%s_" % em_name)}
+    first = 1 if symbol in LEGACY_PRUNED else 0  # the first tileset of a legacy one keeps its compact ids
+    slot, taken = {}, [set() for _ in need]
+    for m in sorted(set().union(*need[first:]), key=lambda m: (m not in align, m)):
+        if m - EM["metatiles"] < SEC_MAX:
+            continue
+        users = [k for k in range(first, len(need)) if m in need[k]]
+        free = [d for d in ([align[m]] if m in align else range(SEC_MAX)) if d is not None and d not in door_slots and
+                d not in avoid[m] and all(EM["metatiles"] + d not in need[k] and d not in taken[k] for k in users)]
+        if not free:
+            refuse("gTileset_%s: no dead slot left for its metatile 0x%03X (design 1.8): give it a sibling in "
+                   "hoenn_decisions.SIBLINGS" % (em_name, m))
+            continue
+        slot[m] = free[0]
+        for k in users:
+            taken[k].add(free[0])
+    plans = []
+    for s in need:
+        out = [None] * SEC_MAX
+        for m in s:
+            if m in slot or m - EM["metatiles"] < SEC_MAX:
+                out[slot.get(m, m - EM["metatiles"])] = m
+        while out and out[-1] is None:
+            out.pop()
+        plans.append(out)
+    return plans
+
+
 class Tileset:
-    def __init__(self, em, symbol, behaviors, used):
-        """Reads, checks and converts Emerald's tileset `symbol`; `used` = its metatile ids in the maps of the batch.
-        write() plans the files."""
+    def __init__(self, ctx, symbol, sibling, used):
+        """Reads, checks and converts Emerald's tileset `symbol` into its FRLG tileset number `sibling` (sibling_of);
+        `used` = its metatile ids in the maps of the batch. write() plans the files."""
+        em, behaviors = ctx.root, ctx.behaviors
         fields, self.src = em_tileset(em, symbol)
         self.em_name = symbol.replace("gTileset_", "")  # Emerald labels: METATILE_<em_name>_*
-        suffix = fields["metatiles"].replace("gMetatiles_", "")
+        suffix = fields["metatiles"].replace("gMetatiles_", "") + ("%d" % (sibling + 1) if sibling else "")
         self.name = "Hoenn" + suffix
         self.secondary = fields["isSecondary"] == "TRUE"
         self.kind = "secondary" if self.secondary else "primary"
@@ -501,7 +670,7 @@ class Tileset:
         if len(self.em_meta) != 8 * len(self.em_attrs) or png.mode != "P" or png.width % 8 or png.height % 8:
             refuse("%s: unexpected Emerald tileset files in %s" % (symbol, self.src), fatal=True)
         png_tiles = png.width // 8 * (png.height // 8)
-        self.pal_map, self.pruned, self.junk = {}, False, []
+        self.pal_map, self.pruned, self.legacy, self.junk = {}, False, False, []
         self.new = not exists(REPO / self.dir / "metatiles.bin")
         if not self.secondary:
             if len(self.em_attrs) > EM["metatiles"] or not all((e & 0x3FF) < EM["tiles"] and e >> 12 < EM["pals"]
@@ -517,34 +686,41 @@ class Tileset:
             beyond = lambda e: e & 0x3FF >= EM["tiles"] + png_tiles
             self.junk = sorted({EM["metatiles"] + i // 8 for i, e in enumerate(self.em_meta) if beyond(e)})
             self.em_meta = [0 if beyond(e) else e for e in self.em_meta]
-            entries = lambda m: self.em_meta[(m - EM["metatiles"]) * 8:(m - EM["metatiles"]) * 8 + 8]
+            entries = lambda m: [0] * 8 if m is None else self.em_meta[(m - EM["metatiles"]) * 8:][:8]  # None: empty
             sec_tiles = lambda metas: sorted({e & 0x3FF for m in metas for e in entries(m) if e & 0x3FF >= EM["tiles"]})
             every = range(EM["metatiles"], EM["metatiles"] + len(self.em_attrs))
             self.ids_path = REPO / self.dir / IDS_FILE
-            self.pruned = exists(self.ids_path) or len(every) > SEC_MAX or len(sec_tiles(every)) > SEC_MAX_TILES
-            if self.pruned and not exists(self.ids_path):
-                refuse("needs step 3: gTileset_%s has %d metatiles / %d tiles, more than a FRLG secondary holds "
-                       "(%d / %d), and its natural ids are not planned yet (design F11)"
-                       % (self.em_name, len(every), len(sec_tiles(every)), SEC_MAX, SEC_MAX_TILES))
-            if self.pruned:  # append-only numbering, shared with the maps imported before
+            whole = with_anims(symbol, sec_tiles(every), png_tiles)
+            self.legacy = symbol in LEGACY_PRUNED and not sibling
+            self.pruned = self.legacy or symbol in SIBLINGS or len(every) > SEC_MAX or len(whole) > SEC_MAX_TILES
+            if self.legacy:  # append-only compact numbering, shared with the maps imported before
                 ids = json.loads(read(self.ids_path)) if exists(self.ids_path) else {"metatiles": [], "tiles": []}
                 # + the labelled metatiles, which scripts / C code set at runtime; a door label only feeds the door
                 # animation table, so that door comes with the first map placing it (and gets its table entry then)
                 doors = set(re.findall(r"METATILE_\w+", read(em / "src/field_door.c")))
                 used = set(used) | {v for n, v in em_labels(em, self.em_name)
                                     if "METATILE_%s_%s" % (self.em_name, n) not in doors}
+                if not used <= set(ids["metatiles"]):  # it grows: by all that import_map's maps need, whatever the order
+                    used |= scope_needs(ctx, symbol)
                 if not used <= set(every):
                     refuse("%s: maps use metatiles it does not have" % symbol, fatal=True)
                 self.metas = ids["metatiles"] + sorted(used - set(ids["metatiles"]))
                 self.tiles = ids["tiles"] + [t for t in sec_tiles(self.metas) if t not in ids["tiles"]]
                 known = len(ids["metatiles"])  # what this tool wrote before
+            elif self.pruned:  # natural ids, written whole once (design 1.8)
+                self.metas = natural_plan(ctx, symbol)[sibling]
+                self.tiles = with_anims(symbol, sec_tiles(self.metas), png_tiles)
+                old = json.loads(read(self.ids_path)) if exists(self.ids_path) else {}
+                if not self.new and (old.get("metatiles"), old.get("tiles")) != (self.metas, self.tiles):
+                    refuse("%s/%s is not the natural-id plan this import makes (design 1.8): not overwritten"
+                           % (self.dir, IDS_FILE))
             else:
                 self.metas = list(every)
-                self.tiles = sec_tiles(every)
-            if len(self.metas) > SEC_MAX or len(self.tiles) > SEC_MAX_TILES:  # fatal: the renders would only repeat it
-                refuse("needs step 3: gTileset_%s would hold %d metatiles / %d tiles here (max %d / %d): the maps "
-                       "imported before filled it, and its sibling tileset is not planned yet (design F11)"
-                       % (self.name, len(self.metas), len(self.tiles), SEC_MAX, SEC_MAX_TILES), fatal=True)
+                self.tiles = whole
+            if len(self.tiles) > SEC_MAX_TILES or len(self.metas) > SEC_MAX:  # fatal: the renders would only repeat it
+                refuse("gTileset_%s would hold %d metatiles / %d tiles here (max %d / %d): give it a sibling in "
+                       "hoenn_decisions.SIBLINGS (design 1.8)" % (self.name, self.count(), len(self.tiles), SEC_MAX,
+                                                                  SEC_MAX_TILES), fatal=True)
             tile_map = {t: FR["tiles"] + i for i, t in enumerate(self.tiles)}
             pals = {e >> 12 for e in self.em_meta}  # every metatile: the slot must not move when a later batch adds some
             if max(pals) > 12:
@@ -558,12 +734,12 @@ class Tileset:
             self.meta = [tile_map.get(e & 0x3FF, e & 0x3FF) | e & 0x0C00 | self.pal_map.get(e >> 12, e >> 12) << 12
                          for m in self.metas for e in entries(m)]
             self.num_tiles = len(self.tiles)
-        self.index = {m: i for i, m in enumerate(self.metas)}
+        self.index = {m: i for i, m in enumerate(self.metas) if m is not None}
         base = EM["metatiles"] if self.secondary else 0
-        self.attrs = [behaviors.convert(self.em_attrs[m - base]) for m in self.metas]
-        # Metatiles this run adds: only a pruned secondary grows. A tileset here that gets nothing new is left as it is
-        # (write(): Porymap edits stay); one that grows must still hold what this tool wrote (ids are append-only).
-        if self.new or not self.pruned:
+        self.attrs = [0 if m is None else behaviors.convert(self.em_attrs[m - base]) for m in self.metas]
+        # Metatiles this run adds: only a legacy pruned secondary grows. A tileset here that gets nothing new is left as
+        # it is (write(): Porymap edits stay); one that grows must still hold what this tool wrote (append-only ids).
+        if not self.legacy:
             known = 0 if self.new else len(self.metas)
         self.grows = len(self.metas) - known
         if self.grows and not self.new:
@@ -598,8 +774,14 @@ class Tileset:
         write_ints(dst / "metatile_attributes.bin", "I", self.attrs)
         if self.pruned:
             write(self.ids_path, '{\n  "_": "tools/hoenn_import: FRLG metatile (tile) 640 + i = Emerald metatiles[i] '
-                                 '(tiles[i]); append-only, never reorder",\n  "metatiles": %s,\n  "tiles": %s\n}\n'
-                                 % (json.dumps(self.metas), json.dumps(self.tiles)))
+                                 '(tiles[i]); %s",\n  "metatiles": %s,\n  "tiles": %s\n}\n'
+                                 % ("append-only, never reorder" if self.legacy else
+                                    "null = empty; natural ids, design 1.8: never edit",
+                                    json.dumps(self.metas), json.dumps(self.tiles)))
+
+    def count(self):
+        """Metatiles it holds (a natural-id one has empty slots)."""
+        return sum(m is not None for m in self.metas)
 
     def remap_metatile(self, m):
         """Emerald metatile id -> FRLG id (primary: unchanged; secondary: 640 + its position, = id + 128 unpruned)."""
@@ -1041,9 +1223,10 @@ def resolve_warp(w, here):
 
 
 def connections(em_map, here):
-    """Emerald's connections of a map that lead to maps existing here (Emerald lists both sides with matching offsets)."""
+    """Emerald's connections of a map that lead to maps existing here (Emerald lists both sides with matching offsets),
+    dive and emerge ones included."""
     return [{"direction": c["direction"], "offset": c["offset"], "map": c["map"]}
-            for c in em_map.get("connections") or [] if c["direction"] in DIRECTIONS and c["map"] in here]
+            for c in em_map.get("connections") or [] if c["direction"] in DIRECTIONS + DIVE and c["map"] in here]
 
 
 def convert_header(ctx, m):
@@ -1051,6 +1234,9 @@ def convert_header(ctx, m):
     music = ctx.music(j["music"])
     if not music:
         refuse("%s: music %s has no track with its value here" % (m.name, j["music"]))
+    if j["map_type"] == "MAP_TYPE_UNDERWATER" and not defined(ENGINE_STEP3):
+        refuse("%s: an underwater map needs the engine work of step 3 (Hoenn dive and emerge, region map guard), "
+               "missing here: %s is not in include/constants/metatile_behaviors.h" % (m.name, ENGINE_STEP3))
     scene = BATTLE_SCENES.get(j["battle_scene"], j["battle_scene"])
     for value in (j["region_map_section"], j["weather"], j["map_type"], scene):
         if not defined(value):
@@ -1277,15 +1463,16 @@ def plan(ctx, names, group_of):
     # tilesets: each converted once, with the metatiles of every map of the batch that uses it
     used = defaultdict(set)
     for m in maps:
+        m.keys = ((m.layout["primary_tileset"], 0),
+                  (m.layout["secondary_tileset"], sibling_of(m.layout["secondary_tileset"], m.layout["id"])))
         for block in m.blocks + m.border:
-            mid = block & 0x3FF
-            used[m.layout["secondary_tileset"] if mid >= EM["metatiles"] else m.layout["primary_tileset"]].add(mid)
+            used[m.keys[block & 0x3FF >= EM["metatiles"]]].add(block & 0x3FF)
     tilesets = {}
     for m in maps:
-        for key in ("primary_tileset", "secondary_tileset"):
-            if m.layout[key] not in tilesets:
-                tilesets[m.layout[key]] = Tileset(em, m.layout[key], ctx.behaviors, used[m.layout[key]])
-        m.primary, m.secondary = tilesets[m.layout["primary_tileset"]], tilesets[m.layout["secondary_tileset"]]
+        for key in m.keys:
+            if key not in tilesets:
+                tilesets[key] = Tileset(ctx, *key, used[key])
+        m.primary, m.secondary = (tilesets[key] for key in m.keys)
         if m.primary.secondary or not m.secondary.secondary:
             refuse("%s: primary / secondary tilesets swapped" % m.name, fatal=True)
         remap = lambda b: b & ~0x3FF | (m.primary.remap_metatile(b & 0x3FF) if b & 0x3FF < EM["metatiles"]
@@ -1305,9 +1492,11 @@ def plan(ctx, names, group_of):
             if not m.exists and em_beh in ctx.warp_triggers - WATER_DOORS and fr_beh not in ctx.warp_triggers_here:
                 dead[em_beh, fr_beh].append(str(i))
         for (em_beh, fr_beh), warps in dead.items():
-            refuse(("needs step 3: Lavaridge Gym B1F geyser warps (engine E3): %s warps %s" % (m.name, " ".join(warps)))
-                   if em_beh == "MB_LAVARIDGE_GYM_B1F_WARP" else "dead warp: %s warps %s are %s in Emerald, %s here "
-                   "cannot warp" % (m.name, " ".join(warps), em_beh, fr_beh))
+            refuse(("%s warps %s, Lavaridge Gym B1F geysers (the only way out), need the engine work of step 3 (E3), "
+                    "missing here: %s is not in include/constants/metatile_behaviors.h" % (m.name, " ".join(warps),
+                                                                                           ENGINE_STEP3))
+                   if em_beh == ENGINE_STEP3 and not defined(em_beh) else "dead warp: %s warps %s are %s in Emerald, "
+                   "%s here cannot warp" % (m.name, " ".join(warps), em_beh, fr_beh))
 
     # layouts (shared ones once; one already here is reused, never rewritten)
     layouts, repo_ids = {}, {l.get("id"): l for l in repo_layouts}
@@ -1373,7 +1562,7 @@ def plan(ctx, names, group_of):
     relink(ctx, batch, existing)
     for m in maps:
         if m.map_json:
-            batch.strips += [(m.em_map["id"], c) for c in m.map_json["connections"] or []]
+            batch.strips += [(m.em_map["id"], c) for c in m.map_json["connections"] or [] if c["direction"] in DIRECTIONS]
     if ctx.allocated:
         batch.extras += ["Flags allocated in %s (Emerald's names):" % FLAGS_H.relative_to(REPO).as_posix()] + ctx.allocated
     batch.extras += plan_encounters(ctx, batch) + plan_heal_location(ctx, batch)
@@ -1479,8 +1668,10 @@ def relink(ctx, batch, existing):
         for c in connections(em_map, batch.here):
             if c["map"] in new and (c["direction"], c["map"]) not in have:
                 mj["connections"] = (mj.get("connections") or []) + [c]
-                batch.relinks.append("%s: connection %s -> %s (offset %d)" % (folder, c["direction"], c["map"], c["offset"]))
-                batch.strips.append((map_id, c))
+                batch.relinks.append("%s: connection %s -> %s (offset %d)%s" % (
+                    folder, c["direction"], c["map"], c["offset"], "  needs Dive in game" if c["direction"] in DIVE else ""))
+                if c["direction"] in DIRECTIONS:
+                    batch.strips.append((map_id, c))
                 changed = True
         if changed:
             write_json(path, mj)
@@ -1502,7 +1693,7 @@ def view(ctx, folder, layouts):
         fr_dirs=[repo_tileset_dir(layout[k]) for k in ("primary_tileset", "secondary_tileset")])
     ids = v.fr_dirs[1] / IDS_FILE  # Tileset.remap_metatile: secondary id = 640 + its place (pruned: in IDS_FILE)
     order = json.loads(read(ids))["metatiles"] if exists(ids) else range(EM["metatiles"], TOTAL)
-    to_fr = {m: FR["metatiles"] + i for i, m in enumerate(order)}
+    to_fr = {m: FR["metatiles"] + i for i, m in enumerate(order) if m is not None}
     conv = lambda b: b if b & 0x3FF < EM["metatiles"] else b & ~0x3FF | to_fr.get(b & 0x3FF, 0x3FF)
     v.edited = {i for i, (e, f) in enumerate(zip(v.em_blocks, v.fr_blocks)) if conv(e) != f} \
         if (v.width, v.height) == (em_layout["width"], em_layout["height"]) else set(range(len(v.fr_blocks)))
@@ -1643,13 +1834,14 @@ def check_files(files):
 
 # ---------------------------------------------------------------- report
 
-def reachable(batch, start="MAP_LILYCOVE_CITY"):
-    """MAP_ ids reached from `start` through connections and linked warps (both ways), planned files included. The
-    link rooms every Pokemon Center shares are no way through."""
+def reachable(batch, dive=True, start="MAP_LILYCOVE_CITY"):
+    """MAP_ ids reached from `start` through connections (dive and emerge ones if `dive`) and linked warps (both ways),
+    planned files included. The link rooms every Pokemon Center shares are no way through."""
     edges = defaultdict(set)
     for map_id, folder in batch.folders.items():
         mj = json.loads(read(REPO / "data/maps" / folder / "map.json"))
-        for dest in [c["map"] for c in mj.get("connections") or []] + [w["dest_map"] for w in mj["warp_events"]]:
+        conns = [c["map"] for c in mj.get("connections") or [] if dive or c["direction"] not in DIVE]
+        for dest in conns + [w["dest_map"] for w in mj["warp_events"]]:
             if dest not in WARP_ALIASES and dest != "MAP_DYNAMIC":
                 edges[map_id].add(dest)
                 edges[dest].add(map_id)
@@ -1668,8 +1860,8 @@ def report(ctx, batch, unit=None):
         state = "new" if ts.new else "+%d metatiles" % ts.grows if ts.grows else "unchanged"
         room = "/%d" % SEC_MAX if ts.secondary else "    "  # a secondary's room: a pruned one fills up import by import
         print("  gTileset_%-26s %-9s %3d%s metatiles %3d tiles  %-14s %s%s" % (
-            ts.name, ts.kind, len(ts.metas), room, ts.num_tiles, state, ts.dir,
-            "  PRUNED, ids in " + IDS_FILE if ts.pruned else ""))
+            ts.name, ts.kind, ts.count(), room, ts.num_tiles, state, ts.dir,
+            "  %s, ids in %s" % ("PRUNED" if ts.legacy else "natural ids", IDS_FILE) if ts.pruned else ""))
         if ts.junk:
             print("NOTE: Emerald metatiles %s name tiles beyond tiles.png: drawn with tile 0 here"
                   % " ".join("0x%03X" % m for m in ts.junk))
@@ -1698,7 +1890,8 @@ def report(ctx, batch, unit=None):
         if not j:
             continue
         for c in j["connections"] or []:
-            print("  CONN %-5s -> %s (offset %d)" % (c["direction"], c["map"], c["offset"]))
+            print("  CONN %-6s -> %s (offset %d)%s" % (c["direction"], c["map"], c["offset"],
+                                                       "  needs Dive in game" if c["direction"] in DIVE else ""))
         for o in j["object_events"]:
             print("  NPC  (%2d,%2d) %-38s %-26s %s" % (o["x"], o["y"], o["graphics_id"], o["movement_type"][14:],
                                                     o["script"]))
@@ -1737,8 +1930,10 @@ def report(ctx, batch, unit=None):
         print("Render check: %d maps and %d connection strips compared with Emerald's" % (len(batch.rendered),
                                                                                          len(batch.strips)))
     if unit:
+        unit_id = ctx.maps[unit]["id"]
         print("%s %s from LilycoveCity (connections and warps)" % (
-            unit, "can be reached" if ctx.maps[unit]["id"] in reachable(batch) else "can NOT be reached yet"))
+            unit, "can be reached" if unit_id in reachable(batch, dive=False) else "can be reached with Dive only"
+            if unit_id in reachable(batch) else "can NOT be reached yet"))
 
 
 # ---------------------------------------------------------------- run
