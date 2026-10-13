@@ -48,9 +48,18 @@ def main():
         print("pokeemerald not found at %s (--emerald DIR)" % args.emerald.resolve())
         return 2
     if args.unit not in towns + dungeons:
+        owner = next((u for u in towns + dungeons if args.unit in hi.closure(groups, u)), None)
+        known = [m for g in groups["group_order"] for m in groups[g] if m == args.unit or m.startswith(args.unit + "_")]
         close = difflib.get_close_matches(args.unit, towns + dungeons, 1, 0.5)
-        print("%s is not an Emerald town, route or dungeon%s. Valid: %s" % (
-            args.unit, " (did you mean %s?)" % close[0] if close else "", " ".join(towns + dungeons)))
+        if owner:
+            print("%s is a map of %s: import_map.py %s imports it with the others" % (args.unit, owner, owner))
+        elif known:
+            print("%s (Emerald's %s) is not imported by this tool: special areas (Battle Frontier, Safari Zone, Trainer "
+                  "Hill...), secret bases, the S.S. Tidal and unused maps are out of its scope" % (
+                      args.unit, " ".join(known[:3]) + (" ..." if len(known) > 3 else "")))
+        else:
+            print("%s is not an Emerald town, route or dungeon%s. Valid: %s" % (
+                args.unit, " (did you mean %s?)" % close[0] if close else "", " ".join(towns + dungeons)))
         return 2
     maps = hi.closure(groups, args.unit)
     print("%s: %d maps (%s)" % (args.unit, len(maps), ", ".join(maps)))

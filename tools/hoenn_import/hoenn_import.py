@@ -92,8 +92,9 @@ from types import SimpleNamespace
 
 from PIL import Image
 
-from hoenn_decisions import (CLOSED_WARPS, DUNGEON_GROUP, DUNGEON_UNIT_OF, HIDDEN_BY_MAP_SCRIPT, MOVED_BY_MAP_SCRIPT,
-                             PALETTE_SWAPS, POST_LEAGUE, RENAMES, SIBLINGS, SIGN_MOVES, START_LAYOUT, VAR_GFX)
+from hoenn_decisions import (BLOCKED_WAYS, CLOSED_WARPS, DUNGEON_GROUP, DUNGEON_UNIT_OF, HIDDEN_BY_MAP_SCRIPT,
+                             MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, RENAMES, SIBLINGS, SIGN_MOVES,
+                             START_LAYOUT, VAR_GFX)
 from hoenn_sprites import skipped
 
 REPO = Path(__file__).resolve().parents[2]
@@ -388,9 +389,10 @@ def snake(name):
 
 def rename(text):
     """Emerald `text` (a name, JSON, scripts) with hoenn_decisions.RENAMES applied: the names of those maps, of their
-    layouts and script labels (file paths stay), their MAP_, LAYOUT_ and item flag constants."""
+    layouts, script labels and wild encounter tables (g<Name>_; file paths stay), their MAP_, LAYOUT_ and item flag
+    constants."""
     for old, new in RENAMES.items():
-        text = re.sub(r"(?<![/\w])%s_" % old, new + "_", text)
+        text = re.sub(r"(?<![/\w])(g?)%s_" % old, r"\g<1>%s_" % new, text)
         text = re.sub(r"\b(MAP|LAYOUT|FLAG_ITEM|FLAG_HIDDEN_ITEM)_%s_" % snake(old), r"\1_%s_" % snake(new), text)
     return text
 
@@ -1909,7 +1911,7 @@ def ways(ctx, batch):
     for dive and emerge ones) and the warps whose tile can start a warp here (not a wall a script opens, nor a water door
     turned into sea), Dive for the engine's fixed dive spots (src/overworld.c sHoennDiveWarps), and a MAP_DYNAMIC exit
     back to every map that leads in (SetupWarp sets it on the way in). The link rooms every Pokemon Center shares are no
-    way through."""
+    way through, nor the ways hoenn_decisions.BLOCKED_WAYS lists (people, one-way ledges, walls, no deep water)."""
     layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
     triggers = {ctx.behaviors.fr_values[n] for n in ctx.warp_triggers_here if n in ctx.behaviors.fr_values}
     out, dynamic = set(), set()
@@ -1933,6 +1935,7 @@ def ways(ctx, batch):
         table = src[src.index("sHoennDiveWarps[]"):]
         rows = re.findall(r"\{\s*(MAP_\w+),\s*-?\d+,\s*-?\d+,\s*(MAP_\w+),", table[:table.index("};")])
         out |= {(a, b, True) for a, b in rows if a in batch.folders and b in batch.folders}
+    out = {e for e in out if (batch.folders.get(e[0]), batch.folders.get(e[1])) not in BLOCKED_WAYS}
     return out | {(b, a, d) for a, b, d in out if b in dynamic}
 
 
@@ -2035,6 +2038,10 @@ def report(ctx, batch, unit=None):
                            ("can NOT be reached yet", [m for m, i in ids.items() if i not in dive])):
             if maps:
                 print("%s %s from LilycoveCity (connections and warps)" % (" ".join(maps), what))
+        lost, ids_here = {i for i in ids.values() if i not in dive}, {f: i for i, f in batch.folders.items()}
+        for (a, b), why in sorted(BLOCKED_WAYS.items()):
+            if b in ids_here and lost & reachable({(x, y) for x, y, d in edges}, ids_here[b]):
+                print("  not counted: %s -> %s, %s (hoenn_decisions.BLOCKED_WAYS)" % (a, b, why))
         trapped = [m for m, i in ids.items() if i in dive - back]
         if trapped:
             print("WARNING: no way back to LilycoveCity from %s (soft-lock?)" % " ".join(trapped))

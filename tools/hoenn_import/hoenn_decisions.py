@@ -392,6 +392,29 @@ CLOSED_WARPS = {
     ("EverGrandeCity_PokemonLeague_1F", 2): "Elite Four not scripted: its halls and rooms have no way back",
     ("EverGrandeCity_PokemonLeague_1F", 3): "Elite Four not scripted: its halls and rooms have no way back",
 }
+# Ways a player cannot take before their scripts, although the report's map-level reachability (hoenn_import.ways:
+# connections, warps whose tile can warp) would count them: it sees no person, one-way ledge or wall in the way, nor
+# whether a dive connection has deep water. (map, map it leads to) -> reason, in the report. The game is unchanged.
+_LEDGES = "behind Route 112's one-way ledges (Emerald comes down from Mt Chimney, reached by a cable car script)"
+_KYOGRE = "walled in on the seafloor (Emerald's abnormal weather script opens a dive spot while Kyogre is there)"
+_NO_DIVE = "no dive spot: only Emerald's abnormal weather script places one (Marine Cave)"
+BLOCKED_WAYS = {
+    # SootopolisCity_EventScript_SetExpertBlockCaveEntrance: (31,18) is the only way to the door
+    ("SootopolisCity", "CaveOfOrigin_Entrance"): "the expert blocks the door after the League, as in Emerald",
+    ("Route112", "JaggedPass"): _LEDGES,
+    ("Route112", "LavaridgeTown"): _LEDGES,
+    ("Underwater_Route105", "Underwater_MarineCave"): _KYOGRE,
+    ("Underwater_Route125", "Underwater_MarineCave"): _KYOGRE,
+    ("Underwater_Route127", "Underwater_MarineCave"): _KYOGRE,
+    ("Underwater_Route129", "Underwater_MarineCave"): _KYOGRE,
+    # seafloors for the Marine Cave only: no deep water above them but what that script places
+    ("Route105", "Underwater_Route105"): _NO_DIVE,
+    ("Route125", "Underwater_Route125"): _NO_DIVE,
+    ("Route129", "Underwater_Route129"): _NO_DIVE,
+    # SootopolisCity_MysteryEventsHouse_1F_OnTransition: STAIRS_UNBLOCKED only while an e-Reader trainer visits
+    ("SootopolisCity_MysteryEventsHouse_1F", "SootopolisCity_MysteryEventsHouse_B1F"):
+        "a counter bars the stairs unless an e-Reader trainer visits, as in Emerald",
+}
 START_LAYOUT = {"Route131": "LAYOUT_ROUTE131_SKY_PILLAR"}  # Route131_OnTransition: Route131_EventScript_SetLayout
 # Emerald secondary tilesets one FRLG secondary cannot hold (384 metatiles, 376 tiles): the Emerald layouts of each extra
 # sibling, gTileset_Hoenn<Name>2, 3... (design 1.8); every other layout keeps gTileset_Hoenn<Name>. Siblings share the

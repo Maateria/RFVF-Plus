@@ -30,7 +30,9 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
   `FallarborTown` (Autéquia), `LavaridgeTown` (Vermilava), `FortreeCity` (Cimetronelle), `LilycoveCity`
   (Nénucrique), `MossdeepCity` (Algatia), `SootopolisCity` (Atalanopolis), `PacifidlogTown` (Pacifiville),
   `EverGrandeCity` (Éternara).
-- **Nom inconnu :** l'outil affiche la liste des noms valides (`--help` aussi).
+- **Nom inconnu :** l'outil affiche la liste des noms valides (`--help` aussi). Pour une map d'une zone
+  (`Underwater_Route134`, `LilycoveCity_PokemonCenter_1F`), il donne la zone à importer. Les zones spéciales (Zone de
+  Combat, dont `ArtisanCave`, Parc Safari, Mont Dresseurs), les bases secrètes et le S.S. Tidal ne s'importent pas.
 - **Images :** `--render DOSSIER` enregistre aussi une image PNG de chaque map convertie.
 
 ## Les donjons
@@ -66,11 +68,21 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
   `src/overworld.c` : Atalanopolis, Sanctuaire, Caverne Fondmer, Grotte Marine, bas de l'Épave). Le rapport en tient
   compte (`with Dive only`).
 - **Pas encore accessibles :** le rapport liste les maps qu'on ne peut pas encore atteindre
-  (`can NOT be reached yet`). Elles sont importées quand même :
+  (`can NOT be reached yet`). Elles sont importées quand même, sans risque :
   - un script les ouvre : la grotte de Steven au Site Météore et la Grotte Métamo (après la Ligue), la porte du
-    Pilier Céleste, les entrées des Grottes Marine et Terra (celles de la Grotte Marine sont murées au fond de l'eau :
-    le rapport la dit `with Dive only`, à tort) ;
-  - aucune porte : la marée haute de la Grotte Tréfonds, les 6 maps inutilisées de Rubis et Saphir.
+    Pilier Céleste, les entrées des Grottes Marine et Terra (celles de la Grotte Marine sont murées au fond de l'eau) ;
+  - quelqu'un ou une corniche barre le chemin : la Grotte Origine (après la Ligue, le vieil homme d'Atalanopolis
+    garde l'entrée, comme dans Émeraude) ; le Sentier Sinuroc, le Mont Chimnée et la Planque Magma, et avec eux
+    Vermilava et la gare du téléphérique du Mont Chimnée (les corniches de la Route 112 ne se sautent que vers l'est ;
+    Émeraude y descend du Mont Chimnée, où mène le téléphérique, qui est un script) ;
+  - aucune porte : la marée haute de la Grotte Tréfonds, les 6 maps inutilisées de Rubis et Saphir ;
+  - hors donjons : les fonds marins des Routes 105, 125 et 129 (seul le script de la Grotte Marine y place de l'eau
+    profonde) et le sous-sol de `SootopolisCity_MysteryEventsHouse` (escalier barré sans visiteur e-Reader, comme
+    dans Émeraude).
+- **Limite du rapport :** il raisonne map par map, par les liaisons et les portes : il ne voit ni les personnes, ni
+  les corniches, ni les murs, ni s'il y a de l'eau profonde où plonger. Ces cas sont dans `BLOCKED_WAYS`
+  (`hoenn_decisions.py`), et le rapport les cite (`not counted`). Au total, 72 des 106 maps des donjons sont
+  accessibles.
 - **Portes fermées exprès (`CLOSED`) :** `CLOSED_WARPS` dans `hoenn_decisions.py` garde sur elle-même une porte qui
   mènerait dans une salle sans sortie tant que ses scripts manquent : la porte du Conseil 4 au 1er étage de la Ligue
   d'Éternara (ses couloirs vont dans un seul sens et la salle de Damien se referme derrière le joueur).
@@ -158,8 +170,8 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
     plongée, remontée et carte de la région.
 - **Plongée :** les liaisons `dive` et `emerge` d'Émeraude sont copiées, et le rapport les marque
   `needs Dive in game`. On n'atteint les fonds marins qu'en plongeant. Atalanopolis n'a aucune liaison : on y
-  arrive par le passage sous-marin `Underwater_SootopolisCity`, dont la porte d'eau attend le moteur (le rapport dit
-  `can NOT be reached yet`).
+  arrive en plongeant, par la porte d'eau du fond de la Route 126 puis le passage sous-marin
+  `Underwater_SootopolisCity`, d'où l'on remonte dans la ville (`with Dive only`).
 - **Donjons :** les sols fragiles (Grotte Granite, Tour Mirage, Pilier Céleste), les pentes de boue et les rails du
   Vélo Cross se marchent comme un sol normal ; les combats des Planques Aqua et Magma ont le décor normal ; les
   plongées, les portes et les marées que règlent les scripts attendent la phase des scripts.
