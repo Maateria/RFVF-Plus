@@ -315,7 +315,7 @@ static bool8 CanFish(void)
     {
         if (MetatileBehavior_IsSurfable(behavior) && MapGridGetCollisionAt(x, y) == 0)
             return TRUE;
-        if (MetatileBehavior_IsBridge(behavior) == TRUE)
+        if (MetatileBehavior_IsBridgeOverWaterNoEdge(behavior) == TRUE)
             return TRUE;
     }
     return FALSE;

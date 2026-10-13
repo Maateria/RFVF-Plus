@@ -461,6 +461,12 @@ bool8 MetatileBehavior_IsBridge(u8 metatileBehavior)
         || metatileBehavior == MB_BIKE_BRIDGE_OVER_BARRIER;
 }
 
+// Emerald's IsBridgeOverWaterNoEdge: a surfer fishes under a bridge, not at its edges
+bool8 MetatileBehavior_IsBridgeOverWaterNoEdge(u8 metatileBehavior)
+{
+    return metatileBehavior >= MB_BRIDGE_OVER_OCEAN && metatileBehavior <= MB_BRIDGE_OVER_POND_HIGH;
+}
+
 // Emerald's BRIDGE_TYPE_*: 0 ocean (or no bridge), 1-3 pond low/med/high (the reflection is drawn lower)
 bool8 MetatileBehavior_GetBridgeType(u8 metatileBehavior)
 {
