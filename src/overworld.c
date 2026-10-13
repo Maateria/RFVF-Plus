@@ -781,9 +781,13 @@ void SetContinueGameWarpToDynamicWarp(int unused)
 static const struct MapConnection * GetMapConnection(u8 dir)
 {
     s32 i;
-    s32 count = gMapHeader.connections->count;
-    const struct MapConnection *connection = gMapHeader.connections->connections;
+    s32 count;
+    const struct MapConnection *connection;
 
+    if (gMapHeader.connections == NULL) // a map without connections (every dungeon room): was a read at address 0
+        return NULL;
+    count = gMapHeader.connections->count;
+    connection = gMapHeader.connections->connections;
     if (connection == NULL)
         return NULL;
 
@@ -792,6 +796,67 @@ static const struct MapConnection * GetMapConnection(u8 dir)
             return connection;
 
     return NULL;
+}
+
+// Emerald gives these dive and emerge spots their destination with map scripts (setdivewarp in ON_RESUME, or
+// ON_DIVE_WARP for Underwater_SealedChamber), which the Hoenn import does not bring. Same data, used when neither a
+// connection nor a map script gives one. A row is compiled in once its maps are imported; fromX < 0: any cell.
+static const struct {
+    u16 fromMap;
+    s8 fromX, fromY;
+    u16 toMap;
+    s8 x, y;
+} sHoennDiveWarps[] = {
+#ifdef MAP_UNDERWATER_SOOTOPOLIS_CITY
+    {MAP_SOOTOPOLIS_CITY,                       -1, -1, MAP_UNDERWATER_SOOTOPOLIS_CITY,             9,  6},
+    {MAP_UNDERWATER_SOOTOPOLIS_CITY,            -1, -1, MAP_SOOTOPOLIS_CITY,                       29, 53},
+#endif
+#ifdef MAP_UNDERWATER_ROUTE134
+    {MAP_ROUTE134,                              -1, -1, MAP_UNDERWATER_ROUTE134,                    8,  6},
+    {MAP_UNDERWATER_ROUTE134,                   -1, -1, MAP_ROUTE134,                              60, 31},
+#endif
+#if defined(MAP_UNDERWATER_SEALED_CHAMBER) && defined(MAP_SEALED_CHAMBER_OUTER_ROOM)
+    {MAP_UNDERWATER_SEALED_CHAMBER,             12, 44, MAP_SEALED_CHAMBER_OUTER_ROOM,             10, 19},
+    {MAP_SEALED_CHAMBER_OUTER_ROOM,             -1, -1, MAP_UNDERWATER_SEALED_CHAMBER,             12, 44},
+#endif
+#ifdef MAP_UNDERWATER_SEALED_CHAMBER
+    {MAP_UNDERWATER_SEALED_CHAMBER,             -1, -1, MAP_ROUTE134,                              60, 31},
+#endif
+#if defined(MAP_UNDERWATER_SEAFLOOR_CAVERN) && defined(MAP_SEAFLOOR_CAVERN_ENTRANCE)
+    {MAP_SEAFLOOR_CAVERN_ENTRANCE,              -1, -1, MAP_UNDERWATER_SEAFLOOR_CAVERN,             6,  5},
+    {MAP_UNDERWATER_SEAFLOOR_CAVERN,            -1, -1, MAP_SEAFLOOR_CAVERN_ENTRANCE,              10, 17},
+#endif
+#if defined(MAP_UNDERWATER_MARINE_CAVE) && defined(MAP_MARINE_CAVE_ENTRANCE)
+    {MAP_MARINE_CAVE_ENTRANCE,                  -1, -1, MAP_UNDERWATER_MARINE_CAVE,                 9,  6},
+    {MAP_UNDERWATER_MARINE_CAVE,                -1, -1, MAP_MARINE_CAVE_ENTRANCE,                  10, 17},
+#endif
+#if defined(MAP_ABANDONED_SHIP_UNDERWATER1) && defined(MAP_ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS)
+    {MAP_ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS, -1, -1, MAP_ABANDONED_SHIP_UNDERWATER1,             5,  4},
+    {MAP_ABANDONED_SHIP_UNDERWATER1,            -1, -1, MAP_ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS,  0, 10},
+#endif
+#if defined(MAP_ABANDONED_SHIP_UNDERWATER2) && defined(MAP_ABANDONED_SHIP_ROOMS_B1F)
+    {MAP_ABANDONED_SHIP_ROOMS_B1F,              -1, -1, MAP_ABANDONED_SHIP_UNDERWATER2,            17,  4},
+    {MAP_ABANDONED_SHIP_UNDERWATER2,            -1, -1, MAP_ABANDONED_SHIP_ROOMS_B1F,              13,  7},
+#endif
+    {MAP_UNDEFINED},
+};
+
+static bool8 SetHoennDiveWarp(u16 x, u16 y)
+{
+    u16 map = ((u8)gSaveBlock1Ptr->location.mapGroup << 8) | (u8)gSaveBlock1Ptr->location.mapNum;
+    s32 i;
+
+    for (i = 0; sHoennDiveWarps[i].fromMap != MAP_UNDEFINED; i++)
+    {
+        if (sHoennDiveWarps[i].fromMap == map
+         && (sHoennDiveWarps[i].fromX < 0 || (sHoennDiveWarps[i].fromX == x && sHoennDiveWarps[i].fromY == y)))
+        {
+            SetWarpDestination(sHoennDiveWarps[i].toMap >> 8, sHoennDiveWarps[i].toMap & 0xFF, WARP_ID_NONE,
+                               sHoennDiveWarps[i].x, sHoennDiveWarps[i].y);
+            return TRUE;
+        }
+    }
+    return FALSE;
 }
 
 static bool8 SetDiveWarp(u8 dir, u16 x, u16 y)
@@ -805,9 +870,10 @@ static bool8 SetDiveWarp(u8 dir, u16 x, u16 y)
     else
     {
         RunOnDiveWarpMapScript();
-        if (IsDummyWarp(&sFixedDiveWarp))
+        if (!IsDummyWarp(&sFixedDiveWarp))
+            SetWarpDestinationToDiveWarp();
+        else if (!SetHoennDiveWarp(x, y))
             return FALSE;
-        SetWarpDestinationToDiveWarp();
     }
     return TRUE;
 }
