@@ -6588,6 +6588,18 @@
       "secondary_tileset": "gTileset_HoennPokemonCenter",
       "border_filepath": "data/layouts/LavaridgeTown_PokemonCenter_1F/border.bin",
       "blockdata_filepath": "data/layouts/LavaridgeTown_PokemonCenter_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE108",
+      "name": "Route108_Layout",
+      "width": 60,
+      "height": 20,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennSlateport2",
+      "border_filepath": "data/layouts/Route108/border.bin",
+      "blockdata_filepath": "data/layouts/Route108/map.bin"
     }
   ]
 }

@@ -323,3 +323,6 @@ $(TILESETGFXDIR)/secondary/hoenn_lavaridge/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_lavaridge_gym/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 45 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_slateport2/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 153 -Wnum_tiles

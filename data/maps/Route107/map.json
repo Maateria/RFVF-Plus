@@ -18,6 +18,11 @@
       "direction": "left",
       "offset": 0,
       "map": "MAP_DEWFORD_TOWN"
+    },
+    {
+      "direction": "right",
+      "offset": 0,
+      "map": "MAP_ROUTE108"
     }
   ],
   "object_events": [

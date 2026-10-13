@@ -399,7 +399,8 @@
     "Route110",
     "Route111",
     "Route112",
-    "LavaridgeTown"
+    "LavaridgeTown",
+    "Route108"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",

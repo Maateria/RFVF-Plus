@@ -334,6 +334,7 @@
 #define MAP_ROUTE111                             (112 | (3 << 8))
 #define MAP_ROUTE112                             (113 | (3 << 8))
 #define MAP_LAVARIDGE_TOWN                       (114 | (3 << 8))
+#define MAP_ROUTE108                             (115 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
