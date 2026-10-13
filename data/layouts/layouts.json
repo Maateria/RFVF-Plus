@@ -7824,6 +7824,18 @@
       "secondary_tileset": "gTileset_HoennCave",
       "border_filepath": "data/layouts/HoennVictoryRoad_B2F/border.bin",
       "blockdata_filepath": "data/layouts/HoennVictoryRoad_B2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_UNDERWATER_SOOTOPOLIS_CITY",
+      "name": "Underwater_SootopolisCity_Layout",
+      "width": 20,
+      "height": 10,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennUnderwater",
+      "border_filepath": "data/layouts/Underwater_SootopolisCity/border.bin",
+      "blockdata_filepath": "data/layouts/Underwater_SootopolisCity/map.bin"
     }
   ]
 }
