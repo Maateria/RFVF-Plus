@@ -6900,6 +6900,18 @@
       "secondary_tileset": "gTileset_HoennRustboro",
       "border_filepath": "data/layouts/PetalburgWoods/border.bin",
       "blockdata_filepath": "data/layouts/PetalburgWoods/map.bin"
+    },
+    {
+      "id": "LAYOUT_RUSTURF_TUNNEL",
+      "name": "RusturfTunnel_Layout",
+      "width": 36,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennRusturfTunnel",
+      "border_filepath": "data/layouts/RusturfTunnel/border.bin",
+      "blockdata_filepath": "data/layouts/RusturfTunnel/map.bin"
     }
   ]
 }

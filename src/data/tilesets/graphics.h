@@ -2662,3 +2662,25 @@ const u16 gTilesetPalettes_HoennUnderwater[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_underwater/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_underwater/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennRusturfTunnel[] = INCBIN_U32("data/tilesets/secondary/hoenn_rusturf_tunnel/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennRusturfTunnel[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/15.gbapal"),
+};

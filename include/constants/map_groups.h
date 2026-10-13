@@ -882,6 +882,7 @@
 
 // gMapGroup_HoennDungeons
 #define MAP_PETALBURG_WOODS (0 | (73 << 8))
+#define MAP_RUSTURF_TUNNEL  (1 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

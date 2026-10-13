@@ -347,7 +347,7 @@
       "x": 47,
       "y": 8,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE116",
+      "dest_map": "MAP_RUSTURF_TUNNEL",
       "dest_warp_id": "0"
     },
     {
@@ -361,7 +361,7 @@
       "x": 65,
       "y": 10,
       "elevation": 0,
-      "dest_map": "MAP_ROUTE116",
+      "dest_map": "MAP_RUSTURF_TUNNEL",
       "dest_warp_id": "2"
     },
     {

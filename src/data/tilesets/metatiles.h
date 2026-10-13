@@ -375,3 +375,6 @@ const u32 gMetatileAttributes_HoennMysteryEventsHouse[] = INCBIN_U32("data/tiles
 
 const u16 gMetatiles_HoennUnderwater[] = INCBIN_U16("data/tilesets/secondary/hoenn_underwater/metatiles.bin");
 const u32 gMetatileAttributes_HoennUnderwater[] = INCBIN_U32("data/tilesets/secondary/hoenn_underwater/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennRusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/metatiles.bin");
+const u32 gMetatileAttributes_HoennRusturfTunnel[] = INCBIN_U32("data/tilesets/secondary/hoenn_rusturf_tunnel/metatile_attributes.bin");

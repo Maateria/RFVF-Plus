@@ -8808,6 +8808,24 @@ const struct WildPokemon gPetalburgWoods_LandMons[] =
 
 const struct WildPokemonInfo gPetalburgWoods_LandMonsInfo = { 20, gPetalburgWoods_LandMons };
 
+const struct WildPokemon gRusturfTunnel_LandMons[] =
+{
+    { 6, 6, SPECIES_WHISMUR },
+    { 7, 7, SPECIES_WHISMUR },
+    { 6, 6, SPECIES_WHISMUR },
+    { 6, 6, SPECIES_WHISMUR },
+    { 7, 7, SPECIES_WHISMUR },
+    { 7, 7, SPECIES_WHISMUR },
+    { 5, 5, SPECIES_WHISMUR },
+    { 8, 8, SPECIES_WHISMUR },
+    { 5, 5, SPECIES_WHISMUR },
+    { 8, 8, SPECIES_WHISMUR },
+    { 5, 5, SPECIES_WHISMUR },
+    { 8, 8, SPECIES_WHISMUR },
+};
+
+const struct WildPokemonInfo gRusturfTunnel_LandMonsInfo = { 10, gRusturfTunnel_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11119,6 +11137,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(PETALBURG_WOODS),
         .landMonsInfo_FR = &gPetalburgWoods_LandMonsInfo,
         .landMonsInfo_LG = &gPetalburgWoods_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(RUSTURF_TUNNEL),
+        .mapNum = MAP_NUM(RUSTURF_TUNNEL),
+        .landMonsInfo_FR = &gRusturfTunnel_LandMonsInfo,
+        .landMonsInfo_LG = &gRusturfTunnel_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

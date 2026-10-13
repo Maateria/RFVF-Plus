@@ -1385,3 +1385,14 @@ const struct Tileset gTileset_HoennUnderwater =
 	.metatileAttributes = gMetatileAttributes_HoennUnderwater,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennRusturfTunnel = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennRusturfTunnel,
+	.palettes = gTilesetPalettes_HoennRusturfTunnel,
+	.metatiles = gMetatiles_HoennRusturfTunnel,
+	.metatileAttributes = gMetatileAttributes_HoennRusturfTunnel,
+	.callback = NULL
+};

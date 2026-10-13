@@ -931,10 +931,10 @@
 #define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_TINY_MUSHROOM_1 0x37B
 #define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_TINY_MUSHROOM_2 0x37C
 #define FLAG_HIDDEN_ITEM_PETALBURG_WOODS_POKE_BALL 0x37D
-#define FLAG_0x37E               0x37E
-#define FLAG_0x37F               0x37F
-#define FLAG_0x380               0x380
-#define FLAG_0x381               0x381
+#define FLAG_HIDE_RUSTURF_TUNNEL_ROCK_1          0x37E
+#define FLAG_ITEM_RUSTURF_TUNNEL_POKE_BALL       0x37F
+#define FLAG_ITEM_RUSTURF_TUNNEL_MAX_ETHER       0x380
+#define FLAG_HIDE_RUSTURF_TUNNEL_ROCK_2          0x381
 #define FLAG_0x382               0x382
 #define FLAG_0x383               0x383
 #define FLAG_0x384               0x384
