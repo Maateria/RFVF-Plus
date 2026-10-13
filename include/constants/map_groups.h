@@ -926,6 +926,12 @@
 #define MAP_MT_PYRE_6F                            (42 | (73 << 8))
 #define MAP_MT_PYRE_EXTERIOR                      (43 | (73 << 8))
 #define MAP_MT_PYRE_SUMMIT                        (44 | (73 << 8))
+#define MAP_AQUA_HIDEOUT_1F                       (45 | (73 << 8))
+#define MAP_AQUA_HIDEOUT_B1F                      (46 | (73 << 8))
+#define MAP_AQUA_HIDEOUT_B2F                      (47 | (73 << 8))
+#define MAP_AQUA_HIDEOUT_UNUSED_RUBY_MAP1         (48 | (73 << 8))
+#define MAP_AQUA_HIDEOUT_UNUSED_RUBY_MAP2         (49 | (73 << 8))
+#define MAP_AQUA_HIDEOUT_UNUSED_RUBY_MAP3         (50 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

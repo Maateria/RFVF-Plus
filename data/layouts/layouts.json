@@ -7428,6 +7428,78 @@
       "secondary_tileset": "gTileset_HoennFacility2",
       "border_filepath": "data/layouts/MtPyre_Summit/border.bin",
       "blockdata_filepath": "data/layouts/MtPyre_Summit/map.bin"
+    },
+    {
+      "id": "LAYOUT_AQUA_HIDEOUT_1F",
+      "name": "AquaHideout_1F_Layout",
+      "width": 28,
+      "height": 30,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/AquaHideout_1F/border.bin",
+      "blockdata_filepath": "data/layouts/AquaHideout_1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_AQUA_HIDEOUT_B1F",
+      "name": "AquaHideout_B1F_Layout",
+      "width": 51,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/AquaHideout_B1F/border.bin",
+      "blockdata_filepath": "data/layouts/AquaHideout_B1F/map.bin"
+    },
+    {
+      "id": "LAYOUT_AQUA_HIDEOUT_B2F",
+      "name": "AquaHideout_B2F_Layout",
+      "width": 34,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/AquaHideout_B2F/border.bin",
+      "blockdata_filepath": "data/layouts/AquaHideout_B2F/map.bin"
+    },
+    {
+      "id": "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP1",
+      "name": "AquaHideout_UnusedRubyMap1_Layout",
+      "width": 28,
+      "height": 30,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/AquaHideout_UnusedRubyMap1/border.bin",
+      "blockdata_filepath": "data/layouts/AquaHideout_UnusedRubyMap1/map.bin"
+    },
+    {
+      "id": "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP2",
+      "name": "AquaHideout_UnusedRubyMap2_Layout",
+      "width": 62,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/AquaHideout_UnusedRubyMap2/border.bin",
+      "blockdata_filepath": "data/layouts/AquaHideout_UnusedRubyMap2/map.bin"
+    },
+    {
+      "id": "LAYOUT_AQUA_HIDEOUT_UNUSED_RUBY_MAP3",
+      "name": "AquaHideout_UnusedRubyMap3_Layout",
+      "width": 34,
+      "height": 24,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennFacility2",
+      "border_filepath": "data/layouts/AquaHideout_UnusedRubyMap3/border.bin",
+      "blockdata_filepath": "data/layouts/AquaHideout_UnusedRubyMap3/map.bin"
     }
   ]
 }

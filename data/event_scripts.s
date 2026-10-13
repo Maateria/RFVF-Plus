@@ -1946,3 +1946,15 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MtPyre_Exterior/scripts.inc"
 
 	.include "data/maps/MtPyre_Summit/scripts.inc"
+
+	.include "data/maps/AquaHideout_1F/scripts.inc"
+
+	.include "data/maps/AquaHideout_B1F/scripts.inc"
+
+	.include "data/maps/AquaHideout_B2F/scripts.inc"
+
+	.include "data/maps/AquaHideout_UnusedRubyMap1/scripts.inc"
+
+	.include "data/maps/AquaHideout_UnusedRubyMap2/scripts.inc"
+
+	.include "data/maps/AquaHideout_UnusedRubyMap3/scripts.inc"

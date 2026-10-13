@@ -988,10 +988,10 @@
 #define FLAG_HIDDEN_ITEM_MT_PYRE_EXTERIOR_MAX_ETHER 0x3B4
 #define FLAG_HIDDEN_ITEM_MT_PYRE_SUMMIT_ZINC     0x3B5
 #define FLAG_HIDDEN_ITEM_MT_PYRE_SUMMIT_RARE_CANDY 0x3B6
-#define FLAG_0x3B7               0x3B7
-#define FLAG_0x3B8               0x3B8
-#define FLAG_0x3B9               0x3B9
-#define FLAG_0x3BA               0x3BA
+#define FLAG_ITEM_AQUA_HIDEOUT_B1F_MAX_ELIXIR    0x3B7
+#define FLAG_ITEM_AQUA_HIDEOUT_B1F_MASTER_BALL   0x3B8
+#define FLAG_ITEM_AQUA_HIDEOUT_B1F_NUGGET        0x3B9
+#define FLAG_ITEM_AQUA_HIDEOUT_B2F_NEST_BALL     0x3BA
 #define FLAG_0x3BB               0x3BB
 #define FLAG_0x3BC               0x3BC
 #define FLAG_0x3BD               0x3BD

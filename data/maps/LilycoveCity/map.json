@@ -314,8 +314,8 @@
       "x": 70,
       "y": 5,
       "elevation": 1,
-      "dest_map": "MAP_LILYCOVE_CITY",
-      "dest_warp_id": "6"
+      "dest_map": "MAP_AQUA_HIDEOUT_1F",
+      "dest_warp_id": "0"
     },
     {
       "x": 36,
