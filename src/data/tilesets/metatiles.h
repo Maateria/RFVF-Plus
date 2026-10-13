@@ -378,3 +378,6 @@ const u32 gMetatileAttributes_HoennUnderwater[] = INCBIN_U32("data/tilesets/seco
 
 const u16 gMetatiles_HoennRusturfTunnel[] = INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/metatiles.bin");
 const u32 gMetatileAttributes_HoennRusturfTunnel[] = INCBIN_U32("data/tilesets/secondary/hoenn_rusturf_tunnel/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennMeteorFalls[] = INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/metatiles.bin");
+const u32 gMetatileAttributes_HoennMeteorFalls[] = INCBIN_U32("data/tilesets/secondary/hoenn_meteor_falls/metatile_attributes.bin");

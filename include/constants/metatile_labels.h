@@ -407,6 +407,12 @@
 #define METATILE_HoennMauvilleGym_RedBeamV1_On     0x2C1
 #define METATILE_HoennMauvilleGym_RedBeamV2_On     0x2C9
 
+// gTileset_HoennMeteorFalls
+#define METATILE_HoennMeteorFalls_CaveEntrance_Bottom  0x2CE
+#define METATILE_HoennMeteorFalls_CaveEntrance_Left    0x2CD
+#define METATILE_HoennMeteorFalls_CaveEntrance_Right   0x2CF
+#define METATILE_HoennMeteorFalls_CaveEntrance_Top     0x2C6
+
 // gTileset_HoennMossdeep
 #define METATILE_HoennMossdeep_Door              0x321
 #define METATILE_HoennMossdeep_Door_SpaceCenter  0x36D

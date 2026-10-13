@@ -1396,3 +1396,14 @@ const struct Tileset gTileset_HoennRusturfTunnel =
 	.metatileAttributes = gMetatileAttributes_HoennRusturfTunnel,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennMeteorFalls = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMeteorFalls,
+	.palettes = gTilesetPalettes_HoennMeteorFalls,
+	.metatiles = gMetatiles_HoennMeteorFalls,
+	.metatileAttributes = gMetatileAttributes_HoennMeteorFalls,
+	.callback = NULL
+};

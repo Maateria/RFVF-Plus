@@ -887,6 +887,11 @@
 #define MAP_GRANITE_CAVE_B1F          (3 | (73 << 8))
 #define MAP_GRANITE_CAVE_B2F          (4 | (73 << 8))
 #define MAP_GRANITE_CAVE_STEVENS_ROOM (5 | (73 << 8))
+#define MAP_METEOR_FALLS_1F_1R        (6 | (73 << 8))
+#define MAP_METEOR_FALLS_1F_2R        (7 | (73 << 8))
+#define MAP_METEOR_FALLS_B1F_1R       (8 | (73 << 8))
+#define MAP_METEOR_FALLS_B1F_2R       (9 | (73 << 8))
+#define MAP_METEOR_FALLS_STEVENS_CAVE (10 | (73 << 8))
 
 #define MAP_GROUPS_COUNT 74
 

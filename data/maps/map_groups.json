@@ -956,6 +956,11 @@
     "GraniteCave_1F",
     "GraniteCave_B1F",
     "GraniteCave_B2F",
-    "GraniteCave_StevensRoom"
+    "GraniteCave_StevensRoom",
+    "MeteorFalls_1F_1R",
+    "MeteorFalls_1F_2R",
+    "MeteorFalls_B1F_1R",
+    "MeteorFalls_B1F_2R",
+    "MeteorFalls_StevensCave"
   ]
 }

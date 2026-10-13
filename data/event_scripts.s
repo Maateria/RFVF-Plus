@@ -1868,3 +1868,13 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/GraniteCave_B2F/scripts.inc"
 
 	.include "data/maps/GraniteCave_StevensRoom/scripts.inc"
+
+	.include "data/maps/MeteorFalls_1F_1R/scripts.inc"
+
+	.include "data/maps/MeteorFalls_1F_2R/scripts.inc"
+
+	.include "data/maps/MeteorFalls_B1F_1R/scripts.inc"
+
+	.include "data/maps/MeteorFalls_B1F_2R/scripts.inc"
+
+	.include "data/maps/MeteorFalls_StevensCave/scripts.inc"

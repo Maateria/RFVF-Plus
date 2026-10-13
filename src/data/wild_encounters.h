@@ -8909,6 +8909,204 @@ const struct WildPokemon gGraniteCave_StevensRoom_LandMons[] =
 
 const struct WildPokemonInfo gGraniteCave_StevensRoom_LandMonsInfo = { 10, gGraniteCave_StevensRoom_LandMons };
 
+const struct WildPokemon gMeteorFalls_B1F_2R_LandMons[] =
+{
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 30, 30, SPECIES_BAGON },
+    { 35, 35, SPECIES_SOLROCK },
+    { 35, 35, SPECIES_BAGON },
+    { 37, 37, SPECIES_SOLROCK },
+    { 25, 25, SPECIES_BAGON },
+    { 39, 39, SPECIES_SOLROCK },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gMeteorFalls_B1F_2R_LandMonsInfo = { 10, gMeteorFalls_B1F_2R_LandMons };
+
+const struct WildPokemon gMeteorFalls_B1F_2R_WaterMons[] =
+{
+    { 30, 35, SPECIES_GOLBAT },
+    { 30, 35, SPECIES_GOLBAT },
+    { 25, 35, SPECIES_SOLROCK },
+    { 15, 25, SPECIES_SOLROCK },
+    { 5, 15, SPECIES_SOLROCK },
+};
+
+const struct WildPokemonInfo gMeteorFalls_B1F_2R_WaterMonsInfo = { 4, gMeteorFalls_B1F_2R_WaterMons };
+
+const struct WildPokemon gMeteorFalls_B1F_2R_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_BARBOACH },
+    { 25, 30, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_WHISCASH },
+    { 35, 40, SPECIES_WHISCASH },
+    { 40, 45, SPECIES_WHISCASH },
+};
+
+const struct WildPokemonInfo gMeteorFalls_B1F_2R_FishingMonsInfo = { 30, gMeteorFalls_B1F_2R_FishingMons };
+
+const struct WildPokemon gMeteorFalls_1F_1R_LandMons[] =
+{
+    { 16, 16, SPECIES_ZUBAT },
+    { 17, 17, SPECIES_ZUBAT },
+    { 18, 18, SPECIES_ZUBAT },
+    { 15, 15, SPECIES_ZUBAT },
+    { 14, 14, SPECIES_ZUBAT },
+    { 16, 16, SPECIES_SOLROCK },
+    { 18, 18, SPECIES_SOLROCK },
+    { 14, 14, SPECIES_SOLROCK },
+    { 19, 19, SPECIES_ZUBAT },
+    { 20, 20, SPECIES_ZUBAT },
+    { 19, 19, SPECIES_ZUBAT },
+    { 20, 20, SPECIES_ZUBAT },
+};
+
+const struct WildPokemonInfo gMeteorFalls_1F_1R_LandMonsInfo = { 10, gMeteorFalls_1F_1R_LandMons };
+
+const struct WildPokemon gMeteorFalls_1F_1R_WaterMons[] =
+{
+    { 5, 35, SPECIES_ZUBAT },
+    { 30, 35, SPECIES_ZUBAT },
+    { 25, 35, SPECIES_SOLROCK },
+    { 15, 25, SPECIES_SOLROCK },
+    { 5, 15, SPECIES_SOLROCK },
+};
+
+const struct WildPokemonInfo gMeteorFalls_1F_1R_WaterMonsInfo = { 4, gMeteorFalls_1F_1R_WaterMons };
+
+const struct WildPokemon gMeteorFalls_1F_1R_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_BARBOACH },
+    { 25, 30, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_BARBOACH },
+    { 20, 25, SPECIES_BARBOACH },
+    { 35, 40, SPECIES_BARBOACH },
+    { 40, 45, SPECIES_BARBOACH },
+};
+
+const struct WildPokemonInfo gMeteorFalls_1F_1R_FishingMonsInfo = { 30, gMeteorFalls_1F_1R_FishingMons };
+
+const struct WildPokemon gMeteorFalls_1F_2R_LandMons[] =
+{
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_SOLROCK },
+    { 33, 33, SPECIES_SOLROCK },
+    { 37, 37, SPECIES_SOLROCK },
+    { 35, 35, SPECIES_GOLBAT },
+    { 39, 39, SPECIES_SOLROCK },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gMeteorFalls_1F_2R_LandMonsInfo = { 10, gMeteorFalls_1F_2R_LandMons };
+
+const struct WildPokemon gMeteorFalls_1F_2R_WaterMons[] =
+{
+    { 30, 35, SPECIES_GOLBAT },
+    { 30, 35, SPECIES_GOLBAT },
+    { 25, 35, SPECIES_SOLROCK },
+    { 15, 25, SPECIES_SOLROCK },
+    { 5, 15, SPECIES_SOLROCK },
+};
+
+const struct WildPokemonInfo gMeteorFalls_1F_2R_WaterMonsInfo = { 4, gMeteorFalls_1F_2R_WaterMons };
+
+const struct WildPokemon gMeteorFalls_1F_2R_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_BARBOACH },
+    { 25, 30, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_WHISCASH },
+    { 35, 40, SPECIES_WHISCASH },
+    { 40, 45, SPECIES_WHISCASH },
+};
+
+const struct WildPokemonInfo gMeteorFalls_1F_2R_FishingMonsInfo = { 30, gMeteorFalls_1F_2R_FishingMons };
+
+const struct WildPokemon gMeteorFalls_B1F_1R_LandMons[] =
+{
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_SOLROCK },
+    { 33, 33, SPECIES_SOLROCK },
+    { 37, 37, SPECIES_SOLROCK },
+    { 35, 35, SPECIES_GOLBAT },
+    { 39, 39, SPECIES_SOLROCK },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gMeteorFalls_B1F_1R_LandMonsInfo = { 10, gMeteorFalls_B1F_1R_LandMons };
+
+const struct WildPokemon gMeteorFalls_B1F_1R_WaterMons[] =
+{
+    { 30, 35, SPECIES_GOLBAT },
+    { 30, 35, SPECIES_GOLBAT },
+    { 25, 35, SPECIES_SOLROCK },
+    { 15, 25, SPECIES_SOLROCK },
+    { 5, 15, SPECIES_SOLROCK },
+};
+
+const struct WildPokemonInfo gMeteorFalls_B1F_1R_WaterMonsInfo = { 4, gMeteorFalls_B1F_1R_WaterMons };
+
+const struct WildPokemon gMeteorFalls_B1F_1R_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_BARBOACH },
+    { 25, 30, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_BARBOACH },
+    { 30, 35, SPECIES_WHISCASH },
+    { 35, 40, SPECIES_WHISCASH },
+    { 40, 45, SPECIES_WHISCASH },
+};
+
+const struct WildPokemonInfo gMeteorFalls_B1F_1R_FishingMonsInfo = { 30, gMeteorFalls_B1F_1R_FishingMons };
+
+const struct WildPokemon gMeteorFalls_StevensCave_LandMons[] =
+{
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_GOLBAT },
+    { 33, 33, SPECIES_GOLBAT },
+    { 35, 35, SPECIES_SOLROCK },
+    { 33, 33, SPECIES_SOLROCK },
+    { 37, 37, SPECIES_SOLROCK },
+    { 35, 35, SPECIES_GOLBAT },
+    { 39, 39, SPECIES_SOLROCK },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+    { 38, 38, SPECIES_GOLBAT },
+    { 40, 40, SPECIES_GOLBAT },
+};
+
+const struct WildPokemonInfo gMeteorFalls_StevensCave_LandMonsInfo = { 10, gMeteorFalls_StevensCave_LandMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11280,6 +11478,66 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .mapNum = MAP_NUM(GRANITE_CAVE_STEVENS_ROOM),
         .landMonsInfo_FR = &gGraniteCave_StevensRoom_LandMonsInfo,
         .landMonsInfo_LG = &gGraniteCave_StevensRoom_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(METEOR_FALLS_B1F_2R),
+        .mapNum = MAP_NUM(METEOR_FALLS_B1F_2R),
+        .landMonsInfo_FR = &gMeteorFalls_B1F_2R_LandMonsInfo,
+        .landMonsInfo_LG = &gMeteorFalls_B1F_2R_LandMonsInfo,
+        .waterMonsInfo_FR = &gMeteorFalls_B1F_2R_WaterMonsInfo,
+        .waterMonsInfo_LG = &gMeteorFalls_B1F_2R_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gMeteorFalls_B1F_2R_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gMeteorFalls_B1F_2R_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(METEOR_FALLS_1F_1R),
+        .mapNum = MAP_NUM(METEOR_FALLS_1F_1R),
+        .landMonsInfo_FR = &gMeteorFalls_1F_1R_LandMonsInfo,
+        .landMonsInfo_LG = &gMeteorFalls_1F_1R_LandMonsInfo,
+        .waterMonsInfo_FR = &gMeteorFalls_1F_1R_WaterMonsInfo,
+        .waterMonsInfo_LG = &gMeteorFalls_1F_1R_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gMeteorFalls_1F_1R_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gMeteorFalls_1F_1R_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(METEOR_FALLS_1F_2R),
+        .mapNum = MAP_NUM(METEOR_FALLS_1F_2R),
+        .landMonsInfo_FR = &gMeteorFalls_1F_2R_LandMonsInfo,
+        .landMonsInfo_LG = &gMeteorFalls_1F_2R_LandMonsInfo,
+        .waterMonsInfo_FR = &gMeteorFalls_1F_2R_WaterMonsInfo,
+        .waterMonsInfo_LG = &gMeteorFalls_1F_2R_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gMeteorFalls_1F_2R_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gMeteorFalls_1F_2R_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(METEOR_FALLS_B1F_1R),
+        .mapNum = MAP_NUM(METEOR_FALLS_B1F_1R),
+        .landMonsInfo_FR = &gMeteorFalls_B1F_1R_LandMonsInfo,
+        .landMonsInfo_LG = &gMeteorFalls_B1F_1R_LandMonsInfo,
+        .waterMonsInfo_FR = &gMeteorFalls_B1F_1R_WaterMonsInfo,
+        .waterMonsInfo_LG = &gMeteorFalls_B1F_1R_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gMeteorFalls_B1F_1R_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gMeteorFalls_B1F_1R_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(METEOR_FALLS_STEVENS_CAVE),
+        .mapNum = MAP_NUM(METEOR_FALLS_STEVENS_CAVE),
+        .landMonsInfo_FR = &gMeteorFalls_StevensCave_LandMonsInfo,
+        .landMonsInfo_LG = &gMeteorFalls_StevensCave_LandMonsInfo,
         .waterMonsInfo_FR = NULL,
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,

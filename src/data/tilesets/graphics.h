@@ -2684,3 +2684,25 @@ const u16 gTilesetPalettes_HoennRusturfTunnel[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_rusturf_tunnel/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennMeteorFalls[] = INCBIN_U32("data/tilesets/secondary/hoenn_meteor_falls/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennMeteorFalls[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_meteor_falls/palettes/15.gbapal"),
+};
