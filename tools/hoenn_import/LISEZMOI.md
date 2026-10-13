@@ -71,6 +71,9 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
     Pilier Céleste, les entrées des Grottes Marine et Terra (celles de la Grotte Marine sont murées au fond de l'eau :
     le rapport la dit `with Dive only`, à tort) ;
   - aucune porte : la marée haute de la Grotte Tréfonds, les 6 maps inutilisées de Rubis et Saphir.
+- **Portes fermées exprès (`CLOSED`) :** `CLOSED_WARPS` dans `hoenn_decisions.py` garde sur elle-même une porte qui
+  mènerait dans une salle sans sortie tant que ses scripts manquent : la porte du Conseil 4 au 1er étage de la Ligue
+  d'Éternara (ses couloirs vont dans un seul sens et la salle de Damien se referme derrière le joueur).
 - **`WARNING: no way back` :** une map d'où l'on ne pourrait pas revenir si on y arrivait. Une sortie `MAP_DYNAMIC`
   ramène d'où l'on vient (ascenseurs, Grotte Marine).
 

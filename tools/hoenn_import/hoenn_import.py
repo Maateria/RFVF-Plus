@@ -92,8 +92,8 @@ from types import SimpleNamespace
 
 from PIL import Image
 
-from hoenn_decisions import (DUNGEON_GROUP, DUNGEON_UNIT_OF, HIDDEN_BY_MAP_SCRIPT, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS,
-                             POST_LEAGUE, RENAMES, SIBLINGS, SIGN_MOVES, START_LAYOUT, VAR_GFX)
+from hoenn_decisions import (CLOSED_WARPS, DUNGEON_GROUP, DUNGEON_UNIT_OF, HIDDEN_BY_MAP_SCRIPT, MOVED_BY_MAP_SCRIPT,
+                             PALETTE_SWAPS, POST_LEAGUE, RENAMES, SIBLINGS, SIGN_MOVES, START_LAYOUT, VAR_GFX)
 from hoenn_sprites import skipped
 
 REPO = Path(__file__).resolve().parents[2]
@@ -1322,10 +1322,11 @@ def convert_map_json(ctx, m, here):
     bg, coord = convert_events(ctx, m)
     warps = []
     for i, w in enumerate(m.em_map["warp_events"]):
-        dest = resolve_warp(w, here)
+        dest = None if (m.name, i) in CLOSED_WARPS else resolve_warp(w, here)
         if not dest:  # map not imported (yet): warps onto itself, relink() points it once the map is here
             dest = m.em_map["id"], str(i)
-            m.placeholders.append("%s warp %d -> %s #%s" % (m.name, i, w["dest_map"], w["dest_warp_id"]))
+            m.placeholders.append("%s warp %d -> %s #%s%s" % (m.name, i, w["dest_map"], w["dest_warp_id"],
+                                  "  CLOSED: " + CLOSED_WARPS[(m.name, i)] if (m.name, i) in CLOSED_WARPS else ""))
         warps.append({"x": w["x"], "y": w["y"], "elevation": w["elevation"], "dest_map": dest[0], "dest_warp_id": dest[1]})
     out.update(connections=connections(m.em_map, here) or 0,  # 0: like the other connection-less maps of this repo
                object_events=objects, warp_events=warps, coord_events=coord, bg_events=bg,
@@ -1723,7 +1724,8 @@ def relink(ctx, batch, existing):
         mj, em_map = json.loads(read(path)), ctx.maps[folder]
         changed = False
         for i, (w, em_w) in enumerate(zip(mj["warp_events"], em_map["warp_events"])):
-            if (w["dest_map"], str(w["dest_warp_id"])) != (mj["id"], str(i)) or em_w["dest_map"] not in new:
+            if ((w["dest_map"], str(w["dest_warp_id"])) != (mj["id"], str(i)) or em_w["dest_map"] not in new
+                    or (folder, i) in CLOSED_WARPS):
                 continue
             dest = resolve_warp(em_w, batch.here)
             if dest and dest != (mj["id"], str(i)):

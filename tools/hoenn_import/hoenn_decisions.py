@@ -383,6 +383,15 @@ SIGN_MOVES = {("LilycoveCity_DepartmentStore_1F", 0, 8): (1, 1)}
 # caught, Johto starters). Dungeons: the Sky Pillar keeps its cracked floors (map.json; the CLEAN layouts are for
 # VAR_SKY_PILLAR_STATE < 2, before the Sootopolis crisis), Shoal Cave its low tide (the high tide layouts only by
 # UpdateShoalTideFlag, a clock), the Mirage Tower has no other layout.
+# Warps left onto themselves although Emerald's destination is here: rooms the player could enter but never leave
+# without their scripts. (map, warp index) -> reason, in the report.
+CLOSED_WARPS = {
+    # RFVF+: the Elite Four halls lead one way (Hall5's floor back to the 1F is no warp tile), Sidney's room closes
+    # behind the player (EverGrandeCity_SidneysRoom_OnFrame) and opens its way on once he is beaten: the League door
+    # stays shut until the Elite Four are scripted
+    ("EverGrandeCity_PokemonLeague_1F", 2): "Elite Four not scripted: its halls and rooms have no way back",
+    ("EverGrandeCity_PokemonLeague_1F", 3): "Elite Four not scripted: its halls and rooms have no way back",
+}
 START_LAYOUT = {"Route131": "LAYOUT_ROUTE131_SKY_PILLAR"}  # Route131_OnTransition: Route131_EventScript_SetLayout
 # Emerald secondary tilesets one FRLG secondary cannot hold (384 metatiles, 376 tiles): the Emerald layouts of each extra
 # sibling, gTileset_Hoenn<Name>2, 3... (design 1.8); every other layout keeps gTileset_Hoenn<Name>. Siblings share the
