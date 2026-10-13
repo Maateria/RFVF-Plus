@@ -196,6 +196,27 @@ static const u8 sDoorAnimTiles_HoennGym[] = INCBIN_U8("graphics/door_anims/hoenn
 static const u8 sDoorAnimTiles_HoennSafariZone[] = INCBIN_U8("graphics/door_anims/hoenn_safari_zone.4bpp");
 static const u8 sDoorAnimTiles_HoennLilycoveDeptStoreElevator[] = INCBIN_U8("graphics/door_anims/hoenn_lilycove_dept_store_elevator.4bpp");
 static const u8 sDoorAnimTiles_HoennCableClub[] = INCBIN_U8("graphics/door_anims/hoenn_cable_club.4bpp");
+static const u8 sDoorAnimTiles_HoennAbandonedShip[] = INCBIN_U8("graphics/door_anims/hoenn_abandoned_ship.4bpp");
+static const u8 sDoorAnimTiles_HoennAbandonedShipRoom[] = INCBIN_U8("graphics/door_anims/hoenn_abandoned_ship_room.4bpp");
+static const u8 sDoorAnimTiles_HoennDewford[] = INCBIN_U8("graphics/door_anims/hoenn_dewford.4bpp");
+static const u8 sDoorAnimTiles_HoennPokemonLeague[] = INCBIN_U8("graphics/door_anims/hoenn_pokemon_league.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleTent[] = INCBIN_U8("graphics/door_anims/hoenn_battle_tent.4bpp");
+static const u8 sDoorAnimTiles_HoennFallarborLightRoof[] = INCBIN_U8("graphics/door_anims/hoenn_fallarbor_light_roof.4bpp");
+static const u8 sDoorAnimTiles_HoennLittleroot[] = INCBIN_U8("graphics/door_anims/hoenn_littleroot.4bpp");
+static const u8 sDoorAnimTiles_HoennBirchsLab[] = INCBIN_U8("graphics/door_anims/hoenn_birchs_lab.4bpp");
+static const u8 sDoorAnimTiles_HoennMauville[] = INCBIN_U8("graphics/door_anims/hoenn_mauville.4bpp");
+static const u8 sDoorAnimTiles_HoennMossdeep[] = INCBIN_U8("graphics/door_anims/hoenn_mossdeep.4bpp");
+static const u8 sDoorAnimTiles_HoennMossdeepSpaceCenter[] = INCBIN_U8("graphics/door_anims/hoenn_mossdeep_space_center.4bpp");
+static const u8 sDoorAnimTiles_HoennOldale[] = INCBIN_U8("graphics/door_anims/hoenn_oldale.4bpp");
+static const u8 sDoorAnimTiles_HoennPacifidlog[] = INCBIN_U8("graphics/door_anims/hoenn_pacifidlog.4bpp");
+static const u8 sDoorAnimTiles_HoennCyclingRoad[] = INCBIN_U8("graphics/door_anims/hoenn_cycling_road.4bpp");
+static const u8 sDoorAnimTiles_HoennFallarborDarkRoof[] = INCBIN_U8("graphics/door_anims/hoenn_fallarbor_dark_roof.4bpp");
+static const u8 sDoorAnimTiles_HoennRustboroTan[] = INCBIN_U8("graphics/door_anims/hoenn_rustboro_tan.4bpp");
+static const u8 sDoorAnimTiles_HoennRustboroGray[] = INCBIN_U8("graphics/door_anims/hoenn_rustboro_gray.4bpp");
+static const u8 sDoorAnimTiles_HoennSlateport[] = INCBIN_U8("graphics/door_anims/hoenn_slateport.4bpp");
+static const u8 sDoorAnimTiles_HoennSootopolisPeakedRoof[] = INCBIN_U8("graphics/door_anims/hoenn_sootopolis_peaked_roof.4bpp");
+static const u8 sDoorAnimTiles_HoennSootopolis[] = INCBIN_U8("graphics/door_anims/hoenn_sootopolis.4bpp");
+static const u8 sDoorAnimTiles_HoennVerdanturf[] = INCBIN_U8("graphics/door_anims/hoenn_verdanturf.4bpp");
 
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
@@ -275,6 +296,27 @@ static const u8 sDoorAnimPalettes_HoennSafariZone[] = {9, 9, 9, 9, 9, 9, 9, 9};
 // Emerald slot 6 is a primary slot in FRLG: the converter moved HoennShop's palette 6 to 12 and HoennPokemonCenter's to 10.
 static const u8 sDoorAnimPalettes_HoennLilycoveDeptStoreElevator[] = {12, 12, 7, 7, 7, 7, 7, 7}; // Emerald {6, 6, 7, ...}
 static const u8 sDoorAnimPalettes_HoennCableClub[] = {10, 10, 10, 10, 10, 10, 10, 10};              // Emerald {6, ...}
+static const u8 sDoorAnimPalettes_HoennAbandonedShip[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennAbandonedShipRoom[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennDewford[] = {0, 0, 5, 5, 5, 5, 5, 5};
+static const u8 sDoorAnimPalettes_HoennPokemonLeague[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_HoennBattleTent[] = {1, 1, 1, 1, 1, 1, 1, 1};
+static const u8 sDoorAnimPalettes_HoennFallarborLightRoof[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennLittleroot[] = {10, 10, 11, 11, 11, 11, 11, 11}; // Emerald {10, 10, 6, 6, 6, 6, 6, 6}
+static const u8 sDoorAnimPalettes_HoennBirchsLab[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_HoennMauville[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennMossdeep[] = {9, 9, 1, 1, 1, 1, 1, 1};
+static const u8 sDoorAnimPalettes_HoennMossdeepSpaceCenter[] = {8, 8, 8, 8, 8, 8, 8, 8};
+static const u8 sDoorAnimPalettes_HoennOldale[] = {10, 10, 9, 9, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_HoennPacifidlog[] = {9, 9, 9, 9, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_HoennCyclingRoad[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennFallarborDarkRoof[] = {11, 11, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennRustboroTan[] = {11, 11, 11, 11, 11, 11, 11, 11};
+static const u8 sDoorAnimPalettes_HoennRustboroGray[] = {10, 10, 10, 10, 10, 10, 10, 10};
+static const u8 sDoorAnimPalettes_HoennSlateport[] = {12, 12, 1, 1, 1, 1, 1, 1}; // Emerald {6, 6, 1, 1, 1, 1, 1, 1}
+static const u8 sDoorAnimPalettes_HoennSootopolisPeakedRoof[] = {11, 11, 11, 11, 11, 11, 11, 11}; // Emerald {6, 6, 6, 6, 6, 6, 6, 6}
+static const u8 sDoorAnimPalettes_HoennSootopolis[] = {11, 11, 11, 11, 11, 11, 11, 11}; // Emerald {6, 6, 6, 6, 6, 6, 6, 6}
+static const u8 sDoorAnimPalettes_HoennVerdanturf[] = {12, 12, 5, 5, 5, 5, 5, 5}; // Emerald {6, 6, 5, 5, 5, 5, 5, 5}
 
 static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_General_Door,                                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_General, sDoorAnimPalettes_General},
@@ -331,6 +373,29 @@ static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
     {METATILE_HoennLilycove_Door_SafariZone,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennSafariZone, sDoorAnimPalettes_HoennSafariZone},
     {METATILE_HoennShop_Door_Elevator,                     DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStoreElevator, sDoorAnimPalettes_HoennLilycoveDeptStoreElevator},
     {METATILE_HoennPokemonCenter_Door_CableClub,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennCableClub, sDoorAnimPalettes_HoennCableClub},
+    {METATILE_HoennInsideShip_IntactDoor_Bottom_Unlocked,   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennAbandonedShip, sDoorAnimPalettes_HoennAbandonedShip},
+    {METATILE_HoennInsideShip_IntactDoor_Bottom_Interior,   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennAbandonedShipRoom, sDoorAnimPalettes_HoennAbandonedShipRoom},
+    {METATILE_HoennDewford_Door,                            DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennDewford, sDoorAnimPalettes_HoennDewford},
+    {METATILE_HoennEverGrande_Door_PokemonLeague,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokemonLeague, sDoorAnimPalettes_HoennPokemonLeague},
+    {METATILE_HoennFallarbor_Door_BattleTent,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
+    {METATILE_HoennFallarbor_Door_LightRoof,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennFallarborLightRoof, sDoorAnimPalettes_HoennFallarborLightRoof},
+    {METATILE_HoennPetalburg_Door_Littleroot,               DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLittleroot, sDoorAnimPalettes_HoennLittleroot},
+    {METATILE_HoennPetalburg_Door_BirchsLab,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBirchsLab, sDoorAnimPalettes_HoennBirchsLab},
+    {METATILE_HoennMauville_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennMauville, sDoorAnimPalettes_HoennMauville},
+    {METATILE_HoennMossdeep_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennMossdeep, sDoorAnimPalettes_HoennMossdeep},
+    {METATILE_HoennMossdeep_Door_SpaceCenter,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennMossdeepSpaceCenter, sDoorAnimPalettes_HoennMossdeepSpaceCenter},
+    {METATILE_HoennPetalburg_Door_Oldale,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennOldale, sDoorAnimPalettes_HoennOldale},
+    {METATILE_HoennPacifidlog_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennPacifidlog, sDoorAnimPalettes_HoennPacifidlog},
+    {METATILE_HoennMauville2_Door_CyclingRoad,              DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennCyclingRoad, sDoorAnimPalettes_HoennCyclingRoad},
+    {METATILE_HoennFallarbor_Door_DarkRoof,                 DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennFallarborDarkRoof, sDoorAnimPalettes_HoennFallarborDarkRoof},
+    {METATILE_HoennRustboro_Door_Tan,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennRustboroTan, sDoorAnimPalettes_HoennRustboroTan},
+    {METATILE_HoennRustboro_Door_Gray,                      DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennRustboroGray, sDoorAnimPalettes_HoennRustboroGray},
+    {METATILE_HoennSlateport_Door_BattleTent,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
+    {METATILE_HoennSlateport_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSlateport, sDoorAnimPalettes_HoennSlateport},
+    {METATILE_HoennSootopolis_Door_PeakedRoof,              DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolisPeakedRoof, sDoorAnimPalettes_HoennSootopolisPeakedRoof},
+    {METATILE_HoennSootopolis_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolis, sDoorAnimPalettes_HoennSootopolis},
+    {METATILE_HoennMauville_Door_BattleTent,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
+    {METATILE_HoennMauville_Door_Verdanturf,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennVerdanturf, sDoorAnimPalettes_HoennVerdanturf},
     {}
 };
 

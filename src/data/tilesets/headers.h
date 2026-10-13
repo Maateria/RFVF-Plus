@@ -976,7 +976,7 @@ const struct Tileset gTileset_HoennEverGrande =
 	.palettes = gTilesetPalettes_HoennEverGrande,
 	.metatiles = gMetatiles_HoennEverGrande,
 	.metatileAttributes = gMetatileAttributes_HoennEverGrande,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennEverGrande
 };
 
 const struct Tileset gTileset_HoennEliteFour = 
@@ -987,7 +987,7 @@ const struct Tileset gTileset_HoennEliteFour =
 	.palettes = gTilesetPalettes_HoennEliteFour,
 	.metatiles = gMetatiles_HoennEliteFour,
 	.metatileAttributes = gMetatileAttributes_HoennEliteFour,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennEliteFour
 };
 
 const struct Tileset gTileset_HoennCableClub = 
@@ -1009,7 +1009,7 @@ const struct Tileset gTileset_HoennPacifidlog =
 	.palettes = gTilesetPalettes_HoennPacifidlog,
 	.metatiles = gMetatiles_HoennPacifidlog,
 	.metatileAttributes = gMetatileAttributes_HoennPacifidlog,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennPacifidlog
 };
 
 const struct Tileset gTileset_HoennFallarbor = 
@@ -1042,7 +1042,7 @@ const struct Tileset gTileset_HoennRustboro =
 	.palettes = gTilesetPalettes_HoennRustboro,
 	.metatiles = gMetatiles_HoennRustboro,
 	.metatileAttributes = gMetatileAttributes_HoennRustboro,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennRustboro
 };
 
 const struct Tileset gTileset_HoennRustboroGym = 
@@ -1141,7 +1141,7 @@ const struct Tileset gTileset_HoennMauville =
 	.palettes = gTilesetPalettes_HoennMauville,
 	.metatiles = gMetatiles_HoennMauville,
 	.metatileAttributes = gMetatileAttributes_HoennMauville,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennMauville
 };
 
 const struct Tileset gTileset_HoennMossdeep = 
@@ -1196,7 +1196,7 @@ const struct Tileset gTileset_HoennCave =
 	.palettes = gTilesetPalettes_HoennCave,
 	.metatiles = gMetatiles_HoennCave,
 	.metatileAttributes = gMetatileAttributes_HoennCave,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennCave
 };
 
 const struct Tileset gTileset_HoennPokemonDayCare = 
@@ -1218,7 +1218,7 @@ const struct Tileset gTileset_HoennMauvilleGym =
 	.palettes = gTilesetPalettes_HoennMauvilleGym,
 	.metatiles = gMetatiles_HoennMauvilleGym,
 	.metatileAttributes = gMetatileAttributes_HoennMauvilleGym,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennMauvilleGym
 };
 
 const struct Tileset gTileset_HoennBikeShop = 
@@ -1229,7 +1229,7 @@ const struct Tileset gTileset_HoennBikeShop =
 	.palettes = gTilesetPalettes_HoennBikeShop,
 	.metatiles = gMetatiles_HoennBikeShop,
 	.metatileAttributes = gMetatileAttributes_HoennBikeShop,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennBikeShop
 };
 
 const struct Tileset gTileset_HoennMauvilleGameCorner = 
@@ -1251,7 +1251,7 @@ const struct Tileset gTileset_HoennMauville2 =
 	.palettes = gTilesetPalettes_HoennMauville2,
 	.metatiles = gMetatiles_HoennMauville2,
 	.metatileAttributes = gMetatileAttributes_HoennMauville2,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennMauville2
 };
 
 const struct Tileset gTileset_HoennTrickHousePuzzle = 
@@ -1273,7 +1273,7 @@ const struct Tileset gTileset_HoennLavaridge =
 	.palettes = gTilesetPalettes_HoennLavaridge,
 	.metatiles = gMetatiles_HoennLavaridge,
 	.metatileAttributes = gMetatileAttributes_HoennLavaridge,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennLavaridge
 };
 
 const struct Tileset gTileset_HoennLavaridgeGym = 
@@ -1295,7 +1295,7 @@ const struct Tileset gTileset_HoennSlateport2 =
 	.palettes = gTilesetPalettes_HoennSlateport2,
 	.metatiles = gMetatiles_HoennSlateport2,
 	.metatileAttributes = gMetatileAttributes_HoennSlateport2,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennSlateport2
 };
 
 const struct Tileset gTileset_HoennSeashoreHouse = 
@@ -1317,7 +1317,7 @@ const struct Tileset gTileset_HoennSlateport =
 	.palettes = gTilesetPalettes_HoennSlateport,
 	.metatiles = gMetatiles_HoennSlateport,
 	.metatileAttributes = gMetatileAttributes_HoennSlateport,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennSlateport
 };
 
 const struct Tileset gTileset_HoennPokemonFanClub = 
@@ -1350,7 +1350,7 @@ const struct Tileset gTileset_HoennSootopolis =
 	.palettes = gTilesetPalettes_HoennSootopolis,
 	.metatiles = gMetatiles_HoennSootopolis,
 	.metatileAttributes = gMetatileAttributes_HoennSootopolis,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennSootopolis
 };
 
 const struct Tileset gTileset_HoennSootopolisGym = 
@@ -1361,7 +1361,7 @@ const struct Tileset gTileset_HoennSootopolisGym =
 	.palettes = gTilesetPalettes_HoennSootopolisGym,
 	.metatiles = gMetatiles_HoennSootopolisGym,
 	.metatileAttributes = gMetatileAttributes_HoennSootopolisGym,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennSootopolisGym
 };
 
 const struct Tileset gTileset_HoennMysteryEventsHouse = 
@@ -1383,7 +1383,7 @@ const struct Tileset gTileset_HoennUnderwater =
 	.palettes = gTilesetPalettes_HoennUnderwater,
 	.metatiles = gMetatiles_HoennUnderwater,
 	.metatileAttributes = gMetatileAttributes_HoennUnderwater,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennUnderwater
 };
 
 const struct Tileset gTileset_HoennRusturfTunnel = 
