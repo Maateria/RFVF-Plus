@@ -446,6 +446,379 @@ void InitTilesetAnim_HoennInsideBuilding(void)
     sPrimaryTilesetAnimCallback = TilesetAnim_HoennInsideBuilding;
 }
 
+// Emerald's secondary tileset animations (pokeemerald src/tileset_anims.c: same frames, sequences and schedules) for
+// the Hoenn secondaries of tools/hoenn_import. The tool keeps each animated range of an Emerald tileset whole and
+// contiguous (hoenn_import.py ANIMATED_TILES), at a tile that depends on the FRLG tileset: the InitTilesetAnim_Hoenn*
+// it generates (src/data/tilesets/hoenn_anims.h) point sHoennAnimRanges to that tileset's ranges, so the schedules
+// below name a destination by its Emerald tile (NUM_TILES_IN_PRIMARY + n in Emerald -> n here).
+struct HoennAnimRange
+{
+    u16 first; // Emerald secondary tiles first...
+    u16 count; // ...to first + count - 1 (what Emerald's tiles.png holds of the range)
+    u16 tile;  // are at this VRAM tile here
+};
+
+static const struct HoennAnimRange *sHoennAnimRanges;
+
+static void QueueHoennAnim(const u16 *src, u16 emeraldTile, u16 numTiles)
+{
+    const struct HoennAnimRange *range;
+
+    for (range = sHoennAnimRanges; range->count != 0; range++)
+    {
+        if (emeraldTile >= range->first && emeraldTile < range->first + range->count)
+        {
+            if (numTiles > range->first + range->count - emeraldTile) // never past the range: other tiles follow it here
+                numTiles = range->first + range->count - emeraldTile;
+            AppendTilesetAnimToBuffer(src, (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(range->tile + emeraldTile - range->first)), numTiles * TILE_SIZE_4BPP);
+            return;
+        }
+    }
+}
+
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/0.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/1.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/2.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/3.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame4[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/4.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame5[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/5.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame6[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/6.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_WindyWater_Frame7[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/windy_water/7.4bpp");
+
+static const u16 *const sTilesetAnims_HoennRustboro_WindyWater[] = {
+    sTilesetAnims_HoennRustboro_WindyWater_Frame0,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame1,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame2,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame3,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame4,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame5,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame6,
+    sTilesetAnims_HoennRustboro_WindyWater_Frame7
+};
+
+static const u16 sTilesetAnims_HoennRustboro_Fountain_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/fountain/0.4bpp");
+static const u16 sTilesetAnims_HoennRustboro_Fountain_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_rustboro/anim/fountain/1.4bpp");
+
+static const u16 *const sTilesetAnims_HoennRustboro_Fountain[] = {
+    sTilesetAnims_HoennRustboro_Fountain_Frame0,
+    sTilesetAnims_HoennRustboro_Fountain_Frame1
+};
+
+static const u16 sTilesetAnims_HoennSlateport_Balloons_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_slateport/anim/balloons/0.4bpp");
+static const u16 sTilesetAnims_HoennSlateport_Balloons_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_slateport/anim/balloons/1.4bpp");
+static const u16 sTilesetAnims_HoennSlateport_Balloons_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_slateport/anim/balloons/2.4bpp");
+static const u16 sTilesetAnims_HoennSlateport_Balloons_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_slateport/anim/balloons/3.4bpp");
+
+static const u16 *const sTilesetAnims_HoennSlateport_Balloons[] = {
+    sTilesetAnims_HoennSlateport_Balloons_Frame0,
+    sTilesetAnims_HoennSlateport_Balloons_Frame1,
+    sTilesetAnims_HoennSlateport_Balloons_Frame2,
+    sTilesetAnims_HoennSlateport_Balloons_Frame3
+};
+
+static const u16 sTilesetAnims_HoennMauville_Flower1_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_1/0.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower1_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_1/1.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower1_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_1/2.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower1_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_1/3.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower1_Frame4[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_1/4.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower2_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_2/0.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower2_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_2/1.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower2_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_2/2.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower2_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_2/3.4bpp");
+static const u16 sTilesetAnims_HoennMauville_Flower2_Frame4[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville/anim/flower_2/4.4bpp");
+
+static const u16 *const sTilesetAnims_HoennMauville_Flower1[] = {
+    sTilesetAnims_HoennMauville_Flower1_Frame0,
+    sTilesetAnims_HoennMauville_Flower1_Frame0,
+    sTilesetAnims_HoennMauville_Flower1_Frame1,
+    sTilesetAnims_HoennMauville_Flower1_Frame2,
+    sTilesetAnims_HoennMauville_Flower1_Frame3,
+    sTilesetAnims_HoennMauville_Flower1_Frame3,
+    sTilesetAnims_HoennMauville_Flower1_Frame3,
+    sTilesetAnims_HoennMauville_Flower1_Frame3,
+    sTilesetAnims_HoennMauville_Flower1_Frame3,
+    sTilesetAnims_HoennMauville_Flower1_Frame3,
+    sTilesetAnims_HoennMauville_Flower1_Frame2,
+    sTilesetAnims_HoennMauville_Flower1_Frame1
+};
+
+static const u16 *const sTilesetAnims_HoennMauville_Flower2[] = {
+    sTilesetAnims_HoennMauville_Flower2_Frame0,
+    sTilesetAnims_HoennMauville_Flower2_Frame0,
+    sTilesetAnims_HoennMauville_Flower2_Frame1,
+    sTilesetAnims_HoennMauville_Flower2_Frame2,
+    sTilesetAnims_HoennMauville_Flower2_Frame3,
+    sTilesetAnims_HoennMauville_Flower2_Frame3,
+    sTilesetAnims_HoennMauville_Flower2_Frame3,
+    sTilesetAnims_HoennMauville_Flower2_Frame3,
+    sTilesetAnims_HoennMauville_Flower2_Frame3,
+    sTilesetAnims_HoennMauville_Flower2_Frame3,
+    sTilesetAnims_HoennMauville_Flower2_Frame2,
+    sTilesetAnims_HoennMauville_Flower2_Frame1
+};
+
+static const u16 *const sTilesetAnims_HoennMauville_Flower1_B[] = {
+    sTilesetAnims_HoennMauville_Flower1_Frame0,
+    sTilesetAnims_HoennMauville_Flower1_Frame0,
+    sTilesetAnims_HoennMauville_Flower1_Frame4,
+    sTilesetAnims_HoennMauville_Flower1_Frame4
+};
+
+static const u16 *const sTilesetAnims_HoennMauville_Flower2_B[] = {
+    sTilesetAnims_HoennMauville_Flower2_Frame0,
+    sTilesetAnims_HoennMauville_Flower2_Frame0,
+    sTilesetAnims_HoennMauville_Flower2_Frame4,
+    sTilesetAnims_HoennMauville_Flower2_Frame4
+};
+
+static const u16 sTilesetAnims_HoennLavaridge_Steam_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_lavaridge/anim/steam/0.4bpp");
+static const u16 sTilesetAnims_HoennLavaridge_Steam_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_lavaridge/anim/steam/1.4bpp");
+static const u16 sTilesetAnims_HoennLavaridge_Steam_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_lavaridge/anim/steam/2.4bpp");
+static const u16 sTilesetAnims_HoennLavaridge_Steam_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_lavaridge/anim/steam/3.4bpp");
+
+static const u16 *const sTilesetAnims_HoennLavaridge_Steam[] = {
+    sTilesetAnims_HoennLavaridge_Steam_Frame0,
+    sTilesetAnims_HoennLavaridge_Steam_Frame1,
+    sTilesetAnims_HoennLavaridge_Steam_Frame2,
+    sTilesetAnims_HoennLavaridge_Steam_Frame3
+};
+
+// Emerald's Lavaridge and Cave lava (gTilesetAnims_Lavaridge_Cave_Lava: frames 4-7 of its folder are unused)
+static const u16 sTilesetAnims_HoennCave_Lava_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_cave/anim/lava/0.4bpp");
+static const u16 sTilesetAnims_HoennCave_Lava_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_cave/anim/lava/1.4bpp");
+static const u16 sTilesetAnims_HoennCave_Lava_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_cave/anim/lava/2.4bpp");
+static const u16 sTilesetAnims_HoennCave_Lava_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_cave/anim/lava/3.4bpp");
+
+static const u16 *const sTilesetAnims_HoennCave_Lava[] = {
+    sTilesetAnims_HoennCave_Lava_Frame0,
+    sTilesetAnims_HoennCave_Lava_Frame1,
+    sTilesetAnims_HoennCave_Lava_Frame2,
+    sTilesetAnims_HoennCave_Lava_Frame3
+};
+
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/0.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/1.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/2.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/3.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame4[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/4.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame5[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/5.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame6[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/6.4bpp");
+static const u16 sTilesetAnims_HoennEverGrande_Flowers_Frame7[] = INCBIN_U16("data/tilesets/secondary/hoenn_ever_grande/anim/flowers/7.4bpp");
+
+static const u16 *const sTilesetAnims_HoennEverGrande_Flowers[] = {
+    sTilesetAnims_HoennEverGrande_Flowers_Frame0,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame1,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame2,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame3,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame4,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame5,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame6,
+    sTilesetAnims_HoennEverGrande_Flowers_Frame7
+};
+
+static const u16 sTilesetAnims_HoennPacifidlog_LogBridges_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/log_bridges/0.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_LogBridges_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/log_bridges/1.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_LogBridges_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/log_bridges/2.4bpp");
+
+static const u16 *const sTilesetAnims_HoennPacifidlog_LogBridges[] = {
+    sTilesetAnims_HoennPacifidlog_LogBridges_Frame0,
+    sTilesetAnims_HoennPacifidlog_LogBridges_Frame1,
+    sTilesetAnims_HoennPacifidlog_LogBridges_Frame2,
+    sTilesetAnims_HoennPacifidlog_LogBridges_Frame1
+};
+
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/0.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/1.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/2.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/3.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame4[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/4.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame5[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/5.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame6[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/6.4bpp");
+static const u16 sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame7[] = INCBIN_U16("data/tilesets/secondary/hoenn_pacifidlog/anim/water_currents/7.4bpp");
+
+static const u16 *const sTilesetAnims_HoennPacifidlog_WaterCurrents[] = {
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame0,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame1,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame2,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame3,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame4,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame5,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame6,
+    sTilesetAnims_HoennPacifidlog_WaterCurrents_Frame7
+};
+
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/0_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/0_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/1_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/1_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/2_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/2_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/3_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/3_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame4[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/4_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/4_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame5[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/5_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/5_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame6[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/6_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/6_groudon.4bpp");
+static const u16 sTilesetAnims_HoennSootopolis_StormyWater_Frame7[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/7_kyogre.4bpp", "data/tilesets/secondary/hoenn_sootopolis/anim/stormy_water/7_groudon.4bpp");
+
+static const u16 *const sTilesetAnims_HoennSootopolis_StormyWater[] = {
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame0,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame1,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame2,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame3,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame4,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame5,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame6,
+    sTilesetAnims_HoennSootopolis_StormyWater_Frame7
+};
+
+// Emerald's side waterfall (+496) is beyond its tiles.png, so no tileset here keeps it: only the front one is ported.
+static const u16 sTilesetAnims_HoennSootopolisGym_FrontWaterfall_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/anim/front_waterfall/0.4bpp");
+static const u16 sTilesetAnims_HoennSootopolisGym_FrontWaterfall_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/anim/front_waterfall/1.4bpp");
+static const u16 sTilesetAnims_HoennSootopolisGym_FrontWaterfall_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_sootopolis_gym/anim/front_waterfall/2.4bpp");
+
+static const u16 *const sTilesetAnims_HoennSootopolisGym_FrontWaterfall[] = {
+    sTilesetAnims_HoennSootopolisGym_FrontWaterfall_Frame0,
+    sTilesetAnims_HoennSootopolisGym_FrontWaterfall_Frame1,
+    sTilesetAnims_HoennSootopolisGym_FrontWaterfall_Frame2
+};
+
+static const u16 sTilesetAnims_HoennEliteFour_FloorLight_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/anim/floor_light/0.4bpp");
+static const u16 sTilesetAnims_HoennEliteFour_FloorLight_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/anim/floor_light/1.4bpp");
+static const u16 sTilesetAnims_HoennEliteFour_WallLights_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/anim/wall_lights/0.4bpp");
+static const u16 sTilesetAnims_HoennEliteFour_WallLights_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/anim/wall_lights/1.4bpp");
+static const u16 sTilesetAnims_HoennEliteFour_WallLights_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/anim/wall_lights/2.4bpp");
+static const u16 sTilesetAnims_HoennEliteFour_WallLights_Frame3[] = INCBIN_U16("data/tilesets/secondary/hoenn_elite_four/anim/wall_lights/3.4bpp");
+
+static const u16 *const sTilesetAnims_HoennEliteFour_FloorLight[] = {
+    sTilesetAnims_HoennEliteFour_FloorLight_Frame0,
+    sTilesetAnims_HoennEliteFour_FloorLight_Frame1
+};
+
+static const u16 *const sTilesetAnims_HoennEliteFour_WallLights[] = {
+    sTilesetAnims_HoennEliteFour_WallLights_Frame0,
+    sTilesetAnims_HoennEliteFour_WallLights_Frame1,
+    sTilesetAnims_HoennEliteFour_WallLights_Frame2,
+    sTilesetAnims_HoennEliteFour_WallLights_Frame3
+};
+
+static const u16 sTilesetAnims_HoennMauvilleGym_ElectricGates_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/anim/electric_gates/0.4bpp");
+static const u16 sTilesetAnims_HoennMauvilleGym_ElectricGates_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_mauville_gym/anim/electric_gates/1.4bpp");
+
+static const u16 *const sTilesetAnims_HoennMauvilleGym_ElectricGates[] = {
+    sTilesetAnims_HoennMauvilleGym_ElectricGates_Frame0,
+    sTilesetAnims_HoennMauvilleGym_ElectricGates_Frame1
+};
+
+static const u16 sTilesetAnims_HoennBikeShop_BlinkingLights_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/anim/blinking_lights/0.4bpp");
+static const u16 sTilesetAnims_HoennBikeShop_BlinkingLights_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_bike_shop/anim/blinking_lights/1.4bpp");
+
+static const u16 *const sTilesetAnims_HoennBikeShop_BlinkingLights[] = {
+    sTilesetAnims_HoennBikeShop_BlinkingLights_Frame0,
+    sTilesetAnims_HoennBikeShop_BlinkingLights_Frame1
+};
+
+// The schedules: pokeemerald's TilesetAnim_<Emerald tileset> and QueueAnimTiles_*, one call per Emerald copy.
+static void TilesetAnim_HoennRustboro(u16 timer)
+{
+    u16 i = timer / 8 - timer % 8; // QueueAnimTiles_Rustboro_WindyWater: u16 wrap, 8 frames
+
+    QueueHoennAnim(sTilesetAnims_HoennRustboro_WindyWater[i % ARRAY_COUNT(sTilesetAnims_HoennRustboro_WindyWater)], 128 + 4 * (timer % 8), 4);
+    if (timer % 8 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennRustboro_Fountain[(timer / 8) % ARRAY_COUNT(sTilesetAnims_HoennRustboro_Fountain)], 448, 4);
+}
+
+static void TilesetAnim_HoennSlateport(u16 timer)
+{
+    if (timer % 16 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennSlateport_Balloons[(timer / 16) % ARRAY_COUNT(sTilesetAnims_HoennSlateport_Balloons)], 224, 4);
+}
+
+static void TilesetAnim_HoennMauville(u16 timer)
+{
+    u16 i = timer / 8 - timer % 8; // QueueAnimTiles_Mauville_Flowers
+    u16 dest = 4 * (timer % 8);
+
+    if (i < ARRAY_COUNT(sTilesetAnims_HoennMauville_Flower1))
+    {
+        QueueHoennAnim(sTilesetAnims_HoennMauville_Flower1[i], 96 + dest, 4);
+        QueueHoennAnim(sTilesetAnims_HoennMauville_Flower2[i], 128 + dest, 4);
+    }
+    else
+    {
+        i %= ARRAY_COUNT(sTilesetAnims_HoennMauville_Flower1_B);
+        QueueHoennAnim(sTilesetAnims_HoennMauville_Flower1_B[i], 96 + dest, 4);
+        QueueHoennAnim(sTilesetAnims_HoennMauville_Flower2_B[i], 128 + dest, 4);
+    }
+}
+
+static void TilesetAnim_HoennLavaridge(u16 timer)
+{
+    u8 i = timer / 16;
+
+    if (timer % 16 == 0)
+    {
+        QueueHoennAnim(sTilesetAnims_HoennLavaridge_Steam[i % ARRAY_COUNT(sTilesetAnims_HoennLavaridge_Steam)], 288, 4);
+        QueueHoennAnim(sTilesetAnims_HoennLavaridge_Steam[(i + 2) % ARRAY_COUNT(sTilesetAnims_HoennLavaridge_Steam)], 292, 4);
+    }
+    if (timer % 16 == 1)
+        QueueHoennAnim(sTilesetAnims_HoennCave_Lava[i % ARRAY_COUNT(sTilesetAnims_HoennCave_Lava)], 160, 4);
+}
+
+static void TilesetAnim_HoennEverGrande(u16 timer)
+{
+    u16 i = timer / 8 - timer % 8; // QueueAnimTiles_EverGrande_Flowers: u16 wrap, 8 frames
+
+    QueueHoennAnim(sTilesetAnims_HoennEverGrande_Flowers[i % ARRAY_COUNT(sTilesetAnims_HoennEverGrande_Flowers)], 224 + 4 * (timer % 8), 4);
+}
+
+static void TilesetAnim_HoennPacifidlog(u16 timer)
+{
+    if (timer % 16 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennPacifidlog_LogBridges[(timer / 16) % ARRAY_COUNT(sTilesetAnims_HoennPacifidlog_LogBridges)], 464, 30);
+    if (timer % 16 == 1)
+        QueueHoennAnim(sTilesetAnims_HoennPacifidlog_WaterCurrents[(timer / 16) % ARRAY_COUNT(sTilesetAnims_HoennPacifidlog_WaterCurrents)], 496, 8);
+}
+
+static void TilesetAnim_HoennSootopolis(u16 timer)
+{
+    if (timer % 16 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennSootopolis_StormyWater[(timer / 16) % ARRAY_COUNT(sTilesetAnims_HoennSootopolis_StormyWater)], 240, 96);
+}
+
+static void TilesetAnim_HoennUnderwater(u16 timer)
+{
+    if (timer % 16 == 0) // Emerald's seaweed frames are FRLG-Plus's own (same PNGs)
+        QueueHoennAnim(gTilesetAnims_Underwater_Seaweed[(timer / 16) % ARRAY_COUNT(gTilesetAnims_Underwater_Seaweed)], 496, 4);
+}
+
+static void TilesetAnim_HoennSootopolisGym(u16 timer)
+{
+    if (timer % 8 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennSootopolisGym_FrontWaterfall[(timer / 8) % ARRAY_COUNT(sTilesetAnims_HoennSootopolisGym_FrontWaterfall)], 464, 20);
+}
+
+static void TilesetAnim_HoennCave(u16 timer)
+{
+    if (timer % 16 == 1)
+        QueueHoennAnim(sTilesetAnims_HoennCave_Lava[(timer / 16) % ARRAY_COUNT(sTilesetAnims_HoennCave_Lava)], 416, 4);
+}
+
+static void TilesetAnim_HoennEliteFour(u16 timer)
+{
+    if (timer % 64 == 1)
+        QueueHoennAnim(sTilesetAnims_HoennEliteFour_FloorLight[(timer / 64) % ARRAY_COUNT(sTilesetAnims_HoennEliteFour_FloorLight)], 480, 4);
+    if (timer % 8 == 1)
+        QueueHoennAnim(sTilesetAnims_HoennEliteFour_WallLights[(timer / 8) % ARRAY_COUNT(sTilesetAnims_HoennEliteFour_WallLights)], 504, 1);
+}
+
+static void TilesetAnim_HoennMauvilleGym(u16 timer)
+{
+    if (timer % 2 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennMauvilleGym_ElectricGates[(timer / 2) % ARRAY_COUNT(sTilesetAnims_HoennMauvilleGym_ElectricGates)], 144, 16);
+}
+
+static void TilesetAnim_HoennBikeShop(u16 timer)
+{
+    if (timer % 4 == 0)
+        QueueHoennAnim(sTilesetAnims_HoennBikeShop_BlinkingLights[(timer / 4) % ARRAY_COUNT(sTilesetAnims_HoennBikeShop_BlinkingLights)], 496, 9);
+}
+
 static void QueueAnimTiles_CeladonCity_Fountain(u16 timer)
 {
     AppendTilesetAnimToBuffer(sTilesetAnims_CeladonCity_Fountain[timer % ARRAY_COUNT(sTilesetAnims_CeladonCity_Fountain)], (u16 *)(BG_VRAM + TILE_OFFSET_4BPP(744)), 8 * TILE_SIZE_4BPP);
@@ -649,3 +1022,6 @@ void InitTilesetAnim_SeviiIslands5(void)
     sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
     sSecondaryTilesetAnimCallback = TilesetAnim_SeviiIslands5;
 }
+
+// Generated: InitTilesetAnim_Hoenn* of the Hoenn secondaries (tools/hoenn_import register_anims)
+#include "data/tilesets/hoenn_anims.h"

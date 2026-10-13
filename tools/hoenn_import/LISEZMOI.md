@@ -98,6 +98,9 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
     entier la première fois et ne change plus.
   - `PRUNED` : un tileset compacté avant l'étape 3 (`HoennGenericBuilding`, `HoennFacility`,
     `HoennBattleFrontier`). Il ne fait que grandir.
+  - `NOTE: ... .callback = InitTilesetAnim_...` : le tileset est animé comme dans Émeraude (eau, fleurs, vapeur,
+    lave...). L'animation est portée dans `src/tileset_anims.c` ; l'outil génère son point d'entrée dans
+    `src/data/tilesets/hoenn_anims.h` avec les tuiles où le tileset a mis chaque animation.
 - **`Behaviors` :** les comportements des tuiles (eau, herbe, porte...). `DEGRADED` ou `no counterpart` signale un
   effet perdu, par exemple le sable profond devient du sable normal.
 - **Une ligne `MAP_...` par map,** suivie de :
@@ -114,6 +117,8 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
   - `Flags allocated` : les flags des objets ;
   - `Wild encounters added` : les Pokémon sauvages ajoutés ;
   - `Heal location` : le point de retour après un K.O. ;
+  - `Door animations added` : les portes animées ajoutées à `src/field_door.c` (image d'Émeraude copiée dans
+    `graphics/door_anims/`, palettes déplacées comme celles du tileset). Une map déjà là reçoit aussi les siennes ;
   - `Render check` : chaque nouvelle map et chaque bande de liaison, comparées pixel par pixel à Émeraude ;
   - `can be reached from LilycoveCity` : la zone (pour un donjon, chacune de ses maps) est accessible depuis Nénucrique
     par des liaisons et des portes qui marchent ici (`with Dive only` : seulement en plongeant ; `can NOT be reached

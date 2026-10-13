@@ -48,16 +48,20 @@ What a run writes:
   - data/event_scripts.s, data/maps/map_groups.json (a group is created at the end of group_order if missing),
     src/data/tilesets/{headers,graphics,metatiles}.h, tileset_rules.mk, include/constants/metatile_labels.h (the
     missing labels), include/constants/{map_groups,layouts}.h (as tools/mapjson makes them: tracked in git)
+  - tileset animations: a primary gets .callback = InitTilesetAnim_HoennY (to write by hand in src/tileset_anims.c);
+    a secondary whose Emerald schedule src/tileset_anims.c ports (TilesetAnim_Hoenn<X>) gets InitTilesetAnim_HoennY,
+    generated in src/data/tilesets/hoenn_anims.h with the tiles its animated ranges have here (register_anims)
+  - door animations (design F12): a warp on an Emerald animated door gets Emerald's door table entry in
+    sDoorGraphics_Hoenn (src/field_door.c), graphics copied to graphics/door_anims/hoenn_*.png and palette slots moved
+    like the tileset's (register_doors); a map already here gets the missing ones too
 A map / layout of this repo that this tool did not make is never replaced (Emerald and Kanto share names:
 SafariZone_North, LAYOUT_POKEMON_CENTER_1F...). A tileset this run adds nothing to is left as it is (Porymap edits
 included); one that must grow is refused if its files are no longer what this tool wrote.
-Not handled here: tileset animations (src/tileset_anims.c: a primary gets .callback = InitTilesetAnim_HoennY, to
-write by hand; a secondary gets NULL) and door graphics (src/field_door.c sDoorGraphics_Hoenn), see the report.
 
 Engine differences handled:
   - FRLG primary = 640 tiles / 640 metatiles / 7 palettes (Emerald: 512 / 512 / 6); an Emerald primary is copied
     as is (ids unchanged). An Emerald secondary using palette slot 6 (a primary slot in FRLG) gets it moved to a
-    free slot 10-12 (WARNING printed: door palettes naming slot 6 must follow); PALETTE_SWAPS moves others.
+    free slot 10-12 (NOTE printed; its door palettes follow: register_doors); PALETTE_SWAPS moves others.
   - FRLG secondary = 384 metatiles / 376 tiles (VRAM tiles 1016-1023 are the door animation buffer). A secondary
     that fits keeps every metatile (FRLG id = Emerald id + 128) and only the tiles they use, re-based at 640 (an
     animated range stays whole: ANIMATED_TILES). One that does not fit (Mauville, Slateport, Mossdeep, Lavaridge, Cave)
@@ -106,6 +110,7 @@ SEC_MAX_TILES = SEC_MAX - 8  # its tiles: the door animations overwrite the last
 TERRAIN_NORMAL, TERRAIN_GRASS, TERRAIN_WATER, TERRAIN_WATERFALL = 0, 1, 2, 3
 ENC_NONE, ENC_LAND, ENC_WATER = 0, 1, 2
 IDS_FILE = "emerald_ids.json"
+ANIMS_H = "src/data/tilesets/hoenn_anims.h"  # register_anims
 # Secondaries this tool pruned before natural ids (design 1.8): compact ids, append-only, in IDS_FILE
 LEGACY_PRUNED = {"gTileset_GenericBuilding", "gTileset_Facility", "gTileset_BattleFrontier"}
 # Emerald's secondary tile animations (pokeemerald src/tileset_anims.c): (first tile - 512, tiles). Compaction keeps a
@@ -696,6 +701,7 @@ class Tileset:
         """Reads, checks and converts Emerald's tileset `symbol` into its FRLG tileset number `sibling` (sibling_of);
         `used` = its metatile ids in the maps of the batch. write() plans the files."""
         em, behaviors = ctx.root, ctx.behaviors
+        self.symbol = symbol
         fields, self.src = em_tileset(em, symbol)
         self.em_name = symbol.replace("gTileset_", "")  # Emerald labels: METATILE_<em_name>_*
         suffix = fields["metatiles"].replace("gMetatiles_", "") + ("%d" % (sibling + 1) if sibling else "")
@@ -1375,14 +1381,61 @@ def append_once(path, marker, block):
         write(path, text + ("" if text.endswith("\n") else "\n") + "\n" + block)
 
 
-def register_tileset(ts):
+def anim_ranges(ts):
+    """[(first, count, tile)] of the secondary `ts`: Emerald's animated range at tile 512 + first (ANIMATED_TILES), the
+    `count` tiles of it Emerald's tiles.png holds, kept whole and contiguous (with_anims) from tile `tile` here."""
+    at = {t: FR["tiles"] + i for i, t in enumerate(ts.tiles)} if ts.secondary else {}
+    out = []
+    for first, count in ANIMATED_TILES.get(ts.symbol, ()):
+        kept = [at[t] for t in range(EM["tiles"] + first, EM["tiles"] + first + count) if t in at]
+        if kept:
+            assert kept == list(range(kept[0], kept[0] + len(kept))) and EM["tiles"] + first in at, ts.name
+            out.append((first, len(kept), kept[0]))
+    return out
+
+
+def register_anims(em, ts):
+    """The callback of the secondary `ts`: InitTilesetAnim_<name>, generated in ANIMS_H (Emerald's InitTilesetAnim_X
+    pointing to this tileset's anim_ranges), when src/tileset_anims.c ports Emerald's schedule (TilesetAnim_Hoenn<X>)
+    and the tileset keeps tiles of an animated range; else NULL."""
+    schedule = ts.em_callback.replace("InitTilesetAnim_", "TilesetAnim_Hoenn")
+    ranges = anim_ranges(ts)
+    if not ranges or not re.search(r"\bstatic void %s\(" % schedule, read(REPO / "src/tileset_anims.c")):
+        return "NULL"
+    name, path = "InitTilesetAnim_" + ts.name, REPO / ANIMS_H
+    body = re.search(r"void %s\(void\)\s*\{\s*(.*?)\s*\}" % ts.em_callback, read(em / "src/tileset_anims.c"), re.S)
+    body = re.sub(r"\s*\n\s*", "\n    ", body.group(1).replace("= TilesetAnim_", "= TilesetAnim_Hoenn"))
+    if not exists(path):
+        write(path, "// Generated by tools/hoenn_import (register_anims), included by src/tileset_anims.c: the "
+                    "secondary tileset animations\n// of pokeemerald, each with the tiles {Emerald tile - 512, count, "
+                    "tile here} of its animated ranges in that tileset.\n")
+    append_once(path, "void %s(void)" % name,
+                "// gTileset_%s: pokeemerald %s\nstatic const struct HoennAnimRange sHoennAnimRanges_%s[] = {%s, {0}};\n"
+                "\nvoid %s(void)\n{\n    %s\n    sHoennAnimRanges = sHoennAnimRanges_%s;\n}\n"
+                % (ts.name, ts.em_callback, ts.name, ", ".join("{%d, %d, %d}" % r for r in ranges), name, body, ts.name))
+    protos = REPO / "include/tileset_anims.h"
+    text = read(protos).replace("\r\n", "\n")
+    if "void %s(void);" % name not in text:
+        write(protos, insert_after(text, r"void InitTilesetAnim_\w+\(void\);", "void %s(void);\n" % name))
+    return name
+
+
+def register_tileset(em, ts):
     t, d = ts.name, ts.dir
-    callback = "InitTilesetAnim_" + t if not ts.secondary and ts.em_callback != "NULL" else "NULL"
-    append_once(REPO / "src/data/tilesets/headers.h", "gTileset_%s =" % t,
+    if ts.secondary:
+        ts.callback = register_anims(em, ts)
+    else:
+        ts.callback = "InitTilesetAnim_" + t if ts.em_callback != "NULL" else "NULL"
+    headers = REPO / "src/data/tilesets/headers.h"
+    text = read(headers)
+    old = re.search(r"\bgTileset_%s =\s*\{[^}]*?\.callback = NULL\b" % t, text)
+    if old and ts.callback != "NULL":  # an animation ported since the tileset was registered (kept_lines allows it)
+        write(headers, text[:old.end() - len("NULL")] + ts.callback + text[old.end():])
+    append_once(headers, "gTileset_%s =" % t,
                 "const struct Tileset gTileset_%s = \n{\n\t.isCompressed = TRUE,\n\t.isSecondary = %s,\n"
                 "\t.tiles = gTilesetTiles_%s,\n\t.palettes = gTilesetPalettes_%s,\n\t.metatiles = gMetatiles_%s,\n"
                 "\t.metatileAttributes = gMetatileAttributes_%s,\n\t.callback = %s\n};\n"
-                % (t, "TRUE" if ts.secondary else "FALSE", t, t, t, t, callback))
+                % (t, "TRUE" if ts.secondary else "FALSE", t, t, t, t, ts.callback))
     append_once(REPO / "src/data/tilesets/graphics.h", "gTilesetTiles_%s[]" % t,
                 'const u32 gTilesetTiles_%s[] = INCBIN_U32("%s/tiles.4bpp.lz");\n\n'
                 "const u16 gTilesetPalettes_%s[][16] =\n{\n%s};\n"
@@ -1427,6 +1480,81 @@ def register_labels(em, ts):
         pos = after[0].start() if after else text.index("// Other")
         lines = "// gTileset_%s\n%s\n" % (ts.name, lines)
     write(path, text[:pos] + lines + text[pos:])
+
+
+def insert_after(text, pattern, block):
+    """`text` (LF) with `block` after its last line starting with the regex `pattern`."""
+    end = list(re.finditer(r"^%s.*\n" % pattern, text, re.M))[-1].end()
+    return text[:end] + block + text[end:]
+
+
+@lru_cache(maxsize=None)
+def em_doors(em):
+    """{Emerald metatile id: its entry in pokeemerald's sDoorAnimGraphicsTable (src/field_door.c)}, the first one, as
+    GetDoorGraphics finds it."""
+    text = read(em / "src/field_door.c")
+    files = dict(re.findall(r'(sDoorAnimTiles_\w+)\[\] = INCBIN_U8\("([^"]+)"\);', text))
+    pals = {n: [int(x) for x in v.split(",")] for n, v in re.findall(r"(sDoorAnimPalettes_\w+)\[\] = \{([^}]*)\};", text)}
+    ids = {n: int(v, 16) for n, v in re.findall(r"#define (METATILE_\w+)\s+(0x[0-9A-Fa-f]+)",
+                                                read(em / "include/constants/metatile_labels.h"))}
+    out = {}
+    for label, sound, size, tiles, palettes in re.findall(r"\{(METATILE_\w+|0x[0-9A-Fa-f]+),\s*(DOOR_SOUND_\w+),\s*(\d),"
+                                                          r"\s*(\w+),\s*(\w+)\}", table(text, "sDoorAnimGraphicsTable[]")):
+        out.setdefault(ids[label] if label in ids else int(label, 16), SimpleNamespace(
+            label=label, sound=sound, size=int(size), tiles=tiles, file=files[tiles], palettes=palettes, pals=pals[palettes]))
+    return out
+
+
+def register_doors(ctx, maps):
+    """Door animations (design F12): a warp of `maps` on an Emerald animated door gets the entry of Emerald's door table
+    (em_doors) in sDoorGraphics_Hoenn (src/field_door.c) under its metatile id here, unless an entry has that id (the
+    lookup is by id only): graphics copied to graphics/door_anims/hoenn_*.png, palette slots moved like the tileset's
+    (pal_map: Emerald slot 6 is a primary slot here). Returns the report lines."""
+    path, out, warnings = REPO / "src/field_door.c", [], []
+    for m in maps:
+        for em_beh, _, mid, fid in m.warp_behaviors:
+            door = em_doors(ctx.root).get(mid) if em_beh == "MB_ANIMATED_DOOR" else None
+            if not door:
+                continue
+            ts = m.primary if mid < EM["metatiles"] else m.secondary
+            text = read(path).replace("\r\n", "\n")
+            labels = {n: int(v, 16) for n, v in re.findall(r"#define (METATILE_\w+)\s+(0x[0-9A-Fa-f]+)",
+                                                           read(REPO / "include/constants/metatile_labels.h"))}
+            rows = re.findall(r"\{(\w+),\s*DOOR_SOUND_\w+,\s*DOOR_SIZE_\w+,\s*(\w+),", table(text, "sDoorGraphics_Hoenn[]"))
+            here = {labels[l] if l in labels else int(l, 16): t for l, t in rows}
+            tiles = "sDoorAnimTiles_Hoenn" + door.tiles[len("sDoorAnimTiles_"):]
+            if fid in here:
+                if here[fid] != tiles:
+                    warnings.append("WARNING: %s door 0x%03X shows %s, not Emerald's %s: one entry per metatile id"
+                                    % (m.name, fid, here[fid], door.tiles))
+                continue
+            if door.size != 1 or door.sound not in ("DOOR_SOUND_NORMAL", "DOOR_SOUND_SLIDING"):
+                warnings.append("WARNING: %s door 0x%03X (%s) is not animated: no such door size / sound here"
+                                % (m.name, fid, door.label))
+                continue
+            pals = [ts.pal_map.get(p, p) for p in door.pals]
+            palettes = "sDoorAnimPalettes_Hoenn" + door.palettes[len("sDoorAnimPalettes_"):]
+            have = re.search(r"\b%s\[\] = \{([^}]*)\}" % palettes, text)
+            if have and [int(x) for x in have.group(1).split(",")] != pals:
+                refuse("%s: door palettes %s would need two values here (%s)" % (m.name, palettes, pals))
+                continue
+            if not have:
+                note = "" if pals == door.pals else " // Emerald {%s}" % ", ".join(map(str, door.pals))
+                text = insert_after(text, r"static const u8 sDoorAnimPalettes_Hoenn",
+                                    "static const u8 %s[] = {%s};%s\n" % (palettes, ", ".join(map(str, pals)), note))
+            png = "graphics/door_anims/hoenn_%s.png" % PurePosixPath(door.file).stem
+            if not exists(REPO / png):
+                copy(ctx.root / PurePosixPath(door.file).with_suffix(".png"), REPO / png)
+            if "%s[]" % tiles not in text:
+                text = insert_after(text, r"static const u8 sDoorAnimTiles_Hoenn",
+                                    'static const u8 %s[] = INCBIN_U8("%s");\n' % (tiles, png[:-len("png")] + "4bpp"))
+            label = "METATILE_%s_%s" % (ts.name, door.label[len("METATILE_%s_" % ts.em_name):])
+            label = label if labels.get(label) == fid else "0x%03X" % fid
+            end = text.index("    {}\n", text.index("sDoorGraphics_Hoenn[]"))
+            row = "    {%-54s %-19s DOOR_SIZE_1x2, %s, %s},\n" % (label + ",", door.sound + ",", tiles, palettes)
+            write(path, text[:end] + row + text[end:])
+            out.append("  %s (%s): %s, palettes {%s}" % (label, m.name, door.tiles, ", ".join(map(str, pals))))
+    return warnings + (["Door animations added to sDoorGraphics_Hoenn (src/field_door.c):"] + out if out else [])
 
 
 def write_map_constants():
@@ -1595,8 +1723,9 @@ def plan(ctx, names, group_of):
     # everything planned in memory
     for ts in tilesets.values():
         ts.write()
-        register_tileset(ts)
+        register_tileset(em, ts)
         register_labels(em, ts)
+    doors = register_doors(ctx, maps)
     data = json.loads(read(REPO / "data/layouts/layouts.json"))
     for _, layout in layouts.values():
         if layout["id"] not in repo_ids:
@@ -1632,7 +1761,7 @@ def plan(ctx, names, group_of):
             batch.strips += [(m.em_map["id"], c) for c in m.map_json["connections"] or [] if c["direction"] in DIRECTIONS]
     if ctx.allocated:
         batch.extras += ["Flags allocated in %s (Emerald's names):" % FLAGS_H.relative_to(REPO).as_posix()] + ctx.allocated
-    batch.extras += plan_encounters(ctx, batch) + plan_heal_location(ctx, batch)
+    batch.extras += plan_encounters(ctx, batch) + plan_heal_location(ctx, batch) + doors
     return batch
 
 
@@ -1835,10 +1964,10 @@ def check_renders(ctx, batch, render_dir):
 
 
 def kept_lines(text):
-    """The lines of a text file that an import must keep: not those of -num_tiles rules or FLAG_0x placeholders;
-    JSON's trailing commas ignored."""
-    return [line.rstrip().rstrip(",") for line in text.splitlines()
-            if "-num_tiles" not in line and not line.startswith("#define FLAG_0x")]
+    """The lines of a text file that an import must keep: not those of -num_tiles rules, FLAG_0x placeholders or NULL
+    tileset callbacks (register_tileset: an animation ported later); JSON's trailing commas ignored."""
+    return [line.rstrip().rstrip(",") for line in text.splitlines() if "-num_tiles" not in line
+            and not line.startswith("#define FLAG_0x") and line.strip() != ".callback = NULL"]
 
 
 def additive(path, old, new):
@@ -1965,13 +2094,14 @@ def report(ctx, batch, unit=None):
             print("NOTE: Emerald metatiles %s name tiles beyond tiles.png: drawn with tile 0 here"
                   % " ".join("0x%03X" % m for m in ts.junk))
         for old, new in ts.pal_map.items():
-            print("WARNING: Emerald palette %d of gTileset_%s is slot %d here (door/anim palettes naming slot %d "
-                  "must follow)" % (old, ts.name, new, old))
-        if ts.secondary and ts.em_callback != "NULL":
-            print("WARNING: Emerald %s is not ported (.callback = NULL); its tiles are renumbered here" % ts.em_callback)
-        if not ts.secondary and ts.em_callback != "NULL":
-            print("NOTE: gTileset_%s.callback = InitTilesetAnim_%s (src/tileset_anims.c, port of Emerald %s)"
-                  % (ts.name, ts.name, ts.em_callback))
+            print("NOTE: Emerald palette %d of gTileset_%s is slot %d here (its door palettes follow)" % (old, ts.name, new))
+        if ts.callback != "NULL":
+            print("NOTE: gTileset_%s.callback = %s (src/tileset_anims.c, port of Emerald %s%s)" % (
+                ts.name, ts.callback, ts.em_callback, ", tiles %s" % " ".join("%d-%d" % (r[2], r[2] + r[1] - 1)
+                                                                            for r in anim_ranges(ts)) if ts.secondary else ""))
+        elif anim_ranges(ts):
+            print("WARNING: Emerald %s is not ported (no TilesetAnim_Hoenn* in src/tileset_anims.c): .callback = NULL"
+                  % ts.em_callback)
     print("Behaviors (Emerald -> here: metatiles of these tilesets):")
     for (e, f), n in sorted(ctx.behaviors.used.items()):
         note = ctx.behaviors.fr_name(e)[1]
