@@ -9323,6 +9323,60 @@ const struct WildPokemon gNewMauville_Entrance_LandMons[] =
 
 const struct WildPokemonInfo gNewMauville_Entrance_LandMonsInfo = { 10, gNewMauville_Entrance_LandMons };
 
+const struct WildPokemon gAbandonedShip_Rooms_B1F_WaterMons[] =
+{
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_TENTACOOL },
+    { 30, 35, SPECIES_TENTACRUEL },
+};
+
+const struct WildPokemonInfo gAbandonedShip_Rooms_B1F_WaterMonsInfo = { 4, gAbandonedShip_Rooms_B1F_WaterMons };
+
+const struct WildPokemon gAbandonedShip_Rooms_B1F_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 25, 30, SPECIES_TENTACOOL },
+    { 30, 35, SPECIES_TENTACOOL },
+    { 30, 35, SPECIES_TENTACRUEL },
+    { 25, 30, SPECIES_TENTACRUEL },
+    { 20, 25, SPECIES_TENTACRUEL },
+};
+
+const struct WildPokemonInfo gAbandonedShip_Rooms_B1F_FishingMonsInfo = { 20, gAbandonedShip_Rooms_B1F_FishingMons };
+
+const struct WildPokemon gAbandonedShip_HiddenFloorCorridors_WaterMons[] =
+{
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_TENTACOOL },
+    { 5, 35, SPECIES_TENTACOOL },
+    { 30, 35, SPECIES_TENTACRUEL },
+};
+
+const struct WildPokemonInfo gAbandonedShip_HiddenFloorCorridors_WaterMonsInfo = { 4, gAbandonedShip_HiddenFloorCorridors_WaterMons };
+
+const struct WildPokemon gAbandonedShip_HiddenFloorCorridors_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 25, 30, SPECIES_TENTACOOL },
+    { 30, 35, SPECIES_TENTACOOL },
+    { 30, 35, SPECIES_TENTACRUEL },
+    { 25, 30, SPECIES_TENTACRUEL },
+    { 20, 25, SPECIES_TENTACRUEL },
+};
+
+const struct WildPokemonInfo gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo = { 20, gAbandonedShip_HiddenFloorCorridors_FishingMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -11904,6 +11958,30 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = NULL,
         .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(ABANDONED_SHIP_ROOMS_B1F),
+        .mapNum = MAP_NUM(ABANDONED_SHIP_ROOMS_B1F),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = &gAbandonedShip_Rooms_B1F_WaterMonsInfo,
+        .waterMonsInfo_LG = &gAbandonedShip_Rooms_B1F_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gAbandonedShip_Rooms_B1F_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gAbandonedShip_Rooms_B1F_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS),
+        .mapNum = MAP_NUM(ABANDONED_SHIP_HIDDEN_FLOOR_CORRIDORS),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = &gAbandonedShip_HiddenFloorCorridors_WaterMonsInfo,
+        .waterMonsInfo_LG = &gAbandonedShip_HiddenFloorCorridors_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gAbandonedShip_HiddenFloorCorridors_FishingMonsInfo,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).

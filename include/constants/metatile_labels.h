@@ -309,6 +309,13 @@
 #define METATILE_HoennInsideBuilding_TV_Off  0x002
 #define METATILE_HoennInsideBuilding_TV_On   0x003
 
+// gTileset_HoennInsideShip
+#define METATILE_HoennInsideShip_DoorIndent_Locked           0x2B4
+#define METATILE_HoennInsideShip_DoorIndent_Unlocked         0x29A
+#define METATILE_HoennInsideShip_IntactDoor_Bottom_Interior  0x317
+#define METATILE_HoennInsideShip_IntactDoor_Bottom_Locked    0x2B3
+#define METATILE_HoennInsideShip_IntactDoor_Bottom_Unlocked  0x2AB
+
 // gTileset_HoennLavaridge
 #define METATILE_HoennLavaridge_AshGrass             0x287
 #define METATILE_HoennLavaridge_CaveEntrance_Bottom  0x2DE

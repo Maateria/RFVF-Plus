@@ -974,6 +974,19 @@
     "MagmaHideout_3F_3R",
     "MagmaHideout_2F_3R",
     "NewMauville_Entrance",
-    "NewMauville_Inside"
+    "NewMauville_Inside",
+    "AbandonedShip_Deck",
+    "AbandonedShip_Corridors_1F",
+    "AbandonedShip_Rooms_1F",
+    "AbandonedShip_Corridors_B1F",
+    "AbandonedShip_Rooms_B1F",
+    "AbandonedShip_Rooms2_B1F",
+    "AbandonedShip_Underwater1",
+    "AbandonedShip_Room_B1F",
+    "AbandonedShip_Rooms2_1F",
+    "AbandonedShip_CaptainsOffice",
+    "AbandonedShip_Underwater2",
+    "AbandonedShip_HiddenFloorCorridors",
+    "AbandonedShip_HiddenFloorRooms"
   ]
 }

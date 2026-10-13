@@ -1904,3 +1904,29 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/NewMauville_Entrance/scripts.inc"
 
 	.include "data/maps/NewMauville_Inside/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Deck/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Corridors_1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Rooms_1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Corridors_B1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Rooms_B1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Rooms2_B1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Underwater1/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Room_B1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Rooms2_1F/scripts.inc"
+
+	.include "data/maps/AbandonedShip_CaptainsOffice/scripts.inc"
+
+	.include "data/maps/AbandonedShip_Underwater2/scripts.inc"
+
+	.include "data/maps/AbandonedShip_HiddenFloorCorridors/scripts.inc"
+
+	.include "data/maps/AbandonedShip_HiddenFloorRooms/scripts.inc"
