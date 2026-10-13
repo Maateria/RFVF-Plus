@@ -8343,6 +8343,33 @@ const struct WildPokemon gRoute125_FishingMons[] =
 
 const struct WildPokemonInfo gRoute125_FishingMonsInfo = { 30, gRoute125_FishingMons };
 
+const struct WildPokemon gRoute127_WaterMons[] =
+{
+    { 5, 35, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_WINGULL },
+    { 15, 25, SPECIES_WINGULL },
+    { 25, 30, SPECIES_PELIPPER },
+    { 25, 30, SPECIES_PELIPPER },
+};
+
+const struct WildPokemonInfo gRoute127_WaterMonsInfo = { 4, gRoute127_WaterMons };
+
+const struct WildPokemon gRoute127_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 30, SPECIES_TENTACOOL },
+    { 10, 30, SPECIES_WAILMER },
+    { 30, 35, SPECIES_SHARPEDO },
+    { 30, 35, SPECIES_WAILMER },
+    { 25, 30, SPECIES_WAILMER },
+    { 35, 40, SPECIES_WAILMER },
+    { 40, 45, SPECIES_WAILMER },
+};
+
+const struct WildPokemonInfo gRoute127_FishingMonsInfo = { 30, gRoute127_FishingMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -10468,6 +10495,18 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .rockSmashMonsInfo_LG = NULL,
         .fishingMonsInfo_FR = &gRoute125_FishingMonsInfo,
         .fishingMonsInfo_LG = &gRoute125_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(ROUTE127),
+        .mapNum = MAP_NUM(ROUTE127),
+        .landMonsInfo_FR = NULL,
+        .landMonsInfo_LG = NULL,
+        .waterMonsInfo_FR = &gRoute127_WaterMonsInfo,
+        .waterMonsInfo_LG = &gRoute127_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gRoute127_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gRoute127_FishingMonsInfo,
     },
     // Terminator: both loops over this table (wild_encounter.c, wild_pokemon_area.c) stop here.
     // Keep it last; new entries go above it (indexes 133/134 are tested in wild_pokemon_area.c).

@@ -355,8 +355,8 @@
 #define FLAG_ITEM_ROUTE_124_YELLOW_SHARD         0x14F
 #define FLAG_ITEM_MOSSDEEP_CITY_NET_BALL         0x150
 #define FLAG_ITEM_ROUTE_125_BIG_PEARL            0x151
-#define FLAG_0x152               0x152
-#define FLAG_0x153               0x153
+#define FLAG_ITEM_ROUTE_127_ZINC                 0x152
+#define FLAG_ITEM_ROUTE_127_CARBOS               0x153
 
 // Item ball hide/show
 #define FLAG_HIDE_ROUTE2_ETHER                                  0x154
@@ -539,7 +539,7 @@
 #define FLAG_HIDE_CELADON_CITY_SUN_STONE                        0x205 //New
 
 // Unused?
-#define FLAG_0x206               0x206
+#define FLAG_ITEM_ROUTE_127_RARE_CANDY           0x206
 #define FLAG_0x207               0x207
 #define FLAG_0x208               0x208
 #define FLAG_0x209               0x209

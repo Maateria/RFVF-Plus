@@ -1666,3 +1666,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MossdeepCity_GameCorner_B1F/scripts.inc"
 
 	.include "data/maps/Route125/scripts.inc"
+
+	.include "data/maps/Route127/scripts.inc"
