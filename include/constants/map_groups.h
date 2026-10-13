@@ -319,6 +319,7 @@
 #define MAP_LITTLEROOT_TOWN                      (97 | (3 << 8))
 #define MAP_ROUTE103                             (98 | (3 << 8))
 #define MAP_ROUTE118                             (99 | (3 << 8))
+#define MAP_ROUTE124                             (100 | (3 << 8))
 
 // gMapGroup_IndoorPallet
 #define MAP_PALLET_TOWN_PLAYERS_HOUSE_1F   (0 | (4 << 8))
@@ -744,6 +745,9 @@
 #define MAP_LITTLEROOT_TOWN_MAYS_HOUSE_2F        (3 | (60 << 8))
 #define MAP_LITTLEROOT_TOWN_PROFESSOR_BIRCHS_LAB (4 | (60 << 8))
 
-#define MAP_GROUPS_COUNT 61
+// gMapGroup_IndoorRoute124
+#define MAP_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE (0 | (61 << 8))
+
+#define MAP_GROUPS_COUNT 62
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

@@ -284,3 +284,9 @@ $(TILESETGFXDIR)/secondary/hoenn_brendans_mays_house/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_mauville/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 318 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_mossdeep/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 206 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_generic_building2/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 274 -Wnum_tiles

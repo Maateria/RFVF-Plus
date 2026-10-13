@@ -1632,3 +1632,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route103/scripts.inc"
 
 	.include "data/maps/Route118/scripts.inc"
+
+	.include "data/maps/Route124/scripts.inc"
+
+	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"

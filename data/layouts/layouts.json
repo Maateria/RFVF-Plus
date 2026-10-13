@@ -6048,6 +6048,30 @@
       "secondary_tileset": "gTileset_HoennMauville",
       "border_filepath": "data/layouts/Route118/border.bin",
       "blockdata_filepath": "data/layouts/Route118/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE124",
+      "name": "Route124_Layout",
+      "width": 80,
+      "height": 80,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennGeneral",
+      "secondary_tileset": "gTileset_HoennMossdeep",
+      "border_filepath": "data/layouts/Route124/border.bin",
+      "blockdata_filepath": "data/layouts/Route124/map.bin"
+    },
+    {
+      "id": "LAYOUT_ROUTE124_DIVING_TREASURE_HUNTERS_HOUSE",
+      "name": "Route124_DivingTreasureHuntersHouse_Layout",
+      "width": 10,
+      "height": 9,
+      "border_width": 2,
+      "border_height": 2,
+      "primary_tileset": "gTileset_HoennInsideBuilding",
+      "secondary_tileset": "gTileset_HoennGenericBuilding2",
+      "border_filepath": "data/layouts/Route124_DivingTreasureHuntersHouse/border.bin",
+      "blockdata_filepath": "data/layouts/Route124_DivingTreasureHuntersHouse/map.bin"
     }
   ]
 }

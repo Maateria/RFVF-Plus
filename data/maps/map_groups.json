@@ -60,7 +60,8 @@
     "gMapGroup_IndoorDewford",
     "gMapGroup_IndoorPetalburg",
     "gMapGroup_IndoorOldale",
-    "gMapGroup_IndoorLittleroot"
+    "gMapGroup_IndoorLittleroot",
+    "gMapGroup_IndoorRoute124"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -375,7 +376,8 @@
     "Route101",
     "LittlerootTown",
     "Route103",
-    "Route118"
+    "Route118",
+    "Route124"
   ],
   "gMapGroup_IndoorPallet": [
     "PalletTown_PlayersHouse_1F",
@@ -800,5 +802,8 @@
     "LittlerootTown_MaysHouse_1F",
     "LittlerootTown_MaysHouse_2F",
     "LittlerootTown_ProfessorBirchsLab"
+  ],
+  "gMapGroup_IndoorRoute124": [
+    "Route124_DivingTreasureHuntersHouse"
   ]
 }

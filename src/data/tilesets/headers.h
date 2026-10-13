@@ -1143,3 +1143,25 @@ const struct Tileset gTileset_HoennMauville =
 	.metatileAttributes = gMetatileAttributes_HoennMauville,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennMossdeep = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennMossdeep,
+	.palettes = gTilesetPalettes_HoennMossdeep,
+	.metatiles = gMetatiles_HoennMossdeep,
+	.metatileAttributes = gMetatileAttributes_HoennMossdeep,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennGenericBuilding2 = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennGenericBuilding2,
+	.palettes = gTilesetPalettes_HoennGenericBuilding2,
+	.metatiles = gMetatiles_HoennGenericBuilding2,
+	.metatileAttributes = gMetatileAttributes_HoennGenericBuilding2,
+	.callback = NULL
+};

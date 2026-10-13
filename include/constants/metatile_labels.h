@@ -242,6 +242,11 @@
 #define METATILE_HoennGenericBuilding_TrickHouse_Door_Closed  0x30C
 #define METATILE_HoennGenericBuilding_TrickHouse_Stairs_Down  0x291
 
+// gTileset_HoennGenericBuilding2
+#define METATILE_HoennGenericBuilding2_TableEdge               0x371
+#define METATILE_HoennGenericBuilding2_TrickHouse_Door_Closed  0x29B
+#define METATILE_HoennGenericBuilding2_TrickHouse_Stairs_Down  0x299
+
 // gTileset_HoennInsideBuilding
 #define METATILE_HoennInsideBuilding_PC_Off  0x004
 #define METATILE_HoennInsideBuilding_PC_On   0x005
@@ -297,6 +302,10 @@
 #define METATILE_HoennMauville_MirageTower_TileD   0x2DC
 #define METATILE_HoennMauville_MirageTower_TileE   0x2DF
 #define METATILE_HoennMauville_MirageTower_TileF   0x2EE
+
+// gTileset_HoennMossdeep
+#define METATILE_HoennMossdeep_Door              0x321
+#define METATILE_HoennMossdeep_Door_SpaceCenter  0x36D
 
 // gTileset_HoennPacifidlog
 #define METATILE_HoennPacifidlog_Door                               0x29A
