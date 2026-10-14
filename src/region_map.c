@@ -35,7 +35,7 @@
 #define MARGIN_BOTTOM 2
 #define CANCEL_BUTTON_X 22  // viewport cell of the cancel button: fixed, on BG3
 #define CANCEL_BUTTON_Y 15
-#define CANCEL_BUTTON_TILE 0x164  // its 9 tiles in BG3's charblock, after the windows'
+#define CANCEL_BUTTON_TILE 0x168  // its 9 tiles in BG3's charblock, after the windows'
 #define SEA_TILE 0x003
 #define MAX_HIDDEN_RECTS 8
 
@@ -518,12 +518,12 @@ static const struct WindowTemplate sRegionMapWindowTemplates[] = {
         .paletteNum = 12,
         .baseBlock = 0x03d
     },
-    [WIN_TOPBAR_LEFT] =
+    [WIN_TOPBAR_LEFT] = // 6 tiles wide as in the French FireRed: its texts are longer than the English ones
     {
         .bg = 3,
         .tilemapLeft = 18,
         .tilemapTop = 0,
-        .width = 5,
+        .width = 6,
         .height = 2,
         .paletteNum = 12,
         .baseBlock = 0x150
@@ -533,10 +533,10 @@ static const struct WindowTemplate sRegionMapWindowTemplates[] = {
         .bg = 3,
         .tilemapLeft = 24,
         .tilemapTop = 0,
-        .width = 5,
+        .width = 6,
         .height = 2,
         .paletteNum = 12,
-        .baseBlock = 0x15a
+        .baseBlock = 0x15c
     }, DUMMY_WIN_TEMPLATE
 };
 
