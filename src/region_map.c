@@ -3070,6 +3070,8 @@ static void GetPlayerPositionOnRegionMap(void)
     y /= divisor;
     if (y >= sMapSectionDimensions[sMapCursor->selectedMapsec][1])
         y = sMapSectionDimensions[sMapCursor->selectedMapsec][1] - 1;
+    if (sMapCursor->selectedMapsec == MAPSEC_ROUTE_114 && y != 0)
+        x = 0; // Emerald: below its top row, Route 114's rectangle is only its west column
     sMapCursor->x = x + sMapSectionTopLeftCorners[sMapCursor->selectedMapsec][0];
     sMapCursor->y = y + sMapSectionTopLeftCorners[sMapCursor->selectedMapsec][1];
 }
@@ -3255,6 +3257,17 @@ static void GetPlayerPositionOnRegionMap_HandleOverrides(void)
         sMapCursor->x = 0;
         sMapCursor->y = 0;
         sRegionMap->playerHidden = TRUE;
+        break;
+    case MAPSEC_JAGGED_PASS:
+        // On its icon, Emerald's second Jagged Pass cell (worldmap.py): the first one is Magma Hideout's
+        sMapCursor->x = sMapSectionTopLeftCorners[MAPSEC_JAGGED_PASS2][0];
+        sMapCursor->y = sMapSectionTopLeftCorners[MAPSEC_JAGGED_PASS2][1];
+        break;
+    case MAPSEC_MARINE_CAVE:
+    case MAPSEC_UNDERWATER_MARINE_CAVE:
+        // ponytail: Emerald's default spot (Route 105, north); port GetMarineCaveCoords with VAR_ABNORMAL_WEATHER_LOCATION
+        sMapCursor->x = 0;
+        sMapCursor->y = 10;
         break;
     default:
         GetPlayerPositionOnRegionMap();
