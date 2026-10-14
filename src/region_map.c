@@ -1835,6 +1835,7 @@ static void InitDungeonMapPreview(u8 unused, u8 taskId, TaskFunc taskFunc)
     sDungeonMapPreview->loadState = 0;
     sDungeonMapPreview->savedTask = taskFunc;
     sDungeonMapPreview->blendY = 0;
+    RemoveEdgeArrows(); // they would show darkened beside the preview
     SaveRegionMapGpuRegs(0);
     ResetGpuRegs();
     ClearMapsecNameText();
@@ -1986,6 +1987,7 @@ static void FreeDungeonMapPreview(u8 taskId)
     UpdateMapsecNameBox();
     DrawDungeonNameBox();
     PrintTopBarTextRight(gText_RegionMap_AButtonGuide);
+    CreateEdgeArrows();
     FREE_IF_NOT_NULL(sDungeonMapPreview);
 }
 
@@ -2196,16 +2198,24 @@ static void InitScreenForMapOpenAnim(void)
     SetDispCnt(0, FALSE);
 }
 
+// The fades of the open and close animations. WIN0 = the viewport, with BG3 for the cancel button (FRLG faded it with
+// BG0; the names on BG3 come after the fade, as there); WIN1 = the frame and the top bar, without the icons beyond
+// the viewport; outside them the map edges
 static void SetGpuRegsToFadeMapToWhite(void)
 {
     struct GpuWindowParams data = sMapWindowDim;
+    struct GpuWindowParams frame = {.left = 16, .top = 0, .right = 224, .bottom = 160};
+
     ResetGpuRegs();
+    ClearMapsecNameText();
     SetBldCnt(BLDCNT_TGT2_BG1 >> 8, (BLDCNT_TGT1_BG0 | BLDCNT_TGT1_BG3 | BLDCNT_TGT1_BD), BLDCNT_EFFECT_LIGHTEN);
     SetBldY(sMapOpenCloseAnim->blendY);
-    SetWinIn((WININ_WIN0_ALL & ~WININ_WIN0_BG3), 0);
+    SetWinIn(WININ_WIN0_ALL, WININ_WIN1_BG1 >> 8);
     SetWinOut(WINOUT_WIN01_BG1 | WINOUT_WIN01_OBJ);
     SetGpuWindowDims(0, &data);
+    SetGpuWindowDims(1, &frame);
     SetDispCnt(0, FALSE);
+    SetDispCnt(1, FALSE);
 }
 
 static void FinishMapOpenAnim(u8 taskId)
@@ -2337,7 +2347,8 @@ static void Task_MapOpenAnim(u8 taskId)
         break;
     case 13:
         SetRegionMapGpuRegs(0);
-        UpdateMapsecNameBox(); // the anim turned WIN1, the viewport, off
+        UpdateMapsecNameBox(); // the anim's windows replaced the map's
+        DisplayCurrentMapName();
         DisplayCurrentDungeonName();
         sMapOpenCloseAnim->openState++;
         break;
@@ -2426,6 +2437,7 @@ static void InitScreenForMapCloseAnim(void)
     SetWinOut(WINOUT_WIN01_OBJ);
     SetGpuWindowDims(0, &data);
     SetDispCnt(0, FALSE);
+    SetDispCnt(1, TRUE); // the fade's frame window would hide the edges coming in
 }
 
 static void DoMapCloseAnim(u8 taskId)
