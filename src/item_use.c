@@ -682,10 +682,7 @@ void FieldUseFunc_TownMap(u8 taskId)
 
 static void UseTownMapFromBag(void)
 {
-    //if(gMapHeader.regionMapSectionId <= 0x55) //MAPSEC_SKY_PILLAR
-        //InitRegionMapWithExitCB(REGIONMAP_TYPE_HOENN, CB2_BagMenuFromStartMenu);
-    //else
-        InitRegionMapWithExitCB(REGIONMAP_TYPE_NORMAL, CB2_BagMenuFromStartMenu);
+    InitRegionMapWithExitCB(REGIONMAP_TYPE_NORMAL, CB2_BagMenuFromStartMenu);
 }
 
 static void Task_UseTownMapFromField(u8 taskId)

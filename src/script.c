@@ -7,6 +7,7 @@
 #include "overworld.h"
 #include "pokedex.h"
 #include "random.h"
+#include "region_map.h"
 #include "script.h"
 #include "sound.h"
 #include "strings.h"
@@ -460,6 +461,7 @@ void RunOnLoadMapScript(void)
 
 void RunOnTransitionMapScript(void)
 {
+    SetHoennWorldMapFlag(gMapHeader.regionMapSectionId);
     MapHeaderRunScriptType(MAP_SCRIPT_ON_TRANSITION);
 }
 

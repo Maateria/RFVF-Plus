@@ -8,7 +8,6 @@ enum {
     REGIONMAP_TYPE_NORMAL,
     REGIONMAP_TYPE_WALL,
     REGIONMAP_TYPE_FLY,
-    REGIONMAP_TYPE_HOENN,
     REGIONMAP_TYPE_COUNT
 };
 
@@ -17,5 +16,6 @@ u8 *GetMapNameGeneric(u8 *dest, u16 mapsec);
 u8 *GetMapNameGeneric_(u8 *dest, u16 mapsec);
 void InitRegionMapWithExitCB(u8 type, void (*callback)(void));
 void CB2_OpenFlyMap(void);
+void SetHoennWorldMapFlag(u16 mapsec);
 
 #endif // GUARD_REGION_MAP_H
