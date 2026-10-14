@@ -1145,11 +1145,14 @@ static void InitRegionMapType(void)
 
 // What the shown regions span: the camera's range (their art) and the cursor's (their map sections). A region shows
 // once its flag is set, or while the player is in it; a hidden one is sea, as Navel Rock and Birth Island are until
-// visited, and has no map section and no icon
+// visited, and has no map section and no icon. On a Sevii group before Celio's map page, only that group shows, as in
+// FRLG (no SWITCH then): Fly can't leave the islands before the story brings the player back to Kanto
 static void InitWorldBounds(void)
 {
     u32 i, k;
     struct RegionMap *rm = sRegionMap;
+    bool32 seviiOnly = rm->playersRegion >= REGIONMAP_SEVII123 && rm->playersRegion <= REGIONMAP_SEVII67
+                    && !FlagGet(FLAG_SYS_SEVII_MAP_123);
 
     rm->numHidden = 0;
     for (k = 0; k < 2; k++)
@@ -1161,7 +1164,7 @@ static void InitWorldBounds(void)
     {
         const struct WorldRegion *r = &sWorldRegions[i];
 
-        if (r->flag != 0 && !FlagGet(r->flag) && i != rm->playersRegion)
+        if (i != rm->playersRegion && (seviiOnly || (r->flag != 0 && !FlagGet(r->flag))))
         {
             memcpy(rm->hidden[rm->numHidden++], r->art, 4);
             continue;
