@@ -67,9 +67,10 @@ Engine differences handled:
     that fits keeps every metatile (FRLG id = Emerald id + 128) and only the tiles they use, re-based at 640 (an
     animated range stays whole: ANIMATED_TILES). One that does not fit (Mauville, Slateport, Mossdeep, Lavaridge, Cave)
     gets natural ids (natural_plan, design 1.8): Emerald metatile 512 + i keeps slot 640 + i if i < 384, a later one
-    takes a dead slot, and only what Emerald's layouts, strips and labels need is kept; hoenn_decisions.SIBLINGS
-    splits the too big ones into gTileset_Hoenn<Name>2. Written whole on first use, they never change, whatever the
-    order of imports. The secondaries this repo held PRUNED before (LEGACY_PRUNED: GenericBuilding, Facility,
+    takes a dead slot, and only what Emerald's layouts, strips, labels and twin crossings (views_carried) need is
+    kept; hoenn_decisions.SIBLINGS splits the too big ones into gTileset_Hoenn<Name>2. Written whole on first use,
+    they never change whatever the order of imports, except that a later version of this tool may fill empty slots
+    (append-only). The secondaries this repo held PRUNED before (LEGACY_PRUNED: GenericBuilding, Facility,
     BattleFrontier) keep their compact append-only ids (+ the labels of metatile_labels.h, scripts and C code set them;
     door labels excepted); one that must grow takes at once all that import_map's maps need from it. Their ids, and the
     natural ones, are in <tileset dir>/emerald_ids.json (FRLG metatile 640 + i = Emerald metatiles[i], null = empty
@@ -621,11 +622,57 @@ def strips_shown(ctx):
     return out
 
 
+# MoveMapViewToBackup (fieldmap.c): the cells (x0..x1, y0..y1) around the edge tile a step leaves that it copies from
+# the old map's grid into the new one, by the step's direction
+CARRIED = {"down": (-7, 7, -6, 6), "up": (-7, 7, -7, 5), "left": (-7, 6, -7, 6), "right": (-6, 7, -7, 6)}
+
+
+@lru_cache(maxsize=None)
+def views_carried(ctx):
+    """[((tileset, sibling) of a map, the Emerald secondary metatiles a step into it from a map on its twin (the same
+    Emerald secondary, another sibling) carries into its grid)]. MoveMapViewToBackup copies the old map's view, its
+    neighbours' strips included, into the new grid, which the new map's tileset draws: Emerald drew both maps with one
+    tileset (MauvilleCity -> Route110 carries Route118's 0x294). Every edge tile that leads into the map counts."""
+    by_id = {mj["id"]: name for name, mj in ctx.maps.items()}
+    out = []
+    for name, mj in ctx.maps.items():
+        layout = ctx.layout_of(name)
+        sym, k, w, h = layout["secondary_tileset"], sibling_of(layout["secondary_tileset"], layout["id"]), \
+            layout["width"], layout["height"]
+        grid = None
+        for c in mj.get("connections") or []:
+            if c["direction"] not in DIRECTIONS or c["map"] not in by_id:
+                continue
+            nl = ctx.layout_of(by_id[c["map"]])
+            nk = sibling_of(nl["secondary_tileset"], nl["id"])
+            if nl["secondary_tileset"] != sym or nk == k:
+                continue
+            if grid is None:  # as InitMap builds it: the blocks, then each connection's strip in order
+                grid = {(i % w, i // w): b for i, b in enumerate(em_layout_blocks(ctx, layout["id"])[0])}
+                for d in mj["connections"]:
+                    if d["direction"] in DIRECTIONS and d["map"] in by_id:
+                        dl = ctx.layout_of(by_id[d["map"]])
+                        dw, o = dl["width"], d["offset"]
+                        for i, b in enumerate(em_layout_blocks(ctx, dl["id"])[0]):
+                            x, y = {"down": (i % dw + o, h + i // dw), "up": (i % dw + o, i // dw - dl["height"]),
+                                    "right": (w + i % dw, i // dw + o), "left": (i % dw - dw, i // dw + o)}[d["direction"]]
+                            if -MAP_OFFSET <= x <= w + MAP_OFFSET and -MAP_OFFSET <= y < h + MAP_OFFSET:
+                                grid[x, y] = b
+            o, (x0, x1, y0, y1) = c["offset"], CARRIED[c["direction"]]
+            edge = [(x, h - 1 if c["direction"] == "down" else 0) for x in range(max(0, o), min(w, o + nl["width"]))] \
+                if c["direction"] in ("up", "down") else \
+                [(w - 1 if c["direction"] == "right" else 0, y) for y in range(max(0, o), min(h, o + nl["height"]))]
+            out.append(((sym, nk), secondary_ids([grid[x + dx, y + dy] for x, y in edge for dx in range(x0, x1 + 1)
+                                                  for dy in range(y0, y1 + 1) if (x + dx, y + dy) in grid])))
+    return out
+
+
 @lru_cache(maxsize=None)
 def tileset_needs(ctx, symbol):
     """For each FRLG tileset Emerald's secondary `symbol` becomes (sibling_of), the Emerald metatiles it holds: what its
     Emerald layouts use (blocks, border), what their maps show of their neighbours (connection strips, cells Emerald
-    can draw) and the labelled metatiles (scripts and C code set them)."""
+    can draw), what a step from a twin carries into their grids (views_carried) and the labelled metatiles (scripts and
+    C code set them)."""
     need = [set() for _ in range(len(SIBLINGS.get(symbol, ())) + 1)]
     for lid, layout in ctx.layouts.items():
         if layout["secondary_tileset"] == symbol:
@@ -633,6 +680,9 @@ def tileset_needs(ctx, symbol):
     for (sym, k), _, shown in strips_shown(ctx):
         if sym == symbol:
             need[k] |= shown
+    for (sym, k), carried in views_carried(ctx):
+        if sym == symbol:
+            need[k] |= carried
     own = {v for _, v in em_labels(ctx.root, symbol[len("gTileset_"):])}
     return [{m for m in s | own if EM["metatiles"] <= m < EM["metatiles"] + em_count(ctx, symbol)} for s in need]
 
@@ -714,6 +764,7 @@ class Tileset:
             refuse("%s: unexpected Emerald tileset files in %s" % (symbol, self.src), fatal=True)
         png_tiles = png.width // 8 * (png.height // 8)
         self.pal_map, self.pruned, self.legacy, self.junk = {}, False, False, []
+        was = None  # the metatiles a pruned tileset holds on disk (IDS_FILE), None = every one
         self.new = not exists(REPO / self.dir / "metatiles.bin")
         if not self.secondary:
             if len(self.em_attrs) > EM["metatiles"] or not all((e & 0x3FF) < EM["tiles"] and e >> 12 < EM["pals"]
@@ -749,14 +800,19 @@ class Tileset:
                     refuse("%s: maps use metatiles it does not have" % symbol, fatal=True)
                 self.metas = ids["metatiles"] + sorted(used - set(ids["metatiles"]))
                 self.tiles = ids["tiles"] + [t for t in sec_tiles(self.metas) if t not in ids["tiles"]]
-                known = len(ids["metatiles"])  # what this tool wrote before
-            elif self.pruned:  # natural ids, written whole once (design 1.8)
+                was = ids["metatiles"]  # what this tool wrote before
+            elif self.pruned:  # natural ids, written whole once (design 1.8); a later plan may only fill empty slots
                 self.metas = natural_plan(ctx, symbol)[sibling]
-                self.tiles = with_anims(symbol, sec_tiles(self.metas), png_tiles)
-                old = json.loads(read(self.ids_path)) if exists(self.ids_path) else {}
-                if not self.new and (old.get("metatiles"), old.get("tiles")) != (self.metas, self.tiles):
-                    refuse("%s/%s is not the natural-id plan this import makes (design 1.8): not overwritten"
+                old = {"metatiles": [], "tiles": []} if self.new else \
+                    json.loads(read(self.ids_path)) if exists(self.ids_path) else {}
+                was, had = old.get("metatiles"), old.get("tiles")
+                if was is None or had is None or len(was) > len(self.metas) or \
+                        any(m is not None and m != n for m, n in zip(was, self.metas)):
+                    refuse("%s/%s is not part of the natural-id plan this import makes (design 1.8): not overwritten"
                            % (self.dir, IDS_FILE))
+                    was, had = self.metas, []
+                # append-only: the tiles of the slots filled now come after the others (anim_ranges keep their place)
+                self.tiles = had + [t for t in with_anims(symbol, sec_tiles(self.metas), png_tiles) if t not in had]
             else:
                 self.metas = list(every)
                 self.tiles = whole
@@ -780,16 +836,17 @@ class Tileset:
         self.index = {m: i for i, m in enumerate(self.metas) if m is not None}
         base = EM["metatiles"] if self.secondary else 0
         self.attrs = [0 if m is None else behaviors.convert(self.em_attrs[m - base]) for m in self.metas]
-        # Metatiles this run adds: only a legacy pruned secondary grows. A tileset here that gets nothing new is left as
-        # it is (write(): Porymap edits stay); one that grows must still hold what this tool wrote (append-only ids).
-        if not self.legacy:
-            known = 0 if self.new else len(self.metas)
-        self.grows = len(self.metas) - known
+        # Metatiles this run adds: a legacy pruned secondary appends them, a natural-id one fills empty slots. A tileset
+        # here that gets nothing new is left as it is (write(): Porymap edits stay); one that grows must still hold what
+        # this tool wrote in every slot it filled (append-only ids).
+        if was is None:
+            was = [] if self.new else self.metas
+        self.grows = self.count() - sum(m is not None for m in was)
         if self.grows and not self.new:
             old_meta = read_ints(REPO / self.dir / "metatiles.bin", "H")
             old_attrs = read_ints(REPO / self.dir / "metatile_attributes.bin", "I")
-            if old_meta != self.meta[:len(old_meta)] or old_attrs != self.attrs[:len(old_attrs)] \
-                    or len(old_meta) != 8 * len(old_attrs) or len(old_attrs) != known:
+            if old_meta != [e if was[i // 8] is not None else 0 for i, e in enumerate(self.meta[:8 * len(was)])] \
+                    or old_attrs != [a if m is not None else 0 for a, m in zip(self.attrs, was)]:
                 refuse("%s: metatiles.bin / metatile_attributes.bin are not what hoenn_import wrote (edited in "
                        "Porymap?) and this import must add metatiles to them: not overwritten. Restore them with git, "
                        "or move hand-made metatiles to a tileset of your own" % self.dir)
@@ -1989,16 +2046,19 @@ def additive(path, old, new):
                 return False
         rest = lambda j: {k: v for k, v in j.items() if k not in ("connections", "warp_events")}
         return rest(o) == rest(n)
-    if rel.startswith("data/tilesets/") and path.suffix == ".bin":  # metatiles / attributes: appended
-        return new.startswith(old)
+    if rel.startswith("data/tilesets/") and path.suffix == ".bin":  # metatiles / attributes: appended, or empty
+        n = 16 if path.name == "metatiles.bin" else 4                 # slots filled (natural ids)
+        return len(new) >= len(old) and all(new[i:i + n] == old[i:i + n] or not any(old[i:i + n])
+                                            for i in range(0, len(old), n))
     if rel.startswith("data/tilesets/") and path.suffix == ".png":  # tiles appended (the last row's blank padding
         o = load_tiles(old)                                          # may get tiles)
         while o and not any(o[-1]):
             o.pop()
         return load_tiles(new)[:len(o)] == o
-    if path.name == IDS_FILE:
+    if path.name == IDS_FILE:  # ids appended, or empty slots (null) filled
         o, n = json.loads(old), json.loads(new)
-        return all(n[k][:len(o[k])] == o[k] for k in ("metatiles", "tiles"))
+        return n["tiles"][:len(o["tiles"])] == o["tiles"] and len(n["metatiles"]) >= len(o["metatiles"]) and \
+            all(a is None or a == b for a, b in zip(o["metatiles"], n["metatiles"]))
     if path.suffix in (".bin", ".pal", ".png"):
         return False
     it = iter(kept_lines(new.decode("utf-8")))

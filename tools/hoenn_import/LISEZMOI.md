@@ -98,7 +98,8 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
   maximum). Ensuite : `new` (nouveau), `+N metatiles` (agrandi) ou `unchanged` (inchangé).
   - `natural ids` : un grand tileset d'Émeraude garde ses numéros, et seulement les metatiles que ses maps utilisent.
     S'il ne tient pas dans un seul tileset, il est coupé en jumeaux (`gTileset_HoennMauville2`...). Il est écrit en
-    entier la première fois et ne change plus.
+    entier la première fois. Ensuite, une nouvelle version de l'outil peut seulement remplir ses cases vides (`+N
+    metatiles`) : les numéros déjà là ne bougent pas.
   - `PRUNED` : un tileset compacté avant l'étape 3 (`HoennGenericBuilding`, `HoennFacility`,
     `HoennBattleFrontier`). Il ne fait que grandir.
   - `NOTE: ... .callback = InitTilesetAnim_...` : le tileset est animé comme dans Émeraude (eau, fleurs, vapeur,
