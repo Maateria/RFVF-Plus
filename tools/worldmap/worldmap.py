@@ -10,12 +10,16 @@ Writes (deterministic, run it again after changing it or its inputs):
   graphics/region_map/world_tiles.png  the tiles Kanto's tileset lacks (BG0 tiles 320..511 then 576..), 8-bit
                                        indexed: the low nibble is the color, the high one the palette (from 5)
   graphics/region_map/world.pal        their palettes (BG palettes 5..)
-  src/data/region_map/world_map.h      sizes, region table, masks, Hoenn's map sections, Hoenn's visited flags
+  src/data/region_map/world_map.h      sizes, region table, masks, the map sections of Hoenn and of the packed Sevii
+                                       Islands, where each Sevii island moved, Hoenn's visited flags
 Inputs: Kanto and the Sevii maps are FRLG's own screens (kanto.bin, sevii_*.bin, region_map.png) pasted as tilemap
-entries; Hoenn is Emerald's map (pokeemerald graphics/pokenav/region_map, src/data/region_map/region_map_layout.h)
-recoloured in FRLG's colors, its towns drawn with FRLG's town ball.
-Checks: the four FRLG home views render pixel-identical to today's screens, the whole world renders back to its art,
-regions, map sections and icons never share a cell, every Hoenn dungeon here is a map of the game.
+entries with their layouts (src/data/region_map/region_map_layout_*.h), the Sevii Islands under Kanto, each island
+packed up as a block (tiles, map sections, masked rect, icons) to GAP sea rows from the islands above it; Hoenn is
+Emerald's map (pokeemerald graphics/pokenav/region_map, src/data/region_map/region_map_layout.h) recoloured in FRLG's
+colors, its towns drawn with FRLG's town ball.
+Checks: Kanto's home view renders pixel-identical to today's screen, the packed islands keep FRLG's entries and never
+touch, each Sevii group's home view shows it whole, the whole world renders back to its art, regions, map sections and
+icons never share a cell, every Hoenn dungeon here is a map of the game.
 """
 import argparse
 import json
@@ -29,29 +33,28 @@ from PIL import Image
 REPO = Path(__file__).resolve().parents[2]
 G = REPO / "graphics/region_map"
 
-SEVII_GAP = 0           # sea rows between Kanto and each Sevii group: 0 = edge to edge (FRLG's overview), 2 = more sea
+GAP = 1                 # sea rows between a Sevii island and those above it that overlap it horizontally, and Kanto
 BAND = 18               # height of FRLG's map window, in cells
-WT, HT = 60, 4 * BAND + 3 * SEVII_GAP
+WT = 60
 VW, VH = 24, 18         # viewport = FRLG's map window, screen px (24,16)-(216,160)
+MARGIN_TOP = 4          # region_map.c: viewport rows under the name boxes
 SEA = 0x0003            # region_map tile 3, palette 0
 FIRST_NEW, LOW_END, HIGH_START, HIGH_END = 320, 512, 576, 960   # free BG0 tiles (512..575 hold BG1's tiles)
 FIRST_PAL = 5           # BG palettes 0-4: region_map.pal
-BAND_Y = [i * (BAND + SEVII_GAP) for i in range(4)]
-# name, enum, art rect (x, y, w, h), grid rect or None, home camera, flag that shows it (0: always)
+# name, enum, art rect (x, y, w, h), grid rect or None, home camera, flag that shows it (0: always). The Sevii rects are
+# FRLG's screens stacked under Kanto (its overview) before the islands are packed: main() replaces them
 REGIONS = [
-    ("kanto", "REGIONMAP_KANTO", (36, BAND_Y[0], 24, 18), (37, BAND_Y[0] + 2, 22, 15), (36, BAND_Y[0]), "0"),
-    ("sevii_123", "REGIONMAP_SEVII123", (36, BAND_Y[1], 24, 18), (37, BAND_Y[1] + 2, 22, 15), (36, BAND_Y[1]),
-     "FLAG_SYS_SEVII_MAP_123"),
-    ("sevii_45", "REGIONMAP_SEVII45", (36, BAND_Y[2], 24, 18), (37, BAND_Y[2] + 2, 22, 15), (36, BAND_Y[2]),
-     "FLAG_SYS_SEVII_MAP_4567"),
-    ("sevii_67", "REGIONMAP_SEVII67", (36, BAND_Y[3], 24, 18), (37, BAND_Y[3] + 2, 22, 15), (36, BAND_Y[3]),
-     "FLAG_SYS_SEVII_MAP_4567"),
+    ("kanto", "REGIONMAP_KANTO", (36, 0, 24, 18), (37, 2, 22, 15), (36, 0), "0"),
+    ("sevii_123", "REGIONMAP_SEVII123", (36, 18, 24, 18), (37, 20, 22, 15), None, "FLAG_SYS_SEVII_MAP_123"),
+    ("sevii_45", "REGIONMAP_SEVII45", (36, 36, 24, 18), (37, 38, 22, 15), None, "FLAG_SYS_SEVII_MAP_4567"),
+    ("sevii_67", "REGIONMAP_SEVII67", (36, 54, 24, 18), (37, 56, 22, 15), None, "FLAG_SYS_SEVII_MAP_4567"),
     ("hoenn", "REGIONMAP_HOENN", (0, 20, 30, 20), (1, 22, 28, 15), (3, 20), "0"),
     ("johto", "REGIONMAP_JOHTO", (0, 0, 36, 20), None, (0, 0), "0"),
 ]
-# FRLG's BufferRegionMapBg masks, moved into the world: sea and no map section until the flag is set
-MASKS = [((36 + 10, BAND_Y[2] + 9, 3, 2), "FLAG_WORLD_MAP_NAVEL_ROCK_EXTERIOR", "MAPSEC_NAVEL_ROCK"),
-         ((36 + 18, BAND_Y[3] + 14, 3, 3), "FLAG_WORLD_MAP_BIRTH_ISLAND_EXTERIOR", "MAPSEC_BIRTH_ISLAND")]
+# FRLG's BufferRegionMapBg masks in the stacked screens (moved with their island): sea and no map section until the
+# flag is set
+MASKS = [((36 + 10, 36 + 9, 3, 2), "FLAG_WORLD_MAP_NAVEL_ROCK_EXTERIOR", "MAPSEC_NAVEL_ROCK"),
+         ((36 + 18, 54 + 14, 3, 3), "FLAG_WORLD_MAP_BIRTH_ISLAND_EXTERIOR", "MAPSEC_BIRTH_ISLAND")]
 CANCEL = (21, 14, 3, 3)  # cancel button in a FRLG window (cells): fixed UI on BG3, sea in the world
 CANCEL_TILES = {0xF0, 0xF1, 0xF2, 0x120, 0x121, 0x122, 0x130, 0x131, 0x132}
 RECOLOR = {  # Emerald -> FRLG: same sea, routes and town reds; greens and water routes differ
@@ -125,6 +128,36 @@ def layout(path, name_prefix="MAPSEC_"):
     return layers
 
 
+def islands_of(cells):
+    """8-connected groups of cells, north to south then west to east: [{cells, x0, y0, x1, y1}]."""
+    left, out = set(cells), []
+    while left:
+        stack = [min(left, key=lambda c: (c[1], c[0]))]
+        left.remove(stack[0])
+        group = []
+        while stack:
+            x, y = stack.pop()
+            group.append((x, y))
+            for n in [(x + dx, y + dy) for dx in (-1, 0, 1) for dy in (-1, 0, 1)]:
+                if n in left:
+                    left.remove(n)
+                    stack.append(n)
+        xs, ys = [c[0] for c in group], [c[1] for c in group]
+        out.append({"cells": group, "x0": min(xs), "y0": min(ys), "x1": max(xs), "y1": max(ys)})
+    return sorted(out, key=lambda c: (c["y0"], c["x0"]))
+
+
+def pack(islands, top):
+    """Moves each island up (dy), in order: its top never above `top` nor above the island before it, GAP sea rows under
+    every island before it that overlaps it horizontally with one cell of margin."""
+    for i, c in enumerate(islands):
+        for p in islands[:i]:
+            if c["x0"] <= p["x1"] + 1 and p["x0"] <= c["x1"] + 1:
+                top = max(top, p["y1"] + p["dy"] + 1 + GAP)
+        c["dy"] = top - c["y0"]
+    return islands
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--emerald", default=str(REPO.parent / "pokeemerald"), help="pret/pokeemerald clone")
@@ -141,20 +174,81 @@ def main():
     pal = frlg_pal()
 
     # ---- FRLG windows: kanto.bin / sevii_*.bin entries, the cancel button becomes sea (it is fixed UI on BG3) ----
-    wtm = np.full((HT, WT), SEA, np.uint16)
-    fixed = np.zeros((HT, WT), bool)
+    stack = np.full((4 * BAND, WT), SEA, np.uint16)    # FRLG's overview: Kanto, then the 3 Sevii screens
     for name, _, (ax, ay, aw, ah), *_ in REGIONS[:4]:
         win = np.frombuffer((G / (name + ".bin")).read_bytes(), "<u2").reshape(20, 30)[2:20, 3:27].copy()
         cx, cy, cw, ch = CANCEL
         assert {int(e) & 0x3FF for e in win[cy:cy + ch, cx:cx + cw].flat} <= CANCEL_TILES, name
         win[cy:cy + ch, cx:cx + cw] = SEA
-        wtm[ay:ay + ah, ax:ax + aw] = win
-        fixed[ay:ay + ah, ax:ax + aw] = True
-    W = render(wtm, rm_tiles, pal, WT, HT)          # the art, FRLG part exact; Hoenn and Johto drawn below
-    SEA0, SEA1 = tuple(W[0, 0]), tuple(W[1, 0])
+        stack[ay:ay + ah, ax:ax + aw] = win
+    S = render(stack, rm_tiles, pal, WT, 4 * BAND)
+    SEA0, SEA1 = tuple(S[0, 0]), tuple(S[1, 0])
 
     def is_land(a):
         return ~(np.all(a == SEA0, -1) | np.all(a == SEA1, -1))
+
+    def land_cell(x, y):
+        return is_land(S[y * 8:y * 8 + 8, x * 8:x * 8 + 8]).any()
+
+    # ---- the Sevii Islands packed under Kanto: an island = 8-connected land, sea routes, map sections and masked rect
+    # of one FRLG screen; it keeps its x and moves up as a block (its tilemap entries, sections, mask, icons) ----
+    grids = {name: layout(REPO / ("src/data/region_map/region_map_layout_%s.h" % name)) for name, *_ in REGIONS[:4]}
+    group = {}                                          # Sevii cell -> its REGIONS index
+    for i, (name, _, (ax, ay, aw, ah), (gx, gy, gw, gh), *_) in enumerate(REGIONS[1:4], 1):
+        for y in range(ay, ay + ah):
+            for x in range(ax, ax + aw):
+                on_grid = 0 <= x - gx < gw and 0 <= y - gy < gh
+                if land_cell(x, y) or on_grid and {grids[name][lay][y - gy][x - gx] for lay in (0, 1)} != {"MAPSEC_NONE"}:
+                    group[(x, y)] = i
+    for (mx, my, mw, mh), *_ in MASKS:
+        group.update({(x, y): my // BAND for x in range(mx, mx + mw) for y in range(my, my + mh)})
+    assert not [c for c, v in np.ndenumerate(stack[BAND:]) if v != SEA and (c[1], c[0] + BAND) not in group], \
+        "a Sevii cell drawn as sea that is not FRLG's sea tile"
+    kanto_bottom = max(y for y in range(BAND) for x in range(36, WT) if land_cell(x, y))
+    islands = pack(islands_of(group), kanto_bottom + 1 + GAP)
+    for c in islands:
+        c["group"] = group[c["cells"][0]]
+        assert all(group[p] == c["group"] for p in c["cells"]), "an island across two FRLG screens"
+    moved = {(x, y + c["dy"]) for c in islands for x, y in c["cells"]}
+    assert len(islands_of(moved)) == len(islands), "two packed islands touch"
+    HT = max(max(y for _, y in moved) + 1 + GAP, max(r[2][1] + r[2][3] for r in REGIONS[4:]))
+    wtm = np.full((HT, WT), SEA, np.uint16)
+    wtm[:BAND] = stack[:BAND]
+    for c in islands:
+        for x, y in c["cells"]:
+            wtm[y + c["dy"], x] = stack[y, x]
+    fixed = np.zeros((HT, WT), bool)
+    fixed[:, 36:] = True                                # Kanto's screen and the Sevii Islands: FRLG's entries
+    regions, masks, shifts = list(REGIONS), [], []
+
+    def far(c, x, y):                                   # from a cell to an island's rectangle
+        return max(c["x0"] - x, x - c["x1"], 0) ** 2 + max(c["y0"] - y, y - c["y1"], 0) ** 2
+    for (mx, my, mw, mh), flag, sec in MASKS:
+        c = next(c for c in islands if (mx, my) in c["cells"])
+        assert all((x, y) in c["cells"] for x in range(mx, mx + mw) for y in range(my, my + mh))
+        masks.append(((mx, my + c["dy"], mw, mh), flag, sec))
+    for i, (name, enum, _, (gx, gy, gw, gh), _, flag) in enumerate(REGIONS[1:4], 1):
+        mine = [c for c in islands if c["group"] == i]
+        top = min(c["y0"] + c["dy"] for c in mine)
+        h_ = max(c["y1"] + c["dy"] for c in mine) + 1 - top
+        table = [[["MAPSEC_NONE"] * gw for _ in range(h_)] for _ in range(2)]
+        for c in mine:
+            for x, y in c["cells"]:
+                if 0 <= x - gx < gw and 0 <= y - gy < gh:
+                    for lay in (0, 1):
+                        table[lay][y + c["dy"] - top][x - gx] = grids[name][lay][y - gy][x - gx]
+        grids[name] = table
+
+        def row(lx, ly):        # the player's cell (FRLG's layout cell): with its island, or the nearest one, on the group
+            y = gy + ly + min(mine, key=lambda c: far(c, gx + lx, gy + ly))["dy"]
+            return min(max(y, top), top + h_ - 1)
+        shifts.append([[row(lx, ly) - top - ly for lx in range(gw)] for ly in range(gh)])
+        home = min(max(top - (VH - h_ + 1) // 2, 0), HT - VH)        # the group in the middle, under the name boxes
+        assert top - home >= MARGIN_TOP and top + h_ <= home + VH, "%s: its home view" % name
+        regions[i] = (name, enum, (36, top, 24, h_), (gx, top, gw, h_), (36, home), flag)
+    arts = [r[2] for r in regions[:4]]
+    assert all(a[1] + a[3] <= b[1] for a, b in zip(arts, arts[1:])), "Kanto and the Sevii groups must not share a row"
+    W = render(wtm, rm_tiles, pal, WT, HT)          # the art, FRLG part exact; Hoenn and Johto drawn below
 
     def sea(h, w):
         a = np.zeros((h, w, 3), np.uint8)
@@ -242,7 +336,7 @@ def main():
     for (x, y), (i, hf, vf) in cells.items():
         wtm[y, x] = slots[i] | hf << 10 | vf << 11 | (FIRST_PAL + tile_bank[i]) << 12
 
-    # ---- checks: render back; home views == today's screens ----
+    # ---- checks: render back; Kanto's home view == today's screen ----
     all_tiles = np.zeros((HIGH_END, 8, 8), np.uint8)
     all_tiles[:len(rm_tiles)] = rm_tiles
     idx_tiles = []
@@ -258,14 +352,14 @@ def main():
     back = render(wtm, all_tiles, full_pal, WT, HT)
     assert (back == W).all(), "the world tilemap does not render back to the art"
     button = np.frombuffer((G / "kanto.bin").read_bytes(), "<u2").reshape(20, 30)[16:19, 24:27]
-    for name, _, (ax, ay, aw, ah), *_ in REGIONS[:4]:
+    for name, _, (ax, ay, aw, ah), *_ in REGIONS[:1]:
         tm = np.frombuffer((G / (name + ".bin")).read_bytes(), "<u2").reshape(20, 30)
         today = render(tm[2:20, 3:27], all_tiles, full_pal, VW, VH)
         view = back[ay * 8:(ay + VH) * 8, ax * 8:(ax + VW) * 8].copy()
         view[14 * 8:17 * 8, 21 * 8:24 * 8] = render(button, all_tiles, full_pal, 3, 3)    # BG3 over BG0
         assert (view == today).all(), "%s: home view differs from today's screen" % name
 
-    # ---- map sections: FRLG layouts at their grids, Hoenn = Emerald's map layer + the dungeon cells ----
+    # ---- map sections: Kanto's layout, the packed Sevii tables, Hoenn = Emerald's map layer + the dungeon cells ----
     em_layer = layout(em / "src/data/region_map/region_map_layout.h")[0]
     assert len(em_layer) == HOENN_LAYOUT_H and all(len(r) == HOENN_LAYOUT_W for r in em_layer)
     hoenn = [em_layer, [["MAPSEC_NONE"] * HOENN_LAYOUT_W for _ in range(HOENN_LAYOUT_H)]]
@@ -276,10 +370,9 @@ def main():
         assert hoenn[1][s["y"]][s["x"]] == "MAPSEC_NONE", "two Hoenn dungeons on cell %d,%d" % (s["x"], s["y"])
         hoenn[1][s["y"]][s["x"]] = "MAPSEC_" + d
     assert {c for layer in hoenn for r in layer for c in r} <= consts, "unknown MAPSEC in Emerald's layout"
-    grids = {name: layout(REPO / ("src/data/region_map/region_map_layout_%s.h" % name)) for name, *_ in REGIONS[:4]}
     grids["hoenn"] = hoenn
     owner, fly, dungeon, town_cells = {}, {}, [], set()
-    for name, _, art, grid, *_ in REGIONS[:5]:
+    for name, _, art, grid, *_ in regions[:5]:
         x0, y0, w, h_ = grid
         assert art[0] <= x0 and x0 + w <= art[0] + art[2] and art[1] <= y0 and y0 + h_ <= art[1] + art[3], name
         for y in range(h_):
@@ -293,8 +386,8 @@ def main():
                     town_cells.add(c)
                 if d != "MAPSEC_NONE":
                     dungeon.append(c)
-    origin = {name: grid for name, _, _, grid, *_ in REGIONS if grid}
-    for (x, y, w, h_), _, sec in MASKS:
+    origin = {name: grid for name, _, _, grid, *_ in regions if grid}
+    for (x, y, w, h_), _, sec in masks:
         assert any(grids[n][0][c[1] - origin[n][1]][c[0] - origin[n][0]] == sec for c, n in owner.items()
                    if x <= c[0] < x + w and y <= c[1] < y + h_), "%s is not inside its mask" % sec
 
@@ -327,18 +420,29 @@ def main():
          "#define WORLD_FIRST_PAL %d" % FIRST_PAL, "#define WORLD_NUM_PALS %d" % len(banks),
          "#define NUM_FLY_ICON_SPRITES %d // most icons around one view" % n_fly,
          "#define NUM_DUNGEON_ICON_SPRITES %d" % n_dun, "#define MAX_WORLD_ICONS %d" % (len(fly) + len(dungeon)), "",
-         "static const u8 sRegionMapSections_Hoenn[LAYER_COUNT][%d][%d] = {" % (HOENN_LAYOUT_H, HOENN_LAYOUT_W)]
-    for i, lay in enumerate(hoenn):
-        c.append("    [%s] =\n    {" % ("LAYER_MAP", "LAYER_DUNGEON")[i])
-        c += ["        {%s}," % ", ".join(r) for r in lay]
-        c.append("    },")
-    c += ["};", "", "static const struct WorldRegion sWorldRegions[REGIONMAP_COUNT] = {"]
-    for name, enum, art, grid, home, flag in REGIONS:
-        lay = "&sRegionMapSections_%s[0][0][0]" % {"kanto": "Kanto", "sevii_123": "Sevii123", "sevii_45": "Sevii45",
-                                                    "sevii_67": "Sevii67", "hoenn": "Hoenn"}[name] if grid else "NULL"
+         "// Map sections of Hoenn (Emerald's layout + the dungeon cells) and of the Sevii groups (FRLG's, each island "
+         "moved)"]
+    cname = {"kanto": "Kanto", "sevii_123": "Sevii123", "sevii_45": "Sevii45", "sevii_67": "Sevii67", "hoenn": "Hoenn"}
+    for name in ("hoenn", "sevii_123", "sevii_45", "sevii_67"):
+        c.append("static const u8 sRegionMapSections_%s[LAYER_COUNT][%d][%d] = {" % (
+            cname[name], len(grids[name][0]), len(grids[name][0][0])))
+        for i, lay in enumerate(grids[name]):
+            c.append("    [%s] =\n    {" % ("LAYER_MAP", "LAYER_DUNGEON")[i])
+            c += ["        {%s}," % ", ".join(r) for r in lay]
+            c.append("    },")
+        c += ["};", ""]
+    c.append("static const struct WorldRegion sWorldRegions[REGIONMAP_COUNT] = {")
+    for name, enum, art, grid, home, flag in regions:
+        lay = "&sRegionMapSections_%s[0][0][0]" % cname[name] if grid else "NULL"
         c.append("    [%s] = {%s, %s, {%d, %d}, %s, %s}," % (enum, rect(art), rect(grid), home[0], home[1], flag, lay))
     c += ["};", "", "static const struct WorldMask sWorldMasks[] = {"]
-    c += ["    {%s, %s}," % (rect(r), flag) for r, flag, _ in MASKS]
+    c += ["    {%s, %s}," % (rect(r), flag) for r, flag, _ in masks]
+    c += ["};", "", "// The player's cell in FRLG's Sevii layouts: the rows its island (or the nearest one) moved, from the grid's",
+          "// top: world row = grid row + layout row + shift", "static const s8 sSeviiRowShifts[3][MAP_HEIGHT][MAP_WIDTH] = {"]
+    for t in shifts:
+        c.append("    {")
+        c += ["        {%s}," % ", ".join("%d" % v for v in row) for row in t]
+        c.append("    },")
     c += ["};", "", "// Hoenn dungeons: icon cell above, visited flag set on entering any map of the section",
           "static const u16 sHoennDungeonFlags[][2] = {"]
     c += ["    {MAPSEC_%s, FLAG_WORLD_MAP_%s}," % (d, d) for d in HOENN_DUNGEONS]
@@ -346,8 +450,9 @@ def main():
     (REPO / "src/data/region_map/world_map.h").write_text("\n".join(c) + "\n", newline="\n")
     if args.preview:
         Image.fromarray(back).save(args.preview)
-    print("world %dx%d: %d new tiles (BG0 %d..), %d palettes (BG %d..), icons around a view: fly %d, dungeon %d; "
-          "home views identical to today" % (WT, HT, len(new), FIRST_NEW, len(banks), FIRST_PAL, n_fly, n_dun))
+    print("world %dx%d: the Sevii Islands on %d rows, %d new tiles (BG0 %d..), %d palettes (BG %d..), icons around a "
+          "view: fly %d, dungeon %d; Kanto's home view identical to today" % (
+              WT, HT, HT - BAND, len(new), FIRST_NEW, len(banks), FIRST_PAL, n_fly, n_dun))
 
 
 if __name__ == "__main__":
