@@ -1157,6 +1157,11 @@ bool8 dive_warp(struct MapPosition *position, u16 metatileBehavior)
     {
         if (SetDiveWarpEmerge(position->x - MAP_OFFSET, position->y - MAP_OFFSET))
         {
+            // Surfacing into a cave: its exit (Escape Rope, Dig, the Town Map) is where the player surfaced from, as
+            // Emerald's setescapewarp map scripts (not imported) set it for the Sealed Chamber and Seafloor Cavern
+            if (GetDestinationWarpMapHeader()->mapType == MAP_TYPE_UNDERGROUND)
+                SetEscapeWarp(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum, WARP_ID_NONE,
+                              position->x - MAP_OFFSET, position->y - MAP_OFFSET);
             StoreInitialPlayerAvatarState();
             DoDiveWarp();
             PlaySE(SE_M_DIVE);
