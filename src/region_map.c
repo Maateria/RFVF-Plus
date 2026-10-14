@@ -642,25 +642,25 @@ static const struct GpuWindowParams sMapsecNameWindowDims[3] = {
     [CLEAR_NAME]       = {.left =  0, .top =  0, .right =   0, .bottom =  0}
 };
 
-static const char sMapsecName_VIRIDIANFOREST[] = "FORET DE JADE";
-static const char sMapsecName_MTMOON[] = "MONT SELENITE";
-static const char sMapsecName_DIGLETTSCAVE[] = "CAVE TAUPIQUEUR";
-static const char sMapsecName_VICTORYROAD[] = "ROUTE VICTOIRE";
-static const char sMapsecName_POKMONMANSION[] = "MANOIR POKéMON";
-static const char sMapsecName_SAFARIZONE[] = "PARC SAFARI";
-static const char sMapsecName_ROCKTUNNEL[] = "GROTTE";
-static const char sMapsecName_SEAFOAMISLANDS[] = "ILES ECUMES";
-static const char sMapsecName_POKMONTOWER[] = "TOUR POKéMON";
-static const char sMapsecName_CERULEANCAVE[] = "GROTTE AZUREE";
-static const char sMapsecName_POWERPLANT[] = "CENTRALE";
-static const char sMapsecName_MTEMBER[] = "MONT BRAISE";
-static const char sMapsecName_BERRYFOREST[] = "BOIS BAIES";
-static const char sMapsecName_ICEFALLCAVE[] = "GROTTE DE GLACE";
-static const char sMapsecName_LOSTCAVE[] = "GROTTE PERDUE";
-static const char sMapsecName_TANOBYCHAMBERS[] = "CHAMBRES TANOBY";
-static const char sMapsecName_ALTERINGCAVE[] = "GROTTE METAMO";
-static const char sMapsecName_PATTERNBUSH[] = "FORBUISSONS";
-static const char sMapsecName_DOTTEDHOLE[] = "TROU PERCE";
+static const u8 sMapsecName_VIRIDIANFOREST[] = _("FORET DE JADE");
+static const u8 sMapsecName_MTMOON[] = _("MONT SELENITE");
+static const u8 sMapsecName_DIGLETTSCAVE[] = _("CAVE TAUPIQUEUR");
+static const u8 sMapsecName_VICTORYROAD[] = _("ROUTE VICTOIRE");
+static const u8 sMapsecName_POKMONMANSION[] = _("MANOIR POKéMON");
+static const u8 sMapsecName_SAFARIZONE[] = _("PARC SAFARI");
+static const u8 sMapsecName_ROCKTUNNEL[] = _("GROTTE");
+static const u8 sMapsecName_SEAFOAMISLANDS[] = _("ILES ECUMES");
+static const u8 sMapsecName_POKMONTOWER[] = _("TOUR POKéMON");
+static const u8 sMapsecName_CERULEANCAVE[] = _("GROTTE AZUREE");
+static const u8 sMapsecName_POWERPLANT[] = _("CENTRALE");
+static const u8 sMapsecName_MTEMBER[] = _("MONT BRAISE");
+static const u8 sMapsecName_BERRYFOREST[] = _("BOIS BAIES");
+static const u8 sMapsecName_ICEFALLCAVE[] = _("GROTTE DE GLACE");
+static const u8 sMapsecName_LOSTCAVE[] = _("GROTTE PERDUE");
+static const u8 sMapsecName_TANOBYCHAMBERS[] = _("CHAMBRES TANOBY");
+static const u8 sMapsecName_ALTERINGCAVE[] = _("GROTTE METAMO");
+static const u8 sMapsecName_PATTERNBUSH[] = _("FORBUISSONS");
+static const u8 sMapsecName_DOTTEDHOLE[] = _("TROU PERCE");
 
 static const struct DungeonMapInfo sDungeonInfo[] = {
     {
@@ -2001,8 +2001,13 @@ static void InitScreenForDungeonMapPreview(void)
     ResetGpuRegs();
     SetBldCnt(0, BLDCNT_TGT1_BG0 | BLDCNT_TGT1_OBJ, BLDCNT_EFFECT_DARKEN);
     SetBldY(sDungeonMapPreview->blendY);
-    SetWinIn(0, (WININ_WIN1_BG0 | WININ_WIN1_BG2 | WININ_WIN1_BG3) >> 8);
-    SetWinOut(WINOUT_WIN01_BG0 | WINOUT_WIN01_BG1 | WINOUT_WIN01_BG3 | WINOUT_WIN01_OBJ | WINOUT_WIN01_CLR);
+    // WIN0 = the preview growing over the map, WIN1 = the viewport, darkened around it. The frame outside them shows
+    // no BG0: the world map's extra column (for the fine scroll) would cover its right column
+    SetWinIn(WININ_WIN0_BG0 | WININ_WIN0_BG2 | WININ_WIN0_BG3,
+             (WININ_WIN1_BG0 | WININ_WIN1_BG1 | WININ_WIN1_BG3 | WININ_WIN1_OBJ | WININ_WIN1_CLR) >> 8);
+    SetWinOut(WINOUT_WIN01_BG1 | WINOUT_WIN01_BG3);
+    SetGpuWindowDims(1, &sMapWindowDim);
+    SetDispCnt(0, FALSE);
     SetDispCnt(1, FALSE);
     x = CellScreenX(GetMapCursorX()) - 4;
     y = CellScreenY(GetMapCursorY()) - 4;
@@ -2058,7 +2063,7 @@ static bool8 UpdateDungeonMapPreview(bool8 closing)
     data.top = sDungeonMapPreview->top;
     data.right = sDungeonMapPreview->right;
     data.bottom = sDungeonMapPreview->bottom;
-    SetGpuWindowDims(1, &data);
+    SetGpuWindowDims(0, &data);
     SetBldY(sDungeonMapPreview->blendY);
     return FALSE;
 }
