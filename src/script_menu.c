@@ -656,6 +656,134 @@ static const struct MenuAction sMultichoiceList_SeagallopLilycove[] = {
     { gOtherText_Exit }
 };
 
+// Emerald's Trick House mechadolls' quiz (official French answers)
+static const u8 sText_Mechadoll_0[] = _("MYSTHERBE");
+static const u8 sText_Mechadoll_1[] = _("MEDHYENA");
+static const u8 sText_Mechadoll_2[] = _("NIRONDELLE");
+static const u8 sText_Mechadoll_3[] = _("AZURILL");
+static const u8 sText_Mechadoll_4[] = _("NENUPIOT");
+static const u8 sText_Mechadoll_5[] = _("GOELISE");
+static const u8 sText_Mechadoll_6[] = _("PAPINOX");
+static const u8 sText_Mechadoll_7[] = _("NOSFERAPTI");
+static const u8 sText_Mechadoll_8[] = _("NINGALE");
+static const u8 sText_Mechadoll_9[] = _("TARSAL");
+static const u8 sText_Mechadoll_10[] = _("ZIGZATON");
+static const u8 sText_Mechadoll_11[] = _("PARECOOL");
+static const u8 sText_Mechadoll_12[] = _("BALIGNON");
+static const u8 sText_Mechadoll_13[] = _("CARVANHA");
+static const u8 sText_Mechadoll_14[] = _("ANTI-BRULE");
+static const u8 sText_Mechadoll_15[] = _("LETTRES PORT");
+static const u8 sText_Mechadoll_16[] = _("Même prix");
+static const u8 sText_Mechadoll_17[] = _("60¥");
+static const u8 sText_Mechadoll_18[] = _("55¥");
+static const u8 sText_Mechadoll_19[] = _("Rien");
+static const u8 sText_Mechadoll_20[] = _("Oui");
+static const u8 sText_Mechadoll_21[] = _("Non");
+static const u8 sText_Mechadoll_22[] = _("Plus d'hommes");
+static const u8 sText_Mechadoll_23[] = _("Plus de femmes");
+static const u8 sText_Mechadoll_24[] = _("Aucun des deux");
+static const u8 sText_Mechadoll_25[] = _("Plus de vieux messieurs");
+static const u8 sText_Mechadoll_26[] = _("Plus de vieilles dames");
+static const u8 sText_Mechadoll_27[] = _("Le même nombre");
+static const u8 sText_Mechadoll_28[] = _("Aucune");
+static const u8 sText_Mechadoll_29[] = _("1");
+static const u8 sText_Mechadoll_30[] = _("2");
+static const u8 sText_Mechadoll_31[] = _("3");
+static const u8 sText_Mechadoll_32[] = _("4");
+static const u8 sText_Mechadoll_33[] = _("6");
+static const u8 sText_Mechadoll_34[] = _("7");
+static const u8 sText_Mechadoll_35[] = _("8");
+
+static const struct MenuAction sMultichoiceList_Mechadoll1Q1[] = {
+    { sText_Mechadoll_0 },
+    { sText_Mechadoll_1 },
+    { sText_Mechadoll_2 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll1Q2[] = {
+    { sText_Mechadoll_3 },
+    { sText_Mechadoll_4 },
+    { sText_Mechadoll_5 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll1Q3[] = {
+    { sText_Mechadoll_6 },
+    { sText_Mechadoll_7 },
+    { sText_Mechadoll_8 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll2Q1[] = {
+    { sText_Mechadoll_9 },
+    { sText_Mechadoll_10 },
+    { sText_Mechadoll_11 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll2Q2[] = {
+    { sText_Mechadoll_1 },
+    { sText_Mechadoll_12 },
+    { sText_Mechadoll_10 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll2Q3[] = {
+    { sText_Mechadoll_1 },
+    { sText_Mechadoll_7 },
+    { sText_Mechadoll_13 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll3Q1[] = {
+    { sText_Mechadoll_14 },
+    { sText_Mechadoll_15 },
+    { sText_Mechadoll_16 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll3Q2[] = {
+    { sText_Mechadoll_17 },
+    { sText_Mechadoll_18 },
+    { sText_Mechadoll_19 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll3Q3[] = {
+    { sText_Mechadoll_20 },
+    { sText_Mechadoll_21 },
+    { sText_Mechadoll_16 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll4Q1[] = {
+    { sText_Mechadoll_22 },
+    { sText_Mechadoll_23 },
+    { sText_Mechadoll_24 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll4Q2[] = {
+    { sText_Mechadoll_25 },
+    { sText_Mechadoll_26 },
+    { sText_Mechadoll_27 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll4Q3[] = {
+    { sText_Mechadoll_28 },
+    { sText_Mechadoll_29 },
+    { sText_Mechadoll_30 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll5Q1[] = {
+    { sText_Mechadoll_30 },
+    { sText_Mechadoll_31 },
+    { sText_Mechadoll_32 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll5Q2[] = {
+    { sText_Mechadoll_33 },
+    { sText_Mechadoll_34 },
+    { sText_Mechadoll_35 },
+};
+
+static const struct MenuAction sMultichoiceList_Mechadoll5Q3[] = {
+    { sText_Mechadoll_33 },
+    { sText_Mechadoll_34 },
+    { sText_Mechadoll_35 },
+};
+
 static const struct MultichoiceListStruct sMultichoiceLists[] = {
     [MULTICHOICE_YES_NO]                                     = MULTICHOICE(sMultichoiceList_YesNo),
     [MULTICHOICE_EEVEELUTIONS]                               = MULTICHOICE(sMultichoiceList_Eeveelutions),
@@ -746,6 +874,21 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTICHOICE_SEVII_OTHER_LILYCOVE]                       = MULTICHOICE(sMultichoiceList_SeviiOtherLilycove),
 	[MULTICHOICE_SEAGALLOP_123_LILYCOVE]                     = MULTICHOICE(sMultichoiceList_Seagallop123Lilycove),
 	[MULTICHOICE_SEAGALLOP_LILYCOVE]                         = MULTICHOICE(sMultichoiceList_SeagallopLilycove),
+	[MULTI_MECHADOLL1_Q1] = MULTICHOICE(sMultichoiceList_Mechadoll1Q1),
+	[MULTI_MECHADOLL1_Q2] = MULTICHOICE(sMultichoiceList_Mechadoll1Q2),
+	[MULTI_MECHADOLL1_Q3] = MULTICHOICE(sMultichoiceList_Mechadoll1Q3),
+	[MULTI_MECHADOLL2_Q1] = MULTICHOICE(sMultichoiceList_Mechadoll2Q1),
+	[MULTI_MECHADOLL2_Q2] = MULTICHOICE(sMultichoiceList_Mechadoll2Q2),
+	[MULTI_MECHADOLL2_Q3] = MULTICHOICE(sMultichoiceList_Mechadoll2Q3),
+	[MULTI_MECHADOLL3_Q1] = MULTICHOICE(sMultichoiceList_Mechadoll3Q1),
+	[MULTI_MECHADOLL3_Q2] = MULTICHOICE(sMultichoiceList_Mechadoll3Q2),
+	[MULTI_MECHADOLL3_Q3] = MULTICHOICE(sMultichoiceList_Mechadoll3Q3),
+	[MULTI_MECHADOLL4_Q1] = MULTICHOICE(sMultichoiceList_Mechadoll4Q1),
+	[MULTI_MECHADOLL4_Q2] = MULTICHOICE(sMultichoiceList_Mechadoll4Q2),
+	[MULTI_MECHADOLL4_Q3] = MULTICHOICE(sMultichoiceList_Mechadoll4Q3),
+	[MULTI_MECHADOLL5_Q1] = MULTICHOICE(sMultichoiceList_Mechadoll5Q1),
+	[MULTI_MECHADOLL5_Q2] = MULTICHOICE(sMultichoiceList_Mechadoll5Q2),
+	[MULTI_MECHADOLL5_Q3] = MULTICHOICE(sMultichoiceList_Mechadoll5Q3),
 };
 
 // From Cool to Berries goes unused

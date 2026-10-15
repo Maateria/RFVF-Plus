@@ -13311,3 +13311,5 @@ static const struct TrainerMonItemCustomMoves sParty_LeaderMistyRematch[] = {
         .moves = {MOVE_HYDRO_PUMP, MOVE_THUNDERBOLT, MOVE_ICE_BEAM, MOVE_PSYCHIC},
     },
 };
+
+#include "trainer_parties_hoenn.h"

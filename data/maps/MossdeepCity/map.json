@@ -336,5 +336,5 @@
       "script": "MossdeepCity_EventScript_WhiteRock"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

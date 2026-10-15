@@ -1,9 +1,125 @@
+.equ LOCALID_COLE, 3
+.equ LOCALID_GERALD, 4
+.equ LOCALID_AXLE, 5
+.equ LOCALID_DANIELLE, 6
+
 LavaridgeTown_Gym_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LavaridgeTown_Gym_1F_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (LavaridgeTown_Gym_1F_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/LavaridgeTown_Gym_1F/scripts.inc
-LavaridgeTown_Gym_1F_EventScript_Flannery::     @ NPC #1 (13,9)
-LavaridgeTown_Gym_1F_EventScript_GymGuide::     @ NPC #2 (12,16)
-LavaridgeTown_Gym_1F_EventScript_LeftGymStatue:: @ sign (10,15)
-LavaridgeTown_Gym_1F_EventScript_RightGymStatue:: @ sign (16,15)
+
+LavaridgeTown_Gym_1F_OnTransition:
+	call LavaridgeTown_Gym_1F_EventScript_CheckBuryTrainers
 	end
+
+LavaridgeTown_Gym_1F_EventScript_Cole::
+	trainerbattle_single TRAINER_COLE, LavaridgeTown_Gym_1F_Text_ColeIntro, LavaridgeTown_Gym_1F_Text_ColeDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_ColePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_1F_EventScript_Gerald::
+	trainerbattle_single TRAINER_GERALD, LavaridgeTown_Gym_1F_Text_GeraldIntro, LavaridgeTown_Gym_1F_Text_GeraldDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_GeraldPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_1F_EventScript_Axle::
+	trainerbattle_single TRAINER_AXLE, LavaridgeTown_Gym_1F_Text_AxleIntro, LavaridgeTown_Gym_1F_Text_AxleDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_AxlePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_1F_EventScript_Danielle::
+	trainerbattle_single TRAINER_DANIELLE, LavaridgeTown_Gym_1F_Text_DanielleIntro, LavaridgeTown_Gym_1F_Text_DanielleDefeat
+	msgbox LavaridgeTown_Gym_1F_Text_DaniellePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_1F_EventScript_CheckBuryTrainers::
+	goto_if_defeated TRAINER_COLE, LavaridgeTown_Gym_1F_EventScript_CheckBuryGerald
+	setobjectmovementtype LOCALID_COLE, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_1F_EventScript_CheckBuryGerald::
+	goto_if_defeated TRAINER_GERALD, LavaridgeTown_Gym_1F_EventScript_CheckBuryAxle
+	setobjectmovementtype LOCALID_GERALD, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_1F_EventScript_CheckBuryAxle::
+	goto_if_defeated TRAINER_AXLE, LavaridgeTown_Gym_1F_EventScript_CheckBuryDanielle
+	setobjectmovementtype LOCALID_AXLE, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_1F_EventScript_CheckBuryDanielle::
+	goto_if_defeated TRAINER_DANIELLE, LavaridgeTown_Gym_1F_EventScript_EndCheckBuryTrainers
+	setobjectmovementtype LOCALID_DANIELLE, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_1F_EventScript_EndCheckBuryTrainers::
+	return
+
+LavaridgeTown_Gym_1F_EventScript_Flannery::
+	trainerbattle_single TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryIntro, LavaridgeTown_Gym_1F_Text_FlanneryDefeat, LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated, NO_MUSIC
+	goto_if_set FLAG_HOENN_GAME_CLEAR, LavaridgeTown_Gym_1F_EventScript_FlanneryRematch
+	goto_if_unset FLAG_RECEIVED_TM_OVERHEAT, LavaridgeTown_Gym_1F_EventScript_GiveOverheat2
+	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+LavaridgeTown_Gym_1F_EventScript_FlanneryDefeated::
+	message LavaridgeTown_Gym_1F_Text_ReceivedHeatBadge
+	waitmessage
+	call Common_EventScript_PlayGymBadgeFanfare
+	msgbox LavaridgeTown_Gym_1F_Text_ExplainHeatBadgeTakeThis, MSGBOX_DEFAULT
+	setflag FLAG_DEFEATED_LAVARIDGE_GYM
+	setflag FLAG_HOENN_BADGE04_GET
+	setvar VAR_0x8008, 4
+	call Common_EventScript_SetGymTrainers
+	call LavaridgeTown_Gym_1F_EventScript_GiveOverheat
+	release
+	end
+
+LavaridgeTown_Gym_1F_EventScript_GiveOverheat2::
+	giveitem ITEM_TM50_OVERHEAT
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	msgbox LavaridgeTown_Gym_1F_Text_ExplainOverheat, MSGBOX_DEFAULT
+	setflag FLAG_RECEIVED_TM_OVERHEAT
+	release
+	end
+
+LavaridgeTown_Gym_1F_EventScript_GiveOverheat::
+	giveitem ITEM_TM50_OVERHEAT
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
+	msgbox LavaridgeTown_Gym_1F_Text_ExplainOverheat, MSGBOX_DEFAULT
+	setflag FLAG_RECEIVED_TM_OVERHEAT
+	return
+
+LavaridgeTown_Gym_1F_EventScript_FlanneryRematch::
+	special SetLastTalkedTrainerReadyForRematch
+	trainerbattle_rematch_double TRAINER_FLANNERY_1, LavaridgeTown_Gym_1F_Text_FlanneryPreRematch, LavaridgeTown_Gym_1F_Text_FlanneryRematchDefeat, LavaridgeTown_Gym_1F_Text_FlanneryRematchNeedTwoMons
+	msgbox LavaridgeTown_Gym_1F_Text_FlanneryPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_1F_EventScript_GymGuide::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_LAVARIDGE_GYM, LavaridgeTown_Gym_1F_EventScript_GymGuidePostVictory
+	msgbox LavaridgeTown_Gym_1F_Text_GymGuideAdvice, MSGBOX_DEFAULT
+	release
+	end
+
+LavaridgeTown_Gym_1F_EventScript_GymGuidePostVictory::
+	msgbox LavaridgeTown_Gym_1F_Text_GymGuidePostVictory, MSGBOX_DEFAULT
+	release
+	end
+
+LavaridgeTown_Gym_1F_EventScript_LeftGymStatue::
+	lockall
+	goto_if_set FLAG_HOENN_BADGE04_GET, LavaridgeTown_Gym_1F_EventScript_GymStatueCertified
+	goto LavaridgeTown_Gym_1F_EventScript_GymStatue
+	end
+
+LavaridgeTown_Gym_1F_EventScript_RightGymStatue::
+	lockall
+	goto_if_set FLAG_HOENN_BADGE04_GET, LavaridgeTown_Gym_1F_EventScript_GymStatueCertified
+	goto LavaridgeTown_Gym_1F_EventScript_GymStatue
+	end
+
+LavaridgeTown_Gym_1F_EventScript_GymStatueCertified::
+	msgbox LavaridgeTown_Gym_1F_Text_GymStatueCertified, MSGBOX_DEFAULT
+	releaseall
+	end
+
+LavaridgeTown_Gym_1F_EventScript_GymStatue::
+	msgbox LavaridgeTown_Gym_1F_Text_GymStatue, MSGBOX_DEFAULT
+	releaseall
+	end
+

@@ -1,13 +1,43 @@
 Route131_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route131_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route131/scripts.inc
-Route131_EventScript_Richard::                  @ trainer #1 (41,32) TRAINER_RICHARD, Emerald NORMAL sight 3
-Route131_EventScript_Herman::                   @ trainer #2 (18,19) TRAINER_HERMAN, Emerald NORMAL sight 4
-Route131_EventScript_Susie::                    @ trainer #3 (10,22) TRAINER_SUSIE, Emerald NORMAL sight 4
-Route131_EventScript_Kara::                     @ trainer #4 (31,25) TRAINER_KARA, Emerald NORMAL sight 3
-Route131_EventScript_Reli::                     @ trainer #5 (9,16) TRAINER_RELI_AND_IAN, Emerald NORMAL sight 1
-Route131_EventScript_Ian::                      @ trainer #6 (8,16) TRAINER_RELI_AND_IAN, Emerald NORMAL sight 1
-Route131_EventScript_Kevin::                    @ trainer #7 (52,20) TRAINER_KEVIN, Emerald NORMAL sight 5
-Route131_EventScript_Talia::                    @ trainer #8 (52,27) TRAINER_TALIA, Emerald NORMAL sight 5
+
+Route131_EventScript_Richard::
+	trainerbattle_single TRAINER_RICHARD, Route131_Text_RichardIntro, Route131_Text_RichardDefeat
+	msgbox Route131_Text_RichardPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Herman::
+	trainerbattle_single TRAINER_HERMAN, Route131_Text_HermanIntro, Route131_Text_HermanDefeat
+	msgbox Route131_Text_HermanPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Susie::
+	trainerbattle_single TRAINER_SUSIE, Route131_Text_SusieIntro, Route131_Text_SusieDefeat
+	msgbox Route131_Text_SusiePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Kara::
+	trainerbattle_single TRAINER_KARA, Route131_Text_KaraIntro, Route131_Text_KaraDefeat
+	msgbox Route131_Text_KaraPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Reli::
+	trainerbattle_double TRAINER_RELI_AND_IAN, Route131_Text_ReliIntro, Route131_Text_ReliDefeat, Route131_Text_ReliNotEnoughMons
+	msgbox Route131_Text_ReliPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Ian::
+	trainerbattle_double TRAINER_RELI_AND_IAN, Route131_Text_IanIntro, Route131_Text_IanDefeat, Route131_Text_IanNotEnoughMons
+	msgbox Route131_Text_IanPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Kevin::
+	trainerbattle_single TRAINER_KEVIN, Route131_Text_KevinIntro, Route131_Text_KevinDefeat
+	msgbox Route131_Text_KevinPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route131_EventScript_Talia::
+	trainerbattle_single TRAINER_TALIA, Route131_Text_TaliaIntro, Route131_Text_TaliaDefeat
+	msgbox Route131_Text_TaliaPostBattle, MSGBOX_AUTOCLOSE
 	end

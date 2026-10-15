@@ -9,5 +9,6 @@
 #define STEP_CB_TRUCK               5 // Unused, dummied
 #define STEP_CB_SECRET_BASE         6 // Unused, dummied
 #define STEP_CB_CRACKED_FLOOR       7 // Unused
+#define STEP_CB_SOOTOPOLIS_ICE      8 // Emerald's (src/hoenn_gyms.c)
 
 #endif // GUARD_CONSTANTS_FIELD_TASKS_H

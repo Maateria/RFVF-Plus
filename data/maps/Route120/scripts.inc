@@ -17,20 +17,88 @@ Route120_EventScript_ItemRevive::               @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_REVIVE
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route120/scripts.inc
-Route120_EventScript_Colin::                    @ trainer #1 (5,22) TRAINER_COLIN, Emerald NORMAL sight 3
-Route120_EventScript_Robert::                   @ trainer #2 (32,14) TRAINER_ROBERT_1, Emerald NORMAL sight 3
-Route120_EventScript_Lorenzo::                  @ trainer #3 (27,51) TRAINER_LORENZO, Emerald NORMAL sight 7
-Route120_EventScript_Jenna::                    @ trainer #4 (36,45) TRAINER_JENNA, Emerald NORMAL sight 2
-Route120_EventScript_Jeffrey::                  @ trainer #5 (19,80) TRAINER_JEFFREY_1, Emerald NORMAL sight 3
 Route120_EventScript_BerryBeauty::              @ NPC #9 (14,92)
-Route120_EventScript_Jennifer::                 @ trainer #10 (31,37) TRAINER_JENNIFER, Emerald NORMAL sight 4
-Route120_EventScript_Chip::                     @ trainer #11 (9,60) TRAINER_CHIP, Emerald NORMAL sight 4
-Route120_EventScript_Clarissa::                 @ trainer #12 (16,6) TRAINER_CLARISSA, Emerald NORMAL sight 4
-Route120_EventScript_Angelica::                 @ trainer #13 (18,34) TRAINER_ANGELICA, Emerald NORMAL sight 3
-Route120_EventScript_Keigo::                    @ trainer #18 (10,72) TRAINER_KEIGO, Emerald NORMAL sight 3
-Route120_EventScript_Riley::                    @ trainer #19 (19,28) TRAINER_RILEY, Emerald NORMAL sight 3
-Route120_EventScript_Callie::                   @ trainer #20 (19,32) TRAINER_CALLIE, Emerald NORMAL sight 3
-Route120_EventScript_Leonel::                   @ trainer #21 (14,34) TRAINER_LEONEL, Emerald NORMAL sight 3
 Route120_EventScript_RouteSignFortree::         @ sign (27,3)
 Route120_EventScript_RouteSign121::             @ sign (38,88)
+	end
+
+Route120_EventScript_Colin::
+	trainerbattle_single TRAINER_COLIN, Route120_Text_ColinIntro, Route120_Text_ColinDefeat
+	msgbox Route120_Text_ColinPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Robert::
+	trainerbattle_single TRAINER_ROBERT_1, Route120_Text_RobertIntro, Route120_Text_RobertDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route120_EventScript_RematchRobert
+	msgbox Route120_Text_RobertPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route120_EventScript_RematchRobert::
+	trainerbattle_rematch TRAINER_ROBERT_1, Route120_Text_RobertRematchIntro, Route120_Text_RobertRematchDefeat
+	msgbox Route120_Text_RobertPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Lorenzo::
+	trainerbattle_single TRAINER_LORENZO, Route120_Text_LorenzoIntro, Route120_Text_LorenzoDefeat
+	msgbox Route120_Text_LorenzoPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Jenna::
+	trainerbattle_single TRAINER_JENNA, Route120_Text_JennaIntro, Route120_Text_JennaDefeat
+	msgbox Route120_Text_JennaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Jeffrey::
+	trainerbattle_single TRAINER_JEFFREY_1, Route120_Text_JeffreyIntro, Route120_Text_JeffreyDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route120_EventScript_RematchJeffrey
+	msgbox Route120_Text_JeffreyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route120_EventScript_RematchJeffrey::
+	trainerbattle_rematch TRAINER_JEFFREY_1, Route120_Text_JeffreyRematchIntro, Route120_Text_JeffreyRematchDefeat
+	msgbox Route120_Text_JeffreyPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Jennifer::
+	trainerbattle_single TRAINER_JENNIFER, Route120_Text_JenniferIntro, Route120_Text_JenniferDefeat
+	msgbox Route120_Text_JenniferPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Chip::
+	trainerbattle_single TRAINER_CHIP, Route120_Text_ChipIntro, Route120_Text_ChipDefeat
+	msgbox Route120_Text_ChipPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Clarissa::
+	trainerbattle_single TRAINER_CLARISSA, Route120_Text_ClarissaIntro, Route120_Text_ClarissaDefeat
+	msgbox Route120_Text_ClarissaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Angelica::
+	trainerbattle_single TRAINER_ANGELICA, Route120_Text_AngelicaIntro, Route120_Text_AngelicaDefeat
+	msgbox Route120_Text_AngelicaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Keigo::
+	trainerbattle_single TRAINER_KEIGO, Route120_Text_KeigoIntro, Route120_Text_KeigoDefeat
+	msgbox Route120_Text_KeigoPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Riley::
+	trainerbattle_single TRAINER_RILEY, Route120_Text_RileyIntro, Route120_Text_RileyDefeat
+	msgbox Route120_Text_RileyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Callie::
+	trainerbattle_single TRAINER_CALLIE, Route120_Text_CallieIntro, Route120_Text_CallieDefeat
+	msgbox Route120_Text_CalliePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route120_EventScript_Leonel::
+	trainerbattle_single TRAINER_LEONEL, Route120_Text_LeonelIntro, Route120_Text_LeonelDefeat
+	msgbox Route120_Text_LeonelPostBattle, MSGBOX_AUTOCLOSE
 	end

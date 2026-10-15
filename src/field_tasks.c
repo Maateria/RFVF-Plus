@@ -39,6 +39,7 @@ static void AshGrassPerStepCallback(u8 taskId);
 static void FortreeBridgePerStepCallback(u8 taskId);
 static void PacifidlogBridgePerStepCallback(u8 taskId);
 static void IcefallCaveIcePerStepCallback(u8 taskId);
+void SootopolisGymIcePerStepCallback(u8 taskId);
 static void CrackedFloorPerStepCallback(u8 taskId);
 
 // Fortree and Pacifidlog: pokeemerald's callbacks, set by those Hoenn maps' OnResume scripts (Emerald's)
@@ -51,7 +52,8 @@ static const TaskFunc sPerStepCallbacks[] =
     [STEP_CB_ICE]               = IcefallCaveIcePerStepCallback,
     [STEP_CB_TRUCK]             = DummyPerStepCallback,
     [STEP_CB_SECRET_BASE]       = DummyPerStepCallback,
-    [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback
+    [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback,
+    [STEP_CB_SOOTOPOLIS_ICE]    = SootopolisGymIcePerStepCallback,
 };
 
 // The positions of each map space with crackable ice in Icefall Cave.

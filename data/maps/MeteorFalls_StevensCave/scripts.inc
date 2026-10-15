@@ -2,6 +2,27 @@
 
 MeteorFalls_StevensCave_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MeteorFalls_StevensCave/scripts.inc
-MeteorFalls_StevensCave_EventScript_Steven::    @ NPC #1 (19,3)
+@ Emerald's, its FLAG_DEFEATED_METEOR_FALLS_STEVEN being Steven's trainer flag
+MeteorFalls_StevensCave_EventScript_Steven::
+	lock
+	goto_if_defeated TRAINER_STEVEN, MeteorFalls_StevensCave_EventScript_Defeated
+	waitse
+	playse SE_PIN
+	applymovement LOCALID_METEOR_FALLS_STEVEN, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement LOCALID_METEOR_FALLS_STEVEN, Common_Movement_Delay48
+	waitmovement 0
+	applymovement LOCALID_METEOR_FALLS_STEVEN, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox MeteorFalls_StevensCave_Text_ShouldKnowHowGoodIAmExpectWorst, MSGBOX_DEFAULT
+	trainerbattle_no_intro TRAINER_STEVEN, MeteorFalls_StevensCave_Text_StevenDefeat
+	msgbox MeteorFalls_StevensCave_Text_MyPredictionCameTrue, MSGBOX_DEFAULT
+	release
+	end
+
+MeteorFalls_StevensCave_EventScript_Defeated::
+	applymovement LOCALID_METEOR_FALLS_STEVEN, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox MeteorFalls_StevensCave_Text_MyPredictionCameTrue, MSGBOX_DEFAULT
+	release
 	end

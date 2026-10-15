@@ -3,6 +3,8 @@ MtPyre_4F_MapScripts::
 MtPyre_4F_EventScript_ItemSeaIncense::          @ item ball, works (FLAG_ITEM_MT_PYRE_4F_SEA_INCENSE)
 	finditem ITEM_SEA_INCENSE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtPyre_4F/scripts.inc
-MtPyre_4F_EventScript_Tasha::                   @ trainer #1 (11,7) TRAINER_TASHA, Emerald NORMAL sight 2
+
+MtPyre_4F_EventScript_Tasha::
+	trainerbattle_single TRAINER_TASHA, MtPyre_4F_Text_TashaIntro, MtPyre_4F_Text_TashaDefeat
+	msgbox MtPyre_4F_Text_TashaPostBattle, MSGBOX_AUTOCLOSE
 	end

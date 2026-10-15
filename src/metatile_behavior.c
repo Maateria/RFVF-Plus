@@ -651,7 +651,7 @@ bool8 MetatileBehavior_IsPacifidlogLog(u8 metatileBehavior)
 {
     return metatileBehavior >= MB_PACIFIDLOG_VERTICAL_LOG_TOP && metatileBehavior <= MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT;
 }
-bool8 MetatileBehavior_IsTrickHousePuzzleDoor(u8 metatileBehavior) { return FALSE; }
+bool8 MetatileBehavior_IsTrickHousePuzzleDoor(u8 metatileBehavior) { return metatileBehavior == MB_TRICK_HOUSE_PUZZLE_DOOR; }
 
 bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior)
 {

@@ -259,5 +259,5 @@
       "script": "SealedChamber_OuterRoom_EventScript_BrailleDigHere"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

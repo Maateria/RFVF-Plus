@@ -1871,3 +1871,41 @@
 	setvar VAR_0x8006, \item
 	special CreateEnemyEventMon
 	.endm
+
+	@ Emerald's commands for its Hoenn maps (no free script command ids: specials and aliases here)
+	.macro initrotatingtilepuzzle isTrickHouse:req
+	setvar VAR_0x8004, \isTrickHouse
+	special ScrSpecial_InitRotatingTilePuzzle
+	.endm
+
+	.macro moverotatingtileobjects colorKey:req
+	setvar VAR_0x8004, \colorKey
+	special ScrSpecial_MoveRotatingTileObjects
+	.endm
+
+	.macro turnrotatingtileobjects
+	special ScrSpecial_TurnRotatingTileObjects
+	.endm
+
+	.macro freerotatingtilepuzzle
+	special ScrSpecial_FreeRotatingTilePuzzle
+	.endm
+
+	@ Emerald's Mossdeep Gym warp spins the player out: FRLG's spin warp
+	.macro warpmossdeepgym map:req, a, b, c
+	warpspinenter \map, \a, \b, \c
+	.endm
+
+	.macro pokemartlistend
+	.2byte ITEM_NONE
+	release
+	end
+	.endm
+
+	@ Emerald's Trick House hiding spots
+	.macro dofieldeffectsparkle x:req, y:req, priority:req
+	setfieldeffectargument 0, \x
+	setfieldeffectargument 1, \y
+	setfieldeffectargument 2, \priority
+	dofieldeffect FLDEFF_SPARKLE
+	.endm

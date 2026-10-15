@@ -3932,6 +3932,13 @@ static void SetFlyWarpDestination(u16 mapsec)
         SetWarpDestinationToHealLocation(SPAWN_LITTLEROOT_TOWN_MAYS_HOUSE);
         SetUsedFlyQuestLogEvent(sMapFlyDestinations[idx]);
     }
+    else if (mapsec == MAPSEC_EVER_GRANDE_CITY && FlagGet(FLAG_LANDMARK_POKEMON_LEAGUE)
+             && GetSelectedMapSection(LAYER_MAP, sMapCursor->x, sMapCursor->y - 1) != MAPSEC_EVER_GRANDE_CITY)
+    {
+        // Emerald: its upper cell is the Pokémon League (once visited), its lower one the Pokémon Center
+        SetWarpDestinationToHealLocation(SPAWN_EVER_GRANDE_CITY_POKEMON_LEAGUE);
+        SetUsedFlyQuestLogEvent(sMapFlyDestinations[idx]);
+    }
     else if (sMapFlyDestinations[idx][2])
     {
         SetWarpDestinationToHealLocation(sMapFlyDestinations[idx][2]);

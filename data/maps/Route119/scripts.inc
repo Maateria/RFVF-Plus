@@ -29,28 +29,112 @@ Route119_EventScript_ItemElixir2::              @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_ELIXIR
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route119/scripts.inc
-Route119_EventScript_Greg::                     @ trainer #1 (12,123) TRAINER_GREG, Emerald NORMAL sight 1
-Route119_EventScript_Taylor::                   @ trainer #2 (26,123) TRAINER_TAYLOR, Emerald NORMAL sight 1
-Route119_EventScript_Donald::                   @ trainer #3 (5,125) TRAINER_DONALD, Emerald NORMAL sight 1
-Route119_EventScript_Jackson::                  @ trainer #4 (7,74) TRAINER_JACKSON_1, Emerald NORMAL sight 3
-Route119_EventScript_Brent::                    @ trainer #5 (28,116) TRAINER_BRENT, Emerald NORMAL sight 1
-Route119_EventScript_Catherine::                @ trainer #6 (35,83) TRAINER_CATHERINE_1, Emerald NORMAL sight 2
-Route119_EventScript_Doug::                     @ trainer #7 (34,122) TRAINER_DOUG, Emerald NORMAL sight 1
-Route119_EventScript_Kent::                     @ trainer #8 (17,128) TRAINER_KENT, Emerald NORMAL sight 1
-Route119_EventScript_Yasu::                     @ trainer #9 (28,14) TRAINER_YASU, Emerald NORMAL sight 1
-Route119_EventScript_Takashi::                  @ trainer #10 (19,49) TRAINER_TAKASHI, Emerald NORMAL sight 3
-Route119_EventScript_Hugh::                     @ trainer #11 (10,50) TRAINER_HUGH, Emerald NORMAL sight 3
-Route119_EventScript_Phil::                     @ trainer #12 (8,63) TRAINER_PHIL, Emerald NORMAL sight 5
 Route119_EventScript_Boy1::                     @ NPC #19 (31,109)
 Route119_EventScript_CyclingTriathleteM::       @ NPC #20 (19,133)
 Route119_EventScript_Boy2::                     @ NPC #22 (35,93)
-Route119_EventScript_Hideo::                    @ trainer #23 (29,6) TRAINER_HIDEO, Emerald NORMAL sight 3
-Route119_EventScript_Chris::                    @ trainer #24 (13,104) TRAINER_CHRIS, Emerald NORMAL sight 0
-Route119_EventScript_Rachel::                   @ trainer #25 (8,68) TRAINER_RACHEL, Emerald NORMAL sight 5
-Route119_EventScript_Dayton::                   @ trainer #26 (16,52) TRAINER_DAYTON, Emerald NORMAL sight 3
-Route119_EventScript_Fabian::                   @ trainer #27 (32,15) TRAINER_FABIAN, Emerald NORMAL sight 4
 Route119_EventScript_WeatherInstituteSign::     @ sign (9,33)
 Route119_EventScript_RouteSignFortree::         @ sign (27,19)
 Route119_EventScript_TrainerTipsDecoration::    @ sign (28,9)
 	end
 @ hoenn_import: left out: trigger (25,31) VAR_ROUTE119_STATE==0 -> Route119_EventScript_RivalTrigger1; trigger (26,31) VAR_ROUTE119_STATE==0 -> Route119_EventScript_RivalTrigger2
+
+Route119_EventScript_Greg::
+	trainerbattle_single TRAINER_GREG, Route119_Text_GregIntro, Route119_Text_GregDefeat
+	msgbox Route119_Text_GregPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Taylor::
+	trainerbattle_single TRAINER_TAYLOR, Route119_Text_TaylorIntro, Route119_Text_TaylorDefeat
+	msgbox Route119_Text_TaylorPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Donald::
+	trainerbattle_single TRAINER_DONALD, Route119_Text_DonaldIntro, Route119_Text_DonaldDefeat
+	msgbox Route119_Text_DonaldPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Jackson::
+	trainerbattle_single TRAINER_JACKSON_1, Route119_Text_JacksonIntro, Route119_Text_JacksonDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route119_EventScript_RematchJackson
+	msgbox Route119_Text_JacksonPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route119_EventScript_RematchJackson::
+	trainerbattle_rematch TRAINER_JACKSON_1, Route119_Text_JacksonRematchIntro, Route119_Text_JacksonRematchDefeat
+	msgbox Route119_Text_JacksonPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Brent::
+	trainerbattle_single TRAINER_BRENT, Route119_Text_BrentIntro, Route119_Text_BrentDefeat
+	msgbox Route119_Text_BrentPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Catherine::
+	trainerbattle_single TRAINER_CATHERINE_1, Route119_Text_CatherineIntro, Route119_Text_CatherineDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route119_EventScript_RematchCatherine
+	msgbox Route119_Text_CatherinePostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route119_EventScript_RematchCatherine::
+	trainerbattle_rematch TRAINER_CATHERINE_1, Route119_Text_CatherineRematchIntro, Route119_Text_CatherineRematchDefeat
+	msgbox Route119_Text_CatherinePostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Doug::
+	trainerbattle_single TRAINER_DOUG, Route119_Text_DougIntro, Route119_Text_DougDefeat
+	msgbox Route119_Text_DougPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Kent::
+	trainerbattle_single TRAINER_KENT, Route119_Text_KentIntro, Route119_Text_KentDefeat
+	msgbox Route119_Text_KentPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Yasu::
+	trainerbattle_single TRAINER_YASU, Route119_Text_YasuIntro, Route119_Text_YasuDefeat
+	msgbox Route119_Text_YasuPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Takashi::
+	trainerbattle_single TRAINER_TAKASHI, Route119_Text_TakashiIntro, Route119_Text_TakashiDefeat
+	msgbox Route119_Text_TakashiPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Hugh::
+	trainerbattle_single TRAINER_HUGH, Route119_Text_HughIntro, Route119_Text_HughDefeat
+	msgbox Route119_Text_HughPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Phil::
+	trainerbattle_single TRAINER_PHIL, Route119_Text_PhilIntro, Route119_Text_PhilDefeat
+	msgbox Route119_Text_PhilPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Hideo::
+	trainerbattle_single TRAINER_HIDEO, Route119_Text_HideoIntro, Route119_Text_HideoDefeat
+	msgbox Route119_Text_HideoPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Chris::
+	trainerbattle_single TRAINER_CHRIS, Route119_Text_ChrisIntro, Route119_Text_ChrisDefeat
+	msgbox Route119_Text_ChrisPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Rachel::
+	trainerbattle_single TRAINER_RACHEL, Route119_Text_RachelIntro, Route119_Text_RachelDefeat
+	msgbox Route119_Text_RachelPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Dayton::
+	trainerbattle_single TRAINER_DAYTON, Route119_Text_DaytonIntro, Route119_Text_DaytonDefeat
+	msgbox Route119_Text_DaytonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route119_EventScript_Fabian::
+	trainerbattle_single TRAINER_FABIAN, Route119_Text_FabianIntro, Route119_Text_FabianDefeat
+	msgbox Route119_Text_FabianPostBattle, MSGBOX_AUTOCLOSE
+	end

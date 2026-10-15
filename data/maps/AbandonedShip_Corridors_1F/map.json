@@ -39,8 +39,8 @@
       "movement_type": "MOVEMENT_TYPE_WALK_SEQUENCE_UP_LEFT_DOWN_RIGHT",
       "movement_range_x": 4,
       "movement_range_y": 7,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "AbandonedShip_Corridors_1F_EventScript_Charlie",
       "flag": "0",
       "in_connection": false
@@ -134,5 +134,5 @@
   ],
   "coord_events": [],
   "bg_events": [],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

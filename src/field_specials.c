@@ -2880,6 +2880,16 @@ static void Task_WingFlapSound(u8 taskId)
 
 void CableCarWarp(void)
 {
+    // Hoenn's cable car (Emerald's): Route 112 below, Mt. Chimney above
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(ROUTE112_CABLE_CAR_STATION)
+     && (gSaveBlock1Ptr->location.mapNum == MAP_NUM(ROUTE112_CABLE_CAR_STATION) || gSaveBlock1Ptr->location.mapNum == MAP_NUM(MT_CHIMNEY_CABLE_CAR_STATION)))
+    {
+        if (gSpecialVar_0x8004 != 0)
+            SetWarpDestination(MAP_GROUP(ROUTE112_CABLE_CAR_STATION), MAP_NUM(ROUTE112_CABLE_CAR_STATION), -1, 6, 4);
+        else
+            SetWarpDestination(MAP_GROUP(MT_CHIMNEY_CABLE_CAR_STATION), MAP_NUM(MT_CHIMNEY_CABLE_CAR_STATION), -1, 6, 4);
+        return;
+    }
     if (gSpecialVar_0x8004 != 0)
     {
         SetWarpDestination(MAP_GROUP(FOUR_ISLAND_BASE_CABLE_CAR_STATION), MAP_NUM(FOUR_ISLAND_BASE_CABLE_CAR_STATION), -1, 6, 4);

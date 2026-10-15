@@ -381,5 +381,5 @@
       "script": "RustboroCity_EventScript_CuttersHouseSign"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

@@ -1008,6 +1008,12 @@ static bool8 WaitForMovementFinish(void)
     return ScriptMovement_IsObjectMovementFinished(sMovingNpcId, sMovingNpcMapNum, sMovingNpcMapGroup);
 }
 
+// The object the next waitmovement 0 waits for (Emerald's moverotatingtileobjects)
+void ScriptSetMovingNpcId(u16 localId)
+{
+    sMovingNpcId = localId;
+}
+
 bool8 ScrCmd_waitmovement(struct ScriptContext * ctx)
 {
     u16 localId = VarGet(ScriptReadHalfword(ctx));

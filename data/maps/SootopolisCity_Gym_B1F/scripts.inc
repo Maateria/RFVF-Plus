@@ -1,14 +1,52 @@
 SootopolisCity_Gym_B1F_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SootopolisCity_Gym_B1F/scripts.inc
-SootopolisCity_Gym_B1F_EventScript_Andrea::     @ trainer #1 (7,17) TRAINER_ANDREA, Emerald NORMAL sight 1
-SootopolisCity_Gym_B1F_EventScript_Connie::     @ trainer #2 (9,19) TRAINER_CONNIE, Emerald NORMAL sight 1
-SootopolisCity_Gym_B1F_EventScript_Brianna::    @ trainer #3 (12,7) TRAINER_BRIANNA, Emerald NORMAL sight 1
-SootopolisCity_Gym_B1F_EventScript_Bridget::    @ trainer #4 (11,9) TRAINER_BRIDGET, Emerald NORMAL sight 5
-SootopolisCity_Gym_B1F_EventScript_Tiffany::    @ trainer #5 (5,6) TRAINER_TIFFANY, Emerald NORMAL sight 4
-SootopolisCity_Gym_B1F_EventScript_Bethany::    @ trainer #6 (7,8) TRAINER_BETHANY, Emerald NORMAL sight 2
-SootopolisCity_Gym_B1F_EventScript_Crissy::     @ trainer #7 (4,8) TRAINER_CRISSY, Emerald NORMAL sight 2
-SootopolisCity_Gym_B1F_EventScript_Olivia::     @ trainer #8 (9,7) TRAINER_OLIVIA, Emerald NORMAL sight 3
-SootopolisCity_Gym_B1F_EventScript_Daphne::     @ trainer #9 (6,13) TRAINER_DAPHNE, Emerald NORMAL sight 3
-SootopolisCity_Gym_B1F_EventScript_Annika::     @ trainer #10 (10,13) TRAINER_ANNIKA, Emerald NORMAL sight 3
+
+SootopolisCity_Gym_B1F_EventScript_Andrea::
+	trainerbattle_single TRAINER_ANDREA, SootopolisCity_Gym_B1F_Text_AndreaIntro, SootopolisCity_Gym_B1F_Text_AndreaDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_AndreaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Crissy::
+	trainerbattle_single TRAINER_CRISSY, SootopolisCity_Gym_B1F_Text_CrissyIntro, SootopolisCity_Gym_B1F_Text_CrissyDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_CrissyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Brianna::
+	trainerbattle_single TRAINER_BRIANNA, SootopolisCity_Gym_B1F_Text_BriannaIntro, SootopolisCity_Gym_B1F_Text_BriannaDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_BriannaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Connie::
+	trainerbattle_single TRAINER_CONNIE, SootopolisCity_Gym_B1F_Text_ConnieIntro, SootopolisCity_Gym_B1F_Text_ConnieDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_ConniePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Bridget::
+	trainerbattle_single TRAINER_BRIDGET, SootopolisCity_Gym_B1F_Text_BridgetIntro, SootopolisCity_Gym_B1F_Text_BridgetDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_BridgetPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Olivia::
+	trainerbattle_single TRAINER_OLIVIA, SootopolisCity_Gym_B1F_Text_OliviaIntro, SootopolisCity_Gym_B1F_Text_OliviaDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_OliviaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Tiffany::
+	trainerbattle_single TRAINER_TIFFANY, SootopolisCity_Gym_B1F_Text_TiffanyIntro, SootopolisCity_Gym_B1F_Text_TiffanyDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_TiffanyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Bethany::
+	trainerbattle_single TRAINER_BETHANY, SootopolisCity_Gym_B1F_Text_BethanyIntro, SootopolisCity_Gym_B1F_Text_BethanyDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_BethanyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Annika::
+	trainerbattle_single TRAINER_ANNIKA, SootopolisCity_Gym_B1F_Text_AnnikaIntro, SootopolisCity_Gym_B1F_Text_AnnikaDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_AnnikaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SootopolisCity_Gym_B1F_EventScript_Daphne::
+	trainerbattle_single TRAINER_DAPHNE, SootopolisCity_Gym_B1F_Text_DaphneIntro, SootopolisCity_Gym_B1F_Text_DaphneDefeat
+	msgbox SootopolisCity_Gym_B1F_Text_DaphnePostBattle, MSGBOX_AUTOCLOSE
 	end

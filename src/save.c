@@ -77,6 +77,9 @@ STATIC_ASSERT(sizeof(struct SaveBlock1) <= SECTOR_DATA_SIZE * (SECTOR_ID_SAVEBLO
 STATIC_ASSERT(sizeof(struct PokemonStorage) <= SECTOR_DATA_SIZE * (SECTOR_ID_PKMN_STORAGE_END - SECTOR_ID_PKMN_STORAGE_START + 1), PokemonStorageFreeSpace);
 // Graphics ids >= 256 keep their high byte in former padding bytes, and existing saves hold these structs at these
 // offsets: the save layout must not move
+STATIC_ASSERT(offsetof(struct SaveBlock2, extFlags) == 0xB20 && sizeof(struct SaveBlock2) == 0xF24, SaveBlock2ExtFlagsLayout);
+STATIC_ASSERT(TRAINER_FLAG(TRAINER_HOENN_START) == TRAINER_FLAGS_EXT_START && TRAINER_FLAG(MAX_TRAINERS_COUNT - 1) == TRAINER_FLAGS_END
+              && TRAINER_FLAG(NUM_TRAINERS - 1) < TRAINER_FLAGS_EXT_START + 1024, HoennTrainerFlagsInTheirBlock);
 STATIC_ASSERT(sizeof(struct ObjectEvent) == 0x24 && offsetof(struct ObjectEvent, graphicsIdHi) == 0x23, ObjectEventSaveLayout);
 STATIC_ASSERT(sizeof(struct ObjectEventTemplate) == 0x18 && offsetof(struct ObjectEventTemplate, graphicsIdHi) == 3, ObjectEventTemplateSaveLayout);
 STATIC_ASSERT(sizeof(struct QuestLogObjectEvent) == 0x14 && offsetof(struct QuestLogObjectEvent, graphicsIdHi) == 0x12, QuestLogObjectEventSaveLayout);

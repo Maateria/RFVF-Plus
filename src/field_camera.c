@@ -1,4 +1,5 @@
 #include "global.h"
+#include "rotating_gate.h"
 #include "gflib.h"
 #include "field_camera.h"
 #include "field_player_avatar.h"
@@ -501,7 +502,7 @@ void CameraUpdate(void)
 
         CameraMove(deltaX, deltaY);
         UpdateObjectEventsForCameraUpdate(deltaX, deltaY);
-        // RotatingGatePuzzleCameraUpdate(deltaX, deltaY);
+        RotatingGatePuzzleCameraUpdate(deltaX, deltaY);
         // ResetBerryTreeSparkleFlags();
         tilemap_move_something(&sFieldCameraOffset, deltaX * 2, deltaY * 2);
         RedrawMapSlicesForCameraUpdate(&sFieldCameraOffset, deltaX * 2, deltaY * 2);

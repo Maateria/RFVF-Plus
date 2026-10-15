@@ -1,4 +1,5 @@
 #include "global.h"
+#include "rotating_gate.h"
 #include "gflib.h"
 #include "bike.h"
 #include "event_data.h"
@@ -625,6 +626,8 @@ u8 CheckForObjectEventCollision(struct ObjectEvent *objectEvent, s16 x, s16 y, u
 
     if (collision == COLLISION_NONE)
     {
+        if (CheckForRotatingGatePuzzleCollision(direction, x, y))
+            return COLLISION_IMPASSABLE; // a gate that cannot rotate (Emerald's COLLISION_ROTATING_GATE, bug fixed)
         CheckAcroBikeCollision(x, y, metatileBehavior, &collision);
     }
     return collision;

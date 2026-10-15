@@ -40,6 +40,19 @@ static u32 GetHealLocationIndexFromMapGroupAndNum(u16 mapGroup, u16 mapNum)
     return 0;
 }
 
+// The last heal location: Ever Grande City has two (its Pokémon Center and the Pokémon League), told apart by x/y
+static u32 GetHealLocationIndexFromWarp(const struct WarpData *warp)
+{
+    u32 i;
+    for (i = 0; i < NELEMS(sSpawnPoints); i++)
+    {
+        if (sSpawnPoints[i].group == warp->mapGroup && sSpawnPoints[i].map == warp->mapNum
+         && sSpawnPoints[i].x == warp->x && sSpawnPoints[i].y == warp->y)
+            return i + 1;
+    }
+    return GetHealLocationIndexFromMapGroupAndNum(warp->mapGroup, warp->mapNum);
+}
+
 static const struct HealLocation * GetHealLocationPointerFromMapGroupAndNum(u16 mapGroup, u16 mapNum)
 {
     u32 i = GetHealLocationIndexFromMapGroupAndNum(mapGroup, mapNum);
@@ -75,7 +88,7 @@ void SetWhiteoutRespawnWarpAndHealerNpc(struct WarpData * warp)
     }
     else
     {
-        healLocationIdx = GetHealLocationIndexFromMapGroupAndNum(gSaveBlock1Ptr->lastHealLocation.mapGroup, gSaveBlock1Ptr->lastHealLocation.mapNum);
+        healLocationIdx = GetHealLocationIndexFromWarp(&gSaveBlock1Ptr->lastHealLocation);
         warp->mapGroup = sWhiteoutRespawnHealCenterMapIdxs[healLocationIdx - 1][0];
         warp->mapNum = sWhiteoutRespawnHealCenterMapIdxs[healLocationIdx - 1][1];
         warp->warpId = 0xFF;
@@ -89,6 +102,12 @@ void SetWhiteoutRespawnWarpAndHealerNpc(struct WarpData * warp)
         {
             warp->x = 13;
             warp->y = 12;
+        }
+        else if (sWhiteoutRespawnHealCenterMapIdxs[healLocationIdx - 1][0] == MAP_GROUP(EVER_GRANDE_CITY_POKEMON_LEAGUE_1F) && sWhiteoutRespawnHealCenterMapIdxs[healLocationIdx - 1][1] == MAP_NUM(EVER_GRANDE_CITY_POKEMON_LEAGUE_1F))
+        {
+            // in front of its nurse (Emerald's layout)
+            warp->x = 3;
+            warp->y = 4;
         }
         else if (sWhiteoutRespawnHealCenterMapIdxs[healLocationIdx - 1][0] == MAP_GROUP(ONE_ISLAND_POKEMON_CENTER_1F) && sWhiteoutRespawnHealCenterMapIdxs[healLocationIdx - 1][1] == MAP_NUM(ONE_ISLAND_POKEMON_CENTER_1F))
         {

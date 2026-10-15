@@ -1,3 +1,47 @@
+.equ LOCALID_JACE, 1
+.equ LOCALID_KEEGAN, 2
+.equ LOCALID_JEFF, 3
+.equ LOCALID_ELI, 4
+
 LavaridgeTown_Gym_B1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LavaridgeTown_Gym_B1F_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (LavaridgeTown_Gym_B1F_OnTransition)
+
+LavaridgeTown_Gym_B1F_OnTransition:
+	call LavaridgeTown_Gym_B1F_EventScript_CheckBuryTrainers
+	end
+
+LavaridgeTown_Gym_B1F_EventScript_Jace::
+	trainerbattle_single TRAINER_JACE, LavaridgeTown_Gym_B1F_Text_JaceIntro, LavaridgeTown_Gym_B1F_Text_JaceDefeat
+	msgbox LavaridgeTown_Gym_B1F_Text_JacePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_B1F_EventScript_Keegan::
+	trainerbattle_single TRAINER_KEEGAN, LavaridgeTown_Gym_B1F_Text_KeeganIntro, LavaridgeTown_Gym_B1F_Text_KeeganDefeat
+	msgbox LavaridgeTown_Gym_B1F_Text_KeeganPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_B1F_EventScript_Jeff::
+	trainerbattle_single TRAINER_JEFF, LavaridgeTown_Gym_B1F_Text_JeffIntro, LavaridgeTown_Gym_B1F_Text_JeffDefeat
+	msgbox LavaridgeTown_Gym_B1F_Text_JeffPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_B1F_EventScript_Eli::
+	trainerbattle_single TRAINER_ELI, LavaridgeTown_Gym_B1F_Text_EliIntro, LavaridgeTown_Gym_B1F_Text_EliDefeat
+	msgbox LavaridgeTown_Gym_B1F_Text_EliPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+LavaridgeTown_Gym_B1F_EventScript_CheckBuryTrainers::
+	goto_if_defeated TRAINER_KEEGAN, LavaridgeTown_Gym_B1F_EventScript_CheckBuryJace
+	setobjectmovementtype LOCALID_KEEGAN, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_B1F_EventScript_CheckBuryJace::
+	goto_if_defeated TRAINER_JACE, LavaridgeTown_Gym_B1F_EventScript_CheckBuryJeff
+	setobjectmovementtype LOCALID_JACE, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_B1F_EventScript_CheckBuryJeff::
+	goto_if_defeated TRAINER_JEFF, LavaridgeTown_Gym_B1F_EventScript_CheckBuryEli
+	setobjectmovementtype LOCALID_JEFF, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_B1F_EventScript_CheckBuryEli::
+	goto_if_defeated TRAINER_ELI, LavaridgeTown_Gym_B1F_EventScript_EndCheckBuryTrainers
+	setobjectmovementtype LOCALID_ELI, MOVEMENT_TYPE_BURIED
+LavaridgeTown_Gym_B1F_EventScript_EndCheckBuryTrainers::
+	return

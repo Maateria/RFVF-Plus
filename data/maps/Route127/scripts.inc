@@ -10,13 +10,51 @@ Route127_EventScript_ItemCarbos::               @ item ball, works (FLAG_ITEM_RO
 Route127_EventScript_ItemRareCandy::            @ item ball, works (FLAG_ITEM_ROUTE_127_RARE_CANDY)
 	finditem ITEM_RARE_CANDY
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route127/scripts.inc
-Route127_EventScript_Camden::                   @ trainer #1 (45,42) TRAINER_CAMDEN, Emerald NORMAL sight 2
-Route127_EventScript_Donny::                    @ trainer #2 (18,68) TRAINER_DONNY, Emerald NORMAL sight 4
-Route127_EventScript_Jonah::                    @ trainer #5 (42,21) TRAINER_JONAH, Emerald NORMAL sight 0
-Route127_EventScript_Roger::                    @ trainer #6 (64,19) TRAINER_ROGER, Emerald NORMAL sight 0
-Route127_EventScript_Henry::                    @ trainer #7 (54,14) TRAINER_HENRY, Emerald NORMAL sight 0
-Route127_EventScript_Aidan::                    @ trainer #8 (15,23) TRAINER_AIDAN, Emerald NORMAL sight 2
-Route127_EventScript_Koji::                     @ trainer #9 (63,63) TRAINER_KOJI_1, Emerald NORMAL sight 3
-Route127_EventScript_Athena::                   @ trainer #10 (12,23) TRAINER_ATHENA, Emerald NORMAL sight 2
+
+Route127_EventScript_Camden::
+	trainerbattle_single TRAINER_CAMDEN, Route127_Text_CamdenIntro, Route127_Text_CamdenDefeat
+	msgbox Route127_Text_CamdenPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Donny::
+	trainerbattle_single TRAINER_DONNY, Route127_Text_DonnyIntro, Route127_Text_DonnyDefeat
+	msgbox Route127_Text_DonnyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Jonah::
+	trainerbattle_single TRAINER_JONAH, Route127_Text_JonahIntro, Route127_Text_JonahDefeat
+	msgbox Route127_Text_JonahPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Roger::
+	trainerbattle_single TRAINER_ROGER, Route127_Text_RogerIntro, Route127_Text_RogerDefeat
+	msgbox Route127_Text_RogerPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Henry::
+	trainerbattle_single TRAINER_HENRY, Route127_Text_HenryIntro, Route127_Text_HenryDefeat
+	msgbox Route127_Text_HenryPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Aidan::
+	trainerbattle_single TRAINER_AIDAN, Route127_Text_AidanIntro, Route127_Text_AidanDefeat
+	msgbox Route127_Text_AidanPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Koji::
+	trainerbattle_single TRAINER_KOJI_1, Route127_Text_KojiIntro, Route127_Text_KojiDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route127_EventScript_RematchKoji
+	msgbox Route127_Text_KojiPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route127_EventScript_RematchKoji::
+	trainerbattle_rematch TRAINER_KOJI_1, Route127_Text_KojiRematchIntro, Route127_Text_KojiRematchDefeat
+	msgbox Route127_Text_KojiPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route127_EventScript_Athena::
+	trainerbattle_single TRAINER_ATHENA, Route127_Text_AthenaIntro, Route127_Text_AthenaDefeat
+	msgbox Route127_Text_AthenaPostBattle, MSGBOX_AUTOCLOSE
 	end

@@ -81,5 +81,5 @@
       "script": "DesertRuins_EventScript_CaveEntranceSide"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

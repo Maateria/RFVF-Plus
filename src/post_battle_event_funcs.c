@@ -51,6 +51,17 @@ bool8 EnterHallOfFame(void)
     return FALSE;
 }
 
+// Hoenn's Hall of Fame: as Kanto's, but back to the League's Pokémon Center afterwards, without the credits
+EWRAM_DATA bool8 gHoennHallOfFame = FALSE;
+
+bool8 EnterHoennHallOfFame(void)
+{
+    EnterHallOfFame();
+    gHoennHallOfFame = TRUE;
+    SetContinueGameWarpToHealLocation(SPAWN_EVER_GRANDE_CITY_POKEMON_LEAGUE);
+    return FALSE;
+}
+
 bool8 SetCB2WhiteOut(void)
 {
     SetMainCallback2(CB2_WhiteOut);

@@ -261,6 +261,8 @@ u8 *GetFlagAddr(u16 idx)
     u8 *ptr;
     if (idx == 0)
         return NULL;
+    if (idx >= EXT_FLAGS_START && idx < EXT_FLAGS_START + EXT_FLAGS_COUNT)
+        return &gSaveBlock2Ptr->extFlags[(idx - EXT_FLAGS_START) / 8];
     if (idx < SPECIAL_FLAGS_START)
     {
         switch (gQuestLogPlaybackState)

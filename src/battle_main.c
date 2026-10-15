@@ -556,6 +556,8 @@ const struct TrainerMoney gTrainerMoneyTable[] =
     {TRAINER_CLASS_AQUA_ADMIN, 10},
     {TRAINER_CLASS_AQUA_LEADER, 20},
     {TRAINER_CLASS_BOSS, 25},
+    {TRAINER_CLASS_RIVAL, 15},
+    {TRAINER_CLASS_WINSTRATE, 10},
     { 0xFF, 5},
 };
 
@@ -3864,7 +3866,31 @@ static void HandleEndTurn_BattleWon(void)
             gBattlescriptCurrInstr = BattleScript_MasterTrainerBattleWon;
         else
             gBattlescriptCurrInstr = BattleScript_LocalTrainerBattleWon;
-        switch (sTrainers[gTrainerBattleOpponent_A].trainerClass)
+        if (IsHoennTrainer(gTrainerBattleOpponent_A))
+        {   // Emerald's
+            switch (gTrainers[gTrainerBattleOpponent_A].trainerClass)
+            {
+            case TRAINER_CLASS_RS_ELITE_FOUR:
+            case TRAINER_CLASS_RS_CHAMPION:
+                PlayBGM(MUS_VICTORY_LEAGUE);
+                break;
+            case TRAINER_CLASS_TEAM_AQUA:
+            case TRAINER_CLASS_TEAM_MAGMA:
+            case TRAINER_CLASS_AQUA_ADMIN:
+            case TRAINER_CLASS_AQUA_LEADER:
+            case TRAINER_CLASS_MAGMA_ADMIN:
+            case TRAINER_CLASS_MAGMA_LEADER:
+                PlayBGM(MUS_VICTORY_AQUA_MAGMA);
+                break;
+            case TRAINER_CLASS_RS_LEADER:
+                PlayBGM(MUS_RS_VICTORY_GYM_LEADER);
+                break;
+            default:
+                PlayBGM(MUS_RS_VICTORY_TRAINER);
+                break;
+            }
+        }
+        else switch (sTrainers[gTrainerBattleOpponent_A].trainerClass)
         {
         case TRAINER_CLASS_LEADER:
         case TRAINER_CLASS_CHAMPION:

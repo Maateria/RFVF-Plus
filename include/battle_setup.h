@@ -22,6 +22,7 @@ u8 GetTrainerBattleMode(void);
 u16 GetRivalBattleFlags(void);
 void SetBattledTrainerFlag(void);
 bool8 HasTrainerBeenFought(u16 trainerId);
+bool32 IsHoennTrainer(u16 trainerId);
 void SetTrainerFlag(u16 trainerId);
 void ClearTrainerFlag(u16 trainerId);
 void StartTrainerBattle(void);

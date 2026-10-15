@@ -842,7 +842,7 @@ static u8 TrainerBattleLoadArg8(const u8 *ptr)
 
 static u16 GetTrainerAFlag(void)
 {
-    return TRAINER_FLAGS_START + gTrainerBattleOpponent_A;
+    return TRAINER_FLAG(gTrainerBattleOpponent_A);
 }
 
 static bool32 IsPlayerDefeated(u32 battleOutcome)
@@ -999,7 +999,7 @@ bool32 GetTrainerFlagFromScriptPointer(const u8 *data)
 {
     u32 flag = TrainerBattleLoadArg16(data + 2);
 
-    return FlagGet(TRAINER_FLAGS_START + flag);
+    return FlagGet(TRAINER_FLAG(flag));
 }
 
 void SetUpTrainerMovement(void)
@@ -1050,7 +1050,7 @@ bool8 HasTrainerBeenFought(u16 trainerId)
     {
         return CheckMasterTrainerFlag(gSpecialVar_0x8009);
     }
-    return FlagGet(TRAINER_FLAGS_START + trainerId);
+    return FlagGet(TRAINER_FLAG(trainerId));
 }
 
 void SetTrainerFlag(u16 trainerId)
@@ -1060,12 +1060,12 @@ void SetTrainerFlag(u16 trainerId)
         SetMasterTrainerFlag(gSpecialVar_0x8009);
         return;
     }
-    FlagSet(TRAINER_FLAGS_START + trainerId);
+    FlagSet(TRAINER_FLAG(trainerId));
 }
 
 void ClearTrainerFlag(u16 trainerId)
 {
-    FlagClear(TRAINER_FLAGS_START + trainerId);
+    FlagClear(TRAINER_FLAG(trainerId));
 }
 
 void StartTrainerBattle(void)
@@ -1194,6 +1194,30 @@ void ShowTrainerCantBattleSpeech(void)
     ShowFieldMessage(GetTrainerCantBattleSpeech());
 }
 
+bool32 IsHoennTrainer(u16 trainerId)
+{
+    return trainerId >= TRAINER_HOENN_START && !FlagGet(FLAG_MASTER_TRAINER_BATTLE);
+}
+
+// Emerald's, for Hoenn's trainers
+static const u16 sHoennEncounterMusic[] =
+{
+    [TRAINER_ENCOUNTER_MUSIC_MALE]        = MUS_ENCOUNTER_MALE,
+    [TRAINER_ENCOUNTER_MUSIC_FEMALE]      = MUS_ENCOUNTER_FEMALE,
+    [TRAINER_ENCOUNTER_MUSIC_GIRL]        = MUS_RS_ENCOUNTER_GIRL,
+    [TRAINER_ENCOUNTER_MUSIC_SUSPICIOUS]  = MUS_ENCOUNTER_SUSPICIOUS,
+    [TRAINER_ENCOUNTER_MUSIC_INTENSE]     = MUS_ENCOUNTER_INTENSE,
+    [TRAINER_ENCOUNTER_MUSIC_COOL]        = MUS_ENCOUNTER_COOL,
+    [TRAINER_ENCOUNTER_MUSIC_AQUA]        = MUS_ENCOUNTER_AQUA,
+    [TRAINER_ENCOUNTER_MUSIC_MAGMA]       = MUS_ENCOUNTER_MAGMA,
+    [TRAINER_ENCOUNTER_MUSIC_SWIMMER]     = MUS_ENCOUNTER_SWIMMER,
+    [TRAINER_ENCOUNTER_MUSIC_TWINS]       = MUS_ENCOUNTER_TWINS,
+    [TRAINER_ENCOUNTER_MUSIC_ELITE_FOUR]  = MUS_ENCOUNTER_ELITE_FOUR,
+    [TRAINER_ENCOUNTER_MUSIC_HIKER]       = MUS_ENCOUNTER_HIKER,
+    [TRAINER_ENCOUNTER_MUSIC_INTERVIEWER] = MUS_ENCOUNTER_INTERVIEWER,
+    [TRAINER_ENCOUNTER_MUSIC_RICH]        = MUS_ENCOUNTER_RICH,
+};
+
 void PlayTrainerEncounterMusic(void)
 {
     u16 music;
@@ -1202,7 +1226,9 @@ void PlayTrainerEncounterMusic(void)
      && sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC
      && sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC)
     {
-        switch (GetTrainerEncounterMusicId(gTrainerBattleOpponent_A))
+        if (IsHoennTrainer(gTrainerBattleOpponent_A))
+            music = sHoennEncounterMusic[GetTrainerEncounterMusicId(gTrainerBattleOpponent_A)];
+        else switch (GetTrainerEncounterMusicId(gTrainerBattleOpponent_A))
         {
         case TRAINER_ENCOUNTER_MUSIC_FEMALE:
         case TRAINER_ENCOUNTER_MUSIC_GIRL:

@@ -9,11 +9,45 @@ JaggedPass_OnResume:
 JaggedPass_EventScript_ItemBurnHeal::           @ item ball, works (FLAG_ITEM_JAGGED_PASS_BURN_HEAL)
 	finditem ITEM_BURN_HEAL
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/JaggedPass/scripts.inc
-JaggedPass_EventScript_Eric::                   @ trainer #1 (10,8) TRAINER_ERIC, Emerald NORMAL sight 3
-JaggedPass_EventScript_Ethan::                  @ trainer #2 (16,35) TRAINER_ETHAN_1, Emerald NORMAL sight 4
-JaggedPass_EventScript_Diana::                  @ trainer #4 (9,21) TRAINER_DIANA_1, Emerald NORMAL sight 3
-JaggedPass_EventScript_Autumn::                 @ trainer #5 (14,25) TRAINER_AUTUMN, Emerald NORMAL sight 3
-JaggedPass_EventScript_Julio::                  @ trainer #6 (18,25) TRAINER_JULIO, Emerald NORMAL sight 3
-	end
 @ hoenn_import: left out: trigger (21,15) VAR_JAGGED_PASS_STATE==1 -> JaggedPass_EventScript_OpenMagmaHideout; trigger (22,20) VAR_JAGGED_PASS_STATE==1 -> JaggedPass_EventScript_OpenMagmaHideout; trigger (21,20) VAR_JAGGED_PASS_STATE==1 -> JaggedPass_EventScript_OpenMagmaHideout; trigger (14,15) VAR_JAGGED_PASS_STATE==1 -> JaggedPass_EventScript_OpenMagmaHideout; trigger (13,15) VAR_JAGGED_PASS_STATE==1 -> JaggedPass_EventScript_OpenMagmaHideout
+
+JaggedPass_EventScript_Eric::
+	trainerbattle_single TRAINER_ERIC, JaggedPass_Text_EricIntro, JaggedPass_Text_EricDefeat
+	msgbox JaggedPass_Text_EricPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+JaggedPass_EventScript_Ethan::
+	trainerbattle_single TRAINER_ETHAN_1, JaggedPass_Text_EthanIntro, JaggedPass_Text_EthanDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, JaggedPass_EventScript_EthanRematch
+	msgbox JaggedPass_Text_EthanPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+JaggedPass_EventScript_EthanRematch::
+	trainerbattle_rematch TRAINER_ETHAN_1, JaggedPass_Text_EthanRematchIntro, JaggedPass_Text_EthanRematchDefeat
+	msgbox JaggedPass_Text_EthanPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+JaggedPass_EventScript_Diana::
+	trainerbattle_single TRAINER_DIANA_1, JaggedPass_Text_DianaIntro, JaggedPass_Text_DianaDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, JaggedPass_EventScript_DianaRematch
+	msgbox JaggedPass_Text_DianaPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+JaggedPass_EventScript_DianaRematch::
+	trainerbattle_rematch TRAINER_DIANA_1, JaggedPass_Text_DianaRematchIntro, JaggedPass_Text_DianaRematchDefeat
+	msgbox JaggedPass_Text_DianaPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+JaggedPass_EventScript_Autumn::
+	trainerbattle_single TRAINER_AUTUMN, JaggedPass_Text_AutumnIntro, JaggedPass_Text_AutumnDefeat
+	msgbox JaggedPass_Text_AutumnPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+JaggedPass_EventScript_Julio::
+	trainerbattle_single TRAINER_JULIO, JaggedPass_Text_JulioIntro, JaggedPass_Text_JulioDefeat
+	msgbox JaggedPass_Text_JulioPostBattle, MSGBOX_AUTOCLOSE
+	end

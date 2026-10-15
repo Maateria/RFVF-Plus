@@ -17,24 +17,112 @@ Route123_EventScript_ItemRevivalHerb::          @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_REVIVAL_HERB
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route123/scripts.inc
-Route123_EventScript_Wendy::                    @ trainer #1 (70,12) TRAINER_WENDY, Emerald NORMAL sight 1
-Route123_EventScript_Braxton::                  @ trainer #2 (58,7) TRAINER_BRAXTON, Emerald NORMAL sight 2
 Route123_EventScript_GigaDrainGirl::            @ NPC #7 (108,13)
-Route123_EventScript_Violet::                   @ trainer #8 (18,9) TRAINER_VIOLET, Emerald NORMAL sight 2
-Route123_EventScript_Yuki::                     @ trainer #9 (38,13) TRAINER_MIU_AND_YUKI, Emerald NORMAL sight 1
-Route123_EventScript_Miu::                      @ trainer #10 (37,13) TRAINER_MIU_AND_YUKI, Emerald NORMAL sight 1
-Route123_EventScript_Cameron::                  @ trainer #11 (138,12) TRAINER_CAMERON_1, Emerald NORMAL sight 7
-Route123_EventScript_Jacki::                    @ trainer #12 (49,16) TRAINER_JACKI_1, Emerald NORMAL sight 1
-Route123_EventScript_Kindra::                   @ trainer #13 (87,12) TRAINER_KINDRA, Emerald NORMAL sight 4
-Route123_EventScript_Jonas::                    @ trainer #16 (138,14) TRAINER_JONAS, Emerald NORMAL sight 1
-Route123_EventScript_Kayley::                   @ trainer #17 (138,16) TRAINER_KAYLEY, Emerald NORMAL sight 1
-Route123_EventScript_Ed::                       @ trainer #18 (87,17) TRAINER_ED, Emerald NORMAL sight 4
-Route123_EventScript_Fernando::                 @ trainer #19 (66,16) TRAINER_FERNANDO_1, Emerald NORMAL sight 2
-Route123_EventScript_Alberto::                  @ trainer #20 (66,19) TRAINER_ALBERTO, Emerald NORMAL sight 2
-Route123_EventScript_Frederick::                @ trainer #21 (49,19) TRAINER_FREDRICK, Emerald NORMAL sight 2
-Route123_EventScript_Jazmyn::                   @ trainer #23 (14,16) TRAINER_JAZMYN, Emerald NORMAL sight 3
-Route123_EventScript_Davis::                    @ trainer #24 (14,12) TRAINER_DAVIS, Emerald NORMAL sight 3
 Route123_EventScript_RouteSignMtPyre::          @ sign (117,10)
 Route123_EventScript_RouteSign::                @ sign (10,12)
 Route123_EventScript_BerryMastersHouseSign::    @ sign (20,7)
+	end
+
+Route123_EventScript_Wendy::
+	trainerbattle_single TRAINER_WENDY, Route123_Text_WendyIntro, Route123_Text_WendyDefeat
+	msgbox Route123_Text_WendyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Braxton::
+	trainerbattle_single TRAINER_BRAXTON, Route123_Text_BraxtonIntro, Route123_Text_BraxtonDefeat
+	msgbox Route123_Text_BraxtonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Violet::
+	trainerbattle_single TRAINER_VIOLET, Route123_Text_VioletIntro, Route123_Text_VioletDefeat
+	msgbox Route123_Text_VioletPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Yuki::
+	trainerbattle_double TRAINER_MIU_AND_YUKI, Route123_Text_YukiIntro, Route123_Text_YukiDefeat, Route123_Text_YukiNotEnoughMons
+	msgbox Route123_Text_YukiPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Miu::
+	trainerbattle_double TRAINER_MIU_AND_YUKI, Route123_Text_MiuIntro, Route123_Text_MiuDefeat, Route123_Text_MiuNotEnoughMons
+	msgbox Route123_Text_MiuPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Cameron::
+	trainerbattle_single TRAINER_CAMERON_1, Route123_Text_CameronIntro, Route123_Text_CameronDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route123_EventScript_RematchCameron
+	msgbox Route123_Text_CameronPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route123_EventScript_RematchCameron::
+	trainerbattle_rematch TRAINER_CAMERON_1, Route123_Text_CameronRematchIntro, Route123_Text_CameronRematchDefeat
+	msgbox Route123_Text_CameronPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Jacki::
+	trainerbattle_single TRAINER_JACKI_1, Route123_Text_JackiIntro, Route123_Text_JackiDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route123_EventScript_RematchJacki
+	msgbox Route123_Text_JackiPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route123_EventScript_RematchJacki::
+	trainerbattle_rematch TRAINER_JACKI_1, Route123_Text_JackiRematchIntro, Route123_Text_JackiRematchDefeat
+	msgbox Route123_Text_JackiPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Kindra::
+	trainerbattle_single TRAINER_KINDRA, Route123_Text_KindraIntro, Route123_Text_KindraDefeat
+	msgbox Route123_Text_KindraPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Jonas::
+	trainerbattle_single TRAINER_JONAS, Route123_Text_JonasIntro, Route123_Text_JonasDefeat
+	msgbox Route123_Text_JonasPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Kayley::
+	trainerbattle_single TRAINER_KAYLEY, Route123_Text_KayleyIntro, Route123_Text_KayleyDefeat
+	msgbox Route123_Text_KayleyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Ed::
+	trainerbattle_single TRAINER_ED, Route123_Text_EdIntro, Route123_Text_EdDefeat
+	msgbox Route123_Text_EdPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Fernando::
+	trainerbattle_single TRAINER_FERNANDO_1, Route123_Text_FernandoIntro, Route123_Text_FernandoDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route123_EventScript_RematchFernando
+	msgbox Route123_Text_FernandoPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route123_EventScript_RematchFernando::
+	trainerbattle_rematch TRAINER_FERNANDO_1, Route123_Text_FernandoRematchIntro, Route123_Text_FernandoRematchDefeat
+	msgbox Route123_Text_FernandoPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Alberto::
+	trainerbattle_single TRAINER_ALBERTO, Route123_Text_AlbertoIntro, Route123_Text_AlbertoDefeat
+	msgbox Route123_Text_AlbertoPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Frederick::
+	trainerbattle_single TRAINER_FREDRICK, Route123_Text_FrederickIntro, Route123_Text_FrederickDefeat
+	msgbox Route123_Text_FrederickPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Jazmyn::
+	trainerbattle_single TRAINER_JAZMYN, Route123_Text_JazmynIntro, Route123_Text_JazmynDefeat
+	msgbox Route123_Text_JazmynPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route123_EventScript_Davis::
+	trainerbattle_single TRAINER_DAVIS, Route123_Text_DavisIntro, Route123_Text_DavisDefeat
+	msgbox Route123_Text_DavisPostBattle, MSGBOX_AUTOCLOSE
 	end

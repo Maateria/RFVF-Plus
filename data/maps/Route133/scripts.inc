@@ -9,12 +9,38 @@ Route133_EventScript_ItemStarPiece::            @ item ball, works (FLAG_ITEM_RO
 Route133_EventScript_ItemMaxRevive::            @ item ball, works (FLAG_ITEM_ROUTE_133_MAX_REVIVE)
 	finditem ITEM_MAX_REVIVE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route133/scripts.inc
-Route133_EventScript_Franklin::                 @ trainer #1 (68,27) TRAINER_FRANKLIN, Emerald NORMAL sight 3
-Route133_EventScript_Linda::                    @ trainer #2 (13,3) TRAINER_LINDA, Emerald NORMAL sight 3
-Route133_EventScript_Debra::                    @ trainer #3 (68,28) TRAINER_DEBRA, Emerald NORMAL sight 3
-Route133_EventScript_Beck::                     @ trainer #6 (7,14) TRAINER_BECK, Emerald NORMAL sight 2
-Route133_EventScript_Warren::                   @ trainer #7 (37,15) TRAINER_WARREN, Emerald NORMAL sight 4
-Route133_EventScript_Mollie::                   @ trainer #8 (56,11) TRAINER_MOLLIE, Emerald NORMAL sight 3
-Route133_EventScript_Conor::                    @ trainer #9 (56,15) TRAINER_CONOR, Emerald NORMAL sight 3
+
+Route133_EventScript_Franklin::
+	trainerbattle_single TRAINER_FRANKLIN, Route133_Text_FranklinIntro, Route133_Text_FranklinDefeat
+	msgbox Route133_Text_FranklinPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route133_EventScript_Linda::
+	trainerbattle_single TRAINER_LINDA, Route133_Text_LindaIntro, Route133_Text_LindaDefeat
+	msgbox Route133_Text_LindaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route133_EventScript_Debra::
+	trainerbattle_single TRAINER_DEBRA, Route133_Text_DebraIntro, Route133_Text_DebraDefeat
+	msgbox Route133_Text_DebraPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route133_EventScript_Beck::
+	trainerbattle_single TRAINER_BECK, Route133_Text_BeckIntro, Route133_Text_BeckDefeat
+	msgbox Route133_Text_BeckPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route133_EventScript_Warren::
+	trainerbattle_single TRAINER_WARREN, Route133_Text_WarrenIntro, Route133_Text_WarrenDefeat
+	msgbox Route133_Text_WarrenPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route133_EventScript_Mollie::
+	trainerbattle_single TRAINER_MOLLIE, Route133_Text_MollieIntro, Route133_Text_MollieDefeat
+	msgbox Route133_Text_MolliePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route133_EventScript_Conor::
+	trainerbattle_single TRAINER_CONOR, Route133_Text_ConorIntro, Route133_Text_ConorDefeat
+	msgbox Route133_Text_ConorPostBattle, MSGBOX_AUTOCLOSE
 	end

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "rotating_gate.h"
 #include "gflib.h"
 #include "bg_regs.h"
 #include "cable_club.h"
@@ -2336,6 +2337,7 @@ static void InitObjectEventsLocal(void)
 static void ReloadObjectsAndRunReturnToFieldMapScript(void)
 {
     SpawnObjectEventsOnReturnToField(0, 0);
+    RotatingGate_InitPuzzleAndGraphics();
     RunOnReturnToFieldMapScript();
 }
 

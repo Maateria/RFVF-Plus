@@ -93,6 +93,22 @@
 #define MULTICHOICE_SEVII_OTHER_LILYCOVE                       86
 #define MULTICHOICE_SEAGALLOP_123_LILYCOVE                     87
 #define MULTICHOICE_SEAGALLOP_LILYCOVE                         88
+// Emerald's (its names): the Trick House mechadolls' quiz
+#define MULTI_MECHADOLL1_Q1                                    89
+#define MULTI_MECHADOLL1_Q2                                    90
+#define MULTI_MECHADOLL1_Q3                                    91
+#define MULTI_MECHADOLL2_Q1                                    92
+#define MULTI_MECHADOLL2_Q2                                    93
+#define MULTI_MECHADOLL2_Q3                                    94
+#define MULTI_MECHADOLL3_Q1                                    95
+#define MULTI_MECHADOLL3_Q2                                    96
+#define MULTI_MECHADOLL3_Q3                                    97
+#define MULTI_MECHADOLL4_Q1                                    98
+#define MULTI_MECHADOLL4_Q2                                    99
+#define MULTI_MECHADOLL4_Q3                                    100
+#define MULTI_MECHADOLL5_Q1                                    101
+#define MULTI_MECHADOLL5_Q2                                    102
+#define MULTI_MECHADOLL5_Q3                                    103
 
 
 #define MULTICHOICE_NONE                                      255

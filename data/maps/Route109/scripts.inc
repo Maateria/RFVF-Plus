@@ -7,26 +7,98 @@ Route109_EventScript_ItemPotion::               @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_POTION
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route109/scripts.inc
-Route109_EventScript_David::                    @ trainer #1 (12,36) TRAINER_DAVID, Emerald NORMAL sight 5
-Route109_EventScript_Alice::                    @ trainer #2 (25,39) TRAINER_ALICE, Emerald NORMAL sight 5
-Route109_EventScript_Huey::                     @ trainer #3 (15,17) TRAINER_HUEY, Emerald NORMAL sight 1
-Route109_EventScript_Edmond::                   @ trainer #4 (24,13) TRAINER_EDMOND, Emerald NORMAL sight 6
-Route109_EventScript_Ricky::                    @ trainer #5 (19,10) TRAINER_RICKY_1, Emerald NORMAL sight 3
-Route109_EventScript_Lola::                     @ trainer #6 (22,7) TRAINER_LOLA_1, Emerald NORMAL sight 4
 Route109_EventScript_SeashoreHouseGirl::        @ NPC #7 (11,6)
-Route109_EventScript_Gwen::                     @ trainer #9 (29,32) TRAINER_GWEN, Emerald NORMAL sight 3
-Route109_EventScript_Austina::                  @ trainer #10 (28,31) TRAINER_AUSTINA, Emerald NORMAL sight 3
-Route109_EventScript_Carter::                   @ trainer #11 (21,56) TRAINER_CARTER, Emerald NORMAL sight 3
 Route109_EventScript_SandCastleBoy::            @ NPC #12 (24,18)
 Route109_EventScript_SoftSandGirl::             @ NPC #13 (25,18)
 Route109_EventScript_Woman::                    @ NPC #14 (30,32)
-Route109_EventScript_Mel::                      @ trainer #15 (8,41) TRAINER_MEL_AND_PAUL, Emerald NORMAL sight 1
-Route109_EventScript_Paul::                     @ trainer #16 (9,41) TRAINER_MEL_AND_PAUL, Emerald NORMAL sight 1
 Route109_EventScript_OldMan::                   @ NPC #17 (33,6)
 Route109_EventScript_Zigzagoon::                @ NPC #18 (32,6)
-Route109_EventScript_Hailey::                   @ trainer #19 (17,13) TRAINER_HAILEY, Emerald NORMAL sight 6
-Route109_EventScript_Chandler::                 @ trainer #20 (27,7) TRAINER_CHANDLER, Emerald NORMAL sight 4
-Route109_EventScript_Elijah::                   @ trainer #22 (17,56) TRAINER_ELIJAH, Emerald NORMAL sight 3
 Route109_EventScript_SeashoreHouseSign::        @ sign (15,5)
 Route109_EventScript_TrainerTipsSign::          @ sign (29,10)
+	end
+
+Route109_EventScript_David::
+	trainerbattle_single TRAINER_DAVID, Route109_Text_DavidIntro, Route109_Text_DavidDefeated
+	msgbox Route109_Text_DavidPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Alice::
+	trainerbattle_single TRAINER_ALICE, Route109_Text_AliceIntro, Route109_Text_AliceDefeated
+	msgbox Route109_Text_AlicePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Huey::
+	trainerbattle_single TRAINER_HUEY, Route109_Text_HueyIntro, Route109_Text_HueyDefeated
+	msgbox Route109_Text_HueyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Edmond::
+	trainerbattle_single TRAINER_EDMOND, Route109_Text_EdmondIntro, Route109_Text_EdmondDefeated
+	msgbox Route109_Text_EdmondPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Ricky::
+	trainerbattle_single TRAINER_RICKY_1, Route109_Text_RickyIntro, Route109_Text_RickyDefeated
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route109_EventScript_RickyRematch
+	msgbox Route109_Text_RickyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_EventScript_RickyRematch::
+	trainerbattle_rematch TRAINER_RICKY_1, Route109_Text_RickyRematchIntro, Route109_Text_RickyRematchDefeated
+	msgbox Route109_Text_RickyRematchPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Lola::
+	trainerbattle_single TRAINER_LOLA_1, Route109_Text_LolaIntro, Route109_Text_LolaDefeated
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route109_EventScript_LolaRematch
+	msgbox Route109_Text_LolaPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_EventScript_LolaRematch::
+	trainerbattle_rematch TRAINER_LOLA_1, Route109_Text_LolaRematchIntro, Route109_Text_LolaRematchDefeated
+	msgbox Route109_Text_LolaRematchPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Gwen::
+	trainerbattle_single TRAINER_GWEN, Route109_Text_GwenIntro, Route109_Text_GwenDefeated
+	msgbox Route109_Text_GwenPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Austina::
+	trainerbattle_single TRAINER_AUSTINA, Route109_Text_AustinaIntro, Route109_Text_AustinaDefeated
+	msgbox Route109_Text_AustinaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Carter::
+	trainerbattle_single TRAINER_CARTER, Route109_Text_CarterIntro, Route109_Text_CarterDefeated
+	msgbox Route109_Text_CarterPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Mel::
+	trainerbattle_double TRAINER_MEL_AND_PAUL, Route109_Text_MelIntro, Route109_Text_MelDefeated, Route109_Text_MelNotEnoughPokemon
+	msgbox Route109_Text_MelPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Paul::
+	trainerbattle_double TRAINER_MEL_AND_PAUL, Route109_Text_PaulIntro, Route109_Text_PaulDefeated, Route109_Text_PaulNotEnoughPokemon
+	msgbox Route109_Text_PaulPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Hailey::
+	trainerbattle_single TRAINER_HAILEY, Route109_Text_HaileyIntro, Route109_Text_HaileyDefeated
+	msgbox Route109_Text_HaileyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Chandler::
+	trainerbattle_single TRAINER_CHANDLER, Route109_Text_ChandlerIntro, Route109_Text_ChandlerDefeated
+	msgbox Route109_Text_ChandlerPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route109_EventScript_Elijah::
+	trainerbattle_single TRAINER_ELIJAH, Route109_Text_ElijahIntro, Route109_Text_ElijahDefeated
+	msgbox Route109_Text_ElijahPostBattle, MSGBOX_AUTOCLOSE
 	end

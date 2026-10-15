@@ -165,5 +165,5 @@
       "script": "RustboroCity_PokemonSchool_EventScript_StudentNotebook"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

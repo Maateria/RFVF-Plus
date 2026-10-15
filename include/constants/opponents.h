@@ -770,11 +770,12 @@
 #define TRAINER_BROCK_REMATCH                    765
 #define TRAINER_BROCK_REMATCH_CHALLENGE          766
 #define TRAINER_MISTY_REMATCH                    767
-// NOTE: Because each Trainer uses a flag to determine when they are defeated, there is 
-//       only space for 25 additional trainers before trainer flag space overflows.
-//       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
-
-#define NUM_TRAINERS                             768
+// Kanto's trainers, whose defeat flags are TRAINER_FLAGS_START.. TRAINER_FLAGS_END. The trainers after them (Hoenn's) keep
+// theirs in the extended flags (TRAINER_FLAG in constants/flags.h).
 #define MAX_TRAINERS_COUNT                       768
+
+#include "constants/opponents_hoenn.h"
+
+#define NUM_TRAINERS                             (TRAINER_HOENN_START + HOENN_TRAINERS_COUNT)
 
 #endif  // GUARD_CONSTANTS_OPPONENTS_H

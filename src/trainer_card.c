@@ -58,6 +58,7 @@ struct TrainerCardData
     bool8 var_F;
     bool8 hasTrades;
     bool8 hasBadge[NUM_BADGES];
+    bool8 hoennBadges; // RFVF+: the front shows Hoenn's badges (third page)
     u8 easyChatProfile[TRAINER_CARD_PROFILE_LENGTH][13];
     u8 strings[TRAINER_CARD_STRING_COUNT][70];
     u8 var_395;
@@ -136,6 +137,7 @@ static bool8 SetTrainerCardBgsAndPals(void);
 static void DrawCardScreenBackground(const u16 *ptr);
 static void DrawCardFrontOrBack(const u16 *ptr);
 static void DrawStarsAndBadgesOnCard(void);
+static void SetCardBadges(bool8 hoenn);
 static void DrawCardBackStats(void);
 static void BlinkTimeColon(void);
 static void FlipTrainerCard(void);
@@ -492,6 +494,8 @@ static void CloseTrainerCard(u8 taskId)
 #define STATE_CLOSE_CARD          14
 #define STATE_WAIT_LINK_PARTNER   15
 #define STATE_CLOSE_CARD_LINK     16
+#define STATE_WAIT_FLIP_TO_HOENN  17 // RFVF+: front -> back -> front with Hoenn's badges
+#define STATE_HANDLE_INPUT_HOENN  18
 
 static void Task_TrainerCard(u8 taskId)
 {
@@ -603,6 +607,8 @@ static void Task_TrainerCard(u8 taskId)
             }
             else
             {
+                if (sTrainerCardDataPtr->hoennBadges)
+                    SetCardBadges(FALSE);
                 SetHelpContext(HELPCONTEXT_TRAINER_CARD_FRONT);
                 FlipTrainerCard();
                 sTrainerCardDataPtr->mainState = STATE_WAIT_FLIP_TO_FRONT;
@@ -614,6 +620,14 @@ static void Task_TrainerCard(u8 taskId)
            if (gReceivedRemoteLinkPlayers && sTrainerCardDataPtr->isLink && InUnionRoom() == TRUE)
            {
                sTrainerCardDataPtr->mainState = STATE_WAIT_LINK_PARTNER;
+           }
+           else if (!gReceivedRemoteLinkPlayers && !sTrainerCardDataPtr->isLink)
+           {
+               SetCardBadges(TRUE);
+               SetHelpContext(HELPCONTEXT_TRAINER_CARD_FRONT);
+               FlipTrainerCard();
+               sTrainerCardDataPtr->mainState = STATE_WAIT_FLIP_TO_HOENN;
+               PlaySE(SE_CARD_FLIP);
            }
            else
            {
@@ -645,6 +659,33 @@ static void Task_TrainerCard(u8 taskId)
         {
             sTrainerCardDataPtr->mainState = STATE_HANDLE_INPUT_FRONT;
             PlaySE(SE_CARD_OPEN);
+        }
+        break;
+    case STATE_WAIT_FLIP_TO_HOENN:
+        if (IsCardFlipTaskActive())
+        {
+            sTrainerCardDataPtr->mainState = STATE_HANDLE_INPUT_HOENN;
+            PlaySE(SE_CARD_OPEN);
+        }
+        break;
+    case STATE_HANDLE_INPUT_HOENN:
+        if (sTrainerCardDataPtr->timeColonNeedDraw)
+        {
+            PrintTimeOnCard();
+            DrawTrainerCardWindow(1);
+            sTrainerCardDataPtr->timeColonNeedDraw = FALSE;
+        }
+        if (JOY_NEW(A_BUTTON))
+        {
+            BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+            sTrainerCardDataPtr->mainState = STATE_CLOSE_CARD;
+        }
+        else if (JOY_NEW(B_BUTTON))
+        {
+            SetHelpContext(HELPCONTEXT_TRAINER_CARD_BACK);
+            FlipTrainerCard();
+            PlaySE(SE_CARD_FLIP);
+            sTrainerCardDataPtr->mainState = STATE_WAIT_FLIP_TO_BACK;
         }
         break;
    }
@@ -1556,6 +1597,22 @@ static void DrawCardFrontOrBack(const u16 *ptr)
     }
 
     CopyBgTilemapBufferToVram(0);
+}
+
+// RFVF+: Kanto's badges, or Hoenn's (Emerald's graphics) for the third page; drawn by the next card flip
+static void SetCardBadges(bool8 hoenn)
+{
+    u32 i;
+
+    sTrainerCardDataPtr->hoennBadges = hoenn;
+    for (i = 0; i < NUM_BADGES; i++)
+        sTrainerCardDataPtr->hasBadge[i] = FlagGet((hoenn ? FLAG_HOENN_BADGE01_GET : FLAG_BADGE01_GET) + i);
+    LZ77UnCompWram(hoenn ? sHoennTrainerCardBadges_Gfx : sKantoTrainerCardBadges_Gfx, sTrainerCardDataPtr->badgeTiles);
+    LoadBgTiles(3, sTrainerCardDataPtr->badgeTiles, NELEMS(sTrainerCardDataPtr->badgeTiles), 0);
+    if (hoenn)
+        LoadPalette(sHoennTrainerCardBadges_Pal, BG_PLTT_ID(3), sizeof(sHoennTrainerCardBadges_Pal));
+    else
+        LoadPalette(sKantoTrainerCardBadges_Pal, BG_PLTT_ID(3), sizeof(sKantoTrainerCardBadges_Pal));
 }
 
 static void DrawStarsAndBadgesOnCard(void)

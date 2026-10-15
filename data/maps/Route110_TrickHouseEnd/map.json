@@ -27,7 +27,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "Route110_TrickHouseEnd_EventScript_TrickMaster",
-      "flag": "0",
+      "flag": "FLAG_HIDE_TRICK_HOUSE_END_MAN",
       "in_connection": false
     }
   ],
@@ -47,7 +47,17 @@
       "dest_warp_id": "0"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 2,
+      "y": 2,
+      "elevation": 3,
+      "var": "VAR_TEMP_2",
+      "var_value": "0",
+      "script": "Route110_TrickHouseEnd_EventScript_TrickMasterExitTrigger"
+    }
+  ],
   "bg_events": [
     {
       "type": "hidden_item",
@@ -60,5 +70,5 @@
       "underfoot": false
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

@@ -82,6 +82,7 @@ bool8 MetatileBehavior_IsPacifidlogHorizontalLogLeft(u8 metatileBehavior);
 bool8 MetatileBehavior_IsPacifidlogHorizontalLogRight(u8 metatileBehavior);
 bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior);
 bool8 MetatileBehavior_IsLavaridgeB1FWarp(u8 metatileBehavior);
+bool8 MetatileBehavior_IsTrickHousePuzzleDoor(u8 metatileBehavior);
 bool8 MetatileBehavior_IsLavaridge1FWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsWarpPad(u8 metatileBehavior);
 bool8 MetatileBehavior_IsUnionRoomWarp(u8 metatileBehavior);

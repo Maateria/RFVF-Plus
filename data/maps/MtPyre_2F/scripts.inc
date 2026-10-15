@@ -5,11 +5,31 @@ MtPyre_2F_EventScript_ItemUltraBall::           @ item ball, works (FLAG_ITEM_MT
 	finditem ITEM_ULTRA_BALL
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtPyre_2F/scripts.inc
-MtPyre_2F_EventScript_Mark::                    @ trainer #1 (3,6) TRAINER_MARK, Emerald NORMAL sight 2
 MtPyre_2F_EventScript_Woman::                   @ NPC #3 (9,3)
 MtPyre_2F_EventScript_PokefanM::                @ NPC #4 (12,10)
-MtPyre_2F_EventScript_Dez::                     @ trainer #5 (2,9) TRAINER_DEZ_AND_LUKE, Emerald NORMAL sight 1
-MtPyre_2F_EventScript_Luke::                    @ trainer #6 (3,9) TRAINER_DEZ_AND_LUKE, Emerald NORMAL sight 1
-MtPyre_2F_EventScript_Zander::                  @ trainer #7 (6,9) TRAINER_ZANDER, Emerald NORMAL sight 2
-MtPyre_2F_EventScript_Leah::                    @ trainer #8 (6,6) TRAINER_LEAH, Emerald NORMAL sight 2
+	end
+
+MtPyre_2F_EventScript_Mark::
+	trainerbattle_single TRAINER_MARK, MtPyre_2F_Text_MarkIntro, MtPyre_2F_Text_MarkDefeat
+	msgbox MtPyre_2F_Text_MarkPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtPyre_2F_EventScript_Dez::
+	trainerbattle_double TRAINER_DEZ_AND_LUKE, MtPyre_2F_Text_DezIntro, MtPyre_2F_Text_DezDefeat, MtPyre_2F_Text_DezNotEnoughMons
+	msgbox MtPyre_2F_Text_DezPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtPyre_2F_EventScript_Luke::
+	trainerbattle_double TRAINER_DEZ_AND_LUKE, MtPyre_2F_Text_LukeIntro, MtPyre_2F_Text_LukeDefeat, MtPyre_2F_Text_LukeNotEnoughMons
+	msgbox MtPyre_2F_Text_LukePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtPyre_2F_EventScript_Zander::
+	trainerbattle_single TRAINER_ZANDER, MtPyre_2F_Text_ZanderIntro, MtPyre_2F_Text_ZanderDefeat
+	msgbox MtPyre_2F_Text_ZanderPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtPyre_2F_EventScript_Leah::
+	trainerbattle_single TRAINER_LEAH, MtPyre_2F_Text_LeahIntro, MtPyre_2F_Text_LeahDefeat
+	msgbox MtPyre_2F_Text_LeahPostBattle, MSGBOX_AUTOCLOSE
 	end

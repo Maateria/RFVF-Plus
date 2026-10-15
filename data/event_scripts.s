@@ -990,6 +990,7 @@ Common_ShowEasyChatScreen::
 
 	.include "data/scripts/surf.inc"
 	.include "data/scripts/set_gym_trainers.inc"
+	.include "data/scripts/hoenn_gyms.inc"
 	.include "data/scripts/bag_full.inc"
 
 EventScript_OutOfCenterPartyHeal::
@@ -1388,22 +1389,26 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/LilycoveCity_DepartmentStoreElevator/text.inc"
 
 	.include "data/maps/Route121/scripts.inc"
+	.include "data/maps/Route121/text.inc"
 
 	.include "data/maps/Route121_SafariZoneEntrance/scripts.inc"
 
 	.include "data/maps/Route122/scripts.inc"
 
 	.include "data/maps/Route123/scripts.inc"
+	.include "data/maps/Route123/text.inc"
 
 	.include "data/maps/Route123_BerryMastersHouse/scripts.inc"
 
 	.include "data/maps/Route120/scripts.inc"
+	.include "data/maps/Route120/text.inc"
 
 	.include "data/maps/FortreeCity/scripts.inc"
 
 	.include "data/maps/FortreeCity_House1/scripts.inc"
 
 	.include "data/maps/FortreeCity_Gym/scripts.inc"
+	.include "data/maps/FortreeCity_Gym/text.inc"
 
 	.include "data/maps/FortreeCity_PokemonCenter_1F/scripts.inc"
 
@@ -1422,6 +1427,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/FortreeCity_DecorationShop/scripts.inc"
 
 	.include "data/maps/Route119/scripts.inc"
+	.include "data/maps/Route119/text.inc"
 
 	.include "data/maps/Route119_WeatherInstitute_1F/scripts.inc"
 
@@ -1432,14 +1438,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/EverGrandeCity/scripts.inc"
 
 	.include "data/maps/EverGrandeCity_SidneysRoom/scripts.inc"
+	.include "data/maps/EverGrandeCity_SidneysRoom/text.inc"
 
 	.include "data/maps/EverGrandeCity_PhoebesRoom/scripts.inc"
+	.include "data/maps/EverGrandeCity_PhoebesRoom/text.inc"
 
 	.include "data/maps/EverGrandeCity_GlaciasRoom/scripts.inc"
+	.include "data/maps/EverGrandeCity_GlaciasRoom/text.inc"
 
 	.include "data/maps/EverGrandeCity_DrakesRoom/scripts.inc"
+	.include "data/maps/EverGrandeCity_DrakesRoom/text.inc"
 
 	.include "data/maps/EverGrandeCity_ChampionsRoom/scripts.inc"
+	.include "data/maps/EverGrandeCity_ChampionsRoom/text.inc"
 
 	.include "data/maps/EverGrandeCity_Hall1/scripts.inc"
 
@@ -1452,8 +1463,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/EverGrandeCity_Hall5/scripts.inc"
 
 	.include "data/maps/EverGrandeCity_PokemonLeague_1F/scripts.inc"
+	.include "data/maps/EverGrandeCity_PokemonLeague_1F/text.inc"
 
 	.include "data/maps/EverGrandeCity_HallOfFame/scripts.inc"
+	.include "data/maps/EverGrandeCity_HallOfFame/text.inc"
 
 	.include "data/maps/EverGrandeCity_PokemonCenter_1F/scripts.inc"
 
@@ -1462,6 +1475,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/EverGrandeCity_PokemonLeague_2F/scripts.inc"
 
 	.include "data/maps/Route131/scripts.inc"
+	.include "data/maps/Route131/text.inc"
 
 	.include "data/maps/PacifidlogTown/scripts.inc"
 
@@ -1480,12 +1494,16 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/PacifidlogTown_House5/scripts.inc"
 
 	.include "data/maps/Route132/scripts.inc"
+	.include "data/maps/Route132/text.inc"
 
 	.include "data/maps/Route133/scripts.inc"
+	.include "data/maps/Route133/text.inc"
 
 	.include "data/maps/Route134/scripts.inc"
+	.include "data/maps/Route134/text.inc"
 
 	.include "data/maps/Route113/scripts.inc"
+	.include "data/maps/Route113/text.inc"
 
 	.include "data/maps/Route113_GlassWorkshop/scripts.inc"
 
@@ -1508,6 +1526,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/FallarborTown_MoveRelearnersHouse/scripts.inc"
 
 	.include "data/maps/Route114/scripts.inc"
+	.include "data/maps/Route114/text.inc"
 
 	.include "data/maps/Route114_FossilManiacsHouse/scripts.inc"
 
@@ -1516,6 +1535,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Route114_LanettesHouse/scripts.inc"
 
 	.include "data/maps/Route115/scripts.inc"
+	.include "data/maps/Route115/text.inc"
 
 	.include "data/maps/RustboroCity/scripts.inc"
 
@@ -1526,6 +1546,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/RustboroCity_DevonCorp_3F/scripts.inc"
 
 	.include "data/maps/RustboroCity_Gym/scripts.inc"
+	.include "data/maps/RustboroCity_Gym/text.inc"
 
 	.include "data/maps/RustboroCity_PokemonSchool/scripts.inc"
 
@@ -1554,18 +1575,22 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/RustboroCity_House3/scripts.inc"
 
 	.include "data/maps/Route116/scripts.inc"
+	.include "data/maps/Route116/text.inc"
 
 	.include "data/maps/Route116_TunnelersRestHouse/scripts.inc"
 
 	.include "data/maps/Route104/scripts.inc"
+	.include "data/maps/Route104/text.inc"
 
 	.include "data/maps/Route104_MrBrineysHouse/scripts.inc"
 
 	.include "data/maps/Route104_PrettyPetalFlowerShop/scripts.inc"
 
 	.include "data/maps/Route105/scripts.inc"
+	.include "data/maps/Route105/text.inc"
 
 	.include "data/maps/Route106/scripts.inc"
+	.include "data/maps/Route106/text.inc"
 
 	.include "data/maps/DewfordTown/scripts.inc"
 
@@ -1576,18 +1601,21 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/DewfordTown_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/DewfordTown_Gym/scripts.inc"
+	.include "data/maps/DewfordTown_Gym/text.inc"
 
 	.include "data/maps/DewfordTown_Hall/scripts.inc"
 
 	.include "data/maps/DewfordTown_House2/scripts.inc"
 
 	.include "data/maps/Route107/scripts.inc"
+	.include "data/maps/Route107/text.inc"
 
 	.include "data/maps/PetalburgCity/scripts.inc"
 
 	.include "data/maps/PetalburgCity_WallysHouse/scripts.inc"
 
 	.include "data/maps/PetalburgCity_Gym/scripts.inc"
+	.include "data/maps/PetalburgCity_Gym/text.inc"
 
 	.include "data/maps/PetalburgCity_House1/scripts.inc"
 
@@ -1602,6 +1630,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/scripts/hoenn_stubs.inc"
 
 	.include "data/maps/Route102/scripts.inc"
+	.include "data/maps/Route102/text.inc"
 
 	.include "data/maps/OldaleTown/scripts.inc"
 
@@ -1630,16 +1659,20 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/LittlerootTown_ProfessorBirchsLab/scripts.inc"
 
 	.include "data/maps/Route103/scripts.inc"
+	.include "data/maps/Route103/text.inc"
 
 	.include "data/maps/Route118/scripts.inc"
+	.include "data/maps/Route118/text.inc"
 
 	.include "data/maps/Route124/scripts.inc"
+	.include "data/maps/Route124/text.inc"
 
 	.include "data/maps/Route124_DivingTreasureHuntersHouse/scripts.inc"
 
 	.include "data/maps/MossdeepCity/scripts.inc"
 
 	.include "data/maps/MossdeepCity_Gym/scripts.inc"
+	.include "data/maps/MossdeepCity_Gym/text.inc"
 
 	.include "data/maps/MossdeepCity_House1/scripts.inc"
 
@@ -1666,18 +1699,25 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MossdeepCity_GameCorner_B1F/scripts.inc"
 
 	.include "data/maps/Route125/scripts.inc"
+	.include "data/maps/Route125/text.inc"
 
 	.include "data/maps/Route127/scripts.inc"
+	.include "data/maps/Route127/text.inc"
 
 	.include "data/maps/Route128/scripts.inc"
+	.include "data/maps/Route128/text.inc"
 
 	.include "data/maps/Route126/scripts.inc"
+	.include "data/maps/Route126/text.inc"
 
 	.include "data/maps/Route129/scripts.inc"
+	.include "data/maps/Route129/text.inc"
 
 	.include "data/maps/Route130/scripts.inc"
+	.include "data/maps/Route130/text.inc"
 
 	.include "data/maps/Route117/scripts.inc"
+	.include "data/maps/Route117/text.inc"
 
 	.include "data/maps/Route117_PokemonDayCare/scripts.inc"
 
@@ -1704,6 +1744,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MauvilleCity/scripts.inc"
 
 	.include "data/maps/MauvilleCity_Gym/scripts.inc"
+	.include "data/maps/MauvilleCity_Gym/text.inc"
 
 	.include "data/maps/MauvilleCity_BikeShop/scripts.inc"
 
@@ -1720,52 +1761,70 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MauvilleCity_Mart/scripts.inc"
 
 	.include "data/maps/Route110/scripts.inc"
+	.include "data/maps/Route110/text.inc"
 
 	.include "data/maps/Route110_TrickHouseEntrance/scripts.inc"
+	.include "data/maps/Route110_TrickHouseEntrance/text.inc"
 
 	.include "data/maps/Route110_TrickHouseEnd/scripts.inc"
+	.include "data/maps/Route110_TrickHouseEnd/text.inc"
 
 	.include "data/maps/Route110_TrickHouseCorridor/scripts.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle1/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle1/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle2/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle2/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle3/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle3/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle4/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle4/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle5/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle5/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle6/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle6/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle7/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle7/text.inc"
 
 	.include "data/maps/Route110_TrickHousePuzzle8/scripts.inc"
+	.include "data/maps/Route110_TrickHousePuzzle8/text.inc"
 
 	.include "data/maps/Route110_SeasideCyclingRoadSouthEntrance/scripts.inc"
 
 	.include "data/maps/Route110_SeasideCyclingRoadNorthEntrance/scripts.inc"
 
 	.include "data/maps/Route111/scripts.inc"
+	.include "data/maps/Route111/text.inc"
 
 	.include "data/maps/Route111_WinstrateFamilysHouse/scripts.inc"
+	.include "data/maps/Route111_WinstrateFamilysHouse/text.inc"
 
 	.include "data/maps/Route111_OldLadysRestStop/scripts.inc"
 
 	.include "data/maps/Route112/scripts.inc"
+	.include "data/maps/Route112/text.inc"
 
 	.include "data/maps/Route112_CableCarStation/scripts.inc"
+	.include "data/maps/Route112_CableCarStation/text.inc"
 
 	.include "data/maps/MtChimney_CableCarStation/scripts.inc"
+	.include "data/maps/MtChimney_CableCarStation/text.inc"
 
 	.include "data/maps/LavaridgeTown/scripts.inc"
 
 	.include "data/maps/LavaridgeTown_HerbShop/scripts.inc"
 
 	.include "data/maps/LavaridgeTown_Gym_1F/scripts.inc"
+	.include "data/maps/LavaridgeTown_Gym_1F/text.inc"
 
 	.include "data/maps/LavaridgeTown_Gym_B1F/scripts.inc"
+	.include "data/maps/LavaridgeTown_Gym_B1F/text.inc"
 
 	.include "data/maps/LavaridgeTown_House/scripts.inc"
 
@@ -1776,10 +1835,13 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/LavaridgeTown_PokemonCenter_2F/scripts.inc"
 
 	.include "data/maps/Route108/scripts.inc"
+	.include "data/maps/Route108/text.inc"
 
 	.include "data/maps/Route109/scripts.inc"
+	.include "data/maps/Route109/text.inc"
 
 	.include "data/maps/Route109_SeashoreHouse/scripts.inc"
+	.include "data/maps/Route109_SeashoreHouse/text.inc"
 
 	.include "data/maps/SlateportCity/scripts.inc"
 
@@ -1814,8 +1876,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/SootopolisCity/scripts.inc"
 
 	.include "data/maps/SootopolisCity_Gym_1F/scripts.inc"
+	.include "data/maps/SootopolisCity_Gym_1F/text.inc"
 
 	.include "data/maps/SootopolisCity_Gym_B1F/scripts.inc"
+	.include "data/maps/SootopolisCity_Gym_B1F/text.inc"
 
 	.include "data/maps/SootopolisCity_PokemonCenter_1F/scripts.inc"
 
@@ -1858,8 +1922,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/Underwater_Route125/scripts.inc"
 
 	.include "data/maps/PetalburgWoods/scripts.inc"
+	.include "data/maps/PetalburgWoods/text.inc"
 
 	.include "data/maps/RusturfTunnel/scripts.inc"
+	.include "data/maps/RusturfTunnel/text.inc"
 
 	.include "data/maps/GraniteCave_1F/scripts.inc"
 
@@ -1872,16 +1938,20 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MeteorFalls_1F_1R/scripts.inc"
 
 	.include "data/maps/MeteorFalls_1F_2R/scripts.inc"
+	.include "data/maps/MeteorFalls_1F_2R/text.inc"
 
 	.include "data/maps/MeteorFalls_B1F_1R/scripts.inc"
 
 	.include "data/maps/MeteorFalls_B1F_2R/scripts.inc"
 
 	.include "data/maps/MeteorFalls_StevensCave/scripts.inc"
+	.include "data/maps/MeteorFalls_StevensCave/text.inc"
 
 	.include "data/maps/MtChimney/scripts.inc"
+	.include "data/maps/MtChimney/text.inc"
 
 	.include "data/maps/JaggedPass/scripts.inc"
+	.include "data/maps/JaggedPass/text.inc"
 
 	.include "data/maps/FieryPath/scripts.inc"
 
@@ -1902,16 +1972,21 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MagmaHideout_2F_3R/scripts.inc"
 
 	.include "data/maps/NewMauville_Entrance/scripts.inc"
+	.include "data/maps/NewMauville_Entrance/text.inc"
 
 	.include "data/maps/NewMauville_Inside/scripts.inc"
+	.include "data/maps/NewMauville_Inside/text.inc"
 
 	.include "data/maps/AbandonedShip_Deck/scripts.inc"
 
 	.include "data/maps/AbandonedShip_Corridors_1F/scripts.inc"
+	.include "data/maps/AbandonedShip_Corridors_1F/text.inc"
 
 	.include "data/maps/AbandonedShip_Rooms_1F/scripts.inc"
+	.include "data/maps/AbandonedShip_Rooms_1F/text.inc"
 
 	.include "data/maps/AbandonedShip_Corridors_B1F/scripts.inc"
+	.include "data/maps/AbandonedShip_Corridors_B1F/text.inc"
 
 	.include "data/maps/AbandonedShip_Rooms_B1F/scripts.inc"
 
@@ -1922,6 +1997,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/AbandonedShip_Room_B1F/scripts.inc"
 
 	.include "data/maps/AbandonedShip_Rooms2_1F/scripts.inc"
+	.include "data/maps/AbandonedShip_Rooms2_1F/text.inc"
 
 	.include "data/maps/AbandonedShip_CaptainsOffice/scripts.inc"
 
@@ -1934,14 +2010,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MtPyre_1F/scripts.inc"
 
 	.include "data/maps/MtPyre_2F/scripts.inc"
+	.include "data/maps/MtPyre_2F/text.inc"
 
 	.include "data/maps/MtPyre_3F/scripts.inc"
+	.include "data/maps/MtPyre_3F/text.inc"
 
 	.include "data/maps/MtPyre_4F/scripts.inc"
+	.include "data/maps/MtPyre_4F/text.inc"
 
 	.include "data/maps/MtPyre_5F/scripts.inc"
+	.include "data/maps/MtPyre_5F/text.inc"
 
 	.include "data/maps/MtPyre_6F/scripts.inc"
+	.include "data/maps/MtPyre_6F/text.inc"
 
 	.include "data/maps/MtPyre_Exterior/scripts.inc"
 
@@ -2008,10 +2089,13 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/CaveOfOrigin_B1F/scripts.inc"
 
 	.include "data/maps/HoennVictoryRoad_1F/scripts.inc"
+	.include "data/maps/HoennVictoryRoad_1F/text.inc"
 
 	.include "data/maps/HoennVictoryRoad_B1F/scripts.inc"
+	.include "data/maps/HoennVictoryRoad_B1F/text.inc"
 
 	.include "data/maps/HoennVictoryRoad_B2F/scripts.inc"
+	.include "data/maps/HoennVictoryRoad_B2F/text.inc"
 
 	.include "data/maps/Underwater_SootopolisCity/scripts.inc"
 

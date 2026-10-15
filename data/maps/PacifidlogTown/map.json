@@ -143,5 +143,5 @@
       "script": "EventScript_PokecenterSign"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

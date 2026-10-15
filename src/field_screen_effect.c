@@ -16,7 +16,8 @@
 #include "constants/heal_locations.h"
 #include "constants/maps.h"
 
-static const u16 sFlashLevelToRadius[] = { 200, 72, 56, 40, 24 };
+// Emerald's radii (Dewford Gym's 7 steps), without its 0: the darkest stays FRLG's 24 for the caves
+static const u16 sFlashLevelToRadius[] = { 200, 72, 64, 56, 48, 40, 32, 24 };
 const s32 gMaxFlashLevel = ARRAY_COUNT(sFlashLevelToRadius) - 1;
 
 static const struct WindowTemplate sWindowTemplate_WhiteoutText =

@@ -6,13 +6,43 @@ Route132_EventScript_ItemRareCandy::            @ item ball, works (FLAG_ITEM_RO
 Route132_EventScript_ItemProtein::              @ item ball, works (FLAG_ITEM_ROUTE_132_PROTEIN)
 	finditem ITEM_PROTEIN
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route132/scripts.inc
-Route132_EventScript_Gilbert::                  @ trainer #1 (40,13) TRAINER_GILBERT, Emerald NORMAL sight 2
-Route132_EventScript_Dana::                     @ trainer #2 (10,6) TRAINER_DANA, Emerald NORMAL sight 2
-Route132_EventScript_Kiyo::                     @ trainer #4 (9,15) TRAINER_KIYO, Emerald NORMAL sight 4
-Route132_EventScript_Ronald::                   @ trainer #5 (49,28) TRAINER_RONALD, Emerald NORMAL sight 1
-Route132_EventScript_Paxton::                   @ trainer #6 (33,26) TRAINER_PAXTON, Emerald NORMAL sight 4
-Route132_EventScript_Darcy::                    @ trainer #7 (33,31) TRAINER_DARCY, Emerald NORMAL sight 4
-Route132_EventScript_Makayla::                  @ trainer #8 (21,30) TRAINER_MAKAYLA, Emerald NORMAL sight 4
-Route132_EventScript_Jonathan::                 @ trainer #9 (21,25) TRAINER_JONATHAN, Emerald NORMAL sight 4
+
+Route132_EventScript_Gilbert::
+	trainerbattle_single TRAINER_GILBERT, Route132_Text_GilbertIntro, Route132_Text_GilbertDefeat
+	msgbox Route132_Text_GilbertPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Dana::
+	trainerbattle_single TRAINER_DANA, Route132_Text_DanaIntro, Route132_Text_DanaDefeat
+	msgbox Route132_Text_DanaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Kiyo::
+	trainerbattle_single TRAINER_KIYO, Route132_Text_KiyoIntro, Route132_Text_KiyoDefeat
+	msgbox Route132_Text_KiyoPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Ronald::
+	trainerbattle_single TRAINER_RONALD, Route132_Text_RonaldIntro, Route132_Text_RonaldDefeat
+	msgbox Route132_Text_RonaldPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Paxton::
+	trainerbattle_single TRAINER_PAXTON, Route132_Text_PaxtonIntro, Route132_Text_PaxtonDefeat
+	msgbox Route132_Text_PaxtonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Darcy::
+	trainerbattle_single TRAINER_DARCY, Route132_Text_DarcyIntro, Route132_Text_DarcyDefeat
+	msgbox Route132_Text_DarcyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Makayla::
+	trainerbattle_single TRAINER_MAKAYLA, Route132_Text_MakaylaIntro, Route132_Text_MakaylaDefeat
+	msgbox Route132_Text_MakaylaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route132_EventScript_Jonathan::
+	trainerbattle_single TRAINER_JONATHAN, Route132_Text_JonathanIntro, Route132_Text_JonathanDefeat
+	msgbox Route132_Text_JonathanPostBattle, MSGBOX_AUTOCLOSE
 	end

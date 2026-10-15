@@ -1,4 +1,5 @@
 #include "global.h"
+#include "heal_location.h"
 #include "gflib.h"
 #include "decompress.h"
 #include "scanline_effect.h"
@@ -74,6 +75,8 @@ static void Task_Hof_ExitOnKeyPressed(u8 taskId);
 static void Task_Hof_HandlePaletteOnExit(u8 taskId);
 static void Task_Hof_HandleExit(u8 taskId);
 static void SetWarpsToRollCredits(void);
+static void WarpToHoennLeaguePokemonCenter(void);
+extern bool8 gHoennHallOfFame;
 static void Task_HofPC_CopySaveData(u8 taskId);
 static void Task_HofPC_DrawSpritesPrintText(u8 taskId);
 static void Task_HofPC_PrintMonInfo(u8 taskId);
@@ -713,8 +716,22 @@ static void Task_Hof_HandleExit(u8 taskId)
         if (sHofMonPtr != NULL)
         FREE_AND_SET_NULL(sHofMonPtr);
 
-        SetWarpsToRollCredits();
+        if (gHoennHallOfFame)
+            WarpToHoennLeaguePokemonCenter();
+        else
+            SetWarpsToRollCredits();
     }
+}
+
+static void WarpToHoennLeaguePokemonCenter(void)
+{
+    struct WarpData warp;
+
+    gHoennHallOfFame = FALSE;
+    SetWhiteoutRespawnWarpAndHealerNpc(&warp); // the last heal location, set by the Hall of Fame's script
+    SetWarpDestination(warp.mapGroup, warp.mapNum, -1, warp.x, warp.y);
+    DoWarp();
+    ResetInitialPlayerAvatarState();
 }
 
 static void SetWarpsToRollCredits(void)

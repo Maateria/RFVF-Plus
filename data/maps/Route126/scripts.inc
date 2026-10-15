@@ -4,13 +4,51 @@ Route126_MapScripts::
 Route126_EventScript_ItemGreenShard::           @ item ball, works (FLAG_ITEM_ROUTE_126_GREEN_SHARD)
 	finditem ITEM_GREEN_SHARD
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route126/scripts.inc
-Route126_EventScript_Barry::                    @ trainer #1 (51,65) TRAINER_BARRY, Emerald NORMAL sight 3
-Route126_EventScript_Dean::                     @ trainer #2 (56,22) TRAINER_DEAN, Emerald NORMAL sight 3
-Route126_EventScript_Nikki::                    @ trainer #3 (63,43) TRAINER_NIKKI, Emerald NORMAL sight 3
-Route126_EventScript_Brenda::                   @ trainer #4 (9,48) TRAINER_BRENDA, Emerald NORMAL sight 3
-Route126_EventScript_Sienna::                   @ trainer #6 (15,66) TRAINER_SIENNA, Emerald NORMAL sight 7
-Route126_EventScript_Pablo::                    @ trainer #7 (7,66) TRAINER_PABLO_1, Emerald NORMAL sight 7
-Route126_EventScript_Isobel::                   @ trainer #8 (64,5) TRAINER_ISOBEL, Emerald NORMAL sight 7
-Route126_EventScript_Leonardo::                 @ trainer #9 (56,5) TRAINER_LEONARDO, Emerald NORMAL sight 7
+
+Route126_EventScript_Barry::
+	trainerbattle_single TRAINER_BARRY, Route126_Text_BarryIntro, Route126_Text_BarryDefeat
+	msgbox Route126_Text_BarryPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Dean::
+	trainerbattle_single TRAINER_DEAN, Route126_Text_DeanIntro, Route126_Text_DeanDefeat
+	msgbox Route126_Text_DeanPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Nikki::
+	trainerbattle_single TRAINER_NIKKI, Route126_Text_NikkiIntro, Route126_Text_NikkiDefeat
+	msgbox Route126_Text_NikkiPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Brenda::
+	trainerbattle_single TRAINER_BRENDA, Route126_Text_BrendaIntro, Route126_Text_BrendaDefeat
+	msgbox Route126_Text_BrendaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Sienna::
+	trainerbattle_single TRAINER_SIENNA, Route126_Text_SiennaIntro, Route126_Text_SiennaDefeat
+	msgbox Route126_Text_SiennaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Pablo::
+	trainerbattle_single TRAINER_PABLO_1, Route126_Text_PabloIntro, Route126_Text_PabloDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route126_EventScript_RematchPablo
+	msgbox Route126_Text_PabloPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route126_EventScript_RematchPablo::
+	trainerbattle_rematch TRAINER_PABLO_1, Route126_Text_PabloRematchIntro, Route126_Text_PabloRematchDefeat
+	msgbox Route126_Text_PabloPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Isobel::
+	trainerbattle_single TRAINER_ISOBEL, Route126_Text_IsobelIntro, Route126_Text_IsobelDefeat
+	msgbox Route126_Text_IsobelPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route126_EventScript_Leonardo::
+	trainerbattle_single TRAINER_LEONARDO, Route126_Text_LeonardoIntro, Route126_Text_LeonardoDefeat
+	msgbox Route126_Text_LeonardoPostBattle, MSGBOX_AUTOCLOSE
 	end

@@ -6,10 +6,28 @@ HoennVictoryRoad_B1F_EventScript_ItemTMPsychic:: @ item ball, works (FLAG_ITEM_H
 HoennVictoryRoad_B1F_EventScript_ItemFullRestore:: @ item ball, works (FLAG_ITEM_HOENN_VICTORY_ROAD_B1F_FULL_RESTORE)
 	finditem ITEM_FULL_RESTORE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/VictoryRoad_B1F/scripts.inc
-HoennVictoryRoad_B1F_EventScript_Samuel::       @ trainer #14 (37,12) TRAINER_SAMUEL, Emerald NORMAL sight 3
-HoennVictoryRoad_B1F_EventScript_Shannon::      @ trainer #15 (26,16) TRAINER_SHANNON, Emerald NORMAL sight 4
-HoennVictoryRoad_B1F_EventScript_Michelle::     @ trainer #16 (5,21) TRAINER_MICHELLE, Emerald NORMAL sight 2
-HoennVictoryRoad_B1F_EventScript_Mitchell::     @ trainer #20 (14,16) TRAINER_MITCHELL, Emerald NORMAL sight 4
-HoennVictoryRoad_B1F_EventScript_Halle::        @ trainer #21 (14,20) TRAINER_HALLE, Emerald NORMAL sight 3
+
+HoennVictoryRoad_B1F_EventScript_Samuel::
+	trainerbattle_single TRAINER_SAMUEL, HoennVictoryRoad_B1F_Text_SamuelIntro, HoennVictoryRoad_B1F_Text_SamuelDefeat
+	msgbox HoennVictoryRoad_B1F_Text_SamuelPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_B1F_EventScript_Shannon::
+	trainerbattle_single TRAINER_SHANNON, HoennVictoryRoad_B1F_Text_ShannonIntro, HoennVictoryRoad_B1F_Text_ShannonDefeat
+	msgbox HoennVictoryRoad_B1F_Text_ShannonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_B1F_EventScript_Michelle::
+	trainerbattle_single TRAINER_MICHELLE, HoennVictoryRoad_B1F_Text_MichelleIntro, HoennVictoryRoad_B1F_Text_MichelleDefeat
+	msgbox HoennVictoryRoad_B1F_Text_MichellePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_B1F_EventScript_Mitchell::
+	trainerbattle_single TRAINER_MITCHELL, HoennVictoryRoad_B1F_Text_MitchellIntro, HoennVictoryRoad_B1F_Text_MitchellDefeat
+	msgbox HoennVictoryRoad_B1F_Text_MitchellPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_B1F_EventScript_Halle::
+	trainerbattle_single TRAINER_HALLE, HoennVictoryRoad_B1F_Text_HalleIntro, HoennVictoryRoad_B1F_Text_HalleDefeat
+	msgbox HoennVictoryRoad_B1F_Text_HallePostBattle, MSGBOX_AUTOCLOSE
 	end

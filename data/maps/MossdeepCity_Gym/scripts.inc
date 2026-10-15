@@ -1,22 +1,206 @@
 MossdeepCity_Gym_MapScripts::
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_LOAD (MossdeepCity_Gym_OnLoad)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_Gym/scripts.inc
-MossdeepCity_Gym_EventScript_TateAndLiza::      @ NPC #1 (23,7)
-MossdeepCity_Gym_EventScript_Preston::          @ trainer #2 (1,30) TRAINER_PRESTON, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Blake::            @ trainer #3 (5,20) TRAINER_BLAKE, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Maura::            @ trainer #4 (4,29) TRAINER_MAURA, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Samantha::         @ trainer #5 (4,23) TRAINER_SAMANTHA, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Virgil::           @ trainer #6 (6,9) TRAINER_VIRGIL, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Hannah::           @ trainer #7 (6,3) TRAINER_HANNAH, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_GymGuide::         @ NPC #8 (5,33)
-MossdeepCity_Gym_EventScript_Nate::             @ trainer #17 (9,8) TRAINER_NATE, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Sylvia::           @ trainer #18 (7,5) TRAINER_SYLVIA, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Clifford::         @ trainer #25 (22,25) TRAINER_CLIFFORD, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Macey::            @ trainer #27 (25,25) TRAINER_MACEY, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Kathleen::         @ trainer #28 (22,23) TRAINER_KATHLEEN, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_Nicholas::         @ trainer #32 (25,22) TRAINER_NICHOLAS, Emerald NORMAL sight 1
-MossdeepCity_Gym_EventScript_LeftGymStatue::    @ sign (4,34)
-MossdeepCity_Gym_EventScript_RightGymStatue::   @ sign (8,34)
+
+MossdeepCity_Gym_EventScript_TateAndLiza::
+	trainerbattle_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaIntro, MossdeepCity_Gym_Text_TateAndLizaDefeat, MossdeepCity_Gym_Text_TateAndLizaNeedTwoMons, MossdeepCity_Gym_EventScript_TateAndLizaDefeated, NO_MUSIC
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_Gym_EventScript_TateAndLizaRematch
+	goto_if_unset FLAG_RECEIVED_TM_CALM_MIND, MossdeepCity_Gym_EventScript_GiveCalmMind2
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPostBattle, MSGBOX_DEFAULT
+	release
 	end
-@ hoenn_import: left out: trigger (2,21) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_YellowFloorSwitch; trigger (8,10) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_BlueFloorSwitch; trigger (6,7) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_BlueFloorSwitch; trigger (15,34) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_GreenFloorSwitch; trigger (23,24) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_PurpleFloorSwitch; trigger (23,21) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_PurpleFloorSwitch; trigger (8,6) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_RedFloorSwitch; trigger (21,6) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_WarpToEntrance; trigger (3,30) VAR_TEMP_1==0 -> MossdeepCity_Gym_EventScript_YellowFloorSwitch
+
+MossdeepCity_Gym_EventScript_TateAndLizaDefeated::
+	message MossdeepCity_Gym_Text_ReceivedMindBadge
+	waitmessage
+	call Common_EventScript_PlayGymBadgeFanfare
+	msgbox MossdeepCity_Gym_Text_ExplainMindBadgeTakeThis, MSGBOX_DEFAULT
+	setflag FLAG_DEFEATED_MOSSDEEP_GYM
+	setflag FLAG_HOENN_BADGE07_GET
+	setvar VAR_0x8008, 7
+	call Common_EventScript_SetGymTrainers
+	call MossdeepCity_Gym_EventScript_GiveCalmMind
+	release
+	end
+
+MossdeepCity_Gym_EventScript_GiveCalmMind2::
+	giveitem ITEM_TM04_CALM_MIND
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowBagIsFull
+	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
+	setflag FLAG_RECEIVED_TM_CALM_MIND
+	release
+	end
+
+MossdeepCity_Gym_EventScript_GiveCalmMind::
+	giveitem ITEM_TM04_CALM_MIND
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
+	msgbox MossdeepCity_Gym_Text_ExplainCalmMind, MSGBOX_DEFAULT
+	setflag FLAG_RECEIVED_TM_CALM_MIND
+	return
+
+MossdeepCity_Gym_EventScript_TateAndLizaRematch::
+	special SetLastTalkedTrainerReadyForRematch
+	trainerbattle_rematch_double TRAINER_TATE_AND_LIZA_1, MossdeepCity_Gym_Text_TateAndLizaPreRematch, MossdeepCity_Gym_Text_TateAndLizaRematchDefeat, MossdeepCity_Gym_Text_TateAndLizaRematchNeedTwoMons
+	msgbox MossdeepCity_Gym_Text_TateAndLizaPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_WarpToEntrance::
+	lockall
+	warpmossdeepgym MAP_MOSSDEEP_CITY_GYM, 7, 30
+	waitstate
+	releaseall
+	end
+
+MossdeepCity_Gym_EventScript_Preston::
+	trainerbattle_single TRAINER_PRESTON, MossdeepCity_Gym_Text_PrestonIntro, MossdeepCity_Gym_Text_PrestonDefeat
+	msgbox MossdeepCity_Gym_Text_PrestonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Virgil::
+	trainerbattle_single TRAINER_VIRGIL, MossdeepCity_Gym_Text_VirgilIntro, MossdeepCity_Gym_Text_VirgilDefeat
+	msgbox MossdeepCity_Gym_Text_VirgilPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Blake::
+	trainerbattle_single TRAINER_BLAKE, MossdeepCity_Gym_Text_BlakeIntro, MossdeepCity_Gym_Text_BlakeDefeat
+	msgbox MossdeepCity_Gym_Text_BlakePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Hannah::
+	trainerbattle_single TRAINER_HANNAH, MossdeepCity_Gym_Text_HannahIntro, MossdeepCity_Gym_Text_HannahDefeat
+	msgbox MossdeepCity_Gym_Text_HannahPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Samantha::
+	trainerbattle_single TRAINER_SAMANTHA, MossdeepCity_Gym_Text_SamanthaIntro, MossdeepCity_Gym_Text_SamanthaDefeat
+	msgbox MossdeepCity_Gym_Text_SamanthaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Maura::
+	trainerbattle_single TRAINER_MAURA, MossdeepCity_Gym_Text_MauraIntro, MossdeepCity_Gym_Text_MauraDefeat
+	msgbox MossdeepCity_Gym_Text_MauraPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Sylvia::
+	trainerbattle_single TRAINER_SYLVIA, MossdeepCity_Gym_Text_SylviaIntro, MossdeepCity_Gym_Text_SylviaDefeat
+	msgbox MossdeepCity_Gym_Text_SylviaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Nate::
+	trainerbattle_single TRAINER_NATE, MossdeepCity_Gym_Text_NateIntro, MossdeepCity_Gym_Text_NateDefeat
+	msgbox MossdeepCity_Gym_Text_NatePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Macey::
+	trainerbattle_single TRAINER_MACEY, MossdeepCity_Gym_Text_MaceyIntro, MossdeepCity_Gym_Text_MaceyDefeat
+	msgbox MossdeepCity_Gym_Text_MaceyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Clifford::
+	trainerbattle_single TRAINER_CLIFFORD, MossdeepCity_Gym_Text_CliffordIntro, MossdeepCity_Gym_Text_CliffordDefeat
+	msgbox MossdeepCity_Gym_Text_CliffordPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Nicholas::
+	trainerbattle_single TRAINER_NICHOLAS, MossdeepCity_Gym_Text_NicholasIntro, MossdeepCity_Gym_Text_NicholasDefeat
+	msgbox MossdeepCity_Gym_Text_NicholasPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_Kathleen::
+	trainerbattle_single TRAINER_KATHLEEN, MossdeepCity_Gym_Text_KathleenIntro, MossdeepCity_Gym_Text_KathleenDefeat
+	msgbox MossdeepCity_Gym_Text_KathleenPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MossdeepCity_Gym_EventScript_GymGuide::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_MOSSDEEP_GYM, MossdeepCity_Gym_EventScript_GymGuidePostVictory
+	msgbox MossdeepCity_Gym_Text_GymGuideAdvice, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_Gym_EventScript_GymGuidePostVictory::
+	msgbox MossdeepCity_Gym_Text_GymGuidePostVictory, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_Gym_EventScript_LeftGymStatue::
+	lockall
+	goto_if_set FLAG_HOENN_BADGE07_GET, MossdeepCity_Gym_EventScript_GymStatueCertified
+	goto MossdeepCity_Gym_EventScript_GymStatue
+	end
+
+MossdeepCity_Gym_EventScript_RightGymStatue::
+	lockall
+	goto_if_set FLAG_HOENN_BADGE07_GET, MossdeepCity_Gym_EventScript_GymStatueCertified
+	goto MossdeepCity_Gym_EventScript_GymStatue
+	end
+
+MossdeepCity_Gym_EventScript_GymStatueCertified::
+	msgbox MossdeepCity_Gym_Text_GymStatueCertified, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MossdeepCity_Gym_EventScript_GymStatue::
+	msgbox MossdeepCity_Gym_Text_GymStatue, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MossdeepCity_Gym_EventScript_YellowFloorSwitch::
+	playse SE_SWITCH
+	waitse
+	playse SE_REPEL
+	initrotatingtilepuzzle FALSE
+	moverotatingtileobjects 0
+	waitmovement 0
+	turnrotatingtileobjects
+	waitmovement 0
+	freerotatingtilepuzzle
+	end
+
+MossdeepCity_Gym_EventScript_BlueFloorSwitch::
+	playse SE_SWITCH
+	waitse
+	playse SE_REPEL
+	initrotatingtilepuzzle FALSE
+	moverotatingtileobjects 1
+	waitmovement 0
+	turnrotatingtileobjects
+	waitmovement 0
+	freerotatingtilepuzzle
+	end
+
+MossdeepCity_Gym_EventScript_GreenFloorSwitch::
+	playse SE_SWITCH
+	waitse
+	playse SE_REPEL
+	initrotatingtilepuzzle FALSE
+	moverotatingtileobjects 2
+	waitmovement 0
+	turnrotatingtileobjects
+	waitmovement 0
+	freerotatingtilepuzzle
+	end
+
+MossdeepCity_Gym_EventScript_PurpleFloorSwitch::
+	playse SE_SWITCH
+	waitse
+	playse SE_REPEL
+	initrotatingtilepuzzle FALSE
+	moverotatingtileobjects 3
+	waitmovement 0
+	turnrotatingtileobjects
+	waitmovement 0
+	freerotatingtilepuzzle
+	end
+
+MossdeepCity_Gym_EventScript_RedFloorSwitch::
+	playse SE_SWITCH
+	waitse
+	playse SE_REPEL
+	initrotatingtilepuzzle FALSE
+	moverotatingtileobjects 4
+	waitmovement 0
+	turnrotatingtileobjects
+	waitmovement 0
+	freerotatingtilepuzzle
+	end

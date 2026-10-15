@@ -3,9 +3,39 @@ AbandonedShip_Rooms2_1F_MapScripts::
 AbandonedShip_Rooms2_1F_EventScript_ItemRevive:: @ item ball, works (FLAG_ITEM_ABANDONED_SHIP_ROOMS_2_1F_REVIVE)
 	finditem ITEM_REVIVE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/AbandonedShip_Rooms2_1F/scripts.inc
-AbandonedShip_Rooms2_1F_EventScript_Dan::       @ trainer #1 (7,13) TRAINER_KIRA_AND_DAN_1, Emerald NORMAL sight 1
-AbandonedShip_Rooms2_1F_EventScript_Kira::      @ trainer #2 (6,13) TRAINER_KIRA_AND_DAN_1, Emerald NORMAL sight 1
-AbandonedShip_Rooms2_1F_EventScript_Garrison::  @ trainer #4 (3,2) TRAINER_GARRISON, Emerald NORMAL sight 3
-AbandonedShip_Rooms2_1F_EventScript_Jani::      @ trainer #5 (7,2) TRAINER_JANI, Emerald NORMAL sight 3
+
+AbandonedShip_Rooms2_1F_EventScript_Dan::
+	trainerbattle_double TRAINER_KIRA_AND_DAN_1, AbandonedShip_Rooms2_1F_Text_DanIntro, AbandonedShip_Rooms2_1F_Text_DanDefeat, AbandonedShip_Rooms2_1F_Text_DanNotEnoughMons
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, AbandonedShip_Rooms2_1F_EventScript_DanRematch
+	msgbox AbandonedShip_Rooms2_1F_Text_DanPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+AbandonedShip_Rooms2_1F_EventScript_DanRematch::
+	trainerbattle_rematch_double TRAINER_KIRA_AND_DAN_1, AbandonedShip_Rooms2_1F_Text_DanRematchIntro, AbandonedShip_Rooms2_1F_Text_DanRematchDefeat, AbandonedShip_Rooms2_1F_Text_DanRematchNotEnoughMons
+	msgbox AbandonedShip_Rooms2_1F_Text_DanPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+AbandonedShip_Rooms2_1F_EventScript_Kira::
+	trainerbattle_double TRAINER_KIRA_AND_DAN_1, AbandonedShip_Rooms2_1F_Text_KiraIntro, AbandonedShip_Rooms2_1F_Text_KiraDefeat, AbandonedShip_Rooms2_1F_Text_KiraNotEnoughMons
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, AbandonedShip_Rooms2_1F_EventScript_KiraRematch
+	msgbox AbandonedShip_Rooms2_1F_Text_KiraPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+AbandonedShip_Rooms2_1F_EventScript_KiraRematch::
+	trainerbattle_rematch_double TRAINER_KIRA_AND_DAN_1, AbandonedShip_Rooms2_1F_Text_KiraRematchIntro, AbandonedShip_Rooms2_1F_Text_KiraRematchDefeat, AbandonedShip_Rooms2_1F_Text_KiraRematchNotEnoughMons
+	msgbox AbandonedShip_Rooms2_1F_Text_KiraPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+AbandonedShip_Rooms2_1F_EventScript_Garrison::
+	trainerbattle_single TRAINER_GARRISON, AbandonedShip_Rooms2_1F_Text_GarrisonIntro, AbandonedShip_Rooms2_1F_Text_GarrisonDefeat
+	msgbox AbandonedShip_Rooms2_1F_Text_GarrisonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+AbandonedShip_Rooms2_1F_EventScript_Jani::
+	trainerbattle_single TRAINER_JANI, AbandonedShip_Rooms2_1F_Text_JaniIntro, AbandonedShip_Rooms2_1F_Text_JaniDefeat
+	msgbox AbandonedShip_Rooms2_1F_Text_JaniPostBattle, MSGBOX_AUTOCLOSE
 	end

@@ -4,9 +4,33 @@ Route106_EventScript_ItemProtein::              @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_PROTEIN
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route106/scripts.inc
-Route106_EventScript_Douglas::                  @ trainer #1 (18,5) TRAINER_DOUGLAS, Emerald NORMAL sight 3
-Route106_EventScript_Kyla::                     @ trainer #2 (29,10) TRAINER_KYLA, Emerald NORMAL sight 3
-Route106_EventScript_Elliot::                   @ trainer #3 (51,14) TRAINER_ELLIOT_1, Emerald NORMAL sight 4
-Route106_EventScript_Ned::                      @ trainer #4 (65,14) TRAINER_NED, Emerald NORMAL sight 3
 Route106_EventScript_TrainerTipsSign::          @ sign (59,13)
+	end
+
+Route106_EventScript_Douglas::
+	trainerbattle_single TRAINER_DOUGLAS, Route106_Text_DouglasIntro, Route106_Text_DouglasDefeated
+	msgbox Route106_Text_DouglasPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route106_EventScript_Kyla::
+	trainerbattle_single TRAINER_KYLA, Route106_Text_KylaIntro, Route106_Text_KylaDefeated
+	msgbox Route106_Text_KylaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route106_EventScript_Elliot::
+	trainerbattle_single TRAINER_ELLIOT_1, Route106_Text_ElliotIntro, Route106_Text_ElliotDefeated
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route106_EventScript_ElliotRematch
+	msgbox Route106_Text_ElliotPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route106_EventScript_ElliotRematch::
+	trainerbattle_rematch TRAINER_ELLIOT_1, Route106_Text_ElliotRematchIntro, Route106_Text_ElliotRematchDefeated
+	msgbox Route106_Text_ElliotRematchPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route106_EventScript_Ned::
+	trainerbattle_single TRAINER_NED, Route106_Text_NedIntro, Route106_Text_NedDefeated
+	msgbox Route106_Text_NedPostBattle, MSGBOX_AUTOCLOSE
 	end

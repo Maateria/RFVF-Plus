@@ -5,16 +5,60 @@ Route118_EventScript_ItemHyperPotion::          @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_HYPER_POTION
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route118/scripts.inc
-Route118_EventScript_Perry::                    @ trainer #1 (64,10) TRAINER_PERRY, Emerald NORMAL sight 3
 Route118_EventScript_Girl::                     @ NPC #2 (12,10)
 Route118_EventScript_GoodRodFisherman::         @ NPC #4 (28,8)
-Route118_EventScript_Rose::                     @ trainer #5 (7,12) TRAINER_ROSE_1, Emerald NORMAL sight 4
-Route118_EventScript_Wade::                     @ trainer #6 (14,14) TRAINER_WADE, Emerald NORMAL sight 0
-Route118_EventScript_Chester::                  @ trainer #7 (56,7) TRAINER_CHESTER, Emerald NORMAL sight 3
-Route118_EventScript_Barny::                    @ trainer #8 (39,15) TRAINER_BARNY, Emerald NORMAL sight 2
-Route118_EventScript_Dalton::                   @ trainer #9 (17,11) TRAINER_DALTON_1, Emerald NORMAL sight 3
-Route118_EventScript_Deandre::                  @ trainer #11 (7,7) TRAINER_DEANDRE, Emerald NORMAL sight 4
 Route118_EventScript_RouteSignMauville::        @ sign (13,6)
 Route118_EventScript_RouteSign119::             @ sign (56,8)
 	end
 @ hoenn_import: left out: trigger (43,11) VAR_ROUTE118_STATE==0 -> Route118_EventScript_StevenTrigger0; trigger (44,11) VAR_ROUTE118_STATE==0 -> Route118_EventScript_StevenTrigger1; trigger (45,11) VAR_ROUTE118_STATE==0 -> Route118_EventScript_StevenTrigger2
+
+Route118_EventScript_Perry::
+	trainerbattle_single TRAINER_PERRY, Route118_Text_PerryIntro, Route118_Text_PerryDefeat
+	msgbox Route118_Text_PerryPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route118_EventScript_Rose::
+	trainerbattle_single TRAINER_ROSE_1, Route118_Text_RoseIntro, Route118_Text_RoseDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route118_EventScript_RematchRose
+	msgbox Route118_Text_RosePostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route118_EventScript_RematchRose::
+	trainerbattle_rematch TRAINER_ROSE_1, Route118_Text_RoseRematchIntro, Route118_Text_RoseRematchDefeat
+	msgbox Route118_Text_RosePostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route118_EventScript_Wade::
+	trainerbattle_single TRAINER_WADE, Route118_Text_WadeIntro, Route118_Text_WadeDefeat
+	msgbox Route118_Text_WadePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route118_EventScript_Chester::
+	trainerbattle_single TRAINER_CHESTER, Route118_Text_ChesterIntro, Route118_Text_ChesterDefeat
+	msgbox Route118_Text_ChesterPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route118_EventScript_Barny::
+	trainerbattle_single TRAINER_BARNY, Route118_Text_BarnyIntro, Route118_Text_BarnyDefeat
+	msgbox Route118_Text_BarnyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route118_EventScript_Dalton::
+	trainerbattle_single TRAINER_DALTON_1, Route118_Text_DaltonIntro, Route118_Text_DaltonDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route118_EventScript_RematchDalton
+	msgbox Route118_Text_DaltonPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route118_EventScript_RematchDalton::
+	trainerbattle_rematch TRAINER_DALTON_1, Route118_Text_DaltonRematchIntro, Route118_Text_DaltonRematchDefeat
+	msgbox Route118_Text_DaltonPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route118_EventScript_Deandre::
+	trainerbattle_single TRAINER_DEANDRE, Route118_Text_DeandreIntro, Route118_Text_DeandreDefeat
+	msgbox Route118_Text_DeandrePostBattle, MSGBOX_AUTOCLOSE
+	end

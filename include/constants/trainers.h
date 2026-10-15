@@ -180,6 +180,16 @@
 #define TRAINER_PIC_MASTER_SCIENTIST      158
 #define TRAINER_PIC_MASTER_YOUNGSTER      159
 #define TRAINER_PIC_MASTER_SWIMMER        160
+// Emerald's, for the Hoenn trainers
+#define TRAINER_PIC_CHAMPION_WALLACE       161
+#define TRAINER_PIC_LEADER_JUAN            162
+#define TRAINER_PIC_SALON_MAIDEN_ANABEL    163
+#define TRAINER_PIC_DOME_ACE_TUCKER        164
+#define TRAINER_PIC_PALACE_MAVEN_SPENSER   165
+#define TRAINER_PIC_ARENA_TYCOON_GRETA     166
+#define TRAINER_PIC_FACTORY_HEAD_NOLAND    167
+#define TRAINER_PIC_PIKE_QUEEN_LUCY        168
+#define TRAINER_PIC_PYRAMID_KING_BRANDON   169
 
 // The player back pics are assumed to alternate according to the gender values (MALE/FEMALE)
 #define TRAINER_BACK_PIC_RED                    0
@@ -303,6 +313,18 @@
 #define TRAINER_CLASS_RUIN_MANIAC         104
 #define TRAINER_CLASS_LADY                105
 #define TRAINER_CLASS_PAINTER             106
+// Emerald's, for the Hoenn trainers
+#define TRAINER_CLASS_COOLTRAINER_2      107
+#define TRAINER_CLASS_RIVAL              108
+#define TRAINER_CLASS_WINSTRATE          109
+#define TRAINER_CLASS_RS_PROTAG          110
+#define TRAINER_CLASS_SALON_MAIDEN       111
+#define TRAINER_CLASS_DOME_ACE           112
+#define TRAINER_CLASS_PALACE_MAVEN       113
+#define TRAINER_CLASS_ARENA_TYCOON       114
+#define TRAINER_CLASS_FACTORY_HEAD       115
+#define TRAINER_CLASS_PIKE_QUEEN         116
+#define TRAINER_CLASS_PYRAMID_KING       117
 
 #define FACILITY_CLASS_AQUA_LEADER_ARCHIE     0
 #define FACILITY_CLASS_AQUA_GRUNT_M           1

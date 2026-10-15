@@ -11,14 +11,74 @@ Route124_EventScript_ItemYellowShard::          @ item ball, works (FLAG_ITEM_RO
 	finditem ITEM_YELLOW_SHARD
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route124/scripts.inc
-Route124_EventScript_Spencer::                  @ trainer #1 (34,25) TRAINER_SPENCER, Emerald NORMAL sight 3
-Route124_EventScript_Roland::                   @ trainer #2 (61,74) TRAINER_ROLAND, Emerald NORMAL sight 7
-Route124_EventScript_Jenny::                    @ trainer #3 (49,45) TRAINER_JENNY_1, Emerald NORMAL sight 3
-Route124_EventScript_Grace::                    @ trainer #4 (7,23) TRAINER_GRACE, Emerald NORMAL sight 5
-Route124_EventScript_Chad::                     @ trainer #5 (58,58) TRAINER_CHAD, Emerald NORMAL sight 2
-Route124_EventScript_Lila::                     @ trainer #9 (18,44) TRAINER_LILA_AND_ROY_1, Emerald NORMAL sight 1
-Route124_EventScript_Roy::                      @ trainer #10 (17,44) TRAINER_LILA_AND_ROY_1, Emerald NORMAL sight 1
-Route124_EventScript_Declan::                   @ trainer #11 (7,29) TRAINER_DECLAN, Emerald NORMAL sight 5
-Route124_EventScript_Isabella::                 @ trainer #12 (69,74) TRAINER_ISABELLA, Emerald NORMAL sight 7
 Route124_EventScript_HuntersHouseSign::         @ sign (73,48)
+	end
+
+Route124_EventScript_Spencer::
+	trainerbattle_single TRAINER_SPENCER, Route124_Text_SpencerIntro, Route124_Text_SpencerDefeat
+	msgbox Route124_Text_SpencerPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Roland::
+	trainerbattle_single TRAINER_ROLAND, Route124_Text_RolandIntro, Route124_Text_RolandDefeat
+	msgbox Route124_Text_RolandPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Jenny::
+	trainerbattle_single TRAINER_JENNY_1, Route124_Text_JennyIntro, Route124_Text_JennyDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route124_EventScript_RematchJenny
+	msgbox Route124_Text_JennyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route124_EventScript_RematchJenny::
+	trainerbattle_rematch TRAINER_JENNY_1, Route124_Text_JennyRematchIntro, Route124_Text_JennyRematchDefeat
+	msgbox Route124_Text_JennyPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Grace::
+	trainerbattle_single TRAINER_GRACE, Route124_Text_GraceIntro, Route124_Text_GraceDefeat
+	msgbox Route124_Text_GracePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Chad::
+	trainerbattle_single TRAINER_CHAD, Route124_Text_ChadIntro, Route124_Text_ChadDefeat
+	msgbox Route124_Text_ChadPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Lila::
+	trainerbattle_double TRAINER_LILA_AND_ROY_1, Route124_Text_LilaIntro, Route124_Text_LilaDefeat, Route124_Text_LilaNotEnoughMons
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route124_EventScript_RematchLila
+	msgbox Route124_Text_LilaPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route124_EventScript_RematchLila::
+	trainerbattle_rematch_double TRAINER_LILA_AND_ROY_1, Route124_Text_LilaRematchIntro, Route124_Text_LilaRematchDefeat, Route124_Text_LilaRematchNotEnoughMons
+	msgbox Route124_Text_LilaPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Roy::
+	trainerbattle_double TRAINER_LILA_AND_ROY_1, Route124_Text_RoyIntro, Route124_Text_RoyDefeat, Route124_Text_RoyNotEnoughMons
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route124_EventScript_RematchRoy
+	msgbox Route124_Text_RoyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route124_EventScript_RematchRoy::
+	trainerbattle_rematch_double TRAINER_LILA_AND_ROY_1, Route124_Text_RoyRematchIntro, Route124_Text_RoyRematchDefeat, Route124_Text_RoyRematchNotEnoughMons
+	msgbox Route124_Text_RoyPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Declan::
+	trainerbattle_single TRAINER_DECLAN, Route124_Text_DeclanIntro, Route124_Text_DeclanDefeat
+	msgbox Route124_Text_DeclanPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route124_EventScript_Isabella::
+	trainerbattle_single TRAINER_ISABELLA, Route124_Text_IsabellaIntro, Route124_Text_IsabellaDefeat
+	msgbox Route124_Text_IsabellaPostBattle, MSGBOX_AUTOCLOSE
 	end

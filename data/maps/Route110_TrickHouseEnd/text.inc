@@ -1,0 +1,76 @@
+Route110_TrickHouseEnd_Text_YouveMadeItToMe::
+    .string "Aaargh! Tu m'as retrouvé?\n"
+    .string "Hmmm… Tu as l'œil!$"
+
+Route110_TrickHouseEnd_Text_AllNightToPlantTrees::
+    .string "Il m'a fallu toute la nuit pour\n"
+    .string "planter tous ces arbres…\p"
+    .string "Tu es presque aussi balèze que moi,\n"
+    .string "à 1, 2, 3, 4, 5, 6 endroits près!$"
+
+Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward::
+    .string "Excellent!\n"
+    .string "Tu as gagné cette récompense!$"
+
+Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou::
+    .string "Epargne-moi ce sourire\n"
+    .string "narquois! Ne va pas t'imaginer\l"
+    .string "que tu as déjà gagné!\p"
+    .string "Je trouverai de nouveaux pièges pour\n"
+    .string "te coller. Après, tu\l"
+    .string "pourras te moquer.\p"
+    .string "Reviens me voir pour un autre\n"
+    .string "défi passionnant!$"
+
+Route110_TrickHouseEnd_Text_AllNightToMakeMaze::
+    .string "Il m'a fallu toute la nuit pour faire\n"
+    .string "ce labyrinthe…\p"
+    .string "Tu es presque aussi balèze que moi,\n"
+    .string "à 1, 2, 3, 4, 5 endroits près!$"
+
+Route110_TrickHouseEnd_Text_AllNightToPreparePanels::
+    .string "Il m'a fallu toute la nuit pour\n"
+    .string "préparer ces pans de mur…\p"
+    .string "Tu es presque aussi balèze que moi,\n"
+    .string "à un, deux, trois,\l"
+    .string "quatre endroits près!$"
+
+Route110_TrickHouseEnd_Text_AllNightToShoveBoulders::
+    .string "Il m'a fallu toute la nuit pour\n"
+    .string "pousser jusqu'ici tous ces rochers…\p"
+    .string "Tu es presque aussi balèze que moi,\n"
+    .string "à un, deux, trois endroits près!$"
+
+Route110_TrickHouseEnd_Text_AllNightToMakeMechadolls::
+    .string "Il m'a fallu une nuit pour\n"
+    .string "fabriquer ces MECAPOUPEES\l"
+    .string "et une pour les questions.\p"
+    .string "Tu es presque aussi balèze que moi,\n"
+    .string "à un, deux endroits près!$"
+
+Route110_TrickHouseEnd_Text_AllNightToInstallDoors::
+    .string "Il m'a fallu toute une nuit pour\n"
+    .string "installer ces portes…\p"
+    .string "Tu es presque aussi balèze que moi!$"
+
+Route110_TrickHouseEnd_Text_AllNightSettingUpArrows::
+    .string "Il m'a fallu toute la nuit pour\n"
+    .string "installer ces flèches…\p"
+    .string "Tu es aussi balèze que moi!$"
+
+Route110_TrickHouseEnd_Text_AllNightPolishingFloors::
+    .string "Il m'a fallu toute la nuit pour cirer\n"
+    .string "les parquets…\p"
+    .string "Tu es plus balèze que moi!\n"
+    .string "Il est possible que…$"
+
+Route110_TrickHouseEnd_Text_NoRoomForThis::
+    .string "Quoi? Tu n'as plus de place?\n"
+    .string "Combien d'objets\l"
+    .string "transportes-tu déjà?\p"
+    .string "Soit, puisque tu m'as trouvé, je\n"
+    .string "garde ta récompense. Reviens me voir.$"
+
+Route110_TrickHouseEnd_Text_YoureIgnoringMe::
+    .string "Quoi? Comment oses-tu? Tu m'ignores,\n"
+    .string "maintenant? Ça me fend le cœur!$"

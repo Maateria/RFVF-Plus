@@ -518,5 +518,5 @@
       "script": "SlateportCity_EventScript_BerryCrushRankingsSign"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

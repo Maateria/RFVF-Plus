@@ -7,12 +7,41 @@ HoennVictoryRoad_1F_EventScript_ItemMaxElixir:: @ item ball, works (FLAG_ITEM_HO
 HoennVictoryRoad_1F_EventScript_ItemPPUp::      @ item ball, works (FLAG_ITEM_HOENN_VICTORY_ROAD_1F_PP_UP)
 	finditem ITEM_PP_UP
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/VictoryRoad_1F/scripts.inc
-HoennVictoryRoad_1F_EventScript_Edgar::         @ trainer #1 (33,22) TRAINER_EDGAR, Emerald NORMAL sight 3
-HoennVictoryRoad_1F_EventScript_Hope::          @ trainer #2 (6,15) TRAINER_HOPE, Emerald NORMAL sight 4
-HoennVictoryRoad_1F_EventScript_Albert::        @ trainer #3 (27,34) TRAINER_ALBERT, Emerald NORMAL sight 3
-HoennVictoryRoad_1F_EventScript_ExitWally::     @ NPC #6 (31,9)
-HoennVictoryRoad_1F_EventScript_Katelynn::      @ trainer #7 (29,17) TRAINER_KATELYNN, Emerald NORMAL sight 2
-HoennVictoryRoad_1F_EventScript_Quincy::        @ trainer #8 (32,17) TRAINER_QUINCY, Emerald NORMAL sight 2
-	end
 @ hoenn_import: left out: trigger (2,23) VAR_VICTORY_ROAD_1F_STATE==0 -> HoennVictoryRoad_1F_EventScript_WallyBattleTrigger1; trigger (3,23) VAR_VICTORY_ROAD_1F_STATE==0 -> HoennVictoryRoad_1F_EventScript_WallyBattleTrigger2
+
+HoennVictoryRoad_1F_EventScript_Edgar::
+	trainerbattle_single TRAINER_EDGAR, HoennVictoryRoad_1F_Text_EdgarIntro, HoennVictoryRoad_1F_Text_EdgarDefeat
+	msgbox HoennVictoryRoad_1F_Text_EdgarPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_1F_EventScript_Hope::
+	trainerbattle_single TRAINER_HOPE, HoennVictoryRoad_1F_Text_HopeIntro, HoennVictoryRoad_1F_Text_HopeDefeat
+	msgbox HoennVictoryRoad_1F_Text_HopePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_1F_EventScript_Albert::
+	trainerbattle_single TRAINER_ALBERT, HoennVictoryRoad_1F_Text_AlbertIntro, HoennVictoryRoad_1F_Text_AlbertDefeat
+	msgbox HoennVictoryRoad_1F_Text_AlbertPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_1F_EventScript_ExitWally::
+	trainerbattle_single TRAINER_WALLY_VR_2, HoennVictoryRoad_1F_Text_WallyIntro, HoennVictoryRoad_1F_Text_WallyDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, HoennVictoryRoad_1F_EventScript_RematchWally
+	msgbox HoennVictoryRoad_1F_Text_WallyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_1F_EventScript_RematchWally::
+	trainerbattle_rematch TRAINER_WALLY_VR_2, HoennVictoryRoad_1F_Text_WallyIntro, HoennVictoryRoad_1F_Text_WallyDefeat
+	msgbox HoennVictoryRoad_1F_Text_WallyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_1F_EventScript_Katelynn::
+	trainerbattle_single TRAINER_KATELYNN, HoennVictoryRoad_1F_Text_KatelynnIntro, HoennVictoryRoad_1F_Text_KatelynnDefeat
+	msgbox HoennVictoryRoad_1F_Text_KatelynnPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+HoennVictoryRoad_1F_EventScript_Quincy::
+	trainerbattle_single TRAINER_QUINCY, HoennVictoryRoad_1F_Text_QuincyIntro, HoennVictoryRoad_1F_Text_QuincyDefeat
+	msgbox HoennVictoryRoad_1F_Text_QuincyPostBattle, MSGBOX_AUTOCLOSE
+	end

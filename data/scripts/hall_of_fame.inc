@@ -33,6 +33,7 @@ EventScript_ResetEliteFourEnd::
 	end
 
 EventScript_ResetEliteFour::
+	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour @ Hoenn's too, as Emerald does on whiting out
 	clearflag FLAG_DEFEATED_LORELEI
 	clearflag FLAG_DEFEATED_BRUNO
 	clearflag FLAG_DEFEATED_AGATHA

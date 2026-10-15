@@ -151,6 +151,7 @@
 #define MB_SAFARI_ZONE_EXTENSION_SIGN 0xD4
 #define MB_SHORT_GRASS 0xD5
 #define MB_LAVARIDGE_GYM_B1F_WARP 0xD6 // Emerald's Lavaridge Gym B1F geyser: DoLavaridgeGymB1FWarp
+#define MB_TRICK_HOUSE_PUZZLE_DOOR 0xD7 // Emerald's: a Trick House puzzle's exit door, its script on A
 //
 #define NUM_METATILE_BEHAVIORS 0xF0
 

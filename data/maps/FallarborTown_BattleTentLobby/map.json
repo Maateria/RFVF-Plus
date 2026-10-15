@@ -103,5 +103,5 @@
       "script": "FallarborTown_BattleTentLobby_EventScript_RulesBoard"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

@@ -21,16 +21,80 @@ Route115_EventScript_ItemHealPowder::           @ item ball, works (FLAG_ITEM_RO
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route115/scripts.inc
 Route115_EventScript_Woman::                    @ NPC #1 (18,68)
-Route115_EventScript_Timothy::                  @ trainer #2 (5,15) TRAINER_TIMOTHY_1, Emerald NORMAL sight 6
-Route115_EventScript_Nob::                      @ trainer #3 (27,53) TRAINER_NOB_1, Emerald NORMAL sight 4
-Route115_EventScript_Cyndy::                    @ trainer #4 (15,50) TRAINER_CYNDY_1, Emerald NORMAL sight 3
-Route115_EventScript_Koichi::                   @ trainer #5 (19,15) TRAINER_KOICHI, Emerald NORMAL sight 2
-Route115_EventScript_Hector::                   @ trainer #6 (24,62) TRAINER_HECTOR, Emerald NORMAL sight 4
-Route115_EventScript_Kyra::                     @ trainer #12 (10,15) TRAINER_KYRA, Emerald NORMAL sight 2
-Route115_EventScript_Jaiden::                   @ trainer #13 (11,12) TRAINER_JAIDEN, Emerald NORMAL sight 3
-Route115_EventScript_Helene::                   @ trainer #14 (15,7) TRAINER_HELENE, Emerald NORMAL sight 4
-Route115_EventScript_Alix::                     @ trainer #15 (10,7) TRAINER_ALIX, Emerald NORMAL sight 4
-Route115_EventScript_Marlene::                  @ trainer #16 (28,62) TRAINER_MARLENE, Emerald NORMAL sight 4
 Route115_EventScript_RouteSignRustboro::        @ sign (16,64)
 Route115_EventScript_MeteorFallsSign::          @ sign (25,38)
+	end
+
+Route115_EventScript_Timothy::
+	trainerbattle_single TRAINER_TIMOTHY_1, Route115_Text_TimothyIntro, Route115_Text_TimothyDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route115_EventScript_RematchTimothy
+	msgbox Route115_Text_TimothyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route115_EventScript_RematchTimothy::
+	trainerbattle_rematch TRAINER_TIMOTHY_1, Route115_Text_TimothyRematchIntro, Route115_Text_TimothyRematchDefeat
+	msgbox Route115_Text_TimothyPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Nob::
+	trainerbattle_single TRAINER_NOB_1, Route115_Text_NobIntro, Route115_Text_NobDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route115_EventScript_RematchNob
+	msgbox Route115_Text_NobPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route115_EventScript_RematchNob::
+	trainerbattle_rematch TRAINER_NOB_1, Route115_Text_NobRematchIntro, Route115_Text_NobRematchDefeat
+	msgbox Route115_Text_NobPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Cyndy::
+	trainerbattle_single TRAINER_CYNDY_1, Route115_Text_CyndyIntro, Route115_Text_CyndyDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route115_EventScript_RematchCyndy
+	msgbox Route115_Text_CyndyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route115_EventScript_RematchCyndy::
+	trainerbattle_rematch TRAINER_CYNDY_1, Route115_Text_CyndyRematchIntro, Route115_Text_CyndyRematchDefeat
+	msgbox Route115_Text_CyndyPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Koichi::
+	trainerbattle_single TRAINER_KOICHI, Route115_Text_KoichiIntro, Route115_Text_KoichiDefeat
+	msgbox Route115_Text_KoichiPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Hector::
+	trainerbattle_single TRAINER_HECTOR, Route115_Text_HectorIntro, Route115_Text_HectorDefeat
+	msgbox Route115_Text_HectorPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Kyra::
+	trainerbattle_single TRAINER_KYRA, Route115_Text_KyraIntro, Route115_Text_KyraDefeat
+	msgbox Route115_Text_KyraPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Jaiden::
+	trainerbattle_single TRAINER_JAIDEN, Route115_Text_JaidenIntro, Route115_Text_JaidenDefeat
+	msgbox Route115_Text_JaidenPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Helene::
+	trainerbattle_single TRAINER_HELENE, Route115_Text_HeleneIntro, Route115_Text_HeleneDefeat
+	msgbox Route115_Text_HelenePostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Alix::
+	trainerbattle_single TRAINER_ALIX, Route115_Text_AlixIntro, Route115_Text_AlixDefeat
+	msgbox Route115_Text_AlixPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route115_EventScript_Marlene::
+	trainerbattle_single TRAINER_MARLENE, Route115_Text_MarleneIntro, Route115_Text_MarleneDefeat
+	msgbox Route115_Text_MarlenePostBattle, MSGBOX_AUTOCLOSE
 	end

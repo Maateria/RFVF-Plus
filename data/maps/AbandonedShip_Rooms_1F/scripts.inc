@@ -5,6 +5,22 @@ AbandonedShip_Rooms_1F_EventScript_ItemHarborMail:: @ item ball, works (FLAG_ITE
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/AbandonedShip_Rooms_1F/scripts.inc
 AbandonedShip_Rooms_1F_EventScript_Gentleman::  @ NPC #1 (12,5)
-AbandonedShip_Rooms_1F_EventScript_Thalia::     @ trainer #3 (10,11) TRAINER_THALIA_1, Emerald NORMAL sight 4
-AbandonedShip_Rooms_1F_EventScript_Demetrius::  @ trainer #4 (10,16) TRAINER_DEMETRIUS, Emerald NORMAL sight 4
+	end
+
+AbandonedShip_Rooms_1F_EventScript_Thalia::
+	trainerbattle_single TRAINER_THALIA_1, AbandonedShip_Rooms_1F_Text_ThaliaIntro, AbandonedShip_Rooms_1F_Text_ThaliaDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, AbandonedShip_Rooms_1F_EventScript_ThaliaRematch
+	msgbox AbandonedShip_Rooms_1F_Text_ThaliaPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+AbandonedShip_Rooms_1F_EventScript_ThaliaRematch::
+	trainerbattle_rematch TRAINER_THALIA_1, AbandonedShip_Rooms_1F_Text_ThaliaRematchIntro, AbandonedShip_Rooms_1F_Text_ThaliaRematchDefeat
+	msgbox AbandonedShip_Rooms_1F_Text_ThaliaPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+AbandonedShip_Rooms_1F_EventScript_Demetrius::
+	trainerbattle_single TRAINER_DEMETRIUS, AbandonedShip_Rooms_1F_Text_DemetriusIntro, AbandonedShip_Rooms_1F_Text_DemetriusDefeat
+	msgbox AbandonedShip_Rooms_1F_Text_DemetriusPostBattle, MSGBOX_AUTOCLOSE
 	end

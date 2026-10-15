@@ -114,8 +114,8 @@
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_LEFT_AND_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "PetalburgWoods_EventScript_Lyle",
       "flag": "0",
       "in_connection": false
@@ -129,8 +129,8 @@
       "movement_type": "MOVEMENT_TYPE_FACE_DOWN_UP_AND_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
+      "trainer_type": "TRAINER_TYPE_NORMAL",
+      "trainer_sight_or_berry_tree_id": "3",
       "script": "PetalburgWoods_EventScript_James",
       "flag": "0",
       "in_connection": false
@@ -284,5 +284,5 @@
       "script": "PetalburgWoods_EventScript_Sign2"
     }
   ],
-  "level_scaling": "0"
+  "level_scaling": "5"
 }

@@ -1,7 +1,41 @@
 MeteorFalls_1F_2R_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MeteorFalls_1F_2R/scripts.inc
-MeteorFalls_1F_2R_EventScript_Nicolas::         @ trainer #1 (13,2) TRAINER_NICOLAS_1, Emerald NORMAL sight 1
-MeteorFalls_1F_2R_EventScript_John::            @ trainer #2 (6,12) TRAINER_JOHN_AND_JAY_1, Emerald NORMAL sight 1
-MeteorFalls_1F_2R_EventScript_Jay::             @ trainer #3 (7,12) TRAINER_JOHN_AND_JAY_1, Emerald NORMAL sight 1
+
+MeteorFalls_1F_2R_EventScript_Nicolas::
+	trainerbattle_single TRAINER_NICOLAS_1, MeteorFalls_1F_2R_Text_NicolasIntro, MeteorFalls_1F_2R_Text_NicolasDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, MeteorFalls_1F_2R_EventScript_RematchNicolas
+	msgbox MeteorFalls_1F_2R_Text_NicolasPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MeteorFalls_1F_2R_EventScript_RematchNicolas::
+	trainerbattle_rematch TRAINER_NICOLAS_1, MeteorFalls_1F_2R_Text_NicolasRematchIntro, MeteorFalls_1F_2R_Text_NicolasRematchDefeat
+	msgbox MeteorFalls_1F_2R_Text_NicolasPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+MeteorFalls_1F_2R_EventScript_John::
+	trainerbattle_double TRAINER_JOHN_AND_JAY_1, MeteorFalls_1F_2R_Text_JohnIntro, MeteorFalls_1F_2R_Text_JohnDefeat, MeteorFalls_1F_2R_Text_JohnNotEnoughMons
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, MeteorFalls_1F_2R_EventScript_RematchJohn
+	msgbox MeteorFalls_1F_2R_Text_JohnPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MeteorFalls_1F_2R_EventScript_RematchJohn::
+	trainerbattle_rematch_double TRAINER_JOHN_AND_JAY_1, MeteorFalls_1F_2R_Text_JohnRematchIntro, MeteorFalls_1F_2R_Text_JohnRematchDefeat, MeteorFalls_1F_2R_Text_JohnRematchNotEnoughMons
+	msgbox MeteorFalls_1F_2R_Text_JohnPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+MeteorFalls_1F_2R_EventScript_Jay::
+	trainerbattle_double TRAINER_JOHN_AND_JAY_1, MeteorFalls_1F_2R_Text_JayIntro, MeteorFalls_1F_2R_Text_JayDefeat, MeteorFalls_1F_2R_Text_JayNotEnoughMons
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, MeteorFalls_1F_2R_EventScript_RematchJay
+	msgbox MeteorFalls_1F_2R_Text_JayPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MeteorFalls_1F_2R_EventScript_RematchJay::
+	trainerbattle_rematch_double TRAINER_JOHN_AND_JAY_1, MeteorFalls_1F_2R_Text_JayRematchIntro, MeteorFalls_1F_2R_Text_JayRematchDefeat, MeteorFalls_1F_2R_Text_JayRematchNotEnoughMons
+	msgbox MeteorFalls_1F_2R_Text_JayPostRematch, MSGBOX_AUTOCLOSE
 	end

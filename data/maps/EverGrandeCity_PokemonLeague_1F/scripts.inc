@@ -3,10 +3,121 @@
 .equ LOCALID_LEAGUE_GUARD_2, 4
 
 EverGrandeCity_PokemonLeague_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, EverGrandeCity_PokemonLeague_1F_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (EverGrandeCity_PokemonLeague_1F_OnTransition), ON_RESUME (CableClub_OnResume)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/EverGrandeCity_PokemonLeague_1F/scripts.inc
-EverGrandeCity_PokemonLeague_1F_EventScript_Nurse:: @ NPC #1 (3,2)
-EverGrandeCity_PokemonLeague_1F_EventScript_Clerk:: @ NPC #2 (16,2)
-EverGrandeCity_PokemonLeague_1F_EventScript_DoorGuard:: @ NPC #3 (8,2)
+
+EverGrandeCity_PokemonLeague_1F_OnTransition:
+	setrespawn SPAWN_EVER_GRANDE_CITY_POKEMON_LEAGUE
+	setflag FLAG_LANDMARK_POKEMON_LEAGUE
+	call_if_unset FLAG_ENTERED_ELITE_FOUR, EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor
 	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor::
+	setobjectxyperm LOCALID_LEAGUE_GUARD_1, 9, 2
+	setobjectxyperm LOCALID_LEAGUE_GUARD_2, 10, 2
+	return
+
+EverGrandeCity_PokemonLeague_1F_EventScript_Nurse::
+	lock
+	faceplayer
+	call EventScript_PkmnCenterNurse
+	release
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_Clerk::
+	goto_if_questlog EventScript_ReleaseEnd
+	lock
+	faceplayer
+	message Text_MayIHelpYou
+	waitmessage
+	pokemart EverGrandeCity_PokemonLeague_1F_Pokemart
+	msgbox Text_PleaseComeAgain
+	release
+	end
+
+	.align 2
+EverGrandeCity_PokemonLeague_1F_Pokemart:
+	.2byte ITEM_ULTRA_BALL
+	.2byte ITEM_HYPER_POTION
+	.2byte ITEM_MAX_POTION
+	.2byte ITEM_FULL_RESTORE
+	.2byte ITEM_FULL_HEAL
+	.2byte ITEM_REVIVE
+	.2byte ITEM_MAX_REPEL
+	pokemartlistend
+
+@ RFVF+: all 8 badges (Emerald checks only the skippable FLAG_BADGE06_GET; with every HM, any gym can be skipped here)
+EverGrandeCity_PokemonLeague_1F_EventScript_DoorGuard::
+	lockall
+	goto_if_set FLAG_ENTERED_ELITE_FOUR, EverGrandeCity_PokemonLeague_1F_EventScript_GoForth
+	getplayerxy VAR_TEMP_0, VAR_TEMP_1
+	call_if_ge VAR_TEMP_0, 11, EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromRight
+	call_if_le VAR_TEMP_0, 8, EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromLeft
+	message EverGrandeCity_PokemonLeague_1F_Text_MustHaveAllGymBadges
+	waitmessage
+	delay 120
+	specialvar VAR_RESULT, CountHoennBadges
+	goto_if_lt VAR_RESULT, 8, EverGrandeCity_PokemonLeague_1F_EventScript_NotAllBadges
+	closemessage
+	applymovement LOCALID_LEAGUE_GUARD_1, EverGrandeCity_PokemonLeague_1F_Movement_LeftGuardOutOfWay
+	applymovement LOCALID_LEAGUE_GUARD_2, EverGrandeCity_PokemonLeague_1F_Movement_RightGuardOutOfWay
+	waitmovement 0
+	delay 10
+	playfanfare MUS_OBTAIN_BADGE
+	message EverGrandeCity_PokemonLeague_1F_Text_GoForth
+	waitmessage
+	waitfanfare
+	closemessage
+	copyobjectxytoperm LOCALID_LEAGUE_GUARD_1
+	copyobjectxytoperm LOCALID_LEAGUE_GUARD_2
+	setflag FLAG_ENTERED_ELITE_FOUR
+	releaseall
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromRight::
+	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_PokemonLeague_1F_Movement_MoveToFrontFromRight
+	waitmovement 0
+	return
+
+EverGrandeCity_PokemonLeague_1F_EventScript_PlayerMoveToFrontFromLeft::
+	applymovement OBJ_EVENT_ID_PLAYER, EverGrandeCity_PokemonLeague_1F_Movement_MoveToFrontFromLeft
+	waitmovement 0
+	return
+
+EverGrandeCity_PokemonLeague_1F_EventScript_NotAllBadges::
+	playse SE_FAILURE
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_HaventObtainedAllBadges, MSGBOX_DEFAULT
+	releaseall
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_GoForth::
+	applymovement VAR_LAST_TALKED, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_GoForth, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	releaseall
+	end
+
+EverGrandeCity_PokemonLeague_1F_Movement_MoveToFrontFromRight:
+	walk_down
+	walk_left
+	walk_in_place_faster_up
+	step_end
+
+EverGrandeCity_PokemonLeague_1F_Movement_MoveToFrontFromLeft:
+	walk_down
+	walk_right
+	walk_in_place_faster_up
+	step_end
+
+EverGrandeCity_PokemonLeague_1F_Movement_LeftGuardOutOfWay:
+	walk_left
+	walk_in_place_faster_down
+	step_end
+
+EverGrandeCity_PokemonLeague_1F_Movement_RightGuardOutOfWay:
+	walk_right
+	walk_in_place_faster_down
+	step_end

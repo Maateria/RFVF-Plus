@@ -570,6 +570,7 @@ static const struct RematchData sRematches[] = {
       MAP(TWO_ISLAND_CAPE_BRINK) },
    { {TRAINER_SWIMMER_FEMALE_SEDEF, SKIP, SKIP, SKIP, TRAINER_SWIMMER_FEMALE_SEDEF_2},
       MAP(TWO_ISLAND_CAPE_BRINK) },
+#include "data/vs_seeker_hoenn.h"
 };
 
 static const u8 sMovementScript_Wait48[] = {

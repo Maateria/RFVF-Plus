@@ -4,14 +4,56 @@ Route125_MapScripts::
 Route125_EventScript_ItemBigPearl::             @ item ball, works (FLAG_ITEM_ROUTE_125_BIG_PEARL)
 	finditem ITEM_BIG_PEARL
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route125/scripts.inc
-Route125_EventScript_Nolen::                    @ trainer #1 (7,31) TRAINER_NOLEN, Emerald NORMAL sight 2
-Route125_EventScript_Stan::                     @ trainer #2 (45,9) TRAINER_STAN, Emerald NORMAL sight 2
-Route125_EventScript_Tanya::                    @ trainer #3 (38,24) TRAINER_TANYA, Emerald NORMAL sight 3
-Route125_EventScript_Sharon::                   @ trainer #4 (30,28) TRAINER_SHARON, Emerald NORMAL sight 3
-Route125_EventScript_Ernest::                   @ trainer #5 (21,30) TRAINER_ERNEST_1, Emerald NORMAL sight 2
-Route125_EventScript_Kim::                      @ trainer #6 (17,19) TRAINER_KIM_AND_IRIS, Emerald NORMAL sight 1
-Route125_EventScript_Iris::                     @ trainer #7 (18,19) TRAINER_KIM_AND_IRIS, Emerald NORMAL sight 1
-Route125_EventScript_Presley::                  @ trainer #8 (43,19) TRAINER_PRESLEY, Emerald NORMAL sight 3
-Route125_EventScript_Auron::                    @ trainer #9 (48,19) TRAINER_AURON, Emerald NORMAL sight 3
+
+Route125_EventScript_Nolen::
+	trainerbattle_single TRAINER_NOLEN, Route125_Text_NolenIntro, Route125_Text_NolenDefeat
+	msgbox Route125_Text_NolenPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Stan::
+	trainerbattle_single TRAINER_STAN, Route125_Text_StanIntro, Route125_Text_StanDefeat
+	msgbox Route125_Text_StanPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Tanya::
+	trainerbattle_single TRAINER_TANYA, Route125_Text_TanyaIntro, Route125_Text_TanyaDefeat
+	msgbox Route125_Text_TanyaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Sharon::
+	trainerbattle_single TRAINER_SHARON, Route125_Text_SharonIntro, Route125_Text_SharonDefeat
+	msgbox Route125_Text_SharonPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Ernest::
+	trainerbattle_single TRAINER_ERNEST_1, Route125_Text_ErnestIntro, Route125_Text_ErnestDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, Route125_EventScript_RematchErnest
+	msgbox Route125_Text_ErnestPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+Route125_EventScript_RematchErnest::
+	trainerbattle_rematch TRAINER_ERNEST_1, Route125_Text_ErnestRematchIntro, Route125_Text_ErnestRematchDefeat
+	msgbox Route125_Text_ErnestRematchPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Kim::
+	trainerbattle_double TRAINER_KIM_AND_IRIS, Route125_Text_KimIntro, Route125_Text_KimDefeat, Route125_Text_KimNotEnoughMons
+	msgbox Route125_Text_KimPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Iris::
+	trainerbattle_double TRAINER_KIM_AND_IRIS, Route125_Text_IrisIntro, Route125_Text_IrisDefeat, Route125_Text_IrisNotEnoughMons
+	msgbox Route125_Text_IrisPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Presley::
+	trainerbattle_single TRAINER_PRESLEY, Route125_Text_PresleyIntro, Route125_Text_PresleyDefeat
+	msgbox Route125_Text_PresleyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+Route125_EventScript_Auron::
+	trainerbattle_single TRAINER_AURON, Route125_Text_AuronIntro, Route125_Text_AuronDefeat
+	msgbox Route125_Text_AuronPostBattle, MSGBOX_AUTOCLOSE
 	end

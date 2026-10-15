@@ -454,4 +454,23 @@ gSpecials::
 	def_special CreateEnemyEventMon
 	def_special HasAllHoennNativeMons
 	def_special ShowHoennDiploma
+	def_special CountHoennBadges
+	def_special SetLastTalkedTrainerReadyForRematch
+	def_special MauvilleGymPressSwitch
+	def_special MauvilleGymSetDefaultBarriers
+	def_special MauvilleGymDeactivatePuzzle
+	def_special PetalburgGymSlideOpenRoomDoors
+	def_special PetalburgGymUnlockRoomDoors
+	def_special SetSootopolisGymCrackedIceMetatiles
+	def_special RotatingGate_InitPuzzle
+	def_special RotatingGate_InitPuzzleAndGraphics
+	def_special EnterHoennHallOfFame
+	def_special ScrSpecial_InitRotatingTilePuzzle
+	def_special ScrSpecial_MoveRotatingTileObjects
+	def_special ScrSpecial_TurnRotatingTileObjects
+	def_special ScrSpecial_FreeRotatingTilePuzzle
+	def_special CableCar
+	def_special CableCarWarp
+	def_special SetTrickHouseNuggetFlag
+	def_special ResetTrickHouseNuggetFlag
 gSpecialsEnd::

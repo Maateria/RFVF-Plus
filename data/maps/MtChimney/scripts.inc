@@ -8,11 +8,47 @@ MtChimney_OnResume:
 	end
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtChimney/scripts.inc
 MtChimney_EventScript_LavaCookieLady::          @ NPC #1 (19,39)
-MtChimney_EventScript_Shelby::                  @ trainer #2 (16,18) TRAINER_SHELBY_1, Emerald NORMAL sight 3
-MtChimney_EventScript_Melissa::                 @ trainer #3 (14,7) TRAINER_MELISSA, Emerald NORMAL sight 6
-MtChimney_EventScript_Sheila::                  @ trainer #4 (29,7) TRAINER_SHEILA, Emerald NORMAL sight 3
-MtChimney_EventScript_Shirley::                 @ trainer #5 (27,17) TRAINER_SHIRLEY, Emerald NORMAL sight 3
-MtChimney_EventScript_Sawyer::                  @ trainer #6 (7,7) TRAINER_SAWYER_1, Emerald NORMAL sight 6
 MtChimney_EventScript_MeteoriteMachine::        @ sign (14,6)
 MtChimney_EventScript_RouteSign::               @ sign (24,37)
+	end
+
+MtChimney_EventScript_Shelby::
+	trainerbattle_single TRAINER_SHELBY_1, MtChimney_Text_ShelbyIntro, MtChimney_Text_ShelbyDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, MtChimney_EventScript_RematchShelby
+	msgbox MtChimney_Text_ShelbyPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MtChimney_EventScript_RematchShelby::
+	trainerbattle_rematch TRAINER_SHELBY_1, MtChimney_Text_ShelbyRematchIntro, MtChimney_Text_ShelbyRematchDefeat
+	msgbox MtChimney_Text_ShelbyPostRematch, MSGBOX_AUTOCLOSE
+	end
+
+MtChimney_EventScript_Melissa::
+	trainerbattle_single TRAINER_MELISSA, MtChimney_Text_MelissaIntro, MtChimney_Text_MelissaDefeat
+	msgbox MtChimney_Text_MelissaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtChimney_EventScript_Sheila::
+	trainerbattle_single TRAINER_SHEILA, MtChimney_Text_SheilaIntro, MtChimney_Text_SheilaDefeat
+	msgbox MtChimney_Text_SheilaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtChimney_EventScript_Shirley::
+	trainerbattle_single TRAINER_SHIRLEY, MtChimney_Text_ShirleyIntro, MtChimney_Text_ShirleyDefeat
+	msgbox MtChimney_Text_ShirleyPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+MtChimney_EventScript_Sawyer::
+	trainerbattle_single TRAINER_SAWYER_1, MtChimney_Text_SawyerIntro, MtChimney_Text_SawyerDefeat
+	specialvar VAR_RESULT, ShouldTryRematchBattle
+	goto_if_eq VAR_RESULT, TRUE, MtChimney_EventScript_SawyerRematch
+	msgbox MtChimney_Text_SawyerPostBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MtChimney_EventScript_SawyerRematch::
+	trainerbattle_rematch TRAINER_SAWYER_1, MtChimney_Text_SawyerRematchIntro, MtChimney_Text_SawyerRematchDefeat
+	msgbox MtChimney_Text_SawyerPostRematch, MSGBOX_AUTOCLOSE
 	end

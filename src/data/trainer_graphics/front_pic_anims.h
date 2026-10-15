@@ -901,4 +901,13 @@ const union AnimCmd *const *const gTrainerFrontAnimsPtrTable[] =
     [TRAINER_PIC_MASTER_SCIENTIST]      = sAnims_Painter,
     [TRAINER_PIC_MASTER_YOUNGSTER]      = sAnims_Painter,
     [TRAINER_PIC_MASTER_SWIMMER]        = sAnims_Painter,
+    [TRAINER_PIC_CHAMPION_WALLACE]    = sAnims_Painter,
+    [TRAINER_PIC_LEADER_JUAN]         = sAnims_Painter,
+    [TRAINER_PIC_SALON_MAIDEN_ANABEL] = sAnims_Painter,
+    [TRAINER_PIC_DOME_ACE_TUCKER]     = sAnims_Painter,
+    [TRAINER_PIC_PALACE_MAVEN_SPENSER] = sAnims_Painter,
+    [TRAINER_PIC_ARENA_TYCOON_GRETA]  = sAnims_Painter,
+    [TRAINER_PIC_FACTORY_HEAD_NOLAND] = sAnims_Painter,
+    [TRAINER_PIC_PIKE_QUEEN_LUCY]     = sAnims_Painter,
+    [TRAINER_PIC_PYRAMID_KING_BRANDON] = sAnims_Painter,
 };

@@ -1319,4 +1319,6 @@ extern const u8 Help_Text_LGExclusives[];
 extern const u8 Help_Text_DefineFRExclusives[];
 extern const u8 Help_Text_DefineLGExclusives[];
 
+extern const u8 Route110_TrickHousePuzzle_EventScript_Door[];
+
 #endif //GUARD_EVENT_SCRIPTS_H

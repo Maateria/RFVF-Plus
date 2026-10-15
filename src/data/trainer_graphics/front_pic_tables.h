@@ -161,6 +161,15 @@ const struct MonCoords gTrainerFrontPicCoords[] =
     {.size = 8, .y_offset = 1},
     {.size = 8, .y_offset = 1},
     {.size = 8, .y_offset = 1},
+    {.size = 8, .y_offset = 2}, // CHAMPION_WALLACE
+    {.size = 8, .y_offset = 1}, // LEADER_JUAN
+    {.size = 8, .y_offset = 1}, // SALON_MAIDEN_ANABEL
+    {.size = 8, .y_offset = 1}, // DOME_ACE_TUCKER
+    {.size = 8, .y_offset = 1}, // PALACE_MAVEN_SPENSER
+    {.size = 8, .y_offset = 2}, // ARENA_TYCOON_GRETA
+    {.size = 8, .y_offset = 1}, // FACTORY_HEAD_NOLAND
+    {.size = 8, .y_offset = 1}, // PIKE_QUEEN_LUCY
+    {.size = 8, .y_offset = 1}, // PYRAMID_KING_BRANDON
 };
 
 const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
@@ -326,6 +335,15 @@ const struct CompressedSpriteSheet gTrainerFrontPicTable[] =
     TRAINER_SPRITE(MASTER_SCIENTIST, gTrainerFrontPic_MasterScientist, 0x800),
     TRAINER_SPRITE(MASTER_YOUNGSTER, gTrainerFrontPic_MasterYoungster, 0x800),
     TRAINER_SPRITE(MASTER_SWIMMER, gTrainerFrontPic_MasterSwimmer, 0x800),
+    TRAINER_SPRITE(CHAMPION_WALLACE, gTrainerFrontPic_ChampionWallace, 0x800),
+    TRAINER_SPRITE(LEADER_JUAN, gTrainerFrontPic_LeaderJuan, 0x800),
+    TRAINER_SPRITE(SALON_MAIDEN_ANABEL, gTrainerFrontPic_SalonMaidenAnabel, 0x800),
+    TRAINER_SPRITE(DOME_ACE_TUCKER, gTrainerFrontPic_DomeAceTucker, 0x800),
+    TRAINER_SPRITE(PALACE_MAVEN_SPENSER, gTrainerFrontPic_PalaceMavenSpenser, 0x800),
+    TRAINER_SPRITE(ARENA_TYCOON_GRETA, gTrainerFrontPic_ArenaTycoonGreta, 0x800),
+    TRAINER_SPRITE(FACTORY_HEAD_NOLAND, gTrainerFrontPic_FactoryHeadNoland, 0x800),
+    TRAINER_SPRITE(PIKE_QUEEN_LUCY, gTrainerFrontPic_PikeQueenLucy, 0x800),
+    TRAINER_SPRITE(PYRAMID_KING_BRANDON, gTrainerFrontPic_PyramidKingBrandon, 0x800),
 };
 
 const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
@@ -491,4 +509,13 @@ const struct CompressedSpritePalette gTrainerFrontPicPaletteTable[] =
     TRAINER_PAL(MASTER_SCIENTIST, gTrainerPalette_MasterScientist),
     TRAINER_PAL(MASTER_YOUNGSTER, gTrainerPalette_MasterYoungster),
     TRAINER_PAL(MASTER_SWIMMER, gTrainerPalette_MasterSwimmer),
+    TRAINER_PAL(CHAMPION_WALLACE, gTrainerPalette_ChampionWallace),
+    TRAINER_PAL(LEADER_JUAN, gTrainerPalette_LeaderJuan),
+    TRAINER_PAL(SALON_MAIDEN_ANABEL, gTrainerPalette_SalonMaidenAnabel),
+    TRAINER_PAL(DOME_ACE_TUCKER, gTrainerPalette_DomeAceTucker),
+    TRAINER_PAL(PALACE_MAVEN_SPENSER, gTrainerPalette_PalaceMavenSpenser),
+    TRAINER_PAL(ARENA_TYCOON_GRETA, gTrainerPalette_ArenaTycoonGreta),
+    TRAINER_PAL(FACTORY_HEAD_NOLAND, gTrainerPalette_FactoryHeadNoland),
+    TRAINER_PAL(PIKE_QUEEN_LUCY, gTrainerPalette_PikeQueenLucy),
+    TRAINER_PAL(PYRAMID_KING_BRANDON, gTrainerPalette_PyramidKingBrandon),
 };
