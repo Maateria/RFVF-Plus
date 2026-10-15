@@ -209,7 +209,7 @@ NO_COUNTERPART = dict(
     MB_MUDDY_SLOPE="muddy slope", MB_BUMPY_SLOPE="bumpy slope", MB_VASE="vase", MB_BERRY_TREE_SOIL="berry soil",
     MB_IMPASSABLE_SOUTH_AND_NORTH="one-way wall", MB_IMPASSABLE_WEST_AND_EAST="one-way wall",
     MB_HOLDS_LARGE_DECORATION="secret base", MB_HOLDS_SMALL_DECORATION="secret base",
-    MB_TRICK_HOUSE_PUZZLE_DOOR="Trick House door, a script warps", MB_LONG_GRASS_SOUTH_EDGE="grass edge",
+    MB_LONG_GRASS_SOUTH_EDGE="grass edge",
     MB_CRACKED_FLOOR="cracked floor", MB_CRACKED_FLOOR_HOLE="cracked floor", MB_ROULETTE="game corner",
     MB_SLOT_MACHINE="game corner", MB_CLOSED_SOOTOPOLIS_DOOR="closed door", MB_SKY_PILLAR_CLOSED_DOOR="closed door",
     MB_PETALBURG_GYM_DOOR="gym door, a script opens it", MB_POKEBLOCK_FEEDER="Safari feeder",

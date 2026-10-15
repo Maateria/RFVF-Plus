@@ -19,7 +19,9 @@ Usage (Git Bash, from the repo root):
 Extraction: both ROMs run the same script bytecode, only pointers differ. Every script of the selected maps (map
 headers found through gMapGroups; the French gMapGroups is located by fingerprint) is walked IN PARALLEL in the
 English ROM (labels from pokeemerald.elf) and the French one, so each English text pointer meets its French twin.
-Texts no script reaches (used from C, unused) come from their English neighbours: texts are stored back to back in
+Scripts no map event reaches (run from C, like the Trick House puzzle doors) are walked too, from a walked script of
+their file: a file's scripts are the same size in both ROMs. Texts no script reaches (used from C, unused) come from
+their English neighbours: texts are stored back to back in
 the same order in both ROMs. Decoding uses this repo's charmap (the bytes round-trip unchanged), except that French
 Emerald's glyphs 55-59 spell POKéBLOC while this repo's spell the English POKéBLOCK: the French texts get it in letters.
 Re-wrap: the FRLG box is 26 tiles = 208 px (Emerald's: 216 px), glyph widths of src/text.c; a line that waits for A
@@ -435,6 +437,19 @@ def extract(em_dir, fr_rom, prefix):
             if pe and pf:
                 walk(pe, pf, "%s %s#%d %s" % (mname, k, i, d))
 
+    # scripts no map event reaches (run from C: the Trick House puzzle doors): a file's scripts come before its texts
+    # and are the same size in both ROMs, so one sits as far from a walked script of its file in both
+    starts = dict(seen)
+    for _, _, mname in maps:
+        path = em_dir / "data/maps" / mname / "scripts.inc"
+        code = re.split(r"^\w+_Text_\w+::?\s*$", path.read_text(encoding="utf-8"), maxsplit=1, flags=re.M)[0]
+        labels = [addr[l] for l in re.findall(r"^(\w+)::?\s*$", code, re.M) if l in addr]
+        walked = sorted(a for a in labels if a in starts)
+        for a in labels:
+            anchor = max((w for w in walked if w <= a), default=None)
+            if a not in starts and anchor is not None and not any(anchor < t < a for t in texts):
+                walk(a, starts[anchor] + a - anchor, "%s unreached script %s" % (mname, name_of(a)))
+
     # English source texts: proof that the labels and the decoder are right
     src, src_file, file_order = {}, {}, defaultdict(list)
     for path in glob.glob(str(em_dir / "data/**/*.inc"), recursive=True):
@@ -528,11 +543,13 @@ def repo_symbols():
 def write_texts(rows, prefix):
     """Append the extracted texts each map's scripts.inc names to its text.inc, re-wrap the official ones already
     there (see --write)."""
-    by_label = {r["label"]: r["fr_wrapped"] for r in rows if r["fr"]}
-    official = {r["label"]: words(repo_form(r["fr"])) for r in rows if r["fr"]}
+    from hoenn_decisions import RENAMES  # Emerald's VictoryRoad_* maps are HoennVictoryRoad_* here, labels included
+    here = lambda s: functools.reduce(lambda s, r: re.sub(r"^%s_" % r[0], r[1] + "_", s), RENAMES.items(), s)
+    by_label = {here(r["label"]): r["fr_wrapped"] for r in rows if r["fr"]}
+    official = {here(r["label"]): words(repo_form(r["fr"])) for r in rows if r["fr"]}
     event_scripts = REPO / "data/event_scripts.s"
     known = repo_symbols()
-    for scripts in sorted((REPO / "data/maps").glob(prefix + "*/scripts.inc")):
+    for scripts in sorted((REPO / "data/maps").glob(here(prefix + "_")[:-1] + "*/scripts.inc")):
         text_inc = scripts.parent / "text.inc"
         old = text_inc.read_text(encoding="utf-8") if text_inc.exists() else ""
         body, redone = old, []

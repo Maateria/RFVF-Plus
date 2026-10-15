@@ -194,6 +194,33 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
 - **Pour plus tard :** les scripts, les animations des tilesets secondaires, les portes sans animation (elles
   marchent quand même) et les effets perdus (`DEGRADED`, `no counterpart`). Le rapport les liste.
 
+## Les dresseurs : `hoenn_trainers.py`
+
+L'import place les dresseurs comme des PNJ muets. Ensuite, `hoenn_trainers.py` leur donne leurs vrais combats.
+
+**Données.** Les 854 dresseurs d'Émeraude gardent leur ordre et leurs noms `TRAINER_X`. Leur numéro vaut
+`TRAINER_HOENN_START` (768) + leur numéro dans Émeraude − 1. Leurs flags « battu » sont rangés dans les flags étendus
+de la sauvegarde (`TRAINER_FLAG` dans `include/constants/flags.h`). L'outil génère quatre fichiers (à ne pas
+modifier à la main) :
+- `include/constants/opponents_hoenn.h` ;
+- `src/data/trainers_hoenn.h`, avec les noms officiels lus dans la ROM française ;
+- `src/data/trainer_parties_hoenn.h` ;
+- `src/data/vs_seeker_hoenn.h`, les revanches d'Émeraude passées au Cherche VS.
+
+**`--scripts`.** Les talons de dresseurs laissés par l'import reçoivent le script d'Émeraude :
+- sans le Match Call ;
+- sans le script d'après-combat des dresseurs d'arène, qui arrivera avec les scripts d'arène.
+
+L'objet du dresseur reprend aussi le type et la portée de vue d'Émeraude. Les dresseurs enterrés sont ajoutés
+(Route 113, Arène de Vermilava). Les champions d'arène et le Conseil 4 attendent leurs scripts. Pierre Rochard
+(Site Météore) a été scripté à la main.
+Ensuite, `hoenn_texts.py <préfixe> --write` écrit leurs textes :
+
+```bash
+uv run --no-project --with pyelftools python tools/hoenn_import/hoenn_trainers.py --scripts
+uv run --no-project --with pyelftools python tools/hoenn_import/hoenn_texts.py Route1 --write
+```
+
 ## Vos modifications dans Porymap sont gardées
 
 L'outil ne réécrit jamais ce qui existe déjà. Les imports suivants gardent donc :
