@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Import Hoenn maps from a local pret/pokeemerald clone into RFVF+ (pokefirered engine).
 
-The library of tools/hoenn_import/import_map.py, which imports one Emerald town or route with all its interiors, or one
-dungeon with all its floors (dungeon_units), the usual way. Emerald names this repo already uses are renamed
-(hoenn_decisions.RENAMES, rename(): Victory Road's maps are HoennVictoryRoad_* here); any other clash (a map, MAP_ or
+The library of tools/hoenn_import/import_map.py, which imports one Emerald town or route with all its interiors, one
+dungeon with all its floors (dungeon_units) or one special area (special_units: Safari Zone, Trainer Hill, S.S. Tidal,
+Battle Frontier), the usual way. Emerald names this repo already uses are renamed (hoenn_decisions.RENAMES, rename():
+Victory Road's maps are HoennVictoryRoad_* here, the Safari Zone's HoennSafariZone_*); any other clash (a map, MAP_ or
 LAYOUT_ name, a script label, an item flag, an encounter table) is refused. Its own command line imports the maps it is
 given (names here), all in one map group, and checks sprites:
     uv run --no-project --with pillow python tools/hoenn_import/hoenn_import.py [--group G] [--dry-run] Map1 Map2...
@@ -98,9 +99,9 @@ from types import SimpleNamespace
 
 from PIL import Image
 
-from hoenn_decisions import (BLOCKED_WAYS, CLOSED_WARPS, DUNGEON_GROUP, DUNGEON_UNIT_OF, HIDDEN_BY_MAP_SCRIPT,
-                             MECHANICAL_SCRIPTS, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE, RENAMES, SIBLINGS,
-                             SIGN_MOVES, START_LAYOUT, VAR_GFX)
+from hoenn_decisions import (BLOCKED_WAYS, CLOSED_WARPS, DUNGEON_GROUP, DUNGEON_UNIT_OF, FRLG_PLUS_RELINKED,
+                             HIDDEN_BY_MAP_SCRIPT, MECHANICAL_SCRIPTS, MOVED_BY_MAP_SCRIPT, PALETTE_SWAPS, POST_LEAGUE,
+                             RENAMES, SIBLINGS, SIGN_MOVES, SPECIAL_GROUP, SPECIAL_UNITS, START_LAYOUT, VAR_GFX)
 from hoenn_sprites import skipped
 
 REPO = Path(__file__).resolve().parents[2]
@@ -135,6 +136,7 @@ ENGINE_STEP3 = "MB_LAVARIDGE_GYM_B1F_WARP"
 MAP_OFFSET = 7  # blocks of a neighbour map drawn around the current one (fieldmap.c, both engines)
 OUTDOOR = "gMapGroup_TownsAndRoutes"
 DUNGEONS = "gMapGroup_Dungeons"  # Emerald's: its maps join DUNGEON_GROUP here
+SPECIAL = ("gMapGroup_SpecialArea", "gMapGroup_IndoorDynamic")  # Emerald's: special_units() maps join SPECIAL_GROUP
 # Never imported: Emerald indoor-group maps nothing reaches (survey), and the Battle Frontier's Artisan Cave, filed
 # with the dungeons (SpecialArea scope; FRLG-Plus has its own ArtisanCave_*)
 NEVER = {"LilycoveCity_UnusedMart", "Route104_Prototype", "Route104_PrototypePrettyPetalFlowerShop", "ArtisanCave_B1F",
@@ -153,10 +155,11 @@ HEAL_TABLES = ("sSpawnPoints", "sWhiteoutRespawnHealCenterMapIdxs", "sWhiteoutRe
 # Emerald warp destinations that are Kanto maps here (same targets as ViridianCity_PokemonCenter_2F's warps)
 WARP_ALIASES = {"MAP_UNION_ROOM": "MAP_UNION_ROOM", "MAP_TRADE_CENTER": "MAP_TRADE_CENTER"}
 # Emerald battle backgrounds this repo lacks (include/constants/map_types.h): the Elite Four's -> Kanto's, the team
-# hideouts' -> the normal one (DEGRADED, listed)
+# hideouts' and the Battle Frontier's -> the normal one (DEGRADED, listed)
 BATTLE_SCENES = {"MAP_BATTLE_SCENE_SIDNEY": "MAP_BATTLE_SCENE_BRUNO", "MAP_BATTLE_SCENE_PHOEBE": "MAP_BATTLE_SCENE_AGATHA",
                  "MAP_BATTLE_SCENE_GLACIA": "MAP_BATTLE_SCENE_LORELEI", "MAP_BATTLE_SCENE_DRAKE": "MAP_BATTLE_SCENE_LANCE",
-                 "MAP_BATTLE_SCENE_AQUA": "MAP_BATTLE_SCENE_NORMAL", "MAP_BATTLE_SCENE_MAGMA": "MAP_BATTLE_SCENE_NORMAL"}
+                 "MAP_BATTLE_SCENE_AQUA": "MAP_BATTLE_SCENE_NORMAL", "MAP_BATTLE_SCENE_MAGMA": "MAP_BATTLE_SCENE_NORMAL",
+                 "MAP_BATTLE_SCENE_FRONTIER": "MAP_BATTLE_SCENE_NORMAL"}
 # Emerald map sections whose name here is another place: MAPSEC_ALTERING_CAVE is FRLG's Sevii cave (0xB7), Emerald's
 # value 0xD2 is MAPSEC_ALTERING_CAVE_E (include/constants/region_map_sections.h)
 MAPSECS = {"MAPSEC_ALTERING_CAVE": "MAPSEC_ALTERING_CAVE_E"}
@@ -556,9 +559,26 @@ def dungeon_units(groups):
     return dict(units)
 
 
+def special_units(groups):
+    """Emerald's special areas as import_map units: {unit: its maps, in Emerald's order} (hoenn_decisions.SPECIAL_UNITS),
+    without the maps this repo has under the same name on a non-Hoenn layout (FRLG-Plus's Battle Frontier outside...)."""
+    layouts = {l["id"]: l["primary_tileset"] for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"]
+               if "id" in l}
+    units = defaultdict(list)
+    for m in groups[SPECIAL[0]] + groups[SPECIAL[1]]:
+        unit = next((u for u, prefixes in SPECIAL_UNITS.items() if m.startswith(prefixes)), None)
+        mj = REPO / "data/maps" / m / "map.json"
+        if unit and not (exists(mj) and layouts.get(json.loads(read(mj))["layout"]) not in HOENN_PRIMARIES):
+            units[unit].append(m)
+    return dict(units)
+
+
 def closure(groups, unit):
     """What import_map.py imports for `unit`, in Emerald's order: {map: its group here}. A town or route: it and the
-    maps of its Emerald indoor group; a dungeon unit: its maps, all in DUNGEON_GROUP."""
+    maps of its Emerald indoor group; a dungeon unit: its maps, all in DUNGEON_GROUP; a special unit: its maps, all
+    in SPECIAL_GROUP."""
+    if unit in SPECIAL_UNITS:
+        return {m: SPECIAL_GROUP for m in special_units(groups)[unit]}
     if unit not in groups[OUTDOOR]:
         return {m: DUNGEON_GROUP for m in dungeon_units(groups)[unit]}
     group = "gMapGroup_Indoor" + re.sub(r"(Town|City)$", "", unit)
@@ -902,6 +922,9 @@ def load_tiles(data):
 def load_pals(directory):
     pals = []
     for i in range(16):
+        if not exists(directory / ("palettes/%02d.pal" % i)):  # FRLG-Plus's Battle Frontier tilesets stop at 12
+            pals.append([(0, 0, 0, 255)] * 16)
+            continue
         v = read(directory / ("palettes/%02d.pal" % i)).split()
         assert v[0] == "JASC-PAL"
         pals.append([tuple(map(int, v[3 + 3 * c:6 + 3 * c])) + (255,) for c in range(int(v[2]))])
@@ -1661,13 +1684,15 @@ def plan_layout(em_layout, repo_layouts):
 # ---------------------------------------------------------------- plan
 
 def hoenn_maps(ctx):
-    """{MAP_ id: folder} of this repo's maps imported from Emerald (an Emerald map name on a Hoenn layout)."""
+    """{MAP_ id: folder} of this repo's maps imported from Emerald (an Emerald map name on a Hoenn layout), and the
+    FRLG-Plus maps whose placeholder doors wait for Emerald maps (hoenn_decisions.FRLG_PLUS_RELINKED)."""
     layouts = {l["id"]: l for l in json.loads(read(REPO / "data/layouts/layouts.json"))["layouts"] if "id" in l}
     out = {}
     for p in (REPO / "data/maps").glob("*/map.json"):
         if p.parent.name in ctx.maps:
             mj = json.loads(read(p))
-            if layouts.get(mj.get("layout"), {}).get("primary_tileset") in HOENN_PRIMARIES:
+            if (layouts.get(mj.get("layout"), {}).get("primary_tileset") in HOENN_PRIMARIES
+                    or p.parent.name in FRLG_PLUS_RELINKED):
                 out[mj["id"]] = p.parent.name
     return out
 

@@ -34,5 +34,6 @@ void InitTilesetAnim_HoennSlateport(void);
 void InitTilesetAnim_HoennSootopolis(void);
 void InitTilesetAnim_HoennSootopolisGym(void);
 void InitTilesetAnim_HoennUnderwater(void);
+void InitTilesetAnim_HoennBattlePyramid(void);
 
 #endif // GUARD_TILESET_ANIMS_H

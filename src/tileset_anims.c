@@ -713,6 +713,26 @@ static const u16 *const sTilesetAnims_HoennBikeShop_BlinkingLights[] = {
     sTilesetAnims_HoennBikeShop_BlinkingLights_Frame1
 };
 
+static const u16 sTilesetAnims_HoennBattlePyramid_Torch_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/anim/torch/0.4bpp");
+static const u16 sTilesetAnims_HoennBattlePyramid_Torch_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/anim/torch/1.4bpp");
+static const u16 sTilesetAnims_HoennBattlePyramid_Torch_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/anim/torch/2.4bpp");
+
+static const u16 *const sTilesetAnims_HoennBattlePyramid_Torch[] = {
+    sTilesetAnims_HoennBattlePyramid_Torch_Frame0,
+    sTilesetAnims_HoennBattlePyramid_Torch_Frame1,
+    sTilesetAnims_HoennBattlePyramid_Torch_Frame2
+};
+
+static const u16 sTilesetAnims_HoennBattlePyramid_StatueShadow_Frame0[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/anim/statue_shadow/0.4bpp");
+static const u16 sTilesetAnims_HoennBattlePyramid_StatueShadow_Frame1[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/anim/statue_shadow/1.4bpp");
+static const u16 sTilesetAnims_HoennBattlePyramid_StatueShadow_Frame2[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/anim/statue_shadow/2.4bpp");
+
+static const u16 *const sTilesetAnims_HoennBattlePyramid_StatueShadow[] = {
+    sTilesetAnims_HoennBattlePyramid_StatueShadow_Frame0,
+    sTilesetAnims_HoennBattlePyramid_StatueShadow_Frame1,
+    sTilesetAnims_HoennBattlePyramid_StatueShadow_Frame2
+};
+
 // The schedules: pokeemerald's TilesetAnim_<Emerald tileset> and QueueAnimTiles_*, one call per Emerald copy.
 static void TilesetAnim_HoennRustboro(u16 timer)
 {
@@ -817,6 +837,15 @@ static void TilesetAnim_HoennBikeShop(u16 timer)
 {
     if (timer % 4 == 0)
         QueueHoennAnim(sTilesetAnims_HoennBikeShop_BlinkingLights[(timer / 4) % ARRAY_COUNT(sTilesetAnims_HoennBikeShop_BlinkingLights)], 496, 9);
+}
+
+static void TilesetAnim_HoennBattlePyramid(u16 timer)
+{
+    if (timer % 8 == 0)
+    {
+        QueueHoennAnim(sTilesetAnims_HoennBattlePyramid_Torch[(timer / 8) % ARRAY_COUNT(sTilesetAnims_HoennBattlePyramid_Torch)], 151, 8);
+        QueueHoennAnim(sTilesetAnims_HoennBattlePyramid_StatueShadow[(timer / 8) % ARRAY_COUNT(sTilesetAnims_HoennBattlePyramid_StatueShadow)], 135, 8);
+    }
 }
 
 static void QueueAnimTiles_CeladonCity_Fountain(u16 timer)

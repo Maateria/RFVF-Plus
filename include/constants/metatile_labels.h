@@ -101,6 +101,14 @@
 #define METATILE_GenericBuilding1_PlayersPCOff  0x28F
 #define METATILE_GenericBuilding1_PlayersPCOn   0x28A
 
+// gTileset_HoennBattleArena
+#define METATILE_HoennBattleArena_Door  0x29B
+
+// gTileset_HoennBattleDome
+#define METATILE_HoennBattleDome_Door_Corridor       0x2DE
+#define METATILE_HoennBattleDome_Door_Lobby          0x289
+#define METATILE_HoennBattleDome_Door_PreBattleRoom  0x28A
+
 // gTileset_HoennBattleFrontier
 #define METATILE_HoennBattleFrontier_CorridorOpenDoor_Bottom  0x291
 #define METATILE_HoennBattleFrontier_CorridorOpenDoor_Top     0x290
@@ -113,6 +121,46 @@
 #define METATILE_HoennBattleFrontier_Elevator_Top0            0x292
 #define METATILE_HoennBattleFrontier_Elevator_Top1            0x288
 #define METATILE_HoennBattleFrontier_Elevator_Top2            0x293
+#define METATILE_HoennBattleFrontier_Door_Elevator            0x2A1
+#define METATILE_HoennBattleFrontier_Door_MultiCorridor       0x2F6
+
+// gTileset_HoennBattlePalace
+#define METATILE_HoennBattlePalace_Door  0x299
+
+// gTileset_HoennBattlePike
+#define METATILE_HoennBattlePike_CurtainFrames_Start   0x281
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile0  0x2CA
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile1  0x2D1
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile2  0x2D2
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile3  0x2D3
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile4  0x2D9
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile5  0x2DA
+#define METATILE_HoennBattlePike_Curtain_Stage0_Tile6  0x2DB
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile0  0x2AA
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile1  0x2B1
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile2  0x2B2
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile3  0x2B3
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile4  0x2B9
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile5  0x2BA
+#define METATILE_HoennBattlePike_Curtain_Stage1_Tile6  0x2BB
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile0  0x28A
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile1  0x291
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile2  0x292
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile3  0x293
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile4  0x299
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile5  0x29A
+#define METATILE_HoennBattlePike_Curtain_Stage2_Tile6  0x29B
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile0  0x32B
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile1  0x332
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile2  0x333
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile3  0x334
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile4  0x33A
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile5  0x33B
+#define METATILE_HoennBattlePike_Curtain_Stage3_Tile6  0x33C
+
+// gTileset_HoennBattlePyramid
+#define METATILE_HoennBattlePyramid_Exit   0x30E
+#define METATILE_HoennBattlePyramid_Floor  0x30D
 
 // gTileset_HoennBattleTent
 #define METATILE_HoennBattleTent_Door  0x2EB
@@ -539,6 +587,12 @@
 #define METATILE_HoennSootopolisGym_Ice_Broken   0x286
 #define METATILE_HoennSootopolisGym_Ice_Cracked  0x28E
 #define METATILE_HoennSootopolisGym_Stairs       0x287
+
+// gTileset_HoennTrainerHill
+#define METATILE_HoennTrainerHill_CounterDoor          0x3B4
+#define METATILE_HoennTrainerHill_Door_Elevator_Lobby  0x3AC
+#define METATILE_HoennTrainerHill_Door_Elevator_Roof   0x2A1
+#define METATILE_HoennTrainerHill_GreenFloorTile       0x387
 
 // gTileset_HoennTrickHousePuzzle
 #define METATILE_HoennTrickHousePuzzle_Arrow_RedOnBlack_Down       0x2E3

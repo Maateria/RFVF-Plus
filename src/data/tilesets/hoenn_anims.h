@@ -165,3 +165,14 @@ void InitTilesetAnim_HoennUnderwater(void)
     sSecondaryTilesetAnimCallback = TilesetAnim_HoennUnderwater;
     sHoennAnimRanges = sHoennAnimRanges_HoennUnderwater;
 }
+
+// gTileset_HoennBattlePyramid: pokeemerald InitTilesetAnim_BattlePyramid
+static const struct HoennAnimRange sHoennAnimRanges_HoennBattlePyramid[] = {{151, 8, 661}, {135, 8, 648}, {0}};
+
+void InitTilesetAnim_HoennBattlePyramid(void)
+{
+    sSecondaryTilesetAnimCounter = 0;
+    sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
+    sSecondaryTilesetAnimCallback = TilesetAnim_HoennBattlePyramid;
+    sHoennAnimRanges = sHoennAnimRanges_HoennBattlePyramid;
+}

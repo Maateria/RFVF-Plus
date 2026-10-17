@@ -10234,6 +10234,217 @@ const struct WildPokemon gAlteringCave1_LandMons[] =
 
 const struct WildPokemonInfo gAlteringCave1_LandMonsInfo = { 7, gAlteringCave1_LandMons };
 
+const struct WildPokemon gHoennSafariZone_South_LandMons[] =
+{
+    { 25, 25, SPECIES_ODDISH },
+    { 27, 27, SPECIES_ODDISH },
+    { 25, 25, SPECIES_GIRAFARIG },
+    { 27, 27, SPECIES_GIRAFARIG },
+    { 25, 25, SPECIES_NATU },
+    { 25, 25, SPECIES_DODUO },
+    { 25, 25, SPECIES_GLOOM },
+    { 27, 27, SPECIES_WOBBUFFET },
+    { 25, 25, SPECIES_PIKACHU },
+    { 27, 27, SPECIES_WOBBUFFET },
+    { 27, 27, SPECIES_PIKACHU },
+    { 29, 29, SPECIES_WOBBUFFET },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_South_LandMonsInfo = { 25, gHoennSafariZone_South_LandMons };
+
+const struct WildPokemon gHoennSafariZone_Southwest_LandMons[] =
+{
+    { 25, 25, SPECIES_ODDISH },
+    { 27, 27, SPECIES_ODDISH },
+    { 25, 25, SPECIES_GIRAFARIG },
+    { 27, 27, SPECIES_GIRAFARIG },
+    { 25, 25, SPECIES_NATU },
+    { 27, 27, SPECIES_DODUO },
+    { 25, 25, SPECIES_GLOOM },
+    { 27, 27, SPECIES_WOBBUFFET },
+    { 25, 25, SPECIES_PIKACHU },
+    { 27, 27, SPECIES_WOBBUFFET },
+    { 27, 27, SPECIES_PIKACHU },
+    { 29, 29, SPECIES_WOBBUFFET },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Southwest_LandMonsInfo = { 25, gHoennSafariZone_Southwest_LandMons };
+
+const struct WildPokemon gHoennSafariZone_Southwest_WaterMons[] =
+{
+    { 20, 30, SPECIES_PSYDUCK },
+    { 20, 30, SPECIES_PSYDUCK },
+    { 30, 35, SPECIES_PSYDUCK },
+    { 30, 35, SPECIES_PSYDUCK },
+    { 30, 35, SPECIES_PSYDUCK },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Southwest_WaterMonsInfo = { 9, gHoennSafariZone_Southwest_WaterMons };
+
+const struct WildPokemon gHoennSafariZone_Southwest_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 25, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 25, 30, SPECIES_GOLDEEN },
+    { 30, 35, SPECIES_GOLDEEN },
+    { 30, 35, SPECIES_SEAKING },
+    { 35, 40, SPECIES_SEAKING },
+    { 25, 30, SPECIES_SEAKING },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Southwest_FishingMonsInfo = { 35, gHoennSafariZone_Southwest_FishingMons };
+
+const struct WildPokemon gHoennSafariZone_North_LandMons[] =
+{
+    { 27, 27, SPECIES_PHANPY },
+    { 27, 27, SPECIES_ODDISH },
+    { 29, 29, SPECIES_PHANPY },
+    { 29, 29, SPECIES_ODDISH },
+    { 27, 27, SPECIES_NATU },
+    { 29, 29, SPECIES_GLOOM },
+    { 31, 31, SPECIES_GLOOM },
+    { 29, 29, SPECIES_NATU },
+    { 29, 29, SPECIES_XATU },
+    { 27, 27, SPECIES_HERACROSS },
+    { 31, 31, SPECIES_XATU },
+    { 29, 29, SPECIES_HERACROSS },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_North_LandMonsInfo = { 25, gHoennSafariZone_North_LandMons };
+
+const struct WildPokemon gHoennSafariZone_North_RockSmashMons[] =
+{
+    { 10, 15, SPECIES_GEODUDE },
+    { 5, 10, SPECIES_GEODUDE },
+    { 15, 20, SPECIES_GEODUDE },
+    { 20, 25, SPECIES_GEODUDE },
+    { 25, 30, SPECIES_GEODUDE },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_North_RockSmashMonsInfo = { 25, gHoennSafariZone_North_RockSmashMons };
+
+const struct WildPokemon gHoennSafariZone_Northwest_LandMons[] =
+{
+    { 27, 27, SPECIES_RHYHORN },
+    { 27, 27, SPECIES_ODDISH },
+    { 29, 29, SPECIES_RHYHORN },
+    { 29, 29, SPECIES_ODDISH },
+    { 27, 27, SPECIES_DODUO },
+    { 29, 29, SPECIES_GLOOM },
+    { 31, 31, SPECIES_GLOOM },
+    { 29, 29, SPECIES_DODUO },
+    { 29, 29, SPECIES_DODRIO },
+    { 27, 27, SPECIES_PINSIR },
+    { 31, 31, SPECIES_DODRIO },
+    { 29, 29, SPECIES_PINSIR },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Northwest_LandMonsInfo = { 25, gHoennSafariZone_Northwest_LandMons };
+
+const struct WildPokemon gHoennSafariZone_Northwest_WaterMons[] =
+{
+    { 20, 30, SPECIES_PSYDUCK },
+    { 20, 30, SPECIES_PSYDUCK },
+    { 30, 35, SPECIES_PSYDUCK },
+    { 30, 35, SPECIES_GOLDUCK },
+    { 25, 40, SPECIES_GOLDUCK },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Northwest_WaterMonsInfo = { 9, gHoennSafariZone_Northwest_WaterMons };
+
+const struct WildPokemon gHoennSafariZone_Northwest_FishingMons[] =
+{
+    { 5, 10, SPECIES_MAGIKARP },
+    { 5, 10, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_MAGIKARP },
+    { 10, 25, SPECIES_GOLDEEN },
+    { 10, 30, SPECIES_GOLDEEN },
+    { 25, 30, SPECIES_GOLDEEN },
+    { 30, 35, SPECIES_GOLDEEN },
+    { 30, 35, SPECIES_SEAKING },
+    { 35, 40, SPECIES_SEAKING },
+    { 25, 30, SPECIES_SEAKING },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Northwest_FishingMonsInfo = { 35, gHoennSafariZone_Northwest_FishingMons };
+
+const struct WildPokemon gHoennSafariZone_Southeast_LandMons[] =
+{
+    { 33, 33, SPECIES_SUNKERN },
+    { 34, 34, SPECIES_MAREEP },
+    { 35, 35, SPECIES_SUNKERN },
+    { 36, 36, SPECIES_MAREEP },
+    { 34, 34, SPECIES_AIPOM },
+    { 33, 33, SPECIES_SPINARAK },
+    { 35, 35, SPECIES_HOOTHOOT },
+    { 34, 34, SPECIES_SNUBBULL },
+    { 36, 36, SPECIES_STANTLER },
+    { 37, 37, SPECIES_GLIGAR },
+    { 39, 39, SPECIES_STANTLER },
+    { 40, 40, SPECIES_GLIGAR },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Southeast_LandMonsInfo = { 25, gHoennSafariZone_Southeast_LandMons };
+
+const struct WildPokemon gHoennSafariZone_Southeast_WaterMons[] =
+{
+    { 25, 30, SPECIES_WOOPER },
+    { 25, 30, SPECIES_MARILL },
+    { 25, 30, SPECIES_MARILL },
+    { 30, 35, SPECIES_MARILL },
+    { 35, 40, SPECIES_QUAGSIRE },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Southeast_WaterMonsInfo = { 9, gHoennSafariZone_Southeast_WaterMons };
+
+const struct WildPokemon gHoennSafariZone_Southeast_FishingMons[] =
+{
+    { 25, 30, SPECIES_MAGIKARP },
+    { 25, 30, SPECIES_GOLDEEN },
+    { 25, 30, SPECIES_MAGIKARP },
+    { 25, 30, SPECIES_GOLDEEN },
+    { 30, 35, SPECIES_REMORAID },
+    { 25, 30, SPECIES_GOLDEEN },
+    { 25, 30, SPECIES_REMORAID },
+    { 30, 35, SPECIES_REMORAID },
+    { 30, 35, SPECIES_REMORAID },
+    { 35, 40, SPECIES_OCTILLERY },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Southeast_FishingMonsInfo = { 35, gHoennSafariZone_Southeast_FishingMons };
+
+const struct WildPokemon gHoennSafariZone_Northeast_LandMons[] =
+{
+    { 33, 33, SPECIES_AIPOM },
+    { 34, 34, SPECIES_TEDDIURSA },
+    { 35, 35, SPECIES_AIPOM },
+    { 36, 36, SPECIES_TEDDIURSA },
+    { 34, 34, SPECIES_SUNKERN },
+    { 33, 33, SPECIES_LEDYBA },
+    { 35, 35, SPECIES_HOOTHOOT },
+    { 34, 34, SPECIES_PINECO },
+    { 36, 36, SPECIES_HOUNDOUR },
+    { 37, 37, SPECIES_MILTANK },
+    { 39, 39, SPECIES_HOUNDOUR },
+    { 40, 40, SPECIES_MILTANK },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Northeast_LandMonsInfo = { 25, gHoennSafariZone_Northeast_LandMons };
+
+const struct WildPokemon gHoennSafariZone_Northeast_RockSmashMons[] =
+{
+    { 25, 30, SPECIES_SHUCKLE },
+    { 20, 25, SPECIES_SHUCKLE },
+    { 30, 35, SPECIES_SHUCKLE },
+    { 30, 35, SPECIES_SHUCKLE },
+    { 35, 40, SPECIES_SHUCKLE },
+};
+
+const struct WildPokemonInfo gHoennSafariZone_Northeast_RockSmashMonsInfo = { 25, gHoennSafariZone_Northeast_RockSmashMons };
+
 const struct WildPokemonHeader gWildMonHeaders[] =
 {
     {
@@ -13305,6 +13516,78 @@ const struct WildPokemonHeader gWildMonHeaders[] =
         .waterMonsInfo_LG = NULL,
         .rockSmashMonsInfo_FR = NULL,
         .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_SAFARI_ZONE_SOUTH),
+        .mapNum = MAP_NUM(HOENN_SAFARI_ZONE_SOUTH),
+        .landMonsInfo_FR = &gHoennSafariZone_South_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennSafariZone_South_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_SAFARI_ZONE_SOUTHWEST),
+        .mapNum = MAP_NUM(HOENN_SAFARI_ZONE_SOUTHWEST),
+        .landMonsInfo_FR = &gHoennSafariZone_Southwest_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennSafariZone_Southwest_LandMonsInfo,
+        .waterMonsInfo_FR = &gHoennSafariZone_Southwest_WaterMonsInfo,
+        .waterMonsInfo_LG = &gHoennSafariZone_Southwest_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gHoennSafariZone_Southwest_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gHoennSafariZone_Southwest_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_SAFARI_ZONE_NORTH),
+        .mapNum = MAP_NUM(HOENN_SAFARI_ZONE_NORTH),
+        .landMonsInfo_FR = &gHoennSafariZone_North_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennSafariZone_North_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = &gHoennSafariZone_North_RockSmashMonsInfo,
+        .rockSmashMonsInfo_LG = &gHoennSafariZone_North_RockSmashMonsInfo,
+        .fishingMonsInfo_FR = NULL,
+        .fishingMonsInfo_LG = NULL,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_SAFARI_ZONE_NORTHWEST),
+        .mapNum = MAP_NUM(HOENN_SAFARI_ZONE_NORTHWEST),
+        .landMonsInfo_FR = &gHoennSafariZone_Northwest_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennSafariZone_Northwest_LandMonsInfo,
+        .waterMonsInfo_FR = &gHoennSafariZone_Northwest_WaterMonsInfo,
+        .waterMonsInfo_LG = &gHoennSafariZone_Northwest_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gHoennSafariZone_Northwest_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gHoennSafariZone_Northwest_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_SAFARI_ZONE_SOUTHEAST),
+        .mapNum = MAP_NUM(HOENN_SAFARI_ZONE_SOUTHEAST),
+        .landMonsInfo_FR = &gHoennSafariZone_Southeast_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennSafariZone_Southeast_LandMonsInfo,
+        .waterMonsInfo_FR = &gHoennSafariZone_Southeast_WaterMonsInfo,
+        .waterMonsInfo_LG = &gHoennSafariZone_Southeast_WaterMonsInfo,
+        .rockSmashMonsInfo_FR = NULL,
+        .rockSmashMonsInfo_LG = NULL,
+        .fishingMonsInfo_FR = &gHoennSafariZone_Southeast_FishingMonsInfo,
+        .fishingMonsInfo_LG = &gHoennSafariZone_Southeast_FishingMonsInfo,
+    },
+    {
+        .mapGroup = MAP_GROUP(HOENN_SAFARI_ZONE_NORTHEAST),
+        .mapNum = MAP_NUM(HOENN_SAFARI_ZONE_NORTHEAST),
+        .landMonsInfo_FR = &gHoennSafariZone_Northeast_LandMonsInfo,
+        .landMonsInfo_LG = &gHoennSafariZone_Northeast_LandMonsInfo,
+        .waterMonsInfo_FR = NULL,
+        .waterMonsInfo_LG = NULL,
+        .rockSmashMonsInfo_FR = &gHoennSafariZone_Northeast_RockSmashMonsInfo,
+        .rockSmashMonsInfo_LG = &gHoennSafariZone_Northeast_RockSmashMonsInfo,
         .fishingMonsInfo_FR = NULL,
         .fishingMonsInfo_LG = NULL,
     },

@@ -217,6 +217,8 @@ static const u8 sDoorAnimTiles_HoennSlateport[] = INCBIN_U8("graphics/door_anims
 static const u8 sDoorAnimTiles_HoennSootopolisPeakedRoof[] = INCBIN_U8("graphics/door_anims/hoenn_sootopolis_peaked_roof.4bpp");
 static const u8 sDoorAnimTiles_HoennSootopolis[] = INCBIN_U8("graphics/door_anims/hoenn_sootopolis.4bpp");
 static const u8 sDoorAnimTiles_HoennVerdanturf[] = INCBIN_U8("graphics/door_anims/hoenn_verdanturf.4bpp");
+static const u8 sDoorAnimTiles_HoennTrainerHillRoofElevator[] = INCBIN_U8("graphics/door_anims/hoenn_trainer_hill_roof_elevator.4bpp");
+static const u8 sDoorAnimTiles_HoennBattlePalaceLobby[] = INCBIN_U8("graphics/door_anims/hoenn_battle_palace_lobby.4bpp");
 
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
@@ -317,6 +319,8 @@ static const u8 sDoorAnimPalettes_HoennSlateport[] = {12, 12, 1, 1, 1, 1, 1, 1};
 static const u8 sDoorAnimPalettes_HoennSootopolisPeakedRoof[] = {11, 11, 11, 11, 11, 11, 11, 11}; // Emerald {6, 6, 6, 6, 6, 6, 6, 6}
 static const u8 sDoorAnimPalettes_HoennSootopolis[] = {11, 11, 11, 11, 11, 11, 11, 11}; // Emerald {6, 6, 6, 6, 6, 6, 6, 6}
 static const u8 sDoorAnimPalettes_HoennVerdanturf[] = {12, 12, 5, 5, 5, 5, 5, 5}; // Emerald {6, 6, 5, 5, 5, 5, 5, 5}
+static const u8 sDoorAnimPalettes_HoennTrainerHillRoofElevator[] = {9, 9, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattlePalaceLobby[] = {7, 7, 7, 7, 7, 7, 7, 7};
 
 static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_General_Door,                                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_General, sDoorAnimPalettes_General},
@@ -396,6 +400,8 @@ static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
     {METATILE_HoennSootopolis_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolis, sDoorAnimPalettes_HoennSootopolis},
     {METATILE_HoennMauville_Door_BattleTent,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
     {METATILE_HoennMauville_Door_Verdanturf,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennVerdanturf, sDoorAnimPalettes_HoennVerdanturf},
+    {METATILE_HoennTrainerHill_Door_Elevator_Roof,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennTrainerHillRoofElevator, sDoorAnimPalettes_HoennTrainerHillRoofElevator},
+    {METATILE_HoennBattlePalace_Door,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattlePalaceLobby, sDoorAnimPalettes_HoennBattlePalaceLobby},
     {}
 };
 

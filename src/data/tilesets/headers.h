@@ -1440,3 +1440,80 @@ const struct Tileset gTileset_HoennMirageTower =
 	.metatileAttributes = gMetatileAttributes_HoennMirageTower,
 	.callback = NULL
 };
+
+const struct Tileset gTileset_HoennTrainerHill = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennTrainerHill,
+	.palettes = gTilesetPalettes_HoennTrainerHill,
+	.metatiles = gMetatiles_HoennTrainerHill,
+	.metatileAttributes = gMetatileAttributes_HoennTrainerHill,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennBattleDome = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBattleDome,
+	.palettes = gTilesetPalettes_HoennBattleDome,
+	.metatiles = gMetatiles_HoennBattleDome,
+	.metatileAttributes = gMetatileAttributes_HoennBattleDome,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennBattlePalace = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBattlePalace,
+	.palettes = gTilesetPalettes_HoennBattlePalace,
+	.metatiles = gMetatiles_HoennBattlePalace,
+	.metatileAttributes = gMetatileAttributes_HoennBattlePalace,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennBattlePyramid = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBattlePyramid,
+	.palettes = gTilesetPalettes_HoennBattlePyramid,
+	.metatiles = gMetatiles_HoennBattlePyramid,
+	.metatileAttributes = gMetatileAttributes_HoennBattlePyramid,
+	.callback = InitTilesetAnim_HoennBattlePyramid
+};
+
+const struct Tileset gTileset_HoennBattleArena = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBattleArena,
+	.palettes = gTilesetPalettes_HoennBattleArena,
+	.metatiles = gMetatiles_HoennBattleArena,
+	.metatileAttributes = gMetatileAttributes_HoennBattleArena,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennBattleFactory = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBattleFactory,
+	.palettes = gTilesetPalettes_HoennBattleFactory,
+	.metatiles = gMetatiles_HoennBattleFactory,
+	.metatileAttributes = gMetatileAttributes_HoennBattleFactory,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennBattlePike = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennBattlePike,
+	.palettes = gTilesetPalettes_HoennBattlePike,
+	.metatiles = gMetatiles_HoennBattlePike,
+	.metatileAttributes = gMetatileAttributes_HoennBattlePike,
+	.callback = NULL
+};

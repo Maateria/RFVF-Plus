@@ -1,9 +1,136 @@
+@ RFVF+: the Safari game runs on Fuchsia's scripts and texts (FuchsiaCity_SafariZone_Entrance), on the same scene var:
+@ 4 = playing in Hoenn's Safari Zone (Kanto's is 2), 1 = sent back by the PA (data/scripts/safari_zone.inc),
+@ 3 = out of Safari Balls mid-battle. Map layout and movements: Emerald's.
 Route121_SafariZoneEntrance_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route121_SafariZoneEntrance_OnFrame
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_FRAME_TABLE (Route121_SafariZoneEntrance_OnFrame)
+
+Route121_SafariZoneEntrance_OnFrame::
+	map_script_2 VAR_MAP_SCENE_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE, 1, Route121_SafariZoneEntrance_EventScript_ExitSafariZone
+	map_script_2 VAR_MAP_SCENE_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE, 3, Route121_SafariZoneEntrance_EventScript_ExitSafariZone
+	map_script_2 VAR_MAP_SCENE_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE, 4, Route121_SafariZoneEntrance_EventScript_ExitEarly
+	.2byte 0
+
+Route121_SafariZoneEntrance_EventScript_ExitSafariZone::
+	lockall
+	textcolor NPC_TEXT_COLOR_MALE
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_CatchFairShareComeAgain
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, Route121_SafariZoneEntrance_Movement_ExitSafariZone
+	waitmovement 0
+	special ExitSafariMode
+	setvar VAR_MAP_SCENE_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE, 0
+	releaseall
+	end
+
+@ Back through the door with balls and steps left
+Route121_SafariZoneEntrance_EventScript_ExitEarly::
+	lockall
+	textcolor NPC_TEXT_COLOR_MALE
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_GoingToLeaveSafariZoneEarly, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route121_SafariZoneEntrance_EventScript_ReturnToSafariZone
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_PleaseReturnSafariBalls
+	closemessage
+	applymovement OBJ_EVENT_ID_PLAYER, Route121_SafariZoneEntrance_Movement_ExitSafariZone
+	waitmovement 0
+	special ExitSafariMode
+	setvar VAR_MAP_SCENE_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE, 0
+	releaseall
+	end
+
+Route121_SafariZoneEntrance_EventScript_ReturnToSafariZone::
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_GoodLuck
+	closemessage
+	warp MAP_HOENN_SAFARI_ZONE_SOUTH, 32, 33
+	waitstate
+	end
+
+Route121_SafariZoneEntrance_Movement_ExitSafariZone::
+	walk_up
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
+Route121_SafariZoneEntrance_EventScript_EntranceCounterTrigger::
+	lockall
+	textcolor NPC_TEXT_COLOR_MALE
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_WelcomeToSafariZone
+	showmoneybox 0, 0
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_PlaySafariGameFor500, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route121_SafariZoneEntrance_EventScript_TryEnterSafariZone
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_OkayPleaseComeAgain
+	goto Route121_SafariZoneEntrance_EventScript_MovePlayerBackFromCounter
+	end
+
+Route121_SafariZoneEntrance_EventScript_TryEnterSafariZone::
+	call Route121_SafariZoneEntrance_EventScript_CheckSpaceForMons
+	checkmoney 500
+	goto_if_eq VAR_RESULT, FALSE, Route121_SafariZoneEntrance_EventScript_NotEnoughMoney
+	removemoney 500
+	updatemoneybox
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_ThatllBe500WeOnlyUseSpecialBalls
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	playfanfare MUS_LEVEL_UP
+	message FuchsiaCity_SafariZone_Entrance_Text_PlayerReceived30SafariBalls
+	waitfanfare
+	call EventScript_RestorePrevTextColor
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_CallYouOnPAWhenYouRunOut
+	closemessage
+	hidemoneybox
+	applymovement OBJ_EVENT_ID_PLAYER, Route121_SafariZoneEntrance_Movement_EnterSafariZone
+	waitmovement 0
+	special EnterSafariMode
+	setvar VAR_MAP_SCENE_FUCHSIA_CITY_SAFARI_ZONE_ENTRANCE, 4
+	warp MAP_HOENN_SAFARI_ZONE_SOUTH, 32, 33
+	waitstate
+	end
+
+Route121_SafariZoneEntrance_EventScript_CheckSpaceForMons::
+	getpartysize
+	goto_if_ne VAR_RESULT, PARTY_SIZE, EventScript_Return
+	specialvar VAR_RESULT, IsThereRoomInAnyBoxForMorePokemon
+	goto_if_eq VAR_RESULT, TRUE, EventScript_Return
+	msgbox SafariZone_Text_ExcuseMeYourPCBoxIsFull
+	goto Route121_SafariZoneEntrance_EventScript_MovePlayerBackFromCounter
+	end
+
+Route121_SafariZoneEntrance_EventScript_NotEnoughMoney::
+	msgbox FuchsiaCity_SafariZone_Entrance_Text_OopsNotEnoughMoney
+	goto Route121_SafariZoneEntrance_EventScript_MovePlayerBackFromCounter
+	end
+
+Route121_SafariZoneEntrance_EventScript_MovePlayerBackFromCounter::
+	closemessage
+	hidemoneybox
+	applymovement OBJ_EVENT_ID_PLAYER, Route121_SafariZoneEntrance_Movement_BackAwayFromCounter
+	waitmovement 0
+	releaseall
+	end
+
+Route121_SafariZoneEntrance_Movement_BackAwayFromCounter::
+	walk_right
+	step_end
+
+Route121_SafariZoneEntrance_Movement_EnterSafariZone::
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_down
+	delay_16
+	step_end
+
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route121_SafariZoneEntrance/scripts.inc
 Route121_SafariZoneEntrance_EventScript_WelcomeAttendant:: @ NPC #1 (17,9)
 Route121_SafariZoneEntrance_EventScript_InfoAttendant:: @ NPC #2 (10,2)
 Route121_SafariZoneEntrance_EventScript_TrainerTipSign:: @ sign (15,1)
 	end
-@ hoenn_import: left out: trigger (8,4) VAR_TEMP_1==0 -> Route121_SafariZoneEntrance_EventScript_EntranceCounterTrigger

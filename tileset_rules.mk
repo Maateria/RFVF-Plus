@@ -226,7 +226,7 @@ $(TILESETGFXDIR)/secondary/hoenn_shop/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 302 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_battle_frontier/tiles.4bpp: %.4bpp: %.png
-	$(GFX) $< $@ -num_tiles 21 -Wnum_tiles
+	$(GFX) $< $@ -num_tiles 154 -Wnum_tiles
 
 $(TILESETGFXDIR)/secondary/hoenn_fortree/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 181 -Wnum_tiles
@@ -365,3 +365,24 @@ $(TILESETGFXDIR)/secondary/hoenn_inside_ship/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_mirage_tower/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 112 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_trainer_hill/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 269 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_dome/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 285 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_palace/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 108 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_pyramid/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 160 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_arena/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 168 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_factory/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 228 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_battle_pike/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 201 -Wnum_tiles

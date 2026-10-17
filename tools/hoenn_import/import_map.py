@@ -2,17 +2,21 @@
 # requires-python = ">=3.9"
 # dependencies = ["pillow"]
 # ///
-"""Import one Emerald town or route with all its interiors, or one dungeon, from pokeemerald, complete except scripts.
+"""Import one Emerald town or route with all its interiors, one dungeon or one special area, complete except scripts.
 
 Usage, from the repo root (PowerShell or Git Bash):
     uv run tools/hoenn_import/import_map.py FortreeCity --dry-run      (plan and check everything, write nothing)
     uv run tools/hoenn_import/import_map.py FortreeCity [--render DIR] [--emerald ..\\pokeemerald]
     uv run tools/hoenn_import/import_map.py GraniteCave                (a dungeon: all its floors)
+    uv run tools/hoenn_import/import_map.py BattleFrontier             (a special area: all its maps)
 A town or route is one of the 57 maps of Emerald's gMapGroup_TownsAndRoutes. Its interiors are the maps of Emerald's
 gMapGroup_Indoor<Unit without Town/City> (minus three maps nothing reaches); the town or route joins
 gMapGroup_TownsAndRoutes here, its interiors gMapGroup_Indoor<...>. A dungeon is one of the 28 units of Emerald's
 gMapGroup_Dungeons (hoenn_import.dungeon_units: GraniteCave = GraniteCave_1F, _B1F, _B2F, _StevensRoom); its maps join
-gMapGroup_HoennDungeons here, Victory Road's as HoennVictoryRoad_* (hoenn_decisions.RENAMES). Maps imported before are
+gMapGroup_HoennDungeons here, Victory Road's as HoennVictoryRoad_* (hoenn_decisions.RENAMES). A special area is one of
+the 4 units of hoenn_decisions.SPECIAL_UNITS (HoennSafariZone, TrainerHill, SSTidal, BattleFrontier: the Battle
+Frontier's buildings and Battle Pyramid squares, its outside being FRLG-Plus's); its maps join
+gMapGroup_HoennSpecialArea here, the Safari Zone's as HoennSafariZone_*. Maps imported before are
 never regenerated: they only get the warps and connections this import makes possible (the doors left onto themselves
 until then). NPCs, trainers and signs are placed silent: their Emerald labels are stubs in the new scripts.inc files,
 where the scripting happens. Item balls and hidden items work (their Emerald flags are allocated in flags.h), Emerald's
@@ -36,10 +40,12 @@ def main():
     pre.add_argument("--emerald", type=Path, default=hi.REPO.parent / "pokeemerald")
     groups_file = pre.parse_known_args()[0].emerald / "data/maps/map_groups.json"
     groups = json.loads(hi.rename(hi.read(groups_file))) if groups_file.exists() else None
-    towns, dungeons = (groups[hi.OUTDOOR], list(hi.dungeon_units(groups))) if groups else ([], [])
-    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0], epilog="Towns and routes: %s. Dungeons: %s."
-                                     % (" ".join(towns), " ".join(dungeons)) if groups else None)
-    parser.add_argument("unit", help="an Emerald town or route (FortreeCity, Route119) or dungeon (GraniteCave)")
+    towns, dungeons = (groups[hi.OUTDOOR], list(hi.dungeon_units(groups)) + list(hi.special_units(groups))) \
+        if groups else ([], [])
+    parser = argparse.ArgumentParser(description=__doc__.split("\n")[0], epilog="Towns and routes: %s. Dungeons and "
+                                     "special areas: %s." % (" ".join(towns), " ".join(dungeons)) if groups else None)
+    parser.add_argument("unit", help="an Emerald town or route (FortreeCity, Route119), dungeon (GraniteCave) or "
+                        "special area (BattleFrontier)")
     parser.add_argument("--dry-run", action="store_true", help="plan and check everything, write nothing")
     parser.add_argument("--emerald", type=Path, default=hi.REPO.parent / "pokeemerald", help="pret/pokeemerald clone")
     parser.add_argument("--render", type=Path, help="also save each converted map and connection strip as a PNG here")
@@ -54,11 +60,11 @@ def main():
         if owner:
             print("%s is a map of %s: import_map.py %s imports it with the others" % (args.unit, owner, owner))
         elif known:
-            print("%s (Emerald's %s) is not imported by this tool: special areas (Battle Frontier, Safari Zone, Trainer "
-                  "Hill...), secret bases, the S.S. Tidal and unused maps are out of its scope" % (
+            print("%s (Emerald's %s) is not imported by this tool: secret bases, contest stages, the intro truck, unused "
+                  "maps and the maps FRLG-Plus already has under Emerald's names are out of its scope" % (
                       args.unit, " ".join(known[:3]) + (" ..." if len(known) > 3 else "")))
         else:
-            print("%s is not an Emerald town, route or dungeon%s. Valid: %s" % (
+            print("%s is not an Emerald town, route, dungeon or special area%s. Valid: %s" % (
                 args.unit, " (did you mean %s?)" % close[0] if close else "", " ".join(towns + dungeons)))
         return 2
     maps = hi.closure(groups, args.unit)

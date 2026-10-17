@@ -1,7 +1,7 @@
 """Per-map decisions for importing Hoenn from pret/pokeemerald (plain data, no logic).
 
-Scope: the 57 units of Emerald's gMapGroup_TownsAndRoutes and their interiors (closure rule: design spec 1.3), and the
-28 dungeon units of its gMapGroup_Dungeons (hoenn_import.dungeon_units).
+Scope: the 57 units of Emerald's gMapGroup_TownsAndRoutes and their interiors (closure rule: design spec 1.3), the
+28 dungeon units of its gMapGroup_Dungeons (hoenn_import.dungeon_units) and the 4 special area units (SPECIAL_UNITS).
 RFVF+ players reach Hoenn by ferry after the Hall of Fame, so the tables describe what a player finds after the HoF in
 a normal Emerald playthrough (user decision D1); "RFVF+:" marks a choice made for RFVF+ instead.
 Every object flag of the scope is decided exactly once, in POST_LEAGUE or HIDDEN_BY_MAP_SCRIPT, except item balls'
@@ -13,7 +13,7 @@ always placed. Reasons cite the pokeemerald script that sets or clears the flag.
 # folders, MAP_ and LAYOUT_ constants, layout folders and names, script labels and item flags, and every Emerald warp to
 # them (VictoryRoad_1F -> HoennVictoryRoad_1F, MAP_HOENN_VICTORY_ROAD_1F; Kanto has VictoryRoad_1F and
 # FLAG_HIDDEN_ITEM_VICTORY_ROAD_1F_ULTRA_BALL). Any other clash is refused.
-RENAMES = {"VictoryRoad": "HoennVictoryRoad"}
+RENAMES = {"VictoryRoad": "HoennVictoryRoad", "SafariZone": "HoennSafariZone"}
 # The map group of the dungeons here: FRLG already has a gMapGroup_Dungeons (126 maps).
 DUNGEON_GROUP = "gMapGroup_HoennDungeons"
 # Dungeon units (import_map.py): a map's unit is its name up to the first "_" (GraniteCave_B1F: GraniteCave), except
@@ -26,6 +26,17 @@ DUNGEON_UNIT_OF = {
     "Underwater_SealedChamber": "SealedChamber",
     "Underwater_MarineCave": "MarineCave",
 }
+
+# Special area units (import_map.py), from Emerald's gMapGroup_SpecialArea and gMapGroup_IndoorDynamic: a map's unit is
+# the first whose prefixes its name here starts with (hoenn_import.special_units). Their maps join SPECIAL_GROUP here,
+# except the maps FRLG-Plus already has under Emerald's name (the Battle Frontier's outside, lounges, Pokemon Center...).
+# Left out of every unit: secret bases, contest stages, the intro truck (their systems do not exist here).
+SPECIAL_UNITS = {"HoennSafariZone": ("HoennSafariZone_",), "TrainerHill": ("TrainerHill_",), "SSTidal": ("SSTidal",),
+                 "BattleFrontier": ("BattleFrontier_", "BattlePyramidSquare")}
+SPECIAL_GROUP = "gMapGroup_HoennSpecialArea"
+# FRLG-Plus maps under Emerald's names (this tool did not make them) whose doors onto themselves wait for an Emerald
+# map: relinked like the maps this tool made (hoenn_import.hoenn_maps)
+FRLG_PLUS_RELINKED = {"BattleFrontier_OutsideWest", "BattleFrontier_OutsideEast"}
 
 # Emerald secondary palette slot -> FRLG slot, on top of the slot 6 move. FRLG's buy menu loads its frame palette into
 # BG slot 11 (src/shop.c BuyMenuDecompressBgGraphics; Emerald's uses 12), so no palette a clerk's map view shows may
@@ -53,6 +64,24 @@ VAR_GFX = {
     ("MossdeepCity_GameCorner_B1F", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
     # the rival after the HoF (AddRivalObject sets VAR_OBJ_GFX_ID_0 by the player's gender): May until a script picks it
     ("LittlerootTown_ProfessorBirchsLab", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_RIVAL_MAY_NORMAL",
+    # Battle Frontier rooms (only the facility scripts lead there), as the Battle Tents: the player's stand-in
+    # (*_SetPlayerGfx: VAR_1, VAR_F in the Factory and the Tower multi rooms, VAR_0 in the Palace) is Brendan, an
+    # opponent or multi partner the Hiker; the multi partner room's candidates keep the script's default (BOY_1)
+    ("BattleFrontier_BattleDomeBattleRoom", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
+    ("BattleFrontier_BattleDomeBattleRoom", "OBJ_EVENT_GFX_VAR_1"): "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    ("BattleFrontier_BattleArenaBattleRoom", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
+    ("BattleFrontier_BattleArenaBattleRoom", "OBJ_EVENT_GFX_VAR_1"): "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    ("BattleFrontier_BattleFactoryBattleRoom", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
+    ("BattleFrontier_BattleFactoryBattleRoom", "OBJ_EVENT_GFX_VAR_F"): "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    ("BattleFrontier_BattlePalaceBattleRoom", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    ("BattleFrontier_BattleTowerMultiCorridor", "OBJ_EVENT_GFX_VAR_E"): "OBJ_EVENT_GFX_HIKER",
+    ("BattleFrontier_BattleTowerMultiCorridor", "OBJ_EVENT_GFX_VAR_F"): "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    ("BattleFrontier_BattleTowerMultiBattleRoom", "OBJ_EVENT_GFX_VAR_E"): "OBJ_EVENT_GFX_HIKER",
+    ("BattleFrontier_BattleTowerMultiBattleRoom", "OBJ_EVENT_GFX_VAR_F"): "OBJ_EVENT_GFX_RIVAL_BRENDAN_NORMAL",
+    **{("BattleFrontier_BattleTowerMultiPartnerRoom", "OBJ_EVENT_GFX_VAR_%d" % i): "OBJ_EVENT_GFX_BOY_1" for i in range(6)},
+    # battle_pike.c picks the room's trainers or helpers: the Hiker stands in
+    ("BattleFrontier_BattlePikeRoomNormal", "OBJ_EVENT_GFX_VAR_0"): "OBJ_EVENT_GFX_HIKER",
+    ("BattleFrontier_BattlePikeRoomNormal", "OBJ_EVENT_GFX_VAR_1"): "OBJ_EVENT_GFX_HIKER",
 }
 # Flags NOT set at new game whose object the map's own script still hides on load after the HoF.
 HIDDEN_BY_MAP_SCRIPT = {
@@ -85,6 +114,9 @@ MOVED_BY_MAP_SCRIPT = {
     # MtPyre_Summit_OnTransition (VAR_MT_PYRE_STATE 2, set by SootopolisCity_EventScript_MaxieArchieLeave): Archie
     # stands beside Maxie, who keeps map.json's (23,6)
     ("MtPyre_Summit", "LOCALID_MT_PYRE_SUMMIT_ARCHIE"): (22, 6, "MOVEMENT_TYPE_FACE_UP"),
+    # SafariZone_South_OnTransition sets the exit attendant aside while a Safari game runs (VAR_SAFARI_ZONE_STATE 2).
+    # RFVF+: Fuchsia's Safari scripts run the game (exit through the door), so he always stands aside
+    ("HoennSafariZone_South", "LOCALID_SAFARI_EXIT_ATTENDANT"): (31, 34, "MOVEMENT_TYPE_FACE_DOWN"),
 }
 # RFVF+ players reach Hoenn by ferry after the Hall of Fame: they find Emerald's post-League state (Team Aqua gone,
 # Game Freak team and the late Fan Club members there). Object flag -> True = shown (flag dropped), False = left out;
@@ -371,6 +403,14 @@ POST_LEAGUE = {
     "FLAG_HIDE_DESERT_UNDERPASS_FOSSIL": (False, "no Mirage Tower fossil taken: only Route111_EventScript_MirageTowerDisappear clears it"),
     "FLAG_HIDE_MARINE_CAVE_KYOGRE": (True, "there after the HoF until caught (MarineCave_End_EventScript_ShowKyogre)"),
     "FLAG_HIDE_TERRA_CAVE_GROUDON": (True, "there after the HoF until caught (TerraCave_End_EventScript_ShowGroudon)"),
+    "FLAG_HIDE_SAFARI_ZONE_SOUTH_CONSTRUCTION_WORKERS": (False, "set by the HoF (hall_of_fame.inc): the expansion is open"),
+    "FLAG_HIDE_SAFARI_ZONE_SOUTH_EAST_EXPANSION": (True, "cleared by the HoF (hall_of_fame.inc)"),
+    "FLAG_HIDE_SS_TIDAL_CORRIDOR_MR_BRINEY": (True, "cleared by the HoF (hall_of_fame.inc): aboard after the League"),
+    "FLAG_HIDE_SS_TIDAL_ROOMS_SNATCH_GIVER": (True, "there until he gives TM49 (SSTidalCorridor scripts set it)"),
+    "FLAG_HIDE_BATTLE_TOWER_REPORTER": (False, "Gabby and Ty's interview (interview.inc) is not ported"),
+    "FLAG_HIDE_APPRENTICE": (False, "the Apprentice (apprentice.inc) is not ported"),
+    "FLAG_HIDE_BATTLE_TOWER_MULTI_BATTLE_PARTNER_ALT_1": (False, "set by the room's OnTransition; battle_tower.c shows it"),
+    "FLAG_HIDE_BATTLE_TOWER_MULTI_BATTLE_PARTNER_ALT_2": (False, "set by the room's OnTransition; battle_tower.c shows it"),
 }
 # Emerald signs no tile can read: (map, x, y) -> where RFVF+ puts them. Lilycove Dept Store 1F's floor list lies below
 # the 18x8 map: it goes on the button panel left of the elevator door (read facing north, as in Emerald).

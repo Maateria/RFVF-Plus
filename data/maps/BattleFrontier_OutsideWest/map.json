@@ -363,22 +363,22 @@
       "x": 42,
       "y": 27,
       "elevation": 0,
-      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
-      "dest_warp_id": 0
+      "dest_map": "MAP_BATTLE_FRONTIER_BATTLE_PIKE_LOBBY",
+      "dest_warp_id": "0"
     },
     {
       "x": 19,
       "y": 17,
       "elevation": 0,
-      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
-      "dest_warp_id": 1
+      "dest_map": "MAP_BATTLE_FRONTIER_BATTLE_DOME_LOBBY",
+      "dest_warp_id": "0"
     },
     {
       "x": 11,
       "y": 38,
       "elevation": 0,
-      "dest_map": "MAP_BATTLE_FRONTIER_OUTSIDE_WEST",
-      "dest_warp_id": 2
+      "dest_map": "MAP_BATTLE_FRONTIER_BATTLE_FACTORY_LOBBY",
+      "dest_warp_id": "0"
     },
     {
       "x": 45,
@@ -437,9 +437,7 @@
       "dest_warp_id": 0
     }
   ],
-  "coord_events": [
-
-  ],
+  "coord_events": [],
   "bg_events": [
     {
       "type": "sign",

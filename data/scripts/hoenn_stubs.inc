@@ -30,3 +30,9 @@ GabbyAndTy_EventScript_TyBattle1::              @ Route111 NPC #7 (14,86)
 
 GabbyAndTy_EventScript_GabbyBattle1::           @ Route111 NPC #8 (13,86)
 	end
+
+BattlePyramid_TrainerBattle::                   @ BattlePyramidSquare01 trainer #1 (2,3) TRAINER_BATTLE_PYRAMID, Emerald NORMAL sight 3
+	end
+
+BattlePyramid_FindItemBall::                    @ BattlePyramidSquare01 NPC #5 (4,1)
+	end

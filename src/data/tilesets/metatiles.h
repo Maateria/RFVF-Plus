@@ -390,3 +390,24 @@ const u32 gMetatileAttributes_HoennInsideShip[] = INCBIN_U32("data/tilesets/seco
 
 const u16 gMetatiles_HoennMirageTower[] = INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/metatiles.bin");
 const u32 gMetatileAttributes_HoennMirageTower[] = INCBIN_U32("data/tilesets/secondary/hoenn_mirage_tower/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennTrainerHill[] = INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/metatiles.bin");
+const u32 gMetatileAttributes_HoennTrainerHill[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattleDome[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattleDome[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_dome/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattlePalace[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattlePalace[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_palace/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattlePyramid[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattlePyramid[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_pyramid/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattleArena[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattleArena[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_arena/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattleFactory[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattleFactory[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_factory/metatile_attributes.bin");
+
+const u16 gMetatiles_HoennBattlePike[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/metatiles.bin");
+const u32 gMetatileAttributes_HoennBattlePike[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_pike/metatile_attributes.bin");

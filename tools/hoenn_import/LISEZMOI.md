@@ -1,8 +1,8 @@
 # Importer Hoenn : `import_map.py`
 
 `import_map.py` importe une ville ou une route d'Émeraude depuis pokeemerald, avec tous ses intérieurs (maisons,
-Centre Pokémon, Boutique, Arène...), ou un donjon avec tous ses étages, en une seule commande. Il importe tout sauf les
-scripts :
+Centre Pokémon, Boutique, Arène...), un donjon avec tous ses étages, ou une zone spéciale (Parc Safari, Mont Dresseurs,
+S.S. Aqua, Zone de Combat), en une seule commande. Il importe tout sauf les scripts :
 
 - **Ce qui est importé :** les maps et leurs liaisons, les portes, les objets au sol et cachés (ramassables), les
   Pokémon sauvages, la météo, la musique d'Émeraude et le point de retour du Centre Pokémon.
@@ -34,8 +34,9 @@ uv run tools/hoenn_import/import_map.py Route119             # importe
   (Nénucrique), `MossdeepCity` (Algatia), `SootopolisCity` (Atalanopolis), `PacifidlogTown` (Pacifiville),
   `EverGrandeCity` (Éternara).
 - **Nom inconnu :** l'outil affiche la liste des noms valides (`--help` aussi). Pour une map d'une zone
-  (`Underwater_Route134`, `LilycoveCity_PokemonCenter_1F`), il donne la zone à importer. Les zones spéciales (Zone de
-  Combat, dont `ArtisanCave`, Parc Safari, Mont Dresseurs), les bases secrètes et le S.S. Tidal ne s'importent pas.
+  (`Underwater_Route134`, `LilycoveCity_PokemonCenter_1F`), il donne la zone à importer. Les bases secrètes, les
+  scènes de concours, le camion de l'intro et les maps que FRLG-Plus a déjà sous le nom d'Émeraude (dehors de la Zone
+  de Combat, `ArtisanCave`, Nombril de la Terre...) ne s'importent pas.
 - **Images :** `--render DOSSIER` enregistre aussi une image PNG de chaque map convertie.
 
 ## Les donjons
@@ -91,6 +92,28 @@ uv run tools/hoenn_import/import_map.py GraniteCave --dry-run
   d'Éternara (ses couloirs vont dans un seul sens et la salle de Damien se referme derrière le joueur).
 - **`WARNING: no way back` :** une map d'où l'on ne pourrait pas revenir si on y arrivait. Une sortie `MAP_DYNAMIC`
   ramène d'où l'on vient (ascenseurs, Grotte Marine).
+
+## Les zones spéciales
+
+Quatre zones, par leur nom d'outil : `HoennSafariZone` (Parc Safari, 7 maps), `TrainerHill` (Mont Dresseurs, 7),
+`SSTidal` (S.S. Aqua, 3) et `BattleFrontier` (Zone de Combat : les 7 bâtiments, le Salon 9 et les 16 pièces de la
+Pyramide de Combat, 46 maps). Leurs maps vont dans `gMapGroup_HoennSpecialArea`. C'est `SPECIAL_UNITS` dans
+`hoenn_decisions.py`.
+
+- **Parc Safari :** Kanto a déjà `SafariZone_North` (et `SafariZone_NorthWest`, le même dossier que `Northwest` sous
+  Windows). Celui de Hoenn devient `HoennSafariZone_*`, avec ses constantes (`MAP_HOENN_SAFARI_ZONE_SOUTH`...), ses
+  labels, ses flags d'objets et ses Pokémon sauvages (`RENAMES`). Le jeu Safari marche : l'entrée de la Route 121
+  reprend les scripts et les textes de celle de Parmanie (500 ¥, 30 Safari Balls, 600 pas), et le haut-parleur ramène
+  à l'entrée de la Route 121 (`data/scripts/safari_zone.inc`). L'extension Nord-Est / Sud-Est est ouverte (état après
+  la Ligue).
+- **Zone de Combat :** le dehors, le Centre Pokémon, la Boutique et les salons 1 à 8 sont ceux de FRLG-Plus. L'outil
+  ne les importe pas, mais rebranche leurs portes provisoires vers les bâtiments (`FRLG_PLUS_RELINKED`). Le Salon 9 n'a
+  pas de vraie porte, comme dans Émeraude. Les salles de combat, couloirs et ascenseurs ne s'atteignent que par les
+  scripts des bâtiments. Les étages de la Pyramide sont construits par son code avec les 16 pièces : sans lui,
+  `BattleFrontier_BattlePyramidFloor` est une salle noire de 8×8.
+- **Mont Dresseurs :** la porte de la Route 111 y mène. Le milieu des étages 1F à 4F est construit par le code selon
+  le défi (`trainer_hill.c`, pas encore porté) : en attendant, chaque étage est une salle vide.
+- **S.S. Aqua :** aucune porte n'y mène, même dans Émeraude. Seul le script du ferry y conduit.
 
 ## Lire le rapport
 
@@ -170,7 +193,7 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
 
 ## Limites
 
-- **Les 85 zones (57 villes et routes, 28 donjons) sont acceptées.** Certaines attendent le travail moteur de
+- **Les 89 zones (57 villes et routes, 28 donjons, 4 zones spéciales) sont acceptées.** Certaines attendent le travail moteur de
   l'étape 3, c'est-à-dire la constante `MB_LAVARIDGE_GYM_B1F_WARP` dans `include/constants/metatile_behaviors.h`.
   Sans elle, elles sont refusées proprement, rien n'est écrit et la raison le dit :
   - **Vermilava :** les geysers du sous-sol de l'Arène sont la seule sortie ;

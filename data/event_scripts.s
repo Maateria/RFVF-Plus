@@ -2152,3 +2152,129 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/TerraCave_Entrance/scripts.inc"
 
 	.include "data/maps/TerraCave_End/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_Northwest/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_North/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_Southwest/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_South/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_RestHouse/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_Northeast/scripts.inc"
+
+	.include "data/maps/HoennSafariZone_Southeast/scripts.inc"
+
+	.include "data/maps/TrainerHill_Entrance/scripts.inc"
+
+	.include "data/maps/TrainerHill_1F/scripts.inc"
+
+	.include "data/maps/TrainerHill_2F/scripts.inc"
+
+	.include "data/maps/TrainerHill_3F/scripts.inc"
+
+	.include "data/maps/TrainerHill_4F/scripts.inc"
+
+	.include "data/maps/TrainerHill_Roof/scripts.inc"
+
+	.include "data/maps/TrainerHill_Elevator/scripts.inc"
+
+	.include "data/maps/SSTidalCorridor/scripts.inc"
+
+	.include "data/maps/SSTidalLowerDeck/scripts.inc"
+
+	.include "data/maps/SSTidalRooms/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerElevator/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerCorridor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerMultiPartnerRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerMultiCorridor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleTowerMultiBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleDomeLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleDomeCorridor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleDomePreBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleDomeBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePalaceLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePalaceCorridor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePalaceBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePyramidLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePyramidFloor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePyramidTop/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleArenaLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleArenaCorridor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleArenaBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleFactoryLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleFactoryPreBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattleFactoryBattleRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePikeLobby/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePikeCorridor/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePikeThreePathRoom/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePikeRoomNormal/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePikeRoomFinal/scripts.inc"
+
+	.include "data/maps/BattleFrontier_BattlePikeRoomWildMons/scripts.inc"
+
+	.include "data/maps/BattleFrontier_Lounge9/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare01/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare02/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare03/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare04/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare05/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare06/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare07/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare08/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare09/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare10/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare11/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare12/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare13/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare14/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare15/scripts.inc"
+
+	.include "data/maps/BattlePyramidSquare16/scripts.inc"

@@ -34,7 +34,8 @@ REPO = HERE.parent.parent
 IMPORT_MAP = HERE / "import_map.py"
 LOGS = REPO / "build" / "import_all"
 # Towns and routes outward from Lilycove (survey order), underwater units last: only Dive reaches them. Then the
-# dungeons (hoenn_import.dungeon_units), in story order, the optional ones and those only scripts open last.
+# dungeons (hoenn_import.dungeon_units), in story order, the optional ones and those only scripts open last. Then the
+# special areas (hoenn_decisions.SPECIAL_UNITS).
 ORDER = """LilycoveCity Route121 Route122 Route123 Route120 FortreeCity Route119 Route118
 Route124 MossdeepCity Route125 Route127 Route128 EverGrandeCity Route126 Route129 Route130
 Route131 PacifidlogTown Route132 Route133 Route134
@@ -46,7 +47,8 @@ Underwater_Route105 Underwater_Route125
 PetalburgWoods RusturfTunnel GraniteCave MeteorFalls MtChimney JaggedPass FieryPath MagmaHideout NewMauville
 AbandonedShip MtPyre AquaHideout ShoalCave SeafloorCavern CaveOfOrigin HoennVictoryRoad Underwater_SootopolisCity
 DesertRuins IslandCave AncientTomb SealedChamber SkyPillar MirageTower ScorchedSlab DesertUnderpass AlteringCave
-MarineCave TerraCave""".split()
+MarineCave TerraCave
+HoennSafariZone TrainerHill SSTidal BattleFrontier""".split()
 # Git for Windows: in PowerShell the first git on the PATH can be devkitPro's, which has no core.autocrlf
 GIT = next((g for g in (r"C:\Program Files\Git\cmd\git.exe",) if os.path.exists(g)), "git")
 

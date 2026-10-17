@@ -2772,3 +2772,157 @@ const u16 gTilesetPalettes_HoennMirageTower[][16] =
 	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/14.gbapal"),
 	INCBIN_U16("data/tilesets/secondary/hoenn_mirage_tower/palettes/15.gbapal"),
 };
+
+const u32 gTilesetTiles_HoennTrainerHill[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennTrainerHill[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBattleDome[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_dome/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBattleDome[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBattlePalace[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_palace/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBattlePalace[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_palace/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBattlePyramid[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_pyramid/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBattlePyramid[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pyramid/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBattleArena[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_arena/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBattleArena[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_arena/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBattleFactory[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_factory/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBattleFactory[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_factory/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennBattlePike[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_pike/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennBattlePike[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_battle_pike/palettes/15.gbapal"),
+};
