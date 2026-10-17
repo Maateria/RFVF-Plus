@@ -1234,6 +1234,8 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/text/safari_zone.inc"
 	.include "data/text/flavor_text.inc"
 	.include "data/scripts/hole.inc"
+	.include "data/scripts/hoenn_field.inc"
+	.include "data/scripts/hoenn_roulette.inc"
 	.include "data/text/trainers.inc"
 	.include "data/scripts/move_tutors.inc"
 	.include "data/scripts/trainer_tower.inc"
@@ -1747,10 +1749,12 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MauvilleCity_Gym/text.inc"
 
 	.include "data/maps/MauvilleCity_BikeShop/scripts.inc"
+	.include "data/maps/MauvilleCity_BikeShop/text.inc"
 
 	.include "data/maps/MauvilleCity_House1/scripts.inc"
 
 	.include "data/maps/MauvilleCity_GameCorner/scripts.inc"
+	.include "data/maps/MauvilleCity_GameCorner/text.inc"
 
 	.include "data/maps/MauvilleCity_House2/scripts.inc"
 

@@ -412,6 +412,7 @@ struct PlayerAvatar
     u32 directionHistory;
     u32 abStartSelectHistory;
     u8 dirTimerHistory[8];
+    u8 abStartSelectTimerHistory[8]; // RFVF+: Emerald's, for the upgraded bike's jumps (bike.c)
     // For the Rocket mazes
     u16 lastSpinTile;
 };

@@ -109,6 +109,10 @@
 #define MULTI_MECHADOLL5_Q1                                    101
 #define MULTI_MECHADOLL5_Q2                                    102
 #define MULTI_MECHADOLL5_Q3                                    103
+#define MULTI_GAME_CORNER_HOENN_COINS                          104 // Mauville's Game Corner (Emerald's)
+#define MULTI_GAME_CORNER_HOENN_STARTERS                       105
+#define MULTI_GAME_CORNER_HOENN_TMS                            106
+#define MULTI_HOENN_STARTERS                                   107
 
 
 #define MULTICHOICE_NONE                                      255

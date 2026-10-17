@@ -10,6 +10,8 @@
 #include "constants/map_types.h"
 #include "constants/songs.h"
 #include "constants/flags.h"
+#include "quest_log.h"
+#include "constants/event_object_movement.h"
 
 static u8 GetBikeTransitionId(u8 *, u16, u16);
 static void Bike_SetBikeStill(void);
@@ -42,8 +44,93 @@ static u8 (*const sBikeInputHandlers[])(u8 *, u16, u16) =
     [BIKE_STATE_SLOPE]   = BikeInputHandler_Slope,
 };
 
+// RFVF+: once Rodolphe (Mauville's bike shop) has upgraded it (FLAG_BIKE_UPGRADED), the Bicycle has the moves of
+// Emerald's Mach and Acro Bikes (pokeemerald src/bike.c): B held while riding speeds it up as the Mach Bike does
+// (full speed from the second step: cracked floors, muddy slopes); B held standing still raises the front wheel and
+// after 40 frames hops in place, the arrows then hop it forward (bumpy slopes, ledges), releasing B ends it; B with an
+// arrow from a standstill jumps sideways (onto isolated rails) or turns around. Emerald's wheelie while moving is the
+// Mach Bike's speed here, and the bike's sprite has no wheelie frames (sAnimTable_PlayerBike). Before the upgrade the
+// Bicycle is FRLG's, with RFVF+'s gears (SwitchBikeGears).
+enum
+{
+    ACRO_TRANS_FACE_DIRECTION,
+    ACRO_TRANS_TURN_DIRECTION,
+    ACRO_TRANS_MOVING,
+    ACRO_TRANS_MACH_MOVING,
+    ACRO_TRANS_NORMAL_TO_WHEELIE,
+    ACRO_TRANS_WHEELIE_TO_NORMAL,
+    ACRO_TRANS_WHEELIE_IDLE,
+    ACRO_TRANS_WHEELIE_HOPPING_STANDING,
+    ACRO_TRANS_WHEELIE_HOPPING_MOVING,
+    ACRO_TRANS_SIDE_JUMP,
+    ACRO_TRANS_TURN_JUMP,
+};
+
+static u8 CheckMovementInputAcroBike(u8 *, u16, u16);
+static u8 AcroBike_GetJumpDirection(void);
+static void AcroBikeTransition_FaceDirection(u8);
+static void AcroBikeTransition_TurnDirection(u8);
+static void AcroBikeTransition_Moving(u8);
+static void AcroBikeTransition_MachMoving(u8);
+static void AcroBikeTransition_NormalToWheelie(u8);
+static void AcroBikeTransition_WheelieToNormal(u8);
+static void AcroBikeTransition_WheelieIdle(u8);
+static void AcroBikeTransition_WheelieHoppingStanding(u8);
+static void AcroBikeTransition_WheelieHoppingMoving(u8);
+static void AcroBikeTransition_SideJump(u8);
+static void AcroBikeTransition_TurnJump(u8);
+
+static void (*const sAcroBikeTransitions[])(u8) =
+{
+    [ACRO_TRANS_FACE_DIRECTION]          = AcroBikeTransition_FaceDirection,
+    [ACRO_TRANS_TURN_DIRECTION]          = AcroBikeTransition_TurnDirection,
+    [ACRO_TRANS_MOVING]                  = AcroBikeTransition_Moving,
+    [ACRO_TRANS_MACH_MOVING]             = AcroBikeTransition_MachMoving,
+    [ACRO_TRANS_NORMAL_TO_WHEELIE]       = AcroBikeTransition_NormalToWheelie,
+    [ACRO_TRANS_WHEELIE_TO_NORMAL]       = AcroBikeTransition_WheelieToNormal,
+    [ACRO_TRANS_WHEELIE_IDLE]            = AcroBikeTransition_WheelieIdle,
+    [ACRO_TRANS_WHEELIE_HOPPING_STANDING] = AcroBikeTransition_WheelieHoppingStanding,
+    [ACRO_TRANS_WHEELIE_HOPPING_MOVING]  = AcroBikeTransition_WheelieHoppingMoving,
+    [ACRO_TRANS_SIDE_JUMP]               = AcroBikeTransition_SideJump,
+    [ACRO_TRANS_TURN_JUMP]               = AcroBikeTransition_TurnJump,
+};
+
+// The Mach Bike's speeds, from the bike's own: the third step on is the fastest (Emerald: walk, fast, faster)
+static void (*const sMachBikeSpeedCallbacks[])(u8) =
+{
+    PlayerRideWaterCurrent,
+    PlayerRideWaterCurrent,
+    PlayerWalkFaster,
+};
+
+static bool8 sOnCyclingRoadSlope; // the upgraded bike runs FRLG's handlers on the Cycling Road's slopes
+
+bool8 IsBikeUpgraded(void)
+{
+    return FlagGet(FLAG_BIKE_UPGRADED);
+}
+
 void MovePlayerOnBike(u8 direction, u16 newKeys, u16 heldKeys)
 {
+    if (IsBikeUpgraded())
+    {
+        if (MetatileBehavior_IsCyclingRoadPullDownTile(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
+        {
+            if (!sOnCyclingRoadSlope)
+                gPlayerAvatar.acroBikeState = BIKE_STATE_NORMAL;
+            sOnCyclingRoadSlope = TRUE;
+        }
+        else if (sOnCyclingRoadSlope)
+        {
+            sOnCyclingRoadSlope = FALSE;
+            gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+        }
+        if (!sOnCyclingRoadSlope)
+        {
+            sAcroBikeTransitions[CheckMovementInputAcroBike(&direction, newKeys, heldKeys)](direction);
+            return;
+        }
+    }
     sBikeTransitions[GetBikeTransitionId(&direction, newKeys, heldKeys)](direction);
 }
 
@@ -316,7 +403,7 @@ bool8 IsBikingDisallowedByPlayer(void)
 
 bool8 IsPlayerNotUsingAcroBikeOnBumpySlope(void)
 {
-    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_ACRO_BIKE))
+    if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE) && IsBikeUpgraded())
     {
         if (MetatileBehavior_IsBumpySlope(gObjectEvents[gPlayerAvatar.objectEventId].currentMetatileBehavior))
             return FALSE;
@@ -338,8 +425,8 @@ void GetOnOffBike(u8 flags)
         SetPlayerAvatarTransitionFlags(flags);
         if (Overworld_MusicCanOverrideMapMusic(MUS_CYCLING))
         {
-            Overworld_SetSavedMusic(MUS_CYCLING);
-            Overworld_ChangeMusicTo(MUS_CYCLING);
+            Overworld_SetSavedMusic(GetRegionalFieldMusic(MUS_CYCLING));
+            Overworld_ChangeMusicTo(GetRegionalFieldMusic(MUS_CYCLING));
         }
     }
 }
@@ -357,6 +444,8 @@ void BikeClearState(u32 directionHistory, u32 abStartSelectHistory)
     gPlayerAvatar.lastSpinTile = 0;
     for (i = 0; i < NELEMS(gPlayerAvatar.dirTimerHistory); ++i)
             gPlayerAvatar.dirTimerHistory[i] = 0;
+    for (i = 0; i < NELEMS(gPlayerAvatar.abStartSelectTimerHistory); ++i)
+            gPlayerAvatar.abStartSelectTimerHistory[i] = 0;
 }
 
 void Bike_UpdateBikeCounterSpeed(u8 counter)
@@ -375,6 +464,9 @@ s16 GetPlayerSpeed(void)
 {
     s16 machBikeSpeeds[] = { PLAYER_SPEED_NORMAL, PLAYER_SPEED_FAST, PLAYER_SPEED_FASTEST };
 
+    if ((gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)) && IsBikeUpgraded())
+        return gPlayerAvatar.acroBikeState == ACRO_STATE_NORMAL && gPlayerAvatar.bikeFrameCounter >= 2 && !sOnCyclingRoadSlope
+             ? PLAYER_SPEED_FASTEST : PLAYER_SPEED_FASTER;
     if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_MACH_BIKE)
         return machBikeSpeeds[gPlayerAvatar.bikeFrameCounter];
     else if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ACRO_BIKE)
@@ -390,13 +482,13 @@ void Bike_HandleBumpySlopeJump(void)
     s16 x, y;
     u8 tileBehavior;
 
-    if (gPlayerAvatar.flags & PLAYER_AVATAR_FLAG_ACRO_BIKE)
+    if ((gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)) && IsBikeUpgraded())
     {
         PlayerGetDestCoords(&x, &y);
         tileBehavior = MapGridGetMetatileBehaviorAt(x, y);
         if (MetatileBehavior_IsBumpySlope(tileBehavior))
         {
-            gPlayerAvatar.acroBikeState = BIKE_STATE_SLOPE;
+            gPlayerAvatar.acroBikeState = ACRO_STATE_WHEELIE_STANDING;
             PlayerUseAcroBikeOnBumpySlope(GetPlayerMovementDirection());
         }
     }
@@ -429,3 +521,466 @@ static const struct BikeHistoryInputInfo sAcroBikeTricksList[] =
     {DIR_WEST, B_BUTTON, 0xF, 0xF, sAcroBikeJumpTimerList, sAcroBikeJumpTimerList, DIR_WEST},
     {DIR_EAST, B_BUTTON, 0xF, 0xF, sAcroBikeJumpTimerList, sAcroBikeJumpTimerList, DIR_EAST},
 };
+
+// ---------------------------------------------------------------- the upgraded bike (Emerald's Acro Bike + Mach speed)
+
+static u8 AcroBikeHandleInputNormal(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    u8 direction = GetPlayerMovementDirection();
+
+    if (*newDirection == DIR_NONE)
+    {
+        gPlayerAvatar.bikeFrameCounter = 0;
+        *newDirection = direction;
+        gPlayerAvatar.runningState = NOT_MOVING;
+        if (newKeys & B_BUTTON)
+        {
+            // Standing still with B pressed: raise the front wheel
+            gPlayerAvatar.acroBikeState = ACRO_STATE_WHEELIE_STANDING;
+            return ACRO_TRANS_NORMAL_TO_WHEELIE;
+        }
+        return ACRO_TRANS_FACE_DIRECTION;
+    }
+    if (*newDirection != direction && gPlayerAvatar.runningState != MOVING)
+    {
+        gPlayerAvatar.bikeFrameCounter = 0;
+        gPlayerAvatar.acroBikeState = ACRO_STATE_TURNING;
+        gPlayerAvatar.newDirBackup = *newDirection;
+        gPlayerAvatar.runningState = NOT_MOVING;
+        return CheckMovementInputAcroBike(newDirection, newKeys, heldKeys);
+    }
+    gPlayerAvatar.runningState = MOVING;
+    if (heldKeys & B_BUTTON)
+        return ACRO_TRANS_MACH_MOVING;
+    gPlayerAvatar.bikeFrameCounter = 0;
+    return ACRO_TRANS_MOVING;
+}
+
+static u8 AcroBikeHandleInputTurning(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    u8 direction;
+
+    *newDirection = gPlayerAvatar.newDirBackup;
+    gPlayerAvatar.bikeFrameCounter++;
+
+    // Wait 6 frames before actually changing direction: a B press meanwhile is a jump
+    if (gPlayerAvatar.bikeFrameCounter > 6)
+    {
+        gPlayerAvatar.runningState = TURN_DIRECTION;
+        gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+        Bike_SetBikeStill();
+        return ACRO_TRANS_TURN_DIRECTION;
+    }
+    direction = GetPlayerMovementDirection();
+    if (*newDirection == AcroBike_GetJumpDirection())
+    {
+        Bike_SetBikeStill();
+        gPlayerAvatar.bikeSpeed = PLAYER_SPEED_NORMAL;
+        if (*newDirection == GetOppositeDirection(direction))
+        {
+            gPlayerAvatar.acroBikeState = ACRO_STATE_TURN_JUMP;
+            return ACRO_TRANS_TURN_JUMP;
+        }
+        gPlayerAvatar.runningState = MOVING;
+        gPlayerAvatar.acroBikeState = ACRO_STATE_SIDE_JUMP;
+        return ACRO_TRANS_SIDE_JUMP;
+    }
+    *newDirection = direction;
+    return ACRO_TRANS_FACE_DIRECTION;
+}
+
+static u8 AcroBikeHandleInputWheelieStanding(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    u8 direction = GetPlayerMovementDirection();
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    gPlayerAvatar.runningState = NOT_MOVING;
+    if (heldKeys & B_BUTTON)
+    {
+        gPlayerAvatar.bikeFrameCounter++;
+    }
+    else
+    {
+        // B released: lower the front wheel, unless on a bumpy slope
+        gPlayerAvatar.bikeFrameCounter = 0;
+        if (!MetatileBehavior_IsBumpySlope(playerObjEvent->currentMetatileBehavior))
+        {
+            *newDirection = direction;
+            gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+            Bike_SetBikeStill();
+            return ACRO_TRANS_WHEELIE_TO_NORMAL;
+        }
+    }
+    if (gPlayerAvatar.bikeFrameCounter >= 40)
+    {
+        *newDirection = direction;
+        gPlayerAvatar.acroBikeState = ACRO_STATE_BUNNY_HOP;
+        Bike_SetBikeStill();
+        return ACRO_TRANS_WHEELIE_HOPPING_STANDING;
+    }
+    if (*newDirection == direction)
+    {
+        // On a bumpy slope the front wheel stays up against anything that blocks, as Emerald's moving wheelie
+        // does: only hops leave the slope
+        if (MetatileBehavior_IsBumpySlope(playerObjEvent->currentMetatileBehavior))
+        {
+            u8 collision = GetBikeCollision(direction);
+
+            if (collision != COLLISION_NONE && collision != COLLISION_LEDGE_JUMP)
+                return ACRO_TRANS_WHEELIE_IDLE;
+        }
+        // Emerald rides on the back wheel; here moving with B held is the Mach Bike's speed
+        gPlayerAvatar.runningState = MOVING;
+        gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+        Bike_SetBikeStill();
+        return (heldKeys & B_BUTTON) ? ACRO_TRANS_MACH_MOVING : ACRO_TRANS_MOVING;
+    }
+    if (*newDirection == DIR_NONE)
+    {
+        *newDirection = direction;
+        return ACRO_TRANS_WHEELIE_IDLE;
+    }
+    gPlayerAvatar.runningState = TURN_DIRECTION;
+    return ACRO_TRANS_WHEELIE_IDLE;
+}
+
+static u8 AcroBikeHandleInputBunnyHop(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    u8 direction = GetPlayerMovementDirection();
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!(heldKeys & B_BUTTON))
+    {
+        // B released: stop hopping, unless on a bumpy slope
+        Bike_SetBikeStill();
+        if (MetatileBehavior_IsBumpySlope(playerObjEvent->currentMetatileBehavior))
+        {
+            gPlayerAvatar.acroBikeState = ACRO_STATE_WHEELIE_STANDING;
+            return CheckMovementInputAcroBike(newDirection, newKeys, heldKeys);
+        }
+        *newDirection = direction;
+        gPlayerAvatar.runningState = NOT_MOVING;
+        gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+        return ACRO_TRANS_WHEELIE_TO_NORMAL;
+    }
+    if (*newDirection == DIR_NONE)
+    {
+        *newDirection = direction;
+        gPlayerAvatar.runningState = NOT_MOVING;
+        return ACRO_TRANS_WHEELIE_HOPPING_STANDING;
+    }
+    if (*newDirection != direction && gPlayerAvatar.runningState != MOVING)
+    {
+        gPlayerAvatar.runningState = TURN_DIRECTION;
+        return ACRO_TRANS_WHEELIE_HOPPING_STANDING;
+    }
+    gPlayerAvatar.runningState = MOVING;
+    return ACRO_TRANS_WHEELIE_HOPPING_MOVING;
+}
+
+static u8 AcroBikeHandleInputSidewaysJump(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    playerObjEvent->facingDirectionLocked = FALSE;
+    SetObjectEventDirection(playerObjEvent, playerObjEvent->facingDirection);
+    QuestLogRecordPlayerStep(MOVEMENT_ACTION_UNLOCK_FACING_DIRECTION);
+    gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+    return CheckMovementInputAcroBike(newDirection, newKeys, heldKeys);
+}
+
+static u8 AcroBikeHandleInputTurnJump(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    gPlayerAvatar.acroBikeState = ACRO_STATE_NORMAL;
+    return CheckMovementInputAcroBike(newDirection, newKeys, heldKeys);
+}
+
+static u8 CheckMovementInputAcroBike(u8 *newDirection, u16 newKeys, u16 heldKeys)
+{
+    switch (gPlayerAvatar.acroBikeState)
+    {
+    case ACRO_STATE_TURNING:
+        return AcroBikeHandleInputTurning(newDirection, newKeys, heldKeys);
+    case ACRO_STATE_WHEELIE_STANDING:
+        return AcroBikeHandleInputWheelieStanding(newDirection, newKeys, heldKeys);
+    case ACRO_STATE_BUNNY_HOP:
+        return AcroBikeHandleInputBunnyHop(newDirection, newKeys, heldKeys);
+    case ACRO_STATE_SIDE_JUMP:
+        return AcroBikeHandleInputSidewaysJump(newDirection, newKeys, heldKeys);
+    case ACRO_STATE_TURN_JUMP:
+        return AcroBikeHandleInputTurnJump(newDirection, newKeys, heldKeys);
+    default:
+        return AcroBikeHandleInputNormal(newDirection, newKeys, heldKeys);
+    }
+}
+
+static void AcroBikeTransition_FaceDirection(u8 direction)
+{
+    PlayerFaceDirection(direction);
+}
+
+static void AcroBikeTransition_TurnDirection(u8 direction)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+        direction = playerObjEvent->movementDirection;
+    PlayerFaceDirection(direction);
+}
+
+// FRLG's collisions: COLLISION_DIRECTIONAL_STAIR_WARP holds Emerald's COLLISION_ROTATING_GATE slot
+static void AcroBikeMove(u8 direction, bool8 mach)
+{
+    u8 collision;
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+    {
+        Bike_SetBikeStill();
+        AcroBikeTransition_FaceDirection(playerObjEvent->movementDirection);
+        return;
+    }
+    collision = GetBikeCollision(direction);
+    if (collision > COLLISION_NONE && collision < COLLISION_VERTICAL_RAIL)
+    {
+        if (collision == COLLISION_LEDGE_JUMP)
+        {
+            PlayerJumpLedge(direction);
+        }
+        else
+        {
+            Bike_SetBikeStill();
+            if (collision < COLLISION_STOP_SURFING || collision > COLLISION_DIRECTIONAL_STAIR_WARP)
+                PlayerOnBikeCollide(direction);
+        }
+    }
+    else if (collision == COLLISION_COUNT || PlayerIsMovingOnRockStairs(direction))
+    {
+        Bike_SetBikeStill();
+        PlayerWalkFast(direction);
+    }
+    else if (mach)
+    {
+        if (gPlayerAvatar.bikeFrameCounter >= NELEMS(sMachBikeSpeedCallbacks))
+            gPlayerAvatar.bikeFrameCounter = NELEMS(sMachBikeSpeedCallbacks) - 1;
+        sMachBikeSpeedCallbacks[gPlayerAvatar.bikeFrameCounter](direction);
+        if (gPlayerAvatar.bikeFrameCounter < 2)
+            gPlayerAvatar.bikeFrameCounter++;
+    }
+    else
+    {
+        PlayerRideWaterCurrent(direction);
+    }
+}
+
+static void AcroBikeTransition_Moving(u8 direction)
+{
+    AcroBikeMove(direction, FALSE);
+}
+
+static void AcroBikeTransition_MachMoving(u8 direction)
+{
+    AcroBikeMove(direction, TRUE);
+}
+
+static void AcroBikeTransition_NormalToWheelie(u8 direction)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+        direction = playerObjEvent->movementDirection;
+    PlayerStartWheelie(direction);
+}
+
+static void AcroBikeTransition_WheelieToNormal(u8 direction)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+        direction = playerObjEvent->movementDirection;
+    PlayerEndWheelie(direction);
+}
+
+static void AcroBikeTransition_WheelieIdle(u8 direction)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+        direction = playerObjEvent->movementDirection;
+    PlayerIdleWheelie(direction);
+}
+
+static void AcroBikeTransition_WheelieHoppingStanding(u8 direction)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+        direction = playerObjEvent->movementDirection;
+    PlayerStandingHoppingWheelie(direction);
+}
+
+static void AcroBikeTransition_WheelieHoppingMoving(u8 direction)
+{
+    u8 collision;
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (!CanBikeFaceDirectionOnRail(direction, playerObjEvent->currentMetatileBehavior))
+    {
+        AcroBikeTransition_WheelieHoppingStanding(playerObjEvent->movementDirection);
+        return;
+    }
+    collision = GetBikeCollision(direction);
+    // COLLISION_WHEELIE_HOP is a bumpy slope: hopping crosses it
+    if (collision && collision != COLLISION_WHEELIE_HOP)
+    {
+        if (collision == COLLISION_LEDGE_JUMP)
+        {
+            PlayerLedgeHoppingWheelie(direction);
+            return;
+        }
+        if (collision >= COLLISION_STOP_SURFING && collision <= COLLISION_DIRECTIONAL_STAIR_WARP)
+            return;
+        if (collision < COLLISION_VERTICAL_RAIL)
+        {
+            AcroBikeTransition_WheelieHoppingStanding(direction);
+            return;
+        }
+    }
+    PlayerMovingHoppingWheelie(direction);
+}
+
+// A side jump lands on a rail only across it
+static bool8 WillPlayerCollideWithCollision(u8 newTileCollision, u8 direction)
+{
+    if (direction == DIR_NORTH || direction == DIR_SOUTH)
+    {
+        if (newTileCollision == COLLISION_ISOLATED_VERTICAL_RAIL || newTileCollision == COLLISION_VERTICAL_RAIL)
+            return FALSE;
+    }
+    else if (newTileCollision == COLLISION_ISOLATED_HORIZONTAL_RAIL || newTileCollision == COLLISION_HORIZONTAL_RAIL)
+    {
+        return FALSE;
+    }
+    return TRUE;
+}
+
+static void AcroBikeTransition_SideJump(u8 direction)
+{
+    u8 collision = GetBikeCollision(direction);
+
+    if (collision)
+    {
+        if (collision == COLLISION_PUSHED_BOULDER)
+            return;
+        if (collision < COLLISION_ISOLATED_VERTICAL_RAIL || !WillPlayerCollideWithCollision(collision, direction))
+        {
+            AcroBikeTransition_TurnDirection(direction);
+            return;
+        }
+    }
+    PlayerAcroSideJump(direction);
+}
+
+static void AcroBikeTransition_TurnJump(u8 direction)
+{
+    PlayerAcroTurnJump(direction);
+}
+
+// The inputs of the last frames: a jump is B and an arrow within 4 frames
+static void Bike_UpdateDirTimerHistory(u8 dir)
+{
+    u8 i;
+
+    gPlayerAvatar.directionHistory = (gPlayerAvatar.directionHistory << 4) | (dir & 0xF);
+    for (i = NELEMS(gPlayerAvatar.dirTimerHistory) - 1; i != 0; i--)
+        gPlayerAvatar.dirTimerHistory[i] = gPlayerAvatar.dirTimerHistory[i - 1];
+    gPlayerAvatar.dirTimerHistory[0] = 1;
+}
+
+static void Bike_UpdateABStartSelectHistory(u8 input)
+{
+    u8 i;
+
+    gPlayerAvatar.abStartSelectHistory = (gPlayerAvatar.abStartSelectHistory << 4) | (input & 0xF);
+    for (i = NELEMS(gPlayerAvatar.abStartSelectTimerHistory) - 1; i != 0; i--)
+        gPlayerAvatar.abStartSelectTimerHistory[i] = gPlayerAvatar.abStartSelectTimerHistory[i - 1];
+    gPlayerAvatar.abStartSelectTimerHistory[0] = 1;
+}
+
+static u8 Bike_DPadToDirection(u16 heldKeys)
+{
+    if (heldKeys & DPAD_UP)
+        return DIR_NORTH;
+    if (heldKeys & DPAD_DOWN)
+        return DIR_SOUTH;
+    if (heldKeys & DPAD_LEFT)
+        return DIR_WEST;
+    if (heldKeys & DPAD_RIGHT)
+        return DIR_EAST;
+    return DIR_NONE;
+}
+
+void Bike_TryAcroBikeHistoryUpdate(u16 newKeys, u16 heldKeys)
+{
+    u8 input;
+
+    if (!(gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)) || !IsBikeUpgraded())
+        return;
+    input = Bike_DPadToDirection(heldKeys);
+    if (input == (gPlayerAvatar.directionHistory & 0xF))
+    {
+        if (gPlayerAvatar.dirTimerHistory[0] < 0xFF)
+            gPlayerAvatar.dirTimerHistory[0]++;
+    }
+    else
+    {
+        Bike_UpdateDirTimerHistory(input);
+        gPlayerAvatar.bikeSpeed = PLAYER_SPEED_STANDING;
+    }
+    input = heldKeys & (A_BUTTON | B_BUTTON | SELECT_BUTTON | START_BUTTON);
+    if (input == (gPlayerAvatar.abStartSelectHistory & 0xF))
+    {
+        if (gPlayerAvatar.abStartSelectTimerHistory[0] < 0xFF)
+            gPlayerAvatar.abStartSelectTimerHistory[0]++;
+    }
+    else
+    {
+        Bike_UpdateABStartSelectHistory(input);
+        gPlayerAvatar.bikeSpeed = PLAYER_SPEED_STANDING;
+    }
+}
+
+static bool8 HasPlayerInputTakenLongerThanList(const u8 *dirTimerList, const u8 *abStartSelectTimerList)
+{
+    u8 i;
+
+    for (i = 0; dirTimerList[i] != 0; i++)
+    {
+        if (gPlayerAvatar.dirTimerHistory[i] > dirTimerList[i])
+            return FALSE;
+    }
+    for (i = 0; abStartSelectTimerList[i] != 0; i++)
+    {
+        if (gPlayerAvatar.abStartSelectTimerHistory[i] > abStartSelectTimerList[i])
+            return FALSE;
+    }
+    return TRUE;
+}
+
+static u8 AcroBike_GetJumpDirection(void)
+{
+    u32 i;
+
+    for (i = 0; i < NELEMS(sAcroBikeTricksList); i++)
+    {
+        const struct BikeHistoryInputInfo *historyInputInfo = &sAcroBikeTricksList[i];
+        u32 dirHistory = gPlayerAvatar.directionHistory & historyInputInfo->dirHistoryMask;
+        u32 abStartSelectHistory = gPlayerAvatar.abStartSelectHistory & historyInputInfo->abStartSelectHistoryMask;
+
+        if (dirHistory == historyInputInfo->dirHistoryMatch
+         && abStartSelectHistory == historyInputInfo->abStartSelectHistoryMatch
+         && HasPlayerInputTakenLongerThanList(historyInputInfo->dirTimerHistoryList, historyInputInfo->abStartSelectHistoryList))
+            return historyInputInfo->direction;
+    }
+    return DIR_NONE;
+}

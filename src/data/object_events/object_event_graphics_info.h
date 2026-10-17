@@ -31,7 +31,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_RedBike = {
 	.tracks = TRACKS_BIKE_TIRE,
 	.oam = &gObjectEventBaseOam_32x32,
 	.subspriteTables = gObjectEventSpriteOamTables_32x32,
-	.anims = sAnimTable_Standard,
+	.anims = sAnimTable_PlayerBike,
 	.images = sPicTable_RedBike,
 	.affineAnims = gDummySpriteAffineAnimTable,
 };
@@ -1342,7 +1342,7 @@ const struct ObjectEventGraphicsInfo gObjectEventGraphicsInfo_GreenBike = {
 	.tracks = TRACKS_BIKE_TIRE,
 	.oam = &gObjectEventBaseOam_32x32,
 	.subspriteTables = gObjectEventSpriteOamTables_32x32,
-	.anims = sAnimTable_Standard,
+	.anims = sAnimTable_PlayerBike,
 	.images = sPicTable_GreenBike,
 	.affineAnims = gDummySpriteAffineAnimTable,
 };

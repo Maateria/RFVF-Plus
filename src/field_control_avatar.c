@@ -238,7 +238,8 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
             return TRUE;
         }
     }
-    if (input->checkStandardWildEncounter)
+    // RFVF+: the upgraded bike's hops in place land on the same tile (runningState stays NOT_MOVING): no sign then
+    if (input->checkStandardWildEncounter && gPlayerAvatar.runningState == MOVING)
     {
         if (input->dpadDirection == 0 || input->dpadDirection == playerDirection)
         {
@@ -312,7 +313,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->pressedRButton && (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_ON_FOOT)) && EnableAutoRun())
         return TRUE;
     //switch bike gears
-    if (input->pressedBButton && (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)) && GetCurrentRegionMapSectionId() != MAPSEC_ROUTE_17 && SwitchBikeGears())
+    if (input->pressedBButton && (gPlayerAvatar.flags & (PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE)) && GetCurrentRegionMapSectionId() != MAPSEC_ROUTE_17 && !IsBikeUpgraded() && SwitchBikeGears())
         return TRUE;
 
     return FALSE;
@@ -622,6 +623,11 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         MsgSetSignpost();
         return EventScript_PokecenterSign;
     }
+    if (MetatileBehavior_IsVase(metatileBehavior) == TRUE)
+        return EventScript_Vase;
+    if (MetatileBehavior_IsClosedSootopolisDoor(metatileBehavior) == TRUE
+     || MetatileBehavior_IsSkyPillarClosedDoor(metatileBehavior) == TRUE)
+        return EventScript_ClosedDoor;
     return NULL;
 }
 
@@ -669,7 +675,12 @@ static bool8 TryStartCoordEventScript(struct MapPosition *position)
 
 static bool8 TryStartMiscWalkingScripts(u16 metatileBehavior)
 {
-    // Dummied
+    // Emerald's cracked floors (the step callback breaks them, data/scripts/hole.inc)
+    if (MetatileBehavior_IsCrackedFloorHole(metatileBehavior))
+    {
+        ScriptContext_SetupScript(EventScript_FallDownHole);
+        return TRUE;
+    }
     return FALSE;
 }
 

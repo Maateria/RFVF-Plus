@@ -63,6 +63,14 @@ void UpdatePlayerAvatarTransitionState(void);
 void InitPlayerAvatar(s16 x, s16 y, u8 direction, u8 gender);
 void InitDivingPlayerAvatar(s16 x, s16 y, u8 direction, u8 gender);
 void PlayerUseAcroBikeOnBumpySlope(u8 direction);
+void PlayerIdleWheelie(u8 direction);
+void PlayerStartWheelie(u8 direction);
+void PlayerEndWheelie(u8 direction);
+void PlayerStandingHoppingWheelie(u8 direction);
+void PlayerMovingHoppingWheelie(u8 direction);
+void PlayerLedgeHoppingWheelie(u8 direction);
+void PlayerAcroTurnJump(u8 direction);
+void PlayerAcroSideJump(u8 direction);
 u8 GetRSAvatarGraphicsIdByGender(u8 gender);
 u8 GetEMAvatarGraphicsIdByGender(u8 gender);
 

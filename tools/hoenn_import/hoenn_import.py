@@ -116,6 +116,9 @@ IDS_FILE = "emerald_ids.json"
 ANIMS_H = "src/data/tilesets/hoenn_anims.h"  # register_anims
 # Secondaries this tool pruned before natural ids (design 1.8): compact ids, append-only, in IDS_FILE
 LEGACY_PRUNED = {"gTileset_GenericBuilding", "gTileset_Facility", "gTileset_BattleFrontier"}
+# Emerald metatiles that C code sets without a label: CrackedFloorPerStepCallback (src/field_tasks.c) turns Mirage
+# Tower's cracked floor (0x22F, like the Cave's) into the hole at the Cave's id, 0x206
+EXTRA_METATILES = {"gTileset_MirageTower": {0x206}}
 # Emerald's secondary tile animations (pokeemerald src/tileset_anims.c): (first tile - 512, tiles). Compaction keeps a
 # range whole and contiguous once a kept metatile shows one of its tiles, so the animation can be ported later.
 ANIMATED_TILES = {
@@ -186,7 +189,6 @@ BEHAVIOR_OVERRIDES = {
 UNDERWATER = {"MB_UNDERWATER_BLOCKED_ABOVE", "MB_SEAWEED", "MB_SEAWEED_NO_SURFACING"}
 # Emerald behavior -> the nearest FRLG one: it loses part of its effect (listed in the report).
 DEGRADED = {
-    "MB_SOOTOPOLIS_DEEP_WATER": "MB_DEEP_WATER",
     "MB_MOSSDEEP_GYM_WARP": "MB_REGULAR_WARP",  # warp pad (DoTeleportWarp)
     "MB_AQUA_HIDEOUT_WARP": "MB_REGULAR_WARP",
     "MB_LAVARIDGE_GYM_1F_WARP": "MB_LAVARIDGE_1F_WARP",
@@ -196,8 +198,8 @@ DEGRADED = {
     "MB_STAIRS_OUTSIDE_ABANDONED_SHIP": "MB_NORTH_ARROW_WARP",
     # A surfing player does trigger a MB_CAVE_DOOR warp, but FRLG then lands him ON FOOT on elevation-1
     # water (MB_CAVE_DOOR is not surfable: overworld.c GetAdjustedInitialTransitionFlags) = soft-lock.
-    # So water doors are plain sea until the engine gets a real water door. They are the ways in and out of the
-    # underwater dungeons and Aqua Hideout: all sea, none of those is reached (no trap).
+    # So water doors are sea: on a Hoenn layout a warp event on ocean water fires when the player swims onto it
+    # (MetatileBehavior_IsHoennWaterWarp), the ways in and out of the underwater dungeons and Aqua Hideout.
     "MB_WATER_DOOR": "MB_OCEAN_WATER",
     "MB_WATER_SOUTH_ARROW_WARP": "MB_OCEAN_WATER",
 }
@@ -205,16 +207,12 @@ WATER_DOORS = {"MB_WATER_DOOR", "MB_WATER_SOUTH_ARROW_WARP"}
 # Emerald behaviors with no counterpart here: MB_NORMAL (listed in the report, with this reason). MB_SECRET_BASE_*
 # too. A warp tile among them is refused by the dead-warp check.
 NO_COUNTERPART = dict(
-    {b: "Acro Bike rail" for b in ("MB_HORIZONTAL_RAIL", "MB_VERTICAL_RAIL", "MB_ISOLATED_HORIZONTAL_RAIL",
-                                   "MB_ISOLATED_VERTICAL_RAIL")},
-    **{b: "diagonal jump, no effect in Emerald either" for b in ("MB_JUMP_NORTHEAST", "MB_JUMP_NORTHWEST",
+    {b: "diagonal jump, no effect in Emerald either" for b in ("MB_JUMP_NORTHEAST", "MB_JUMP_NORTHWEST",
                                                                  "MB_JUMP_SOUTHEAST", "MB_JUMP_SOUTHWEST")},
-    MB_MUDDY_SLOPE="muddy slope", MB_BUMPY_SLOPE="bumpy slope", MB_VASE="vase", MB_BERRY_TREE_SOIL="berry soil",
-    MB_IMPASSABLE_SOUTH_AND_NORTH="one-way wall", MB_IMPASSABLE_WEST_AND_EAST="one-way wall",
+    MB_BERRY_TREE_SOIL="berry soil",
     MB_HOLDS_LARGE_DECORATION="secret base", MB_HOLDS_SMALL_DECORATION="secret base",
     MB_LONG_GRASS_SOUTH_EDGE="grass edge",
-    MB_CRACKED_FLOOR="cracked floor", MB_CRACKED_FLOOR_HOLE="cracked floor", MB_ROULETTE="game corner",
-    MB_SLOT_MACHINE="game corner", MB_CLOSED_SOOTOPOLIS_DOOR="closed door", MB_SKY_PILLAR_CLOSED_DOOR="closed door",
+    MB_ROULETTE="game corner", MB_SLOT_MACHINE="game corner, the machines are bg events",
     MB_PETALBURG_GYM_DOOR="gym door, a script opens it", MB_POKEBLOCK_FEEDER="Safari feeder",
     MB_PLAYER_ROOM_PC_ON="bedroom PC", MB_RUNNING_SHOES_INSTRUCTION="tutorial sign", MB_TRAINER_HILL_TIMER="Trainer Hill",
     MB_BATTLE_PYRAMID_WARP="Battle Pyramid", MB_UNUSED_SOOTOPOLIS_DEEP_WATER="unused water, not surfable in Emerald",
@@ -535,8 +533,8 @@ class Behaviors:
             terrain = TERRAIN_GRASS                                           # IsAshGrass); FRLG's Cut reads the terrain
         else:
             terrain = TERRAIN_NORMAL
-        encounter = ENC_WATER if surfable or underwater and em_name in self.em_encounter else \
-            ENC_LAND if em_name in self.em_encounter else ENC_NONE
+        # Emerald's TILE_FLAG_HAS_ENCOUNTERS decides: its waterfalls, currents and Sootopolis deep water have none
+        encounter = ENC_NONE if em_name not in self.em_encounter else ENC_WATER if surfable or underwater else ENC_LAND
         layer = em_attr >> 12  # NORMAL/COVERED/SPLIT: same values and DrawMetatile logic in both engines
         return self.fr_values[fr_name] | terrain << 9 | encounter << 24 | layer << 29
 
@@ -703,7 +701,7 @@ def tileset_needs(ctx, symbol):
     for (sym, k), carried in views_carried(ctx):
         if sym == symbol:
             need[k] |= carried
-    own = {v for _, v in em_labels(ctx.root, symbol[len("gTileset_"):])}
+    own = {v for _, v in em_labels(ctx.root, symbol[len("gTileset_"):])} | EXTRA_METATILES.get(symbol, set())
     return [{m for m in s | own if EM["metatiles"] <= m < EM["metatiles"] + em_count(ctx, symbol)} for s in need]
 
 

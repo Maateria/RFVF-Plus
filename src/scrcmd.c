@@ -33,6 +33,7 @@
 #include "battle_setup.h"
 #include "shop.h"
 #include "slot_machine.h"
+#include "slot_machine_hoenn.h"
 #include "field_effect.h"
 #include "fieldmap.h"
 #include "field_door.h"
@@ -1976,7 +1977,10 @@ bool8 ScrCmd_playslotmachine(struct ScriptContext * ctx)
 {
     u8 slotMachineIndex = VarGet(ScriptReadHalfword(ctx));
 
-    PlaySlotMachine(slotMachineIndex, CB2_ReturnToFieldContinueScriptPlayMapMusic);
+    if (IsHoennMapLayout()) // RFVF+: Mauville's Game Corner has Emerald's machines
+        PlayHoennSlotMachine(slotMachineIndex, CB2_ReturnToFieldContinueScriptPlayMapMusic);
+    else
+        PlaySlotMachine(slotMachineIndex, CB2_ReturnToFieldContinueScriptPlayMapMusic);
     ScriptContext_Stop();
     return TRUE;
 }

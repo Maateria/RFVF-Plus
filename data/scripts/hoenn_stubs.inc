@@ -19,12 +19,6 @@ PlayersHouse_2F_EventScript_GameCube::          @ LittlerootTown_BrendansHouse_2
 RS_MysteryEventsHouse_EventScript_Door::        @ MossdeepCity_GameCorner_1F sign (3,0)
 	end
 
-Roulette_EventScript_Table1::                   @ MauvilleCity_GameCorner sign (14,6)
-	end
-
-Roulette_EventScript_Table2::                   @ MauvilleCity_GameCorner sign (18,6)
-	end
-
 GabbyAndTy_EventScript_TyBattle1::              @ Route111 NPC #7 (14,86)
 	end
 

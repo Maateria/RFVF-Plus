@@ -689,3 +689,21 @@ $(WALLPAPERGFXDIR)/tiles/tiles.4bpp: %.4bpp: %.png
 
 $(WALLPAPERGFXDIR)/volcano/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 57 -Wnum_tiles
+
+# RFVF+: Emerald's slot machines (src/slot_machine_hoenn.c), as pokeemerald builds them
+SLOTMACHINEHOENNGFXDIR := graphics/slot_machine_hoenn
+$(SLOTMACHINEHOENNGFXDIR)/reel_time_gfx.4bpp: $(SLOTMACHINEHOENNGFXDIR)/reel_time_pikachu.4bpp \
+                                              $(SLOTMACHINEHOENNGFXDIR)/reel_time_machine.4bpp
+	@cat $^ >$@
+
+# RFVF+: Emerald's roulette (src/roulette_hoenn.c), as pokeemerald builds it
+ROULETTEHOENNGFXDIR := graphics/roulette_hoenn
+$(ROULETTEHOENNGFXDIR)/roulette_tilt.4bpp: $(ROULETTEHOENNGFXDIR)/shroomish.4bpp \
+                                            $(ROULETTEHOENNGFXDIR)/tailow.4bpp
+	@cat $^ >$@
+
+$(ROULETTEHOENNGFXDIR)/wheel_icons.4bpp: $(ROULETTEHOENNGFXDIR)/wynaut.4bpp \
+                                          $(ROULETTEHOENNGFXDIR)/azurill.4bpp \
+                                          $(ROULETTEHOENNGFXDIR)/skitty.4bpp \
+                                          $(ROULETTEHOENNGFXDIR)/makuhita.4bpp
+	@cat $^ >$@

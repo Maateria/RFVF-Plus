@@ -129,7 +129,7 @@ Pyramide de Combat, 46 maps). Leurs maps vont dans `gMapGroup_HoennSpecialArea`.
     lave...). L'animation est portée dans `src/tileset_anims.c` ; l'outil génère son point d'entrée dans
     `src/data/tilesets/hoenn_anims.h` avec les tuiles où le tileset a mis chaque animation.
 - **`Behaviors` :** les comportements des tuiles (eau, herbe, porte...). `DEGRADED` ou `no counterpart` signale un
-  effet perdu, par exemple une pente de boue devient un sol normal.
+  effet perdu, par exemple une terre à baies devient un sol normal.
 - **Une ligne `MAP_...` par map,** suivie de :
   - `CONN` : les liaisons. `dive` et `emerge` (`needs Dive in game`) : on y passe en plongeant ;
   - `NPC` : les objets (PNJ, dresseurs, objets au sol) ;
@@ -204,9 +204,9 @@ uv run tools/hoenn_import/import_all.py Route118 MauvilleCity   # seulement ces 
   `needs Dive in game`. On n'atteint les fonds marins qu'en plongeant. Atalanopolis n'a aucune liaison : on y
   arrive en plongeant, par la porte d'eau du fond de la Route 126 puis le passage sous-marin
   `Underwater_SootopolisCity`, d'où l'on remonte dans la ville (`with Dive only`).
-- **Donjons :** les sols fragiles (Grotte Granite, Tour Mirage, Pilier Céleste), les pentes de boue et les rails du
-  Vélo Cross se marchent comme un sol normal ; les combats des Planques Aqua et Magma ont le décor normal ; les
-  plongées, les portes et les marées que règlent les scripts attendent la phase des scripts.
+- **Donjons :** les sols fragiles (Grotte Granite, Tour Mirage, Pilier Céleste), les pentes de boue et bosselées et
+  les rails ont leur effet d'Émeraude (la Bicyclette améliorée par Rodolphe, `src/bike.c`) ; les combats des Planques
+  Aqua et Magma ont le décor normal ; les portes et les marées que règlent les scripts attendent la phase des scripts.
 - **Tilesets jumeaux :** un tileset secondaire FRLG contient au plus 384 metatiles et 376 tuiles. Les plus grands
   d'Émeraude sont coupés en deux (`SIBLINGS` dans `hoenn_decisions.py`) :
   - `HoennMauville2` pour les Routes 110 et 111 ;

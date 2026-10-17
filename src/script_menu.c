@@ -656,6 +656,44 @@ static const struct MenuAction sMultichoiceList_SeagallopLilycove[] = {
     { gOtherText_Exit }
 };
 
+// Mauville's Game Corner (Emerald's lists; RFVF+: Hoenn's starters instead of their dolls)
+static const u8 sText_Treecko_1000Coins[] = _("ARCKO{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
+static const u8 sText_Torchic_1000Coins[] = _("POUSSIFEU{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
+static const u8 sText_Mudkip_1000Coins[] = _("GOBOU{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
+static const u8 sText_Tm32_1500Coins[] = _("CT32{CLEAR_TO 0x48}{FONT_SMALL}1,500 JETONS");
+static const u8 sText_Tm29_3500Coins[] = _("CT29{CLEAR_TO 0x48}{FONT_SMALL}3,500 JETONS");
+static const u8 sText_Treecko[] = _("ARCKO");
+static const u8 sText_Torchic[] = _("POUSSIFEU");
+static const u8 sText_Mudkip[] = _("GOBOU");
+
+static const struct MenuAction sMultichoiceList_GameCornerHoennCoins[] = {
+    { gText_50Coins_1000 },
+    { gText_500Coins_10000 },
+    { gOtherText_Exit },
+};
+
+static const struct MenuAction sMultichoiceList_GameCornerHoennStarters[] = {
+    { sText_Treecko_1000Coins },
+    { sText_Torchic_1000Coins },
+    { sText_Mudkip_1000Coins },
+    { gText_NoThanks_2 },
+};
+
+static const struct MenuAction sMultichoiceList_GameCornerHoennTMs[] = {
+    { sText_Tm32_1500Coins },
+    { sText_Tm29_3500Coins },
+    { gText_Tm35_4000Coins },
+    { gText_Tm24_4000Coins },
+    { gText_Tm13_4000Coins },
+    { gText_NoThanks_2 },
+};
+
+static const struct MenuAction sMultichoiceList_HoennStarters[] = {
+    { sText_Treecko },
+    { sText_Torchic },
+    { sText_Mudkip },
+};
+
 // Emerald's Trick House mechadolls' quiz (official French answers)
 static const u8 sText_Mechadoll_0[] = _("MYSTHERBE");
 static const u8 sText_Mechadoll_1[] = _("MEDHYENA");
@@ -889,6 +927,10 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_MECHADOLL5_Q1] = MULTICHOICE(sMultichoiceList_Mechadoll5Q1),
 	[MULTI_MECHADOLL5_Q2] = MULTICHOICE(sMultichoiceList_Mechadoll5Q2),
 	[MULTI_MECHADOLL5_Q3] = MULTICHOICE(sMultichoiceList_Mechadoll5Q3),
+	[MULTI_GAME_CORNER_HOENN_COINS] = MULTICHOICE(sMultichoiceList_GameCornerHoennCoins),
+	[MULTI_GAME_CORNER_HOENN_STARTERS] = MULTICHOICE(sMultichoiceList_GameCornerHoennStarters),
+	[MULTI_GAME_CORNER_HOENN_TMS] = MULTICHOICE(sMultichoiceList_GameCornerHoennTMs),
+	[MULTI_HOENN_STARTERS] = MULTICHOICE(sMultichoiceList_HoennStarters),
 };
 
 // From Cool to Berries goes unused

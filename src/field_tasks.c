@@ -41,6 +41,7 @@ static void PacifidlogBridgePerStepCallback(u8 taskId);
 static void IcefallCaveIcePerStepCallback(u8 taskId);
 void SootopolisGymIcePerStepCallback(u8 taskId);
 static void CrackedFloorPerStepCallback(u8 taskId);
+static void Task_MuddySlope(u8 taskId);
 
 // Fortree and Pacifidlog: pokeemerald's callbacks, set by those Hoenn maps' OnResume scripts (Emerald's)
 static const TaskFunc sPerStepCallbacks[] =
@@ -100,6 +101,9 @@ void SetUpFieldTasks(void)
 
     if (!FuncIsActiveTask(Task_RunTimeBasedEvents))
         CreateTask(Task_RunTimeBasedEvents, 80);
+
+    if (!FuncIsActiveTask(Task_MuddySlope))
+        CreateTask(Task_MuddySlope, 80);
 }
 
 void ActivatePerStepCallback(u8 callbackId)
@@ -641,10 +645,11 @@ static void FortreeBridgePerStepCallback(u8 taskId)
 #undef tOldBridgeY
 #undef tBounceTime
 
-// Unused. For some reason these were not dummied out like the other RSE-exclusive step callbacks.
+// STEP_CB_CRACKED_FLOOR (Granite Cave B1F, Mirage Tower, Sky Pillar: their OnResume scripts). Mirage Tower's cracked
+// floor and hole have the Cave's ids (natural ids of the Hoenn import), the Sky Pillar's are Pacifidlog's.
 static void SetCrackedFloorHoleMetatile(s16 x, s16 y)
 {
-    MapGridSetMetatileIdAt(x, y, MapGridGetMetatileIdAt(x, y) == METATILE_RSCave_CrackedFloor ? METATILE_RSCave_CrackedFloor_Hole : METATILE_Pacifidlog_SkyPillar_CrackedFloor_Hole);
+    MapGridSetMetatileIdAt(x, y, MapGridGetMetatileIdAt(x, y) == METATILE_HoennCave_CrackedFloor ? METATILE_HoennCave_CrackedFloor_Hole : METATILE_HoennPacifidlog_SkyPillar_CrackedFloor_Hole);
     CurrentMapDrawMetatileAt(x, y);
 }
 
@@ -657,12 +662,15 @@ static void SetCrackedFloorHoleMetatile(s16 x, s16 y)
 #define tFloor2X     data[8]
 #define tFloor2Y     data[9]
 
-// Unused. See above.
 static void CrackedFloorPerStepCallback(u8 taskId)
 {
     s16 x, y;
     u16 behavior;
     s16 *data = gTasks[taskId].data;
+
+    // The quest log recap replays the recorded steps: the bike's speed is not replayed, so no fall then
+    if (QL_IS_PLAYBACK_STATE)
+        return;
     PlayerGetDestCoords(&x, &y);
     behavior = MapGridGetMetatileBehaviorAt(x, y);
 
@@ -671,6 +679,9 @@ static void CrackedFloorPerStepCallback(u8 taskId)
         SetCrackedFloorHoleMetatile(tFloor1X, tFloor1Y);
     if (tFloor2Delay != 0 && (--tFloor2Delay) == 0)
         SetCrackedFloorHoleMetatile(tFloor2X, tFloor2Y);
+
+    if (MetatileBehavior_IsCrackedFloorHole(behavior))
+        VarSet(VAR_ICE_STEP_COUNT, 0); // this var does double duty
 
     // End if player hasn't moved
     if (x == tPrevX && y == tPrevY)
@@ -706,3 +717,114 @@ static void CrackedFloorPerStepCallback(u8 taskId)
 #undef tFloor2Delay
 #undef tFloor2X
 #undef tFloor2Y
+
+// Emerald's Task_MuddySlope (pokeemerald src/field_tasks.c): the mud ripples where the player steps on a muddy slope.
+// Only Hoenn's general tileset has the behavior and these frames
+#define tMapId data[0]
+#define tState data[1]
+#define tPrevX data[2]
+#define tPrevY data[3]
+// data[4] - data[15]: up to 4 animating muddy slope metatiles, 3 values each (animation time, x, y)
+#define SLOPE_DATA_START 4
+#define SLOPE_DATA_END  (3 * SLOPE_DATA_SIZE + SLOPE_DATA_START)
+enum {
+    SLOPE_TIME,
+    SLOPE_X,
+    SLOPE_Y,
+    SLOPE_DATA_SIZE
+};
+#define tSlopeAnimTime(i) data[(i) * SLOPE_DATA_SIZE + SLOPE_DATA_START + SLOPE_TIME]
+
+static const u16 sMuddySlopeMetatiles[] = {
+    METATILE_HoennGeneral_MuddySlope_Frame0,
+    METATILE_HoennGeneral_MuddySlope_Frame3,
+    METATILE_HoennGeneral_MuddySlope_Frame2,
+    METATILE_HoennGeneral_MuddySlope_Frame1
+};
+
+#define SLOPE_ANIM_TIME 32
+#define SLOPE_ANIM_STEP_TIME (SLOPE_ANIM_TIME / (int)NELEMS(sMuddySlopeMetatiles))
+
+static void SetMuddySlopeMetatile(s16 *data, s16 x, s16 y)
+{
+    u16 metatileId;
+    if ((--data[SLOPE_TIME]) == 0)
+        metatileId = METATILE_HoennGeneral_MuddySlope_Frame0;
+    else
+        metatileId = sMuddySlopeMetatiles[data[SLOPE_TIME] / SLOPE_ANIM_STEP_TIME];
+
+    MapGridSetMetatileIdAt(x, y, metatileId);
+    CurrentMapDrawMetatileAt(x, y);
+    MapGridSetMetatileIdAt(x, y, METATILE_HoennGeneral_MuddySlope_Frame0);
+}
+
+static void Task_MuddySlope(u8 taskId)
+{
+    s16 x, y, cameraOffsetX, cameraOffsetY;
+    int i;
+    u16 mapId;
+    s16 *data = gTasks[taskId].data;
+    PlayerGetDestCoords(&x, &y);
+    mapId = (gSaveBlock1Ptr->location.mapGroup << 8) | gSaveBlock1Ptr->location.mapNum;
+    switch (tState)
+    {
+    case 0:
+        tMapId = mapId;
+        tPrevX = x;
+        tPrevY = y;
+        tState = 1;
+        tSlopeAnimTime(0) = 0;
+        tSlopeAnimTime(1) = 0;
+        tSlopeAnimTime(2) = 0;
+        tSlopeAnimTime(3) = 0;
+        break;
+    case 1:
+        // Skip if player hasn't moved
+        if (tPrevX == x && tPrevY == y)
+            break;
+
+        tPrevX = x;
+        tPrevY = y;
+        if (MetatileBehavior_IsMuddySlope(MapGridGetMetatileBehaviorAt(x, y)))
+        {
+            for (i = SLOPE_DATA_START; i <= SLOPE_DATA_END; i += SLOPE_DATA_SIZE)
+            {
+                if (data[i] == 0)
+                {
+                    data[i + SLOPE_TIME] = SLOPE_ANIM_TIME;
+                    data[i + SLOPE_X] = x;
+                    data[i + SLOPE_Y] = y;
+                    break;
+                }
+            }
+        }
+        break;
+    }
+
+    if (gCamera.active && mapId != tMapId)
+    {
+        tMapId = mapId;
+        cameraOffsetX = gCamera.x;
+        cameraOffsetY = gCamera.y;
+    }
+    else
+    {
+        cameraOffsetX = 0;
+        cameraOffsetY = 0;
+    }
+
+    for (i = SLOPE_DATA_START; i <= SLOPE_DATA_END; i += SLOPE_DATA_SIZE)
+    {
+        if (data[i + SLOPE_TIME])
+        {
+            data[i + SLOPE_X] -= cameraOffsetX;
+            data[i + SLOPE_Y] -= cameraOffsetY;
+            SetMuddySlopeMetatile(&data[i + SLOPE_TIME], data[i + SLOPE_X], data[i + SLOPE_Y]);
+        }
+    }
+}
+
+#undef tMapId
+#undef tState
+#undef tPrevX
+#undef tPrevY

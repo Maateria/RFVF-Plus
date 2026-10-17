@@ -14,7 +14,8 @@ static const bool8 sBehaviorSurfable[NUM_METATILE_BEHAVIORS] = {
     [MB_EASTWARD_CURRENT]   = TRUE,
     [MB_WESTWARD_CURRENT]   = TRUE,
     [MB_NORTHWARD_CURRENT]  = TRUE,
-    [MB_SOUTHWARD_CURRENT]  = TRUE
+    [MB_SOUTHWARD_CURRENT]  = TRUE,
+    [MB_SOOTOPOLIS_DEEP_WATER] = TRUE
 };
 
 static const u8 sTileBitAttributes[32] = {
@@ -98,6 +99,7 @@ bool8 MetatileBehavior_IsReflective(u8 metatileBehavior)
      || metatileBehavior == MB_UNUSED_WATER
      || metatileBehavior == MB_CYCLING_ROAD_WATER
      || metatileBehavior == MB_ICE
+     || metatileBehavior == MB_SOOTOPOLIS_DEEP_WATER
      || metatileBehavior == MB_REFLECTION_UNDER_BRIDGE)
         return TRUE;
     else
@@ -274,6 +276,8 @@ bool8 MetatileBehavior_IsForcedMovementTile(u8 metatileBehavior)
       || (metatileBehavior >= MB_EASTWARD_CURRENT && metatileBehavior <= MB_SOUTHWARD_CURRENT)
       ||  metatileBehavior == MB_WATERFALL
       ||  metatileBehavior == MB_ICE
+      ||  metatileBehavior == MB_MUDDY_SLOPE
+      ||  metatileBehavior == MB_CRACKED_FLOOR
       || (metatileBehavior >= MB_SPIN_RIGHT && metatileBehavior <= MB_SPIN_DOWN))
             return TRUE;
     else
@@ -420,7 +424,7 @@ bool8 MetatileBehavior_IsPC(u8 metatileBehavior)
 
 bool8 MetatileBehavior_HasRipples(u8 metatileBehavior)
 {
-    if (metatileBehavior == MB_POND_WATER || metatileBehavior == MB_PUDDLE)
+    if (metatileBehavior == MB_POND_WATER || metatileBehavior == MB_PUDDLE || metatileBehavior == MB_SOOTOPOLIS_DEEP_WATER)
         return TRUE;
     else
         return FALSE;
@@ -513,7 +517,7 @@ bool8 MetatileBehavior_IsMountain(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsDiveable(u8 metatileBehavior)
 {
-    if (metatileBehavior >= MB_FAST_WATER && metatileBehavior <= MB_DEEP_WATER)
+    if ((metatileBehavior >= MB_FAST_WATER && metatileBehavior <= MB_DEEP_WATER) || metatileBehavior == MB_SOOTOPOLIS_DEEP_WATER)
         return TRUE;
     else
         return FALSE;
@@ -581,7 +585,8 @@ bool8 MetatileBehavior_IsEastBlocked(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_IMPASSABLE_EAST
      || metatileBehavior == MB_IMPASSABLE_NORTHEAST
-     || metatileBehavior == MB_IMPASSABLE_SOUTHEAST)
+     || metatileBehavior == MB_IMPASSABLE_SOUTHEAST
+     || metatileBehavior == MB_IMPASSABLE_WEST_AND_EAST)
             return TRUE;
     else
         return FALSE;
@@ -591,7 +596,8 @@ bool8 MetatileBehavior_IsWestBlocked(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_IMPASSABLE_WEST
      || metatileBehavior == MB_IMPASSABLE_NORTHWEST
-     || metatileBehavior == MB_IMPASSABLE_SOUTHWEST)
+     || metatileBehavior == MB_IMPASSABLE_SOUTHWEST
+     || metatileBehavior == MB_IMPASSABLE_WEST_AND_EAST)
             return TRUE;
     else
         return FALSE;
@@ -601,7 +607,8 @@ bool8 MetatileBehavior_IsNorthBlocked(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_IMPASSABLE_NORTH
      || metatileBehavior == MB_IMPASSABLE_NORTHEAST
-     || metatileBehavior == MB_IMPASSABLE_NORTHWEST)
+     || metatileBehavior == MB_IMPASSABLE_NORTHWEST
+     || metatileBehavior == MB_IMPASSABLE_SOUTH_AND_NORTH)
             return TRUE;
     else
         return FALSE;
@@ -611,7 +618,8 @@ bool8 MetatileBehavior_IsSouthBlocked(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_IMPASSABLE_SOUTH
      || metatileBehavior == MB_IMPASSABLE_SOUTHEAST
-     || metatileBehavior == MB_IMPASSABLE_SOUTHWEST)
+     || metatileBehavior == MB_IMPASSABLE_SOUTHWEST
+     || metatileBehavior == MB_IMPASSABLE_SOUTH_AND_NORTH)
             return TRUE;
     else
         return FALSE;
@@ -711,6 +719,7 @@ bool8 MetatileBehavior_IsWater(u8 metatileBehavior)
 {
     if ((metatileBehavior >= MB_POND_WATER && metatileBehavior <= MB_DEEP_WATER)
      ||  metatileBehavior == MB_OCEAN_WATER
+     ||  metatileBehavior == MB_SOOTOPOLIS_DEEP_WATER
      || (metatileBehavior >= MB_EASTWARD_CURRENT && metatileBehavior <= MB_SOUTHWARD_CURRENT))
             return TRUE;
     else
@@ -725,7 +734,12 @@ bool8 MetatileBehavior_IsFallWarp(u8 metatileBehavior)
         return FALSE;
 }
 
-bool8 MetatileBehavior_IsCrackedFloor(u8 metatileBehavior){ return FALSE; }
+bool8 MetatileBehavior_IsCrackedFloor(u8 metatileBehavior) { return metatileBehavior == MB_CRACKED_FLOOR; }
+bool8 MetatileBehavior_IsCrackedFloorHole(u8 metatileBehavior) { return metatileBehavior == MB_CRACKED_FLOOR_HOLE; }
+bool8 MetatileBehavior_IsMuddySlope(u8 metatileBehavior) { return metatileBehavior == MB_MUDDY_SLOPE; }
+bool8 MetatileBehavior_IsVase(u8 metatileBehavior) { return metatileBehavior == MB_VASE; }
+bool8 MetatileBehavior_IsClosedSootopolisDoor(u8 metatileBehavior) { return metatileBehavior == MB_CLOSED_SOOTOPOLIS_DOOR; }
+bool8 MetatileBehavior_IsSkyPillarClosedDoor(u8 metatileBehavior) { return metatileBehavior == MB_SKY_PILLAR_CLOSED_DOOR; }
 
 bool32 MetatileBehavior_IsCyclingRoadPullDownTile(u8 metatileBehavior)
 {
@@ -740,11 +754,11 @@ bool8 MetatileBehavior_IsCyclingRoadPullDownTileGrass(u8 metatileBehavior)
     return metatileBehavior == MB_CYCLING_ROAD_PULL_DOWN_GRASS;
 }
 
-bool8 MetatileBehavior_IsBumpySlope(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsIsolatedVerticalRail(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsIsolatedHorizontalRail(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsVerticalRail(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsHorizontalRail(u8 metatileBehavior) { return FALSE; }
+bool8 MetatileBehavior_IsBumpySlope(u8 metatileBehavior) { return metatileBehavior == MB_BUMPY_SLOPE; }
+bool8 MetatileBehavior_IsIsolatedVerticalRail(u8 metatileBehavior) { return metatileBehavior == MB_ISOLATED_VERTICAL_RAIL; }
+bool8 MetatileBehavior_IsIsolatedHorizontalRail(u8 metatileBehavior) { return metatileBehavior == MB_ISOLATED_HORIZONTAL_RAIL; }
+bool8 MetatileBehavior_IsVerticalRail(u8 metatileBehavior) { return metatileBehavior == MB_VERTICAL_RAIL; }
+bool8 MetatileBehavior_IsHorizontalRail(u8 metatileBehavior) { return metatileBehavior == MB_HORIZONTAL_RAIL; }
 
 bool8 MetatileBehavior_IsSeaweed(u8 metatileBehavior)
 {

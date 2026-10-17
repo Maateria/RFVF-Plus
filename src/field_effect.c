@@ -736,7 +736,7 @@ void MultiplyInvertedPaletteRGBComponents(u16 i, u8 r, u8 g, u8 b)
 }
 
 // r, g, b are between 0 and 16
-static void MultiplyPaletteRGBComponents(u16 i, u8 r, u8 g, u8 b)
+void MultiplyPaletteRGBComponents(u16 i, u8 r, u8 g, u8 b)
 {
     int curRed;
     int curGreen;
@@ -3120,7 +3120,7 @@ u8 FldEff_UseSurf(void)
     gTasks[taskId].data[15] = gFieldEffectArguments[0];
     Overworld_ClearSavedMusic();
     if (Overworld_MusicCanOverrideMapMusic(MUS_SURF))
-        Overworld_ChangeMusicTo(MUS_SURF);
+        Overworld_ChangeMusicTo(GetRegionalFieldMusic(MUS_SURF));
     return FALSE;
 }
 

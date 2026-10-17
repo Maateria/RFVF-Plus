@@ -62,6 +62,7 @@ static bool8 ForcedMovement_SlideWest(void);
 static bool8 ForcedMovement_SlideEast(void);
 static bool8 ForcedMovement_MatJump(void);
 static bool8 ForcedMovement_MatSpin(void);
+static bool8 ForcedMovement_MuddySlope(void);
 static u8 CheckMovementInputNotOnBike(u8 direction);
 static void PlayerNotOnBikeNotMoving(u8 direction, u16 heldKeys);
 static void PlayerNotOnBikeTurningInPlace(u8 direction, u16 heldKeys);
@@ -142,6 +143,7 @@ void player_step(u8 direction, u16 newKeys, u16 heldKeys)
     HandleWarpArrowSpriteHideShow(playerObjEvent);
     if (!gPlayerAvatar.preventStep && !TryUpdatePlayerSpinDirection())
     {
+        Bike_TryAcroBikeHistoryUpdate(newKeys, heldKeys);
         if (!TryInterruptObjectEventSpecialAnim(playerObjEvent, direction))
         {
             npc_clear_strange_bits(playerObjEvent);
@@ -248,6 +250,7 @@ static const struct {
     {MetatileBehavior_IsWaterfall, ForcedMovement_PushedSouthByCurrent},
     {MetatileBehavior_IsSecretBaseJumpMat, ForcedMovement_MatJump},
     {MetatileBehavior_IsSecretBaseSpinMat, ForcedMovement_MatSpin},
+    {MetatileBehavior_IsMuddySlope, ForcedMovement_MuddySlope},
     {NULL, ForcedMovement_None},
 };
 
@@ -442,6 +445,23 @@ static bool8 ForcedMovement_MatSpin(void)
 {
     DoPlayerMatSpin();
     return TRUE;
+}
+
+// Emerald's: only the bike at full speed (B held, see bike.c) climbs a muddy slope
+static bool8 ForcedMovement_MuddySlope(void)
+{
+    struct ObjectEvent *playerObjEvent = &gObjectEvents[gPlayerAvatar.objectEventId];
+
+    if (playerObjEvent->movementDirection != DIR_NORTH || GetPlayerSpeed() < PLAYER_SPEED_FASTEST)
+    {
+        Bike_UpdateBikeCounterSpeed(0);
+        playerObjEvent->facingDirectionLocked = TRUE;
+        return DoForcedMovement(DIR_SOUTH, PlayerWalkFast);
+    }
+    else
+    {
+        return FALSE;
+    }
 }
 
 static void (*const sPlayerNotOnBikeFuncs[])(u8, u16) = {
@@ -996,43 +1016,52 @@ static void PlayerApplyTileForcedMovement(u8 metatileBehavior)
     }
 }
 
-static void PlayerIdleWheelie(u8 direction)
+void PlayerIdleWheelie(u8 direction)
 {
     PlayerSetAnimId(GetAcroWheelieFaceDirectionMovementAction(direction), 1);
 }
 
-static void PlayerStartWheelie(u8 direction)
+void PlayerStartWheelie(u8 direction)
 {
     PlayerSetAnimId(GetAcroPopWheelieFaceDirectionMovementAction(direction), 1);
 }
 
-static void PlayerEndWheelie(u8 direction)
+void PlayerEndWheelie(u8 direction)
 {
     PlayerSetAnimId(GetAcroEndWheelieFaceDirectionMovementAction(direction), 1);
 }
 
-static void PlayerStandingHoppingWheelie(u8 direction)
+void PlayerStandingHoppingWheelie(u8 direction)
 {
     PlaySE(SE_BIKE_HOP);
     PlayerSetAnimId(GetAcroWheelieHopFaceDirectionMovementAction(direction), 1);
 }
 
-static void PlayerMovingHoppingWheelie(u8 direction)
+void PlayerMovingHoppingWheelie(u8 direction)
 {
     PlaySE(SE_BIKE_HOP);
     PlayerSetAnimId(GetAcroWheelieHopMovementAction(direction), 2);
 }
 
-static void PlayerLedgeHoppingWheelie(u8 direction)
+void PlayerLedgeHoppingWheelie(u8 direction)
 {
     PlaySE(SE_BIKE_HOP);
     PlayerSetAnimId(GetAcroWheelieJumpMovementAction(direction), 8);
 }
 
-static void PlayerAcroTurnJump(u8 direction)
+void PlayerAcroTurnJump(u8 direction)
 {
     PlaySE(SE_BIKE_HOP);
     PlayerSetAnimId(GetJumpInPlaceTurnAroundMovementAction(direction), 1);
+}
+
+// Emerald's AcroBikeTransition_SideJump: the bike hops one tile aside, still facing ahead
+void PlayerAcroSideJump(u8 direction)
+{
+    PlaySE(SE_BIKE_HOP);
+    gObjectEvents[gPlayerAvatar.objectEventId].facingDirectionLocked = TRUE;
+    QuestLogRecordPlayerStep(MOVEMENT_ACTION_LOCK_FACING_DIRECTION); // so that the recap jumps sideways too
+    PlayerSetAnimId(GetJumpMovementAction(direction), 2);
 }
 
 static void PlayerAcroWheelieCollide(u8 direction)

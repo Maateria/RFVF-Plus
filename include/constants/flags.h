@@ -1606,6 +1606,9 @@
 #define FLAG_HIDE_ROUTE_111_VICTORIA_WINSTRATE (EXT_EVENT_FLAGS_START + 0x38)
 #define FLAG_HIDE_ROUTE_111_VIVI_WINSTRATE     (EXT_EVENT_FLAGS_START + 0x39)
 #define FLAG_HIDE_ROUTE_111_VICKY_WINSTRATE    (EXT_EVENT_FLAGS_START + 0x3A)
+#define FLAG_BIKE_UPGRADED                     (EXT_EVENT_FLAGS_START + 0x3B) // Rodolphe (Mauville): the Bicycle has the Mach and Acro moves (bike.c)
+#define FLAG_RECEIVED_20_COINS                 (EXT_EVENT_FLAGS_START + 0x3C) // Mauville Game Corner (Emerald 0xE1)
+#define FLAG_RECEIVED_STARTER_DOLL             (EXT_EVENT_FLAGS_START + 0x3D) // RFVF+: the girl gives a Hoenn starter, not a doll
 
 // Special Flags (Stored in EWRAM (sSpecialFlags, not in the SaveBlock)
 #define SPECIAL_FLAGS_START           0x4000

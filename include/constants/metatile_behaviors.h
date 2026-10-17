@@ -143,7 +143,20 @@
 #define MB_BRIDGE_OVER_POND_HIGH_EDGE_1 0xB1
 #define MB_BRIDGE_OVER_POND_HIGH_EDGE_2 0xB2
 #define MB_BIKE_BRIDGE_OVER_BARRIER 0xB3
+#define MB_MUDDY_SLOPE 0xB4 // slides the player south unless he rides north at full speed (B held on the bike)
+#define MB_BUMPY_SLOPE 0xB5 // only crossed hopping on the bike
+#define MB_CRACKED_FLOOR 0xB6 // STEP_CB_CRACKED_FLOOR: breaks behind the player, who falls unless at full speed
+#define MB_CRACKED_FLOOR_HOLE 0xB7 // falls through (EventScript_FallDownHole)
+#define MB_ISOLATED_VERTICAL_RAIL 0xB8 // bike rails: ridden along them only, isolated ones hopped onto
+#define MB_ISOLATED_HORIZONTAL_RAIL 0xB9
+#define MB_VERTICAL_RAIL 0xBA
+#define MB_HORIZONTAL_RAIL 0xBB
+#define MB_IMPASSABLE_SOUTH_AND_NORTH 0xBC
+#define MB_IMPASSABLE_WEST_AND_EAST 0xBD
+#define MB_SOOTOPOLIS_DEEP_WATER 0xBE // deep water that reflects
+#define MB_VASE 0xBF
 //
+
 #define MB_CYCLING_ROAD_PULL_DOWN 0xD0
 #define MB_CYCLING_ROAD_PULL_DOWN_GRASS 0xD1
 #define MB_LONG_GRASS 0xD2
@@ -152,6 +165,8 @@
 #define MB_SHORT_GRASS 0xD5
 #define MB_LAVARIDGE_GYM_B1F_WARP 0xD6 // Emerald's Lavaridge Gym B1F geyser: DoLavaridgeGymB1FWarp
 #define MB_TRICK_HOUSE_PUZZLE_DOOR 0xD7 // Emerald's: a Trick House puzzle's exit door, its script on A
+#define MB_CLOSED_SOOTOPOLIS_DOOR 0xD8 // Emerald's closed doors: a message on A
+#define MB_SKY_PILLAR_CLOSED_DOOR 0xD9
 //
 #define NUM_METATILE_BEHAVIORS 0xF0
 

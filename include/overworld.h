@@ -84,6 +84,7 @@ u8 Overworld_GetFlashLevel(void);
 void Overworld_SetSavedMusic(u16);
 void Overworld_ChangeMusicToDefault(void);
 void Overworld_ChangeMusicTo(u16);
+u16 GetRegionalFieldMusic(u16 song);
 
 bool32 IsUpdateLinkStateCBActive(void);
 

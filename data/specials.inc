@@ -473,4 +473,6 @@ gSpecials::
 	def_special CableCarWarp
 	def_special SetTrickHouseNuggetFlag
 	def_special ResetTrickHouseNuggetFlag
+	def_special GetSlotMachineId
+	def_special PlayRoulette
 gSpecialsEnd::

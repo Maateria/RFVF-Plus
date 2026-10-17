@@ -1201,12 +1201,37 @@ void Overworld_PlaySpecialMapMusic(void)
     music = GetCurrLocationDefaultMusic();
 
     if (gSaveBlock1Ptr->savedMusic)
-        music = gSaveBlock1Ptr->savedMusic;
+        music = GetRegionalFieldMusic(gSaveBlock1Ptr->savedMusic);
     else if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) && Overworld_MusicCanOverrideMapMusic(MUS_SURF))
-        music = MUS_SURF;
+        music = GetRegionalFieldMusic(MUS_SURF);
 
     if (music != GetCurrentMapMusic())
         PlayNewMapMusic(music);
+}
+
+// Hoenn's maps: the imported ones (Hoenn tilesets) and FRLG-Plus's own Battle Frontier (Artisan Cave included),
+// Southern and Faraway Islands
+static bool32 IsHoennMap(void)
+{
+    switch (gMapHeader.regionMapSectionId)
+    {
+    case MAPSEC_BATTLE_FRONTIER:
+    case MAPSEC_ARTISAN_CAVE:
+    case MAPSEC_SOUTHERN_ISLAND:
+    case MAPSEC_FARAWAY_ISLAND:
+        return TRUE;
+    }
+    return IsHoennMapLayout();
+}
+
+// RFVF+: Hoenn plays Emerald's cycling and surfing themes; a saved bike theme follows the player into another region
+u16 GetRegionalFieldMusic(u16 song)
+{
+    if (song == MUS_CYCLING || song == MUS_RS_CYCLING)
+        return IsHoennMap() ? MUS_RS_CYCLING : MUS_CYCLING;
+    if (song == MUS_SURF || song == MUS_RS_SURF)
+        return IsHoennMap() ? MUS_RS_SURF : MUS_SURF;
+    return song;
 }
 
 void Overworld_SetSavedMusic(u16 songNum)
@@ -1236,10 +1261,10 @@ static void Overworld_TryMapConnectionMusicTransition(void)
     {
         newMusic = GetWarpDestinationMusic();
         currentMusic = GetCurrentMapMusic();
-        if (currentMusic == MUS_SURF)
+        if (currentMusic == MUS_SURF || currentMusic == MUS_RS_SURF)
             return;
         if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_SURFING) && Overworld_MusicCanOverrideMapMusic(MUS_SURF))
-            newMusic = MUS_SURF;
+            newMusic = GetRegionalFieldMusic(MUS_SURF);
         if (newMusic != currentMusic)
         {
             if (TestPlayerAvatarFlags(PLAYER_AVATAR_FLAG_MACH_BIKE | PLAYER_AVATAR_FLAG_ACRO_BIKE))

@@ -1440,7 +1440,10 @@ void QuestLogRecordPlayerStep(u8 movementActionId)
 {
     if (!RecordHeadAtEndOfEntryOrScriptContext2Enabled())
     {
-        if (movementActionId != sCurSceneActions[sLastQuestLogCursor].data.a.movementActionId || movementActionId > MOVEMENT_ACTION_FACE_RIGHT)
+        // RFVF+: the upgraded bike's wheelie faces (src/bike.c) repeat every frame, as the face actions do
+        if (movementActionId != sCurSceneActions[sLastQuestLogCursor].data.a.movementActionId
+         || (movementActionId > MOVEMENT_ACTION_FACE_RIGHT
+          && (movementActionId < MOVEMENT_ACTION_ACRO_WHEELIE_FACE_DOWN || movementActionId > MOVEMENT_ACTION_ACRO_WHEELIE_FACE_RIGHT)))
         {
             sCurSceneActions[gQuestLogCurActionIdx].duration = sNextActionDelay;
             sCurSceneActions[gQuestLogCurActionIdx].type = QL_ACTION_MOVEMENT;
