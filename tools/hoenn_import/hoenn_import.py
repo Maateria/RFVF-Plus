@@ -941,7 +941,7 @@ def tileset_data(directory, engine):
         try:
             _TILESETS[key] = (load_tiles(read_bytes(key[0] / "tiles.png")), load_pals(key[0]),
                               read_ints(key[0] / "metatiles.bin", "H"),
-                              read_ints(key[0] / "metatile_attributes.bin", "H" if engine == "emerald" else "I"))
+                              read_ints(key[0] / "metatile_attributes.bin", "H" if engine in ("emerald", "hns") else "I"))
         finally:
             PENDING.update(planned)
     return _TILESETS[key]
@@ -949,10 +949,10 @@ def tileset_data(directory, engine):
 
 def render(blocks, width, primary_dir, secondary_dir, engine):
     """Draw a map.bin like DrawMetatile (field_camera.c) does: BG3, then BG2, then BG1. A metatile the tileset lacks
-    is magenta. engine: "emerald", "frlg" (this repo, the planned files included) or "before" (this repo's files as
-    they are on disk)."""
+    is magenta. engine: "emerald", "frlg" (this repo, the planned files included), "before" (this repo's files as
+    they are on disk) or "hns" (PokemonHnS: FRLG sizes, Emerald attributes; tools/johto_import)."""
     lim = EM if engine == "emerald" else FR
-    layer_of = (lambda a: a >> 12) if engine == "emerald" else (lambda a: a >> 29 & 3)
+    layer_of = (lambda a: a >> 12) if engine in ("emerald", "hns") else (lambda a: a >> 29 & 3)
     tiles, pals, meta, attrs = zip(*(tileset_data(d, engine) for d in (primary_dir, secondary_dir)))
     cache = {}
 

@@ -2,9 +2,10 @@
 # requires-python = ">=3.9"
 # dependencies = ["numpy", "pillow"]
 # ///
-"""World map of the Town Map and the Fly map: Johto (placeholder), Kanto, the Sevii Islands and Hoenn on one tilemap.
+"""World map of the Town Map and the Fly map: Johto, Kanto, the Sevii Islands and Hoenn on one tilemap.
 
-Usage, from the repo root:  uv run tools/worldmap/worldmap.py [--emerald ../pokeemerald] [--preview world.png]
+Usage, from the repo root:  uv run tools/worldmap/worldmap.py [--emerald ../pokeemerald] [--hns ../pokehns]
+                                                                [--preview world.png]
 Writes (deterministic, run it again after changing it or its inputs):
   graphics/region_map/world.bin        BG0 text tilemap, WORLD_WIDTH x WORLD_HEIGHT u16 entries (read in place)
   graphics/region_map/world_tiles.png  the tiles Kanto's tileset lacks (BG0 tiles 320..511 then 576..), 8-bit
@@ -16,10 +17,13 @@ Inputs: Kanto and the Sevii maps are FRLG's own screens (kanto.bin, sevii_*.bin,
 entries with their layouts (src/data/region_map/region_map_layout_*.h), the Sevii Islands under Kanto, each island
 packed up as a block (tiles, map sections, masked rect, icons) to GAP sea rows from the islands above it; Hoenn is
 Emerald's map (pokeemerald graphics/pokenav/region_map, src/data/region_map/region_map_layout.h) recoloured in FRLG's
-colors, its towns drawn with FRLG's town ball.
-Checks: Kanto's home view renders pixel-identical to today's screen, the packed islands keep FRLG's entries and never
-touch, each Sevii group's home view shows it whole, the whole world renders back to its art, regions, map sections and
-icons never share a cell, every Hoenn dungeon here is a map of the game.
+colors, its towns drawn with FRLG's town ball; Johto is PokemonHnS's (pokehns graphics/pokenav/region_map/map_johto,
+src/data/region_map/region_map_layout_johto.h: art by the HnS team, credited) the same way, west of Kanto, Route 22
+carried west to it (JOHTO_ROUTE22: the only cells of Kanto's screen that change), its map sections folded into the 39
+Johto ones (tools/johto_import/johto_decisions.py MAPSECS).
+Checks: Kanto's home view renders pixel-identical to today's screen (Route 22's carried cells aside), the packed
+islands keep FRLG's entries and never touch, each Sevii group's home view shows it whole, the whole world renders back
+to its art, regions, map sections and icons never share a cell, every Hoenn and Johto dungeon here is a map of the game.
 """
 import argparse
 import json
@@ -49,8 +53,23 @@ REGIONS = [
     ("sevii_45", "REGIONMAP_SEVII45", (36, 36, 24, 18), (37, 38, 22, 15), None, "FLAG_SYS_SEVII_MAP_4567"),
     ("sevii_67", "REGIONMAP_SEVII67", (36, 54, 24, 18), (37, 56, 22, 15), None, "FLAG_SYS_SEVII_MAP_4567"),
     ("hoenn", "REGIONMAP_HOENN", (0, 20, 30, 20), (1, 22, 28, 15), (3, 20), "0"),
-    ("johto", "REGIONMAP_JOHTO", (0, 0, 36, 20), None, (0, 0), "0"),
+    ("johto", "REGIONMAP_JOHTO", (0, 0, 36, 20), (11, 5, 25, 15), (10, 2), "0"),
 ]
+# Johto (PokemonHnS's map_johto, 30x20 tiles; its layout cell (x, y) is its tile (x + 1, y + 2)): HnS tile (x, y) ->
+# world cell (x + JOHTO_SHIFT, y + JOHTO_DOWN), its first 26 columns and 17 rows (HnS's own Kanto side is east of them);
+# the world's columns 0-9 continue its west coast, rows 0-2 its north. JOHTO_DOWN puts HnS's row of the Reception Gate
+# (Mt. Silver, the gate atop Route 26) on Kanto's Route 22. Grid: layout cell (x, y) -> world (x + 11, y + 5), 25 columns
+JOHTO_SHIFT, JOHTO_DOWN, JOHTO_COLS, JOHTO_ROWS = 10, 3, 26, 17
+JOHTO_ROUTE22 = [(36, 10), (37, 10), (38, 10)]   # Route 22 carried west from Kanto's corner (39,10) to the gate (35,10)
+JOHTO_SEAM = 2                                    # Johto columns left of Kanto: contour levels stepped to Kanto's
+GREENS = [(24, 128, 8), (56, 168, 8), (80, 200, 8), (112, 224, 32), (168, 240, 56)]       # FRLG land, low -> high
+ROUTE_TINT = dict(zip(GREENS, [(224, 160, 0), (232, 184, 56), (240, 208, 80), (232, 224, 112), (240, 232, 136)]))
+# Johto's fly sections (a town ball on the map) and the dungeon icon of its places with their own section
+JOHTO_TOWNS = ["NEW_BARK_TOWN", "CHERRYGROVE_CITY", "VIOLET_CITY", "AZALEA_TOWN", "GOLDENROD_CITY", "ECRUTEAK_CITY",
+               "OLIVINE_CITY", "CIANWOOD_CITY", "MAHOGANY_TOWN", "BLACKTHORN_CITY", "LAKE_OF_RAGE", "MT_SILVER",
+               "SAFARI_ZONE_GATE"]
+JOHTO_DUNGEONS = ["MT_SILVER", "WHIRL_ISLANDS", "TIN_TOWER", "RUINS_OF_ALPH", "UNION_CAVE", "ILEX_FOREST",
+                  "NATIONAL_PARK", "ICE_PATH", "DARK_CAVE"]
 # FRLG's BufferRegionMapBg masks in the stacked screens (moved with their island): sea and no map section until the
 # flag is set
 MASKS = [((36 + 10, 36 + 9, 3, 2), "FLAG_WORLD_MAP_NAVEL_ROCK_EXTERIOR", "MAPSEC_NAVEL_ROCK"),
@@ -161,11 +180,14 @@ def pack(islands, top):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n")[0])
     ap.add_argument("--emerald", default=str(REPO.parent / "pokeemerald"), help="pret/pokeemerald clone")
+    ap.add_argument("--hns", default=str(REPO.parent / "pokehns"), help="PokemonHnS clone (pokehns-expansion)")
     ap.add_argument("--preview", help="also write the whole world as a PNG (1x)")
     args = ap.parse_args()
-    em = Path(args.emerald)
+    em, hns = Path(args.emerald), Path(args.hns)
     if not (em / "graphics/pokenav/region_map/map.png").exists():
         sys.exit("pokeemerald not found at %s (--emerald PATH)" % em)
+    if not (hns / "graphics/pokenav/region_map/map_johto.png").exists():
+        sys.exit("PokemonHnS not found at %s (--hns PATH)" % hns)
 
     secs = {s["map_section"]: s for s in json.loads((REPO / "src/data/region_map/region_map_sections.json")
                                                     .read_text(encoding="utf-8"))["map_sections"]}
@@ -281,18 +303,54 @@ def main():
         part[m] = sea(hh * 8, hw * 8)[sl][m]
     W[hy * 8:(hy + hh) * 8, hx * 8:(hx + hw) * 8] = h
 
-    # ---- Johto: reserved, placeholder land that closes Kanto's cut west coast ----
+    # ---- Johto: PokemonHnS's map_johto, the same method as Hoenn (FRLG colors, FRLG town ball) ----
+    im = Image.open(hns / "graphics/pokenav/region_map/map_johto.png")
+    htiles = tiles_of(hns / "graphics/pokenav/region_map/map_johto.png")
+    hpal = gba(np.array(im.getpalette(), np.int32).reshape(-1, 3))
+    htm = np.frombuffer((hns / "graphics/pokenav/region_map/map_johto.bin").read_bytes(), np.uint8).reshape(64, 64)
+    j = np.zeros((20 * 8, 30 * 8, 3), np.uint8)
+    for ty in range(20):
+        for tx in range(30):
+            j[ty * 8:ty * 8 + 8, tx * 8:tx * 8 + 8] = hpal[htiles[htm[ty, tx]]]
+    assert {SEA0, SEA1} <= {tuple(c) for c in j.reshape(-1, 3)}, "HnS's sea differs from FRLG's"
+    for src, dst in RECOLOR.items():
+        j[np.all(j == src, -1)] = dst
+    hns_layer = layout(hns / "src/data/region_map/region_map_layout_johto.h")[0]   # 28x15, cell = tile - (1, 2)
+    town_balls = {}
+    for y, row in enumerate(hns_layer):
+        for x, s in enumerate(row):
+            c = j[(y + 2) * 8:(y + 3) * 8, (x + 1) * 8:(x + 2) * 8]
+            if np.all(c == (96, 96, 96), -1).sum() >= 4:     # HnS ball / capsule outline
+                town_balls.setdefault(s, []).append((x, y))
+    disc = ~np.all(ball == (224, 160, 0), -1)                # FRLG's ball without its 4 route-colored corners
+    for s, cells in town_balls.items():
+        if len(cells) == 1:                                   # a 1-cell place: FRLG's town ball
+            x, y = cells[0][0] + 1, cells[0][1] + 2
+            j[y * 8:y * 8 + 8, x * 8:x * 8 + 8][disc] = ball[disc]
+    # HnS's Indigo Plateau capsule (tile 25,5-6) goes: Kanto's own is 4 cells east. Land from the east
+    j[5 * 8:7 * 8, 25 * 8:26 * 8] = j[5 * 8:7 * 8, 26 * 8:27 * 8]
+    j = j[:JOHTO_ROWS * 8, :JOHTO_COLS * 8]
+    J = np.concatenate([np.repeat(j[:, :1], JOHTO_SHIFT * 8, 1), j], 1)   # the west coast goes on to the world's edge
+    J = np.concatenate([np.repeat(J[:1], JOHTO_DOWN * 8, 0), J], 0)       # and the north to the top
+    W[0:J.shape[0], 0:J.shape[1]] = J
     jx, jy, jw, jh = REGIONS[5][2]
-    x1 = (jx + jw) * 8
-    kl = [y for y in range(BAND * 8) if is_land(W[y:y + 1, x1:x1 + 1])[0, 0]]
-    xs = np.arange(jx * 8, x1)
-    wav = xs < x1 - 24
-    coast = (max(kl) + 1 + 10 * np.sin((xs - x1) / 23.0) * wav + 6 * np.sin(xs / 9.0) * wav).astype(int)
-    jl = np.arange(jh * 8)[:, None] < coast[None, :]
-    J = W[jy * 8:(jy + jh) * 8, jx * 8:x1]
-    J[jl] = (56, 168, 8)
-    J[(np.add.outer(np.arange(jh * 8), xs) % 6 == 0) & jl] = (128, 152, 112)
-    J[jl & ~np.pad(jl, 1)[2:, 1:-1]] = (24, 128, 8)
+    blk = W[jy * 8:(jy + jh) * 8, jx * 8:(jx + jw) * 8]       # sea stripes in phase with the world's
+    m = ~is_land(blk)
+    blk[m] = sea(jh * 8, jw * 8)[m]
+    lv = {c: i for i, c in enumerate(GREENS)}                 # seam: contour levels stepped to Kanto's first column
+    x0, x1 = (36 - JOHTO_SEAM) * 8, 36 * 8
+    for y in range((JOHTO_DOWN + JOHTO_ROWS) * 8):
+        a, b = lv.get(tuple(int(v) for v in W[y, x0 - 1])), lv.get(tuple(int(v) for v in W[y, x1]))
+        if a is None or b is None:
+            continue
+        for x in range(x0, x1):
+            if tuple(int(v) for v in W[y, x]) in lv:
+                W[y, x] = GREENS[int(round(a + (b - a) * (x - x0 + 1) / (x1 - x0 + 1)))]
+    for x, y in JOHTO_ROUTE22:                                # Route 22 carried west: FRLG draws routes see-through
+        c = W[y * 8:y * 8 + 8, x * 8:x * 8 + 8]
+        for g, t in ROUTE_TINT.items():
+            c[np.all(c == g, -1)] = t
+        fixed[y, x] = False                                   # Kanto's cells among them get new tiles
 
     # ---- the drawn cells -> tilemap: region_map tiles when they render the same, else new tiles and palettes ----
     known = {}
@@ -357,6 +415,10 @@ def main():
         today = render(tm[2:20, 3:27], all_tiles, full_pal, VW, VH)
         view = back[ay * 8:(ay + VH) * 8, ax * 8:(ax + VW) * 8].copy()
         view[14 * 8:17 * 8, 21 * 8:24 * 8] = render(button, all_tiles, full_pal, 3, 3)    # BG3 over BG0
+        for x, y in JOHTO_ROUTE22:                                    # Route 22 carried west to Johto
+            if ax <= x < ax + VW:
+                view[(y - ay) * 8:(y - ay + 1) * 8, (x - ax) * 8:(x - ax + 1) * 8] = \
+                    today[(y - ay) * 8:(y - ay + 1) * 8, (x - ax) * 8:(x - ax + 1) * 8]
         assert (view == today).all(), "%s: home view differs from today's screen" % name
 
     # ---- map sections: Kanto's layout, the packed Sevii tables, Hoenn = Emerald's map layer + the dungeon cells ----
@@ -371,8 +433,26 @@ def main():
         hoenn[1][s["y"]][s["x"]] = "MAPSEC_" + d
     assert {c for layer in hoenn for r in layer for c in r} <= consts, "unknown MAPSEC in Emerald's layout"
     grids["hoenn"] = hoenn
+    # Johto: HnS's layout cells, its sections folded into the 39 Johto ones (johto_decisions.MAPSECS); a cell HnS gives
+    # a place this repo keeps elsewhere (its Indigo Plateau, Trainer Hill) has none. Dungeon icons: first cell
+    sys.path.insert(0, str(REPO / "tools/johto_import"))
+    import johto_decisions as jd
+    values = {n: int(v, 16) for n, v in re.findall(r"#define (MAPSEC_\w+)\s+(0x[0-9A-F]+)",
+                                                   (REPO / "include/constants/region_map_sections.h").read_text())}
+    johto_secs = {n for n, v in values.items() if values["MAPSEC_NEW_BARK_TOWN"] <= v <= values["MAPSEC_DARK_CAVE"]}
+    jgx, jgy, jgw, jgh = REGIONS[5][3]
+    johto = [[["MAPSEC_NONE"] * jgw for _ in range(jgh)] for _ in range(2)]
+    for y in range(jgh):
+        for x in range(jgw):
+            s = jd.MAPSECS.get(hns_layer[y][x], hns_layer[y][x])
+            johto[0][y][x] = s if s in johto_secs else "MAPSEC_NONE"
+    for d in JOHTO_DUNGEONS:
+        assert "MAPSEC_" + d in used, "MAPSEC_%s: no map of the game uses it" % d
+        y, x = next((y, x) for y in range(jgh) for x in range(jgw) if johto[0][y][x] == "MAPSEC_" + d)
+        johto[1][y][x] = "MAPSEC_" + d
+    grids["johto"] = johto
     owner, fly, dungeon, town_cells = {}, {}, [], set()
-    for name, _, art, grid, *_ in regions[:5]:
+    for name, _, art, grid, *_ in regions:
         x0, y0, w, h_ = grid
         assert art[0] <= x0 and x0 + w <= art[0] + art[2] and art[1] <= y0 and y0 + h_ <= art[1] + art[3], name
         for y in range(h_):
@@ -381,7 +461,7 @@ def main():
                 assert c not in owner, "%s and %s share cell %s" % (name, owner[c], c)
                 owner[c] = name
                 m, d = grids[name][0][y][x][7:], grids[name][1][y][x]
-                if m in FRLG_TOWNS or m in HOENN_TOWNS:
+                if m in FRLG_TOWNS or m in HOENN_TOWNS or m in JOHTO_TOWNS:
                     fly.setdefault(m, c)
                     town_cells.add(c)
                 if d != "MAPSEC_NONE":
@@ -422,8 +502,9 @@ def main():
          "#define NUM_DUNGEON_ICON_SPRITES %d" % n_dun, "#define MAX_WORLD_ICONS %d" % (len(fly) + len(dungeon)), "",
          "// Map sections of Hoenn (Emerald's layout + the dungeon cells) and of the Sevii groups (FRLG's, each island "
          "moved)"]
-    cname = {"kanto": "Kanto", "sevii_123": "Sevii123", "sevii_45": "Sevii45", "sevii_67": "Sevii67", "hoenn": "Hoenn"}
-    for name in ("hoenn", "sevii_123", "sevii_45", "sevii_67"):
+    cname = {"kanto": "Kanto", "sevii_123": "Sevii123", "sevii_45": "Sevii45", "sevii_67": "Sevii67", "hoenn": "Hoenn",
+             "johto": "Johto"}
+    for name in ("hoenn", "sevii_123", "sevii_45", "sevii_67", "johto"):
         c.append("static const u8 sRegionMapSections_%s[LAYER_COUNT][%d][%d] = {" % (
             cname[name], len(grids[name][0]), len(grids[name][0][0])))
         for i, lay in enumerate(grids[name]):

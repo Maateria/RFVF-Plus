@@ -3,7 +3,7 @@
 
 MAKEFLAGS += --no-print-directory
 
-TOOLDIRS := $(filter-out tools/agbcc tools/binutils tools/analyze_source tools/poryscript tools/wav2agb tools/hoenn_import tools/worldmap,$(wildcard tools/*))
+TOOLDIRS := $(filter-out tools/agbcc tools/binutils tools/analyze_source tools/poryscript tools/hoenn_import tools/johto_import tools/worldmap,$(wildcard tools/*))
 
 .PHONY: tools clean-tools $(TOOLDIRS)
 
