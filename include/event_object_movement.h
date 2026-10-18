@@ -139,7 +139,12 @@ void ObjectEventSetGraphicsId(struct ObjectEvent *objectEvent, u16 a1);
 u8 CreateFameCheckerObject(u8 graphicsId, u8 localId, s16 x, s16 y);
 // InitObjectEventPalettes mode of Hoenn maps: pokeemerald's NPC palettes and sprites (see GetObjectEventGraphicsInfo)
 #define OBJ_PAL_MODE_HOENN 2
+// InitObjectEventPalettes mode of Johto maps: PokemonHnS's 4 NPC palettes in the NPC slots, every other palette in a
+// free slot (6-15) while a sprite shows it (GetObjectEventPaletteNum)
+#define OBJ_PAL_MODE_JOHTO 4
 void InitObjectEventPalettes(u8 mode);
+u8 GetObjectEventReflectionPaletteNum(u8 paletteNum);
+bool8 IsJohtoObjectPaletteMode(void);
 bool8 ObjectEventIsMovementOverridden(struct ObjectEvent *objectEvent);
 u8 ObjectEventCheckHeldMovementStatus(struct ObjectEvent *objectEvent);
 u8 GetWalkNormalMovementAction(u32);

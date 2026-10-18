@@ -60,8 +60,9 @@ enum
 };
 
 // Masks/shifts to read the data above from the u32 hiddenItem, calculated from size.
-#define HIDDEN_ITEM_ITEM_BITS      12
-#define HIDDEN_ITEM_FLAG_BITS      12 // the absolute flag id, not an offset from FLAG_HIDDEN_ITEMS_START
+#define HIDDEN_ITEM_ITEM_BITS      10 // ITEMS_COUNT < 1024
+#define HIDDEN_ITEM_FLAG_BITS      14 // the absolute flag id, not an offset from FLAG_HIDDEN_ITEMS_START: reaches the
+                                      // extended flags (EXT_EVENT_FLAGS_START, Johto's hidden items)
 #define HIDDEN_ITEM_QUANTITY_BITS   7
 #define HIDDEN_ITEM_UNDERFOOT_BITS  1
 

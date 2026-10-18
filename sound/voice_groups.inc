@@ -191,3 +191,53 @@
 .include "sound/voicegroups/voicegroup189.inc"
 .include "sound/voicegroups/voicegroup190.inc"
 .include "sound/voicegroups/voicegroup191.inc"
+@ BEGIN johto_music
+.include "sound/voicegroups/voicegroup192.inc" @ HnS voicegroup229
+.include "sound/voicegroups/voicegroup193.inc" @ HnS voicegroup233
+.include "sound/voicegroups/voicegroup194.inc" @ HnS voicegroup234
+.include "sound/voicegroups/voicegroup195.inc" @ HnS voicegroup235
+.include "sound/voicegroups/voicegroup196.inc" @ HnS voicegroup236
+.include "sound/voicegroups/voicegroup197.inc" @ HnS voicegroup237
+.include "sound/voicegroups/voicegroup198.inc" @ HnS voicegroup238
+.include "sound/voicegroups/voicegroup199.inc" @ HnS voicegroup239
+.include "sound/voicegroups/voicegroup200.inc" @ HnS voicegroup240
+.include "sound/voicegroups/voicegroup201.inc" @ HnS voicegroup241
+.include "sound/voicegroups/voicegroup202.inc" @ HnS voicegroup242
+.include "sound/voicegroups/voicegroup203.inc" @ HnS voicegroup243
+.include "sound/voicegroups/voicegroup204.inc" @ HnS voicegroup244
+.include "sound/voicegroups/voicegroup205.inc" @ HnS voicegroup245
+.include "sound/voicegroups/voicegroup206.inc" @ HnS voicegroup246
+.include "sound/voicegroups/voicegroup207.inc" @ HnS voicegroup247
+.include "sound/voicegroups/voicegroup208.inc" @ HnS voicegroup248
+.include "sound/voicegroups/voicegroup209.inc" @ HnS voicegroup249
+.include "sound/voicegroups/voicegroup210.inc" @ HnS voicegroup250
+.include "sound/voicegroups/voicegroup211.inc" @ HnS voicegroup251
+.include "sound/voicegroups/voicegroup212.inc" @ HnS voicegroup252
+.include "sound/voicegroups/voicegroup213.inc" @ HnS voicegroup253
+.include "sound/voicegroups/voicegroup214.inc" @ HnS voicegroup254
+.include "sound/voicegroups/voicegroup215.inc" @ HnS voicegroup255
+.include "sound/voicegroups/voicegroup216.inc" @ HnS voicegroup256
+.include "sound/voicegroups/voicegroup217.inc" @ HnS voicegroup257
+.include "sound/voicegroups/voicegroup218.inc" @ HnS voicegroup258
+.include "sound/voicegroups/voicegroup219.inc" @ HnS voicegroup259
+.include "sound/voicegroups/voicegroup220.inc" @ HnS voicegroup260
+.include "sound/voicegroups/voicegroup221.inc" @ HnS voicegroup261
+.include "sound/voicegroups/voicegroup222.inc" @ HnS voicegroup262
+.include "sound/voicegroups/voicegroup223.inc" @ HnS voicegroup263
+.include "sound/voicegroups/voicegroup224.inc" @ HnS voicegroup264
+.include "sound/voicegroups/voicegroup225.inc" @ HnS voicegroup265
+.include "sound/voicegroups/voicegroup226.inc" @ HnS voicegroup266
+.include "sound/voicegroups/voicegroup227.inc" @ HnS voicegroup267
+.include "sound/voicegroups/voicegroup228.inc" @ HnS voicegroup268
+.include "sound/voicegroups/voicegroup229.inc" @ HnS voicegroup269
+.include "sound/voicegroups/voicegroup230.inc" @ HnS voicegroup270
+.include "sound/voicegroups/voicegroup231.inc" @ HnS voicegroup230
+.include "sound/voicegroups/voicegroup232.inc" @ HnS voicegroup231
+.include "sound/voicegroups/voicegroup233.inc" @ HnS voicegroup271
+.include "sound/voicegroups/voicegroup234.inc" @ HnS voicegroup232
+.include "sound/voicegroups/voicegroup235.inc" @ HnS voicegroup216
+.include "sound/voicegroups/voicegroup236.inc" @ HnS voicegroup272
+.include "sound/voicegroups/voicegroup237.inc" @ HnS voicegroup273
+.include "sound/voicegroups/voicegroup238.inc" @ HnS voicegroup219
+.include "sound/voicegroups/voicegroup239.inc" @ HnS voicegroup220
+@ END johto_music

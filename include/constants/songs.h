@@ -540,6 +540,46 @@
 #define PH_NURSE_BLEND              607
 #define PH_NURSE_HELD               608
 #define PH_NURSE_SOLO               609
+// BEGIN johto_music
+#define MUS_HG_AZALEA                  610 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_BELL_TOWER              611 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_BUG_CATCHING_CONTEST    612 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_BURNED_TOWER            613 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_CHERRYGROVE             614 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_CIANWOOD                615 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_DANCE_THEATER           616 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_DRAGONS_DEN             617 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ECRUTEAK                618 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ELM_LAB                 619 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_GAME_CORNER             620 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_GOLDENROD               621 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_GYM                     622 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ICE_PATH                623 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_LIGHTHOUSE              624 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_NATIONAL_PARK           625 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_NEW_BARK                626 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_POKE_CENTER             627 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_POKE_MART               628 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROCKET_TAKEOVER         629 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE26                 630 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE29                 631 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE30                 632 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE34                 633 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE38                 634 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE42                 635 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_ROUTE47                 636 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_RUINS_OF_ALPH           637 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_SAFARI_ZONE             638 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_SAFARI_ZONE_GATE        639 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_SPROUT_TOWER            640 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_SS_AQUA                 641 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_TEAM_ROCKET_HQ          642 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_UNION_CAVE              643 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_VICTORY_ROAD            644 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_VIOLET                  645 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_SURF                    646 // PokemonHnS (HeartGold/SoulSilver)
+#define MUS_HG_CYCLING                 647 // PokemonHnS (HeartGold/SoulSilver)
+// END johto_music
 
 #define MUS_ROUTE118                0x7FFF  // Map is split into 2 music sections. controlled by GetCurrLocationDefaultMusic().
 

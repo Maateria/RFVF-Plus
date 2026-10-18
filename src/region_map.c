@@ -52,7 +52,7 @@ enum {
     REGIONMAP_SEVII45,
     REGIONMAP_SEVII67,
     REGIONMAP_HOENN,
-    REGIONMAP_JOHTO, // art only, for now
+    REGIONMAP_JOHTO,
     REGIONMAP_COUNT
 };
 
@@ -989,6 +989,20 @@ static const u8 sMapFlyDestinations[][3] = {
     [MAPSEC_RIXY_CHAMBER        ] = {MAP(PALLET_TOWN),                           0},
     [MAPSEC_VIAPOIS_CHAMBER     ] = {MAP(PALLET_TOWN),                           0},
     [MAPSEC_EMBER_SPA           ] = {MAP(PALLET_TOWN),                           0},
+    // Johto (PokemonHnS's heal locations: tools/johto_import)
+    [MAPSEC_NEW_BARK_TOWN       ] = {MAP(NEW_BARK_TOWN),                         SPAWN_NEW_BARK_TOWN},
+    [MAPSEC_CHERRYGROVE_CITY    ] = {MAP(CHERRYGROVE_CITY),                      SPAWN_CHERRYGROVE_CITY},
+    [MAPSEC_VIOLET_CITY         ] = {MAP(VIOLET_CITY),                           SPAWN_VIOLET_CITY},
+    [MAPSEC_AZALEA_TOWN         ] = {MAP(AZALEA_TOWN),                           SPAWN_AZALEA_TOWN},
+    [MAPSEC_GOLDENROD_CITY      ] = {MAP(GOLDENROD_CITY),                        SPAWN_GOLDENROD_CITY},
+    [MAPSEC_ECRUTEAK_CITY       ] = {MAP(ECRUTEAK_CITY),                         SPAWN_ECRUTEAK_CITY},
+    [MAPSEC_OLIVINE_CITY        ] = {MAP(OLIVINE_CITY),                          SPAWN_OLIVINE_CITY},
+    [MAPSEC_CIANWOOD_CITY       ] = {MAP(CIANWOOD_CITY),                         SPAWN_CIANWOOD_CITY},
+    [MAPSEC_MAHOGANY_TOWN       ] = {MAP(MAHOGANY_TOWN),                         SPAWN_MAHOGANY_TOWN},
+    [MAPSEC_BLACKTHORN_CITY     ] = {MAP(BLACKTHORN_CITY),                       SPAWN_BLACKTHORN_CITY},
+    [MAPSEC_LAKE_OF_RAGE        ] = {MAP(LAKE_OF_RAGE),                          SPAWN_LAKE_OF_RAGE},
+    [MAPSEC_MT_SILVER           ] = {MAP(MT_SILVER_OUTSIDE),                     SPAWN_MT_SILVER},
+    [MAPSEC_SAFARI_ZONE_GATE    ] = {MAP(SAFARI_ZONE_GATE),                      SPAWN_SAFARI_ZONE_GATE},
 };
 
 static void RegionMap_DarkenPalette(u16 *pal, u16 size, u16 tint)
@@ -1057,6 +1071,19 @@ void InitRegionMapWithExitCB(u8 type, MainCallback cb)
         InitRegionMapType();
         SetMainCallback2(CB2_OpenRegionMap);
     }
+}
+
+// Johto's map sections (tools/johto_import): after MAPSEC_NONE
+static bool8 IsJohtoMapsec(u16 mapsec)
+{
+    return mapsec >= MAPSEC_NEW_BARK_TOWN && mapsec <= MAPSEC_DARK_CAVE;
+}
+
+// Johto's Fly destinations: its towns and the three places with a town ball (sMapFlyDestinations)
+static bool8 IsJohtoFlyMapsec(u16 mapsec)
+{
+    return (mapsec >= MAPSEC_NEW_BARK_TOWN && mapsec <= MAPSEC_BLACKTHORN_CITY)
+        || mapsec == MAPSEC_LAKE_OF_RAGE || mapsec == MAPSEC_MT_SILVER || mapsec == MAPSEC_SAFARI_ZONE_GATE;
 }
 
 // Emerald's map sections are on Hoenn's grid, Emerald's own ones (MAPSEC_AQUA_HIDEOUT..MAPSEC_TRAINER_HILL) included,
@@ -1130,6 +1157,10 @@ static void InitRegionMapType(void)
     if (IsHoennMapsec(gMapHeader.regionMapSectionId))
     {
         region = REGIONMAP_HOENN;
+    }
+    if (IsJohtoMapsec(gMapHeader.regionMapSectionId))
+    {
+        region = REGIONMAP_JOHTO;
     }
     if(gMapHeader.regionMapSectionId == MAPSEC_BATTLE_FRONTIER || gMapHeader.regionMapSectionId == MAPSEC_ARTISAN_CAVE || gMapHeader.regionMapSectionId == MAPSEC_SOUTHERN_ISLAND)
     {
@@ -2887,6 +2918,8 @@ static u8 GetMapsecType(u8 mapsec)
     default:
         if (mapsec <= MAPSEC_EVER_GRANDE_CITY) // Hoenn's towns
             return FlagGet(FLAG_WORLD_MAP_LITTLEROOT_TOWN + mapsec) ? MAPSECTYPE_VISITED : MAPSECTYPE_NOT_VISITED;
+        if (IsJohtoFlyMapsec(mapsec))
+            return FlagGet(FLAG_WORLD_MAP_JOHTO(mapsec)) ? MAPSECTYPE_VISITED : MAPSECTYPE_NOT_VISITED;
         return MAPSECTYPE_ROUTE;
     }
 }
@@ -2895,6 +2928,8 @@ static u8 GetDungeonMapsecType(u8 mapsec)
 {
     u32 i;
 
+    if (IsJohtoMapsec(mapsec)) // Johto's dungeon icons (worldmap.py JOHTO_DUNGEONS)
+        return FlagGet(FLAG_WORLD_MAP_JOHTO(mapsec)) ? MAPSECTYPE_VISITED : MAPSECTYPE_NOT_VISITED;
     switch (mapsec)
     {
     case MAPSEC_NONE:
@@ -2971,12 +3006,14 @@ static u8 GetDungeonMapsecType(u8 mapsec)
     }
 }
 
-// The visited flags of Hoenn's towns (Fly) and dungeons (icons), set on entering any map of the section, as
-// setworldmapflag in FRLG's map scripts does for Kanto's
+// The visited flags of Hoenn's and Johto's towns (Fly) and dungeons (icons), set on entering any map of the section,
+// as setworldmapflag in FRLG's map scripts does for Kanto's
 void SetHoennWorldMapFlag(u16 mapsec)
 {
     u32 i;
 
+    if (IsJohtoMapsec(mapsec))
+        FlagSet(FLAG_WORLD_MAP_JOHTO(mapsec));
     if (mapsec <= MAPSEC_EVER_GRANDE_CITY)
         FlagSet(FLAG_WORLD_MAP_LITTLEROOT_TOWN + mapsec);
     for (i = 0; i < NELEMS(sHoennDungeonFlags); i++)
@@ -3004,6 +3041,38 @@ static u16 GetPlayerCurrentMapSectionId(void)
     return Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum)->regionMapSectionId;
 }
 
+// Johto: HnS draws Route 26 and Mt. Silver's side from two maps each; the second one continues the first (south, east)
+static const struct { u8 group, num, nextGroup, nextNum; bool8 east; } sJohtoJoinedMaps[] = {
+    {MAP_GROUP(ROUTE26NORTH), MAP_NUM(ROUTE26NORTH), MAP_GROUP(ROUTE26), MAP_NUM(ROUTE26), FALSE},
+    {MAP_GROUP(MT_SILVER_OUTSIDE), MAP_NUM(MT_SILVER_OUTSIDE), MAP_GROUP(ROUTE28), MAP_NUM(ROUTE28), TRUE},
+};
+
+static void JoinJohtoSectionMaps(u8 group, u8 num, u16 *x, u16 *y, u16 *width, u16 *height)
+{
+    u32 i;
+
+    for (i = 0; i < ARRAY_COUNT(sJohtoJoinedMaps); i++)
+    {
+        const struct MapLayout *first = Overworld_GetMapHeaderByGroupAndId(sJohtoJoinedMaps[i].group, sJohtoJoinedMaps[i].num)->mapLayout;
+        const struct MapLayout *next = Overworld_GetMapHeaderByGroupAndId(sJohtoJoinedMaps[i].nextGroup, sJohtoJoinedMaps[i].nextNum)->mapLayout;
+
+        if (group == sJohtoJoinedMaps[i].group && num == sJohtoJoinedMaps[i].num)
+        {
+            if (sJohtoJoinedMaps[i].east)
+                *width += next->width;
+            else
+                *height += next->height;
+        }
+        else if (group == sJohtoJoinedMaps[i].nextGroup && num == sJohtoJoinedMaps[i].nextNum)
+        {
+            if (sJohtoJoinedMaps[i].east)
+                *x += first->width, *width += first->width;
+            else
+                *y += first->height, *height += first->height;
+        }
+    }
+}
+
 static void GetPlayerPositionOnRegionMap(void)
 {
     u16 width;
@@ -3011,6 +3080,8 @@ static void GetPlayerPositionOnRegionMap(void)
     u16 height;
     u16 x;
     u16 y;
+    u8 group = gSaveBlock1Ptr->location.mapGroup;
+    u8 num = gSaveBlock1Ptr->location.mapNum;
 
     const struct MapHeader * mapHeader;
     struct WarpData * warp;
@@ -3039,6 +3110,8 @@ static void GetPlayerPositionOnRegionMap(void)
         height = mapHeader->mapLayout->height;
         x = gSaveBlock1Ptr->escapeWarp.x;
         y = gSaveBlock1Ptr->escapeWarp.y;
+        group = gSaveBlock1Ptr->escapeWarp.mapGroup;
+        num = gSaveBlock1Ptr->escapeWarp.mapNum;
         break;
     case MAP_TYPE_SECRET_BASE:
         mapHeader = Overworld_GetMapHeaderByGroupAndId(gSaveBlock1Ptr->dynamicWarp.mapGroup, gSaveBlock1Ptr->dynamicWarp.mapNum);
@@ -3047,6 +3120,8 @@ static void GetPlayerPositionOnRegionMap(void)
         height = mapHeader->mapLayout->height;
         x = gSaveBlock1Ptr->dynamicWarp.x;
         y = gSaveBlock1Ptr->dynamicWarp.y;
+        group = gSaveBlock1Ptr->dynamicWarp.mapGroup;
+        num = gSaveBlock1Ptr->dynamicWarp.mapNum;
         break;
     case MAP_TYPE_INDOOR:
         if ((sMapCursor->selectedMapsec = gMapHeader.regionMapSectionId) != MAPSEC_SPECIAL_AREA)
@@ -3064,10 +3139,12 @@ static void GetPlayerPositionOnRegionMap(void)
         height = mapHeader->mapLayout->height;
         x = warp->x;
         y = warp->y;
+        group = warp->mapGroup;
+        num = warp->mapNum;
         break;
     }
 
-    sMapCursor->selectedMapsec;
+    JoinJohtoSectionMaps(group, num, &x, &y, &width, &height);
     divisor = width / sMapSectionDimensions[sMapCursor->selectedMapsec][0];
     if (divisor == 0)
         divisor = 1;
@@ -3267,6 +3344,32 @@ static void GetPlayerPositionOnRegionMap_HandleOverrides(void)
         sMapCursor->x = 0;
         sMapCursor->y = 0;
         sRegionMap->playerHidden = TRUE;
+        break;
+    case MAPSEC_ROUTE_26:
+        // Johto's Reception Gate (inside, Route 26's section): its own cell atop Route 26, where Route 22 arrives
+        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(RECEPTION_GATE)
+         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(RECEPTION_GATE))
+        {
+            sMapCursor->x = sMapSectionTopLeftCorners[MAPSEC_ROUTE_26][0];
+            sMapCursor->y = sMapSectionTopLeftCorners[MAPSEC_ROUTE_26][1] - 1;
+        }
+        else
+        {
+            GetPlayerPositionOnRegionMap();
+        }
+        break;
+    case MAPSEC_ROUTE_22:
+        // FRLG's gate to Route 23 (inside): under Route 23, not at Route 22's west end (Johto's gate)
+        if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(ROUTE22_NORTH_ENTRANCE)
+         && gSaveBlock1Ptr->location.mapNum == MAP_NUM(ROUTE22_NORTH_ENTRANCE))
+        {
+            sMapCursor->x = 2;
+            sMapCursor->y = 8;
+        }
+        else
+        {
+            GetPlayerPositionOnRegionMap();
+        }
         break;
     case MAPSEC_JAGGED_PASS:
         // On its icon, Emerald's second Jagged Pass cell (worldmap.py): the first one is Magma Hideout's
@@ -3706,7 +3809,7 @@ u8 *GetMapName(u8 *dst0, u16 mapsec, u16 fill)
     u8 *dst;
     u32 i;
     u16 idx;
-    if ((idx = mapsec) < MAPSEC_NONE )
+    if ((idx = mapsec) < MAPSEC_COUNT && mapsec != MAPSEC_NONE) // Johto's sections come after MAPSEC_NONE
     {
         if (IsCeladonDeptStoreMapsec(mapsec) == TRUE)
             dst = StringCopy(dst0, sMapsecName_CENTCOMMERCIAL);

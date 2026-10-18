@@ -1145,6 +1145,46 @@ SECTIONS {
         sound/songs/midi/ph_nurse_blend.o(.rodata);
         sound/songs/midi/ph_nurse_held.o(.rodata);
         sound/songs/midi/ph_nurse_solo.o(.rodata);
+        /* BEGIN johto_music */
+        sound/songs/midi/mus_hg_azalea.o(.rodata);
+        sound/songs/midi/mus_hg_bell_tower.o(.rodata);
+        sound/songs/midi/mus_hg_bug_catching_contest.o(.rodata);
+        sound/songs/midi/mus_hg_burned_tower.o(.rodata);
+        sound/songs/midi/mus_hg_cherrygrove.o(.rodata);
+        sound/songs/midi/mus_hg_cianwood.o(.rodata);
+        sound/songs/midi/mus_hg_dance_theater.o(.rodata);
+        sound/songs/midi/mus_hg_dragons_den.o(.rodata);
+        sound/songs/midi/mus_hg_ecruteak.o(.rodata);
+        sound/songs/midi/mus_hg_elm_lab.o(.rodata);
+        sound/songs/midi/mus_hg_game_corner.o(.rodata);
+        sound/songs/midi/mus_hg_goldenrod.o(.rodata);
+        sound/songs/midi/mus_hg_gym.o(.rodata);
+        sound/songs/midi/mus_hg_ice_path.o(.rodata);
+        sound/songs/midi/mus_hg_lighthouse.o(.rodata);
+        sound/songs/midi/mus_hg_national_park.o(.rodata);
+        sound/songs/midi/mus_hg_new_bark.o(.rodata);
+        sound/songs/midi/mus_hg_poke_center.o(.rodata);
+        sound/songs/midi/mus_hg_poke_mart.o(.rodata);
+        sound/songs/midi/mus_hg_rocket_takeover.o(.rodata);
+        sound/songs/midi/mus_hg_route26.o(.rodata);
+        sound/songs/midi/mus_hg_route29.o(.rodata);
+        sound/songs/midi/mus_hg_route30.o(.rodata);
+        sound/songs/midi/mus_hg_route34.o(.rodata);
+        sound/songs/midi/mus_hg_route38.o(.rodata);
+        sound/songs/midi/mus_hg_route42.o(.rodata);
+        sound/songs/midi/mus_hg_route47.o(.rodata);
+        sound/songs/midi/mus_hg_ruins_of_alph.o(.rodata);
+        sound/songs/midi/mus_hg_safari_zone.o(.rodata);
+        sound/songs/midi/mus_hg_safari_zone_gate.o(.rodata);
+        sound/songs/midi/mus_hg_sprout_tower.o(.rodata);
+        sound/songs/midi/mus_hg_ss_aqua.o(.rodata);
+        sound/songs/midi/mus_hg_team_rocket_hq.o(.rodata);
+        sound/songs/midi/mus_hg_union_cave.o(.rodata);
+        sound/songs/midi/mus_hg_victory_road.o(.rodata);
+        sound/songs/midi/mus_hg_violet.o(.rodata);
+        sound/songs/midi/mus_hg_surf.o(.rodata);
+        sound/songs/midi/mus_hg_cycling.o(.rodata);
+        /* END johto_music */
     } =0
 
     lib_rodata :
@@ -1208,7 +1248,7 @@ SECTIONS {
         data/multiboot_pokemon_colosseum.o(.rodata);
     } =0
 
-    . = 0x08D00000;
+    /* RFVF+: no longer at FireRed's 0x08D00000 (the data before it outgrew it with Johto); it follows on */
     gfx_data :
     ALIGN(4)
     {

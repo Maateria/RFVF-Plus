@@ -101,10 +101,11 @@
 	@ Defines a background hidden item event for map data. Packed into BgEvent's u32 hiddenItem
 	@ (HIDDEN_ITEM_* in include/global.fieldmap.h): item 12 bits, absolute flag 12 bits, quantity 7 bits, underfoot 1 bit.
 	.macro bg_hidden_item_event x:req, y:req, elevation:req, item:req, flag:req, quantity:req, underfoot:req
-	.if ((\item) >> 12) || ((\flag) >> 12) || ((\quantity) >> 7) || ((\underfoot) >> 1)
+	@ Same layout as HIDDEN_ITEM_*_BITS (include/global.fieldmap.h): item 10 bits, flag 14, quantity 7, underfoot 1
+	.if ((\item) >> 10) || ((\flag) >> 14) || ((\quantity) >> 7) || ((\underfoot) >> 1)
 	.error "bg_hidden_item_event: item, flag, quantity or underfoot does not fit in its field"
 	.endif
-	bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, (\item) | ((\flag) << 12) | ((\quantity) << 24) | ((\underfoot) << 31)
+	bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, (\item) | ((\flag) << 10) | ((\quantity) << 24) | ((\underfoot) << 31)
 	.endm
 
 	@ Defines a background secret base event for map data.

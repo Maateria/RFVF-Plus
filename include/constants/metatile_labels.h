@@ -357,6 +357,10 @@
 #define METATILE_HoennInsideBuilding_TV_Off  0x002
 #define METATILE_HoennInsideBuilding_TV_On   0x003
 
+// gTileset_JohtoBuilding (PokemonHnS, tools/johto_import)
+#define METATILE_JohtoBuilding_PC_Off        0x062
+#define METATILE_JohtoBuilding_PC_On         0x063
+
 // gTileset_HoennInsideShip
 #define METATILE_HoennInsideShip_DoorIndent_Locked           0x2B4
 #define METATILE_HoennInsideShip_DoorIndent_Unlocked         0x29A

@@ -611,6 +611,46 @@ gSongTable::
 	song ph_nurse_blend, 2, 2
 	song ph_nurse_held, 2, 2
 	song ph_nurse_solo, 2, 2
+@ BEGIN johto_music
+	song mus_hg_azalea, 0, 0
+	song mus_hg_bell_tower, 0, 0
+	song mus_hg_bug_catching_contest, 0, 0
+	song mus_hg_burned_tower, 0, 0
+	song mus_hg_cherrygrove, 0, 0
+	song mus_hg_cianwood, 0, 0
+	song mus_hg_dance_theater, 0, 0
+	song mus_hg_dragons_den, 0, 0
+	song mus_hg_ecruteak, 0, 0
+	song mus_hg_elm_lab, 0, 0
+	song mus_hg_game_corner, 0, 0
+	song mus_hg_goldenrod, 0, 0
+	song mus_hg_gym, 0, 0
+	song mus_hg_ice_path, 0, 0
+	song mus_hg_lighthouse, 0, 0
+	song mus_hg_national_park, 0, 0
+	song mus_hg_new_bark, 0, 0
+	song mus_hg_poke_center, 0, 0
+	song mus_hg_poke_mart, 0, 0
+	song mus_hg_rocket_takeover, 0, 0
+	song mus_hg_route26, 0, 0
+	song mus_hg_route29, 0, 0
+	song mus_hg_route30, 0, 0
+	song mus_hg_route34, 0, 0
+	song mus_hg_route38, 0, 0
+	song mus_hg_route42, 0, 0
+	song mus_hg_route47, 0, 0
+	song mus_hg_ruins_of_alph, 0, 0
+	song mus_hg_safari_zone, 0, 0
+	song mus_hg_safari_zone_gate, 0, 0
+	song mus_hg_sprout_tower, 0, 0
+	song mus_hg_ss_aqua, 0, 0
+	song mus_hg_team_rocket_hq, 0, 0
+	song mus_hg_union_cave, 0, 0
+	song mus_hg_victory_road, 0, 0
+	song mus_hg_violet, 0, 0
+	song mus_hg_surf, 0, 0
+	song mus_hg_cycling, 0, 0
+@ END johto_music
 
 	.align 2
 dummy_song_header:

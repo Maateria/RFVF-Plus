@@ -2181,3 +2181,785 @@ DirectSoundWaveData_wave_54::
 	.align 2
 DirectSoundWaveData_wave_77::
 	.incbin "sound/direct_sound_samples/wave_77.bin"
+@ BEGIN johto_music
+	.align 2
+DirectSoundWaveData_dp_slapbass_c1_16::
+	.incbin "sound/direct_sound_samples/johto/dp_slapbass_c1_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_woodbass_d3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_woodbass_d3_16.bin"
+
+	.align 2
+DirectSoundWaveData_puresquare_50::
+	.incbin "sound/direct_sound_samples/johto/puresquare_50.bin"
+
+	.align 2
+DirectSoundWaveData_dp_explosion::
+	.incbin "sound/direct_sound_samples/johto/dp_explosion.bin"
+
+	.align 2
+DirectSoundWaveData_purenoise::
+	.incbin "sound/direct_sound_samples/johto/purenoise.bin"
+
+	.align 2
+DirectSoundWaveData_dp_whistle_c5_16::
+	.incbin "sound/direct_sound_samples/johto/dp_whistle_c5_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_reverscyn_16::
+	.incbin "sound/direct_sound_samples/johto/dp_reverscyn_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_org5_c3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_org5_c3_16.bin"
+
+	.align 2
+DirectSoundWaveData_puresquare_37::
+	.incbin "sound/direct_sound_samples/johto/puresquare_37.bin"
+
+	.align 2
+DirectSoundWaveData_puresquare_12::
+	.incbin "sound/direct_sound_samples/johto/puresquare_12.bin"
+
+	.align 2
+DirectSoundWaveData_dp_orchhitmajor60::
+	.incbin "sound/direct_sound_samples/johto/dp_orchhitmajor60.bin"
+
+	.align 2
+DirectSoundWaveData_dp_orchhitminor60::
+	.incbin "sound/direct_sound_samples/johto/dp_orchhitminor60.bin"
+
+	.align 2
+DirectSoundWaveData_dp_synbass1_c2_16::
+	.incbin "sound/direct_sound_samples/johto/dp_synbass1_c2_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_synbass2_c1_16::
+	.incbin "sound/direct_sound_samples/johto/dp_synbass2_c1_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_sawtoothlead60::
+	.incbin "sound/direct_sound_samples/johto/dp_sawtoothlead60.bin"
+
+	.align 2
+DirectSoundWaveData_hg_hyoshigi::
+	.incbin "sound/direct_sound_samples/johto/hg_hyoshigi.bin"
+
+	.align 2
+DirectSoundWaveData_hg_kodaiko::
+	.incbin "sound/direct_sound_samples/johto/hg_kodaiko.bin"
+
+	.align 2
+DirectSoundWaveData_hg_tsuzumi::
+	.incbin "sound/direct_sound_samples/johto/hg_tsuzumi.bin"
+
+	.align 2
+DirectSoundWaveData_hg_jinglebell::
+	.incbin "sound/direct_sound_samples/johto/hg_jinglebell.bin"
+
+	.align 2
+DirectSoundWaveData_hg_hoohclap::
+	.incbin "sound/direct_sound_samples/johto/hg_hoohclap.bin"
+
+	.align 2
+DirectSoundWaveData_dp_tenorchoir48::
+	.incbin "sound/direct_sound_samples/johto/dp_tenorchoir48.bin"
+
+	.align 2
+DirectSoundWaveData_dp_sopranochoir60::
+	.incbin "sound/direct_sound_samples/johto/dp_sopranochoir60.bin"
+
+	.align 2
+DirectSoundWaveData_hg_choirc5::
+	.incbin "sound/direct_sound_samples/johto/hg_choirc5.bin"
+
+	.align 2
+DirectSoundWaveData_dp_spearpillarwind60::
+	.incbin "sound/direct_sound_samples/johto/dp_spearpillarwind60.bin"
+
+	.align 2
+DirectSoundWaveData_dp_altosax_c3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_altosax_c3_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_synthsnare::
+	.incbin "sound/direct_sound_samples/johto/dp_synthsnare.bin"
+
+	.align 2
+DirectSoundWaveData_dp_tom1_16::
+	.incbin "sound/direct_sound_samples/johto/dp_tom1_16.bin"
+
+	.align 2
+DirectSoundWaveData_hg_051pnoc2::
+	.incbin "sound/direct_sound_samples/johto/hg_051pnoc2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_052pnoc3::
+	.incbin "sound/direct_sound_samples/johto/hg_052pnoc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_053pnoc4::
+	.incbin "sound/direct_sound_samples/johto/hg_053pnoc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_054pnoc5::
+	.incbin "sound/direct_sound_samples/johto/hg_054pnoc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_055pnoc6::
+	.incbin "sound/direct_sound_samples/johto/hg_055pnoc6.bin"
+
+	.align 2
+DirectSoundWaveData_hg_005pnoffc4::
+	.incbin "sound/direct_sound_samples/johto/hg_005pnoffc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_006pnoffc5::
+	.incbin "sound/direct_sound_samples/johto/hg_006pnoffc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_082octpnoc2::
+	.incbin "sound/direct_sound_samples/johto/hg_082octpnoc2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_083octpnoc3::
+	.incbin "sound/direct_sound_samples/johto/hg_083octpnoc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_084octpnoc4::
+	.incbin "sound/direct_sound_samples/johto/hg_084octpnoc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_085octpnoc5::
+	.incbin "sound/direct_sound_samples/johto/hg_085octpnoc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_043rhodc4::
+	.incbin "sound/direct_sound_samples/johto/hg_043rhodc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_044rhodc5::
+	.incbin "sound/direct_sound_samples/johto/hg_044rhodc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_148vibrc4::
+	.incbin "sound/direct_sound_samples/johto/hg_148vibrc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_149vibrc5::
+	.incbin "sound/direct_sound_samples/johto/hg_149vibrc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_068marimc4::
+	.incbin "sound/direct_sound_samples/johto/hg_068marimc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_069marimc5::
+	.incbin "sound/direct_sound_samples/johto/hg_069marimc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_070marimc6::
+	.incbin "sound/direct_sound_samples/johto/hg_070marimc6.bin"
+
+	.align 2
+DirectSoundWaveData_hg_156xylo1c4::
+	.incbin "sound/direct_sound_samples/johto/hg_156xylo1c4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_155xylo1a4::
+	.incbin "sound/direct_sound_samples/johto/hg_155xylo1a4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_157xylo1f5::
+	.incbin "sound/direct_sound_samples/johto/hg_157xylo1f5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_147tbellg4::
+	.incbin "sound/direct_sound_samples/johto/hg_147tbellg4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_146tbellc5::
+	.incbin "sound/direct_sound_samples/johto/hg_146tbellc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_049glocknc4::
+	.incbin "sound/direct_sound_samples/johto/hg_049glocknc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_050glocknc5::
+	.incbin "sound/direct_sound_samples/johto/hg_050glocknc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_071musboxc4::
+	.incbin "sound/direct_sound_samples/johto/hg_071musboxc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_072musboxc5::
+	.incbin "sound/direct_sound_samples/johto/hg_072musboxc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_073musboxc6::
+	.incbin "sound/direct_sound_samples/johto/hg_073musboxc6.bin"
+
+	.align 2
+DirectSoundWaveData_hg_038drawbc3::
+	.incbin "sound/direct_sound_samples/johto/hg_038drawbc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_039drawbc4::
+	.incbin "sound/direct_sound_samples/johto/hg_039drawbc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_040drawbc5::
+	.incbin "sound/direct_sound_samples/johto/hg_040drawbc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_091jazorgc3::
+	.incbin "sound/direct_sound_samples/johto/hg_091jazorgc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_092jazorgc4::
+	.incbin "sound/direct_sound_samples/johto/hg_092jazorgc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_093jazorgc5::
+	.incbin "sound/direct_sound_samples/johto/hg_093jazorgc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_002accorc3::
+	.incbin "sound/direct_sound_samples/johto/hg_002accorc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_003accorc4::
+	.incbin "sound/direct_sound_samples/johto/hg_003accorc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_004accorc5::
+	.incbin "sound/direct_sound_samples/johto/hg_004accorc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_077nylong2::
+	.incbin "sound/direct_sound_samples/johto/hg_077nylong2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_078nylong3::
+	.incbin "sound/direct_sound_samples/johto/hg_078nylong3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_076nylone4::
+	.incbin "sound/direct_sound_samples/johto/hg_076nylone4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_075nylonc5::
+	.incbin "sound/direct_sound_samples/johto/hg_075nylonc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_117marting2::
+	.incbin "sound/direct_sound_samples/johto/hg_117marting2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_118marting3::
+	.incbin "sound/direct_sound_samples/johto/hg_118marting3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_116martine4::
+	.incbin "sound/direct_sound_samples/johto/hg_116martine4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_115martinc5::
+	.incbin "sound/direct_sound_samples/johto/hg_115martinc5.bin"
+
+	.align 2
+DirectSoundWaveData_dp_disgt_e1_16::
+	.incbin "sound/direct_sound_samples/johto/dp_disgt_e1_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_disgt_c2_16::
+	.incbin "sound/direct_sound_samples/johto/dp_disgt_c2_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_disgt_e3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_disgt_e3_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_disgt_e4_16::
+	.incbin "sound/direct_sound_samples/johto/dp_disgt_e4_16.bin"
+
+	.align 2
+DirectSoundWaveData_hg_029cleang2::
+	.incbin "sound/direct_sound_samples/johto/hg_029cleang2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_030cleang3::
+	.incbin "sound/direct_sound_samples/johto/hg_030cleang3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_028cleane4::
+	.incbin "sound/direct_sound_samples/johto/hg_028cleane4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_027cleanc5::
+	.incbin "sound/direct_sound_samples/johto/hg_027cleanc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_000uprigc2::
+	.incbin "sound/direct_sound_samples/johto/hg_000uprigc2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_001uprigc3::
+	.incbin "sound/direct_sound_samples/johto/hg_001uprigc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_041ampega2::
+	.incbin "sound/direct_sound_samples/johto/hg_041ampega2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_042ampega3::
+	.incbin "sound/direct_sound_samples/johto/hg_042ampega3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_123elastkc2::
+	.incbin "sound/direct_sound_samples/johto/hg_123elastkc2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_124elastkc3::
+	.incbin "sound/direct_sound_samples/johto/hg_124elastkc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_120str1c4::
+	.incbin "sound/direct_sound_samples/johto/hg_120str1c4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_119str1a4::
+	.incbin "sound/direct_sound_samples/johto/hg_119str1a4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_122str1f5::
+	.incbin "sound/direct_sound_samples/johto/hg_122str1f5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_121str1c6::
+	.incbin "sound/direct_sound_samples/johto/hg_121str1c6.bin"
+
+	.align 2
+DirectSoundWaveData_hg_152violne4::
+	.incbin "sound/direct_sound_samples/johto/hg_152violne4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_151violnc5::
+	.incbin "sound/direct_sound_samples/johto/hg_151violnc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_150violna5::
+	.incbin "sound/direct_sound_samples/johto/hg_150violna5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_021cellog2::
+	.incbin "sound/direct_sound_samples/johto/hg_021cellog2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_020celloe3::
+	.incbin "sound/direct_sound_samples/johto/hg_020celloe3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_019celloc4::
+	.incbin "sound/direct_sound_samples/johto/hg_019celloc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_102pizzg2::
+	.incbin "sound/direct_sound_samples/johto/hg_102pizzg2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_100pizze3::
+	.incbin "sound/direct_sound_samples/johto/hg_100pizze3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_099pizzc4::
+	.incbin "sound/direct_sound_samples/johto/hg_099pizzc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_098pizza4::
+	.incbin "sound/direct_sound_samples/johto/hg_098pizza4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_101pizzf5::
+	.incbin "sound/direct_sound_samples/johto/hg_101pizzf5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_058harpc3::
+	.incbin "sound/direct_sound_samples/johto/hg_058harpc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_059harpc4::
+	.incbin "sound/direct_sound_samples/johto/hg_059harpc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_060harpc5::
+	.incbin "sound/direct_sound_samples/johto/hg_060harpc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_133timpg3::
+	.incbin "sound/direct_sound_samples/johto/hg_133timpg3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_132timpc4::
+	.incbin "sound/direct_sound_samples/johto/hg_132timpc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_134timpg4::
+	.incbin "sound/direct_sound_samples/johto/hg_134timpg4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_144tptc4::
+	.incbin "sound/direct_sound_samples/johto/hg_144tptc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_143tpta4::
+	.incbin "sound/direct_sound_samples/johto/hg_143tpta4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_145tptg5::
+	.incbin "sound/direct_sound_samples/johto/hg_145tptg5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_142tbng2::
+	.incbin "sound/direct_sound_samples/johto/hg_142tbng2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_141tbne3::
+	.incbin "sound/direct_sound_samples/johto/hg_141tbne3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_140tbnc4::
+	.incbin "sound/direct_sound_samples/johto/hg_140tbnc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_016fhsolof3::
+	.incbin "sound/direct_sound_samples/johto/hg_016fhsolof3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_015fhsolod4::
+	.incbin "sound/direct_sound_samples/johto/hg_015fhsolod4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_014fhsolob4::
+	.incbin "sound/direct_sound_samples/johto/hg_014fhsolob4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_048fhnsf3::
+	.incbin "sound/direct_sound_samples/johto/hg_048fhnsf3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_047fhnsd4::
+	.incbin "sound/direct_sound_samples/johto/hg_047fhnsd4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_046fhnsb4::
+	.incbin "sound/direct_sound_samples/johto/hg_046fhnsb4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_081oboee4::
+	.incbin "sound/direct_sound_samples/johto/hg_081oboee4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_080oboec5::
+	.incbin "sound/direct_sound_samples/johto/hg_080oboec5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_079oboea5::
+	.incbin "sound/direct_sound_samples/johto/hg_079oboea5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_025clarig3::
+	.incbin "sound/direct_sound_samples/johto/hg_025clarig3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_024clarie4::
+	.incbin "sound/direct_sound_samples/johto/hg_024clarie4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_023claric5::
+	.incbin "sound/direct_sound_samples/johto/hg_023claric5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_095flt1c4::
+	.incbin "sound/direct_sound_samples/johto/hg_095flt1c4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_094flt1a4::
+	.incbin "sound/direct_sound_samples/johto/hg_094flt1a4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_097flt1f5::
+	.incbin "sound/direct_sound_samples/johto/hg_097flt1f5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_096flt1c6::
+	.incbin "sound/direct_sound_samples/johto/hg_096flt1c6.bin"
+
+	.align 2
+DirectSoundWaveData_hg_012bsne2::
+	.incbin "sound/direct_sound_samples/johto/hg_012bsne2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_011bsnc3::
+	.incbin "sound/direct_sound_samples/johto/hg_011bsnc3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_010bsna3::
+	.incbin "sound/direct_sound_samples/johto/hg_010bsna3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_086orchitc4::
+	.incbin "sound/direct_sound_samples/johto/hg_086orchitc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_087orchitc5::
+	.incbin "sound/direct_sound_samples/johto/hg_087orchitc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_089orchitg5::
+	.incbin "sound/direct_sound_samples/johto/hg_089orchitg5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_088orchitc6::
+	.incbin "sound/direct_sound_samples/johto/hg_088orchitc6.bin"
+
+	.align 2
+DirectSoundWaveData_hg_125squarc4::
+	.incbin "sound/direct_sound_samples/johto/hg_125squarc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_126squarc5::
+	.incbin "sound/direct_sound_samples/johto/hg_126squarc5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_127squarc6::
+	.incbin "sound/direct_sound_samples/johto/hg_127squarc6.bin"
+
+	.align 2
+DirectSoundWaveData_dp_handclup1::
+	.incbin "sound/direct_sound_samples/johto/dp_handclup1.bin"
+
+	.align 2
+DirectSoundWaveData_dp_sne2_loop::
+	.incbin "sound/direct_sound_samples/johto/dp_sne2_loop.bin"
+
+	.align 2
+DirectSoundWaveData_dp_bass2::
+	.incbin "sound/direct_sound_samples/johto/dp_bass2.bin"
+
+	.align 2
+DirectSoundWaveData_dp_808snare_16::
+	.incbin "sound/direct_sound_samples/johto/dp_808snare_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_bassdr2_16::
+	.incbin "sound/direct_sound_samples/johto/dp_bassdr2_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_bassdr1::
+	.incbin "sound/direct_sound_samples/johto/dp_bassdr1.bin"
+
+	.align 2
+DirectSoundWaveData_dp_rim1_roop::
+	.incbin "sound/direct_sound_samples/johto/dp_rim1_roop.bin"
+
+	.align 2
+DirectSoundWaveData_dp_oct_snare_16::
+	.incbin "sound/direct_sound_samples/johto/dp_oct_snare_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_053clap::
+	.incbin "sound/direct_sound_samples/johto/dp_053clap.bin"
+
+	.align 2
+DirectSoundWaveData_dp_093snare::
+	.incbin "sound/direct_sound_samples/johto/dp_093snare.bin"
+
+	.align 2
+DirectSoundWaveData_hg_135tom::
+	.incbin "sound/direct_sound_samples/johto/hg_135tom.bin"
+
+	.align 2
+DirectSoundWaveData_hg_062chh::
+	.incbin "sound/direct_sound_samples/johto/hg_062chh.bin"
+
+	.align 2
+DirectSoundWaveData_hg_137tom::
+	.incbin "sound/direct_sound_samples/johto/hg_137tom.bin"
+
+	.align 2
+DirectSoundWaveData_hg_138tom::
+	.incbin "sound/direct_sound_samples/johto/hg_138tom.bin"
+
+	.align 2
+DirectSoundWaveData_hg_063ohh::
+	.incbin "sound/direct_sound_samples/johto/hg_063ohh.bin"
+
+	.align 2
+DirectSoundWaveData_hg_136tom::
+	.incbin "sound/direct_sound_samples/johto/hg_136tom.bin"
+
+	.align 2
+DirectSoundWaveData_hg_033orccym::
+	.incbin "sound/direct_sound_samples/johto/hg_033orccym.bin"
+
+	.align 2
+DirectSoundWaveData_hg_032crash::
+	.incbin "sound/direct_sound_samples/johto/hg_032crash.bin"
+
+	.align 2
+DirectSoundWaveData_hg_022china::
+	.incbin "sound/direct_sound_samples/johto/hg_022china.bin"
+
+	.align 2
+DirectSoundWaveData_dp_ridecap::
+	.incbin "sound/direct_sound_samples/johto/dp_ridecap.bin"
+
+	.align 2
+DirectSoundWaveData_dp_tambourine_16::
+	.incbin "sound/direct_sound_samples/johto/dp_tambourine_16.bin"
+
+	.align 2
+DirectSoundWaveData_hg_114splash::
+	.incbin "sound/direct_sound_samples/johto/hg_114splash.bin"
+
+	.align 2
+DirectSoundWaveData_hg_031cowbl::
+	.incbin "sound/direct_sound_samples/johto/hg_031cowbl.bin"
+
+	.align 2
+DirectSoundWaveData_dp_ridecynbal::
+	.incbin "sound/direct_sound_samples/johto/dp_ridecynbal.bin"
+
+	.align 2
+DirectSoundWaveData_dp_016bongo::
+	.incbin "sound/direct_sound_samples/johto/dp_016bongo.bin"
+
+	.align 2
+DirectSoundWaveData_dp_mute_conga_16::
+	.incbin "sound/direct_sound_samples/johto/dp_mute_conga_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_060conga::
+	.incbin "sound/direct_sound_samples/johto/dp_060conga.bin"
+
+	.align 2
+DirectSoundWaveData_dp_cabassa_16::
+	.incbin "sound/direct_sound_samples/johto/dp_cabassa_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_sheiker::
+	.incbin "sound/direct_sound_samples/johto/dp_sheiker.bin"
+
+	.align 2
+DirectSoundWaveData_dp_triangle_16::
+	.incbin "sound/direct_sound_samples/johto/dp_triangle_16.bin"
+
+	.align 2
+DirectSoundWaveData_hg_128jdruml::
+	.incbin "sound/direct_sound_samples/johto/hg_128jdruml.bin"
+
+	.align 2
+DirectSoundWaveData_hg_129jdrumm::
+	.incbin "sound/direct_sound_samples/johto/hg_129jdrumm.bin"
+
+	.align 2
+DirectSoundWaveData_hg_130jdrumh::
+	.incbin "sound/direct_sound_samples/johto/hg_130jdrumh.bin"
+
+	.align 2
+DirectSoundWaveData_hg_067kotoe3::
+	.incbin "sound/direct_sound_samples/johto/hg_067kotoe3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_066kotoc4::
+	.incbin "sound/direct_sound_samples/johto/hg_066kotoc4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_065kotoa4::
+	.incbin "sound/direct_sound_samples/johto/hg_065kotoa4.bin"
+
+	.align 2
+DirectSoundWaveData_dp_clean_gt_c3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_clean_gt_c3_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_synthkick::
+	.incbin "sound/direct_sound_samples/johto/dp_synthkick.bin"
+
+	.align 2
+DirectSoundWaveData_dp_timpany_e_16::
+	.incbin "sound/direct_sound_samples/johto/dp_timpany_e_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_timpany_as_16::
+	.incbin "sound/direct_sound_samples/johto/dp_timpany_as_16.bin"
+
+	.align 2
+DirectSoundWaveData_hg_shamisend3::
+	.incbin "sound/direct_sound_samples/johto/hg_shamisend3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_shamisenas3::
+	.incbin "sound/direct_sound_samples/johto/hg_shamisenas3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_shamiseng4::
+	.incbin "sound/direct_sound_samples/johto/hg_shamiseng4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4c2::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4c2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4a2::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4a2.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4f3::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4f3.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4d4::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4d4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4b4::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4b4.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4g5::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4g5.bin"
+
+	.align 2
+DirectSoundWaveData_hg_pno4e6::
+	.incbin "sound/direct_sound_samples/johto/hg_pno4e6.bin"
+
+	.align 2
+DirectSoundWaveData_dp_tp_cs3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_tp_cs3_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_tp_cs4_16::
+	.incbin "sound/direct_sound_samples/johto/dp_tp_cs4_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_tp_b4_16::
+	.incbin "sound/direct_sound_samples/johto/dp_tp_b4_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_trombone_c2_16::
+	.incbin "sound/direct_sound_samples/johto/dp_trombone_c2_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_trombone_c3_16::
+	.incbin "sound/direct_sound_samples/johto/dp_trombone_c3_16.bin"
+
+	.align 2
+DirectSoundWaveData_dp_trombone_c4_16::
+	.incbin "sound/direct_sound_samples/johto/dp_trombone_c4_16.bin"
+
+@ END johto_music

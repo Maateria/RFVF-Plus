@@ -107,6 +107,7 @@ endif
 SHA1 := $(shell { command -v sha1sum || command -v shasum; } 2>/dev/null) -c
 GFX := tools/gbagfx/gbagfx
 AIF := tools/aif2pcm/aif2pcm
+WAV2AGB := tools/wav2agb/wav2agb
 MID := tools/mid2agb/mid2agb
 SCANINC := tools/scaninc/scaninc
 PREPROC := tools/preproc/preproc
@@ -218,6 +219,7 @@ include songs.mk
 %.png: ;
 %.pal: ;
 %.aif: ;
+%.wav: ;
 
 %.1bpp: %.png  ; $(GFX) $< $@
 %.4bpp: %.png  ; $(GFX) $< $@
@@ -228,6 +230,8 @@ include songs.mk
 %.rl: % ; $(GFX) $< $@
 $(CRY_SUBDIR)/%.bin: $(CRY_SUBDIR)/%.aif ; $(AIF) $< $@ --compress
 sound/%.bin: sound/%.aif ; $(AIF) $< $@
+# PokemonHnS's HeartGold/SoulSilver samples (tools/johto_import/johto_music.py): WAV, converted as HnS does
+sound/direct_sound_samples/johto/%.bin: sound/direct_sound_samples/johto/%.wav ; $(WAV2AGB) -b $< $@
 sound/songs/%.s: sound/songs/%.mid
 	$(MID) $< $@
 
@@ -333,7 +337,7 @@ $(ELF): $(LD_SCRIPT) $(LD_SCRIPT_DEPS) $(OBJS)
 	$(FIX) $@ -t"$(TITLE)" -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION) --silent
 
 $(ROM): $(ELF)
-	$(OBJCOPY) -O binary --gap-fill 0xFF --pad-to 0x9000000 $< $@
+	$(OBJCOPY) -O binary --gap-fill 0xFF --pad-to 0xA000000 $< $@ # 32 MB: Johto does not fit in 16
 
 # "friendly" target names for convenience sake
 firered:                ; @$(MAKE) GAME_VERSION=FIRERED

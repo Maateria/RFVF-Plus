@@ -5530,7 +5530,7 @@ static bool32 CurrentMonIsFromGBA(void)
 
 static bool32 MapSecIsInKantoOrSevii(u8 mapSec)
 {
-    if (mapSec < MAPSEC_NONE)
+    if (mapSec < MAPSEC_COUNT && mapSec != MAPSEC_NONE) // Johto's sections come after MAPSEC_NONE
         return TRUE;
     if (IsMonFromOrre())
         return TRUE;

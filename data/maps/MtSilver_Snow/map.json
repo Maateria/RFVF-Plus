@@ -1,0 +1,124 @@
+{
+  "id": "MAP_MT_SILVER_SNOW",
+  "name": "MtSilver_Snow",
+  "layout": "LAYOUT_MT_SILVER_SNOW",
+  "music": "MUS_HG_LIGHTHOUSE",
+  "region_map_section": "MAPSEC_MT_SILVER",
+  "requires_flash": false,
+  "weather": "WEATHER_SNOW",
+  "map_type": "MAP_TYPE_ROUTE",
+  "allow_cycling": true,
+  "allow_escaping": true,
+  "allow_running": false,
+  "show_map_name": false,
+  "floor_number": 0,
+  "battle_scene": "MAP_BATTLE_SCENE_NORMAL",
+  "connections": 0,
+  "object_events": [
+    {
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_JOHTO_ITEM_BALL",
+      "x": 10,
+      "y": 40,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "MtSilver_Snow_EventScript_Item1",
+      "flag": "FLAG_ITEM_MTSILVER_RARECANDY",
+      "in_connection": false
+    },
+    {
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_JOHTO_ITEM_BALL",
+      "x": 31,
+      "y": 41,
+      "elevation": 0,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "0",
+      "script": "MtSilver_Snow_EventScript_Item2",
+      "flag": "FLAG_ITEM_MTSILVER_NERVERMELTICE",
+      "in_connection": false
+    }
+  ],
+  "warp_events": [
+    {
+      "x": 14,
+      "y": 39,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_3F",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 18,
+      "y": 51,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_2F",
+      "dest_warp_id": "1"
+    },
+    {
+      "x": 32,
+      "y": 51,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_2F",
+      "dest_warp_id": "2"
+    },
+    {
+      "x": 39,
+      "y": 43,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_2F",
+      "dest_warp_id": "3"
+    },
+    {
+      "x": 39,
+      "y": 34,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_2F",
+      "dest_warp_id": "4"
+    },
+    {
+      "x": 39,
+      "y": 23,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_2F",
+      "dest_warp_id": "5"
+    },
+    {
+      "x": 24,
+      "y": 17,
+      "elevation": 0,
+      "dest_map": "MAP_MT_SILVER_2F",
+      "dest_warp_id": "6"
+    }
+  ],
+  "coord_events": [],
+  "bg_events": [
+    {
+      "type": "hidden_item",
+      "x": 14,
+      "y": 52,
+      "elevation": 0,
+      "item": "ITEM_CLEANSE_TAG",
+      "flag": "FLAG_HIDDEN_ITEM_MT_SILVER_SNOW_PURE_INCENSE",
+      "quantity": 1,
+      "underfoot": false
+    },
+    {
+      "type": "hidden_item",
+      "x": 28,
+      "y": 41,
+      "elevation": 0,
+      "item": "ITEM_MOON_STONE",
+      "flag": "FLAG_HIDDEN_ITEM_MT_SILVER_SNOW_DAWN_STONE",
+      "quantity": 1,
+      "underfoot": false
+    }
+  ],
+  "level_scaling": "0"
+}

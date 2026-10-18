@@ -409,6 +409,8 @@ static void SetCutGrassMetatileAt(s16 x, s16 y)
     u16 i = 0;
     u16 metatileId = MapGridGetMetatileIdAt(x, y);
     const u16 (*mapping)[2] = IsHoennMapLayout() ? sCutGrassMetatileMapping_Hoenn : sCutGrassMetatileMapping;
+    if (IsJohtoMapLayout()) // as in PokemonHnS: Cut leaves Johto's grass (and Kanto's ids are other tiles there)
+        return;
     while (1)
     {
         if (mapping[i][0] == 0xFFFF)
@@ -551,6 +553,8 @@ static void CleanupLongGrass(s16 x, s16 y)
         CleanupLongGrass_Hoenn(x, y, lowerY, cutRange);
         return;
     }
+    if (IsJohtoMapLayout()) // no grass changes there (SetCutGrassMetatileAt)
+        return;
 
     for (i = 0; i < cutRange; i++)
     {

@@ -1224,13 +1224,14 @@ static bool32 IsHoennMap(void)
     return IsHoennMapLayout();
 }
 
-// RFVF+: Hoenn plays Emerald's cycling and surfing themes; a saved bike theme follows the player into another region
+// RFVF+: Hoenn plays Emerald's cycling and surfing themes, Johto HeartGold/SoulSilver's (PokemonHnS); a saved bike
+// theme follows the player into another region
 u16 GetRegionalFieldMusic(u16 song)
 {
-    if (song == MUS_CYCLING || song == MUS_RS_CYCLING)
-        return IsHoennMap() ? MUS_RS_CYCLING : MUS_CYCLING;
-    if (song == MUS_SURF || song == MUS_RS_SURF)
-        return IsHoennMap() ? MUS_RS_SURF : MUS_SURF;
+    if (song == MUS_CYCLING || song == MUS_RS_CYCLING || song == MUS_HG_CYCLING)
+        return IsHoennMap() ? MUS_RS_CYCLING : IsJohtoMapLayout() ? MUS_HG_CYCLING : MUS_CYCLING;
+    if (song == MUS_SURF || song == MUS_RS_SURF || song == MUS_HG_SURF)
+        return IsHoennMap() ? MUS_RS_SURF : IsJohtoMapLayout() ? MUS_HG_SURF : MUS_SURF;
     return song;
 }
 
@@ -2322,6 +2323,8 @@ static void ResumeMap(bool32 inLink)
         InitObjectEventPalettes(1);
     else if (IsHoennMapLayout())
         InitObjectEventPalettes(OBJ_PAL_MODE_HOENN);
+    else if (IsJohtoMapLayout())
+        InitObjectEventPalettes(OBJ_PAL_MODE_JOHTO);
     else
         InitObjectEventPalettes(0);
 

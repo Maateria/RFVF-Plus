@@ -444,6 +444,24 @@ bool32 IsHoennMapLayout(void)
     return primary == &gTileset_HoennGeneral || primary == &gTileset_HoennInsideBuilding;
 }
 
+extern const struct Tileset gTileset_JohtoGeneral;
+extern const struct Tileset gTileset_JohtoNorthEast;
+extern const struct Tileset gTileset_JohtoNorthWest;
+extern const struct Tileset gTileset_JohtoSouth;
+extern const struct Tileset gTileset_JohtoBuilding;
+
+// Johto's maps (tools/johto_import, PokemonHnS): their primary tilesets. Same use as IsHoennMapLayout().
+bool32 IsJohtoMapLayout(void)
+{
+    const struct Tileset *primary;
+
+    if (gMapHeader.mapLayout == NULL) // no map loaded yet
+        return FALSE;
+    primary = gMapHeader.mapLayout->primaryTileset;
+    return primary == &gTileset_JohtoGeneral || primary == &gTileset_JohtoNorthEast || primary == &gTileset_JohtoNorthWest
+        || primary == &gTileset_JohtoSouth || primary == &gTileset_JohtoBuilding;
+}
+
 static u32 GetAttributeByMetatileIdAndMapLayout(const struct MapLayout *mapLayout, u16 metatile, u8 attributeType)
 {
     const u32 * attributes;

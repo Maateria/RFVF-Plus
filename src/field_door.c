@@ -405,11 +405,16 @@ static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
     {}
 };
 
+#include "data/johto_doors.h"
+
 // Door lookup matches on metatile id only, and Kanto and Hoenn tilesets reuse the same ids, so Hoenn maps get their own table.
+// Johto's table (PokemonHnS) matches on the tileset too (GetDoorGraphics).
 static const struct DoorGraphics *GetDoorGraphicsTable(void)
 {
     if (IsHoennMapLayout())
         return sDoorGraphics_Hoenn;
+    if (IsJohtoMapLayout())
+        return sDoorGraphics_Johto;
     return sDoorGraphics;
 }
 
@@ -439,7 +444,9 @@ static void DrawClosedDoorTiles(const struct DoorGraphics *gfx, int x, int y)
 //       not already part of any given tileset. This means that if there are any
 //       pre-existing tiles in this copied region that are visible when the door
 //       animation is played, they will be overwritten.
-#define DOOR_TILE_START (NUM_TILES_TOTAL - 8)
+//       Johto's tilesets (from HnS) use 1016-1023 and keep tiles 434-441 of their outdoor primaries free for doors.
+#define DOOR_TILE_START_JOHTO 434
+#define DOOR_TILE_START (IsJohtoMapLayout() ? DOOR_TILE_START_JOHTO : NUM_TILES_TOTAL - 8)
 
 static void CopyDoorTilesToVram(const u8 *tiles)
 {
@@ -521,9 +528,13 @@ static bool32 AnimateDoorFrame(const struct DoorGraphics *gfx, const struct Door
 
 static const struct DoorGraphics *GetDoorGraphics(const struct DoorGraphics *gfx, u16 id)
 {
+    const struct DoorGraphics *table = gfx;
+
     while (gfx->tiles != NULL)
     {
-        if (gfx->metatileId == id)
+        if (gfx->metatileId == id && (table != sDoorGraphics_Johto
+         || sDoorTilesets_Johto[gfx - table] == gMapHeader.mapLayout->primaryTileset
+         || sDoorTilesets_Johto[gfx - table] == gMapHeader.mapLayout->secondaryTileset))
             return gfx;
         gfx++;
     }

@@ -291,6 +291,8 @@ static void PcTurnOnUpdateMetatileId(bool16 flickerOff)
     }
     if (IsHoennMapLayout()) // Kanto and Hoenn reuse metatile ids; Hoenn PCs are pokeemerald's Building PC
         metatileId = flickerOff ? METATILE_HoennInsideBuilding_PC_Off : METATILE_HoennInsideBuilding_PC_On;
+    else if (IsJohtoMapLayout()) // PokemonHnS's Johto Building PC
+        metatileId = flickerOff ? METATILE_JohtoBuilding_PC_Off : METATILE_JohtoBuilding_PC_On;
     MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + deltaX + MAP_OFFSET, gSaveBlock1Ptr->pos.y + deltaY + MAP_OFFSET, metatileId | MAPGRID_COLLISION_MASK);
 }
 
@@ -324,6 +326,8 @@ void AnimatePcTurnOff()
         metatileId = METATILE_GenericBuilding1_PlayersPCOff;
     if (IsHoennMapLayout())
         metatileId = METATILE_HoennInsideBuilding_PC_Off;
+    else if (IsJohtoMapLayout())
+        metatileId = METATILE_JohtoBuilding_PC_Off;
     MapGridSetMetatileIdAt(gSaveBlock1Ptr->pos.x + deltaX + MAP_OFFSET, gSaveBlock1Ptr->pos.y + deltaY + MAP_OFFSET, metatileId | MAPGRID_COLLISION_MASK);
     DrawWholeMapView();
 }
@@ -1235,7 +1239,7 @@ static void Task_AnimateElevatorWindowView(u8 taskId)
             metatiles = IsHoennMapLayout() ? sHoennElevatorWindowMetatilesGoingUp : sElevatorWindowMetatilesGoingUp;
         else
             metatiles = IsHoennMapLayout() ? sHoennElevatorWindowMetatilesGoingDown : sElevatorWindowMetatilesGoingDown;
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < 3 && !IsJohtoMapLayout(); i++) // Johto's elevator (PokemonHnS) has no window to animate
         {
             for (j = 0; j < 3; j++)
                 MapGridSetMetatileIdAt(j + 1 + MAP_OFFSET, i + MAP_OFFSET, metatiles[i][data[0] % 3] | MAPGRID_COLLISION_MASK);

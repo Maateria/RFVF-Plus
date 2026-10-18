@@ -386,3 +386,203 @@ $(TILESETGFXDIR)/secondary/hoenn_battle_factory/tiles.4bpp: %.4bpp: %.png
 
 $(TILESETGFXDIR)/secondary/hoenn_battle_pike/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 201 -Wnum_tiles
+# BEGIN johto_import
+$(TILESETGFXDIR)/primary/johto_building/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 640 -Wnum_tiles
+
+$(TILESETGFXDIR)/primary/johto_general/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 640 -Wnum_tiles
+
+$(TILESETGFXDIR)/primary/johto_north_east/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 640 -Wnum_tiles
+
+$(TILESETGFXDIR)/primary/johto_north_west/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 640 -Wnum_tiles
+
+$(TILESETGFXDIR)/primary/johto_south/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 640 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_azalea_town/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 144 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_azalea_town_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_barn/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_bellchime_trail/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_bike_shop/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_bike_shop2/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_blackthorn/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_blackthorn_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_burned_tower/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 352 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cafe/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cave_default/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cave_dragons_den/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cave_gray/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cave_ice/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cherrygrove_city/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cianwood_city/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_cianwood_city_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_department_store/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_dragons_den_shrine/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ecruteak_city/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ecruteak_city_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ecruteak_theater/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_game_corner/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_gate_standard/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_goldenrod/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_goldenrod_city_train_station/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_goldenrod_underground_rocket/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_goldenrod_underground_storage/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_goldenrod_underground_tunnel/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_house2/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_house_lab/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ilex_forest/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_kanto_pokemon_center/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_kurts_house/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_lighthouse/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 352 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_mahogany_town/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_mart/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_mt_silver_snow/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_national_park/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_new_bark_town/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_olivine_city/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_players_house/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_pokemon_center_white/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_pokemon_day_care/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_port_indoor/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_power_plant_generator_room/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_route32/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_route38_farmland/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_route40/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ruins_of_alph_b1_f/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ruins_of_alph_outside/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 256 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_ruins_of_alph_writing/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_safari_zone_entrance/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_safari_zone_johto/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_shop_rooftop/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_sootopolis_gym/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_trainer_school/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 64 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_violet_city/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 272 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_viridian_city/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johto_whirl_islands/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/johtossaqua/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
+
+# END johto_import

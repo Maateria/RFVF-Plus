@@ -1259,3 +1259,119 @@ $(MID_SUBDIR)/se_m_leer.s: %.s: %.mid
 
 $(MID_SUBDIR)/se_dex_search.s: %.s: %.mid
 	$(MID) $< $@ -E -R$(STD_REVERB) -G127 -v100 -P5
+# BEGIN johto_music
+$(MID_SUBDIR)/mus_hg_azalea.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V073
+
+$(MID_SUBDIR)/mus_hg_bell_tower.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V080
+
+$(MID_SUBDIR)/mus_hg_bug_catching_contest.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V100
+
+$(MID_SUBDIR)/mus_hg_burned_tower.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V070
+
+$(MID_SUBDIR)/mus_hg_cherrygrove.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V068
+
+$(MID_SUBDIR)/mus_hg_cianwood.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V073
+
+$(MID_SUBDIR)/mus_hg_dance_theater.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V080
+
+$(MID_SUBDIR)/mus_hg_dragons_den.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V087
+
+$(MID_SUBDIR)/mus_hg_ecruteak.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V054
+
+$(MID_SUBDIR)/mus_hg_elm_lab.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V080
+
+$(MID_SUBDIR)/mus_hg_game_corner.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V092
+
+$(MID_SUBDIR)/mus_hg_goldenrod.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V072
+
+$(MID_SUBDIR)/mus_hg_gym.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V080
+
+$(MID_SUBDIR)/mus_hg_ice_path.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V072
+
+$(MID_SUBDIR)/mus_hg_lighthouse.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V050
+
+$(MID_SUBDIR)/mus_hg_national_park.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V087
+
+$(MID_SUBDIR)/mus_hg_new_bark.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V080
+
+$(MID_SUBDIR)/mus_hg_poke_center.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V075
+
+$(MID_SUBDIR)/mus_hg_poke_mart.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V078
+
+$(MID_SUBDIR)/mus_hg_rocket_takeover.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V069
+
+$(MID_SUBDIR)/mus_hg_route26.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V078
+
+$(MID_SUBDIR)/mus_hg_route29.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V063
+
+$(MID_SUBDIR)/mus_hg_route30.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V093
+
+$(MID_SUBDIR)/mus_hg_route34.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V092
+
+$(MID_SUBDIR)/mus_hg_route38.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V083
+
+$(MID_SUBDIR)/mus_hg_route42.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V085
+
+$(MID_SUBDIR)/mus_hg_route47.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V073
+
+$(MID_SUBDIR)/mus_hg_ruins_of_alph.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V093
+
+$(MID_SUBDIR)/mus_hg_safari_zone.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V087
+
+$(MID_SUBDIR)/mus_hg_safari_zone_gate.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V079
+
+$(MID_SUBDIR)/mus_hg_sprout_tower.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V062
+
+$(MID_SUBDIR)/mus_hg_ss_aqua.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V077
+
+$(MID_SUBDIR)/mus_hg_team_rocket_hq.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V081
+
+$(MID_SUBDIR)/mus_hg_union_cave.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V080
+
+$(MID_SUBDIR)/mus_hg_victory_road.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V087
+
+$(MID_SUBDIR)/mus_hg_violet.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V078
+
+$(MID_SUBDIR)/mus_hg_surf.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V085
+
+$(MID_SUBDIR)/mus_hg_cycling.s: %.s: %.mid
+	$(MID) $< $@ -E -R0 -G192 -V085
+
+# END johto_music

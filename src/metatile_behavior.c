@@ -65,7 +65,8 @@ bool8 MetatileBehavior_IsJumpSouth(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsPokeGrass(u8 metatileBehavior)
 {
-    if(metatileBehavior == MB_TALL_GRASS || metatileBehavior == MB_CYCLING_ROAD_PULL_DOWN_GRASS || metatileBehavior == MB_LONG_GRASS || metatileBehavior == MB_ASHGRASS)
+    if(metatileBehavior == MB_TALL_GRASS || metatileBehavior == MB_CYCLING_ROAD_PULL_DOWN_GRASS || metatileBehavior == MB_LONG_GRASS || metatileBehavior == MB_ASHGRASS
+     || metatileBehavior == MB_TALL_GRASS_IMPASSABLE_NORTH)
         return TRUE;
     else
         return FALSE;
@@ -440,7 +441,8 @@ bool8 MetatileBehavior_IsPuddle(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsTallGrass(u8 metatileBehavior)
 {
-    if(metatileBehavior == MB_TALL_GRASS || metatileBehavior == MB_CYCLING_ROAD_PULL_DOWN_GRASS || metatileBehavior == MB_ASHGRASS)
+    if(metatileBehavior == MB_TALL_GRASS || metatileBehavior == MB_CYCLING_ROAD_PULL_DOWN_GRASS || metatileBehavior == MB_ASHGRASS
+     || metatileBehavior == MB_TALL_GRASS_IMPASSABLE_NORTH)
         return TRUE;
     else
         return FALSE;
@@ -608,7 +610,8 @@ bool8 MetatileBehavior_IsNorthBlocked(u8 metatileBehavior)
     if (metatileBehavior == MB_IMPASSABLE_NORTH
      || metatileBehavior == MB_IMPASSABLE_NORTHEAST
      || metatileBehavior == MB_IMPASSABLE_NORTHWEST
-     || metatileBehavior == MB_IMPASSABLE_SOUTH_AND_NORTH)
+     || metatileBehavior == MB_IMPASSABLE_SOUTH_AND_NORTH
+     || metatileBehavior == MB_TALL_GRASS_IMPASSABLE_NORTH)
             return TRUE;
     else
         return FALSE;
@@ -660,6 +663,23 @@ bool8 MetatileBehavior_IsPacifidlogLog(u8 metatileBehavior)
     return metatileBehavior >= MB_PACIFIDLOG_VERTICAL_LOG_TOP && metatileBehavior <= MB_PACIFIDLOG_HORIZONTAL_LOG_RIGHT;
 }
 bool8 MetatileBehavior_IsTrickHousePuzzleDoor(u8 metatileBehavior) { return metatileBehavior == MB_TRICK_HOUSE_PUZZLE_DOOR; }
+bool8 MetatileBehavior_IsHeadbuttTree(u8 metatileBehavior) { return metatileBehavior == MB_HEADBUTT_TREE; }
+
+// PokemonHnS's sideways stairs (Johto): a step west or east on or off them goes diagonally (GetCollisionAtCoords)
+bool8 MetatileBehavior_IsSidewaysStairsRightSide(u8 b) { return b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE || b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM; }
+bool8 MetatileBehavior_IsSidewaysStairsLeftSide(u8 b) { return b == MB_SIDEWAYS_STAIRS_LEFT_SIDE || b == MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM; }
+bool8 MetatileBehavior_IsSidewaysStairsRightSideTop(u8 b) { return b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_TOP; }
+bool8 MetatileBehavior_IsSidewaysStairsLeftSideTop(u8 b) { return b == MB_SIDEWAYS_STAIRS_LEFT_SIDE_TOP; }
+bool8 MetatileBehavior_IsSidewaysStairsRightSideBottom(u8 b) { return b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM; }
+bool8 MetatileBehavior_IsSidewaysStairsLeftSideBottom(u8 b) { return b == MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM; }
+bool8 MetatileBehavior_IsSidewaysStairsRightSideAny(u8 b)
+{
+    return b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE || b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM || b == MB_SIDEWAYS_STAIRS_RIGHT_SIDE_TOP;
+}
+bool8 MetatileBehavior_IsSidewaysStairsLeftSideAny(u8 b)
+{
+    return b == MB_SIDEWAYS_STAIRS_LEFT_SIDE || b == MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM || b == MB_SIDEWAYS_STAIRS_LEFT_SIDE_TOP;
+}
 
 bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior)
 {
@@ -709,10 +729,11 @@ bool8 MetatileBehavior_IsUnionRoomWarp(u8 metatileBehavior)
 // The Hoenn import turns Emerald's water doors and water arrow warps (MB_WATER_DOOR, MB_WATER_SOUTH_ARROW_WARP: the
 // ways into Aqua Hideout, Scorched Slab and the underwater caves of Sootopolis, Seafloor Cavern, Sealed Chamber...)
 // into ocean water. On a Hoenn layout a warp event on ocean water fires when the player swims onto it; Kanto keeps
-// its rule (SSAnne_Exterior holds a warp on ocean water that never fires).
+// its rule (SSAnne_Exterior holds a warp on ocean water that never fires). The Johto import does the same with
+// PokemonHnS's water arrow warps (Routes 40 and 41).
 bool8 MetatileBehavior_IsHoennWaterWarp(u8 metatileBehavior)
 {
-    return metatileBehavior == MB_OCEAN_WATER && IsHoennMapLayout();
+    return metatileBehavior == MB_OCEAN_WATER && (IsHoennMapLayout() || IsJohtoMapLayout());
 }
 
 bool8 MetatileBehavior_IsWater(u8 metatileBehavior)

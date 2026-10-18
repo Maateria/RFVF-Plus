@@ -982,9 +982,9 @@
     {
       "map_section": "MAPSEC_ROUTE_22",
       "name": "ROUTE 22",
-      "x": 2,
+      "x": 0,
       "y": 8,
-      "width": 2,
+      "width": 4,
       "height": 1
     },
     {
@@ -1708,6 +1708,318 @@
       "y": 4,
       "width": 1,
       "height": 1
+    },
+    {
+      "map_section": "MAPSEC_NEW_BARK_TOWN",
+      "name": "BOURG GEON",
+      "x": 19,
+      "y": 10,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_CHERRYGROVE_CITY",
+      "name": "VILLE GRIOTTE",
+      "x": 14,
+      "y": 10,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_VIOLET_CITY",
+      "name": "MAUVILLE",
+      "x": 12,
+      "y": 4,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_AZALEA_TOWN",
+      "name": "ECORCIA",
+      "x": 10,
+      "y": 13,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_GOLDENROD_CITY",
+      "name": "DOUBLONVILLE",
+      "x": 8,
+      "y": 8,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_ECRUTEAK_CITY",
+      "name": "ROSALIA",
+      "x": 10,
+      "y": 2,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_OLIVINE_CITY",
+      "name": "OLIVILLE",
+      "x": 6,
+      "y": 4,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_CIANWOOD_CITY",
+      "name": "IRISIA",
+      "x": 4,
+      "y": 11,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_MAHOGANY_TOWN",
+      "name": "ACAJOU",
+      "x": 15,
+      "y": 2,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_BLACKTHORN_CITY",
+      "name": "EBENELLE",
+      "x": 18,
+      "y": 2,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_26",
+      "name": "ROUTE 26",
+      "x": 24,
+      "y": 6,
+      "width": 1,
+      "height": 5
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_27",
+      "name": "ROUTE 27",
+      "x": 20,
+      "y": 10,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_29",
+      "name": "ROUTE 29",
+      "x": 15,
+      "y": 10,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_30",
+      "name": "ROUTE 30",
+      "x": 14,
+      "y": 5,
+      "width": 1,
+      "height": 5
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_31",
+      "name": "ROUTE 31",
+      "x": 13,
+      "y": 4,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_32",
+      "name": "ROUTE 32",
+      "x": 12,
+      "y": 5,
+      "width": 1,
+      "height": 6
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_33",
+      "name": "ROUTE 33",
+      "x": 11,
+      "y": 13,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_34",
+      "name": "ROUTE 34",
+      "x": 8,
+      "y": 10,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_35",
+      "name": "ROUTE 35",
+      "x": 8,
+      "y": 5,
+      "width": 1,
+      "height": 3
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_36",
+      "name": "ROUTE 36",
+      "x": 9,
+      "y": 4,
+      "width": 3,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_37",
+      "name": "ROUTE 37",
+      "x": 10,
+      "y": 3,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_38",
+      "name": "ROUTE 38",
+      "x": 7,
+      "y": 2,
+      "width": 3,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_39",
+      "name": "ROUTE 39",
+      "x": 6,
+      "y": 2,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_40",
+      "name": "CHENAL 40",
+      "x": 5,
+      "y": 4,
+      "width": 1,
+      "height": 5
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_42",
+      "name": "ROUTE 42",
+      "x": 11,
+      "y": 2,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_44",
+      "name": "ROUTE 44",
+      "x": 16,
+      "y": 2,
+      "width": 2,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_45",
+      "name": "ROUTE 45",
+      "x": 18,
+      "y": 3,
+      "width": 1,
+      "height": 4
+    },
+    {
+      "map_section": "MAPSEC_ROUTE_47",
+      "name": "ROUTE 47",
+      "x": 2,
+      "y": 11,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_LAKE_OF_RAGE",
+      "name": "LAC COLERE",
+      "x": 15,
+      "y": 0,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_MT_SILVER",
+      "name": "MONT ARGENTE",
+      "x": 20,
+      "y": 5,
+      "width": 4,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_SAFARI_ZONE_GATE",
+      "name": "PARC SAFARI",
+      "x": 2,
+      "y": 9,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_WHIRL_ISLANDS",
+      "name": "TOURB'ILES",
+      "x": 6,
+      "y": 11,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_TIN_TOWER",
+      "name": "TOUR CARILLON",
+      "x": 10,
+      "y": 1,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_RUINS_OF_ALPH",
+      "name": "RUINES D'ALPHA",
+      "x": 10,
+      "y": 5,
+      "width": 2,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_UNION_CAVE",
+      "name": "CAVES JUMELLES",
+      "x": 12,
+      "y": 11,
+      "width": 1,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_ILEX_FOREST",
+      "name": "BOIS AUX CHENES",
+      "x": 8,
+      "y": 12,
+      "width": 2,
+      "height": 2
+    },
+    {
+      "map_section": "MAPSEC_NATIONAL_PARK",
+      "name": "PARC NATUREL",
+      "x": 8,
+      "y": 4,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_ICE_PATH",
+      "name": "ROUTE DE GLACE",
+      "x": 17,
+      "y": 1,
+      "width": 1,
+      "height": 1
+    },
+    {
+      "map_section": "MAPSEC_DARK_CAVE",
+      "name": "ANTRE NOIR",
+      "x": 15,
+      "y": 4,
+      "width": 3,
+      "height": 2
     }
   ]
 }

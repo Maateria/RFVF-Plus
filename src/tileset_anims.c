@@ -1054,3 +1054,6 @@ void InitTilesetAnim_SeviiIslands5(void)
 
 // Generated: InitTilesetAnim_Hoenn* of the Hoenn secondaries (tools/hoenn_import register_anims)
 #include "data/tilesets/hoenn_anims.h"
+
+// Generated: PokemonHnS's tile animations of the Johto tilesets (tools/johto_import plan_anims)
+#include "data/tilesets/johto_anims.h"

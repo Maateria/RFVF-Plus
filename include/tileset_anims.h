@@ -36,4 +36,11 @@ void InitTilesetAnim_HoennSootopolisGym(void);
 void InitTilesetAnim_HoennUnderwater(void);
 void InitTilesetAnim_HoennBattlePyramid(void);
 
+// BEGIN johto_import
+void InitTilesetAnim_AzaleaTownGym(void);
+void InitTilesetAnim_BlackthornGym(void);
+void InitTilesetAnim_EcruteakTheater(void);
+void InitTilesetAnim_JohtoGeneral(void);
+void InitTilesetAnim_NationalPark(void);
+// END johto_import
 #endif // GUARD_TILESET_ANIMS_H

@@ -1235,6 +1235,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/text/flavor_text.inc"
 	.include "data/scripts/hole.inc"
 	.include "data/scripts/hoenn_field.inc"
+	.include "data/scripts/johto_field.inc"
 	.include "data/scripts/hoenn_roulette.inc"
 	.include "data/text/trainers.inc"
 	.include "data/scripts/move_tutors.inc"
@@ -2282,3 +2283,5 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattlePyramidSquare15/scripts.inc"
 
 	.include "data/maps/BattlePyramidSquare16/scripts.inc"
+
+	.include "data/scripts/johto_maps.inc"

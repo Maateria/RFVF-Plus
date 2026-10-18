@@ -167,6 +167,15 @@
 #define MB_TRICK_HOUSE_PUZZLE_DOOR 0xD7 // Emerald's: a Trick House puzzle's exit door, its script on A
 #define MB_CLOSED_SOOTOPOLIS_DOOR 0xD8 // Emerald's closed doors: a message on A
 #define MB_SKY_PILLAR_CLOSED_DOOR 0xD9
+// PokemonHnS's (Johto, tools/johto_import), same names
+#define MB_HEADBUTT_TREE 0xDA // a Pokemon that knows Headbutt shakes it on A (EventScript_Headbutt)
+#define MB_TALL_GRASS_IMPASSABLE_NORTH 0xDB // tall grass, no going north from it
+#define MB_SIDEWAYS_STAIRS_RIGHT_SIDE 0xDC // stairs walked diagonally (event_object_movement.c)
+#define MB_SIDEWAYS_STAIRS_LEFT_SIDE 0xDD
+#define MB_SIDEWAYS_STAIRS_RIGHT_SIDE_TOP 0xDE
+#define MB_SIDEWAYS_STAIRS_LEFT_SIDE_TOP 0xDF
+#define MB_SIDEWAYS_STAIRS_RIGHT_SIDE_BOTTOM 0xE0
+#define MB_SIDEWAYS_STAIRS_LEFT_SIDE_BOTTOM 0xE1
 //
 #define NUM_METATILE_BEHAVIORS 0xF0
 
