@@ -1,12 +1,150 @@
 RustboroCity_PokemonSchool_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/RustboroCity_PokemonSchool/scripts.inc
-RustboroCity_PokemonSchool_EventScript_GameboyKid1:: @ NPC #1 (8,6)
-RustboroCity_PokemonSchool_EventScript_GameboyKid2:: @ NPC #2 (9,6)
-RustboroCity_PokemonSchool_EventScript_RichBoy:: @ NPC #3 (3,8)
-RustboroCity_PokemonSchool_EventScript_Lass::   @ NPC #4 (10,8)
-RustboroCity_PokemonSchool_EventScript_SchoolKidM:: @ NPC #5 (3,6)
-RustboroCity_PokemonSchool_EventScript_Teacher:: @ NPC #6 (5,3)
-RustboroCity_PokemonSchool_EventScript_Blackboard:: @ sign (5,2)
-RustboroCity_PokemonSchool_EventScript_StudentNotebook:: @ sign (3,5)
+RustboroCity_PokemonSchool_EventScript_GameboyKid1::
+	msgbox RustboroCity_PokemonSchool_Text_TradingRightNow, MSGBOX_NPC
 	end
+
+RustboroCity_PokemonSchool_EventScript_GameboyKid2::
+	msgbox RustboroCity_PokemonSchool_Text_AlwaysWantedSeedot, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_RichBoy::
+	msgbox RustboroCity_PokemonSchool_Text_PokemontCantUseManMadeItems, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_Lass::
+	msgbox RustboroCity_PokemonSchool_Text_ConfusedPokemonAttacksItself, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_SchoolKidM::
+	msgbox RustboroCity_PokemonSchool_Text_PokemonHealItselfWithBerry, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonSchool_EventScript_StudentNotebook::
+	msgbox RustboroCity_PokemonSchool_Text_StudentsNotes, MSGBOX_SIGN
+	end
+
+RustboroCity_PokemonSchool_EventScript_Blackboard::
+	lockall
+	msgbox RustboroCity_PokemonSchool_Text_BlackboardListsStatusChanges
+	goto RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic
+
+RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic::
+	message RustboroCity_PokemonSchool_Text_ReadWhichTopic
+	waitmessage
+	multichoicegrid 8, 1, MULTI_STATUS_INFO, 3, FALSE
+	switch VAR_RESULT
+	case 0, RustboroCity_PokemonSchool_EventScript_Poison
+	case 1, RustboroCity_PokemonSchool_EventScript_Paralysis
+	case 2, RustboroCity_PokemonSchool_EventScript_Sleep
+	case 3, RustboroCity_PokemonSchool_EventScript_Burn
+	case 4, RustboroCity_PokemonSchool_EventScript_Freeze
+	releaseall
+	end
+
+RustboroCity_PokemonSchool_EventScript_Poison::
+	msgbox RustboroCity_PokemonSchool_Text_ExplainPoison
+	goto RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic
+
+RustboroCity_PokemonSchool_EventScript_Paralysis::
+	msgbox RustboroCity_PokemonSchool_Text_ExplainParalysis
+	goto RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic
+
+RustboroCity_PokemonSchool_EventScript_Sleep::
+	msgbox RustboroCity_PokemonSchool_Text_ExplainSleep
+	goto RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic
+
+RustboroCity_PokemonSchool_EventScript_Burn::
+	msgbox RustboroCity_PokemonSchool_Text_ExplainBurn
+	goto RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic
+
+RustboroCity_PokemonSchool_EventScript_Freeze::
+	msgbox RustboroCity_PokemonSchool_Text_ExplainFreeze
+	goto RustboroCity_PokemonSchool_EventScript_ChooseBlackboardTopic
+
+RustboroCity_PokemonSchool_EventScript_Teacher::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_QUICK_CLAW, RustboroCity_PokemonSchool_EventScript_GaveQuickClaw
+	call_if_eq VAR_FACING, DIR_EAST, RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsEast
+	call_if_eq VAR_FACING, DIR_WEST, RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsWest
+	msgbox RustboroCity_PokemonSchool_Text_StudentsWhoDontStudyGetQuickClaw
+	giveitem ITEM_QUICK_CLAW
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	setflag FLAG_RECEIVED_QUICK_CLAW
+	release
+	end
+
+RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsEast::
+	applymovement VAR_LAST_TALKED, RustboroCity_PokemonSchool_Movement_TeacherCheckOnStudentsEast
+	waitmovement 0
+	return
+
+RustboroCity_PokemonSchool_EventScript_TeacherCheckOnStudentsWest::
+	applymovement VAR_LAST_TALKED, RustboroCity_PokemonSchool_Movement_TeacherCheckOnStudentsWest
+	waitmovement 0
+	return
+
+RustboroCity_PokemonSchool_EventScript_GaveQuickClaw::
+	msgbox RustboroCity_PokemonSchool_Text_ExplainQuickClaw
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterDown
+	waitmovement 0
+	release
+	end
+
+RustboroCity_PokemonSchool_Movement_TeacherCheckOnStudentsEast:
+	walk_right
+	walk_right
+	walk_down
+	walk_down
+	walk_left
+	walk_left
+	walk_in_place_faster_down
+	delay_16
+	delay_16
+	delay_16
+	walk_down
+	walk_in_place_faster_left
+	delay_16
+	delay_16
+	walk_right
+	delay_16
+	delay_16
+	delay_8
+	walk_up
+	walk_right
+	walk_up
+	walk_up
+	walk_left
+	walk_left
+	step_end
+
+RustboroCity_PokemonSchool_Movement_TeacherCheckOnStudentsWest:
+	walk_left
+	walk_down
+	walk_down
+	walk_right
+	walk_in_place_faster_down
+	delay_16
+	delay_16
+	delay_16
+	walk_down
+	walk_in_place_faster_left
+	delay_16
+	delay_16
+	walk_right
+	delay_16
+	delay_16
+	delay_8
+	walk_up
+	walk_left
+	walk_left
+	walk_up
+	walk_up
+	walk_right
+	step_end
+

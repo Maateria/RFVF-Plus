@@ -37,6 +37,7 @@ enum
     WALLPAPER_POKECENTER,
     WALLPAPER_TILES,
     WALLPAPER_SIMPLE,
+    WALLPAPER_FRIENDS, // RFVF+: Emerald's gift from Walda's father (Rustboro), see src/walda_phrase.c
     WALLPAPER_COUNT
 };
 #define MAX_DEFAULT_WALLPAPER WALLPAPER_SAVANNA
@@ -66,5 +67,19 @@ void SwapFirstAliveBoxPokemon(void);
 void SetBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request, const void *value);
 u8 CountPartyNonEggMons(void);
 u16 GetDeoxysSpeciesFromForme(u32 forme);
+
+// Walda's wallpaper (Emerald's)
+void ResetWaldaWallpaper(void);
+void SetWaldaWallpaperLockedOrUnlocked(bool32 unlocked);
+bool32 IsWaldaWallpaperUnlocked(void);
+u32 GetWaldaWallpaperPatternId(void);
+void SetWaldaWallpaperPatternId(u8 id);
+u32 GetWaldaWallpaperIconId(void);
+void SetWaldaWallpaperIconId(u8 id);
+u16 *GetWaldaWallpaperColorsPtr(void);
+void SetWaldaWallpaperColors(u16 color1, u16 color2);
+u8 *GetWaldaPhrasePtr(void);
+void SetWaldaPhrase(const u8 *src);
+bool32 IsWaldaPhraseEmpty(void);
 
 #endif // GUARD_POKEMON_STORAGE_SYSTEM_H

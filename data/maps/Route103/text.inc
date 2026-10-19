@@ -172,3 +172,17 @@ Route103_Text_PetePostBattle::
     .string "Si j'avais un POKéMON en qui je\n"
     .string "puisse avoir confiance, je\l"
     .string "l'utiliserais aussi avec SURF.$"
+
+Route103_Text_ShortcutToOldale::
+    .string "Si tu traverses la mer\n"
+    .string "ici, tu trouveras un\l"
+    .string "raccourci pour ROSYERES.\p"
+    .string "Hum, hum… Utile, hein?$"
+
+Route103_Text_ShouldHaveBroughtPotion::
+    .string "Mon POKéMON est terriblement fatigué…\n"
+    .string "J'aurais dû apporter une POTION…$"
+
+Route103_Text_RouteSign::
+    .string "ROUTE 103\n"
+    .string "{DOWN_ARROW} ROSYERES$"

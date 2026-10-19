@@ -241,3 +241,39 @@ Route119_Text_FabianDefeat::
 Route119_Text_FabianPostBattle::
     .string "J'ai débranché mon ampli.\n"
     .string "Laisse-moi seul avec ma défaite.$"
+
+Route119_Text_ThoughtFlyByCatchingBirdMons::
+    .string "Je croyais qu'on pouvait faire\n"
+    .string "un VOL en attrapant toute\l"
+    .string "une volée de POKéMON OISEAU\l"
+    .string "et en s'accrochant à eux.\p"
+    .string "Mais il s'avère qu'il existe une\n"
+    .string "capacité CS appelée VOL!\p"
+    .string "J'aurais bien voulu\n"
+    .string "le savoir plus tôt…$"
+
+Route119_Text_TallGrassSnaresBikeTires::
+    .string "Pff… C'est une zone de non-droit…\p"
+    .string "Les herbes hautes se coincent dans\n"
+    .string "les roues des VELOS.$"
+
+Route119_Text_CanYourMonMakeSecretBase::
+    .string "Ton POKéMON peut-il utiliser sa\n"
+    .string "FORCE CACHEE sur un gros tas\l"
+    .string "d'herbe et créer une BASE SECRETE?$"
+
+Route119_Text_WeatherInstitute::
+    .string "CENTRE METEO$"
+
+Route119_Text_RouteSignFortree::
+    .string "ROUTE 119\n"
+    .string "{RIGHT_ARROW} CIMETRONELLE$"
+
+Route119_Text_TrainerTipsDecoration::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Vous pouvez mettre jusqu'à seize\n"
+    .string "objets de décoration et meubles\l"
+    .string "dans votre BASE SECRETE.\p"
+    .string "A vous de choisir vos objets préférés\n"
+    .string "pour aménager votre BASE SECRETE\l"
+    .string "personnelle à votre guise.$"

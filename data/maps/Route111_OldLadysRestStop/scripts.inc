@@ -1,6 +1,25 @@
 Route111_OldLadysRestStop_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route111_OldLadysRestStop_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route111_OldLadysRestStop/scripts.inc
-Route111_OldLadysRestStop_EventScript_OldLady:: @ NPC #1 (6,3)
+Route111_OldLadysRestStop_EventScript_OldLady::
+	lock
+	faceplayer
+	msgbox Route111_OldLadysRestStop_Text_RestUpHere, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route111_OldLadysRestStop_EventScript_Rest
+	goto_if_eq VAR_RESULT, NO, Route111_OldLadysRestStop_EventScript_DeclineRest
 	end
+
+Route111_OldLadysRestStop_EventScript_Rest::
+	msgbox Route111_OldLadysRestStop_Text_TakeYourTimeRestUp, MSGBOX_DEFAULT
+	closemessage
+	call EventScript_OutOfCenterPartyHeal
+	msgbox Route111_OldLadysRestStop_Text_StillTiredTakeAnotherRest, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route111_OldLadysRestStop_EventScript_Rest
+	goto_if_eq VAR_RESULT, NO, Route111_OldLadysRestStop_EventScript_DeclineRest
+	end
+
+Route111_OldLadysRestStop_EventScript_DeclineRest::
+	msgbox Route111_OldLadysRestStop_Text_DontNeedToBeShy, MSGBOX_DEFAULT
+	release
+	end
+

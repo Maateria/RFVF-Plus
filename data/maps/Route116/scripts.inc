@@ -16,14 +16,101 @@ Route116_EventScript_ItemXSpecial::             @ item ball, works (FLAG_ITEM_RO
 Route116_EventScript_ItemPotion::               @ item ball, works (FLAG_ITEM_ROUTE_116_POTION)
 	finditem ITEM_POTION
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route116/scripts.inc
-Route116_EventScript_GlassesMan::               @ NPC #15 (74,13)
-Route116_EventScript_RouteSignRustboro::        @ sign (5,10)
-Route116_EventScript_RusturfTunnelSign::        @ sign (48,9)
-Route116_EventScript_TunnelersRestHouseSign::   @ sign (40,9)
-Route116_EventScript_TrainerTipsBToStopEvolution:: @ sign (16,12)
-Route116_EventScript_TrainerTipsBagHasPockets:: @ sign (29,10)
+Route116_EventScript_RouteSignRustboro::
+	msgbox Route116_Text_RouteSignRustboro, MSGBOX_SIGN
 	end
+
+Route116_EventScript_RusturfTunnelSign::
+	msgbox Route116_Text_RusturfTunnelSign, MSGBOX_SIGN
+	end
+
+Route116_EventScript_TunnelersRestHouseSign::
+	msgbox Route116_Text_TunnelersRestHouse, MSGBOX_SIGN
+	end
+
+Route116_EventScript_TrainerTipsBToStopEvolution::
+	msgbox Route116_Text_TrainerTipsBToStopEvolution, MSGBOX_SIGN
+	end
+
+Route116_EventScript_TrainerTipsBagHasPockets::
+	msgbox Route116_Text_TrainerTipsBagHasPockets, MSGBOX_SIGN
+	end
+
+Route116_EventScript_GlassesMan::
+	lock
+	faceplayer
+	checkitem ITEM_BLACK_GLASSES
+	goto_if_eq VAR_RESULT, TRUE, Route116_EventScript_PlayerHasGlasses
+	specialvar VAR_RESULT, FoundBlackGlasses
+	goto_if_eq VAR_RESULT, TRUE, Route116_EventScript_FoundGlassesNotOnPlayer
+	msgbox Route116_Text_CanYouHelpMeFindGlasses, MSGBOX_DEFAULT
+	release
+	end
+
+Route116_EventScript_PlayerHasGlasses::
+	msgbox Route116_Text_CanYouHelpMeFindGlasses, MSGBOX_DEFAULT
+	msgbox Route116_Text_MayISeeThoseGlasses, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, FoundBlackGlasses
+	goto_if_eq VAR_RESULT, TRUE, Route116_EventScript_FoundGlassesOnPlayer
+	msgbox Route116_Text_NotWhatImLookingFor, MSGBOX_DEFAULT
+	release
+	end
+
+Route116_EventScript_FoundGlassesNotOnPlayer::
+	msgbox Route116_Text_CantFindGlassesNotHere, MSGBOX_DEFAULT
+	closemessage
+	goto Route116_EventScript_GlassesManExit
+
+Route116_EventScript_FoundGlassesOnPlayer::
+	msgbox Route116_Text_NotWhatImLookingForMaybeTheyArentHere, MSGBOX_DEFAULT
+	closemessage
+	goto Route116_EventScript_GlassesManExit
+
+Route116_EventScript_GlassesManExit::
+	delay 20
+	call_if_eq VAR_FACING, DIR_NORTH, Route116_EventScript_GlassesManExitNormal
+	call_if_eq VAR_FACING, DIR_SOUTH, Route116_EventScript_GlassesManExitNormal
+	call_if_eq VAR_FACING, DIR_WEST, Route116_EventScript_GlassesManExitNormal
+	call_if_eq VAR_FACING, DIR_EAST, Route116_EventScript_GlassesManExitEast
+	removeobject VAR_LAST_TALKED
+	release
+	end
+
+Route116_EventScript_GlassesManExitNormal::
+	applymovement VAR_LAST_TALKED, Route116_Movement_GlassesManExit
+	waitmovement 0
+	return
+
+Route116_EventScript_GlassesManExitEast::
+	applymovement VAR_LAST_TALKED, Route116_Movement_GlassesManExitEast
+	waitmovement 0
+	return
+
+Route116_Movement_GlassesManExit:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+Route116_Movement_GlassesManExitEast:
+	walk_up
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
 @ hoenn_import: left out: trigger (47,9) VAR_ROUTE116_STATE==1 -> Route116_EventScript_BrineyTrigger
 
 Route116_EventScript_Joey::

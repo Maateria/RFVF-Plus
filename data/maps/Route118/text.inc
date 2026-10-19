@@ -118,3 +118,42 @@ Route118_Text_DeandrePostBattle::
     .string "de POKéMON pour se battre!\p"
     .string "Tu peux faire comme moi, j't'en\n"
     .string "voudrai pas!$"
+
+Route118_Text_CanCrossRiversWithSurf::
+    .string "Même sans bateau, tu peux traverser\n"
+    .string "les rivières et la mer si tu as un\l"
+    .string "POKéMON qui connaît SURF.\p"
+    .string "On peut compter sur les POKéMON\n"
+    .string "pour tellement de choses!$"
+
+Route118_Text_RouteSignMauville::
+    .string "ROUTE 118\n"
+    .string "{LEFT_ARROW} LAVANDIA$"
+
+Route118_Text_RouteSign119::
+    .string "ROUTE 118\n"
+    .string "{UP_ARROW} ROUTE 119$"
+
+Route118_Text_YouAgreeGoodRodIsGood::
+    .string "Hum!\n"
+    .string "Une SUPER CANNE,\l"
+    .string "c'est vraiment bien!\p"
+    .string "Pas vrai?$"
+
+Route118_Text_IdenticalMindsTakeThis::
+    .string "Hum!\n"
+    .string "On est sur la même\l"
+    .string "longueur d'ondes!\p"
+    .string "Hum!\n"
+    .string "Prends cette SUPER CANNE!$"
+
+Route118_Text_TryYourLuckFishing::
+    .string "Lance ta CANNE partout où il y a de\n"
+    .string "l'eau. On n'sait jamais!$"
+
+Route118_Text_DontYouLikeToFish::
+    .string "Tu n'aimes pas pêcher?$"
+
+Route118_Text_TryCatchingMonWithGoodRod::
+    .string "Essaie d'attraper toutes sortes de\n"
+    .string "POKéMON avec ta SUPER CANNE.$"

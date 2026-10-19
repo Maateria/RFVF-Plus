@@ -12,13 +12,38 @@ PetalburgWoods_EventScript_ItemEther::          @ item ball, works (FLAG_ITEM_PE
 PetalburgWoods_EventScript_ItemParalyzeHeal::   @ item ball, works (FLAG_ITEM_PETALBURG_WOODS_PARALYZE_HEAL)
 	finditem ITEM_PARALYZE_HEAL
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PetalburgWoods/scripts.inc
-PetalburgWoods_EventScript_Boy1::               @ NPC #6 (15,19)
-PetalburgWoods_EventScript_Boy2::               @ NPC #9 (30,34)
-PetalburgWoods_EventScript_Girl::               @ NPC #11 (33,5)
-PetalburgWoods_EventScript_Sign1::              @ sign (14,32)
-PetalburgWoods_EventScript_Sign2::              @ sign (11,8)
+PetalburgWoods_EventScript_Boy1::
+	msgbox PetalburgWoods_Text_StayOutOfTallGrass, MSGBOX_NPC
 	end
+
+PetalburgWoods_EventScript_Boy2::
+	msgbox PetalburgWoods_Text_HiddenItemsExplanation, MSGBOX_NPC
+	end
+
+PetalburgWoods_EventScript_Sign1::
+	msgbox PetalburgWoods_Text_TrainerTipsExperience, MSGBOX_SIGN
+	end
+
+PetalburgWoods_EventScript_Sign2::
+	msgbox PetalburgWoods_Text_TrainerTipsPP, MSGBOX_SIGN
+	end
+
+PetalburgWoods_EventScript_Girl::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_MIRACLE_SEED, PetalburgWoods_EventScript_ExplainMiracleSeed
+	msgbox PetalburgWoods_Text_TryUsingThisItem
+	giveitem ITEM_MIRACLE_SEED
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_MIRACLE_SEED
+	release
+	end
+
+PetalburgWoods_EventScript_ExplainMiracleSeed::
+	msgbox PetalburgWoods_Text_MiracleSeedExplanation
+	release
+	end
+
 @ hoenn_import: left out: trigger (26,23) VAR_PETALBURG_WOODS_STATE==0 -> PetalburgWoods_EventScript_DevonResearcherLeft; trigger (27,23) VAR_PETALBURG_WOODS_STATE==0 -> PetalburgWoods_EventScript_DevonResearcherRight
 
 PetalburgWoods_EventScript_Lyle::

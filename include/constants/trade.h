@@ -21,6 +21,9 @@
 #define INGAME_TRADE_SEEL      8
 #define INGAME_TRADE_NIDORAN_M_LG 9
 #define INGAME_TRADE_NIDORINO_LG 10
+#define INGAME_TRADE_SEEDOT    11 // Rustboro (Emerald's INGAME_TRADE_SEEDOT)
+#define INGAME_TRADE_PLUSLE    12 // Fortree
+#define INGAME_TRADE_HORSEA    13 // Pacifidlog
 
 // Return values for CanTradeSelectedMon and CanSpinTradeMon
 #define CAN_TRADE_MON              0

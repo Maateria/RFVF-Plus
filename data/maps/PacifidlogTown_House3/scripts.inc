@@ -1,6 +1,41 @@
 PacifidlogTown_House3_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PacifidlogTown_House3/scripts.inc
-PacifidlogTown_House3_EventScript_Girl::        @ NPC #1 (3,5)
-PacifidlogTown_House3_EventScript_Trader::      @ NPC #2 (4,2)
+PacifidlogTown_House3_EventScript_Girl::
+	msgbox PacifidlogTown_House3_Text_IsThatAPokedex, MSGBOX_NPC
 	end
+
+@ Emerald's trade, written like Kanto's (Route2_House): FRLG's in-game trade scripts
+PacifidlogTown_House3_EventScript_Trader::
+	lock
+	faceplayer
+	setvar VAR_0x8008, INGAME_TRADE_HORSEA
+	call EventScript_GetInGameTradeSpeciesInfo
+	goto_if_set FLAG_PACIFIDLOG_NPC_TRADE_COMPLETED, PacifidlogTown_House3_EventScript_TradeCompleted
+	msgbox PacifidlogTown_House3_Text_WillingToTradeIt, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, PacifidlogTown_House3_EventScript_DeclineTrade
+	call EventScript_ChooseMonForInGameTrade
+	goto_if_ge VAR_0x8004, PARTY_SIZE, PacifidlogTown_House3_EventScript_DeclineTrade
+	call EventScript_GetInGameTradeSpecies
+	goto_if_ne VAR_RESULT, VAR_0x8009, PacifidlogTown_House3_EventScript_NotRequestedMon
+	call EventScript_DoInGameTrade
+	msgbox PacifidlogTown_House3_Text_ItsSubtlyDifferentThankYou
+	setflag FLAG_PACIFIDLOG_NPC_TRADE_COMPLETED
+	release
+	end
+
+PacifidlogTown_House3_EventScript_DeclineTrade::
+	msgbox PacifidlogTown_House3_Text_NotDesperateOrAnything
+	release
+	end
+
+PacifidlogTown_House3_EventScript_NotRequestedMon::
+	bufferspeciesname STR_VAR_1, VAR_0x8009
+	msgbox PacifidlogTown_House3_Text_WontAcceptAnyLessThanRealMon
+	release
+	end
+
+PacifidlogTown_House3_EventScript_TradeCompleted::
+	msgbox PacifidlogTown_House3_Text_ReallyWantedToGetBagon
+	release
+	end
+

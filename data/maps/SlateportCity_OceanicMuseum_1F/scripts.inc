@@ -1,20 +1,63 @@
 SlateportCity_OceanicMuseum_1F_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SlateportCity_OceanicMuseum_1F/scripts.inc
-SlateportCity_OceanicMuseum_1F_EventScript_EntranceAttendant:: @ NPC #1 (7,7)
-SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron1:: @ NPC #3 (4,2)
-SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron2:: @ NPC #4 (10,2)
-SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron3:: @ NPC #5 (17,7)
-SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron4:: @ NPC #6 (18,8)
-SlateportCity_OceanicMuseum_1F_EventScript_Reporter:: @ NPC #7 (7,4)
-SlateportCity_OceanicMuseum_1F_EventScript_WhirlpoolExperiment:: @ sign (2,7)
-SlateportCity_OceanicMuseum_1F_EventScript_WaterfallExperiment:: @ sign (2,4)
-SlateportCity_OceanicMuseum_1F_EventScript_OceanSoilDisplay:: @ sign (9,1)
-SlateportCity_OceanicMuseum_1F_EventScript_BeachSandDisplay:: @ sign (12,1)
-SlateportCity_OceanicMuseum_1F_EventScript_OceanicMinifact1:: @ sign (15,4)
-SlateportCity_OceanicMuseum_1F_EventScript_OceanicMinifact2:: @ sign (18,4)
-SlateportCity_OceanicMuseum_1F_EventScript_OceanicMinifact3:: @ sign (18,7)
-SlateportCity_OceanicMuseum_1F_EventScript_FossilDisplay:: @ sign (2,1)
-SlateportCity_OceanicMuseum_1F_EventScript_DepthMeasuringMachine:: @ sign (16,1)
+SlateportCity_OceanicMuseum_1F_EventScript_EntranceAttendant::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_PleaseEnjoyYourself, MSGBOX_NPC
 	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron1::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_LearnAboutSeaForBattling, MSGBOX_NPC
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron2::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_SternIsRoleModel, MSGBOX_NPC
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron3::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_MustBePokemonWeDontKnow, MSGBOX_NPC
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_MuseumPatron4::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_WantSeaPokemon, MSGBOX_NPC
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_WhirlpoolExperiment::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_WhirlpoolExperiment, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_WaterfallExperiment::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_WaterfallExperiment, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_OceanSoilDisplay::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_OceanSoilDisplay, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_BeachSandDisplay::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_BeachSandDisplay, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_OceanicMinifact1::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_OceanicMinifact1, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_OceanicMinifact2::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_OceanicMinifact2, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_OceanicMinifact3::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_OceanicMinifact3, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_FossilDisplay::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_FossilDisplay, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_DepthMeasuringMachine::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_DepthMeasuringMachine, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_1F_EventScript_Reporter::
+	msgbox SlateportCity_OceanicMuseum_1F_Text_ReporterMuseum, MSGBOX_NPC
+	end
+
 @ hoenn_import: left out: trigger (9,7) VAR_SLATEPORT_MUSEUM_1F_STATE==0 -> SlateportCity_OceanicMuseum_1F_EventScript_PayEntranceFeeLeft; trigger (10,7) VAR_SLATEPORT_MUSEUM_1F_STATE==0 -> SlateportCity_OceanicMuseum_1F_EventScript_PayEntranceFeeRight

@@ -157,3 +157,110 @@ Route104_Text_DarianDefeat::
 Route104_Text_DarianPostBattle::
     .string "Hé, MAGICARPE, on ne peut pas\n"
     .string "vraiment dire que tu mérites ton nom!$"
+
+Route104_Text_WhatsItLikeAtBottomOfSea::
+    .string "La mer, hum?\p"
+    .string "Je me demande comment c'est au fond\n"
+    .string "de la mer.$"
+
+Route104_Text_BrineyLivesInSeasideCottage::
+    .string "Cette maison au bord de l'eau,\n"
+    .string "c'est là qu'habite M. MARCO.\p"
+    .string "Autrefois, c'était un grand\n"
+    .string "marin. Il ne craignait pas\l"
+    .string "la mer, même déchaînée.$"
+
+Route104_Text_ThrowBallAtWeakenedPokemon::
+    .string "Si tu veux jeter une POKé BALL,\n"
+    .string "affaiblis d'abord le\l"
+    .string "POKéMON sauvage.\p"
+    .string "Ce sera plus facile de l'attraper\n"
+    .string "s'il est empoisonné, brûlé ou endormi.$"
+
+Route104_Text_OnlyThrowBallAtWildPokemon::
+    .string "Si tu essaies de prendre le POKéMON\n"
+    .string "de quelqu'un d'autre, c'est du vol.\p"
+    .string "Tu ne devrais lancer des POKé BALLS\n"
+    .string "qu'aux POKéMON sauvages.$"
+
+Route104_Text_ImNotATrainer::
+    .string "Oh, non, je ne suis pas DRESSEUR.\p"
+    .string "Mais s'il y a échange de\n"
+    .string "regards entre DRESSEURS,\l"
+    .string "c'est le combat assuré!\p"
+    .string "Si tu ne veux pas te battre, reste\n"
+    .string "hors de leur vue!$"
+
+Route104_Text_MrBrineysCottage::
+    .string "COTTAGE DE M. MARCO$"
+
+Route104_Text_RouteSignPetalburg::
+    .string "ROUTE 104\n"
+    .string "{RIGHT_ARROW} CLEMENTI-VILLE$"
+
+Route104_Text_RouteSignRustboro::
+    .string "ROUTE 104\n"
+    .string "{UP_ARROW} MEROUVILLE$"
+
+Route104_Text_PrettyPetalFlowShop::
+    .string "FLEURISTE JOLIE FLEUR$"
+
+Route104_Text_TrainerTipsDoubleBattles::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "A HOENN, certains DRESSEURS forment\n"
+    .string "des paires et défient les autres\l"
+    .string "dans des combats de POKéMON\l"
+    .string "2 contre 2 appelés COMBATS DUO.\p"
+    .string "Dans un COMBAT DUO, le DRESSEUR doit\n"
+    .string "envoyer deux POKéMON, celui\l"
+    .string "de gauche dans la liste et\l"
+    .string "celui tout en haut. Vérifie\l"
+    .string "la disposition de tes POKéMON!$"
+
+Route104_Text_LikeFillingMouthWithSeedsTakeThis::
+    .string "J'aime bien remplir ma\n"
+    .string "bouche de graines et les\l"
+    .string "recracher très vite ensuite!\p"
+    .string "Tiens, prends ça. Comme ça, tu\n"
+    .string "pourras essayer!\p"
+    .string "Essaie avec un POKéMON. Il apprendra\n"
+    .string "un coup pour vite lancer des graines.$"
+
+Route104_Text_TMsAreOneTimeUse::
+    .string "Un petit conseil!\p"
+    .string "Une CT, ou CAPSULE TECHNIQUE, ne\n"
+    .string "peut servir qu'une seule fois.\p"
+    .string "Une fois utilisée, elle disparaît.\n"
+    .string "Réfléchis bien avant de l'utiliser!$"
+
+Route104_Text_PlantBerriesInSoilTakeThis::
+    .string "Si tu vois des BAIES qui ont poussé\n"
+    .string "sur une terre meuble et fertile,\l"
+    .string "tu peux les prendre.\p"
+    .string "Mais tu dois semer une autre\n"
+    .string "BAIE à cet endroit. C'est\l"
+    .string "la moindre des choses.\p"
+    .string "Tiens, je vais partager ça avec toi.$"
+
+Route104_Text_TrainersOftenMakeMonHoldBerries::
+    .string "A te voir, tu dois être DRESSEUR,\n"
+    .string "n'est-ce pas?\p"
+    .string "Les DRESSEURS font souvent tenir\n"
+    .string "des BAIES à leurs POKéMON.\p"
+    .string "A toi de voir si tu préfères faire\n"
+    .string "pousser des BAIES ou les utiliser!$"
+
+Route104_Text_DontNeedThisTakeIt::
+    .string "Ce FLEURISTE vend de petits\n"
+    .string "arbres depuis peu.\p"
+    .string "Ça m'a fait si plaisir que j'ai fait un\n"
+    .string "tas d'achats.\p"
+    .string "Je n'ai plus besoin de cette\n"
+    .string "HERBEBLANCHE. Tu veux la prendre?$"
+
+Route104_Text_FlowerShopSellingSaplings::
+    .string "Ce FLEURISTE vend de petits\n"
+    .string "arbres depuis peu.\p"
+    .string "Ça m'a fait si plaisir que j'ai fait un\n"
+    .string "tas d'achats. Où vais-je pouvoir\l"
+    .string "mettre tout ça?$"

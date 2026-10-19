@@ -16,11 +16,76 @@ Route120_EventScript_ItemHyperPotion::          @ item ball, works (FLAG_ITEM_RO
 Route120_EventScript_ItemRevive::               @ item ball, works (FLAG_ITEM_ROUTE_120_REVIVE)
 	finditem ITEM_REVIVE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route120/scripts.inc
-Route120_EventScript_BerryBeauty::              @ NPC #9 (14,92)
-Route120_EventScript_RouteSignFortree::         @ sign (27,3)
-Route120_EventScript_RouteSign121::             @ sign (38,88)
+Route120_EventScript_RouteSignFortree::
+	msgbox Route120_Text_RouteSignFortree, MSGBOX_SIGN
 	end
+
+Route120_EventScript_RouteSign121::
+	msgbox Route120_Text_RouteSign121, MSGBOX_SIGN
+	end
+
+Route120_EventScript_BerryBeauty::
+	lock
+	faceplayer
+	goto_if_set FLAG_DAILY_ROUTE_120_RECEIVED_BERRY, Route120_EventScript_ReceivedBerry
+	msgbox Route120_Text_BerriesExpressionOfLoveIsntIt, MSGBOX_YESNO
+	call_if_eq VAR_RESULT, YES, Route120_EventScript_BerryLove
+	call_if_eq VAR_RESULT, NO, Route120_EventScript_BerryNotLove
+	specialvar VAR_RESULT, GetPlayerTrainerIdOnesDigit
+	switch VAR_RESULT
+	case 0, Route120_EventScript_GiveFigyBerry
+	case 5, Route120_EventScript_GiveFigyBerry
+	case 1, Route120_EventScript_GiveWikiBerry
+	case 6, Route120_EventScript_GiveWikiBerry
+	case 2, Route120_EventScript_GiveMagoBerry
+	case 7, Route120_EventScript_GiveMagoBerry
+	case 3, Route120_EventScript_GiveAguavBerry
+	case 8, Route120_EventScript_GiveAguavBerry
+	case 4, Route120_EventScript_GiveIapapaBerry
+	case 9, Route120_EventScript_GiveIapapaBerry
+	end
+
+Route120_EventScript_ReceivedBerry::
+	msgbox Route120_Text_IllGetMoreBerriesFromBerryMaster, MSGBOX_DEFAULT
+	release
+	end
+
+Route120_EventScript_BerryLove::
+	msgbox Route120_Text_YesYouUnderstand, MSGBOX_DEFAULT
+	return
+
+Route120_EventScript_BerryNotLove::
+	msgbox Route120_Text_MakeYourOwnImpressions, MSGBOX_DEFAULT
+	return
+
+Route120_EventScript_GiveFigyBerry::
+	setvar VAR_0x8004, ITEM_FIGY_BERRY
+	goto Route120_EventScript_GiveBerry
+
+Route120_EventScript_GiveWikiBerry::
+	setvar VAR_0x8004, ITEM_WIKI_BERRY
+	goto Route120_EventScript_GiveBerry
+
+Route120_EventScript_GiveMagoBerry::
+	setvar VAR_0x8004, ITEM_MAGO_BERRY
+	goto Route120_EventScript_GiveBerry
+
+Route120_EventScript_GiveAguavBerry::
+	setvar VAR_0x8004, ITEM_AGUAV_BERRY
+	goto Route120_EventScript_GiveBerry
+
+Route120_EventScript_GiveIapapaBerry::
+	setvar VAR_0x8004, ITEM_IAPAPA_BERRY
+	goto Route120_EventScript_GiveBerry
+
+Route120_EventScript_GiveBerry::
+	giveitem VAR_0x8004
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_DAILY_ROUTE_120_RECEIVED_BERRY
+	msgbox Route120_Text_BerryIsRareRaiseItWithCare, MSGBOX_DEFAULT
+	release
+	end
+
 
 Route120_EventScript_Colin::
 	trainerbattle_single TRAINER_COLIN, Route120_Text_ColinIntro, Route120_Text_ColinDefeat

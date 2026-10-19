@@ -309,4 +309,13 @@
 #define DEOXYS_CHECK_TRADE_MAIN         3
 #define DEOXYS_CHECK_BATTLE_ANIM        5
 
+// Emerald's GetLeadMonFriendshipScore values (FRLG's GetLeadMonFriendship returns the same)
+#define FRIENDSHIP_NONE        0
+#define FRIENDSHIP_1_TO_49     1
+#define FRIENDSHIP_50_TO_99    2
+#define FRIENDSHIP_100_TO_149  3
+#define FRIENDSHIP_150_TO_199  4
+#define FRIENDSHIP_200_TO_254  5
+#define FRIENDSHIP_MAX         6
+
 #endif // GUARD_CONSTANTS_POKEMON_H

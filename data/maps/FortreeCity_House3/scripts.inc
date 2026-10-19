@@ -1,6 +1,9 @@
 FortreeCity_House3_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/FortreeCity_House3/scripts.inc
-FortreeCity_House3_EventScript_Maniac::         @ NPC #1 (0,3)
-FortreeCity_House3_EventScript_SchoolKidM::     @ NPC #2 (5,4)
+FortreeCity_House3_EventScript_Maniac::
+	msgbox FortreeCity_House3_Text_MetStevenHadAmazingPokemon, MSGBOX_NPC
+	end
+
+FortreeCity_House3_EventScript_SchoolKidM::
+	msgbox FortreeCity_House3_Text_OhYouHavePokedex, MSGBOX_NPC
 	end

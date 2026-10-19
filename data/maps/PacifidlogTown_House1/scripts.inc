@@ -1,6 +1,9 @@
 PacifidlogTown_House1_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PacifidlogTown_House1/scripts.inc
-PacifidlogTown_House1_EventScript_Man::         @ NPC #1 (3,5)
-PacifidlogTown_House1_EventScript_Woman::       @ NPC #2 (6,4)
+PacifidlogTown_House1_EventScript_Man::
+	msgbox PacifidlogTown_House1_Text_RegiStory, MSGBOX_NPC
+	end
+
+PacifidlogTown_House1_EventScript_Woman::
+	msgbox PacifidlogTown_House1_Text_SixDotsOpenThreeDoors, MSGBOX_NPC
 	end

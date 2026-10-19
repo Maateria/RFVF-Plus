@@ -151,3 +151,63 @@ Route116_Text_DevanPostBattle::
     .string "Je devrais essayer d'autres types de\n"
     .string "POKéMON…\l"
     .string "C'est ce que je devrais faire…$"
+
+Route116_Text_RouteSignRustboro::
+    .string "ROUTE 116\n"
+    .string "{LEFT_ARROW} MEROUVILLE$"
+
+Route116_Text_RusturfTunnelSign::
+    .string "TUNNEL MERAZON\n"
+    .string "“Passage entre MEROUVILLE\l"
+    .string "et VERGAZON.\p"
+    .string "Le projet de création du tunnel\n"
+    .string "a été annulé.”$"
+
+Route116_Text_TunnelersRestHouse::
+    .string "REFUGE DES FOREURS$"
+
+Route116_Text_TrainerTipsBToStopEvolution::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Si vous voulez empêcher un POKéMON\n"
+    .string "d'évoluer, appuyez sur le\l"
+    .string "bouton B au moment où il\l"
+    .string "commence à évoluer. Le POKéMON,\l"
+    .string "effrayé, arrêtera d'évoluer.\p"
+    .string "C'est une cessation d'évolution.$"
+
+Route116_Text_TrainerTipsBagHasPockets::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Votre SAC a plusieurs POCHES.\p"
+    .string "Les objets obtenus sont directement\n"
+    .string "placés dans la POCHE appropriée.\p"
+    .string "Aucun DRESSEUR ne peut se permettre\n"
+    .string "de voyager sans\l"
+    .string "avoir son propre SAC.$"
+
+Route116_Text_CanYouHelpMeFindGlasses::
+    .string "J'ai fait tomber mes lunettes…\n"
+    .string "Tu peux m'aider à les retrouver?$"
+
+Route116_Text_MayISeeThoseGlasses::
+    .string "Ces lunettes-là?\n"
+    .string "Je peux les voir une seconde?$"
+
+Route116_Text_NotWhatImLookingFor::
+    .string "Hum…\n"
+    .string "Ce sont des LUNET.NOIRES.\l"
+    .string "Ce ne sont pas\l"
+    .string "celles que je cherche…$"
+
+Route116_Text_CantFindGlassesNotHere::
+    .string "Hum…\n"
+    .string "Je n'ai trouvé mes lunettes\l"
+    .string "nulle part… Peut-être\l"
+    .string "ne sont-elles pas par ici…$"
+
+Route116_Text_NotWhatImLookingForMaybeTheyArentHere::
+    .string "Hum…\n"
+    .string "Ce sont des LUNET.NOIRES.\l"
+    .string "Ce ne sont pas celles\l"
+    .string "que je cherche…\p"
+    .string "Peut-être mes lunettes ne sont-elles\n"
+    .string "pas par ici…$"

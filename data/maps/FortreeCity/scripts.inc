@@ -6,13 +6,40 @@ FortreeCity_MapScripts::
 FortreeCity_OnResume:
 	setstepcallback STEP_CB_FORTREE_BRIDGE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/FortreeCity/scripts.inc
-FortreeCity_EventScript_Man::                   @ NPC #1 (31,3)
-FortreeCity_EventScript_Girl::                  @ NPC #2 (32,16)
-FortreeCity_EventScript_Woman::                 @ NPC #3 (32,10)
-FortreeCity_EventScript_Boy::                   @ NPC #4 (11,14)
-FortreeCity_EventScript_OldMan::                @ NPC #5 (8,10)
-FortreeCity_EventScript_GameboyKid::            @ NPC #6 (9,16)
-FortreeCity_EventScript_CitySign::              @ sign (6,9)
-FortreeCity_EventScript_GymSign::               @ sign (26,10)
+FortreeCity_EventScript_Man::
+	msgbox FortreeCity_Text_SawGiganticPokemonInSky, MSGBOX_NPC
+	end
+
+FortreeCity_EventScript_Girl::
+	msgbox FortreeCity_Text_TreesGrowByDrinkingRainwater, MSGBOX_NPC
+	end
+
+FortreeCity_EventScript_Woman::
+	lock
+	faceplayer
+	goto FortreeCity_EventScript_WomanGymAccessible
+
+FortreeCity_EventScript_WomanGymAccessible::
+	msgbox FortreeCity_Text_ThisTimeIllBeatWinona, MSGBOX_DEFAULT
+	release
+	end
+
+FortreeCity_EventScript_Boy::
+	msgbox FortreeCity_Text_BugPokemonComeThroughWindow, MSGBOX_NPC
+	end
+
+FortreeCity_EventScript_OldMan::
+	msgbox FortreeCity_Text_EveryoneHealthyAndLively, MSGBOX_NPC
+	end
+
+FortreeCity_EventScript_GameboyKid::
+	msgbox FortreeCity_Text_PokemonThatEvolveWhenTraded, MSGBOX_NPC
+	end
+
+FortreeCity_EventScript_CitySign::
+	msgbox FortreeCity_Text_CitySign, MSGBOX_SIGN
+	end
+
+FortreeCity_EventScript_GymSign::
+	msgbox FortreeCity_Text_GymSign, MSGBOX_SIGN
 	end

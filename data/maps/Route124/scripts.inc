@@ -10,8 +10,8 @@ Route124_EventScript_ItemBlueShard::            @ item ball, works (FLAG_ITEM_RO
 Route124_EventScript_ItemYellowShard::          @ item ball, works (FLAG_ITEM_ROUTE_124_YELLOW_SHARD)
 	finditem ITEM_YELLOW_SHARD
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route124/scripts.inc
-Route124_EventScript_HuntersHouseSign::         @ sign (73,48)
+Route124_EventScript_HuntersHouseSign::
+	msgbox Route124_Text_HuntersHouse, MSGBOX_SIGN
 	end
 
 Route124_EventScript_Spencer::

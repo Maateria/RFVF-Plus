@@ -214,22 +214,22 @@
 #define VAR_TRICK_HOUSE_PUZZLE_7_STATE 0x40A0
 #define VAR_TRICK_HOUSE_PUZZLE_8_STATE 0x40A1
 #define VAR_TRICK_HOUSE_PUZZLE_7_STATE_2 0x40A2
-#define VAR_0x40A3                 0x40A3
-#define VAR_0x40A4                 0x40A4
-#define VAR_0x40A5                 0x40A5
+#define VAR_FOSSIL_RESURRECTION_STATE 0x40A3 // Devon Corp (Rustboro): 1 = fossil given, 2 = Pokemon ready
+#define VAR_WHICH_FOSSIL_REVIVED   0x40A4 // 1 = Root Fossil (Lileep), 2 = Claw Fossil (Anorith)
+#define VAR_SLATEPORT_FAN_CLUB_STATE 0x40A5 // Emerald's: 1 = first assessment, 2 = all scarves
 #define VAR_0x40A6                 0x40A6
-#define VAR_0x40A7                 0x40A7
-#define VAR_0x40A8                 0x40A8
-#define VAR_0x40A9                 0x40A9
+#define VAR_SEEDOT_SIZE_RECORD     0x40A7 // Emerald's (Sootopolis); VAR_LOTAD_SIZE_RECORD is RS's 0x404F
+#define VAR_HOENN_DAY_STEPS        0x40A8 // RFVF+: 1,000 steps make a day (no clock)
+#define VAR_HOENN_DAY_COUNT        0x40A9
 
 #define VAR_QLBAK_TRAINER_REMATCHES 0x40AA // array of 4
 #define VAR_QLBAK_MAP_LAYOUT        0x40AE
 
-#define VAR_0x40AF                 0x40AF
-#define VAR_0x40B0                 0x40B0
-#define VAR_0x40B1                 0x40B1
-#define VAR_0x40B2                 0x40B2
-#define VAR_0x40B3                 0x40B3
+#define VAR_PACIFIDLOG_TM_RECEIVED_DAY 0x40AF // Emerald's (Pacifidlog Fan Club TM), in RFVF+ days
+#define VAR_KIRI_BERRY_GIFTS       0x40B0 // RFVF+: wins against Hoenn's league trainers not paid by Kiri yet
+#define VAR_BERRY_MASTERS_WIFE_GIFTS 0x40B1 // same for the Berry Master's wife
+#define VAR_CYCLING_CHALLENGE_STATE 0x40B2 // Emerald's (Route 110): 1 = ready, 2 = riding, 3 = done
+#define VAR_CYCLING_ROAD_RECORD_TIME_L 0x40B3
 #define VAR_PORTHOLE               0x40B4
 #define VAR_EVENT_PICHU_SLOT       0x40B5
 #define VAR_MYSTERY_GIFT_1         0x40B6
@@ -239,8 +239,8 @@
 #define VAR_MYSTERY_GIFT_5         0x40BA
 #define VAR_MYSTERY_GIFT_6         0x40BB
 #define VAR_MYSTERY_GIFT_7         0x40BC
-#define VAR_0x40BD                 0x40BD
-#define VAR_0x40BE                 0x40BE
+#define VAR_CYCLING_ROAD_RECORD_TIME_H 0x40BD
+#define VAR_CYCLING_ROAD_RECORD_COLLISIONS 0x40BE
 #define VAR_0x40BF                 0x40BF
 #define VAR_0x40C0                 0x40C0
 #define VAR_0x40C1                 0x40C1

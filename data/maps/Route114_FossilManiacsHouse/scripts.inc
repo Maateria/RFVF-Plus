@@ -1,8 +1,27 @@
 Route114_FossilManiacsHouse_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route114_FossilManiacsHouse_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route114_FossilManiacsHouse/scripts.inc
-Route114_FossilManiacsHouse_EventScript_FossilManiacsBrother:: @ NPC #1 (3,2)
-Route114_FossilManiacsHouse_EventScript_RockDisplay:: @ sign (5,3)
-Route114_FossilManiacsHouse_EventScript_Bookshelf:: @ sign (7,2)
+Route114_FossilManiacsHouse_EventScript_RockDisplay::
+	msgbox Route114_FossilManiacsHouse_Text_RocksFillDisplayCase, MSGBOX_SIGN
 	end
+
+Route114_FossilManiacsHouse_EventScript_Bookshelf::
+	msgbox Route114_FossilManiacsHouse_Text_CrammedWithBooks, MSGBOX_SIGN
+	end
+
+Route114_FossilManiacsHouse_EventScript_FossilManiacsBrother::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM_DIG, Route114_FossilManiacsHouse_EventScript_ReceivedDig
+	msgbox Route114_FossilManiacsHouse_Text_HaveThisToDigLikeMyBrother, MSGBOX_DEFAULT
+	giveitem ITEM_TM28_DIG
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_DIG
+	release
+	end
+
+Route114_FossilManiacsHouse_EventScript_ReceivedDig::
+	msgbox Route114_FossilManiacsHouse_Text_DigReturnsYouToEntrance, MSGBOX_DEFAULT
+	release
+	end
+

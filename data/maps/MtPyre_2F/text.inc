@@ -82,3 +82,13 @@ MtPyre_2F_Text_LeahPostBattle::
     .string "DRESSEURS depuis des générations…\p"
     .string "Il est de mon devoir de protéger\n"
     .string "cette montagne…$"
+
+MtPyre_2F_Text_MemoriesOfSkitty::
+    .string "Souvenirs de mon cher SKITTY…\n"
+    .string "A sa pensée, les larmes me viennent.$"
+
+MtPyre_2F_Text_TumbledFromFloorAbove::
+    .string "Ouille, ouille… Des trous parsèment\n"
+    .string "le sol ici et là.\p"
+    .string "J'avais pas fait attention et je suis\n"
+    .string "tombé de l'étage du dessus.$"

@@ -4,6 +4,6 @@ AbandonedShip_Rooms_B1F_MapScripts::
 AbandonedShip_Rooms_B1F_EventScript_ItemEscapeRope:: @ item ball, works (FLAG_ITEM_ABANDONED_SHIP_ROOMS_B1F_ESCAPE_ROPE)
 	finditem ITEM_ESCAPE_ROPE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/AbandonedShip_Rooms_B1F/scripts.inc
-AbandonedShip_Rooms_B1F_EventScript_FatMan::    @ NPC #1 (25,6)
+AbandonedShip_Rooms_B1F_EventScript_FatMan::
+	msgbox AbandonedShip_Rooms_B1F_Text_GettingQueasy, MSGBOX_NPC
 	end

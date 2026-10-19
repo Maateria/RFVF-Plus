@@ -1,7 +1,19 @@
 FortreeCity_House5_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/FortreeCity_House5/scripts.inc
-FortreeCity_House5_EventScript_PokefanF::       @ NPC #1 (6,4)
-FortreeCity_House5_EventScript_Zigzagoon::      @ NPC #2 (6,3)
-FortreeCity_House5_EventScript_Man::            @ NPC #3 (2,4)
+FortreeCity_House5_EventScript_PokefanF::
+	msgbox FortreeCity_House5_Text_TreeHousesAreGreat, MSGBOX_NPC
+	end
+
+FortreeCity_House5_EventScript_Zigzagoon::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
+	msgbox FortreeCity_House5_Text_Zigzagoon, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+FortreeCity_House5_EventScript_Man::
+	msgbox FortreeCity_House5_Text_AdaptedToNature, MSGBOX_NPC
 	end

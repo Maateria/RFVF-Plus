@@ -451,7 +451,26 @@
       "dest_warp_id": "2"
     }
   ],
-  "coord_events": [],
+  "coord_events": [
+    {
+      "type": "trigger",
+      "x": 28,
+      "y": 92,
+      "elevation": 3,
+      "var": "VAR_CYCLING_CHALLENGE_STATE",
+      "var_value": "2",
+      "script": "Route110_EventScript_CyclingChallengeEnd"
+    },
+    {
+      "type": "trigger",
+      "x": 29,
+      "y": 92,
+      "elevation": 3,
+      "var": "VAR_CYCLING_CHALLENGE_STATE",
+      "var_value": "2",
+      "script": "Route110_EventScript_CyclingChallengeEnd"
+    }
+  ],
   "bg_events": [
     {
       "type": "sign",

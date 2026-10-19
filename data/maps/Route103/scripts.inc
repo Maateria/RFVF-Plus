@@ -7,10 +7,16 @@ Route103_EventScript_ItemGuardSpec::            @ item ball, works (FLAG_ITEM_RO
 Route103_EventScript_ItemPPUp::                 @ item ball, works (FLAG_ITEM_ROUTE_103_PP_UP)
 	finditem ITEM_PP_UP
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route103/scripts.inc
-Route103_EventScript_Man::                      @ NPC #1 (49,12)
-Route103_EventScript_Boy::                      @ NPC #6 (20,10)
-Route103_EventScript_RouteSign::                @ sign (11,9)
+Route103_EventScript_Man::
+	msgbox Route103_Text_ShortcutToOldale, MSGBOX_NPC
+	end
+
+Route103_EventScript_Boy::
+	msgbox Route103_Text_ShouldHaveBroughtPotion, MSGBOX_NPC
+	end
+
+Route103_EventScript_RouteSign::
+	msgbox Route103_Text_RouteSign, MSGBOX_SIGN
 	end
 
 Route103_EventScript_Daisy::

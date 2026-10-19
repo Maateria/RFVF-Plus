@@ -1,13 +1,92 @@
 SlateportCity_PokemonFanClub_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SlateportCity_PokemonFanClub/scripts.inc
-SlateportCity_PokemonFanClub_EventScript_Man::  @ NPC #1 (11,4)
-SlateportCity_PokemonFanClub_EventScript_Twin:: @ NPC #2 (1,5)
-SlateportCity_PokemonFanClub_EventScript_Reporter:: @ NPC #3 (11,5)
-SlateportCity_PokemonFanClub_EventScript_SootheBellWoman:: @ NPC #4 (6,2)
-SlateportCity_PokemonFanClub_EventScript_Chairman:: @ NPC #5 (6,5)
-SlateportCity_PokemonFanClub_EventScript_Zigzagoon:: @ NPC #6 (3,9)
-SlateportCity_PokemonFanClub_EventScript_Skitty:: @ NPC #7 (8,3)
-SlateportCity_PokemonFanClub_EventScript_Azumarill:: @ NPC #8 (10,8)
-SlateportCity_PokemonFanClub_EventScript_SwaggerTutor:: @ NPC #9 (11,8)
+SlateportCity_PokemonFanClub_EventScript_Man::
+	msgbox SlateportCity_PokemonFanClub_Text_PokemonDontLikeFainting, MSGBOX_NPC
 	end
+
+SlateportCity_PokemonFanClub_EventScript_Twin::
+	msgbox SlateportCity_PokemonFanClub_Text_MonEnjoyedProtein, MSGBOX_NPC
+	end
+
+SlateportCity_PokemonFanClub_EventScript_Zigzagoon::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
+	msgbox SlateportCity_PokemonFanClub_Text_Zigzagoon, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_Skitty::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_SKITTY, CRY_MODE_NORMAL
+	msgbox SlateportCity_PokemonFanClub_Text_Skitty, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_Azumarill::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_AZUMARILL, CRY_MODE_NORMAL
+	msgbox SlateportCity_PokemonFanClub_Text_Azumarill, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_Chairman::
+	lock
+	faceplayer
+	goto SlateportCity_PokemonFanClub_EventScript_ChairmanNotEnteredContest
+
+SlateportCity_PokemonFanClub_EventScript_ChairmanNotEnteredContest::
+	goto_if_set FLAG_MET_SLATEPORT_FANCLUB_CHAIRMAN, SlateportCity_PokemonFanClub_EventScript_ChairmanEnterContest
+	msgbox SlateportCity_PokemonFanClub_Text_MeetChairman, MSGBOX_DEFAULT
+	setflag FLAG_MET_SLATEPORT_FANCLUB_CHAIRMAN
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_ChairmanEnterContest::
+	msgbox SlateportCity_PokemonFanClub_Text_LikeToSeeEnteredContestPokemon, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_SootheBellWoman::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_SOOTHE_BELL, SlateportCity_PokemonFanClub_EventScript_ReceivedSootheBell
+	msgbox SlateportCity_PokemonFanClub_Text_ShowMePokemonThatLoveYou, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetLeadMonFriendship
+	goto_if_ge VAR_RESULT, FRIENDSHIP_150_TO_199, SlateportCity_PokemonFanClub_EventScript_GiveSootheBell
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_ReceivedSootheBell::
+	msgbox SlateportCity_PokemonFanClub_Text_TreatPokemonWithLove, MSGBOX_DEFAULT
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_GiveSootheBell::
+	playse SE_PIN
+	applymovement VAR_LAST_TALKED, Common_Movement_ExclamationMark
+	waitmovement 0
+	applymovement VAR_LAST_TALKED, Common_Movement_Delay48
+	waitmovement 0
+	msgbox SlateportCity_PokemonFanClub_Text_PokemonAdoresYou, MSGBOX_DEFAULT
+	giveitem ITEM_SOOTHE_BELL
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_SOOTHE_BELL
+	release
+	end
+
+SlateportCity_PokemonFanClub_EventScript_SwaggerTutor::
+	goto Route10_EventScript_SwaggerTutor
+
+SlateportCity_PokemonFanClub_EventScript_Reporter::
+	msgbox SlateportCity_PokemonFanClub_Text_ReporterFanClub, MSGBOX_NPC
+	end
+

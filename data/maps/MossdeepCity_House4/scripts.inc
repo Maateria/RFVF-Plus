@@ -1,7 +1,30 @@
 MossdeepCity_House4_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_House4/scripts.inc
-MossdeepCity_House4_EventScript_Woman::         @ NPC #1 (3,4)
-MossdeepCity_House4_EventScript_NinjaBoy::      @ NPC #2 (6,6)
-MossdeepCity_House4_EventScript_Skitty::        @ NPC #3 (2,4)
+MossdeepCity_House4_EventScript_Woman::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_House4_EventScript_CanBattleAtSecretBases
+	msgbox MossdeepCity_House4_Text_BrotherLikesToFindBases, MSGBOX_DEFAULT
+	release
 	end
+
+MossdeepCity_House4_EventScript_CanBattleAtSecretBases::
+	msgbox MossdeepCity_House4_Text_BrotherLikesToVisitBasesAndBattle, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_House4_EventScript_Skitty::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_SKITTY, CRY_MODE_NORMAL
+	msgbox MossdeepCity_House4_Text_Skitty, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+@ Basic text instead of the secret base check (user's choice)
+MossdeepCity_House4_EventScript_NinjaBoy::
+	msgbox MossdeepCity_House4_Text_MakeSecretBase, MSGBOX_NPC
+	end
+

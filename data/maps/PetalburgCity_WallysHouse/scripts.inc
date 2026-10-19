@@ -3,7 +3,28 @@
 PetalburgCity_WallysHouse_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_FRAME_TABLE (PetalburgCity_WallysHouse_OnFrame), ON_WARP_INTO_MAP_TABLE (PetalburgCity_WallysHouse_OnWarp)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PetalburgCity_WallysHouse/scripts.inc
-PetalburgCity_WallysHouse_EventScript_WallysDad:: @ NPC #1 (3,4)
-PetalburgCity_WallysHouse_EventScript_WallysMom:: @ NPC #2 (7,5)
+PetalburgCity_WallysHouse_EventScript_WallysDad::
+	lock
+	faceplayer
+	goto_if_defeated TRAINER_WALLY_VR_2, PetalburgCity_WallysHouse_EventScript_DefeatedWallyInVictoryRoad
+	goto PetalburgCity_WallysHouse_EventScript_ReceievedHMSurf
+
+PetalburgCity_WallysHouse_EventScript_DefeatedWallyInVictoryRoad::
+	msgbox PetalburgCity_WallysHouse_Text_YouMetWallyInEverGrandeCity, MSGBOX_DEFAULT
+	release
+	end
+
+PetalburgCity_WallysHouse_EventScript_ReceievedHMSurf::
+	msgbox PetalburgCity_WallysHouse_Text_WallyIsComingHomeSoon, MSGBOX_DEFAULT
+	release
+	end
+
+PetalburgCity_WallysHouse_EventScript_WallysMom::
+	lock
+	faceplayer
+	goto PetalburgCity_WallysHouse_EventScript_ReceivedHMSurf
+
+PetalburgCity_WallysHouse_EventScript_ReceivedHMSurf::
+	msgbox PetalburgCity_WallysHouse_Text_WallyLeftWithoutTelling, MSGBOX_DEFAULT
+	release
 	end

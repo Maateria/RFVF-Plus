@@ -1,8 +1,20 @@
 Route116_TunnelersRestHouse_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route116_TunnelersRestHouse_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route116_TunnelersRestHouse/scripts.inc
-Route116_TunnelersRestHouse_EventScript_Tunneler1:: @ NPC #1 (6,5)
-Route116_TunnelersRestHouse_EventScript_Tunneler3:: @ NPC #2 (3,6)
-Route116_TunnelersRestHouse_EventScript_Tunneler2:: @ NPC #3 (7,2)
+Route116_TunnelersRestHouse_EventScript_Tunneler1::
+	msgbox Route116_TunnelersRestHouse_Text_WeHadToStopBoring, MSGBOX_NPC
+	end
+
+Route116_TunnelersRestHouse_EventScript_Tunneler3::
+	lock
+	faceplayer
+	goto Route116_TunnelersRestHouse_EventScript_TunnelOpened
+
+Route116_TunnelersRestHouse_EventScript_TunnelOpened::
+	msgbox Route116_TunnelersRestHouse_Text_TunnelHasGoneThrough, MSGBOX_DEFAULT
+	release
+	end
+
+Route116_TunnelersRestHouse_EventScript_Tunneler2::
+	msgbox Route116_TunnelersRestHouse_Text_ManDiggingHisWayToVerdanturf, MSGBOX_NPC
 	end

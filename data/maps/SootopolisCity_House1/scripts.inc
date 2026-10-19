@@ -1,6 +1,29 @@
 SootopolisCity_House1_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SootopolisCity_House1/scripts.inc
-SootopolisCity_House1_EventScript_BrickBreakBlackBelt:: @ NPC #1 (2,4)
-SootopolisCity_House1_EventScript_Kecleon::     @ NPC #2 (2,3)
+SootopolisCity_House1_EventScript_Kecleon::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_KECLEON, CRY_MODE_NORMAL
+	msgbox SootopolisCity_House1_Text_Kecleon, MSGBOX_DEFAULT
+	waitmoncry
+	release
 	end
+
+SootopolisCity_House1_EventScript_BrickBreakBlackBelt::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM_BRICK_BREAK, SootopolisCity_House1_EventScript_ReceivedBrickBreak
+	msgbox SootopolisCity_House1_Text_DevelopedThisTM, MSGBOX_DEFAULT
+	giveitem ITEM_TM31_BRICK_BREAK
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_BRICK_BREAK
+	msgbox SootopolisCity_House1_Text_ExplainBrickBreak, MSGBOX_DEFAULT
+	release
+	end
+
+SootopolisCity_House1_EventScript_ReceivedBrickBreak::
+	msgbox SootopolisCity_House1_Text_ExplainBrickBreak, MSGBOX_DEFAULT
+	release
+	end
+

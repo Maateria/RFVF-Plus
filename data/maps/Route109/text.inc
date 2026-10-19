@@ -204,3 +204,63 @@ Route109_Text_ElijahPostBattle::
     .string "est le lieu idéal!\p"
     .string "Je pense donc aller faire un tour\n"
     .string "à POIVRESSEL.$"
+
+Route109_Text_ChillAtMyPapasSpot::
+    .string "Yo, DRESSEUR!\n"
+    .string "Plus fort que mon papa?\l"
+    .string "Tu trouveras pas,\l"
+    .string "ça n'existe pas!$"
+
+Route109_Text_SandCastleTakingLongTime::
+    .string "Il faut du temps pour construire\n"
+    .string "notre château de sable.$"
+
+Route109_Text_LittleKidsDartAround::
+    .string "Les petits courent\n"
+    .string "dans tous les sens…\p"
+    .string "Il est donc impossible de détourner\n"
+    .string "les yeux une seconde.\l"
+    .string "C'est épuisant.\p"
+    .string "Le mien est avec mon POKéMON. Il ne\n"
+    .string "devrait pas y avoir\l"
+    .string "de problème, mais…$"
+
+Route109_Text_ZigzagoonPicksUpLitter::
+    .string "Par ici, l'eau est propre.\p"
+    .string "Mais j'ai déjà vu mon ZIGZATON\n"
+    .string "revenir du rivage\l"
+    .string "avec des détritus.\p"
+    .string "L'eau polluée se transforme\n"
+    .string "en pluie et rejoint nos\l"
+    .string "rivières, dont on boit l'eau.\p"
+    .string "Si on pollue la mer, ça finira par\n"
+    .string "nous retomber dessus.$"
+
+Route109_Text_ZigzagoonCry::
+    .string "ZIGZATON: Ziiiig?$"
+
+Route109_Text_SeashoreHouseSign::
+    .string "MAISON DU BORD DE MER\p"
+    .string "“Combats ardents sur sable ardent.\n"
+    .string "Ici se trouve le repaire des\l"
+    .string "DRESSEURS ardents!”$"
+
+Route109_Text_TrainerTipsSign::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Des POKéMON ayant le même\n"
+    .string "niveau n'ont pas forcément\l"
+    .string "les mêmes statistiques.\p"
+    .string "Les POKéMON élevés par des\n"
+    .string "DRESSEURS deviennent plus forts que\l"
+    .string "les POKéMON sauvages.$"
+
+Route109_Text_YouCanHaveThis::
+    .string "Tu peux prendre ça!$"
+
+Route109_Text_WereGoingToMakeBigCastle::
+    .string "On va prendre tout le\n"
+    .string "sable de la plage et\l"
+    .string "construire un gros château!\p"
+    .string "Et après, on sera le\n"
+    .string "roi et la reine.\p"
+    .string "On te laissera être notre domestique.$"

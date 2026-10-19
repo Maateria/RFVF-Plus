@@ -1,8 +1,73 @@
 .equ LOCALID_CHALLENGE_BIKER, 18
 
 Route110_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, Route110_OnResume
+	map_script MAP_SCRIPT_ON_TRANSITION, Route110_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route110_OnFrame
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_RESUME (Route110_OnResume), ON_TRANSITION (Route110_OnTransition), ON_FRAME_TABLE (Route110_OnFrame)
+
+@ Emerald's Seaside Cycling Road challenge (src/hoenn_specials.c); its rival setup is left out
+Route110_OnResume::
+	special UpdateCyclingRoadState
+	end
+
+Route110_OnTransition::
+	call_if_eq VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_SaveCyclingMusic
+	end
+
+Route110_EventScript_SaveCyclingMusic::
+	savebgm MUS_RS_CYCLING
+	return
+
+Route110_OnFrame::
+	map_script_2 VAR_CYCLING_CHALLENGE_STATE, 1, Route110_EventScript_BeginCyclingRoadChallenge
+	.2byte 0
+
+Route110_EventScript_BeginCyclingRoadChallenge::
+	special Special_BeginCyclingRoadChallenge
+	setvar VAR_CYCLING_CHALLENGE_STATE, 2
+	end
+
+Route110_EventScript_CyclingChallengeEnd::
+	lockall
+	applymovement LOCALID_CHALLENGE_BIKER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	special FinishCyclingRoadChallenge
+	msgbox Route110_Text_CyclingChallengeResultSummary
+	switch VAR_RESULT
+	case 10, Route110_EventScript_ChallengeReactionBest
+	case 9, Route110_EventScript_ChallengeReactionGood
+	case 8, Route110_EventScript_ChallengeReactionGood
+	case 7, Route110_EventScript_ChallengeReactionGood
+	case 6, Route110_EventScript_ChallengeReactionOk
+	case 5, Route110_EventScript_ChallengeReactionOk
+	case 4, Route110_EventScript_ChallengeReactionOk
+	case 3, Route110_EventScript_ChallengeReactionBad
+	case 2, Route110_EventScript_ChallengeReactionBad
+	case 1, Route110_EventScript_ChallengeReactionBad
+	msgbox Route110_Text_ChallengeReactionWorst
+	goto Route110_EventScript_EndChallenge
+
+Route110_EventScript_ChallengeReactionBest::
+	msgbox Route110_Text_ChallengeReactionBest
+	goto Route110_EventScript_EndChallenge
+
+Route110_EventScript_ChallengeReactionGood::
+	msgbox Route110_Text_ChallengeReactionGood
+	goto Route110_EventScript_EndChallenge
+
+Route110_EventScript_ChallengeReactionOk::
+	msgbox Route110_Text_ChallengeReactionOk
+	goto Route110_EventScript_EndChallenge
+
+Route110_EventScript_ChallengeReactionBad::
+	msgbox Route110_Text_ChallengeReactionBad
+Route110_EventScript_EndChallenge::
+	setvar VAR_CYCLING_CHALLENGE_STATE, 3
+	savebgm MUS_DUMMY
+	fadedefaultbgm
+	releaseall
+	end
 Route110_EventScript_ItemDireHit::              @ item ball, works (FLAG_ITEM_ROUTE_110_DIRE_HIT)
 	finditem ITEM_DIRE_HIT
 	end
@@ -12,26 +77,70 @@ Route110_EventScript_ItemRareCandy::            @ item ball, works (FLAG_ITEM_RO
 Route110_EventScript_ItemElixir::               @ item ball, works (FLAG_ITEM_ROUTE_110_ELIXIR)
 	finditem ITEM_ELIXIR
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route110/scripts.inc
-Route110_EventScript_Boy2::                     @ NPC #1 (17,90)
-Route110_EventScript_CyclingGuy2::              @ NPC #2 (29,79)
-Route110_EventScript_OldWoman::                 @ NPC #3 (14,69)
-Route110_EventScript_CyclingGuy1::              @ NPC #4 (9,57)
-Route110_EventScript_OldMan::                   @ NPC #5 (10,11)
-Route110_EventScript_CyclingGirl1::             @ NPC #6 (27,24)
-Route110_EventScript_Boy1::                     @ NPC #7 (15,7)
-Route110_EventScript_ChallengeGuy::             @ NPC #18 (27,92)
-Route110_EventScript_VandalizedSign::           @ sign (15,25)
-Route110_EventScript_SeasideParkingSign::       @ sign (9,51)
-Route110_EventScript_CyclingRoadSign::          @ sign (14,88)
-Route110_EventScript_SlateportCitySign::        @ sign (20,94)
-Route110_EventScript_Route103Sign::             @ sign (7,79)
-Route110_EventScript_MauvilleCitySign::         @ sign (3,17)
-Route110_EventScript_TrainerTipsPrlzSleep::     @ sign (33,39)
-Route110_EventScript_TrainerTipsRegisterItems:: @ sign (37,70)
-Route110_EventScript_TrickHouseSign::           @ sign (8,67)
-Route110_EventScript_CyclingRoadResultsSign::   @ sign (32,93)
+Route110_EventScript_Boy2::
+	msgbox Route110_Text_WhichShouldIChoose, MSGBOX_NPC
 	end
+
+Route110_EventScript_CyclingGuy2::
+	msgbox Route110_Text_BikeTechniques, MSGBOX_NPC
+	end
+
+Route110_EventScript_OldWoman::
+	msgbox Route110_Text_WalkOnTheLowRoad, MSGBOX_NPC
+	end
+
+Route110_EventScript_CyclingGuy1::
+	msgbox Route110_Text_YouGotBikeFromRydel, MSGBOX_NPC
+	end
+
+Route110_EventScript_OldMan::
+	msgbox Route110_Text_TwoRoads, MSGBOX_NPC
+	end
+
+Route110_EventScript_CyclingGirl1::
+	msgbox Route110_Text_HairStreamsBehindMe, MSGBOX_NPC
+	end
+
+Route110_EventScript_Boy1::
+	msgbox Route110_Text_RideBikeAtFullSpeed, MSGBOX_NPC
+	end
+
+Route110_EventScript_VandalizedSign::
+	msgbox Route110_Text_AquaWasHere, MSGBOX_SIGN
+	end
+
+Route110_EventScript_SeasideParkingSign::
+	msgbox Route110_Text_SeasideParkingSign, MSGBOX_SIGN
+	end
+
+Route110_EventScript_CyclingRoadSign::
+	msgbox Route110_Text_CyclingRoadSign, MSGBOX_SIGN
+	end
+
+Route110_EventScript_SlateportCitySign::
+	msgbox Route110_Text_SlateportCitySign, MSGBOX_SIGN
+	end
+
+Route110_EventScript_Route103Sign::
+	msgbox Route110_Text_Route103Sign, MSGBOX_SIGN
+	end
+
+Route110_EventScript_MauvilleCitySign::
+	msgbox Route110_Text_MauvilleCitySign, MSGBOX_SIGN
+	end
+
+Route110_EventScript_TrainerTipsPrlzSleep::
+	msgbox Route110_Text_TrainerTipsPrlzSleep, MSGBOX_SIGN
+	end
+
+Route110_EventScript_TrainerTipsRegisterItems::
+	msgbox Route110_Text_TrainerTipsRegisterItems, MSGBOX_SIGN
+	end
+
+Route110_EventScript_TrickHouseSign::
+	msgbox Route110_Text_TrickHouseSign, MSGBOX_SIGN
+	end
+
 @ hoenn_import: left out: trigger (28,92) VAR_CYCLING_CHALLENGE_STATE==2 -> Route110_EventScript_CyclingChallengeEnd; trigger (29,92) VAR_CYCLING_CHALLENGE_STATE==2 -> Route110_EventScript_CyclingChallengeEnd; trigger (33,56) VAR_ROUTE110_STATE==0 -> Route110_EventScript_RivalTrigger1; trigger (34,56) VAR_ROUTE110_STATE==0 -> Route110_EventScript_RivalTrigger2; trigger (35,56) VAR_ROUTE110_STATE==0 -> Route110_EventScript_RivalTrigger3; trigger (7,85) VAR_REGISTER_BIRCH_STATE==1 -> Route110_EventScript_BirchScene1; trigger (8,85) VAR_REGISTER_BIRCH_STATE==1 -> Route110_EventScript_BirchScene2; trigger (9,85) VAR_REGISTER_BIRCH_STATE==1 -> Route110_EventScript_BirchScene3; trigger (10,85) VAR_REGISTER_BIRCH_STATE==1 -> Route110_EventScript_BirchScene4
 
 Route110_EventScript_Jasmine::
@@ -134,4 +243,31 @@ Route110_EventScript_Alyssa::
 Route110_EventScript_Joseph::
 	trainerbattle_single TRAINER_JOSEPH, Route110_Text_JosephIntro, Route110_Text_JosephDefeated
 	msgbox Route110_Text_JosephPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+@ RFVF+: any bike qualifies (the Bicycle has both moves once upgraded): no Acro Bike check
+Route110_EventScript_ChallengeGuy::
+	lock
+	faceplayer
+	goto_if_eq VAR_CYCLING_CHALLENGE_STATE, 0, Route110_EventScript_PlayerNotRidingBike
+	msgbox Route110_Text_AlwaysAimHigher
+	release
+	end
+
+Route110_EventScript_PlayerNotRidingBike::
+	msgbox Route110_Text_RatedForNumberOfCollisions
+	release
+	end
+
+Route110_EventScript_CyclingRoadResultsSign::
+	lockall
+	specialvar VAR_RESULT, GetRecordedCyclingRoadResults
+	goto_if_eq VAR_RESULT, FALSE, Route110_EventScript_NoRecordSet
+	msgbox Route110_Text_BestRecord
+	releaseall
+	end
+
+Route110_EventScript_NoRecordSet::
+	msgbox Route110_Text_ThereIsNoRecord
+	releaseall
 	end

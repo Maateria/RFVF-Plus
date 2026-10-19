@@ -190,6 +190,27 @@ void CompareMagikarpSize(void)
     gSpecialVar_Result = CompareMonSize(SPECIES_MAGIKARP, sizeRecord);
 }
 
+// Emerald's Lotad and Seedot records (Sootopolis)
+void GetLotadSizeRecordInfo(void)
+{
+    GetMonSizeRecordInfo(SPECIES_LOTAD, GetVarPointer(VAR_LOTAD_SIZE_RECORD));
+}
+
+void CompareLotadSize(void)
+{
+    gSpecialVar_Result = CompareMonSize(SPECIES_LOTAD, GetVarPointer(VAR_LOTAD_SIZE_RECORD));
+}
+
+void GetSeedotSizeRecordInfo(void)
+{
+    GetMonSizeRecordInfo(SPECIES_SEEDOT, GetVarPointer(VAR_SEEDOT_SIZE_RECORD));
+}
+
+void CompareSeedotSize(void)
+{
+    gSpecialVar_Result = CompareMonSize(SPECIES_SEEDOT, GetVarPointer(VAR_SEEDOT_SIZE_RECORD));
+}
+
 void GiveGiftRibbonToParty(u8 index, u8 ribbonId)
 {
     s32 i;

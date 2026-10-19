@@ -1,6 +1,22 @@
 MossdeepCity_House1_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_House1/scripts.inc
-MossdeepCity_House1_EventScript_BlackBelt::     @ NPC #1 (3,3)
-MossdeepCity_House1_EventScript_Woman::         @ NPC #2 (7,4)
+MossdeepCity_House1_EventScript_Woman::
+	msgbox MossdeepCity_House1_Text_HusbandCanTellPokeblockMonLikes, MSGBOX_NPC
 	end
+
+MossdeepCity_House1_EventScript_BlackBelt::
+	lock
+	faceplayer
+	bufferleadmonspeciesname STR_VAR_1
+	msgbox MossdeepCity_House1_Text_HmmYourPokemon, MSGBOX_DEFAULT
+	specialvar VAR_RESULT, GetPokeblockNameByMonNature
+	goto_if_eq VAR_RESULT, 0, MossdeepCity_House1_EventScript_NeutralNature
+	msgbox MossdeepCity_House1_Text_ItLikesXPokeblocks, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_House1_EventScript_NeutralNature::
+	msgbox MossdeepCity_House1_Text_DoesntLikeOrDislikePokeblocks, MSGBOX_DEFAULT
+	release
+	end
+

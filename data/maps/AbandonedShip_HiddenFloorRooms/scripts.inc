@@ -13,6 +13,8 @@ AbandonedShip_HiddenFloorRooms_EventScript_ItemTMRainDance:: @ item ball, works 
 AbandonedShip_HiddenFloorRooms_EventScript_ItemWaterStone:: @ item ball, works (FLAG_ITEM_ABANDONED_SHIP_HIDDEN_FLOOR_ROOM_3_WATER_STONE)
 	finditem ITEM_WATER_STONE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/AbandonedShip_HiddenFloorRooms/scripts.inc
-AbandonedShip_HiddenFloorRooms_EventScript_Trash:: @ sign (8,5)
+AbandonedShip_HiddenFloorRooms_EventScript_Trash::
+	lockall
+	msgbox AbandonedShip_HiddenFloorRooms_Text_BrightShinyTrash, MSGBOX_DEFAULT
+	releaseall
 	end

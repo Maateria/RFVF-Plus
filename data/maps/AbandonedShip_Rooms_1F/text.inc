@@ -38,3 +38,10 @@ AbandonedShip_Rooms_1F_Text_DemetriusPostBattle::
     .string "J'ai peur de me faire gronder, alors\n"
     .string "je me cache…\p"
     .string "Tu diras rien, d'accord?$"
+
+AbandonedShip_Rooms_1F_Text_TakingALookAround::
+    .string "Les bateaux de ce genre sont rares,\n"
+    .string "alors je vais y\l"
+    .string "jeter un coup d'œil.\p"
+    .string "Hum…\n"
+    .string "On dirait qu'il y a d'autres cabines…$"

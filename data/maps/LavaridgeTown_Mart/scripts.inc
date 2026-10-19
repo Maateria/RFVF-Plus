@@ -2,8 +2,34 @@
 
 LavaridgeTown_Mart_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/LavaridgeTown_Mart/scripts.inc
-LavaridgeTown_Mart_EventScript_Clerk::          @ NPC #1 (1,3)
-LavaridgeTown_Mart_EventScript_ExpertM::        @ NPC #2 (4,2)
-LavaridgeTown_Mart_EventScript_OldWoman::       @ NPC #3 (9,5)
+LavaridgeTown_Mart_EventScript_Clerk::
+	goto_if_questlog EventScript_ReleaseEnd
+	lock
+	faceplayer
+	message Text_MayIHelpYou
+	waitmessage
+	pokemart LavaridgeTown_Mart_Pokemart
+	msgbox Text_PleaseComeAgain
+	release
+	end
+
+	.align 2
+LavaridgeTown_Mart_Pokemart::
+	.2byte ITEM_GREAT_BALL
+	.2byte ITEM_SUPER_POTION
+	.2byte ITEM_ANTIDOTE
+	.2byte ITEM_PARALYZE_HEAL
+	.2byte ITEM_AWAKENING
+	.2byte ITEM_BURN_HEAL
+	.2byte ITEM_REVIVE
+	.2byte ITEM_SUPER_REPEL
+	.2byte ITEM_X_SPEED
+	pokemartlistend
+
+LavaridgeTown_Mart_EventScript_ExpertM::
+	msgbox LavaridgeTown_Mart_Text_XSpeedFirstStrike, MSGBOX_NPC
+	end
+
+LavaridgeTown_Mart_EventScript_OldWoman::
+	msgbox LavaridgeTown_Mart_Text_LocalSpecialtyOnMtChimney, MSGBOX_NPC
 	end

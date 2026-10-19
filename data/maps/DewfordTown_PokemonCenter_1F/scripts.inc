@@ -1,10 +1,24 @@
 .equ LOCALID_DEWFORD_NURSE, 1
 
 DewfordTown_PokemonCenter_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, DewfordTown_PokemonCenter_1F_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (DewfordTown_PokemonCenter_1F_OnTransition), ON_RESUME (CableClub_OnResume)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/DewfordTown_PokemonCenter_1F/scripts.inc
-DewfordTown_PokemonCenter_1F_EventScript_Nurse:: @ NPC #1 (7,2)
-DewfordTown_PokemonCenter_1F_EventScript_PokefanF:: @ NPC #2 (10,6)
-DewfordTown_PokemonCenter_1F_EventScript_Man::  @ NPC #3 (5,5)
+@ hoenn_import: Emerald map scripts not ported: ON_RESUME (CableClub_OnResume)
+DewfordTown_PokemonCenter_1F_OnTransition::
+	setrespawn SPAWN_DEWFORD_TOWN
+	end
+
+DewfordTown_PokemonCenter_1F_EventScript_Nurse::
+	lock
+	faceplayer
+	call EventScript_PkmnCenterNurse
+	release
+	end
+
+DewfordTown_PokemonCenter_1F_EventScript_PokefanF::
+	msgbox DewfordTown_PokemonCenter_1F_Text_StoneCavern, MSGBOX_NPC
+	end
+
+DewfordTown_PokemonCenter_1F_EventScript_Man::
+	msgbox DewfordTown_PokemonCenter_1F_Text_FaintedMonCanUseHM, MSGBOX_NPC
 	end

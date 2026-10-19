@@ -34,6 +34,7 @@
 #include "constants/songs.h"
 #include "constants/pokemon.h"
 #include "constants/trainers.h"
+#include "hoenn_specials.h"
 
 enum {
     TRANSITION_TYPE_NORMAL,
@@ -1136,6 +1137,7 @@ static void CB2_EndTrainerBattle(void)
         {
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
             SetBattledTrainerFlag();
+            HoennBerryGifts_OnTrainerBattleWon(gTrainerBattleOpponent_A);
             QuestLogEvents_HandleEndTrainerBattle();
         }
     }
@@ -1155,6 +1157,7 @@ static void CB2_EndRematchBattle(void)
     {
         SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         SetBattledTrainerFlag();
+        HoennBerryGifts_OnTrainerBattleWon(gTrainerBattleOpponent_A);
         ClearRematchStateOfLastTalked();
         ResetDeferredLinkEvent();
     }

@@ -172,3 +172,75 @@ s16 SeekToNextMonInBox(struct BoxPokemon * boxMons, s8 curIndex, u8 maxIndex, u8
 
     return -1;
 }
+
+// Walda's wallpaper (Emerald's), saved in SaveBlock1.waldaPhrase
+#define WALDA_PATTERN_COUNT 16 // sWaldaWallpapers (src/data/walda_wallpapers.h)
+#define WALDA_ICON_COUNT 30    // sWaldaWallpaperIcons
+
+void ResetWaldaWallpaper(void)
+{
+    gSaveBlock1Ptr->waldaPhrase.iconId = 0;
+    gSaveBlock1Ptr->waldaPhrase.patternId = 0;
+    gSaveBlock1Ptr->waldaPhrase.patternUnlocked = FALSE;
+    gSaveBlock1Ptr->waldaPhrase.colors[0] = RGB(21, 25, 30);
+    gSaveBlock1Ptr->waldaPhrase.colors[1] = RGB(6, 12, 24);
+    gSaveBlock1Ptr->waldaPhrase.text[0] = EOS;
+}
+
+void SetWaldaWallpaperLockedOrUnlocked(bool32 unlocked)
+{
+    gSaveBlock1Ptr->waldaPhrase.patternUnlocked = unlocked;
+}
+
+bool32 IsWaldaWallpaperUnlocked(void)
+{
+    return gSaveBlock1Ptr->waldaPhrase.patternUnlocked;
+}
+
+u32 GetWaldaWallpaperPatternId(void)
+{
+    return gSaveBlock1Ptr->waldaPhrase.patternId;
+}
+
+void SetWaldaWallpaperPatternId(u8 id)
+{
+    if (id < WALDA_PATTERN_COUNT)
+        gSaveBlock1Ptr->waldaPhrase.patternId = id;
+}
+
+u32 GetWaldaWallpaperIconId(void)
+{
+    return gSaveBlock1Ptr->waldaPhrase.iconId;
+}
+
+void SetWaldaWallpaperIconId(u8 id)
+{
+    if (id < WALDA_ICON_COUNT)
+        gSaveBlock1Ptr->waldaPhrase.iconId = id;
+}
+
+u16 *GetWaldaWallpaperColorsPtr(void)
+{
+    return gSaveBlock1Ptr->waldaPhrase.colors;
+}
+
+void SetWaldaWallpaperColors(u16 color1, u16 color2)
+{
+    gSaveBlock1Ptr->waldaPhrase.colors[0] = color1;
+    gSaveBlock1Ptr->waldaPhrase.colors[1] = color2;
+}
+
+u8 *GetWaldaPhrasePtr(void)
+{
+    return gSaveBlock1Ptr->waldaPhrase.text;
+}
+
+void SetWaldaPhrase(const u8 *src)
+{
+    StringCopy(gSaveBlock1Ptr->waldaPhrase.text, src);
+}
+
+bool32 IsWaldaPhraseEmpty(void)
+{
+    return (gSaveBlock1Ptr->waldaPhrase.text[0] == EOS);
+}

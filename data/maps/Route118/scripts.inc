@@ -4,12 +4,42 @@ Route118_MapScripts::
 Route118_EventScript_ItemHyperPotion::          @ item ball, works (FLAG_ITEM_ROUTE_118_HYPER_POTION)
 	finditem ITEM_HYPER_POTION
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route118/scripts.inc
-Route118_EventScript_Girl::                     @ NPC #2 (12,10)
-Route118_EventScript_GoodRodFisherman::         @ NPC #4 (28,8)
-Route118_EventScript_RouteSignMauville::        @ sign (13,6)
-Route118_EventScript_RouteSign119::             @ sign (56,8)
+Route118_EventScript_Girl::
+	msgbox Route118_Text_CanCrossRiversWithSurf, MSGBOX_NPC
 	end
+
+Route118_EventScript_RouteSignMauville::
+	msgbox Route118_Text_RouteSignMauville, MSGBOX_SIGN
+	end
+
+Route118_EventScript_RouteSign119::
+	msgbox Route118_Text_RouteSign119, MSGBOX_SIGN
+	end
+
+@ He gives his Good Rod only to a player who has none (user's choice)
+Route118_EventScript_GoodRodFisherman::
+	lock
+	faceplayer
+	checkitem ITEM_GOOD_ROD
+	goto_if_eq VAR_RESULT, TRUE, Route118_EventScript_ReceivedGoodRod
+	msgbox Route118_Text_YouAgreeGoodRodIsGood, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route118_EventScript_DeclineGoodRod
+	msgbox Route118_Text_IdenticalMindsTakeThis
+	giveitem ITEM_GOOD_ROD
+	msgbox Route118_Text_TryYourLuckFishing
+	release
+	end
+
+Route118_EventScript_DeclineGoodRod::
+	msgbox Route118_Text_DontYouLikeToFish
+	release
+	end
+
+Route118_EventScript_ReceivedGoodRod::
+	msgbox Route118_Text_TryCatchingMonWithGoodRod
+	release
+	end
+
 @ hoenn_import: left out: trigger (43,11) VAR_ROUTE118_STATE==0 -> Route118_EventScript_StevenTrigger0; trigger (44,11) VAR_ROUTE118_STATE==0 -> Route118_EventScript_StevenTrigger1; trigger (45,11) VAR_ROUTE118_STATE==0 -> Route118_EventScript_StevenTrigger2
 
 Route118_EventScript_Perry::

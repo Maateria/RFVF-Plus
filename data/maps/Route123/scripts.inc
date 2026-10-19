@@ -16,12 +16,42 @@ Route123_EventScript_ItemPPUp::                 @ item ball, works (FLAG_ITEM_RO
 Route123_EventScript_ItemRevivalHerb::          @ item ball, works (FLAG_ITEM_ROUTE_123_REVIVAL_HERB)
 	finditem ITEM_REVIVAL_HERB
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route123/scripts.inc
-Route123_EventScript_GigaDrainGirl::            @ NPC #7 (108,13)
-Route123_EventScript_RouteSignMtPyre::          @ sign (117,10)
-Route123_EventScript_RouteSign::                @ sign (10,12)
-Route123_EventScript_BerryMastersHouseSign::    @ sign (20,7)
+Route123_EventScript_RouteSignMtPyre::
+	msgbox Route123_Text_RouteSignMtPyre, MSGBOX_SIGN
 	end
+
+Route123_EventScript_RouteSign::
+	msgbox Route123_Text_RouteSign, MSGBOX_SIGN
+	end
+
+Route123_EventScript_BerryMastersHouseSign::
+	msgbox Route123_Text_BerryMastersHouse, MSGBOX_SIGN
+	end
+
+Route123_EventScript_GigaDrainGirl::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM_GIGA_DRAIN, Route123_EventScript_ReceivedGigaDrain
+	msgbox Route123_Text_LoveGrassMonsHaveAny, MSGBOX_DEFAULT
+	special IsGrassTypeInParty
+	goto_if_eq VAR_RESULT, FALSE, Route123_EventScript_NoGrassMons
+	msgbox Route123_Text_YouLikeGrassMonsTooHaveThis, MSGBOX_DEFAULT
+	giveitem ITEM_TM19_GIGA_DRAIN
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_GIGA_DRAIN
+	msgbox Route123_Text_CheckTreesWithMyGrassMon, MSGBOX_DEFAULT
+	release
+	end
+
+Route123_EventScript_ReceivedGigaDrain::
+	msgbox Route123_Text_CheckTreesWithMyGrassMon, MSGBOX_DEFAULT
+	release
+	end
+
+Route123_EventScript_NoGrassMons::
+	release
+	end
+
 
 Route123_EventScript_Wendy::
 	trainerbattle_single TRAINER_WENDY, Route123_Text_WendyIntro, Route123_Text_WendyDefeat

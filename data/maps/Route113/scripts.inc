@@ -29,13 +29,28 @@ Route113_EventScript_ItemSuperRepel::           @ item ball, works (FLAG_ITEM_RO
 Route113_EventScript_ItemHyperPotion::          @ item ball, works (FLAG_ITEM_ROUTE_113_HYPER_POTION)
 	finditem ITEM_HYPER_POTION
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route113/scripts.inc
-Route113_EventScript_NinjaBoy::                 @ NPC #1 (66,12)
-Route113_EventScript_Gentleman::                @ NPC #2 (36,10)
-Route113_EventScript_RouteSign111::             @ sign (85,6)
-Route113_EventScript_RouteSignFallarbor::       @ sign (12,9)
-Route113_EventScript_TrainerTipsRegisterKeyItems:: @ sign (58,4)
-Route113_EventScript_GlassWorkshopSign::        @ sign (31,5)
+Route113_EventScript_NinjaBoy::
+	msgbox Route113_Text_FunWalkingThroughAsh, MSGBOX_NPC
+	end
+
+Route113_EventScript_Gentleman::
+	msgbox Route113_Text_AshCanBeFashionedIntoGlass, MSGBOX_NPC
+	end
+
+Route113_EventScript_RouteSign111::
+	msgbox Route113_Text_RouteSign111, MSGBOX_SIGN
+	end
+
+Route113_EventScript_RouteSignFallarbor::
+	msgbox Route113_Text_RouteSignFallarbor, MSGBOX_SIGN
+	end
+
+Route113_EventScript_TrainerTipsRegisterKeyItems::
+	msgbox Route113_Text_TrainerTipsRegisterKeyItems, MSGBOX_SIGN
+	end
+
+Route113_EventScript_GlassWorkshopSign::
+	msgbox Route113_Text_GlassWorkshopSign, MSGBOX_SIGN
 	end
 
 Route113_EventScript_Jaylen::

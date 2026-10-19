@@ -223,3 +223,156 @@ Route110_Text_JosephDefeated::
 Route110_Text_JosephPostBattle::
     .string "C'est pas grave. La défaite a fait de\n"
     .string "moi un homme meilleur!$"
+
+Route110_Text_WhichShouldIChoose::
+    .string "Que dois-je faire?\p"
+    .string "Aller directement à LAVANDIA par\n"
+    .string "la PISTE CYCLABLE ou\l"
+    .string "prendre la route du bas\l"
+    .string "et chercher des POKéMON?$"
+
+Route110_Text_BikeTechniques::
+    .string "C'est plus sympa de faire du VELO\n"
+    .string "quand on connaît\l"
+    .string "certaines techniques.\p"
+    .string "Certains endroits ne sont accessibles\n"
+    .string "qu'en utilisant une technique en vélo.$"
+
+Route110_Text_WalkOnTheLowRoad::
+    .string "Je n'ai pas de VELO, alors je me\n"
+    .string "balade sur la route du dessous.$"
+
+Route110_Text_YouGotBikeFromRydel::
+    .string "Oh, hé, tu as eu ce\n"
+    .string "VELO chez RODOLPHE!\p"
+    .string "Oh, ça saute aux yeux!\n"
+    .string "C'est écrit dessus…\p"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\n"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\p"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\n"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\p"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\n"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\p"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\n"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE,\p"
+    .string "RODOLPHE, RODOLPHE, RODOLPHE…\n"
+    .string "Ce nom est partout.\p"
+    .string "Tu devrais rouler un peu partout\n"
+    .string "dans le coin. Ça fait une super pub!$"
+
+Route110_Text_TwoRoads::
+    .string "Les deux routes, l'une au-dessus et\n"
+    .string "l'autre en dessous…\p"
+    .string "Une pour les POKéMON et une pour les\n"
+    .string "humains. C'est peut-être juste.$"
+
+Route110_Text_HairStreamsBehindMe::
+    .string "Tu aimes mes cheveux noir corbeau\n"
+    .string "qui flottent dans mon dos?\p"
+    .string "Je les ai laissés pousser rien que\n"
+    .string "pour ça.$"
+
+Route110_Text_RideBikeAtFullSpeed::
+    .string "Ce serait pas génial de rouler à fond\n"
+    .string "en VELO sur la PISTE CYCLABLE?$"
+
+Route110_Text_AquaWasHere::
+    .string "“VIVE LA TEAM AQUA!”\p"
+    .string "C'est ce qui était écrit sur le\n"
+    .string "panneau, mais quelqu'un a rajouté\l"
+    .string "un nouveau texte par dessus.\p"
+    .string "On peut y lire:\n"
+    .string "“LA TEAM MAGMA est la meilleure!”$"
+
+Route110_Text_SeasideParkingSign::
+    .string "PARKING DU BORD DE MER$"
+
+Route110_Text_CyclingRoadSign::
+    .string "PISTE CYCLABLE DU BORD DE MER$"
+
+Route110_Text_SlateportCitySign::
+    .string "ROUTE 110\n"
+    .string "{DOWN_ARROW} POIVRESSEL$"
+
+Route110_Text_Route103Sign::
+    .string "ROUTE 110\n"
+    .string "{LEFT_ARROW} ROUTE 103$"
+
+Route110_Text_MauvilleCitySign::
+    .string "ROUTE 110\n"
+    .string "{UP_ARROW} LAVANDIA$"
+
+Route110_Text_TrainerTipsPrlzSleep::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Vous pouvez rendre l'ennemi impuissant\n"
+    .string "en le paralysant ou en l'endormant.\p"
+    .string "C'est une technique importante pour\n"
+    .string "les combats de POKéMON.$"
+
+Route110_Text_TrainerTipsRegisterItems::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Vous pouvez réorganiser les objets\n"
+    .string "dans le SAC en appuyant sur SELECT.$"
+
+Route110_Text_TrickHouseSign::
+    .string "“Trois pas {RIGHT_ARROW} et deux pas {UP_ARROW} pour\n"
+    .string "atteindre la MAISON DES PIEGES.”$"
+
+Route110_Text_CyclingChallengeResultSummary::
+    .string "Nombre de collisions:\n"
+    .string "{STR_VAR_1}!\p"
+    .string "Temps total:\n"
+    .string "{STR_VAR_2}!$"
+
+Route110_Text_ChallengeReactionWorst::
+    .string "… Je suis horrifié…\p"
+    .string "C'est peut-être pas ton truc le VELO,\n"
+    .string "après tout.\p"
+    .string "Tu devrais sérieusement penser à \n"
+    .string "rapporter ce VELO chez RODOLPHE.$"
+
+Route110_Text_ChallengeReactionBest::
+    .string "Bravo! Superbe démonstration!\p"
+    .string "Ton amour pour le vélo vient du plus\n"
+    .string "profond de ton cœur.\l"
+    .string "Tu m'as profondément ému!$"
+
+Route110_Text_ChallengeReactionGood::
+    .string "Ta technique est remarquable.\p"
+    .string "Je te suggère juste de ralentir un\n"
+    .string "peu pour éviter les collisions.$"
+
+Route110_Text_ChallengeReactionOk::
+    .string "Je dirais que tu es\n"
+    .string "sur la bonne voie.\p"
+    .string "Cependant, j'espère que\n"
+    .string "tu ne vas pas oublier le\l"
+    .string "véritable plaisir du vélo.$"
+
+Route110_Text_ChallengeReactionBad::
+    .string "Je dois dire… Tes compétences\n"
+    .string "cyclistes sont très limitées.\p"
+    .string "Tu aurais sûrement besoin d'un peu\n"
+    .string "plus de pratique.$"
+
+Route110_Text_AlwaysAimHigher::
+    .string "Peu importe les résultats, j'attends\n"
+    .string "plus de combativité de ta part.\p"
+    .string "Il faut toujours viser plus haut!$"
+
+Route110_Text_RatedForNumberOfCollisions::
+    .string "C'est la PISTE CYCLABLE.\p"
+    .string "Si tu roules de LAVANDIA à\n"
+    .string "POIVRESSEL avec le VELO COURSE,\l"
+    .string "tu pourras connaître ton nombre\l"
+    .string "de collisions et ton temps total.$"
+
+Route110_Text_BestRecord::
+    .string "LE RECORD A RETENIR…\p"
+    .string "Nb de collisions: {STR_VAR_1}\p"
+    .string "Temps écoulé: {STR_VAR_2}$"
+
+Route110_Text_ThereIsNoRecord::
+    .string "LE RECORD A RETENIR…\p"
+    .string "Personne ne semble avoir relevé le\n"
+    .string "défi. Aucun record n'a été établi…$"

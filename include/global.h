@@ -773,6 +773,18 @@ struct ExternalEventFlags
 
 } __attribute__((packed));/*size = 0x15*/
 
+#define WALDA_PHRASE_LENGTH 15
+
+struct WaldaPhrase
+{
+    u16 colors[2]; // Background, foreground.
+    u8 text[WALDA_PHRASE_LENGTH + 1];
+    u8 iconId;
+    u8 patternId;
+    bool8 patternUnlocked;
+    //u8 padding;
+};
+
 struct SaveBlock1
 {
     /*0x0000*/ struct Coords16 pos;
@@ -837,7 +849,8 @@ struct SaveBlock1
     /*0x3A18*/ u8 seen2[52]; //made unreferenced & can be gotten rid of, though PKHeX presumably will still set this
     /*0x3A4C*/ u8 rivalName[PLAYER_NAME_LENGTH + 1];
     /*0x3A54*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
-    /*0x3A94*/ u8 unused_3A94[44]; //max fame checker people is actually 32, so this is the unused 16 entries
+    /*0x3A94*/ struct WaldaPhrase waldaPhrase; // RFVF+: Emerald's (Rustboro), in the unused fame checker entries: zero in older saves
+    /*0x3AAC*/ u8 unused_3AAC[20];
                u8 masterTrainerFlags[20]; //taken from above unused_3A94 field, which was originally 64 bytes long. 1 byte longer than necessary for alignment.
     /*0x3AD4*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     /*0x3BA8*/ struct TrainerNameRecord trainerNameRecords[20];

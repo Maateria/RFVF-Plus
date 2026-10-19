@@ -162,7 +162,8 @@ static const u16 sBoxTitleColors[][2] = {
     {RGB( 7,  7,  7), RGB_WHITE},
     {RGB( 7,  7,  7), RGB_WHITE},
     {RGB( 7,  7,  7), RGB_WHITE},
-    {RGB( 7,  7,  7), RGB_WHITE}
+    {RGB( 7,  7,  7), RGB_WHITE},
+    [WALLPAPER_FRIENDS] = {RGB( 7,  7,  7), RGB_WHITE}
 };
 
 static const struct Wallpaper sWallpapers[] = {
@@ -183,6 +184,8 @@ static const struct Wallpaper sWallpapers[] = {
     {sWallpaperTiles_Tiles,      sWallpaperTilemap_Tiles,      *sWallpaperPalettes_Tiles     },
     {sWallpaperTiles_Simple,     sWallpaperTilemap_Simple,     *sWallpaperPalettes_Simple    },
 };
+
+#include "data/walda_wallpapers.h"
 
 static const u16 sBoxScrollArrow_Gfx[] = INCBIN_U16("graphics/pokemon_storage/box_scroll_arrow.4bpp");
 
@@ -1227,16 +1230,45 @@ static void LoadWallpaperGfx(u8 boxId, s8 direction)
     }
 
     wallpaperId = GetBoxWallpaper(gStorage->wallpaperLoadBoxId);
-    wallpaper = &sWallpapers[wallpaperId];
-    LZ77UnCompWram(wallpaper->tileMap, gStorage->wallpaperTilemap);
-    DrawWallpaper(gStorage->wallpaperBgTilemapBuffer, gStorage->wallpaperTilemap, gStorage->wallpaperLoadDir, gStorage->wallpaperOffset);
+    if (wallpaperId != WALLPAPER_FRIENDS)
+    {
+        wallpaper = &sWallpapers[wallpaperId];
+        LZ77UnCompWram(wallpaper->tileMap, gStorage->wallpaperTilemap);
+        DrawWallpaper(gStorage->wallpaperBgTilemapBuffer, gStorage->wallpaperTilemap, gStorage->wallpaperLoadDir, gStorage->wallpaperOffset);
 
-    if (gStorage->wallpaperLoadDir != 0)
-        LoadPalette(wallpaper->palettes, BG_PLTT_ID(4) + BG_PLTT_ID(gStorage->wallpaperOffset * 2), 2 * PLTT_SIZE_4BPP);
+        if (gStorage->wallpaperLoadDir != 0)
+            LoadPalette(wallpaper->palettes, BG_PLTT_ID(4) + BG_PLTT_ID(gStorage->wallpaperOffset * 2), 2 * PLTT_SIZE_4BPP);
+        else
+            CpuCopy16(wallpaper->palettes, &gPlttBufferUnfaded[BG_PLTT_ID(4) + BG_PLTT_ID(gStorage->wallpaperOffset * 2)], 2 * PLTT_SIZE_4BPP);
+
+        DecompressAndLoadBgGfxUsingHeap(2, wallpaper->tiles, 0, 256 * gStorage->wallpaperOffset, 0);
+        gStorage->wallpaperTiles = NULL; // gStorage is not zeroed: WaitForWallpaperGfxLoad frees it
+    }
     else
-        CpuCopy16(wallpaper->palettes, &gPlttBufferUnfaded[BG_PLTT_ID(4) + BG_PLTT_ID(gStorage->wallpaperOffset * 2)], 2 * PLTT_SIZE_4BPP);
+    {
+        // Emerald's Walda wallpaper: the phrase's pattern, with its two colors and its icon (tile 64) put in
+        void *iconGfx;
+        u32 tilesSize, iconSize;
 
-    DecompressAndLoadBgGfxUsingHeap(2, wallpaper->tiles, 0, 256 * gStorage->wallpaperOffset, 0);
+        wallpaper = &sWaldaWallpapers[GetWaldaWallpaperPatternId()];
+        LZ77UnCompWram(wallpaper->tileMap, gStorage->wallpaperTilemap);
+        DrawWallpaper(gStorage->wallpaperBgTilemapBuffer, gStorage->wallpaperTilemap, gStorage->wallpaperLoadDir, gStorage->wallpaperOffset);
+
+        CpuCopy16(wallpaper->palettes, gStorage->wallpaperTilemap, 0x40);
+        CpuCopy16(GetWaldaWallpaperColorsPtr(), &gStorage->wallpaperTilemap[1], 4);
+        CpuCopy16(GetWaldaWallpaperColorsPtr(), &gStorage->wallpaperTilemap[17], 4);
+
+        if (gStorage->wallpaperLoadDir != 0)
+            LoadPalette(gStorage->wallpaperTilemap, BG_PLTT_ID(4) + BG_PLTT_ID(gStorage->wallpaperOffset * 2), 2 * PLTT_SIZE_4BPP);
+        else
+            CpuCopy16(gStorage->wallpaperTilemap, &gPlttBufferUnfaded[BG_PLTT_ID(4) + BG_PLTT_ID(gStorage->wallpaperOffset * 2)], 2 * PLTT_SIZE_4BPP);
+
+        gStorage->wallpaperTiles = MallocAndDecompress(wallpaper->tiles, &tilesSize);
+        iconGfx = MallocAndDecompress(sWaldaWallpaperIcons[GetWaldaWallpaperIconId()], &iconSize);
+        CpuCopy32(iconGfx, gStorage->wallpaperTiles + 0x800, iconSize);
+        Free(iconGfx);
+        LoadBgTiles(2, gStorage->wallpaperTiles, tilesSize, gStorage->wallpaperOffset << 8);
+    }
 
     CopyBgTilemapBufferToVram(2);
 }
@@ -1246,6 +1278,7 @@ static bool32 WaitForWallpaperGfxLoad(void)
     if (IsDma3ManagerBusyWithBgCopy() == TRUE)
         return FALSE;
 
+    TRY_FREE_AND_SET_NULL(gStorage->wallpaperTiles);
     return TRUE;
 }
 

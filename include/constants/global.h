@@ -41,6 +41,7 @@
 #define OBJECT_EVENTS_COUNT 16
 #define OBJECT_EVENT_TEMPLATES_COUNT 64
 #define MAIL_COUNT         (PARTY_SIZE + 10)
+#define PARTY_NOTHING_CHOSEN (PARTY_SIZE + 1) // Emerald's name for FRLG's cancel slot (src/party_menu.c SLOT_CANCEL)
 #define PC_MAIL_NUM(i)     (PARTY_SIZE + (i))
 #define DECOR_MAX_SECRET_BASE 16
 #define MAX_REMATCH_ENTRIES 100

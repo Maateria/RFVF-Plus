@@ -193,3 +193,18 @@ Route121_Text_CristinPostRematch::
     .string "ne peux pas battre… Sniff…\p"
     .string "Je ne peux pas croire\n"
     .string "que ça m'arrive…$"
+
+Route121_Text_AheadLoomsMtPyre::
+    .string "Devant nous se profile\n"
+    .string "le MONT MEMORIA.\p"
+    .string "C'est un monument naturel pour le\n"
+    .string "salut des âmes des POKéMON défunts…$"
+
+Route121_Text_MtPyrePierSign::
+    .string "DIGUE DU MONT MEMORIA\p"
+    .string "… Le panneau est vieux et usé.\n"
+    .string "L'inscription est à peine lisible…$"
+
+Route121_Text_SafariZoneSign::
+    .string "“Ça grouille de POKéMON rares!”\n"
+    .string "PARC SAFARI$"

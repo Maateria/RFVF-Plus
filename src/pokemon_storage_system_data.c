@@ -2276,6 +2276,7 @@ static const u8 *const sMenuTexts[] = {
     [MENU_TEXT_POKECENTER] = gPCText_Pokecenter,
     [MENU_TEXT_MACHINE]    = gPCText_Machine,
     [MENU_TEXT_SIMPLE]     = gPCText_Simple,
+    [MENU_TEXT_FRIENDS]    = gPCText_Friends,
 };
 
 void InitMenu(void)

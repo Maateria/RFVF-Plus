@@ -1784,6 +1784,14 @@ static void Task_HandleWallpapers(u8 taskId)
             gStorage->wallpaperSetId -= MENU_TEXT_SCENERY_1;
             gStorage->state++;
             break;
+        case MENU_TEXT_FRIENDS:
+            // Walda's wallpaper (Emerald's): no list, it is set at once
+            PlaySE(SE_SELECT);
+            RemoveMenu();
+            ClearBottomWindow();
+            SetWallpaperForCurrentBox(WALLPAPER_FRIENDS);
+            gStorage->state = 5;
+            break;
         }
         break;
     case 3:
@@ -2611,6 +2619,8 @@ static void AddWallpaperSetsMenu(void)
     SetMenuText(MENU_TEXT_SCENERY_2);
     SetMenuText(MENU_TEXT_SCENERY_3);
     SetMenuText(MENU_TEXT_ETCETERA);
+    if (IsWaldaWallpaperUnlocked())
+        SetMenuText(MENU_TEXT_FRIENDS);
     AddMenu();
 }
 

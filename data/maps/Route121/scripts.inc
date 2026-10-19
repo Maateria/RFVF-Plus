@@ -9,10 +9,16 @@ Route121_EventScript_ItemRevive::               @ item ball, works (FLAG_ITEM_RO
 Route121_EventScript_ItemZinc::                 @ item ball, works (FLAG_ITEM_ROUTE_121_ZINC)
 	finditem ITEM_ZINC
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route121/scripts.inc
-Route121_EventScript_Woman::                    @ NPC #1 (29,14)
-Route121_EventScript_MtPyrePierSign::           @ sign (32,14)
-Route121_EventScript_SafariZoneSign::           @ sign (39,6)
+Route121_EventScript_Woman::
+	msgbox Route121_Text_AheadLoomsMtPyre, MSGBOX_NPC
+	end
+
+Route121_EventScript_MtPyrePierSign::
+	msgbox Route121_Text_MtPyrePierSign, MSGBOX_SIGN
+	end
+
+Route121_EventScript_SafariZoneSign::
+	msgbox Route121_Text_SafariZoneSign, MSGBOX_SIGN
 	end
 @ hoenn_import: left out: trigger (25,5) VAR_ROUTE121_STATE==0 -> Route121_EventScript_AquaGruntsMoveOut; trigger (25,6) VAR_ROUTE121_STATE==0 -> Route121_EventScript_AquaGruntsMoveOut; trigger (25,7) VAR_ROUTE121_STATE==0 -> Route121_EventScript_AquaGruntsMoveOut; trigger (25,8) VAR_ROUTE121_STATE==0 -> Route121_EventScript_AquaGruntsMoveOut
 

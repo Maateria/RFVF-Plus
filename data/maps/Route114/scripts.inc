@@ -10,14 +10,65 @@ Route114_EventScript_ItemProtein::              @ item ball, works (FLAG_ITEM_RO
 Route114_EventScript_ItemEnergyPowder::         @ item ball, works (FLAG_ITEM_ROUTE_114_ENERGY_POWDER)
 	finditem ITEM_ENERGY_POWDER
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route114/scripts.inc
-Route114_EventScript_RoarGentleman::            @ NPC #9 (19,11)
-Route114_EventScript_Poochyena::                @ NPC #10 (19,12)
-Route114_EventScript_Man::                      @ NPC #11 (27,42)
-Route114_EventScript_MeteorFallsSign::          @ sign (7,64)
-Route114_EventScript_FossilManiacsHouseSign::   @ sign (31,7)
-Route114_EventScript_LanettesHouseSign::        @ sign (25,38)
+Route114_EventScript_Poochyena::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_POOCHYENA, CRY_MODE_ENCOUNTER
+	msgbox Route114_Text_Poochyena, MSGBOX_DEFAULT
+	waitmoncry
+	release
 	end
+
+Route114_EventScript_MeteorFallsSign::
+	msgbox Route114_Text_MeteorFallsSign, MSGBOX_SIGN
+	end
+
+Route114_EventScript_FossilManiacsHouseSign::
+	msgbox Route114_Text_FossilManiacsHouseSign, MSGBOX_SIGN
+	end
+
+Route114_EventScript_LanettesHouseSign::
+	msgbox Route114_Text_LanettesHouse, MSGBOX_SIGN
+	end
+
+Route114_EventScript_Man::
+	lock
+	faceplayer
+	goto_if_set FLAG_DAILY_ROUTE_114_RECEIVED_BERRY, Route114_EventScript_ReceivedBerry
+	msgbox Route114_Text_LoveUsingBerryCrushShareBerry, MSGBOX_DEFAULT
+	random NUM_ROUTE_114_MAN_BERRIES
+	addvar VAR_RESULT, NUM_ROUTE_114_MAN_BERRIES_SKIPPED
+	addvar VAR_RESULT, FIRST_BERRY_INDEX
+	giveitem VAR_RESULT
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_DAILY_ROUTE_114_RECEIVED_BERRY
+	msgbox Route114_Text_TryBerryCrushWithFriends, MSGBOX_DEFAULT
+	release
+	end
+
+Route114_EventScript_ReceivedBerry::
+	msgbox Route114_Text_FunToThinkAboutBerries, MSGBOX_DEFAULT
+	release
+	end
+
+Route114_EventScript_RoarGentleman::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM_ROAR, Route114_EventScript_ReceivedRoar
+	msgbox Route114_Text_AllMyMonDoesIsRoarTakeThis, MSGBOX_DEFAULT
+	giveitem ITEM_TM05_ROAR
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_ROAR
+	msgbox Route114_Text_ExplainRoar, MSGBOX_DEFAULT
+	release
+	end
+
+Route114_EventScript_ReceivedRoar::
+	msgbox Route114_Text_ExplainRoar, MSGBOX_DEFAULT
+	release
+	end
+
 
 Route114_EventScript_Lenny::
 	trainerbattle_single TRAINER_LENNY, Route114_Text_LennyIntro, Route114_Text_LennyDefeat

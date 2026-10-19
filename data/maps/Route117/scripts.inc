@@ -9,15 +9,92 @@ Route117_EventScript_ItemGreatBall::            @ item ball, works (FLAG_ITEM_RO
 Route117_EventScript_ItemRevive::               @ item ball, works (FLAG_ITEM_ROUTE_117_REVIVE)
 	finditem ITEM_REVIVE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route117/scripts.inc
-Route117_EventScript_Woman::                    @ NPC #1 (13,13)
-Route117_EventScript_LittleBoy::                @ NPC #2 (25,5)
-Route117_EventScript_DaycareMan::               @ NPC #3 (47,4)
-Route117_EventScript_Girl::                     @ NPC #18 (48,10)
-Route117_EventScript_RouteSignVerdanturf::      @ sign (16,6)
-Route117_EventScript_RouteSignMauville::        @ sign (49,12)
-Route117_EventScript_DayCareSign::              @ sign (49,5)
+Route117_EventScript_Woman::
+	msgbox Route117_Text_ArentTheseFlowersPretty, MSGBOX_NPC
 	end
+
+Route117_EventScript_LittleBoy::
+	msgbox Route117_Text_AirIsTastyHere, MSGBOX_NPC
+	end
+
+Route117_EventScript_Girl::
+	msgbox Route117_Text_DayCarePokemonHadNewMove, MSGBOX_NPC
+	end
+
+Route117_EventScript_RouteSignVerdanturf::
+	msgbox Route117_Text_RouteSignVerdanturf, MSGBOX_SIGN
+	end
+
+Route117_EventScript_RouteSignMauville::
+	msgbox Route117_Text_RouteSignMauville, MSGBOX_SIGN
+	end
+
+Route117_EventScript_DayCareSign::
+	msgbox Route117_Text_DayCareSign, MSGBOX_SIGN
+	end
+
+@ Four Island's daycare man (same daycare: one place, two doors), without the rival starter egg
+Route117_EventScript_DaycareMan::
+	goto_if_questlog EventScript_ReleaseEnd
+	special QuestLog_CutRecording
+	lock
+	faceplayer
+	special GetDaycareMonNicknames
+	specialvar VAR_RESULT, GetDaycareState
+	goto_if_eq VAR_RESULT, DAYCARE_EGG_WAITING, Route117_EventScript_DaycareEggWaiting
+	goto_if_eq VAR_RESULT, DAYCARE_ONE_MON, Route117_EventScript_CheckOnOneMon
+	goto_if_eq VAR_RESULT, DAYCARE_TWO_MONS, Route117_EventScript_CheckOnTwoMons
+	msgbox DayCare_Text_ImDaycareManSpeakToMyWife
+	release
+	end
+
+Route117_EventScript_DaycareEggWaiting::
+	msgbox DayCare_Text_DoYouWantEgg, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route117_EventScript_DaycareAcceptEgg
+	msgbox DayCare_Text_IWillKeepDoYouWantIt, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route117_EventScript_DaycareAcceptEgg
+	msgbox DayCare_Text_IllKeepIt
+	clearflag FLAG_PENDING_DAYCARE_EGG
+	special RejectEggFromDayCare
+	release
+	end
+
+Route117_EventScript_DaycareAcceptEgg::
+	specialvar VAR_RESULT, CalculatePlayerPartyCount
+	goto_if_ne VAR_RESULT, PARTY_SIZE, Route117_EventScript_DaycareReceivedEgg
+	msgbox DayCare_Text_YouHaveNoRoomForIt
+	release
+	end
+
+Route117_EventScript_DaycareReceivedEgg::
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	message DayCare_Text_ReceivedEgg
+	call EventScript_RestorePrevTextColor
+	playfanfare MUS_LEVEL_UP
+	waitfanfare
+	waitbuttonpress
+	msgbox DayCare_Text_TakeGoodCareOfIt
+	special GiveEggFromDaycare
+	clearflag FLAG_PENDING_DAYCARE_EGG
+	release
+	end
+
+Route117_EventScript_CheckOnOneMon::
+	special GetDaycareMonNicknames
+	msgbox DayCare_Text_YourMonIsDoingFine
+	release
+	end
+
+Route117_EventScript_CheckOnTwoMons::
+	special GetDaycareMonNicknames
+	msgbox DayCare_Text_YourMonsAreDoingFine
+	special SetDaycareCompatibilityString
+	special ShowFieldMessageStringVar4
+	waitmessage
+	waitbuttonpress
+	release
+	end
+
 
 Route117_EventScript_Dylan::
 	trainerbattle_single TRAINER_DYLAN_1, Route117_Text_DylanIntro, Route117_Text_DylanDefeat

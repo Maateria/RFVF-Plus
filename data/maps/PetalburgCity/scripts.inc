@@ -10,12 +10,33 @@ PetalburgCity_EventScript_ItemMaxRevive::       @ item ball, works (FLAG_ITEM_PE
 PetalburgCity_EventScript_ItemEther::           @ item ball, works (FLAG_ITEM_PETALBURG_CITY_ETHER)
 	finditem ITEM_ETHER
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PetalburgCity/scripts.inc
-PetalburgCity_EventScript_Boy::                 @ NPC #1 (8,22)
-PetalburgCity_EventScript_Gentleman::           @ NPC #2 (20,10)
-PetalburgCity_EventScript_GymBoy::              @ NPC #5 (12,15)
-PetalburgCity_EventScript_GymSign::             @ sign (17,10)
-PetalburgCity_EventScript_CitySign::            @ sign (17,16)
-PetalburgCity_EventScript_WallyHouseSign::      @ sign (8,9)
+PetalburgCity_EventScript_Boy::
+	lock
+	faceplayer
+	msgbox PetalburgCity_Text_WaterReflection, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_PETALBURG_BOY, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+PetalburgCity_EventScript_Gentleman::
+	msgbox PetalburgCity_Text_FullPartyExplanation, MSGBOX_NPC
+	end
+
+PetalburgCity_EventScript_GymBoy::
+	msgbox PetalburgCity_Text_AreYouRookieTrainer, MSGBOX_NPC
+	end
+
+PetalburgCity_EventScript_GymSign::
+	msgbox PetalburgCity_Text_GymSign, MSGBOX_SIGN
+	end
+
+PetalburgCity_EventScript_CitySign::
+	msgbox PetalburgCity_Text_CitySign, MSGBOX_SIGN
+	end
+
+PetalburgCity_EventScript_WallyHouseSign::
+	msgbox PetalburgCity_Text_WallyHouseSign, MSGBOX_SIGN
 	end
 @ hoenn_import: left out: trigger (8,10) VAR_PETALBURG_CITY_STATE==0 -> PetalburgCity_EventScript_ShowGymToPlayer0; trigger (8,11) VAR_PETALBURG_CITY_STATE==0 -> PetalburgCity_EventScript_ShowGymToPlayer1; trigger (8,12) VAR_PETALBURG_CITY_STATE==0 -> PetalburgCity_EventScript_ShowGymToPlayer2; trigger (8,13) VAR_PETALBURG_CITY_STATE==0 -> PetalburgCity_EventScript_ShowGymToPlayer3; trigger (4,10) VAR_SCOTT_PETALBURG_ENCOUNTER==0 -> PetalburgCity_EventScript_Scott0; trigger (4,11) VAR_SCOTT_PETALBURG_ENCOUNTER==0 -> PetalburgCity_EventScript_Scott1; trigger (4,12) VAR_SCOTT_PETALBURG_ENCOUNTER==0 -> PetalburgCity_EventScript_Scott2; trigger (4,13) VAR_SCOTT_PETALBURG_ENCOUNTER==0 -> PetalburgCity_EventScript_Scott3

@@ -174,6 +174,54 @@ static const struct InGameTrade sInGameTrades[] = {
         .otGender = MALE,
         .sheen = 10,
         .requestedSpecies = SPECIES_NIDORINA
+    },
+    [INGAME_TRADE_SEEDOT] =
+    {
+        .nickname = _("PIPIO"),
+        .species = SPECIES_SEEDOT,
+        .ivs = {5, 4, 5, 4, 4, 4},
+        .abilityNum = 1,
+        .otId = 38726,
+        .conditions = {30, 5, 5, 5, 5},
+        .personality = 0x84,
+        .heldItem = ITEM_CHESTO_BERRY,
+        .mailNum = 255,
+        .otName = _("KOBE"),
+        .otGender = MALE,
+        .sheen = 10,
+        .requestedSpecies = SPECIES_RALTS
+    },
+    [INGAME_TRADE_PLUSLE] =
+    {
+        .nickname = _("SIPO"),
+        .species = SPECIES_PLUSLE,
+        .ivs = {4, 4, 4, 5, 5, 4},
+        .abilityNum = 0,
+        .otId = 73996,
+        .conditions = {5, 5, 30, 5, 5},
+        .personality = 0x6F,
+        .heldItem = ITEM_WOOD_MAIL,
+        .mailNum = 1, // sInGameTradeMailMessages[1], Emerald's
+        .otName = _("ALBAN"),
+        .otGender = MALE,
+        .sheen = 10,
+        .requestedSpecies = SPECIES_VOLBEAT
+    },
+    [INGAME_TRADE_HORSEA] =
+    {
+        .nickname = _("HYPY"),
+        .species = SPECIES_HORSEA,
+        .ivs = {5, 4, 4, 4, 5, 4},
+        .abilityNum = 0,
+        .otId = 46285,
+        .conditions = {5, 5, 5, 5, 30},
+        .personality = 0x7F,
+        .heldItem = ITEM_WAVE_MAIL,
+        .mailNum = 1,
+        .otName = _("LUDOVIC"),
+        .otGender = MALE,
+        .sheen = 10,
+        .requestedSpecies = SPECIES_BAGON
     }
 };
 
@@ -188,5 +236,16 @@ static const u16 sInGameTradeMailMessages[][10] = {
         EC_WORD_KIND,
         EC_WORD_TO,
         EC_WORD_IT
+    },
+    {   // Emerald's sIngameTradeMail[0]: the Fortree Plusle's Wood Mail
+        EC_WORD_BE,
+        EC_WORD_NICE,
+        EC_WORD_TO,
+        EC_POKEMON(PLUSLE),
+        EC_WORD_EXCL,
+        EC_POKEMON(VOLBEAT),
+        EC_WORD_WILL,
+        EC_WORD_BE,
+        EC_WORD_FANTASTIC
     }
 };

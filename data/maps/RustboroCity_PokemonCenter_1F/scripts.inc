@@ -1,11 +1,28 @@
 .equ LOCALID_RUSTBORO_NURSE, 1
 
 RustboroCity_PokemonCenter_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, RustboroCity_PokemonCenter_1F_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (RustboroCity_PokemonCenter_1F_OnTransition), ON_RESUME (CableClub_OnResume)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/RustboroCity_PokemonCenter_1F/scripts.inc
-RustboroCity_PokemonCenter_1F_EventScript_Nurse:: @ NPC #1 (7,2)
-RustboroCity_PokemonCenter_1F_EventScript_Man:: @ NPC #2 (11,2)
-RustboroCity_PokemonCenter_1F_EventScript_Boy:: @ NPC #3 (3,4)
-RustboroCity_PokemonCenter_1F_EventScript_Girl:: @ NPC #4 (10,6)
+@ hoenn_import: Emerald map scripts not ported: ON_RESUME (CableClub_OnResume)
+RustboroCity_PokemonCenter_1F_OnTransition::
+	setrespawn SPAWN_RUSTBORO_CITY
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_Nurse::
+	lock
+	faceplayer
+	call EventScript_PkmnCenterNurse
+	release
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_Man::
+	msgbox RustboroCity_PokemonCenter_1F_Text_PokemonHavePersonalities, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_Boy::
+	msgbox RustboroCity_PokemonCenter_1F_Text_MaleAndFemalePokemon, MSGBOX_NPC
+	end
+
+RustboroCity_PokemonCenter_1F_EventScript_Girl::
+	msgbox RustboroCity_PokemonCenter_1F_Text_HMCutNextDoor, MSGBOX_NPC
 	end

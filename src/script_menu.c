@@ -822,6 +822,135 @@ static const struct MenuAction sMultichoiceList_Mechadoll5Q3[] = {
     { sText_Mechadoll_35 },
 };
 
+// Emerald's (official French texts)
+static const u8 sText_StatusPsn[] = _("PSN");
+static const u8 sText_StatusPar[] = _("PAR");
+static const u8 sText_StatusSom[] = _("SOM");
+static const u8 sText_StatusBru[] = _("BRU");
+static const u8 sText_StatusGel[] = _("GEL");
+static const u8 sText_ClawFossil[] = _("FOSS. GRIFFE");
+static const u8 sText_RootFossil[] = _("FOSS. RACINE");
+static const u8 sText_MultiCancel[] = _("ANNULER");
+
+static const struct MenuAction sMultichoiceList_StatusInfo[] = {
+    { sText_StatusPsn },
+    { sText_StatusPar },
+    { sText_StatusSom },
+    { sText_StatusBru },
+    { sText_StatusGel },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_Fossil[] = {
+    { sText_ClawFossil },
+    { sText_RootFossil },
+    { sText_MultiCancel },
+};
+
+static const u8 sText_MultiDroite[] = _("Droite");
+static const u8 sText_MultiGauche[] = _("Gauche");
+static const u8 sText_MultiTessonRouge[] = _("TESSON ROUGE");
+static const u8 sText_MultiTessonJaune[] = _("TESSON JAUNE");
+static const u8 sText_MultiTessonBleu[] = _("TESSON BLEU");
+static const u8 sText_MultiTessonVert[] = _("TESSON VERT");
+
+static const struct MenuAction sMultichoiceList_Rightleft[] = {
+    { sText_MultiDroite },
+    { sText_MultiGauche },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsR[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsY[] = {
+    { sText_MultiTessonJaune },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRy[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonJaune },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsB[] = {
+    { sText_MultiTessonBleu },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRb[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonBleu },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsYb[] = {
+    { sText_MultiTessonJaune },
+    { sText_MultiTessonBleu },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRyb[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonJaune },
+    { sText_MultiTessonBleu },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsG[] = {
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRg[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsYg[] = {
+    { sText_MultiTessonJaune },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRyg[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonJaune },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsBg[] = {
+    { sText_MultiTessonBleu },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRbg[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonBleu },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsYbg[] = {
+    { sText_MultiTessonJaune },
+    { sText_MultiTessonBleu },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
+static const struct MenuAction sMultichoiceList_ShardsRybg[] = {
+    { sText_MultiTessonRouge },
+    { sText_MultiTessonJaune },
+    { sText_MultiTessonBleu },
+    { sText_MultiTessonVert },
+    { sText_MultiCancel },
+};
+
 static const struct MultichoiceListStruct sMultichoiceLists[] = {
     [MULTICHOICE_YES_NO]                                     = MULTICHOICE(sMultichoiceList_YesNo),
     [MULTICHOICE_EEVEELUTIONS]                               = MULTICHOICE(sMultichoiceList_Eeveelutions),
@@ -931,6 +1060,24 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_GAME_CORNER_HOENN_STARTERS] = MULTICHOICE(sMultichoiceList_GameCornerHoennStarters),
 	[MULTI_GAME_CORNER_HOENN_TMS] = MULTICHOICE(sMultichoiceList_GameCornerHoennTMs),
 	[MULTI_HOENN_STARTERS] = MULTICHOICE(sMultichoiceList_HoennStarters),
+	[MULTI_STATUS_INFO] = MULTICHOICE(sMultichoiceList_StatusInfo),
+	[MULTI_FOSSIL] = MULTICHOICE(sMultichoiceList_Fossil),
+	[MULTI_RIGHTLEFT] = MULTICHOICE(sMultichoiceList_Rightleft),
+	[MULTI_SHARDS_R] = MULTICHOICE(sMultichoiceList_ShardsR),
+	[MULTI_SHARDS_Y] = MULTICHOICE(sMultichoiceList_ShardsY),
+	[MULTI_SHARDS_RY] = MULTICHOICE(sMultichoiceList_ShardsRy),
+	[MULTI_SHARDS_B] = MULTICHOICE(sMultichoiceList_ShardsB),
+	[MULTI_SHARDS_RB] = MULTICHOICE(sMultichoiceList_ShardsRb),
+	[MULTI_SHARDS_YB] = MULTICHOICE(sMultichoiceList_ShardsYb),
+	[MULTI_SHARDS_RYB] = MULTICHOICE(sMultichoiceList_ShardsRyb),
+	[MULTI_SHARDS_G] = MULTICHOICE(sMultichoiceList_ShardsG),
+	[MULTI_SHARDS_RG] = MULTICHOICE(sMultichoiceList_ShardsRg),
+	[MULTI_SHARDS_YG] = MULTICHOICE(sMultichoiceList_ShardsYg),
+	[MULTI_SHARDS_RYG] = MULTICHOICE(sMultichoiceList_ShardsRyg),
+	[MULTI_SHARDS_BG] = MULTICHOICE(sMultichoiceList_ShardsBg),
+	[MULTI_SHARDS_RBG] = MULTICHOICE(sMultichoiceList_ShardsRbg),
+	[MULTI_SHARDS_YBG] = MULTICHOICE(sMultichoiceList_ShardsYbg),
+	[MULTI_SHARDS_RYBG] = MULTICHOICE(sMultichoiceList_ShardsRybg),
 };
 
 // From Cool to Berries goes unused

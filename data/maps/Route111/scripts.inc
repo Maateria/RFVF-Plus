@@ -51,19 +51,70 @@ Route111_EventScript_ItemHPUp::                 @ item ball, works (FLAG_ITEM_RO
 Route111_EventScript_ItemElixir::               @ item ball, works (FLAG_ITEM_ROUTE_111_ELIXIR)
 	finditem ITEM_ELIXIR
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route111/scripts.inc
-Route111_EventScript_Man1::                     @ NPC #2 (8,91)
-Route111_EventScript_Girl::                     @ NPC #11 (23,8)
-Route111_EventScript_Man2::                     @ NPC #21 (20,114)
-Route111_EventScript_Hiker::                    @ NPC #30 (14,56)
-Route111_EventScript_WinstrateHouseSign::       @ sign (16,114)
-Route111_EventScript_RouteSignMauville::        @ sign (24,126)
-Route111_EventScript_RouteSign112::             @ sign (7,66)
-Route111_EventScript_RouteSign113::             @ sign (13,6)
-Route111_EventScript_OldLadysRestStopSign::     @ sign (25,19)
-Route111_EventScript_TrainerTipsSpAtkSpDef::    @ sign (7,84)
-Route111_EventScript_TrainerHillSign::          @ sign (24,116)
+Route111_EventScript_Man1::
+	msgbox Route111_Text_ToughToKeepWinningUpTheRanks, MSGBOX_NPC
 	end
+
+Route111_EventScript_Man2::
+	msgbox Route111_Text_WinstrateFamilyDestroyedMe, MSGBOX_NPC
+	end
+
+Route111_EventScript_Hiker::
+	lock
+	faceplayer
+	goto Route111_EventScript_HikerMirageTowerVisible
+
+Route111_EventScript_HikerMirageTowerVisible::
+	msgbox Route111_Text_MirageTowerClearlyVisible, MSGBOX_DEFAULT
+	release
+	end
+
+Route111_EventScript_WinstrateHouseSign::
+	msgbox Route111_Text_WinstrateHouseSign, MSGBOX_SIGN
+	end
+
+Route111_EventScript_RouteSignMauville::
+	msgbox Route111_Text_RouteSignMauville, MSGBOX_SIGN
+	end
+
+Route111_EventScript_RouteSign112::
+	msgbox Route111_Text_RouteSign112, MSGBOX_SIGN
+	end
+
+Route111_EventScript_RouteSign113::
+	msgbox Route111_Text_RouteSign113, MSGBOX_SIGN
+	end
+
+Route111_EventScript_OldLadysRestStopSign::
+	msgbox Route111_Text_OldLadysRestStopSign, MSGBOX_SIGN
+	end
+
+Route111_EventScript_TrainerTipsSpAtkSpDef::
+	msgbox Route111_Text_TrainerTipsSpAtkSpDef, MSGBOX_SIGN
+	end
+
+Route111_EventScript_TrainerHillSign::
+	msgbox Route111_Text_TrainerHillSign, MSGBOX_SIGN
+	end
+
+Route111_EventScript_Girl::
+	lock
+	faceplayer
+	goto_if_set FLAG_DAILY_ROUTE_111_RECEIVED_BERRY, Route111_EventScript_ReceivedBerry
+	msgbox Route111_Text_WateredPlantsEveryDayTakeBerry, MSGBOX_DEFAULT
+	giveitem ITEM_RAZZ_BERRY
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_DAILY_ROUTE_111_RECEIVED_BERRY
+	special GetPlayerBigGuyGirlString
+	msgbox Route111_Text_GoingToTryToMakeDifferentColorBerries, MSGBOX_DEFAULT
+	release
+	end
+
+Route111_EventScript_ReceivedBerry::
+	msgbox Route111_Text_WhatColorBerriesToLookForToday, MSGBOX_DEFAULT
+	release
+	end
+
 @ hoenn_import: left out: trigger (11,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (12,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (13,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (12,44) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (13,43) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (14,42) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (16,40) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (14,61) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerDown; trigger (17,39) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft; trigger (18,38) VAR_TEMP_3==0 -> Route111_EventScript_ViciousSandstormTriggerLeft
 
 Route111_EventScript_Heidi::

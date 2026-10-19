@@ -6,16 +6,68 @@ Route109_EventScript_ItemPPUp::                 @ item ball, works (FLAG_ITEM_RO
 Route109_EventScript_ItemPotion::               @ item ball, works (FLAG_ITEM_ROUTE_109_POTION)
 	finditem ITEM_POTION
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route109/scripts.inc
-Route109_EventScript_SeashoreHouseGirl::        @ NPC #7 (11,6)
-Route109_EventScript_SandCastleBoy::            @ NPC #12 (24,18)
-Route109_EventScript_SoftSandGirl::             @ NPC #13 (25,18)
-Route109_EventScript_Woman::                    @ NPC #14 (30,32)
-Route109_EventScript_OldMan::                   @ NPC #17 (33,6)
-Route109_EventScript_Zigzagoon::                @ NPC #18 (32,6)
-Route109_EventScript_SeashoreHouseSign::        @ sign (15,5)
-Route109_EventScript_TrainerTipsSign::          @ sign (29,10)
+Route109_EventScript_SeashoreHouseGirl::
+	msgbox Route109_Text_ChillAtMyPapasSpot, MSGBOX_NPC
 	end
+
+Route109_EventScript_SandCastleBoy::
+	lock
+	faceplayer
+	msgbox Route109_Text_SandCastleTakingLongTime, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+Route109_EventScript_Woman::
+	msgbox Route109_Text_LittleKidsDartAround, MSGBOX_NPC
+	end
+
+Route109_EventScript_OldMan::
+	msgbox Route109_Text_ZigzagoonPicksUpLitter, MSGBOX_NPC
+	end
+
+Route109_EventScript_Zigzagoon::
+	lock
+	faceplayer
+	waitse
+	playmoncry SPECIES_ZIGZAGOON, CRY_MODE_NORMAL
+	msgbox Route109_Text_ZigzagoonCry, MSGBOX_DEFAULT
+	waitmoncry
+	release
+	end
+
+Route109_EventScript_SeashoreHouseSign::
+	msgbox Route109_Text_SeashoreHouseSign, MSGBOX_SIGN
+	end
+
+Route109_EventScript_TrainerTipsSign::
+	msgbox Route109_Text_TrainerTipsSign, MSGBOX_SIGN
+	end
+
+Route109_EventScript_SoftSandGirl::
+	lock
+	faceplayer
+	special GetPlayerBigGuyGirlString
+	goto_if_set FLAG_RECEIVED_SOFT_SAND, Route109_EventScript_AlreadyReceivedSoftSand
+	msgbox Route109_Text_YouCanHaveThis, MSGBOX_DEFAULT
+	giveitem ITEM_SOFT_SAND
+	goto_if_eq VAR_RESULT, 0, EventScript_BagIsFull
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	setflag FLAG_RECEIVED_SOFT_SAND
+	release
+	end
+
+Route109_EventScript_AlreadyReceivedSoftSand::
+	msgbox Route109_Text_WereGoingToMakeBigCastle, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
 
 Route109_EventScript_David::
 	trainerbattle_single TRAINER_DAVID, Route109_Text_DavidIntro, Route109_Text_DavidDefeated

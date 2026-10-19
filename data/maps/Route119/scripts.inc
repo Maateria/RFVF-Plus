@@ -28,13 +28,28 @@ Route119_EventScript_ItemNugget::               @ item ball, works (FLAG_ITEM_RO
 Route119_EventScript_ItemElixir2::              @ item ball, works (FLAG_ITEM_ROUTE_119_ELIXIR_2)
 	finditem ITEM_ELIXIR
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route119/scripts.inc
-Route119_EventScript_Boy1::                     @ NPC #19 (31,109)
-Route119_EventScript_CyclingTriathleteM::       @ NPC #20 (19,133)
-Route119_EventScript_Boy2::                     @ NPC #22 (35,93)
-Route119_EventScript_WeatherInstituteSign::     @ sign (9,33)
-Route119_EventScript_RouteSignFortree::         @ sign (27,19)
-Route119_EventScript_TrainerTipsDecoration::    @ sign (28,9)
+Route119_EventScript_Boy1::
+	msgbox Route119_Text_ThoughtFlyByCatchingBirdMons, MSGBOX_NPC
+	end
+
+Route119_EventScript_CyclingTriathleteM::
+	msgbox Route119_Text_TallGrassSnaresBikeTires, MSGBOX_NPC
+	end
+
+Route119_EventScript_Boy2::
+	msgbox Route119_Text_CanYourMonMakeSecretBase, MSGBOX_NPC
+	end
+
+Route119_EventScript_WeatherInstituteSign::
+	msgbox Route119_Text_WeatherInstitute, MSGBOX_SIGN
+	end
+
+Route119_EventScript_RouteSignFortree::
+	msgbox Route119_Text_RouteSignFortree, MSGBOX_SIGN
+	end
+
+Route119_EventScript_TrainerTipsDecoration::
+	msgbox Route119_Text_TrainerTipsDecoration, MSGBOX_SIGN
 	end
 @ hoenn_import: left out: trigger (25,31) VAR_ROUTE119_STATE==0 -> Route119_EventScript_RivalTrigger1; trigger (26,31) VAR_ROUTE119_STATE==0 -> Route119_EventScript_RivalTrigger2
 

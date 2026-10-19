@@ -2,9 +2,38 @@
 
 MossdeepCity_Mart_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_Mart/scripts.inc
-MossdeepCity_Mart_EventScript_Clerk::           @ NPC #1 (1,3)
-MossdeepCity_Mart_EventScript_Woman::           @ NPC #2 (1,5)
-MossdeepCity_Mart_EventScript_Boy::             @ NPC #3 (8,3)
-MossdeepCity_Mart_EventScript_Sailor::          @ NPC #4 (5,3)
+MossdeepCity_Mart_EventScript_Clerk::
+	goto_if_questlog EventScript_ReleaseEnd
+	lock
+	faceplayer
+	message Text_MayIHelpYou
+	waitmessage
+	pokemart MossdeepCity_Mart_Pokemart
+	msgbox Text_PleaseComeAgain
+	release
+	end
+
+	.align 2
+MossdeepCity_Mart_Pokemart::
+	.2byte ITEM_ULTRA_BALL
+	.2byte ITEM_NET_BALL
+	.2byte ITEM_DIVE_BALL
+	.2byte ITEM_HYPER_POTION
+	.2byte ITEM_FULL_HEAL
+	.2byte ITEM_REVIVE
+	.2byte ITEM_MAX_REPEL
+	.2byte ITEM_X_ATTACK
+	.2byte ITEM_X_DEFEND
+	pokemartlistend
+
+MossdeepCity_Mart_EventScript_Woman::
+	msgbox MossdeepCity_Mart_Text_ReviveIsFantastic, MSGBOX_NPC
+	end
+
+MossdeepCity_Mart_EventScript_Boy::
+	msgbox MossdeepCity_Mart_Text_MaxRepelLastsLongest, MSGBOX_NPC
+	end
+
+MossdeepCity_Mart_EventScript_Sailor::
+	msgbox MossdeepCity_Mart_Text_NetAndDiveBallsRare, MSGBOX_NPC
 	end

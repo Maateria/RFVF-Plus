@@ -1,11 +1,54 @@
 .equ LOCALID_PETALBURG_NURSE, 1
 
 PetalburgCity_PokemonCenter_1F_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, PetalburgCity_PokemonCenter_1F_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (PetalburgCity_PokemonCenter_1F_OnTransition), ON_RESUME (CableClub_OnResume)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PetalburgCity_PokemonCenter_1F/scripts.inc
-PetalburgCity_PokemonCenter_1F_EventScript_Nurse:: @ NPC #1 (7,2)
-PetalburgCity_PokemonCenter_1F_EventScript_FatMan:: @ NPC #3 (2,3)
-PetalburgCity_PokemonCenter_1F_EventScript_Youngster:: @ NPC #4 (9,6)
-PetalburgCity_PokemonCenter_1F_EventScript_Woman:: @ NPC #5 (5,4)
+@ hoenn_import: Emerald map scripts not ported: ON_RESUME (CableClub_OnResume)
+PetalburgCity_PokemonCenter_1F_OnTransition::
+	setrespawn SPAWN_PETALBURG_CITY
 	end
+
+PetalburgCity_PokemonCenter_1F_EventScript_Nurse::
+	lock
+	faceplayer
+	call EventScript_PkmnCenterNurse
+	release
+	end
+
+PetalburgCity_PokemonCenter_1F_EventScript_FatMan::
+	msgbox PetalburgCity_PokemonCenter_1F_Text_PCStorageSystem, MSGBOX_NPC
+	end
+
+PetalburgCity_PokemonCenter_1F_EventScript_Youngster::
+	msgbox PetalburgCity_PokemonCenter_1F_Text_OranBerryRegainedHP, MSGBOX_NPC
+	end
+
+@ Emerald's starters are Kanto's here: the one chosen in Pallet Town (VAR_STARTER_MON 0 Bulbasaur, 1 Squirtle, 2 Charmander)
+PetalburgCity_PokemonCenter_1F_EventScript_Woman::
+	lock
+	faceplayer
+	msgbox PetalburgCity_PokemonCenter_1F_Text_ManyTypesOfPokemon
+	specialvar VAR_RESULT, IsStarterFirstStageInParty
+	goto_if_eq VAR_RESULT, TRUE, PetalburgCity_PokemonCenter_1F_EventScript_SayStarterTypeInfo
+	release
+	end
+
+PetalburgCity_PokemonCenter_1F_EventScript_SayStarterTypeInfo::
+	call_if_eq VAR_STARTER_MON, 0, PetalburgCity_PokemonCenter_1F_EventScript_SayBulbasaurType
+	call_if_eq VAR_STARTER_MON, 1, PetalburgCity_PokemonCenter_1F_EventScript_SaySquirtleType
+	call_if_eq VAR_STARTER_MON, 2, PetalburgCity_PokemonCenter_1F_EventScript_SayCharmanderType
+	release
+	end
+
+PetalburgCity_PokemonCenter_1F_EventScript_SayBulbasaurType::
+	msgbox PetalburgCity_PokemonCenter_1F_Text_BulbasaurIsGrassType
+	return
+
+PetalburgCity_PokemonCenter_1F_EventScript_SaySquirtleType::
+	msgbox PetalburgCity_PokemonCenter_1F_Text_SquirtleIsWaterType
+	return
+
+PetalburgCity_PokemonCenter_1F_EventScript_SayCharmanderType::
+	msgbox PetalburgCity_PokemonCenter_1F_Text_CharmanderIsFireType
+	return
+

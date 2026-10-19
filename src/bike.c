@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hoenn_specials.h"
 #include "bike.h"
 #include "field_player_avatar.h"
 #include "metatile_behavior.h"
@@ -337,6 +338,8 @@ static u8 GetBikeCollisionAt(struct ObjectEvent *playerObjEvent, s16 x, s16 y, u
         if (retVal == COLLISION_NONE && MetatileBehaviorForbidsBiking(metatileBehavior))
             retVal = COLLISION_IMPASSABLE;
     }
+    if (retVal)
+        Bike_TryAdvanceCyclingRoadCollisions(); // Emerald's Route 110 challenge (src/hoenn_specials.c)
     return retVal;
 }
 

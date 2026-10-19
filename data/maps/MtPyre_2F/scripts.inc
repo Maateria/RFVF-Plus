@@ -4,9 +4,12 @@ MtPyre_2F_MapScripts::
 MtPyre_2F_EventScript_ItemUltraBall::           @ item ball, works (FLAG_ITEM_MT_PYRE_2F_ULTRA_BALL)
 	finditem ITEM_ULTRA_BALL
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtPyre_2F/scripts.inc
-MtPyre_2F_EventScript_Woman::                   @ NPC #3 (9,3)
-MtPyre_2F_EventScript_PokefanM::                @ NPC #4 (12,10)
+MtPyre_2F_EventScript_Woman::
+	msgbox MtPyre_2F_Text_MemoriesOfSkitty, MSGBOX_NPC
+	end
+
+MtPyre_2F_EventScript_PokefanM::
+	msgbox MtPyre_2F_Text_TumbledFromFloorAbove, MSGBOX_NPC
 	end
 
 MtPyre_2F_EventScript_Mark::

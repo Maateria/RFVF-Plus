@@ -5,8 +5,50 @@
 MossdeepCity_SpaceCenter_2F_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (MossdeepCity_SpaceCenter_2F_OnTransition), ON_FRAME_TABLE (MossdeepCity_SpaceCenter_2F_OnFrame)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_SpaceCenter_2F/scripts.inc
-MossdeepCity_SpaceCenter_2F_EventScript_RichBoy:: @ NPC #1 (6,2)
-MossdeepCity_SpaceCenter_2F_EventScript_Gentleman:: @ NPC #2 (11,8)
-MossdeepCity_SpaceCenter_2F_EventScript_Scientist:: @ NPC #3 (5,6)
+MossdeepCity_SpaceCenter_2F_EventScript_RichBoy::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_SpaceCenter_2F_EventScript_RichBoyNormal
+	goto MossdeepCity_SpaceCenter_2F_EventScript_RichBoyMagma
+
+MossdeepCity_SpaceCenter_2F_EventScript_RichBoyNormal::
+	msgbox MossdeepCity_SpaceCenter_2F_Text_WishOrdinaryPeopleCouldGoIntoSpace, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_2F_EventScript_RichBoyMagma::
+	msgbox MossdeepCity_SpaceCenter_2F_Text_DoesMagmaWantToGoToSpace, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_2F_EventScript_Gentleman::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_SpaceCenter_2F_EventScript_GentlemanNormal
+	goto MossdeepCity_SpaceCenter_2F_EventScript_GentlemanMagma
+
+MossdeepCity_SpaceCenter_2F_EventScript_GentlemanNormal::
+	msgbox MossdeepCity_SpaceCenter_2F_Text_WouldveLikedToBeAstronaut, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_2F_EventScript_GentlemanMagma::
+	msgbox MossdeepCity_SpaceCenter_2F_Text_MagmaCantGetAwayWithThis, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_2F_EventScript_Scientist::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_SpaceCenter_2F_EventScript_ScientistNormal
+	goto MossdeepCity_SpaceCenter_2F_EventScript_ScientistMagma
+
+MossdeepCity_SpaceCenter_2F_EventScript_ScientistNormal::
+	msgbox MossdeepCity_SpaceCenter_2F_Text_MossdeepIdealForRockets, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_2F_EventScript_ScientistMagma::
+	msgbox MossdeepCity_SpaceCenter_2F_Text_WhyWouldMagmaStealRocketFuel, MSGBOX_DEFAULT
+	release
 	end

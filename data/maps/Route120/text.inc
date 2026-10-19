@@ -195,3 +195,38 @@ Route120_Text_LeonelDefeat::
 Route120_Text_LeonelPostBattle::
     .string "Rien de mieux que de se battre avec\n"
     .string "ses POKéMON préférés!$"
+
+Route120_Text_RouteSignFortree::
+    .string "ROUTE 120\n"
+    .string "{LEFT_ARROW} CIMETRONELLE$"
+
+Route120_Text_RouteSign121::
+    .string "{RIGHT_ARROW} ROUTE 121\n"
+    .string "{LEFT_ARROW} ROUTE 120$"
+
+Route120_Text_BerriesExpressionOfLoveIsntIt::
+    .string "Les BAIES poussent en profitant de\n"
+    .string "la lumière du soleil.\p"
+    .string "Nous les aidons à pousser en les\n"
+    .string "arrosant régulièrement.\p"
+    .string "C'est une marque d'attention,\n"
+    .string "n'est-ce pas?$"
+
+Route120_Text_IllGetMoreBerriesFromBerryMaster::
+    .string "Je vais aller chercher d'autres BAIES\n"
+    .string "chez le MAITRE DES BAIES.$"
+
+Route120_Text_YesYouUnderstand::
+    .string "Oui, oui.\n"
+    .string "Tu vois ce que je veux dire.\p"
+    .string "Tu devrais prendre ça.$"
+
+Route120_Text_MakeYourOwnImpressions::
+    .string "Oh… Mais je suppose qu'il\n"
+    .string "est important que tu te\l"
+    .string "fasses ta propre opinion…\p"
+    .string "Tu n'as qu'à prendre ça.$"
+
+Route120_Text_BerryIsRareRaiseItWithCare::
+    .string "Cette BAIE me semble rare. J'espère\n"
+    .string "que tu vas en prendre bien soin.$"

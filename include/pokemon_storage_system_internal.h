@@ -64,6 +64,7 @@ enum
     MENU_TEXT_POKECENTER,
     MENU_TEXT_MACHINE,
     MENU_TEXT_SIMPLE,
+    MENU_TEXT_FRIENDS, // Walda's wallpaper (Emerald's)
 };
 
 // Return IDs for input handlers
@@ -328,7 +329,7 @@ struct PokemonStorageSystemData
     u8 scrollState;
     u8 scrollToBoxId;
     s8 scrollDirection;
-    // u8 *wallpaperTiles; // used only in Emerald for Walda
+    u8 *wallpaperTiles; // Walda's wallpaper (Emerald's), freed by WaitForWallpaperGfxLoad
     struct Sprite *movingMonSprite;
     struct Sprite *partySprites[PARTY_SIZE];
     struct Sprite *boxMonsSprites[IN_BOX_COUNT];

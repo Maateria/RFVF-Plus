@@ -204,3 +204,45 @@ Route114_Text_KaiDefeat::
 Route114_Text_KaiPostBattle::
     .string "OK…\n"
     .string "Je vais en attraper un plus gros!$"
+
+Route114_Text_Poochyena::
+    .string "Bouh! Bouhou!$"
+
+Route114_Text_MeteorFallsSign::
+    .string "SITE METEORE\n"
+    .string "VERS MEROUVILLE$"
+
+Route114_Text_FossilManiacsHouseSign::
+    .string "MAISON DU MANIAQUE DES FOSSILES\n"
+    .string "“Les fossiles sont les bienvenus!”$"
+
+Route114_Text_LanettesHouse::
+    .string "MAISON D'ANNETTE$"
+
+Route114_Text_LoveUsingBerryCrushShareBerry::
+    .string "J'adore utiliser le BROYEUR DE BAIES,\n"
+    .string "alors je ramasse plein de BAIES!\p"
+    .string "Je suis d'accord pour t'en donner\n"
+    .string "une si tu veux!$"
+
+Route114_Text_TryBerryCrushWithFriends::
+    .string "Tu devrais essayer le BROYEUR DE\n"
+    .string "BAIES avec tes amis.$"
+
+Route114_Text_FunToThinkAboutBerries::
+    .string "Quelles sortes de BAIES vais-je\n"
+    .string "planter? Et faut-il les utiliser ou\l"
+    .string "les conserver?\p"
+    .string "Se préoccuper de petites choses de\n"
+    .string "ce genre a aussi son charme.$"
+
+Route114_Text_AllMyMonDoesIsRoarTakeThis::
+    .string "Mon POKéMON ne connaît\n"
+    .string "que HURLEMENT. Personne\l"
+    .string "n'ose m'approcher…\p"
+    .string "Pfff… Tu devrais prendre\n"
+    .string "cette CT…$"
+
+Route114_Text_ExplainRoar::
+    .string "La CT05 contient HURLEMENT.\n"
+    .string "Un HURLEMENT fait filer les POKéMON.$"

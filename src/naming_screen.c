@@ -232,6 +232,7 @@ static void NamingScreen_CreatePlayerIcon(void);
 static void NamingScreen_CreatePCIcon(void);
 static void NamingScreen_CreateMonIcon(void);
 static void NamingScreen_CreateRivalIcon(void);
+static void NamingScreen_CreateWaldaDadIcon(void);
 static bool8 HandleKeyboardEvent(void);
 static bool8 KeyboardKeyHandler_Character(u8);
 static bool8 KeyboardKeyHandler_Page(u8);
@@ -346,7 +347,7 @@ static const struct WindowTemplate sWindowTemplates[WIN_COUNT + 1] =
         .bg = 3,
         .tilemapLeft = 8,
         .tilemapTop = 6,
-        .width = 14,
+        .width = 17, // RFVF+: Emerald's width, room for Walda's 15 letters
         .height = 2,
         .paletteNum = 10,
         .baseBlock = 0x0030
@@ -358,7 +359,7 @@ static const struct WindowTemplate sWindowTemplates[WIN_COUNT + 1] =
         .width = 16,
         .height = 2,
         .paletteNum = 10,
-        .baseBlock = 0x004c
+        .baseBlock = 0x0052
     },
     [WIN_BANNER] = {
         .bg = 0,
@@ -367,7 +368,7 @@ static const struct WindowTemplate sWindowTemplates[WIN_COUNT + 1] =
         .width = 30,
         .height = 2,
         .paletteNum = 11,
-        .baseBlock = 0x006c
+        .baseBlock = 0x0072
     },
     DUMMY_WIN_TEMPLATE
 };
@@ -489,6 +490,8 @@ static void NamingScreen_Init(void)
     sNamingScreen->template = sNamingScreenTemplates[sNamingScreen->templateNum];
     sNamingScreen->currentPage = sNamingScreen->template->initialPage;
     sNamingScreen->inputCharBaseXPos = (DISPLAY_WIDTH - sNamingScreen->template->maxChars * 8) / 2 + 6;
+    if (sNamingScreen->templateNum == NAMING_SCREEN_WALDA)
+        sNamingScreen->inputCharBaseXPos += 11; // as in Emerald: room for the icon
     sNamingScreen->keyRepeatStartDelayCopy = gKeyRepeatStartDelay;
     memset(sNamingScreen->textBuffer, EOS, sizeof(sNamingScreen->textBuffer));
     if (sNamingScreen->template->copyExistingString)
@@ -1374,7 +1377,8 @@ static void (*const sIconFunctions[])(void) =
     NamingScreen_CreatePlayerIcon,
     NamingScreen_CreatePCIcon,
     NamingScreen_CreateMonIcon,
-    NamingScreen_CreateRivalIcon
+    NamingScreen_CreateRivalIcon,
+    NamingScreen_CreateWaldaDadIcon,
 };
 
 static void CreateInputTargetIcon(void)
@@ -1427,6 +1431,14 @@ static const union AnimCmd *const sAnims_Rival[] =
 {
     sAnim_Rival
 };
+
+// Emerald's: Walda's father, as on his map
+static void NamingScreen_CreateWaldaDadIcon(void)
+{
+    u8 spriteId = CreateObjectGraphicsSprite(OBJ_EVENT_GFX_HOENN_MAN_1, SpriteCallbackDummy, 56, 37, 0);
+    gSprites[spriteId].oam.priority = 3;
+    StartSpriteAnim(&gSprites[spriteId], ANIM_STD_GO_SOUTH);
+}
 
 static void NamingScreen_CreateRivalIcon(void)
 {
@@ -1727,7 +1739,8 @@ static void (*const sDrawTextEntryBoxFuncs[])(void) =
     [NAMING_SCREEN_BOX]        = DrawNormalTextEntryBox,
     [NAMING_SCREEN_CAUGHT_MON] = DrawMonTextEntryBox,
     [NAMING_SCREEN_NICKNAME]   = DrawMonTextEntryBox,
-    [NAMING_SCREEN_RIVAL]      = DrawNormalTextEntryBox
+    [NAMING_SCREEN_RIVAL]      = DrawNormalTextEntryBox,
+    [NAMING_SCREEN_WALDA]      = DrawNormalTextEntryBox,
 };
 
 static void DrawTextEntryBox(void)
@@ -2118,6 +2131,15 @@ static const struct NamingScreenTemplate sRivalNamingScreenTemplate = {
     .title = gText_RivalsName,
 };
 
+static const struct NamingScreenTemplate sWaldaWordsScreenTemplate = {
+    .copyExistingString = TRUE,
+    .maxChars = WALDA_PHRASE_LENGTH,
+    .iconFunction = 5,
+    .addGenderIcon = 0,
+    .initialPage = KBPAGE_LETTERS_UPPER,
+    .title = gText_TellHimTheWords,
+};
+
 static const struct NamingScreenTemplate *const sNamingScreenTemplates[] =
 {
     [NAMING_SCREEN_PLAYER]     = &sPlayerNamingScreenTemplate,
@@ -2125,6 +2147,7 @@ static const struct NamingScreenTemplate *const sNamingScreenTemplates[] =
     [NAMING_SCREEN_CAUGHT_MON] = &sMonNamingScreenTemplate,
     [NAMING_SCREEN_NICKNAME]   = &sMonNamingScreenTemplate,
     [NAMING_SCREEN_RIVAL]      = &sRivalNamingScreenTemplate,
+    [NAMING_SCREEN_WALDA]      = &sWaldaWordsScreenTemplate,
 };
 
 static const struct OamData sOam_8x8 = {

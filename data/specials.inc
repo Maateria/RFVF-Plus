@@ -475,4 +475,22 @@ gSpecials::
 	def_special ResetTrickHouseNuggetFlag
 	def_special GetSlotMachineId
 	def_special PlayRoulette
+	def_special TryBufferWaldaPhrase
+	def_special DoWaldaNamingScreen
+	def_special TryGetWallpaperWithWaldaPhrase
+	def_special GetPlayerBigGuyGirlString
+	def_special IsGrassTypeInParty
+	def_special FoundBlackGlasses
+	def_special GetPokeblockNameByMonNature
+	def_special SetPacifidlogTMReceivedDay
+	def_special GetDaysUntilPacifidlogTMAvailable
+	def_special GiveBerryMastersWifeBerries
+	def_special GetLotadSizeRecordInfo
+	def_special CompareLotadSize
+	def_special GetSeedotSizeRecordInfo
+	def_special CompareSeedotSize
+	def_special Special_BeginCyclingRoadChallenge
+	def_special FinishCyclingRoadChallenge
+	def_special GetRecordedCyclingRoadResults
+	def_special UpdateCyclingRoadState
 gSpecialsEnd::

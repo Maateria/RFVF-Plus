@@ -40,3 +40,50 @@ Route109_SeashoreHouse_Text_JohannaDefeated::
 Route109_SeashoreHouse_Text_JohannaPostBattle::
     .string "J'ai soif, maintenant. Je vais aller\n"
     .string "boire un SODA COOL.$"
+
+Route109_SeashoreHouse_Text_SeashoreHouseIntro::
+    .string "Je suis le propriétaire de la MAISON\n"
+    .string "DU BORD DE MER, mais tu peux\l"
+    .string "m'appeler M. MER!\p"
+    .string "Ce que j'aime par-dessus\n"
+    .string "tout, ce sont les combats\l"
+    .string "endiablés de POKéMON.\p"
+    .string "Voyons si tu as un esprit combatif!\p"
+    .string "Si tu peux vaincre tous\n"
+    .string "ces DRESSEURS, je\l"
+    .string "t'offrirai une récompense.$"
+
+Route109_SeashoreHouse_Text_WantToBuySodaPop::
+    .string "Tu veux acheter du SODA COOL?\n"
+    .string "Les POKéMON adorent ça!\p"
+    .string "C'est 300¥ la bouteille!\n"
+    .string "Achètes-en!$"
+
+Route109_SeashoreHouse_Text_ThatsTooBad::
+    .string "Non?\n"
+    .string "Tant pis.$"
+
+Route109_SeashoreHouse_Text_TakeTheseSodaPopBottles::
+    .string "Bravo, ça c'était du combat qui tue!\n"
+    .string "Ces combats étaient incroyables!\l"
+    .string "J'en ai eu pour mon argent!\p"
+    .string "Pour te remercier de m'avoir\n"
+    .string "offert un tel spectacle,\l"
+    .string "je vais t'offrir ça.\p"
+    .string "Une demi-douzaine de bouteilles de\n"
+    .string "SODA COOL!$"
+
+Route109_SeashoreHouse_Text_ShowMeSomeHotMatches::
+    .string "Montre-moi de beaux combats!\p"
+    .string "Après tout, c'est pour ça que je\n"
+    .string "dirige la MAISON DU BORD DE MER!$"
+
+Route109_SeashoreHouse_Text_HereYouGo::
+    .string "Voilà!$"
+
+Route109_SeashoreHouse_Text_BagFull::
+    .string "Oh, mais dis-moi, ton SAC est plein.\n"
+    .string "Je vais garder ça pour toi.$"
+
+Route109_SeashoreHouse_Text_NotEnoughMoney::
+    .string "Tu n'as pas assez d'argent.$"

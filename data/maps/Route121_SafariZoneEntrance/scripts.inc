@@ -129,8 +129,24 @@ Route121_SafariZoneEntrance_Movement_EnterSafariZone::
 	delay_16
 	step_end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route121_SafariZoneEntrance/scripts.inc
-Route121_SafariZoneEntrance_EventScript_WelcomeAttendant:: @ NPC #1 (17,9)
-Route121_SafariZoneEntrance_EventScript_InfoAttendant:: @ NPC #2 (10,2)
-Route121_SafariZoneEntrance_EventScript_TrainerTipSign:: @ sign (15,1)
+Route121_SafariZoneEntrance_EventScript_WelcomeAttendant::
+	msgbox Route121_SafariZoneEntrance_Text_WelcomeToSafariZone, MSGBOX_NPC
+	end
+
+Route121_SafariZoneEntrance_EventScript_InfoAttendant::
+	lock
+	faceplayer
+	msgbox Route121_SafariZoneEntrance_Text_WelcomeFirstTime, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route121_SafariZoneEntrance_EventScript_FirstTimeInfo
+	msgbox Route121_SafariZoneEntrance_Text_ComeInAndEnjoy, MSGBOX_DEFAULT
+	release
+	end
+
+Route121_SafariZoneEntrance_EventScript_FirstTimeInfo::
+	msgbox Route121_SafariZoneEntrance_Text_FirstTimeInfo, MSGBOX_DEFAULT
+	release
+	end
+
+Route121_SafariZoneEntrance_EventScript_TrainerTipSign::
+	msgbox Route121_SafariZoneEntrance_Text_TrainerTip, MSGBOX_SIGN
 	end

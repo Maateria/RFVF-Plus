@@ -3,8 +3,8 @@ AbandonedShip_Rooms_1F_MapScripts::
 AbandonedShip_Rooms_1F_EventScript_ItemHarborMail:: @ item ball, works (FLAG_ITEM_ABANDONED_SHIP_ROOMS_1F_HARBOR_MAIL)
 	finditem ITEM_HARBOR_MAIL
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/AbandonedShip_Rooms_1F/scripts.inc
-AbandonedShip_Rooms_1F_EventScript_Gentleman::  @ NPC #1 (12,5)
+AbandonedShip_Rooms_1F_EventScript_Gentleman::
+	msgbox AbandonedShip_Rooms_1F_Text_TakingALookAround, MSGBOX_NPC
 	end
 
 AbandonedShip_Rooms_1F_EventScript_Thalia::

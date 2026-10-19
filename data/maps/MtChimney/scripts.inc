@@ -6,10 +6,17 @@ MtChimney_MapScripts::
 MtChimney_OnResume:
 	setstepcallback STEP_CB_ASH
 	end
+MtChimney_EventScript_RouteSign::
+	msgbox MtChimney_Text_RouteSign, MSGBOX_SIGN
+	end
+
+@ The story is over: the meteorite is back with Prof. Cozmo, the machine is empty (user's choice)
+MtChimney_EventScript_MeteoriteMachine::
+	msgbox MtChimney_Text_MachineMakesNoResponse, MSGBOX_SIGN
+	end
+
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtChimney/scripts.inc
 MtChimney_EventScript_LavaCookieLady::          @ NPC #1 (19,39)
-MtChimney_EventScript_MeteoriteMachine::        @ sign (14,6)
-MtChimney_EventScript_RouteSign::               @ sign (24,37)
 	end
 
 MtChimney_EventScript_Shelby::

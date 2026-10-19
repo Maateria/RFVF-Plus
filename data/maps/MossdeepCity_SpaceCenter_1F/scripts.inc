@@ -7,10 +7,82 @@
 MossdeepCity_SpaceCenter_1F_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_LOAD (MossdeepCity_SpaceCenter_1F_OnLoad), ON_TRANSITION (MossdeepCity_SpaceCenter_1F_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_SpaceCenter_1F/scripts.inc
-MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter:: @ NPC #1 (7,2)
-MossdeepCity_SpaceCenter_1F_EventScript_Scientist:: @ NPC #2 (2,2)
-MossdeepCity_SpaceCenter_1F_EventScript_SunStoneMan:: @ NPC #3 (6,6)
-MossdeepCity_SpaceCenter_1F_EventScript_OldMan:: @ NPC #4 (10,2)
-MossdeepCity_SpaceCenter_1F_EventScript_Woman:: @ NPC #5 (14,7)
+MossdeepCity_SpaceCenter_1F_EventScript_Scientist::
+	lock
+	faceplayer
+	goto MossdeepCity_SpaceCenter_1F_EventScript_ScientistMagma
+
+MossdeepCity_SpaceCenter_1F_EventScript_ScientistMagma::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_MagmaHaveSightsOnSpaceCenter, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	release
 	end
+
+MossdeepCity_SpaceCenter_1F_EventScript_OldMan::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_SpaceCenter_1F_EventScript_OldManNormal
+	goto MossdeepCity_SpaceCenter_1F_EventScript_OldManMagma
+
+MossdeepCity_SpaceCenter_1F_EventScript_OldManNormal::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_RocketsBoggleMyMind, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+MossdeepCity_SpaceCenter_1F_EventScript_OldManMagma::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_MagmaWantsToSpoilMyDream, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+MossdeepCity_SpaceCenter_1F_EventScript_Woman::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_GAME_CLEAR, MossdeepCity_SpaceCenter_1F_EventScript_WomanNormal
+	goto MossdeepCity_SpaceCenter_1F_EventScript_WomanMagma
+
+MossdeepCity_SpaceCenter_1F_EventScript_WomanNormal::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_DidPokemonComeFromSpace, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_1F_EventScript_WomanMagma::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_AquaShouldBeatMagma, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_SpaceCenter_1F_EventScript_SunStoneMan::
+	lock
+	faceplayer
+	goto MossdeepCity_SpaceCenter_1F_EventScript_SunStoneManMagma
+
+MossdeepCity_SpaceCenter_1F_EventScript_SunStoneManMagma::
+	goto_if_set FLAG_RECEIVED_SUN_STONE_MOSSDEEP, MossdeepCity_SpaceCenter_1F_EventScript_GaveSunStoneMagma
+	msgbox MossdeepCity_SpaceCenter_1F_Text_MagmaCantStealFuelTakeThis, MSGBOX_DEFAULT
+	giveitem ITEM_SUN_STONE
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_SUN_STONE_MOSSDEEP
+	msgbox MossdeepCity_SpaceCenter_1F_Text_CantStrollOnBeachWithMagma, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	release
+	end
+
+MossdeepCity_SpaceCenter_1F_EventScript_GaveSunStoneMagma::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_CantStrollOnBeachWithMagma, MSGBOX_DEFAULT
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	release
+	end
+
+@ Basic text instead of the launch counter (user's choice)
+MossdeepCity_SpaceCenter_1F_EventScript_RocketLaunchCounter::
+	msgbox MossdeepCity_SpaceCenter_1F_Text_RocketLaunchImminent, MSGBOX_NPC
+	end
+

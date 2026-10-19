@@ -64,3 +64,22 @@ Route102_Text_AllenPostBattle::
     .string "Je n'ai même pas gagné une\n"
     .string "seule fois… J'espère que\l"
     .string "je vais bientôt y arriver…$"
+
+Route102_Text_ImNotVeryTall::
+    .string "Je… ne suis pas très grand, alors je\n"
+    .string "m'enfonce dans les hautes herbes.\p"
+    .string "L'herbe chatouille mes narines…\n"
+    .string "Aaaaaaaaaaaaaa…\p"
+    .string "Atchoum!$"
+
+Route102_Text_CatchWholeBunchOfPokemon::
+    .string "Je vais attraper tout un tas de\n"
+    .string "POKéMON!$"
+
+Route102_Text_RouteSignPetalburg::
+    .string "ROUTE 102\n"
+    .string "{LEFT_ARROW} CLEMENTI-VILLE$"
+
+Route102_Text_RouteSignOldale::
+    .string "ROUTE 102\n"
+    .string "{RIGHT_ARROW} ROSYERES$"

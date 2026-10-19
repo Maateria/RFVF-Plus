@@ -4,11 +4,20 @@ Route112_MapScripts::
 Route112_EventScript_ItemNugget::               @ item ball, works (FLAG_ITEM_ROUTE_112_NUGGET)
 	finditem ITEM_NUGGET
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route112/scripts.inc
-Route112_EventScript_Hiker::                    @ NPC #5 (8,50)
-Route112_EventScript_MtChimneySign::            @ sign (19,44)
-Route112_EventScript_MtChimneyCableCarSign::    @ sign (22,37)
-Route112_EventScript_RouteSignLavaridge::       @ sign (4,49)
+Route112_EventScript_Hiker::
+	msgbox Route112_Text_NotEasyToGetBackToLavaridge, MSGBOX_NPC
+	end
+
+Route112_EventScript_MtChimneySign::
+	msgbox Route112_Text_MtChimneySign, MSGBOX_SIGN
+	end
+
+Route112_EventScript_MtChimneyCableCarSign::
+	msgbox Route112_Text_MtChimneyCableCarSign, MSGBOX_SIGN
+	end
+
+Route112_EventScript_RouteSignLavaridge::
+	msgbox Route112_Text_RouteSignLavaridge, MSGBOX_SIGN
 	end
 
 Route112_EventScript_Brice::

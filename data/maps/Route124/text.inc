@@ -190,3 +190,6 @@ Route124_Text_IsabellaDefeat::
 Route124_Text_IsabellaPostBattle::
     .string "On trouve de très jolies choses au\n"
     .string "fond de l'eau par ici!$"
+
+Route124_Text_HuntersHouse::
+    .string "MAISON DU CHERCHEUR DE TRESORS$"

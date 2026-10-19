@@ -99,3 +99,22 @@ Route112_Text_ShaylaPostBattle::
     .string "notre match de revanche…\p"
     .string "Mais ne t'inquiète pas, ce n'est pas\n"
     .string "grave si tu n'as pas le temps.$"
+
+Route112_Text_NotEasyToGetBackToLavaridge::
+    .string "Hé, j'aimerais aller à LAVANDIA, mais\n"
+    .string "si je descends par ce\l"
+    .string "rebord, ça va pas être\l"
+    .string "facile de revenir à VERMILAVA.$"
+
+Route112_Text_MtChimneySign::
+    .string "MONT CHIMNEE\p"
+    .string "“Pour VERMILAVA ou le sommet,\n"
+    .string "veuillez prendre le TELEPHERIQUE.”$"
+
+Route112_Text_MtChimneyCableCarSign::
+    .string "TELEPHERIQUE DU MONT CHIMNEE\n"
+    .string "“{UP_ARROW} Avancez de quelques pas!”$"
+
+Route112_Text_RouteSignLavaridge::
+    .string "ROUTE 112\n"
+    .string "{LEFT_ARROW} VERMILAVA$"

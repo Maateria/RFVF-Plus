@@ -19,10 +19,16 @@ Route115_EventScript_ItemPPUp::                 @ item ball, works (FLAG_ITEM_RO
 Route115_EventScript_ItemHealPowder::           @ item ball, works (FLAG_ITEM_ROUTE_115_HEAL_POWDER)
 	finditem ITEM_HEAL_POWDER
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route115/scripts.inc
-Route115_EventScript_Woman::                    @ NPC #1 (18,68)
-Route115_EventScript_RouteSignRustboro::        @ sign (16,64)
-Route115_EventScript_MeteorFallsSign::          @ sign (25,38)
+Route115_EventScript_Woman::
+	msgbox Route115_Text_NeverKnowWhenCavePokemonWillAppear, MSGBOX_NPC
+	end
+
+Route115_EventScript_RouteSignRustboro::
+	msgbox Route115_Text_RouteSignRustboro, MSGBOX_SIGN
+	end
+
+Route115_EventScript_MeteorFallsSign::
+	msgbox Route115_Text_MeteorFallsSign, MSGBOX_SIGN
 	end
 
 Route115_EventScript_Timothy::

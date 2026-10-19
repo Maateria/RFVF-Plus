@@ -3,11 +3,20 @@ Route102_MapScripts::
 Route102_EventScript_ItemPotion::               @ item ball, works (FLAG_ITEM_ROUTE_102_POTION)
 	finditem ITEM_POTION
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route102/scripts.inc
-Route102_EventScript_LittleBoy::                @ NPC #1 (18,11)
-Route102_EventScript_Boy::                      @ NPC #5 (37,4)
-Route102_EventScript_RouteSignPetalburg::       @ sign (17,2)
-Route102_EventScript_RouteSignOldale::          @ sign (40,9)
+Route102_EventScript_LittleBoy::
+	msgbox Route102_Text_ImNotVeryTall, MSGBOX_NPC
+	end
+
+Route102_EventScript_Boy::
+	msgbox Route102_Text_CatchWholeBunchOfPokemon, MSGBOX_NPC
+	end
+
+Route102_EventScript_RouteSignPetalburg::
+	msgbox Route102_Text_RouteSignPetalburg, MSGBOX_SIGN
+	end
+
+Route102_EventScript_RouteSignOldale::
+	msgbox Route102_Text_RouteSignOldale, MSGBOX_SIGN
 	end
 
 Route102_EventScript_Calvin::

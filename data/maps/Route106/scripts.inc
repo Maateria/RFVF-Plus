@@ -3,8 +3,8 @@ Route106_MapScripts::
 Route106_EventScript_ItemProtein::              @ item ball, works (FLAG_ITEM_ROUTE_106_PROTEIN)
 	finditem ITEM_PROTEIN
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route106/scripts.inc
-Route106_EventScript_TrainerTipsSign::          @ sign (59,13)
+Route106_EventScript_TrainerTipsSign::
+	msgbox Route106_Text_TrainerTips, MSGBOX_SIGN
 	end
 
 Route106_EventScript_Douglas::

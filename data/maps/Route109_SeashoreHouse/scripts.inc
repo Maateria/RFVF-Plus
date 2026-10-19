@@ -1,21 +1,91 @@
 Route109_SeashoreHouse_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route109_SeashoreHouse_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route109_SeashoreHouse/scripts.inc
-Route109_SeashoreHouse_EventScript_Owner::      @ NPC #1 (6,2)
+Route109_SeashoreHouse_EventScript_Owner::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_6_SODA_POP, Route109_SeashoreHouse_EventScript_AlreadyReceivedSodaPop
+	goto_if_set FLAG_DEFEATED_SEASHORE_HOUSE, Route109_SeashoreHouse_EventScript_DefeatedTrainers
+	goto_if_set FLAG_TEMP_2, Route109_SeashoreHouse_EventScript_AlreadyGaveIntroduction
+	msgbox Route109_SeashoreHouse_Text_SeashoreHouseIntro, MSGBOX_DEFAULT
+	setflag FLAG_TEMP_2
+	release
 	end
 
+Route109_SeashoreHouse_EventScript_AlreadyReceivedSodaPop::
+	showmoneybox 0, 0
+	msgbox Route109_SeashoreHouse_Text_WantToBuySodaPop, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, Route109_SeashoreHouse_EventScript_BuySodaPop
+	msgbox Route109_SeashoreHouse_Text_ThatsTooBad, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
+Route109_SeashoreHouse_EventScript_DefeatedTrainers::
+	msgbox Route109_SeashoreHouse_Text_TakeTheseSodaPopBottles, MSGBOX_DEFAULT
+	giveitem ITEM_SODA_POP, 6
+	goto_if_eq VAR_RESULT, FALSE, Route109_SeashoreHouse_EventScript_BagFull
+	setflag FLAG_RECEIVED_6_SODA_POP
+	release
+	end
+
+Route109_SeashoreHouse_EventScript_AlreadyGaveIntroduction::
+	msgbox Route109_SeashoreHouse_Text_ShowMeSomeHotMatches, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_SeashoreHouse_EventScript_BuySodaPop::
+	checkmoney 300
+	goto_if_eq VAR_RESULT, FALSE, Route109_SeashoreHouse_EventScript_NotEnoughMoney
+	checkitemspace ITEM_SODA_POP
+	goto_if_eq VAR_RESULT, FALSE, Route109_SeashoreHouse_EventScript_NotEnoughSpace
+	msgbox Route109_SeashoreHouse_Text_HereYouGo, MSGBOX_DEFAULT
+	removemoney 300
+	updatemoneybox
+	giveitem ITEM_SODA_POP
+	hidemoneybox
+	release
+	end
+
+Route109_SeashoreHouse_EventScript_BagFull::
+	msgbox Route109_SeashoreHouse_Text_BagFull, MSGBOX_DEFAULT
+	release
+	end
+
+Route109_SeashoreHouse_EventScript_NotEnoughMoney::
+	msgbox Route109_SeashoreHouse_Text_NotEnoughMoney, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
+Route109_SeashoreHouse_EventScript_NotEnoughSpace::
+	msgbox Text_TooBadBagFull, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
+
 Route109_SeashoreHouse_EventScript_Dwayne::
-	trainerbattle_single TRAINER_DWAYNE, Route109_SeashoreHouse_Text_DwayneIntro, Route109_SeashoreHouse_Text_DwayneDefeated
+	trainerbattle_single TRAINER_DWAYNE, Route109_SeashoreHouse_Text_DwayneIntro, Route109_SeashoreHouse_Text_DwayneDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
 	msgbox Route109_SeashoreHouse_Text_DwaynePostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route109_SeashoreHouse_EventScript_Simon::
-	trainerbattle_single TRAINER_SIMON, Route109_SeashoreHouse_Text_SimonIntro, Route109_SeashoreHouse_Text_SimonDefeated
+	trainerbattle_single TRAINER_SIMON, Route109_SeashoreHouse_Text_SimonIntro, Route109_SeashoreHouse_Text_SimonDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
 	msgbox Route109_SeashoreHouse_Text_SimonPostBattle, MSGBOX_AUTOCLOSE
 	end
 
 Route109_SeashoreHouse_EventScript_Johanna::
-	trainerbattle_single TRAINER_JOHANNA, Route109_SeashoreHouse_Text_JohannaIntro, Route109_SeashoreHouse_Text_JohannaDefeated
+	trainerbattle_single TRAINER_JOHANNA, Route109_SeashoreHouse_Text_JohannaIntro, Route109_SeashoreHouse_Text_JohannaDefeated, Route109_SeashoreHouse_EventScript_CheckTrainersCompletion
 	msgbox Route109_SeashoreHouse_Text_JohannaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+@ Emerald's: the owner gives his Soda Pop once the three trainers are beaten
+Route109_SeashoreHouse_EventScript_CheckTrainersCompletion::
+	goto_if_not_defeated TRAINER_DWAYNE, Route109_SeashoreHouse_EventScript_TrainersNotCompleted
+	goto_if_not_defeated TRAINER_JOHANNA, Route109_SeashoreHouse_EventScript_TrainersNotCompleted
+	goto_if_not_defeated TRAINER_SIMON, Route109_SeashoreHouse_EventScript_TrainersNotCompleted
+	setflag FLAG_DEFEATED_SEASHORE_HOUSE
+Route109_SeashoreHouse_EventScript_TrainersNotCompleted::
+	release
 	end

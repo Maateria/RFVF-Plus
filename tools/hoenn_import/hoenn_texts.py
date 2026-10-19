@@ -442,6 +442,8 @@ def extract(em_dir, fr_rom, prefix):
     starts = dict(seen)
     for _, _, mname in maps:
         path = em_dir / "data/maps" / mname / "scripts.inc"
+        if not path.exists():  # secret bases share data/scripts/secret_base.inc
+            continue
         code = re.split(r"^\w+_Text_\w+::?\s*$", path.read_text(encoding="utf-8"), maxsplit=1, flags=re.M)[0]
         labels = [addr[l] for l in re.findall(r"^(\w+)::?\s*$", code, re.M) if l in addr]
         walked = sorted(a for a in labels if a in starts)

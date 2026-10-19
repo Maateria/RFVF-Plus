@@ -620,6 +620,10 @@ const u8 gPCText_PolkaDot[] = _("ETOILES");
 const u8 gPCText_Pokecenter[] = _("CENTRE PKMN");
 const u8 gPCText_Machine[] = _("CARREAUX");
 const u8 gPCText_Simple[] = _("UNI");
+// Walda (Emerald's, official French texts)
+const u8 gPCText_Friends[] = _("AMIS");
+const u8 gText_TellHimTheWords[] = _("Lui dire les mots.");
+const u8 gText_Peekaboo[] = _("PIKABOUH!");
 const u8 gText_WithdrawPokemon[] = _("RETIRER POKéMON");
 const u8 gText_DepositPokemon[] = _("DEPOSER POKéMON");
 const u8 gText_MovePokemon[] = _("DEPLACER POKéMON");

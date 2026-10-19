@@ -1,0 +1,78 @@
+SlateportCity_PokemonFanClub_Text_PokemonDontLikeFainting::
+    .string "Si tu laisses un POKéMON se faire\n"
+    .string "mettre K.O. au combat,\l"
+    .string "il n'appréciera pas.\p"
+    .string "Il aura alors moins confiance en\n"
+    .string "son DRESSEUR.\p"
+    .string "En d'autres termes, il ne t'aimera\n"
+    .string "pas trop.$"
+
+SlateportCity_PokemonFanClub_Text_MonEnjoyedProtein::
+    .string "Les POKéMON aiment-ils recevoir\n"
+    .string "des objets?\p"
+    .string "Les miens sont ravis quand je leur\n"
+    .string "donne des PROTEINES.$"
+
+SlateportCity_PokemonFanClub_Text_Zigzagoon::
+    .string "ZIGZATON: Zigzaaatooon…$"
+
+SlateportCity_PokemonFanClub_Text_Skitty::
+    .string "SKITTY: Skiiittyyy…$"
+
+SlateportCity_PokemonFanClub_Text_Azumarill::
+    .string "AZUMARILL: Azuumaariill?$"
+
+@ Adapted (RFVF+): role-play text on the town's lore instead of the interview (user's choice)
+SlateportCity_PokemonFanClub_Text_ReporterFanClub::
+    .string "Je suis journaliste. Je fais un\n"
+    .string "reportage sur le FAN CLUB POKéMON.\p"
+    .string "Le PRESIDENT juge l'allure des\n"
+    .string "POKéMON qu'on lui présente.\p"
+    .string "Ici, les POKéMON les mieux soignés\n"
+    .string "de HOENN sont les rois!$"
+
+SlateportCity_PokemonFanClub_Text_MeetChairman::
+    .string "Heu! Je suis le PRESIDENT du\n"
+    .string "FAN CLUB POKéMON!\p"
+    .string "En tant que PRESIDENT, je suis bien\n"
+    .string "sûr la personne la plus importante!\p"
+    .string "Personne ne sait mieux\n"
+    .string "que moi comment dresser\l"
+    .string "un POKéMON. Personne!\p"
+    .string "Mais laisse-moi te parler des\n"
+    .string "CONCOURS POKéMON.\p"
+    .string "Il y a des évènements où l'on peut\n"
+    .string "montrer ses POKéMON\l"
+    .string "à tout le monde.\p"
+    .string "Mais ils ont lieu loin d'ici, alors je\n"
+    .string "ne peux pas y participer souvent.\p"
+    .string "C'est pour cela que nous nous\n"
+    .string "réunissons ici, pour montrer nos\l"
+    .string "POKéMON aux autres.$"
+
+SlateportCity_PokemonFanClub_Text_LikeToSeeEnteredContestPokemon::
+    .string "Le POKéMON d'un DRESSEUR ayant\n"
+    .string "participé à un CONCOURS POKéMON,\l"
+    .string "voilà ce que j'aimerais voir.$"
+
+SlateportCity_PokemonFanClub_Text_ShowMePokemonThatLoveYou::
+    .string "J'apprécie de voir des POKéMON qui\n"
+    .string "aiment leur DRESSEUR.\p"
+    .string "Les POKéMON sont très sensibles\n"
+    .string "aux sentiments de leur DRESSEUR.\p"
+    .string "Si tu donnes amour et attention à tes\n"
+    .string "POKéMON, ils t'aimeront en retour.\p"
+    .string "Quand l'amour de tes POKéMON aura\n"
+    .string "grandi, passe me voir.$"
+
+SlateportCity_PokemonFanClub_Text_TreatPokemonWithLove::
+    .string "Les POKéMON sont très sensibles\n"
+    .string "aux sentiments de leur DRESSEUR.\p"
+    .string "Si tu donnes amour et attention à tes\n"
+    .string "POKéMON, ils t'aimeront en retour.$"
+
+SlateportCity_PokemonFanClub_Text_PokemonAdoresYou::
+    .string "Ton POKéMON t'adore vraiment.\p"
+    .string "Voilà un cadeau de la part\n"
+    .string "du FAN CLUB pour toi,\l"
+    .string "le DRESSEUR attentionné!$"

@@ -6,9 +6,18 @@ PacifidlogTown_MapScripts::
 PacifidlogTown_OnResume:
 	setstepcallback STEP_CB_PACIFIDLOG_BRIDGE
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/PacifidlogTown/scripts.inc
-PacifidlogTown_EventScript_Girl::               @ NPC #1 (10,23)
-PacifidlogTown_EventScript_Fisherman::          @ NPC #2 (11,14)
-PacifidlogTown_EventScript_NinjaBoy::           @ NPC #3 (9,16)
-PacifidlogTown_EventScript_TownSign::           @ sign (7,16)
+PacifidlogTown_EventScript_Girl::
+	msgbox PacifidlogTown_Text_FastRunningCurrent, MSGBOX_NPC
+	end
+
+PacifidlogTown_EventScript_Fisherman::
+	msgbox PacifidlogTown_Text_SkyPillarTooScary, MSGBOX_NPC
+	end
+
+PacifidlogTown_EventScript_NinjaBoy::
+	msgbox PacifidlogTown_Text_NeatHousesOnWater, MSGBOX_NPC
+	end
+
+PacifidlogTown_EventScript_TownSign::
+	msgbox PacifidlogTown_Text_TownSign, MSGBOX_SIGN
 	end

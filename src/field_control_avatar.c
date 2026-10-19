@@ -33,6 +33,7 @@
 #include "constants/maps.h"
 #include "constants/metatile_behaviors.h"
 #include "constants/region_map_sections.h"
+#include "hoenn_specials.h"
 
 #define SIGNPOST_POKECENTER 0
 #define SIGNPOST_POKEMART 1
@@ -226,6 +227,7 @@ int ProcessPlayerFieldInput(struct FieldInput *input)
     if (input->tookStep)
     {
         IncrementGameStat(GAME_STAT_STEPS);
+        HoennDays_OnStep();
         WonderNews_IncrementStepCounter();
         IncrementRenewableHiddenItemStepCounter();
         RunMassageCooldownStepCounter();

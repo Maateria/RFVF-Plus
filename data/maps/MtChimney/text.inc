@@ -90,3 +90,11 @@ MtChimney_Text_SawyerPostRematch::
     .string "En fait, il fait un peu\n"
     .string "trop chaud ici. Je dois\l"
     .string "être un peu trop habillé.$"
+
+MtChimney_Text_RouteSign::
+    .string "{DOWN_ARROW} SENTIER SINUROC\n"
+    .string "VERMILAVA DROIT DEVANT$"
+
+MtChimney_Text_MachineMakesNoResponse::
+    .string "Cette mystérieuse machine…\n"
+    .string "Elle ne répond pas.$"

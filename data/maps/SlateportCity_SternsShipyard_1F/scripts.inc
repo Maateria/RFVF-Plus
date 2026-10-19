@@ -2,8 +2,37 @@
 
 SlateportCity_SternsShipyard_1F_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SlateportCity_SternsShipyard_1F/scripts.inc
-SlateportCity_SternsShipyard_1F_EventScript_Dock:: @ NPC #1 (5,5)
-SlateportCity_SternsShipyard_1F_EventScript_Scientist1:: @ NPC #2 (10,7)
-SlateportCity_SternsShipyard_1F_EventScript_Scientist2:: @ NPC #3 (18,8)
+SlateportCity_SternsShipyard_1F_EventScript_Dock::
+	lockall
+	goto_if_set FLAG_HOENN_GAME_CLEAR, SlateportCity_SternsShipyard_1F_EventScript_FerryReady
+	goto_if_set FLAG_HOENN_BADGE07_GET, SlateportCity_SternsShipyard_1F_EventScript_BrineyJoined
+	goto SlateportCity_SternsShipyard_1F_EventScript_NeedVeteran
+
+SlateportCity_SternsShipyard_1F_EventScript_FerryReady::
+	applymovement LOCALID_DOCK, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox SlateportCity_SternsShipyard_1F_Text_FerryIsReady, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SlateportCity_SternsShipyard_1F_EventScript_BrineyJoined::
+	applymovement LOCALID_DOCK, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox SlateportCity_SternsShipyard_1F_Text_BrineyJoinedUs, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SlateportCity_SternsShipyard_1F_EventScript_NeedVeteran::
+	applymovement LOCALID_DOCK, Common_Movement_FacePlayer
+	waitmovement 0
+	msgbox SlateportCity_SternsShipyard_1F_Text_CouldUseAdviceFromVeteran, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SlateportCity_SternsShipyard_1F_EventScript_Scientist1::
+	msgbox SlateportCity_SternsShipyard_1F_Text_SeaIsLikeLivingThing, MSGBOX_NPC
+	end
+
+SlateportCity_SternsShipyard_1F_EventScript_Scientist2::
+	msgbox SlateportCity_SternsShipyard_1F_Text_GetSeasickEasily, MSGBOX_NPC
 	end

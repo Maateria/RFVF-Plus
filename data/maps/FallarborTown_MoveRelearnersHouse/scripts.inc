@@ -2,6 +2,43 @@
 
 FallarborTown_MoveRelearnersHouse_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/FallarborTown_MoveRelearnersHouse/scripts.inc
-FallarborTown_MoveRelearnersHouse_EventScript_MoveRelearner:: @ NPC #1 (4,4)
+@ Emerald's Move Relearner (a Heart Scale per move), with FRLG's relearner screens (TwoIsland_House_EventScript_MoveManiac)
+FallarborTown_MoveRelearnersHouse_EventScript_MoveRelearner::
+	lockall
+	applymovement LOCALID_MOVE_RELEARNER, Common_Movement_FacePlayer
+	waitmovement 0
+	goto_if_set FLAG_TEMP_1, FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ImTheMoveTutor
+	setflag FLAG_TEMP_1
+FallarborTown_MoveRelearnersHouse_EventScript_AskTeachMove::
+	checkitem ITEM_HEART_SCALE
+	goto_if_eq VAR_RESULT, FALSE, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ThatsAHeartScaleWantMeToTeachMove, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon::
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TutorWhichMon
+	special SelectMoveTutorMon
+	waitstate
+	goto_if_ge VAR_0x8004, PARTY_SIZE, FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale
+	special IsSelectedMonEgg
+	goto_if_eq VAR_RESULT, TRUE, FallarborTown_MoveRelearnersHouse_EventScript_CantTeachEgg
+	goto_if_eq VAR_0x8005, 0, FallarborTown_MoveRelearnersHouse_EventScript_NoMoveToTeachMon
+	msgbox FallarborTown_MoveRelearnersHouse_Text_TeachWhichMove
+	special DisplayMoveTutorMenu
+	waitstate
+	goto_if_eq VAR_0x8004, 0, FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+	msgbox FallarborTown_MoveRelearnersHouse_Text_HandedOverHeartScale
+	removeitem ITEM_HEART_SCALE
+FallarborTown_MoveRelearnersHouse_EventScript_ComeBackWithHeartScale::
+	msgbox FallarborTown_MoveRelearnersHouse_Text_ComeBackWithHeartScale
+	releaseall
 	end
+
+FallarborTown_MoveRelearnersHouse_EventScript_NoMoveToTeachMon::
+	msgbox FallarborTown_MoveRelearnersHouse_Text_DontHaveMoveToTeachPokemon
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+
+FallarborTown_MoveRelearnersHouse_EventScript_CantTeachEgg::
+	msgbox FallarborTown_MoveRelearnersHouse_Text_CantTeachEgg
+	goto FallarborTown_MoveRelearnersHouse_EventScript_ChooseMon
+

@@ -3,8 +3,66 @@
 MossdeepCity_StevensHouse_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_LOAD (MossdeepCity_StevensHouse_OnLoad), ON_TRANSITION (MossdeepCity_StevensHouse_OnTransition), ON_FRAME_TABLE (MossdeepCity_StevensHouse_OnFrame)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MossdeepCity_StevensHouse/scripts.inc
-MossdeepCity_StevensHouse_EventScript_BeldumPokeball:: @ NPC #1 (4,3)
-MossdeepCity_StevensHouse_EventScript_Letter::  @ NPC #2 (6,4)
-MossdeepCity_StevensHouse_EventScript_RockDisplay:: @ sign (0,1)
+MossdeepCity_StevensHouse_EventScript_Letter::
+	lockall
+	msgbox MossdeepCity_StevensHouse_Text_LetterFromSteven, MSGBOX_DEFAULT
+	releaseall
 	end
+
+MossdeepCity_StevensHouse_EventScript_RockDisplay::
+	msgbox MossdeepCity_StevensHouse_Text_CollectionOfRareRocks, MSGBOX_SIGN
+	end
+
+MossdeepCity_StevensHouse_EventScript_BeldumPokeball::
+	lockall
+	msgbox MossdeepCity_StevensHouse_Text_TakeBallContainingBeldum, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MossdeepCity_StevensHouse_EventScript_LeaveBeldum
+	goto MossdeepCity_StevensHouse_EventScript_GiveBeldum
+
+MossdeepCity_StevensHouse_EventScript_LeaveBeldum::
+	msgbox MossdeepCity_StevensHouse_Text_LeftPokeBallWhereItWas, MSGBOX_DEFAULT
+	releaseall
+	end
+
+MossdeepCity_StevensHouse_EventScript_GiveBeldum::
+	setvar VAR_TEMP_1, SPECIES_BELDUM
+	givemon SPECIES_BELDUM, 5
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, MossdeepCity_StevensHouse_EventScript_SendBeldumParty
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, MossdeepCity_StevensHouse_EventScript_SendBeldumPC
+	goto EventScript_NoMoreRoomForPokemon
+
+MossdeepCity_StevensHouse_EventScript_SendBeldumParty::
+	call MossdeepCity_StevensHouse_EventScript_ReceivedBeldumFanfare
+	msgbox Text_GiveNicknameToThisMon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MossdeepCity_StevensHouse_EventScript_ReceivedBeldum
+	call EventScript_GetGiftMonPartySlot
+	call EventScript_ChangePokemonNickname
+	goto MossdeepCity_StevensHouse_EventScript_ReceivedBeldum
+
+MossdeepCity_StevensHouse_EventScript_SendBeldumPC::
+	call MossdeepCity_StevensHouse_EventScript_ReceivedBeldumFanfare
+	msgbox Text_GiveNicknameToThisMon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MossdeepCity_StevensHouse_EventScript_BeldumTransferredToPC
+	call EventScript_NameReceivedBoxMon
+	goto MossdeepCity_StevensHouse_EventScript_BeldumTransferredToPC
+
+MossdeepCity_StevensHouse_EventScript_ReceivedBeldumFanfare::
+	bufferspeciesname STR_VAR_2, SPECIES_BELDUM
+	removeobject LOCALID_STEVENS_HOUSE_BALL
+	playfanfare MUS_OBTAIN_ITEM
+	message MossdeepCity_StevensHouse_Text_ObtainedBeldum
+	waitmessage
+	waitfanfare
+	bufferspeciesname STR_VAR_1, SPECIES_BELDUM
+	return
+
+MossdeepCity_StevensHouse_EventScript_ReceivedBeldum::
+	setflag FLAG_HIDE_MOSSDEEP_CITY_STEVENS_HOUSE_BELDUM_POKEBALL
+	setflag FLAG_RECEIVED_BELDUM
+	releaseall
+	end
+
+MossdeepCity_StevensHouse_EventScript_BeldumTransferredToPC::
+	call EventScript_TransferredToPC
+	goto MossdeepCity_StevensHouse_EventScript_ReceivedBeldum
+

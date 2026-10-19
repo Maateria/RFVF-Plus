@@ -3,10 +3,40 @@
 RustboroCity_DevonCorp_1F_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (RustboroCity_DevonCorp_1F_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/RustboroCity_DevonCorp_1F/scripts.inc
-RustboroCity_DevonCorp_1F_EventScript_Employee:: @ NPC #1 (2,6)
-RustboroCity_DevonCorp_1F_EventScript_StairGuard:: @ NPC #2 (15,5)
-RustboroCity_DevonCorp_1F_EventScript_Greeter:: @ NPC #3 (5,3)
-RustboroCity_DevonCorp_1F_EventScript_ProductsDisplay:: @ sign (3,2)
-RustboroCity_DevonCorp_1F_EventScript_RocksMetalDisplay:: @ sign (8,2)
+RustboroCity_DevonCorp_1F_EventScript_Employee::
+	lock
+	faceplayer
+	goto RustboroCity_DevonCorp_1F_EventScript_GoodsRecovered
+
+RustboroCity_DevonCorp_1F_EventScript_GoodsRecovered::
+	msgbox RustboroCity_DevonCorp_1F_Text_SoundsLikeStolenGoodsRecovered, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_1F_EventScript_StairGuard::
+	lock
+	faceplayer
+	goto RustboroCity_DevonCorp_1F_EventScript_AlwaysWelcome
+
+RustboroCity_DevonCorp_1F_EventScript_AlwaysWelcome::
+	msgbox RustboroCity_DevonCorp_1F_Text_YoureAlwaysWelcomeHere, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_1F_EventScript_Greeter::
+	lock
+	faceplayer
+	goto RustboroCity_DevonCorp_1F_EventScript_WelcomeToDevonCorp
+
+RustboroCity_DevonCorp_1F_EventScript_WelcomeToDevonCorp::
+	msgbox RustboroCity_DevonCorp_1F_Text_WelcomeToDevonCorp, MSGBOX_DEFAULT
+	release
+	end
+
+RustboroCity_DevonCorp_1F_EventScript_ProductsDisplay::
+	msgbox RustboroCity_DevonCorp_1F_Text_ProductDisplay, MSGBOX_SIGN
+	end
+
+RustboroCity_DevonCorp_1F_EventScript_RocksMetalDisplay::
+	msgbox RustboroCity_DevonCorp_1F_Text_RocksMetalDisplay, MSGBOX_SIGN
 	end

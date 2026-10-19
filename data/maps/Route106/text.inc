@@ -64,3 +64,9 @@ Route106_Text_NedDefeated::
 Route106_Text_NedPostBattle::
     .string "Oh, non! Je croyais que j'allais\n"
     .string "avoir une grosse prise!$"
+
+Route106_Text_TrainerTips::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "Pour attraper un POKéMON\n"
+    .string "avec la CANNE, appuyez sur\l"
+    .string "le bouton A quand ça mord.$"

@@ -332,3 +332,81 @@ Route111_Text_VickyDefeat::
 Route111_Text_VickyPostBattle::
     .string "Si tu as le temps, reste un peu avec\n"
     .string "nous.$"
+
+Route111_Text_ToughToKeepWinningUpTheRanks::
+    .string "Si tu ne fais pas progresser tes\n"
+    .string "POKéMON davantage, ça pourrait\l"
+    .string "devenir dur de passer les étapes.\p"
+    .string "J'ai entendu dire qu'au CONSEIL 4 de\n"
+    .string "la LIGUE POKéMON, ils\l"
+    .string "sont bien plus forts que\l"
+    .string "n'importe quel CHAMPION.$"
+
+Route111_Text_WinstrateFamilyDestroyedMe::
+    .string "Je me suis battu contre la famille\n"
+    .string "STRATEGE, mais quatre combats à la\l"
+    .string "suite, c'est trop\l"
+    .string "dur. Ils m'ont anéanti.$"
+
+Route111_Text_MirageTowerClearlyVisible::
+    .string "Je la vois!\n"
+    .string "C'est la tour de sable!\p"
+    .string "La tour de sable qu'on prend pour un\n"
+    .string "mirage est parfaitement visible!\p"
+    .string "Mais elle semble si fragile…\n"
+    .string "Elle pourrait s'écrouler\l"
+    .string "à tout moment…\p"
+    .string "Si j'en avais le courage, j'irais\n"
+    .string "sûrement faire un tour à l'intérieur…$"
+
+Route111_Text_WinstrateHouseSign::
+    .string "“Dans la famille, nous ne faisons\n"
+    .string "qu'un!” MAISON DE\l"
+    .string "LA FAMILLE STRATEGE$"
+
+Route111_Text_RouteSignMauville::
+    .string "ROUTE 111\n"
+    .string "{DOWN_ARROW} LAVANDIA$"
+
+Route111_Text_RouteSign112::
+    .string "ROUTE 111\n"
+    .string "{LEFT_ARROW} ROUTE 112$"
+
+Route111_Text_RouteSign113::
+    .string "ROUTE 111\n"
+    .string "{LEFT_ARROW} ROUTE 113$"
+
+Route111_Text_OldLadysRestStopSign::
+    .string "GITE VIEILLE DAME\n"
+    .string "“Entrez et reposez vos vieux os.”$"
+
+Route111_Text_TrainerTipsSpAtkSpDef::
+    .string "CONSEILS AUX DRESSEURS\p"
+    .string "L'indication ATQ. SPE. reflète \n"
+    .string "la puissance d'un POKéMON.\l"
+    .string "Cela signifie “ATTAQUE SPECIALE”.\p"
+    .string "De même DEF. SPE. signifie “DEFENSE\n"
+    .string "SPECIALE”.$"
+
+Route111_Text_TrainerHillSign::
+    .string "{RIGHT_ARROW} ENTREE DU MONT DRESSEURS\p"
+    .string "“Atteignez les hauteurs, vous les\n"
+    .string "DRESSEURS sans peur!”$"
+
+Route111_Text_WateredPlantsEveryDayTakeBerry::
+    .string "J'ai arrosé les plantes chaque jour.\n"
+    .string "Elles ont donné beaucoup de fleurs.\p"
+    .string "Et elles m'ont aussi procuré de\n"
+    .string "nombreuses BAIES.\p"
+    .string "Vas-y!\n"
+    .string "Prends!$"
+
+Route111_Text_GoingToTryToMakeDifferentColorBerries::
+    .string "Je vais tout faire pour essayer\n"
+    .string "d'obtenir des POKéBLOCS de\l"
+    .string "différentes couleurs!\p"
+    .string "J'espère que tu vas tout faire aussi!$"
+
+Route111_Text_WhatColorBerriesToLookForToday::
+    .string "Je vais chercher des BAIES de quelle\n"
+    .string "couleur aujourd'hui?$"

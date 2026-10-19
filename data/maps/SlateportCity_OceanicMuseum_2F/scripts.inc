@@ -1,17 +1,59 @@
 SlateportCity_OceanicMuseum_2F_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SlateportCity_OceanicMuseum_2F/scripts.inc
-SlateportCity_OceanicMuseum_2F_EventScript_MuseumPatron1:: @ NPC #1 (12,7)
-SlateportCity_OceanicMuseum_2F_EventScript_MuseumPatron2:: @ NPC #2 (9,6)
-SlateportCity_OceanicMuseum_2F_EventScript_MuseumPatron3:: @ NPC #3 (1,3)
-SlateportCity_OceanicMuseum_2F_EventScript_WaterQualitySample1:: @ sign (18,4)
-SlateportCity_OceanicMuseum_2F_EventScript_WaterQualitySample2:: @ sign (18,7)
-SlateportCity_OceanicMuseum_2F_EventScript_SubmersibleReplica:: @ sign (4,3)
-SlateportCity_OceanicMuseum_2F_EventScript_SubmarineReplica:: @ sign (3,3)
-SlateportCity_OceanicMuseum_2F_EventScript_SSTidalReplica:: @ sign (3,6)
-SlateportCity_OceanicMuseum_2F_EventScript_SSAnneReplica:: @ sign (13,7)
-SlateportCity_OceanicMuseum_2F_EventScript_SurfaceSeawaterDisplay:: @ sign (18,1)
-SlateportCity_OceanicMuseum_2F_EventScript_DeepSeawaterDisplay:: @ sign (15,1)
-SlateportCity_OceanicMuseum_2F_EventScript_HoennModel:: @ sign (8,1)
-SlateportCity_OceanicMuseum_2F_EventScript_PressureExperiment:: @ sign (12,1)
+SlateportCity_OceanicMuseum_2F_EventScript_MuseumPatron1::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_RemindsMeOfAbandonedShip, MSGBOX_NPC
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_MuseumPatron2::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_DontRunInMuseum, MSGBOX_NPC
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_MuseumPatron3::
+	lock
+	faceplayer
+	msgbox SlateportCity_OceanicMuseum_2F_Text_WantToRideSubmarine, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_FaceOriginalDirection
+	waitmovement 0
+	release
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_WaterQualitySample1::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_WaterQualitySample1, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_WaterQualitySample2::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_WaterQualitySample2, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_SubmersibleReplica::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_SumbersibleReplica, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_SubmarineReplica::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_SubmarineReplica, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_SSTidalReplica::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_SSTidalReplica, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_SSAnneReplica::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_SSAnneReplica, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_SurfaceSeawaterDisplay::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_SurfaceSeawaterDisplay, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_DeepSeawaterDisplay::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_DeepSeawaterDisplay, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_HoennModel::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_HoennModel, MSGBOX_SIGN
+	end
+
+SlateportCity_OceanicMuseum_2F_EventScript_PressureExperiment::
+	msgbox SlateportCity_OceanicMuseum_2F_Text_PressureExperiment, MSGBOX_SIGN
 	end

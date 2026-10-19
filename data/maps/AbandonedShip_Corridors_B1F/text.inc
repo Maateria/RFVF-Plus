@@ -13,3 +13,7 @@ AbandonedShip_Corridors_B1F_Text_DuncanPostBattle::
     .string "Si un POKéMON savait aller\n"
     .string "sous l'eau, on pourrait\l"
     .string "peut-être progresser…$"
+
+AbandonedShip_Corridors_B1F_Text_YayItsAShip::
+    .string "Yé!\n"
+    .string "C'est un bateau!$"

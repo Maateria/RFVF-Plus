@@ -1,6 +1,5 @@
 MauvilleCity_BikeShop_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MauvilleCity_BikeShop/scripts.inc
 
 @ RFVF+: Rodolphe does not give a Mach or an Acro Bike, he upgrades the Bicycle: FLAG_BIKE_UPGRADED gives it the moves
 @ of both (src/bike.c). His greeting is Emerald's; the rest is RFVF+'s

@@ -3,6 +3,56 @@
 Route119_WeatherInstitute_2F_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route119_WeatherInstitute_2F_OnTransition)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route119_WeatherInstitute_2F/scripts.inc
-Route119_WeatherInstitute_2F_EventScript_WeatherScientist:: @ NPC #1 (2,2)
+@ Emerald's Castform gift in FRLG's gift idiom; the abnormal weather reports come with batch 3 (Marine/Terra caves)
+Route119_WeatherInstitute_2F_EventScript_WeatherScientist::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_CASTFORM, Route119_WeatherInstitute_2F_EventScript_ScientistMentionWeather
+	msgbox Route119_WeatherInstitute_2F_Text_ThanksPleaseTakePokemon
+	setvar VAR_TEMP_1, SPECIES_CASTFORM
+	givemon SPECIES_CASTFORM, 25, ITEM_MYSTIC_WATER
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PARTY, Route119_WeatherInstitute_2F_EventScript_ReceiveCastformParty
+	goto_if_eq VAR_RESULT, MON_GIVEN_TO_PC, Route119_WeatherInstitute_2F_EventScript_ReceiveCastformPC
+	goto EventScript_NoMoreRoomForPokemon
+
+Route119_WeatherInstitute_2F_EventScript_ReceiveCastformParty::
+	call Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare
+	callnative CheckNuzlockeMode
+	goto_if_eq VAR_RESULT, TRUE, Route119_WeatherInstitute_2F_EventScript_NicknameCastformParty
+	msgbox Text_GiveNicknameToThisMon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route119_WeatherInstitute_2F_EventScript_ExplainCastform
+Route119_WeatherInstitute_2F_EventScript_NicknameCastformParty::
+	call EventScript_GetGiftMonPartySlot
+	call EventScript_ChangePokemonNickname
+	goto Route119_WeatherInstitute_2F_EventScript_ExplainCastform
+
+Route119_WeatherInstitute_2F_EventScript_ReceiveCastformPC::
+	call Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare
+	callnative CheckNuzlockeMode
+	goto_if_eq VAR_RESULT, TRUE, Route119_WeatherInstitute_2F_EventScript_NicknameCastformPC
+	msgbox Text_GiveNicknameToThisMon, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, Route119_WeatherInstitute_2F_EventScript_SendCastformToPC
+Route119_WeatherInstitute_2F_EventScript_NicknameCastformPC::
+	call EventScript_NameReceivedBoxMon
+Route119_WeatherInstitute_2F_EventScript_SendCastformToPC::
+	call EventScript_TransferredToPC
+Route119_WeatherInstitute_2F_EventScript_ExplainCastform::
+	msgbox Route119_WeatherInstitute_2F_Text_PokemonChangesWithWeather
+	setflag FLAG_RECEIVED_CASTFORM
+	release
 	end
+
+Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare::
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	playfanfare MUS_OBTAIN_ITEM
+	message Route119_WeatherInstitute_2F_Text_PlayerReceivedCastform
+	waitmessage
+	waitfanfare
+	bufferspeciesname STR_VAR_1, SPECIES_CASTFORM
+	return
+
+Route119_WeatherInstitute_2F_EventScript_ScientistMentionWeather::
+	msgbox Route119_WeatherInstitute_2F_Text_ChangingWeatherRidiculous
+	release
+	end
+

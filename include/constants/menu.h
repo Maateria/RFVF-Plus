@@ -113,6 +113,26 @@
 #define MULTI_GAME_CORNER_HOENN_STARTERS                       105
 #define MULTI_GAME_CORNER_HOENN_TMS                            106
 #define MULTI_HOENN_STARTERS                                   107
+// 108-110: the test ROM menu (work/emu_harness/testhub.py)
+#define MULTI_STATUS_INFO                                      111 // Rustboro's Pokemon School blackboard (Emerald's)
+#define MULTI_FOSSIL                                           112 // Devon Corp's fossil regenerator (Emerald's)
+// Emerald's, official French texts (point 1 scripts)
+#define MULTI_RIGHTLEFT                                        113
+#define MULTI_SHARDS_R                                         114
+#define MULTI_SHARDS_Y                                         115
+#define MULTI_SHARDS_RY                                        116
+#define MULTI_SHARDS_B                                         117
+#define MULTI_SHARDS_RB                                        118
+#define MULTI_SHARDS_YB                                        119
+#define MULTI_SHARDS_RYB                                       120
+#define MULTI_SHARDS_G                                         121
+#define MULTI_SHARDS_RG                                        122
+#define MULTI_SHARDS_YG                                        123
+#define MULTI_SHARDS_RYG                                       124
+#define MULTI_SHARDS_BG                                        125
+#define MULTI_SHARDS_RBG                                       126
+#define MULTI_SHARDS_YBG                                       127
+#define MULTI_SHARDS_RYBG                                      128
 
 
 #define MULTICHOICE_NONE                                      255

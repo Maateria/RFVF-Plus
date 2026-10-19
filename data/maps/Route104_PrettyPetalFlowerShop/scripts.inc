@@ -3,8 +3,41 @@
 Route104_PrettyPetalFlowerShop_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route104_PrettyPetalFlowerShop_OnTransition)
+Route104_PrettyPetalFlowerShop_EventScript_RandomBerryGirl::
+	lock
+	faceplayer
+	goto_if_set FLAG_DAILY_FLOWER_SHOP_RECEIVED_BERRY, Route104_PrettyPetalFlowerShop_EventScript_AlreadyReceivedBerry
+	msgbox Route104_PrettyPetalFlowerShop_Text_ImGrowingFlowers, MSGBOX_DEFAULT
+	random 8
+	addvar VAR_RESULT, FIRST_BERRY_INDEX
+	giveitem VAR_RESULT
+	goto_if_eq VAR_RESULT, 0, EventScript_BagIsFull
+	setflag FLAG_DAILY_FLOWER_SHOP_RECEIVED_BERRY
+	msgbox Route104_PrettyPetalFlowerShop_Text_MachineMixesBerries, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_AlreadyReceivedBerry::
+	msgbox Route104_PrettyPetalFlowerShop_Text_MachineMixesBerries, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_WailmerPailGirl::
+	lock
+	faceplayer
+	goto_if_unset FLAG_RECEIVED_WAILMER_PAIL, Route104_PrettyPetalFlowerShop_EventScript_GiveWailmerPail
+	msgbox Route104_PrettyPetalFlowerShop_Text_WailmerPailExplanation, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_GiveWailmerPail::
+	msgbox Route104_PrettyPetalFlowerShop_Text_YouCanHaveThis, MSGBOX_DEFAULT
+	giveitem ITEM_WAILMER_PAIL
+	msgbox Route104_PrettyPetalFlowerShop_Text_WailmerPailExplanation, MSGBOX_DEFAULT
+	setflag FLAG_RECEIVED_WAILMER_PAIL
+	release
+	end
+
 @ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route104_PrettyPetalFlowerShop/scripts.inc
 Route104_PrettyPetalFlowerShop_EventScript_ShopOwner:: @ NPC #1 (0,3)
-Route104_PrettyPetalFlowerShop_EventScript_WailmerPailGirl:: @ NPC #2 (7,3)
-Route104_PrettyPetalFlowerShop_EventScript_RandomBerryGirl:: @ NPC #3 (11,6)
 	end

@@ -13,21 +13,95 @@ Route104_EventScript_ItemXAccuracy::            @ item ball, works (FLAG_ITEM_RO
 Route104_EventScript_ItemPotion::               @ item ball, works (FLAG_ITEM_ROUTE_104_POTION)
 	finditem ITEM_POTION
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route104/scripts.inc
-Route104_EventScript_BugCatcher::               @ NPC #1 (15,60)
-Route104_EventScript_Girl1::                    @ NPC #2 (25,49)
-Route104_EventScript_Boy1::                     @ NPC #4 (27,63)
-Route104_EventScript_Woman::                    @ NPC #5 (30,50)
-Route104_EventScript_Girl2::                    @ NPC #6 (28,74)
-Route104_EventScript_ExpertF::                  @ NPC #8 (37,8)
-Route104_EventScript_WhiteHerbFlorist::         @ NPC #10 (8,19)
-Route104_EventScript_Boy2::                     @ NPC #20 (5,26)
-Route104_EventScript_BrineysCottageSign::       @ sign (20,50)
-Route104_EventScript_RouteSignPetalburg::       @ sign (27,66)
-Route104_EventScript_RouteSignRustboro::        @ sign (23,5)
-Route104_EventScript_FlowerShopSign::           @ sign (7,20)
-Route104_EventScript_TrainerTipsDoubleBattles:: @ sign (17,23)
+Route104_EventScript_BugCatcher::
+	msgbox Route104_Text_WhatsItLikeAtBottomOfSea, MSGBOX_SIGN
 	end
+
+Route104_EventScript_Girl1::
+	msgbox Route104_Text_BrineyLivesInSeasideCottage, MSGBOX_NPC
+	end
+
+Route104_EventScript_Boy1::
+	msgbox Route104_Text_ThrowBallAtWeakenedPokemon, MSGBOX_NPC
+	end
+
+Route104_EventScript_Woman::
+	msgbox Route104_Text_OnlyThrowBallAtWildPokemon, MSGBOX_NPC
+	end
+
+Route104_EventScript_Girl2::
+	msgbox Route104_Text_ImNotATrainer, MSGBOX_NPC
+	end
+
+Route104_EventScript_BrineysCottageSign::
+	msgbox Route104_Text_MrBrineysCottage, MSGBOX_SIGN
+	end
+
+Route104_EventScript_RouteSignPetalburg::
+	msgbox Route104_Text_RouteSignPetalburg, MSGBOX_SIGN
+	end
+
+Route104_EventScript_RouteSignRustboro::
+	msgbox Route104_Text_RouteSignRustboro, MSGBOX_SIGN
+	end
+
+Route104_EventScript_FlowerShopSign::
+	msgbox Route104_Text_PrettyPetalFlowShop, MSGBOX_SIGN
+	end
+
+Route104_EventScript_TrainerTipsDoubleBattles::
+	msgbox Route104_Text_TrainerTipsDoubleBattles, MSGBOX_SIGN
+	end
+
+Route104_EventScript_Boy2::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM_BULLET_SEED, Route104_EventScript_ReceivedBulletSeed
+	msgbox Route104_Text_LikeFillingMouthWithSeedsTakeThis, MSGBOX_DEFAULT
+	giveitem ITEM_TM09_BULLET_SEED
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_BULLET_SEED
+	release
+	end
+
+Route104_EventScript_ReceivedBulletSeed::
+	msgbox Route104_Text_TMsAreOneTimeUse, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_EventScript_ExpertF::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104, Route104_EventScript_ReceivedBerry
+	msgbox Route104_Text_PlantBerriesInSoilTakeThis, MSGBOX_DEFAULT
+	giveitem ITEM_CHESTO_BERRY
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_CHESTO_BERRY_ROUTE_104
+	msgbox Route104_Text_TrainersOftenMakeMonHoldBerries, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_EventScript_ReceivedBerry::
+	msgbox Route104_Text_TrainersOftenMakeMonHoldBerries, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_EventScript_WhiteHerbFlorist::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_WHITE_HERB, Route104_EventScript_ReceivedWhiteHerb
+	msgbox Route104_Text_DontNeedThisTakeIt, MSGBOX_DEFAULT
+	giveitem ITEM_WHITE_HERB
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_WHITE_HERB
+	release
+	end
+
+Route104_EventScript_ReceivedWhiteHerb::
+	msgbox Route104_Text_FlowerShopSellingSaplings, MSGBOX_DEFAULT
+	release
+	end
+
 @ hoenn_import: left out: trigger (17,51) VAR_ROUTE104_STATE==1 -> Route104_EventScript_RivalTrigger
 
 Route104_EventScript_Haley::

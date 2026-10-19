@@ -1,8 +1,62 @@
 VerdanturfTown_WandasHouse_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/VerdanturfTown_WandasHouse/scripts.inc
-VerdanturfTown_WandasHouse_EventScript_WandasBoyfriend:: @ NPC #1 (5,4)
-VerdanturfTown_WandasHouse_EventScript_WallysUncle:: @ NPC #2 (7,2)
-VerdanturfTown_WandasHouse_EventScript_WallysAunt:: @ NPC #3 (2,4)
-VerdanturfTown_WandasHouse_EventScript_Wanda::  @ NPC #4 (5,5)
+VerdanturfTown_WandasHouse_EventScript_WandasBoyfriend::
+	msgbox VerdanturfTown_WandasHouse_Text_CanSeeGirlfriendEveryDay, MSGBOX_NPC
+	end
+
+VerdanturfTown_WandasHouse_EventScript_WallysUncle::
+	lock
+	faceplayer
+	goto_if_defeated TRAINER_WALLY_VR_2, VerdanturfTown_WandasHouse_EventScript_WallysUncleEverGrande
+	goto_if_set FLAG_HOENN_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WallysUncleSlippedOff
+	msgbox VerdanturfTown_WandasHouse_Text_WallysNextDoor, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_WallysUncleEverGrande::
+	msgbox VerdanturfTown_WandasHouse_Text_WallyGoneThatFar, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_WallysUncleSlippedOff::
+	msgbox VerdanturfTown_WandasHouse_Text_WallySlippedOff, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_WallysAunt::
+	lock
+	faceplayer
+	goto_if_defeated TRAINER_WALLY_VR_2, VerdanturfTown_WandasHouse_EventScript_WallysAuntEverGrande
+	goto_if_set FLAG_HOENN_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WallysAuntAnythingHappened
+	goto VerdanturfTown_WandasHouse_EventScript_WallysAuntTunnelOpen
+
+VerdanturfTown_WandasHouse_EventScript_WallysAuntEverGrande::
+	msgbox VerdanturfTown_WandasHouse_Text_WallyWasInEverGrande, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_WallysAuntAnythingHappened::
+	msgbox VerdanturfTown_WandasHouse_Text_IfAnythingHappenedToWally, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_WallysAuntTunnelOpen::
+	msgbox VerdanturfTown_WandasHouse_Text_DaughtersBoyfriendWasDigging, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_Wanda::
+	lock
+	faceplayer
+	goto_if_set FLAG_HOENN_BADGE04_GET, VerdanturfTown_WandasHouse_EventScript_WandaDontWorry
+	goto VerdanturfTown_WandasHouse_EventScript_MeetWanda
+
+VerdanturfTown_WandasHouse_EventScript_WandaDontWorry::
+	msgbox VerdanturfTown_WandasHouse_Text_DontWorryAboutWally, MSGBOX_DEFAULT
+	release
+	end
+
+VerdanturfTown_WandasHouse_EventScript_MeetWanda::
+	msgbox VerdanturfTown_WandasHouse_Text_MeetWanda, MSGBOX_DEFAULT
+	release
 	end

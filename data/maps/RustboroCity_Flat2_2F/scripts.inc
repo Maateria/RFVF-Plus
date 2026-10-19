@@ -1,6 +1,22 @@
 RustboroCity_Flat2_2F_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/RustboroCity_Flat2_2F/scripts.inc
-RustboroCity_Flat2_2F_EventScript_OldMan::      @ NPC #1 (11,4)
-RustboroCity_Flat2_2F_EventScript_NinjaBoy::    @ NPC #2 (7,3)
+RustboroCity_Flat2_2F_EventScript_OldMan::
+	msgbox RustboroCity_Flat2_2F_Text_DevonWasTinyInOldDays, MSGBOX_NPC
 	end
+
+RustboroCity_Flat2_2F_EventScript_NinjaBoy::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_PREMIER_BALL_RUSTBORO, RustboroCity_Flat2_2F_EventScript_GavePremierBall
+	msgbox RustboroCity_Flat2_2F_Text_MyDaddyMadeThisYouCanHaveIt
+	giveitem ITEM_PREMIER_BALL
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_PREMIER_BALL_RUSTBORO
+	release
+	end
+
+RustboroCity_Flat2_2F_EventScript_GavePremierBall::
+	msgbox RustboroCity_Flat2_2F_Text_GoingToWorkAtDevonToo
+	release
+	end
+
