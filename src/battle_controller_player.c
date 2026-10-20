@@ -2465,8 +2465,66 @@ static void PlayerHandleChooseAction(void)
     BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_ACTION_PROMPT);
 }
 
+// RFVF+: Emerald's PlayerHandleYesNoBox (the Trainer Hill's forfeit question); the cursor is drawn as FRLG's
+// BattleCreateYesNoCursorAt does, at its own position (gBattleCommunication holds the battlers' states then)
+static void ForfeitYesNoCursorAt(u8 position, bool8 show)
+{
+    u16 src[2];
+
+    src[0] = show ? 1 : 32;
+    src[1] = show ? 2 : 32;
+    CopyToBgTilemapBufferRect_ChangePalette(0, src, 0x18, 9 + (2 * position), 1, 2, 0x11);
+    CopyBgTilemapBufferToVram(0);
+}
+
+static void PlayerHandleYesNoInput(void)
+{
+    if (JOY_NEW(DPAD_UP) && gMultiUsePlayerCursor != 0)
+    {
+        PlaySE(SE_SELECT);
+        ForfeitYesNoCursorAt(gMultiUsePlayerCursor, FALSE);
+        gMultiUsePlayerCursor = 0;
+        ForfeitYesNoCursorAt(0, TRUE);
+    }
+    if (JOY_NEW(DPAD_DOWN) && gMultiUsePlayerCursor == 0)
+    {
+        PlaySE(SE_SELECT);
+        ForfeitYesNoCursorAt(gMultiUsePlayerCursor, FALSE);
+        gMultiUsePlayerCursor = 1;
+        ForfeitYesNoCursorAt(1, TRUE);
+    }
+    if (JOY_NEW(A_BUTTON))
+    {
+        HandleBattleWindow(23, 8, 29, 13, WINDOW_CLEAR);
+        PlaySE(SE_SELECT);
+        if (gMultiUsePlayerCursor != 0)
+            BtlController_EmitTwoReturnValues(1, 0xE, 0);
+        else
+            BtlController_EmitTwoReturnValues(1, B_ACTION_NOTHING_FAINTED, 0);
+        PlayerBufferExecCompleted();
+    }
+    if (JOY_NEW(B_BUTTON))
+    {
+        HandleBattleWindow(23, 8, 29, 13, WINDOW_CLEAR);
+        PlaySE(SE_SELECT);
+        PlayerBufferExecCompleted();
+    }
+}
+
 static void PlayerHandleUnknownYesNoBox(void)
 {
+    if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+    {
+        HandleBattleWindow(23, 8, 29, 13, 0);
+        BattlePutTextOnWindow(gText_BattleYesNoChoice, B_WIN_YESNO);
+        gMultiUsePlayerCursor = 1;
+        ForfeitYesNoCursorAt(1, TRUE);
+        gBattlerControllerFuncs[gActiveBattler] = PlayerHandleYesNoInput;
+    }
+    else
+    {
+        PlayerBufferExecCompleted();
+    }
 }
 
 static void HandleChooseMoveAfterDma3(void)

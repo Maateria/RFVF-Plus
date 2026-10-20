@@ -310,6 +310,7 @@ static void Cmd_subattackerhpbydmg(void);
 static void Cmd_removeattackerstatus1(void);
 static void Cmd_finishaction(void);
 static void Cmd_finishturn(void);
+static void Cmd_trainerslideout(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -561,6 +562,7 @@ void (* const gBattleScriptingCommandsTable[])(void) =
     Cmd_removeattackerstatus1,                   //0xF5
     Cmd_finishaction,                            //0xF6
     Cmd_finishturn,                              //0xF7
+    Cmd_trainerslideout,                         //0xF8 (RFVF+: Emerald's)
 };
 
 struct StatFractions
@@ -4627,6 +4629,24 @@ static void Cmd_jumpifcantswitch(void)
         else
             gBattlescriptCurrInstr += 6;
     }
+    else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT)
+    {   // Emerald's: each opponent switches to its own three
+        party = gEnemyParty;
+        i = (gActiveBattler == B_POSITION_OPPONENT_RIGHT) ? PARTY_SIZE / 2 : 0;
+        for (lastMonId = i + PARTY_SIZE / 2; i < lastMonId; i++)
+        {
+            if (GetMonData(&party[i], MON_DATA_SPECIES) != SPECIES_NONE
+             && !GetMonData(&party[i], MON_DATA_IS_EGG)
+             && GetMonData(&party[i], MON_DATA_HP) != 0
+             && gBattlerPartyIndexes[gActiveBattler] != i)
+                break;
+        }
+
+        if (i == lastMonId)
+            gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 2);
+        else
+            gBattlescriptCurrInstr += 6;
+    }
     else
     {
         u8 battlerIn1, battlerIn2;
@@ -5374,14 +5394,11 @@ static void Cmd_hitanimation(void)
     }
 }
 
-static void Cmd_getmoneyreward(void)
+// RFVF+: Emerald's GetTrainerMoneyToGive, so that two opponents both pay
+static u32 GetTrainerMoneyToGive(u16 trainerId)
 {
     u32 i = 0;
-    u32 moneyReward;
     u8 lastMonLevel = 0;
-
-    const struct TrainerMonItemCustomMoves *party4; //This needs to be out here
-    const struct TrainerMonItemCustomMovesEVs *party5;
     struct Trainer* sTrainers;
 
     if(FlagGet(FLAG_MASTER_TRAINER_BATTLE))
@@ -5389,60 +5406,46 @@ static void Cmd_getmoneyreward(void)
     else
         sTrainers = (struct Trainer*)gTrainers;
 
+    if (trainerId == TRAINER_SECRET_BASE)
+        return gBattleResources->secretBase->party.levels[0] * 20 * gBattleStruct->moneyMultiplier;
+
+    switch (sTrainers[trainerId].partyFlags)
+    {
+    case 0:
+        lastMonLevel = sTrainers[trainerId].party.NoItemDefaultMoves[sTrainers[trainerId].partySize - 1].lvl;
+        break;
+    case F_TRAINER_PARTY_CUSTOM_MOVESET:
+        lastMonLevel = sTrainers[trainerId].party.NoItemCustomMoves[sTrainers[trainerId].partySize - 1].lvl;
+        break;
+    case F_TRAINER_PARTY_HELD_ITEM:
+        lastMonLevel = sTrainers[trainerId].party.ItemDefaultMoves[sTrainers[trainerId].partySize - 1].lvl;
+        break;
+    case (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM):
+        lastMonLevel = sTrainers[trainerId].party.ItemCustomMoves[sTrainers[trainerId].partySize - 1].lvl;
+        break;
+    case F_TRAINER_PARTY_EVS:
+        lastMonLevel = sTrainers[trainerId].party.ItemCustomMovesEVs[sTrainers[trainerId].partySize - 1].lvl;
+        break;
+    }
+    for (; gTrainerMoneyTable[i].classId != 0xFF; i++)
+    {
+        if (gTrainerMoneyTable[i].classId == sTrainers[trainerId].trainerClass)
+            break;
+    }
+    if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+        return 4 * lastMonLevel * gBattleStruct->moneyMultiplier * gTrainerMoneyTable[i].value;
+    return 4 * lastMonLevel * gBattleStruct->moneyMultiplier * (gBattleTypeFlags & BATTLE_TYPE_DOUBLE ? 2 : 1) * gTrainerMoneyTable[i].value;
+}
+
+static void Cmd_getmoneyreward(void)
+{
+    u32 moneyReward;
+
     if (gBattleOutcome == B_OUTCOME_WON)
     {
-        if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
-        {
-            moneyReward = gBattleResources->secretBase->party.levels[0] * 20 * gBattleStruct->moneyMultiplier;
-        }
-        else
-        {
-            switch (sTrainers[gTrainerBattleOpponent_A].partyFlags)
-            {
-            case 0:
-                {
-                    const struct TrainerMonNoItemDefaultMoves *party1 = sTrainers[gTrainerBattleOpponent_A].party.NoItemDefaultMoves;
-                    
-                    lastMonLevel = party1[sTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
-                }
-                break;
-            case F_TRAINER_PARTY_CUSTOM_MOVESET:
-                {
-                    const struct TrainerMonNoItemCustomMoves *party2 = sTrainers[gTrainerBattleOpponent_A].party.NoItemCustomMoves;
-                    
-                    lastMonLevel = party2[sTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
-                }
-                break;
-            case F_TRAINER_PARTY_HELD_ITEM:
-                {
-                    const struct TrainerMonItemDefaultMoves *party3 = sTrainers[gTrainerBattleOpponent_A].party.ItemDefaultMoves;
-                    
-                    lastMonLevel = party3[sTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
-                }
-                break;
-            case (F_TRAINER_PARTY_CUSTOM_MOVESET | F_TRAINER_PARTY_HELD_ITEM):
-                {
-                    party4 = sTrainers[gTrainerBattleOpponent_A].party.ItemCustomMoves;
-                    
-                    lastMonLevel = party4[sTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
-                }
-                break;
-            case F_TRAINER_PARTY_EVS:
-                {
-                    party5 = sTrainers[gTrainerBattleOpponent_A].party.ItemCustomMovesEVs;
-                    
-                    lastMonLevel = party5[sTrainers[gTrainerBattleOpponent_A].partySize - 1].lvl;
-                }
-                break;
-            }
-            for (; gTrainerMoneyTable[i].classId != 0xFF; i++)
-            {
-                if (gTrainerMoneyTable[i].classId == sTrainers[gTrainerBattleOpponent_A].trainerClass)
-                    break;
-            }
-            party4 = sTrainers[gTrainerBattleOpponent_A].party.ItemCustomMoves; // Needed to Match. Has no effect.
-            moneyReward = 4 * lastMonLevel * gBattleStruct->moneyMultiplier * (gBattleTypeFlags & BATTLE_TYPE_DOUBLE ? 2 : 1) * gTrainerMoneyTable[i].value;
-        }
+        moneyReward = GetTrainerMoneyToGive(gTrainerBattleOpponent_A);
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+            moneyReward += GetTrainerMoneyToGive(gTrainerBattleOpponent_B);
         AddMoney(&gSaveBlock1Ptr->money, moneyReward);
     }
     else
@@ -6282,6 +6285,10 @@ static void Cmd_various(void)
         if (!IsFanfareTaskInactive())
             return;
         break;
+    case VARIOUS_EMIT_YESNOBOX:
+        BtlController_EmitUnknownYesNoBox(BUFFER_A, 0);
+        MarkBattlerForControllerExec(gActiveBattler);
+        break;
     }
 
     gBattlescriptCurrInstr += 3;
@@ -6981,17 +6988,22 @@ static void Cmd_forcerandomswitch(void)
         struct Pokemon *party;
         u8 valid;
         u8 val;
+        // RFVF+: Emerald's two opponents each have half the party, as link multi trainers
+        bool8 halfParty = (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+                       || (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT);
+        bool8 upperHalf = (gBattleTypeFlags & BATTLE_TYPE_MULTI) ? GetLinkTrainerFlankId(GetBattlerMultiplayerId(gBattlerTarget)) == 1
+                                                                 : (gBattlerTarget & BIT_FLANK) != 0;
 
         if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
             party = gPlayerParty;
         else
             party = gEnemyParty;
 
-        if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+        if (halfParty)
         {
             valid = 0;
             val = 0;
-            if (GetLinkTrainerFlankId(GetBattlerMultiplayerId(gBattlerTarget)) == 1)
+            if (upperHalf)
                 val = PARTY_SIZE / 2;
             for (i = val; i < val + (PARTY_SIZE / 2); i++)
             {
@@ -7014,19 +7026,19 @@ static void Cmd_forcerandomswitch(void)
         }
 
         // Fails if there's only 1 mon left in single battle or there's less than 3 left in non-multi double battle.
-        if ((valid < 2 && (gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI)) != BATTLE_TYPE_DOUBLE)
-         || (valid < 3 && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && !(gBattleTypeFlags & BATTLE_TYPE_MULTI)))
+        if ((valid < 2 && ((gBattleTypeFlags & (BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI)) != BATTLE_TYPE_DOUBLE || halfParty))
+         || (valid < 3 && (gBattleTypeFlags & BATTLE_TYPE_DOUBLE) && !halfParty))
         {
             gBattlescriptCurrInstr = T1_READ_PTR(gBattlescriptCurrInstr + 1);
         }
         else if (TryDoForceSwitchOut())
         {
-            if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+            if (halfParty)
             {
                 do
                 {
                     val = Random() % (PARTY_SIZE / 2);
-                    if (GetLinkTrainerFlankId(GetBattlerMultiplayerId(gBattlerTarget)) == 1)
+                    if (upperHalf)
                         i = val + (PARTY_SIZE / 2);
                     else
                         i = val;
@@ -10049,4 +10061,13 @@ static void Cmd_finishturn(void)
 {
     gCurrentActionFuncId = B_ACTION_FINISHED;
     gCurrentTurnActionNumber = gBattlersCount;
+}
+
+// RFVF+: Emerald's, the first of two opponents slides out before the second one speaks
+static void Cmd_trainerslideout(void)
+{
+    gActiveBattler = GetBattlerAtPosition(gBattlescriptCurrInstr[1]);
+    BtlController_EmitTrainerSlideBack(BUFFER_A);
+    MarkBattlerForControllerExec(gActiveBattler);
+    gBattlescriptCurrInstr += 2;
 }

@@ -387,8 +387,11 @@
 #define STRINGID_ENEMYABOUTTOSWITCHPKMNNOPREDICT 386
 #define STRINGID_PICKUP 387
 #define STRINGID_PICKUPSOLO 388
+#define STRINGID_TWOENEMIESDEFEATED 389 // RFVF+: Emerald's two opponents
+#define STRINGID_QUESTIONFORFEITMATCH 390 // RFVF+: Emerald's Trainer Hill
+#define STRINGID_FORFEITEDMATCH 391
 
-#define BATTLESTRINGS_COUNT     389
+#define BATTLESTRINGS_COUNT     392
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,

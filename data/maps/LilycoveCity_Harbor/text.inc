@@ -21,3 +21,9 @@ LilycoveCity_Harbor_Text_PleaseBoard::
 
 LilycoveCity_Harbor_Text_SailAnotherTime::
     .string "Revenez une autre fois!$"
+
+LilycoveCity_Harbor_Text_BattleFrontierItIs::
+    .string "Alors, cap sur la ZONE DE COMBAT!$"
+
+LilycoveCity_Harbor_Text_WhereWouldYouLikeToGo::
+    .string "Alors, où souhaiteriez-vous aller?$"

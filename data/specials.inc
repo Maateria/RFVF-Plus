@@ -536,4 +536,10 @@ gSpecials::
 	def_special StartMirageTowerShake
 	def_special StartPlayerDescendMirageTower
 	def_special StartMirageTowerDisintegration
+	def_special SetSSTidalFlag
+	def_special ResetSSTidalFlag
+	def_special TryPrepareSecondApproachingTrainer
+	def_special ShouldTryGetTrainerScript
+	def_special CallTrainerHillFunction
+	def_special ShowTrainerHillRecords
 gSpecialsEnd::

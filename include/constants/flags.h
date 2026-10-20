@@ -1720,6 +1720,11 @@
 #define FLAG_CHOSE_CLAW_FOSSIL                 (EXT_EVENT_FLAGS_START + 0x2D3)
 #define FLAG_RECEIVED_CLEANSE_TAG              (EXT_EVENT_FLAGS_START + 0x2D4)
 #define FLAG_HIDE_ROUTE_111_PLAYER_DESCENT     (EXT_EVENT_FLAGS_START + 0x2D5) // the falling player of the tower's collapse
+// Hoenn batches 4-5 (S.S. Tidal, Trainer Hill), Emerald names
+#define FLAG_RECEIVED_TM_SNATCH                (EXT_EVENT_FLAGS_START + 0x2E0)
+#define FLAG_HIDE_SS_TIDAL_ROOMS_SNATCH_GIVER  (EXT_EVENT_FLAGS_START + 0x2E1)
+#define FLAG_DEFEATED_SS_TIDAL_TRAINERS        (EXT_EVENT_FLAGS_START + 0x2E2)
+#define FLAG_MET_SCOTT_ON_SS_TIDAL             (EXT_EVENT_FLAGS_START + 0x2E3) // RFVF+: Scott's invite after the Hoenn League (lot 6)
 // temp flags of Island Cave's puzzle (Emerald's)
 #define FLAG_TEMP_REGICE_PUZZLE_STARTED        FLAG_TEMP_2
 #define FLAG_TEMP_REGICE_PUZZLE_FAILED         FLAG_TEMP_3

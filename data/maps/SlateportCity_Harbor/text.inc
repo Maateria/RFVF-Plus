@@ -59,3 +59,9 @@ SlateportCity_Harbor_Text_LoveToGoDeepUnderwaterSomeday::
     .string "Je me demande comment c'est.\p"
     .string "Un jour, j'aimerais bien aller comme\n"
     .string "ça, dans les profondeurs de la mer.$"
+
+SlateportCity_Harbor_Text_BattleFrontierItIs::
+    .string "Cap sur la ZONE DE COMBAT!$"
+
+SlateportCity_Harbor_Text_WhereWouldYouLikeToGo::
+    .string "Alors, où souhaiteriez-vous aller?$"

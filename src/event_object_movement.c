@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "gflib.h"
 #include "event_data.h"
 #include "event_object_movement.h"
@@ -2196,7 +2197,7 @@ void TrySpawnObjectEvents(s16 cameraX, s16 cameraY)
         s16 top = gSaveBlock1Ptr->pos.y;
         s16 bottom = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H + 2;
 
-        objectCount = gMapHeader.events->objectEventCount;
+        objectCount = InTrainerHill() ? HILL_TRAINERS_PER_FLOOR : gMapHeader.events->objectEventCount; // Emerald's
 
         for (i = 0; i < objectCount; i++)
         {
@@ -3062,7 +3063,7 @@ static const struct ObjectEventTemplate *GetObjectEventTemplateByLocalIdAndMap(u
     if (gSaveBlock1Ptr->location.mapNum == mapNum && gSaveBlock1Ptr->location.mapGroup == mapGroup)
     {
         templates = gSaveBlock1Ptr->objectEventTemplates;
-        count = gMapHeader.events->objectEventCount;
+        count = InTrainerHill() ? HILL_TRAINERS_PER_FLOOR : gMapHeader.events->objectEventCount;
     }
     else
     {

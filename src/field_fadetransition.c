@@ -611,7 +611,7 @@ void DoTeleportWarp(void)
     gFieldCallback = FieldCB_TeleportWarpIn;
 }
 
-static void DoPortholeWarp(void) // Unused
+void DoPortholeWarp(void) // RFVF+: the S.S. Tidal's porthole (field_special_scene.c)
 {
     LockPlayerFieldControls();
     WarpFadeOutScreen();

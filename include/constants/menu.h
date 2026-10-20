@@ -139,6 +139,7 @@
 #define MULTI_SEAGALLOP_FROM_SLATEPORT                         132
 #define MULTI_SEAGALLOP_FROM_SLATEPORT_BF                      133
 #define MULTI_SEAGALLOP_FROM_FRONTIER                          134
+#define MULTI_TAG_MATCH_TYPE                                   135 // RFVF+: the Trainer Hill's modes (Emerald's)
 
 
 #define MULTICHOICE_NONE                                      255

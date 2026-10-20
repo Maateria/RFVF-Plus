@@ -785,6 +785,26 @@ struct WaldaPhrase
     //u8 padding;
 };
 
+// RFVF+: Emerald's Trainer Hill challenge (src/trainer_hill.c), with what it kept in SaveBlock2.frontier
+struct TrainerHillSave
+{
+    /*0x00*/ u32 timer;
+    /*0x04*/ u32 bestTime;
+    /*0x08*/ u8 unk_3D6C;
+    /*0x09*/ u8 trainerFlags; // Emerald's frontier.trainerFlags: the floors' beaten trainers
+    /*0x0A*/ u16 receivedPrize:1;
+             u16 checkedFinalTime:1;
+             u16 spokeToOwner:1;
+             u16 hasLost:1;
+             u16 maybeECardScanDuringChallenge:1;
+             u16 field_3D6E_0f:1;
+             u16 mode:2; // HILL_MODE_*
+             u16 savedGame:1; // Emerald's frontier.savedGame
+             u16 unused:7;
+    /*0x0C*/ u8 trainerIds[2]; // Emerald's frontier.trainerIds
+    /*0x0E*/ u8 filler[2];
+};
+
 struct SaveBlock1
 {
     /*0x0000*/ struct Coords16 pos;
@@ -847,7 +867,7 @@ struct SaveBlock1
                u8 nuzlockeDupeFlags[52]; //taken from filler_348c field, which was originally 400 bytes. Used to prevent hijacking the dupe clause in Nuzlocke by catching fainted Pokemon.
                struct ItemSlot bagPocket_Berries[BAG_BERRIES_COUNT]; //taken from filler_348C field, which was originally 400 bytes
     /*0x361C*/ struct RamScript ramScript;
-    /*0x3A08*/ u8 filler3A08[16]; //RecordMixingGift recordMixingGift. Unused.
+    /*0x3A08*/ u32 trainerHillTimes[4]; // RFVF+: Emerald's Trainer Hill records by mode (was the unused recordMixingGift: 0 = none)
     /*0x3A18*/ u8 seen2[52]; //made unreferenced & can be gotten rid of, though PKHeX presumably will still set this
     /*0x3A4C*/ u8 rivalName[PLAYER_NAME_LENGTH + 1];
     /*0x3A54*/ struct FameCheckerSaveData fameChecker[NUM_FAMECHECKER_PERSONS];
@@ -857,7 +877,7 @@ struct SaveBlock1
     /*0x3AD4*/ u8 registeredTexts[UNION_ROOM_KB_ROW_COUNT][21];
     /*0x3BA8*/ struct TrainerNameRecord trainerNameRecords[20];
     /*0x3C98*/ struct DaycareMon route5DayCareMon;
-    /*0x3D24*/ u8 unused_3D24[16]; //some sort of win/loss/draw records that are never referred to. An RFU thing. Mystery Event?
+    /*0x3D24*/ struct TrainerHillSave trainerHill; // RFVF+: Emerald's (was 16 bytes never referred to)
     /*0x3D34*/ u32 towerChallengeId;
     /*0x3D38*/ struct TrainerTower trainerTower[NUM_TOWER_CHALLENGE_TYPES];
 }; // size: 0x3D68

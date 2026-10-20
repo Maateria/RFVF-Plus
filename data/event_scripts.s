@@ -38,6 +38,7 @@
 #include "constants/help_system.h"
 #include "constants/trainer_fan_club.h"
 #include "constants/mystery_gift.h"
+#include "constants/trainer_hill.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.set FALSE, 0
@@ -2338,15 +2339,19 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/TrainerHill_4F/scripts.inc"
 
 	.include "data/maps/TrainerHill_Roof/scripts.inc"
+	.include "data/maps/TrainerHill_Roof/text.inc"
 
 	.include "data/maps/TrainerHill_Elevator/scripts.inc"
+	.include "data/maps/TrainerHill_Elevator/text.inc"
 
 	.include "data/maps/SSTidalCorridor/scripts.inc"
 	.include "data/maps/SSTidalCorridor/text.inc"
 
 	.include "data/maps/SSTidalLowerDeck/scripts.inc"
+	.include "data/maps/SSTidalLowerDeck/text.inc"
 
 	.include "data/maps/SSTidalRooms/scripts.inc"
+	.include "data/maps/SSTidalRooms/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleTowerLobby/scripts.inc"
 	.include "data/maps/BattleFrontier_BattleTowerLobby/text.inc"

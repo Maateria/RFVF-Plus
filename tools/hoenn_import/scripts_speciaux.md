@@ -1,6 +1,6 @@
 # Hoenn : scripts spéciaux à décider
 
-Ces PNJ, panneaux et dresseurs font plus que parler, défier ou dire où l'on est. Ils restent muets en attendant qu'on décide ensemble quoi en faire. Les dialogues simples, les infirmières, les vendeurs et le point de retour des Centres Pokémon sont faits (2026-10-18), puis les choix du 2026-10-18 pour Rosyères, Clémenti-Ville, Mérouville et le pêcheur de Myokara (`work/hoenn_scripts/manual.py`), puis le lot 1 du 2026-10-19 : PNJ et services (`manual_b1.py`), puis le lot 2 du 2026-10-19 : systèmes (phrase à la mode, vieil homme de Lavandia, décorations, Île Mirage, arbres à baies : `manual_b2.py`), puis le lot 3 du 2026-10-20 : donjons (braille et Regis, Grotte Tréfonds, Épave, Pilier Céleste, Tour Mirage, météo anormale : `manual_b3.py`). Chaque ligne restante indique son lot.
+Ces PNJ, panneaux et dresseurs font plus que parler, défier ou dire où l'on est. Ils restent muets en attendant qu'on décide ensemble quoi en faire. Les dialogues simples, les infirmières, les vendeurs et le point de retour des Centres Pokémon sont faits (2026-10-18), puis les choix du 2026-10-18 pour Rosyères, Clémenti-Ville, Mérouville et le pêcheur de Myokara (`work/hoenn_scripts/manual.py`), puis le lot 1 du 2026-10-19 : PNJ et services (`manual_b1.py`), puis le lot 2 du 2026-10-19 : systèmes (phrase à la mode, vieil homme de Lavandia, décorations, Île Mirage, arbres à baies : `manual_b2.py`), puis le lot 3 du 2026-10-20 : donjons (braille et Regis, Grotte Tréfonds, Épave, Pilier Céleste, Tour Mirage, météo anormale : `manual_b3.py`), puis les lots 4 et 5 du 2026-10-20 : le S.S. Aqua (vers la Zone de Combat) et le Mont Dresseurs (`manual_b45.py`, `trainer_hill_data.py`). Chaque ligne restante indique son lot.
 
 Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = drapeaux ou variables d'Émeraude que le script regarde.
 
@@ -90,30 +90,3 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | BattleFrontier_BattleTowerMultiPartnerRoom | Partner4 (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat (selon FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER) |  |
 | BattleFrontier_BattleTowerMultiPartnerRoom | Partner5 (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat (selon FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER) |  |
 | BattleFrontier_BattleTowerMultiPartnerRoom | Partner6 (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat (selon FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER) |  |
-
-## S.S. Aqua (14)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| SSTidalCorridor | ExitSailor (PNJ) | **lot 4 : S.S. Aqua** — téléporte le joueur (selon FLAG_RECEIVED_TM_SNATCH, VAR_SS_TIDAL_STATE) | A mon avis, nous ne toucherons pas terre avant un petit moment. Allez … |
-| SSTidalCorridor | Porthole (panneau) | **lot 4 : S.S. Aqua** — parle seulement, mais selon VAR_SS_TIDAL_STATE | Le hublot offre une belle vue sur l'horizon. |
-| SSTidalCorridor | Sailor (PNJ) | **lot 4 : S.S. Aqua** — parle seulement, mais selon FLAG_DEFEATED_SS_TIDAL_TRAINERS | N'hésitez pas à entrer dans les autres cabines. Les DRESSEURS qui s'en… |
-| SSTidalLowerDeck | Leonard (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Nous sommes les FRERES PROPRETE! L'aîné répand le détergent et le benj… |
-| SSTidalLowerDeck | Phillip (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Nous sommes les FRERES PROPRETE! L'aîné répand le détergent et le benj… |
-| SSTidalRooms | Bed (panneau) | **lot 4 : S.S. Aqua** — soigne l'équipe (selon VAR_SS_TIDAL_STATE) | Ah, un lit! Je vais me reposer. |
-| SSTidalRooms | Colton (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Je suis tout nerveux à l'idée de découvrir de nouveaux POKéMON pendant… |
-| SSTidalRooms | Garret (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Je devrais peut-être demander à mon père de m'acheter un yacht. Un yac… |
-| SSTidalRooms | Jed (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | ALI: C'est la première fois que le pouvoir de notre amour n'est pas le… |
-| SSTidalRooms | Lea (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | LISE: Je n'y crois pas! Le pouvoir de notre amour n'a pas été le plus … |
-| SSTidalRooms | Micah (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Les amis ne sont pas forcément humains. Mes POKéMON sont mes meilleurs… |
-| SSTidalRooms | Naomi (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Une croisière autour du monde dans un yacht de luxe n'est pas sans cha… |
-| SSTidalRooms | SnatchGiver (PNJ) | **lot 4 : S.S. Aqua** — donne CT49 (selon FLAG_RECEIVED_TM_SNATCH) | Heu… Salut! Je… Non, je n'ai pas l'air suspect! Hé… Tu veux ça? C'est … |
-| SSTidalRooms | Thomas (dresseur) | **lot 4 : S.S. Aqua** — dresseur (combat) du S.S. Aqua, pendant les traversées | Un véritable GENTLEMAN ne doit jamais s'énerver, quelle que soit la si… |
-
-## Mont Dresseurs (3)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| TrainerHill_Entrance | Attendant (PNJ) | **lot 5 : Mont Dresseurs** — Mont Dresseurs (défi chronométré) | Faites de votre mieux! |
-| TrainerHill_Entrance | Records (panneau) | **lot 5 : Mont Dresseurs** — tableau des records du Mont Dresseurs |  |
-| TrainerHill_Roof | Owner (PNJ) | **lot 5 : Mont Dresseurs** — Mont Dresseurs (défi chronométré) | Hum! Hum! Te voilà enfin! Oui, te voilà! Non, ne dis rien! Je sais pou… |

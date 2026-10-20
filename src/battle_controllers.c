@@ -351,6 +351,9 @@ static void SetBattlePartyIds(void)
                 }
             }
         }
+
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) // Emerald's: each opponent leads with its first
+            gBattlerPartyIndexes[1] = 0, gBattlerPartyIndexes[3] = 3;
     }
 }
 
@@ -841,8 +844,8 @@ void BtlController_EmitChooseAction(u8 bufferId, u8 action, u16 itemId)
     PrepareBufferDataTransfer(bufferId, sBattleBuffersTransferData, 4);
 }
 
-// Unused
-static void BtlController_EmitUnknownYesNoBox(u8 bufferId, u32 arg1) // TODO: Does the function name make sense for pokefirered?
+// RFVF+: Emerald's yes/no box (the Trainer Hill's forfeit question)
+void BtlController_EmitUnknownYesNoBox(u8 bufferId, u32 arg1)
 {
     sBattleBuffersTransferData[0] = CONTROLLER_UNKNOWNYESNOBOX;
     sBattleBuffersTransferData[1] = arg1;

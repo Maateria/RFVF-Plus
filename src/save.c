@@ -82,6 +82,8 @@ STATIC_ASSERT(offsetof(struct SaveBlock1, waldaPhrase) == 0x3A94 && sizeof(struc
 STATIC_ASSERT(offsetof(struct SaveBlock1, daycare) == offsetof(struct SaveBlock1, dewfordTrends) + 36 && sizeof(OldMan) == 0x40
               && offsetof(struct SaveBlock1, dewfordTrends) == offsetof(struct SaveBlock1, oldMan) + 0x40, SaveBlock1TrendsOldManLayout);
 STATIC_ASSERT(offsetof(struct SaveBlock1, decorations) == 0x348C && offsetof(struct SaveBlock1, nuzlockeDupeFlags) == 0x348C + 176, SaveBlock1DecorationsLayout);
+STATIC_ASSERT(offsetof(struct SaveBlock1, trainerHillTimes) == 0x3A08 && offsetof(struct SaveBlock1, seen2) == 0x3A18
+              && offsetof(struct SaveBlock1, trainerHill) == 0x3D24 && offsetof(struct SaveBlock1, towerChallengeId) == 0x3D34, SaveBlock1TrainerHillLayout);
 STATIC_ASSERT(TRAINER_FLAG(TRAINER_HOENN_START) == TRAINER_FLAGS_EXT_START && TRAINER_FLAG(MAX_TRAINERS_COUNT - 1) == TRAINER_FLAGS_END
               && TRAINER_FLAG(NUM_TRAINERS - 1) < TRAINER_FLAGS_EXT_START + 1024, HoennTrainerFlagsInTheirBlock);
 STATIC_ASSERT(sizeof(struct ObjectEvent) == 0x24 && offsetof(struct ObjectEvent, graphicsIdHi) == 0x23, ObjectEventSaveLayout);

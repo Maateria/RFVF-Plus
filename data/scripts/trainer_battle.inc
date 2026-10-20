@@ -1,5 +1,6 @@
 EventScript_DoTrainerBattleFromApproach::
 	lock
+EventScript_TrainerApproach:: @ RFVF+: Emerald's, the second of two trainers comes here too
 	special PlayTrainerEncounterMusic
 	special EndTrainerApproach
 	waitstate
@@ -110,6 +111,8 @@ EventScript_DoTrainerBattle::
 	special ShowTrainerIntroSpeech
 	waitmessage
 	waitbuttonpress
+	special TryPrepareSecondApproachingTrainer
+	goto_if_eq VAR_RESULT, TRUE, EventScript_TrainerApproach
 	goto_if_questlog EventScript_EndQuestLogBattle
 	dotrainerbattle
 	specialvar VAR_RESULT, GetTrainerBattleMode
@@ -119,6 +122,19 @@ EventScript_DoTrainerBattle::
 	goto_if_eq VAR_RESULT, TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE, EventScript_EndTrainerBattleContinueScript
 	goto_if_eq VAR_RESULT, TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC, EventScript_EndTrainerBattleContinueScript
 EventScript_EndTrainerBattle::
+	gotobeatenscript @ RFVF+: Emerald's, so that two opponents' continue scripts both run
+	releaseall
+	end
+
+@ Emerald's: after two opponents, the second one's continue script
+EventScript_TryGetTrainerScript::
+	special ShouldTryGetTrainerScript
+	goto_if_eq VAR_RESULT, TRUE, EventScript_GotoTrainerScript
+	releaseall
+	end
+
+EventScript_GotoTrainerScript::
+	gotobeatenscript
 	releaseall
 	end
 

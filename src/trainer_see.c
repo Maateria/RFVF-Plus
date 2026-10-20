@@ -7,6 +7,10 @@
 #include "script.h"
 #include "task.h"
 #include "util.h"
+#include "event_data.h"
+#include "trainer_hill.h"
+#include "trainer_see.h"
+#include "pokemon.h"
 #include "constants/battle_setup.h"
 #include "constants/event_object_movement.h"
 #include "constants/event_objects.h"
@@ -15,14 +19,14 @@
 typedef u8 (*TrainerApproachFunc)(struct ObjectEvent *, s16, s16, s16);
 typedef bool8 (*TrainerSeeFunc)(u8, struct Task *, struct ObjectEvent *);
 
-static bool8 CheckTrainer(u8 trainerObjId);
+static u8 CheckTrainer(u8 trainerObjId);
 static u8 GetTrainerApproachDistance(struct ObjectEvent * trainerObj);
 static u8 GetTrainerApproachDistanceSouth(struct ObjectEvent * trainerObj, s16 range, s16 x, s16 y);
 static u8 GetTrainerApproachDistanceNorth(struct ObjectEvent * trainerObj, s16 range, s16 x, s16 y);
 static u8 GetTrainerApproachDistanceWest(struct ObjectEvent * trainerObj, s16 range, s16 x, s16 y);
 static u8 GetTrainerApproachDistanceEast(struct ObjectEvent * trainerObj, s16 range, s16 x, s16 y);
 static u8 CheckPathBetweenTrainerAndPlayer(struct ObjectEvent * trainerObj, u8 approachDistance, u8 facingDirection);
-static void TrainerApproachPlayer(struct ObjectEvent * trainerObj, u8 approachDistance);
+static u8 TrainerApproachPlayer(struct ObjectEvent * trainerObj, u8 approachDistance);
 static void Task_RunTrainerSeeFuncList(u8 taskId);
 static bool8 TrainerSeeFunc_Dummy(u8 taskId, struct Task *task, struct ObjectEvent * trainerObj);
 static bool8 TrainerSeeFunc_StartExclMark(u8 taskId, struct Task *task, struct ObjectEvent * trainerObj);
@@ -85,39 +89,103 @@ static const TrainerSeeFunc sTrainerSeeFuncList2[] = {
     TrainerSeeFunc_EndJumpOutOfAsh
 };
 
+EWRAM_DATA u8 gNoOfApproachingTrainers = 0;
+EWRAM_DATA u8 gApproachingTrainerId = 0;
+EWRAM_DATA struct ApproachingTrainer gApproachingTrainers[2] = {0};
+
+// RFVF+: Emerald's two trainers who spot the player at once fight together, among Hoenn's trainers and in the Trainer
+// Hill (user's choice, 2026-10-20). Only plain trainers (no double, rematch or no-music ones) can pair up.
+static bool8 CanPairUp(const u8 *script)
+{
+    if (script[1] != TRAINER_BATTLE_SINGLE && script[1] != TRAINER_BATTLE_CONTINUE_SCRIPT && script[1] != TRAINER_BATTLE_HILL)
+        return FALSE;
+    return InTrainerHill() || IsHoennTrainer(script[2] | (script[3] << 8));
+}
+
 bool8 CheckForTrainersWantingBattle(void)
 {
     u32 i;
+
+    gNoOfApproachingTrainers = 0;
+    gApproachingTrainerId = 0;
     if (QL_IsTrainerSightDisabled() == TRUE)
         return FALSE;
 
     for (i = 0; i < OBJECT_EVENTS_COUNT; i++)
     {
-        if (gObjectEvents[i].active
-         && (gObjectEvents[i].trainerType == TRAINER_TYPE_NORMAL
-          || gObjectEvents[i].trainerType == TRAINER_TYPE_BURIED)
-         && CheckTrainer(i))
-            return TRUE;
+        u8 numTrainers;
+
+        if (!gObjectEvents[i].active
+         || (gObjectEvents[i].trainerType != TRAINER_TYPE_NORMAL && gObjectEvents[i].trainerType != TRAINER_TYPE_BURIED))
+            continue;
+        numTrainers = CheckTrainer(i);
+        if (numTrainers == 2) // a double battle trainer
+            break;
+        if (numTrainers == 0)
+            continue;
+        if (gNoOfApproachingTrainers > 1)
+            break;
+        if (GetMonsStateToDoubles() != PLAYER_HAS_TWO_USABLE_MONS || !CanPairUp(gApproachingTrainers[0].trainerScriptPtr))
+            break; // one trainer, and no double battle with a second one
+    }
+
+    if (gNoOfApproachingTrainers == 1)
+    {
+        ConfigureAndSetUpOneTrainerBattle(gApproachingTrainers[0].objectEventId, gApproachingTrainers[0].trainerScriptPtr);
+        return TRUE;
+    }
+    else if (gNoOfApproachingTrainers == 2)
+    {
+        for (i = 0; i < gNoOfApproachingTrainers; i++, gApproachingTrainerId++)
+            ConfigureTwoTrainersBattle(gApproachingTrainers[i].objectEventId, gApproachingTrainers[i].trainerScriptPtr);
+        gApproachingTrainerId = 0;
+        gSelectedObjectEvent = gApproachingTrainers[0].objectEventId; // the first one comes first
+        gSpecialVar_LastTalked = gObjectEvents[gSelectedObjectEvent].localId;
+        SetUpTwoTrainersBattle();
+        return TRUE;
     }
     return FALSE;
 }
 
-static bool8 CheckTrainer(u8 trainerObjId)
+static u8 CheckTrainer(u8 trainerObjId)
 {
-    const u8 *script = GetObjectEventScriptPointerByObjectEventId(trainerObjId);
+    const u8 *script;
     u8 approachDistance;
-    if (GetTrainerFlagFromScriptPointer(script))
-        return FALSE;
-    approachDistance = GetTrainerApproachDistance(&gObjectEvents[trainerObjId]);
-    if (approachDistance != 0)
+    u8 numTrainers = 1;
+
+    if (InTrainerHill() == TRUE)
+        script = GetTrainerHillTrainerScript();
+    else
+        script = GetObjectEventScriptPointerByObjectEventId(trainerObjId);
+    if (InTrainerHill() == TRUE)
     {
-        if (script[1] == TRAINER_BATTLE_DOUBLE && GetMonsStateToDoubles())
-            return FALSE;
-        ConfigureAndSetUpOneTrainerBattle(trainerObjId, script);
-        TrainerApproachPlayer(&gObjectEvents[trainerObjId], approachDistance - 1);
-        return TRUE;
+        if (GetHillTrainerFlag(trainerObjId))
+            return 0;
     }
-    return FALSE;
+    else if (GetTrainerFlagFromScriptPointer(script))
+    {
+        return 0;
+    }
+    approachDistance = GetTrainerApproachDistance(&gObjectEvents[trainerObjId]);
+    if (approachDistance == 0)
+        return 0;
+    if (script[1] == TRAINER_BATTLE_DOUBLE || script[1] == TRAINER_BATTLE_REMATCH_DOUBLE
+     || script[1] == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE || script[1] == TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC)
+    {
+        if (gNoOfApproachingTrainers != 0 || (script[1] == TRAINER_BATTLE_DOUBLE && GetMonsStateToDoubles()))
+            return 0;
+        numTrainers = 2;
+    }
+    else if (gNoOfApproachingTrainers != 0 && !CanPairUp(script))
+    {
+        return 0;
+    }
+    gApproachingTrainers[gNoOfApproachingTrainers].objectEventId = trainerObjId;
+    gApproachingTrainers[gNoOfApproachingTrainers].trainerScriptPtr = script;
+    gApproachingTrainers[gNoOfApproachingTrainers].radius = approachDistance;
+    gApproachingTrainers[gNoOfApproachingTrainers].taskId = TrainerApproachPlayer(&gObjectEvents[trainerObjId], approachDistance - 1);
+    gNoOfApproachingTrainers++;
+    return numTrainers;
 }
 
 static u8 GetTrainerApproachDistance(struct ObjectEvent *trainerObj)
@@ -243,18 +311,20 @@ static u8 CheckPathBetweenTrainerAndPlayer(struct ObjectEvent *trainerObj, u8 ap
     (dest) = (struct ObjectEvent *)(((task)->tTrainerObjHi << 16) | ((u16)(task)->tTrainerObjLo)); \
 } while (0)
 
-static void TrainerApproachPlayer(struct ObjectEvent * trainerObj, u8 approachDistance)
+static u8 TrainerApproachPlayer(struct ObjectEvent * trainerObj, u8 approachDistance)
 {
     u8 taskId = CreateTask(Task_RunTrainerSeeFuncList, 80);
     struct Task *task = &gTasks[taskId];
     task->tTrainerObjHi = ((uintptr_t)trainerObj) >> 16;
     task->tTrainerObjLo = (uintptr_t)trainerObj;
     task->tTrainerRange = approachDistance;
+    return taskId;
 }
 
 static void StartTrainerApproachWithFollowupTask(TaskFunc taskFunc)
 {
-    u8 taskId = FindTaskIdByFunc(Task_RunTrainerSeeFuncList);
+    // RFVF+: the approaching trainer's own task (Emerald: two can wait their turn)
+    u8 taskId = gNoOfApproachingTrainers != 0 ? gApproachingTrainers[gApproachingTrainerId].taskId : FindTaskIdByFunc(Task_RunTrainerSeeFuncList);
     SetTaskFuncWithFollowupFunc(taskId, Task_RunTrainerSeeFuncList, taskFunc);
     gTasks[taskId].tFuncId = 1;
     Task_RunTrainerSeeFuncList(taskId);
@@ -545,6 +615,26 @@ void MovementAction_RevealTrainer_RunTrainerSeeFuncList(struct ObjectEvent *var)
 void EndTrainerApproach(void)
 {
     StartTrainerApproachWithFollowupTask(Task_DestroyTrainerApproachTask);
+}
+
+// Emerald's: after the first trainer's intro, the second one comes
+void TryPrepareSecondApproachingTrainer(void)
+{
+    if (gNoOfApproachingTrainers == 2 && gApproachingTrainerId == 0)
+    {
+        gApproachingTrainerId++;
+        gSpecialVar_Result = TRUE;
+        gSelectedObjectEvent = gApproachingTrainers[1].objectEventId;
+        gSpecialVar_LastTalked = gObjectEvents[gSelectedObjectEvent].localId;
+        UnfreezeObjectEvents();
+        FreezeObjectEventsExceptOne(gApproachingTrainers[1].objectEventId);
+    }
+    else
+    {
+        if (gNoOfApproachingTrainers == 2)
+            gApproachingTrainerId = 0;
+        gSpecialVar_Result = FALSE;
+    }
 }
 
 static void Task_DestroyTrainerApproachTask(u8 taskId)

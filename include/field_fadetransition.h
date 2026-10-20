@@ -6,6 +6,7 @@
 void FieldCB_RushInjuredPokemonToCenter(void);
 void DoWarp(void);
 void DoDiveWarp(void);
+void DoPortholeWarp(void);
 void DoDoorWarp(void);
 
 void DoFallWarp(void);

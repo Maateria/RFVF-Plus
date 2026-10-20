@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "gflib.h"
 #include "bike.h"
 #include "coord_event_weather.h"
@@ -477,7 +478,10 @@ static const u8 *GetInteractedObjectEventScript(struct MapPosition *position, u8
     gSpecialVar_LastTalked = gObjectEvents[objectEventId].localId;
     gSpecialVar_Facing = direction;
 
-    script = GetObjectEventScriptPointerByObjectEventId(objectEventId);
+    if (InTrainerHill() == TRUE) // Emerald's: the floors' trainers come from its data
+        script = GetTrainerHillTrainerScript();
+    else
+        script = GetObjectEventScriptPointerByObjectEventId(objectEventId);
 
     script = GetRamScript(gSpecialVar_LastTalked, script);
     return script;
@@ -565,6 +569,8 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
         return EventScript_Computer;
     if (MetatileBehavior_IsTrainerTowerMonitor(metatileBehavior) == TRUE)
         return TrainerTower_EventScript_ShowTime;
+    if (MetatileBehavior_IsTrainerHillTimer(metatileBehavior) == TRUE)
+        return EventScript_TrainerHillTimer;
     if (MetatileBehavior_IsPlayerFacingTVScreen(metatileBehavior, direction) == TRUE)
         return EventScript_PlayerFacingTVScreen;
     if (MetatileBehavior_IsCabinet(metatileBehavior) == TRUE)
@@ -730,6 +736,11 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
     }
     if (SafariZoneTakeStep() == TRUE)
         return TRUE;
+    if (CountSSTidalStep(1) == TRUE)
+    {
+        ScriptContext_SetupScript(SSTidalCorridor_EventScript_ReachedStepCount);
+        return TRUE;
+    }
     return FALSE;
 }
 

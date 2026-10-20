@@ -35,6 +35,9 @@
 #include "constants/pokemon.h"
 #include "constants/trainers.h"
 #include "hoenn_specials.h"
+#include "trainer_hill.h"
+#include "trainer_see.h"
+#include "constants/trainer_hill.h"
 
 enum {
     TRANSITION_TYPE_NORMAL,
@@ -84,6 +87,13 @@ static EWRAM_DATA u8 *sTrainerCannotBattleSpeech = NULL;
 static EWRAM_DATA u8 *sTrainerBattleEndScript = NULL;
 static EWRAM_DATA u8 *sTrainerABattleScriptRetAddr = NULL;
 static EWRAM_DATA u16 sRivalBattleFlags = 0;
+// RFVF+: Emerald's second trainer, when two spot the player at once (Hoenn, Trainer Hill)
+EWRAM_DATA u16 gTrainerBattleOpponent_B = 0;
+static EWRAM_DATA u8 *sTrainerBIntroSpeech = NULL;
+static EWRAM_DATA u8 *sTrainerBDefeatSpeech = NULL;
+static EWRAM_DATA u8 *sTrainerBBattleScriptRetAddr = NULL;
+static EWRAM_DATA bool8 sShouldCheckTrainerBScript = FALSE;
+static EWRAM_DATA u8 sNoOfPossibleTrainerRetScripts = 0;
 EWRAM_DATA u8 HasAlreadyCapturedHere = 0;
 
 // The first transition is used if the enemy pokemon are lower level than our pokemon.
@@ -179,6 +189,33 @@ static const struct TrainerBattleParameter sContinueScriptDoubleBattleParams[] =
     {&sTrainerVictorySpeech,        TRAINER_PARAM_CLEAR_VAL_32BIT},
     {&sTrainerCannotBattleSpeech,   TRAINER_PARAM_LOAD_VAL_32BIT},
     {&sTrainerABattleScriptRetAddr, TRAINER_PARAM_LOAD_VAL_32BIT},
+    {&sTrainerBattleEndScript,      TRAINER_PARAM_LOAD_SCRIPT_RET_ADDR},
+};
+
+// Emerald's, for the second of two trainers who spotted the player
+static const struct TrainerBattleParameter sTrainerBOrdinaryBattleParams[] =
+{
+    {&sTrainerBattleMode,           TRAINER_PARAM_LOAD_VAL_8BIT},
+    {&gTrainerBattleOpponent_B,     TRAINER_PARAM_LOAD_VAL_16BIT},
+    {&sTrainerObjectEventLocalId,   TRAINER_PARAM_LOAD_VAL_16BIT},
+    {&sTrainerBIntroSpeech,         TRAINER_PARAM_LOAD_VAL_32BIT},
+    {&sTrainerBDefeatSpeech,        TRAINER_PARAM_LOAD_VAL_32BIT},
+    {&sTrainerVictorySpeech,        TRAINER_PARAM_CLEAR_VAL_32BIT},
+    {&sTrainerCannotBattleSpeech,   TRAINER_PARAM_CLEAR_VAL_32BIT},
+    {&sTrainerBBattleScriptRetAddr, TRAINER_PARAM_CLEAR_VAL_32BIT},
+    {&sTrainerBattleEndScript,      TRAINER_PARAM_LOAD_SCRIPT_RET_ADDR},
+};
+
+static const struct TrainerBattleParameter sTrainerBContinueScriptBattleParams[] =
+{
+    {&sTrainerBattleMode,           TRAINER_PARAM_LOAD_VAL_8BIT},
+    {&gTrainerBattleOpponent_B,     TRAINER_PARAM_LOAD_VAL_16BIT},
+    {&sTrainerObjectEventLocalId,   TRAINER_PARAM_LOAD_VAL_16BIT},
+    {&sTrainerBIntroSpeech,         TRAINER_PARAM_LOAD_VAL_32BIT},
+    {&sTrainerBDefeatSpeech,        TRAINER_PARAM_LOAD_VAL_32BIT},
+    {&sTrainerVictorySpeech,        TRAINER_PARAM_CLEAR_VAL_32BIT},
+    {&sTrainerCannotBattleSpeech,   TRAINER_PARAM_CLEAR_VAL_32BIT},
+    {&sTrainerBBattleScriptRetAddr, TRAINER_PARAM_LOAD_VAL_32BIT},
     {&sTrainerBattleEndScript,      TRAINER_PARAM_LOAD_SCRIPT_RET_ADDR},
 };
 
@@ -385,6 +422,15 @@ static void DoGhostBattle(void)
 static void DoTrainerBattle(void)
 {
     CreateBattleStartTask(GetTrainerBattleTransition(), 0);
+    IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
+    IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
+}
+
+u8 BattleSetup_GetBattleTowerBattleTransition(void);
+
+static void DoTrainerHillBattle(void)
+{
+    CreateBattleStartTask(BattleSetup_GetBattleTowerBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
 }
@@ -875,14 +921,24 @@ static bool32 IsPlayerDefeated(u32 battleOutcome)
 static void InitTrainerBattleVariables(void)
 {
     sTrainerBattleMode = 0;
-    gTrainerBattleOpponent_A = 0;
+    if (gApproachingTrainerId == 0)
+    {
+        gTrainerBattleOpponent_A = 0;
+        gTrainerBattleOpponent_B = 0;
+        sTrainerAIntroSpeech = NULL;
+        sTrainerADefeatSpeech = NULL;
+        sTrainerABattleScriptRetAddr = NULL;
+    }
+    else // Emerald's: the second trainer keeps the first one's
+    {
+        sTrainerBIntroSpeech = NULL;
+        sTrainerBDefeatSpeech = NULL;
+        sTrainerBBattleScriptRetAddr = NULL;
+    }
     sTrainerObjectEventLocalId = 0;
-    sTrainerAIntroSpeech = NULL;
-    sTrainerADefeatSpeech = NULL;
     sTrainerVictorySpeech = NULL;
     sTrainerCannotBattleSpeech = NULL;
     sTrainerBattleEndScript = NULL;
-    sTrainerABattleScriptRetAddr = NULL;
     sRivalBattleFlags = 0;
 }
 
@@ -964,6 +1020,11 @@ const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data)
         SetMapVarsToTrainer();
         return EventScript_TryDoDoubleTrainerBattle;
     case TRAINER_BATTLE_CONTINUE_SCRIPT:
+        if (gApproachingTrainerId != 0)
+        {
+            TrainerBattleLoadArgs(sTrainerBContinueScriptBattleParams, data);
+            return EventScript_TryDoNormalTrainerBattle;
+        }
     case TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC:
         TrainerBattleLoadArgs(sContinueScriptBattleParams, data);
         SetMapVarsToTrainer();
@@ -988,7 +1049,25 @@ const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data)
     case TRAINER_BATTLE_EARLY_RIVAL:
         TrainerBattleLoadArgs(sEarlyRivalBattleParams, data);
         return EventScript_DoNoIntroTrainerBattle;
+    case TRAINER_BATTLE_HILL: // Emerald's Trainer Hill: the trainers come from its floor data
+        if (gApproachingTrainerId == 0)
+        {
+            TrainerBattleLoadArgs(sOrdinaryBattleParams, data);
+            SetMapVarsToTrainer();
+            gTrainerBattleOpponent_A = LocalIdToHillTrainerId(gSpecialVar_LastTalked);
+        }
+        else
+        {
+            TrainerBattleLoadArgs(sTrainerBOrdinaryBattleParams, data);
+            gTrainerBattleOpponent_B = LocalIdToHillTrainerId(gSpecialVar_LastTalked);
+        }
+        return EventScript_TryDoNormalTrainerBattle;
     default:
+        if (gApproachingTrainerId != 0)
+        {
+            TrainerBattleLoadArgs(sTrainerBOrdinaryBattleParams, data);
+            return EventScript_TryDoNormalTrainerBattle;
+        }
         TrainerBattleLoadArgs(sOrdinaryBattleParams, data);
         SetMapVarsToTrainer();
         return EventScript_TryDoNormalTrainerBattle;
@@ -1000,6 +1079,20 @@ void ConfigureAndSetUpOneTrainerBattle(u8 trainerEventObjId, const u8 *trainerSc
     gSelectedObjectEvent = trainerEventObjId;
     gSpecialVar_LastTalked = gObjectEvents[trainerEventObjId].localId;
     BattleSetup_ConfigureTrainerBattle(trainerScript + 1);
+    ScriptContext_SetupScript(EventScript_DoTrainerBattleFromApproach);
+    LockPlayerFieldControls();
+}
+
+// Emerald's: both trainers who spotted the player are configured, then they come one after the other
+void ConfigureTwoTrainersBattle(u8 trainerObjEventId, const u8 *trainerScript)
+{
+    gSelectedObjectEvent = trainerObjEventId;
+    gSpecialVar_LastTalked = gObjectEvents[trainerObjEventId].localId;
+    BattleSetup_ConfigureTrainerBattle(trainerScript + 1);
+}
+
+void SetUpTwoTrainersBattle(void)
+{
     ScriptContext_SetupScript(EventScript_DoTrainerBattleFromApproach);
     LockPlayerFieldControls();
 }
@@ -1034,6 +1127,8 @@ u16 Script_HasTrainerBeenFought(void)
     {
         return CheckMasterTrainerFlag(gSpecialVar_0x8009);
     }
+    if (InTrainerHill())
+        return GetHillTrainerFlag(gSelectedObjectEvent);
     return FlagGet(GetTrainerAFlag());
 }
 
@@ -1044,6 +1139,8 @@ void SetBattledTrainerFlag(void)
         SetMasterTrainerFlag(gSpecialVar_0x8009);
         return;
     }
+    if (gTrainerBattleOpponent_B != 0) // Emerald's SetBattledTrainersFlags
+        FlagSet(TRAINER_FLAG(gTrainerBattleOpponent_B));
     FlagSet(GetTrainerAFlag());
 }
 
@@ -1079,11 +1176,29 @@ void ClearTrainerFlag(u16 trainerId)
 
 void StartTrainerBattle(void)
 {
-    gBattleTypeFlags = BATTLE_TYPE_TRAINER;
+    if (gNoOfApproachingTrainers == 2) // Emerald's two opponents
+        gBattleTypeFlags = BATTLE_TYPE_DOUBLE | BATTLE_TYPE_TWO_OPPONENTS | BATTLE_TYPE_TRAINER;
+    else
+        gBattleTypeFlags = BATTLE_TYPE_TRAINER;
     if (GetTrainerBattleMode() == TRAINER_BATTLE_EARLY_RIVAL && GetRivalBattleFlags() & RIVAL_BATTLE_TUTORIAL)
         gBattleTypeFlags |= BATTLE_TYPE_FIRST_BATTLE;
+    if (InTrainerHillChallenge())
+    {
+        gBattleTypeFlags |= BATTLE_TYPE_TRAINER_HILL;
+        if (gNoOfApproachingTrainers == 2)
+            FillHillTrainersParties();
+        else
+            FillHillTrainerParty();
+        SetHillTrainerFlag();
+    }
+    sNoOfPossibleTrainerRetScripts = gNoOfApproachingTrainers;
+    gNoOfApproachingTrainers = 0;
+    sShouldCheckTrainerBScript = FALSE;
     gMain.savedCallback = CB2_EndTrainerBattle;
-    DoTrainerBattle();
+    if (InTrainerHillChallenge())
+        DoTrainerHillBattle();
+    else
+        DoTrainerBattle();
     ScriptContext_Stop();
 }
 
@@ -1133,7 +1248,7 @@ static void CB2_EndTrainerBattle(void)
             }
             return;
         }
-        if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
+        if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE || InTrainerHillChallenge()) // the hill: its own flags, no white out
         {
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         }
@@ -1181,7 +1296,18 @@ void StartRematchBattle(void)
 
 void ShowTrainerIntroSpeech(void)
 {
-    ShowFieldMessage(GetIntroSpeechOfApproachingTrainer());
+    if (InTrainerHillChallenge())
+    {
+        if (gNoOfApproachingTrainers == 0 || gNoOfApproachingTrainers == 1)
+            CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_INTRO, LocalIdToHillTrainerId(gSpecialVar_LastTalked));
+        else
+            CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_INTRO, LocalIdToHillTrainerId(gObjectEvents[gApproachingTrainers[gApproachingTrainerId].objectEventId].localId));
+        ShowFieldMessage(gStringVar4); // Emerald's ShowFieldMessageFromBuffer
+    }
+    else
+    {
+        ShowFieldMessage(GetIntroSpeechOfApproachingTrainer());
+    }
 }
 
 const u8 *BattleSetup_GetScriptAddrAfterBattle(void)
@@ -1192,12 +1318,35 @@ const u8 *BattleSetup_GetScriptAddrAfterBattle(void)
         return EventScript_ReleaseEnd;
 }
 
+// Emerald's: after two opponents, each one's own continue script in turn (EventScript_TryGetTrainerScript)
 const u8 *BattleSetup_GetTrainerPostBattleScript(void)
 {
-    if (sTrainerABattleScriptRetAddr != NULL)
+    if (sShouldCheckTrainerBScript)
+    {
+        sShouldCheckTrainerBScript = FALSE;
+        if (sTrainerBBattleScriptRetAddr != NULL)
+            return sTrainerBBattleScriptRetAddr;
+    }
+    else if (sTrainerABattleScriptRetAddr != NULL)
+    {
         return sTrainerABattleScriptRetAddr;
+    }
+    return EventScript_TryGetTrainerScript;
+}
+
+void ShouldTryGetTrainerScript(void)
+{
+    if (sNoOfPossibleTrainerRetScripts > 1)
+    {
+        sNoOfPossibleTrainerRetScripts = 0;
+        sShouldCheckTrainerBScript = TRUE;
+        gSpecialVar_Result = TRUE;
+    }
     else
-        return EventScript_ReleaseEnd;
+    {
+        sShouldCheckTrainerBScript = FALSE;
+        gSpecialVar_Result = FALSE;
+    }
 }
 
 void ShowTrainerCantBattleSpeech(void)
@@ -1232,14 +1381,17 @@ static const u16 sHoennEncounterMusic[] =
 void PlayTrainerEncounterMusic(void)
 {
     u16 music;
+    u16 trainerId = (gApproachingTrainerId == 0) ? gTrainerBattleOpponent_A : gTrainerBattleOpponent_B;
 
     if (!QL_IS_PLAYBACK_STATE
      && sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC
      && sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC)
     {
-        if (IsHoennTrainer(gTrainerBattleOpponent_A))
-            music = sHoennEncounterMusic[GetTrainerEncounterMusicId(gTrainerBattleOpponent_A)];
-        else switch (GetTrainerEncounterMusicId(gTrainerBattleOpponent_A))
+        if (InTrainerHillChallenge())
+            music = sHoennEncounterMusic[GetTrainerEncounterMusicIdInTrainerHill(trainerId)];
+        else if (IsHoennTrainer(trainerId))
+            music = sHoennEncounterMusic[GetTrainerEncounterMusicId(trainerId)];
+        else switch (GetTrainerEncounterMusicId(trainerId))
         {
         case TRAINER_ENCOUNTER_MUSIC_FEMALE:
         case TRAINER_ENCOUNTER_MUSIC_GIRL:
@@ -1274,7 +1426,10 @@ static const u8 *ReturnEmptyStringIfNull(const u8 *string)
 
 static const u8 *GetIntroSpeechOfApproachingTrainer(void)
 {
-    return ReturnEmptyStringIfNull(sTrainerAIntroSpeech);
+    if (gApproachingTrainerId == 0)
+        return ReturnEmptyStringIfNull(sTrainerAIntroSpeech);
+    else
+        return ReturnEmptyStringIfNull(sTrainerBIntroSpeech);
 }
 
 const u8 *GetTrainerALoseText(void)
@@ -1282,6 +1437,12 @@ const u8 *GetTrainerALoseText(void)
     const u8 *string = sTrainerADefeatSpeech;
 
     StringExpandPlaceholders(gStringVar4, ReturnEmptyStringIfNull(string));
+    return gStringVar4;
+}
+
+const u8 *GetTrainerBLoseText(void)
+{
+    StringExpandPlaceholders(gStringVar4, ReturnEmptyStringIfNull(sTrainerBDefeatSpeech));
     return gStringVar4;
 }
 

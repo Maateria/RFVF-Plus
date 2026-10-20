@@ -1,9 +1,8 @@
 .equ LOCALID_SS_TIDAL_EXIT_SAILOR, 1
-.equ LOCALID_SS_TIDAL_SCOTT, 5
 
 SSTidalCorridor_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, SSTidalCorridor_OnFrame
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_FRAME_TABLE (SSTidalCorridor_OnFrame)
 SSTidalCorridor_EventScript_Briney::
 	msgbox SSTidalCorridor_Text_BrineyWelcomeAboard, MSGBOX_NPC
 	end
@@ -34,8 +33,146 @@ SSTidalCorridor_EventScript_Cabin4Sign::
 	msgbox SSTidalCorridor_Text_Cabin4, MSGBOX_SIGN
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SSTidalCorridor/scripts.inc
-SSTidalCorridor_EventScript_ExitSailor::        @ NPC #1 (1,11)
-SSTidalCorridor_EventScript_Sailor::            @ NPC #2 (16,7)
-SSTidalCorridor_EventScript_Porthole::          @ sign (2,1)
+SSTidalCorridor_OnFrame:
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_SLATEPORT, SSTidalCorridor_EventScript_DepartSlateportForLilycove
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_LILYCOVE, SSTidalCorridor_EventScript_DepartLilycoveForSlateport
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_EXIT_CURRENTS_RIGHT, SSTidalCorridor_EventScript_HalfwayToLilycove
+	map_script_2 VAR_SS_TIDAL_STATE, SS_TIDAL_EXIT_CURRENTS_LEFT, SSTidalCorridor_EventScript_ArrivedInSlateport
+	.2byte 0
+
+@ RFVF+: Emerald's cruise, but both crossings land at the Battle Frontier (user's choice, 2026-10-20): from Slateport
+@ the *_LILYCOVE states, from Lilycove the *_SLATEPORT ones (Emerald's names kept)
+SSTidalCorridor_EventScript_DepartSlateportForLilycove::
+	special SetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_DEPART_SLATEPORT
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_FastCurrentsHopeYouEnjoyVoyage, MSGBOX_DEFAULT
+	releaseall
 	end
+
+SSTidalCorridor_EventScript_DepartLilycoveForSlateport::
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_DEPART_LILYCOVE
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_HopeYouEnjoyVoyage, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalRooms_EventScript_HalfwayToSlateport::
+	special SetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_HALFWAY_SLATEPORT
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_FastCurrentsHopeYouEnjoyVoyage, MSGBOX_DEFAULT
+	return
+
+SSTidalRooms_EventScript_ArrivedInLilycove::
+	special ResetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_LILYCOVE
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_MadeLandInBattleFrontier, MSGBOX_DEFAULT
+	return
+
+SSTidalCorridor_EventScript_ReachedStepCount::
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_DEPART_SLATEPORT, SSTidalCorridor_EventScript_HalfwayToLilycove
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_HALFWAY_SLATEPORT, SSTidalCorridor_EventScript_ArrivedInSlateport
+	end
+
+SSTidalCorridor_EventScript_HalfwayToLilycove::
+	special ResetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_HALFWAY_LILYCOVE
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_HopeYouEnjoyVoyage, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalCorridor_EventScript_ArrivedInSlateport::
+	special ResetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_SLATEPORT
+	lockall
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_MadeLandInBattleFrontier, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalRooms_EventScript_ArrivedInSlateport::
+	special ResetSSTidalFlag
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_SLATEPORT
+	playse SE_DING_DONG
+	msgbox SSTidal_Text_MadeLandInBattleFrontier, MSGBOX_DEFAULT
+	return
+
+SSTidalRooms_EventScript_ProgessCruiseAfterBed::
+	switch VAR_SS_TIDAL_STATE
+	case SS_TIDAL_DEPART_SLATEPORT, SSTidalRooms_EventScript_ArrivedInLilycove
+	case SS_TIDAL_HALFWAY_LILYCOVE, SSTidalRooms_EventScript_ArrivedInLilycove
+	case SS_TIDAL_DEPART_LILYCOVE, SSTidalRooms_EventScript_HalfwayToSlateport
+	case SS_TIDAL_HALFWAY_SLATEPORT, SSTidalRooms_EventScript_ArrivedInSlateport
+	return
+
+SSTidalCorridor_EventScript_ExitSailor::
+	lock
+	faceplayer
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_LILYCOVE, SSTidalCorridor_EventScript_ExitFrontier
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_LAND_SLATEPORT, SSTidalCorridor_EventScript_ExitFrontier
+	msgbox SSTidalCorridor_Text_CanRestInCabin2, MSGBOX_DEFAULT
+	release
+	end
+
+@ RFVF+: Emerald's ExitLilycove/ExitSlateport, to the Battle Frontier's quay (the Seagallop's arrival spot)
+SSTidalCorridor_EventScript_ExitFrontier::
+	msgbox SSTidalCorridor_Text_WeveArrived, MSGBOX_DEFAULT
+	call_if_set FLAG_RECEIVED_TM_SNATCH, SSTidalCorridor_EventScript_HideSnatchGiver
+	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
+	waitstate
+	release
+	end
+
+SSTidalCorridor_EventScript_HideSnatchGiver::
+	setflag FLAG_HIDE_SS_TIDAL_ROOMS_SNATCH_GIVER
+	return
+
+SSTidalCorridor_EventScript_Porthole::
+	lockall
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_DEPART_SLATEPORT, SSTidalCorridor_EventScript_LookThroughPorthole
+	goto_if_eq VAR_SS_TIDAL_STATE, SS_TIDAL_HALFWAY_SLATEPORT, SSTidalCorridor_EventScript_LookThroughPorthole
+	msgbox SSTidalCorridor_Text_HorizonSpreadsBeyondPorthole, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SSTidalCorridor_EventScript_LookThroughPorthole::
+	special LookThroughPorthole
+	waitstate
+	end
+
+SSTidalCorridor_EventScript_Sailor::
+	lock
+	faceplayer
+	goto_if_set FLAG_DEFEATED_SS_TIDAL_TRAINERS, SSTidalCorridor_EventScript_EnjoyYourCruise
+	call SSTidalCorridor_EventScript_CheckIfTrainersDefeated
+	msgbox SSTidalCorridor_Text_VisitOtherCabins, MSGBOX_DEFAULT
+	release
+	end
+
+SSTidalCorridor_EventScript_EnjoyYourCruise::
+	msgbox SSTidalCorridor_Text_EnjoyYourCruise, MSGBOX_DEFAULT
+	release
+	end
+
+SSTidalCorridor_EventScript_CheckIfTrainersDefeated::
+	goto_if_not_defeated TRAINER_PHILLIP, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_LEONARD, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_COLTON, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_MICAH, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_THOMAS, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_LEA_AND_JED, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_GARRET, SSTidalCorridor_EventScript_TrainerNotDefeated
+	goto_if_not_defeated TRAINER_NAOMI, SSTidalCorridor_EventScript_TrainerNotDefeated
+	setflag FLAG_DEFEATED_SS_TIDAL_TRAINERS
+	goto SSTidalCorridor_EventScript_EnjoyYourCruise
+	return
+
+SSTidalCorridor_EventScript_TrainerNotDefeated::
+	return
+

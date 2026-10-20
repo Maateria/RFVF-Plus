@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "bg.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -10,6 +11,8 @@ void AllocateBattleResources(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
         InitTrainerTowerBattleStruct();
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+        InitTrainerHillBattleStruct();
     if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
     {
         s32 i;
@@ -44,6 +47,8 @@ void FreeBattleResources(void)
 {
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
         FreeTrainerTowerBattleStruct();
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+        FreeTrainerHillBattleStruct();
     if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
     {
         s32 i;

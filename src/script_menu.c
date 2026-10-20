@@ -684,6 +684,15 @@ static const struct MenuAction sMultichoiceList_SeagallopFromFrontier[] = {
     { gText_Vermilion }, { gText_SlateportCity }, { gText_LilycoveCity }, { gOtherText_Exit }
 };
 
+// Emerald's Trainer Hill modes (official French texts)
+const u8 gText_NormalTagMatch[] = _("MATCH NORMAL");
+const u8 gText_VarietyTagMatch[] = _("MATCH VARIE");
+const u8 gText_UniqueTagMatch[] = _("MATCH UNIQUE");
+const u8 gText_ExpertTagMatch[] = _("MATCH EXPERT");
+static const struct MenuAction sMultichoiceList_TagMatchType[] = {
+    { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
+};
+
 // Mauville's Game Corner (Emerald's lists; RFVF+: Hoenn's starters instead of their dolls)
 static const u8 sText_Treecko_1000Coins[] = _("ARCKO{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
 // Emerald's doll prizes (official French texts)
@@ -1126,6 +1135,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_SEAGALLOP_FROM_SLATEPORT] = MULTICHOICE(sMultichoiceList_SeagallopFromSlateport),
 	[MULTI_SEAGALLOP_FROM_SLATEPORT_BF] = MULTICHOICE(sMultichoiceList_SeagallopFromSlateportBF),
 	[MULTI_SEAGALLOP_FROM_FRONTIER] = MULTICHOICE(sMultichoiceList_SeagallopFromFrontier),
+	[MULTI_TAG_MATCH_TYPE] = MULTICHOICE(sMultichoiceList_TagMatchType),
 };
 
 // From Cool to Berries goes unused

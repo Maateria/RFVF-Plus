@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "rotating_gate.h"
 #include "gflib.h"
 #include "bg_regs.h"
@@ -464,6 +465,11 @@ void ApplyNewEncryptionKeyToGameStats(u32 newKey)
 static void LoadObjEventTemplatesFromHeader(void)
 {
     u8 i, j;
+    if (InTrainerHill()) // RFVF+: Emerald's, the floor's two trainers come from its data
+    {
+        LoadTrainerHillObjectEventTemplates();
+        return;
+    }
     for (i = 0, j = 0; i < gMapHeader.events->objectEventCount; i++)
     {
         if (gMapHeader.events->objectEvents[i].kind == OBJ_KIND_CLONE)
@@ -498,6 +504,12 @@ static void LoadSaveblockObjEventScripts(void)
     const struct ObjectEventTemplate * src = gMapHeader.events->objectEvents;
     struct ObjectEventTemplate * savObjTemplates = gSaveBlock1Ptr->objectEventTemplates;
 
+    if (InTrainerHill()) // the floor's trainers (their map has no objects)
+    {
+        for (i = 0; i < HILL_TRAINERS_PER_FLOOR; i++)
+            savObjTemplates[i].script = GetTrainerHillTrainerScript();
+        return;
+    }
     for (i = 0; i < OBJECT_EVENT_TEMPLATES_COUNT; i++)
     {
         savObjTemplates[i].script = src[i].script;
@@ -2127,7 +2139,7 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
             MapPreview_LoadGfx(gMapHeader.regionMapSectionId);
             MapPreview_StartForestTransition(gMapHeader.regionMapSectionId);
         }
-        else if (gMapHeader.showMapName == TRUE)
+        else if (gMapHeader.showMapName == TRUE && !(FlagGet(FLAG_SYS_CRUISE_MODE) && gMapHeader.mapType == MAP_TYPE_OCEAN_ROUTE)) // not the S.S. Tidal's porthole view
         {
             ShowMapNamePopup(FALSE);
         }

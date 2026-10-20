@@ -1,13 +1,63 @@
 SSTidalRooms_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SSTidalRooms/scripts.inc
-SSTidalRooms_EventScript_Colton::               @ trainer #1 (4,7) TRAINER_COLTON, Emerald NORMAL sight 0
-SSTidalRooms_EventScript_Micah::                @ trainer #2 (34,11) TRAINER_MICAH, Emerald NORMAL sight 3
-SSTidalRooms_EventScript_Thomas::               @ trainer #3 (21,5) TRAINER_THOMAS, Emerald NORMAL sight 0
-SSTidalRooms_EventScript_Jed::                  @ trainer #4 (5,14) TRAINER_LEA_AND_JED, Emerald NORMAL sight 1
-SSTidalRooms_EventScript_Lea::                  @ trainer #5 (4,14) TRAINER_LEA_AND_JED, Emerald NORMAL sight 1
-SSTidalRooms_EventScript_Garret::               @ trainer #6 (22,11) TRAINER_GARRET, Emerald NORMAL sight 3
-SSTidalRooms_EventScript_Naomi::                @ trainer #7 (15,6) TRAINER_NAOMI, Emerald NORMAL sight 0
-SSTidalRooms_EventScript_SnatchGiver::          @ NPC #8 (28,5)
-SSTidalRooms_EventScript_Bed::                  @ sign (15,11)
+SSTidalRooms_EventScript_Colton::
+	trainerbattle_single TRAINER_COLTON, SSTidalRooms_Text_ColtonIntro, SSTidalRooms_Text_ColtonDefeat
+	msgbox SSTidalRooms_Text_ColtonPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+SSTidalRooms_EventScript_Micah::
+	trainerbattle_single TRAINER_MICAH, SSTidalRooms_Text_MicahIntro, SSTidalRooms_Text_MicahDefeat
+	msgbox SSTidalRooms_Text_MicahPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSTidalRooms_EventScript_Thomas::
+	trainerbattle_single TRAINER_THOMAS, SSTidalRooms_Text_ThomasIntro, SSTidalRooms_Text_ThomasDefeat
+	msgbox SSTidalRooms_Text_ThomasPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSTidalRooms_EventScript_Jed::
+	trainerbattle_double TRAINER_LEA_AND_JED, SSTidalRooms_Text_JedIntro, SSTidalRooms_Text_JedDefeat, SSTidalRooms_Text_JedNotEnoughMons
+	msgbox SSTidalRooms_Text_JedPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSTidalRooms_EventScript_Lea::
+	trainerbattle_double TRAINER_LEA_AND_JED, SSTidalRooms_Text_LeaIntro, SSTidalRooms_Text_LeaDefeat, SSTidalRooms_Text_LeaNotEnoughMons
+	msgbox SSTidalRooms_Text_LeaPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSTidalRooms_EventScript_Garret::
+	trainerbattle_single TRAINER_GARRET, SSTidalRooms_Text_GarretIntro, SSTidalRooms_Text_GarretDefeat
+	msgbox SSTidalRooms_Text_GarretPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSTidalRooms_EventScript_Naomi::
+	trainerbattle_single TRAINER_NAOMI, SSTidalRooms_Text_NaomiIntro, SSTidalRooms_Text_NaomiDefeat
+	msgbox SSTidalRooms_Text_NaomiPostBattle, MSGBOX_AUTOCLOSE
+	end
+
+SSTidalRooms_EventScript_SnatchGiver::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_TM_SNATCH, SSTidalRooms_EventScript_ExplainSnatch
+	msgbox SSTidalRooms_Text_NotSuspiciousTakeThis, MSGBOX_DEFAULT
+	giveitem ITEM_TM49_SNATCH
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_TM_SNATCH
+	msgbox SSTidalRooms_Text_ExplainSnatch, MSGBOX_DEFAULT
+	release
+	end
+
+SSTidalRooms_EventScript_ExplainSnatch::
+	msgbox SSTidalRooms_Text_ExplainSnatch, MSGBOX_DEFAULT
+	release
+	end
+
+SSTidalRooms_EventScript_Bed::
+	lockall
+	msgbox SSTidalRooms_Text_TakeRestOnBed, MSGBOX_DEFAULT
+	closemessage
+	call EventScript_OutOfCenterPartyHeal
+	call SSTidalRooms_EventScript_ProgessCruiseAfterBed
+	releaseall
+	end
+

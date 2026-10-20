@@ -18,6 +18,7 @@
 #include "constants/region_map_sections.h"
 #include "constants/heal_locations.h"
 #include "constants/maps.h"
+#include "hoenn_specials.h"
 
 #define MAP_WIDTH 22  // FRLG's region layouts (region_map_layout_*.h)
 #define MAP_HEIGHT 15
@@ -1102,6 +1103,14 @@ static bool8 IsHoennMapsec(u16 mapsec)
     return mapsec <= MAPSEC_SKY_PILLAR || (mapsec >= MAPSEC_AQUA_HIDEOUT && mapsec < MAPSEC_NONE);
 }
 
+static bool8 OnSSTidal(void)
+{
+    u8 num = gSaveBlock1Ptr->location.mapNum;
+
+    return gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(SS_TIDAL_CORRIDOR)
+        && (num == MAP_NUM(SS_TIDAL_CORRIDOR) || num == MAP_NUM(SS_TIDAL_LOWER_DECK) || num == MAP_NUM(SS_TIDAL_ROOMS));
+}
+
 // MAPSEC_UNDERWATER_124 is Three Island's Bond Bridge underwater, and Hoenn's Route 124 underwater
 static bool8 IsHoennRoute124Underwater(void)
 {
@@ -1161,6 +1170,12 @@ static void InitRegionMapType(void)
     if (IsJohtoMapsec(gMapHeader.regionMapSectionId))
     {
         region = REGIONMAP_JOHTO;
+    }
+    if (OnSSTidal())
+    {
+        s8 group, num;
+        s16 x, y;
+        region = GetSSTidalLocation(&group, &num, &x, &y) == SS_TIDAL_LOCATION_FRONTIER ? REGIONMAP_KANTO : REGIONMAP_HOENN;
     }
     if(gMapHeader.regionMapSectionId == MAPSEC_BATTLE_FRONTIER || gMapHeader.regionMapSectionId == MAPSEC_ARTISAN_CAVE || gMapHeader.regionMapSectionId == MAPSEC_SOUTHERN_ISLAND)
     {
@@ -3085,8 +3100,40 @@ static void GetPlayerPositionOnRegionMap(void)
 
     const struct MapHeader * mapHeader;
     struct WarpData * warp;
+    s8 tidalGroup, tidalNum;
+    s16 tidalX, tidalY;
+    // Emerald: on board the S.S. Tidal, where the ship is (the currents' route, or a fixed spot)
+    static const u8 sSSTidalLocationMapsecs[] = {
+        [SS_TIDAL_LOCATION_SLATEPORT] = MAPSEC_SLATEPORT_CITY,
+        [SS_TIDAL_LOCATION_LILYCOVE]  = MAPSEC_LILYCOVE_CITY,
+        [SS_TIDAL_LOCATION_ROUTE124]  = MAPSEC_ROUTE_124,
+        [SS_TIDAL_LOCATION_ROUTE131]  = MAPSEC_ROUTE_131,
+        [SS_TIDAL_LOCATION_FRONTIER]  = MAPSEC_BATTLE_FRONTIER,
+    };
 
-    switch (GetMapTypeByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
+    if (OnSSTidal())
+    {
+        u8 location = GetSSTidalLocation(&tidalGroup, &tidalNum, &tidalX, &tidalY);
+
+        if (location == SS_TIDAL_LOCATION_CURRENTS)
+        {
+            mapHeader = Overworld_GetMapHeaderByGroupAndId(tidalGroup, tidalNum);
+            sMapCursor->selectedMapsec = mapHeader->regionMapSectionId;
+            width = mapHeader->mapLayout->width;
+            height = mapHeader->mapLayout->height;
+            x = tidalX;
+            y = tidalY;
+            group = tidalGroup;
+            num = tidalNum;
+        }
+        else
+        {
+            sMapCursor->selectedMapsec = sSSTidalLocationMapsecs[location];
+            width = height = 1;
+            x = y = 0;
+        }
+    }
+    else switch (GetMapTypeByGroupAndId(gSaveBlock1Ptr->location.mapGroup, gSaveBlock1Ptr->location.mapNum))
     {
     default:
     case MAP_TYPE_TOWN:

@@ -8265,7 +8265,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_HoennInsideBuilding",
-      "secondary_tileset": "gTileset_HoennTrainerHill",
+      "secondary_tileset": "gTileset_HoennTrainerHillFloors",
       "border_filepath": "data/layouts/TrainerHill_1F/border.bin",
       "blockdata_filepath": "data/layouts/TrainerHill_1F/map.bin"
     },
@@ -8277,7 +8277,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_HoennInsideBuilding",
-      "secondary_tileset": "gTileset_HoennTrainerHill",
+      "secondary_tileset": "gTileset_HoennTrainerHillFloors",
       "border_filepath": "data/layouts/TrainerHill_2F/border.bin",
       "blockdata_filepath": "data/layouts/TrainerHill_2F/map.bin"
     },
@@ -8289,7 +8289,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_HoennInsideBuilding",
-      "secondary_tileset": "gTileset_HoennTrainerHill",
+      "secondary_tileset": "gTileset_HoennTrainerHillFloors",
       "border_filepath": "data/layouts/TrainerHill_3F/border.bin",
       "blockdata_filepath": "data/layouts/TrainerHill_3F/map.bin"
     },
@@ -8301,7 +8301,7 @@
       "border_width": 2,
       "border_height": 2,
       "primary_tileset": "gTileset_HoennInsideBuilding",
-      "secondary_tileset": "gTileset_HoennTrainerHill",
+      "secondary_tileset": "gTileset_HoennTrainerHillFloors",
       "border_filepath": "data/layouts/TrainerHill_4F/border.bin",
       "blockdata_filepath": "data/layouts/TrainerHill_4F/map.bin"
     },

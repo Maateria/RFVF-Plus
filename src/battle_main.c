@@ -68,7 +68,7 @@ static void HandleEndTurn_FinishBattle(void);
 static void CB2_InitBattleInternal(void);
 static void CB2_PreInitMultiBattle(void);
 static void CB2_HandleStartMultiBattle(void);
-static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum);
+static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer);
 static void CB2_HandleStartBattle(void);
 static void TryCorrectShedinjaLanguage(struct Pokemon *mon);
 static void BattleMainCB1(void);
@@ -98,6 +98,7 @@ static void BattleIntroPrintOpponentSendsOut(void);
 static void BattleIntroPrintPlayerSendsOut(void);
 static void BattleIntroRecordMonsToDex(void);
 static void BattleIntroOpponentSendsOutMonAnimation(void);
+static void BattleIntroOpponent2SendsOutMonAnimation(void);
 static void BattleIntroPlayerSendsOutMonAnimation(void);
 static void TryDoEventsBeforeFirstTurn(void);
 static void HandleTurnActionSelectionState(void);
@@ -708,7 +709,9 @@ static void CB2_InitBattleInternal(void)
         SetMainCallback2(CB2_HandleStartBattle);
     if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
-        CreateNPCTrainerParty(&gEnemyParty[0], gTrainerBattleOpponent_A);
+        CreateNPCTrainerParty(&gEnemyParty[0], gTrainerBattleOpponent_A, TRUE);
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+            CreateNPCTrainerParty(&gEnemyParty[PARTY_SIZE / 2], gTrainerBattleOpponent_B, FALSE);
         SetWildMonHeldItem();
     }
 
@@ -1536,12 +1539,13 @@ static void SpriteCB_UnusedDebugSprite_Step(struct Sprite *sprite)
     }
 }
 
-static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
+static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer)
 {
     u32 nameHash = 0;
     u32 personalityValue;
     u8 fixedIV;
     s32 i, j;
+    u8 monsCount;
     s8 levelScaling = GetScaledLevel();
     u8 ivCalcMode = gSaveBlock1Ptr->keyFlags.ivCalcMode;
     struct Trainer* sTrainers;
@@ -1583,10 +1587,16 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum)
         return 0;
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
-     && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER)))
+     && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_TRAINER_HILL)))
     {
-        ZeroEnemyPartyMons();
-        for (i = 0; i < sTrainers[trainerNum].partySize; i++)
+        if (firstTrainer == TRUE)
+            ZeroEnemyPartyMons();
+        // Emerald: two trainers who spotted the player at once bring three Pokémon each
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && sTrainers[trainerNum].partySize > PARTY_SIZE / 2)
+            monsCount = PARTY_SIZE / 2;
+        else
+            monsCount = sTrainers[trainerNum].partySize;
+        for (i = 0; i < monsCount; i++)
         {
 
             if (sTrainers[trainerNum].doubleBattle == TRUE)
@@ -2711,6 +2721,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
             }
             if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT
                  && !(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
+                                       | BATTLE_TYPE_TRAINER_HILL
                                        | BATTLE_TYPE_TRAINER_TOWER
                                        | BATTLE_TYPE_BATTLE_TOWER
                                        | BATTLE_TYPE_POKEDUDE
@@ -2746,6 +2757,11 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
         }
         if (gBattleTypeFlags & BATTLE_TYPE_MULTI
             && (GetBattlerPosition(gActiveBattler) == B_POSITION_PLAYER_RIGHT || GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT))
+        {
+            BtlController_EmitDrawTrainerPic(BUFFER_A);
+            MarkBattlerForControllerExec(gActiveBattler);
+        }
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
         {
             BtlController_EmitDrawTrainerPic(BUFFER_A);
             MarkBattlerForControllerExec(gActiveBattler);
@@ -2872,6 +2888,26 @@ static void BattleIntroOpponentSendsOutMonAnimation(void)
                 MarkBattlerForControllerExec(gActiveBattler);
             }
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI && GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
+            {
+                BtlController_EmitIntroTrainerBallThrow(0);
+                MarkBattlerForControllerExec(gActiveBattler);
+            }
+        }
+        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+            gBattleMainFunc = BattleIntroOpponent2SendsOutMonAnimation;
+        else
+            gBattleMainFunc = BattleIntroRecordMonsToDex;
+    }
+}
+
+// Emerald: the second of two opponents throws after the first
+static void BattleIntroOpponent2SendsOutMonAnimation(void)
+{
+    if (gBattleControllerExecFlags == 0)
+    {
+        for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
+        {
+            if (GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
             {
                 BtlController_EmitIntroTrainerBallThrow(0);
                 MarkBattlerForControllerExec(gActiveBattler);
@@ -3205,6 +3241,7 @@ enum
     STATE_WAIT_ACTION_CONFIRMED,
     STATE_SELECTION_SCRIPT,
     STATE_WAIT_SET_BEFORE_ACTION,
+    STATE_SELECTION_SCRIPT_MAY_RUN, // RFVF+: Emerald's (the Trainer Hill's forfeit question)
 };
 
 static void HandleTurnActionSelectionState(void)
@@ -3350,6 +3387,16 @@ static void HandleTurnActionSelectionState(void)
                     return;
                 }
                 if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
+                 && gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL
+                 && gBattleBufferB[gActiveBattler][1] == B_ACTION_RUN)
+                {
+                    gSelectionBattleScripts[gActiveBattler] = BattleScript_AskIfWantsToForfeitMatch;
+                    gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT_MAY_RUN;
+                    *(gBattleStruct->selectionScriptFinished + gActiveBattler) = FALSE;
+                    *(gBattleStruct->stateIdAfterSelScript + gActiveBattler) = STATE_BEFORE_ACTION_CHOSEN;
+                    return;
+                }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
                  && !(gBattleTypeFlags & BATTLE_TYPE_LINK)
                  && gBattleBufferB[gActiveBattler][1] == B_ACTION_RUN)
                 {
@@ -3494,6 +3541,29 @@ static void HandleTurnActionSelectionState(void)
         case STATE_WAIT_SET_BEFORE_ACTION:
             if (!(gBattleControllerExecFlags & ((gBitTable[gActiveBattler]) | (0xF0000000) | (gBitTable[gActiveBattler] << 4) | (gBitTable[gActiveBattler] << 8) | (gBitTable[gActiveBattler] << 0xC))))
                 gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+            break;
+        case STATE_SELECTION_SCRIPT_MAY_RUN:
+            if (*(gBattleStruct->selectionScriptFinished + gActiveBattler))
+            {
+                if (gBattleBufferB[gActiveBattler][1] == B_ACTION_NOTHING_FAINTED)
+                {
+                    gHitMarker |= HITMARKER_RUN;
+                    gChosenActionByBattler[gActiveBattler] = B_ACTION_RUN;
+                    gBattleCommunication[gActiveBattler] = STATE_WAIT_ACTION_CONFIRMED_STANDBY;
+                }
+                else
+                {
+                    gBattleCommunication[gActiveBattler] = *(gBattleStruct->stateIdAfterSelScript + gActiveBattler);
+                }
+            }
+            else
+            {
+                gBattlerAttacker = gActiveBattler;
+                gBattlescriptCurrInstr = gSelectionBattleScripts[gActiveBattler];
+                if (!(gBattleControllerExecFlags & ((gBitTable[gActiveBattler]) | (0xF0000000) | (gBitTable[gActiveBattler] << 4) | (gBitTable[gActiveBattler] << 8) | (gBitTable[gActiveBattler] << 0xC))))
+                    gBattleScriptingCommandsTable[gBattlescriptCurrInstr[0]]();
+                gSelectionBattleScripts[gActiveBattler] = gBattlescriptCurrInstr;
+            }
             break;
         }
     }
@@ -3859,6 +3929,12 @@ static void HandleEndTurn_BattleWon(void)
         PlayBGM(MUS_VICTORY_TRAINER);
         gBattlescriptCurrInstr = BattleScript_BattleTowerTrainerBattleWon;
     }
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL) // Emerald's
+    {
+        BattleStopLowHpSound();
+        PlayBGM(MUS_RS_VICTORY_TRAINER);
+        gBattlescriptCurrInstr = BattleScript_TrainerHillBattleWon;
+    }
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
         BattleStopLowHpSound();
@@ -3949,6 +4025,13 @@ static void HandleEndTurn_BattleLost(void)
 static void HandleEndTurn_RanFromBattle(void)
 {
     gCurrentActionFuncId = 0;
+    if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL) // Emerald's
+    {
+        gBattlescriptCurrInstr = BattleScript_PrintPlayerForfeited;
+        gBattleOutcome = B_OUTCOME_FORFEITED;
+        gBattleMainFunc = HandleEndTurn_FinishBattle;
+        return;
+    }
     switch (gProtectStructs[gBattlerAttacker].fleeType)
     {
     default:
@@ -4418,6 +4501,10 @@ bool8 TryRunFromBattle(u8 battler)
     {
         if (GetBattlerSide(battler) == B_SIDE_PLAYER)
             effect++;
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL && gBattleTypeFlags & BATTLE_TYPE_TRAINER) // Emerald's: the player forfeits
+    {
+        effect++;
     }
     else
     {

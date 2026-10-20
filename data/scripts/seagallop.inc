@@ -99,6 +99,23 @@ EventScript_DepartingNotVermilion::
 	goto EventScript_SetSail
 	end
 
+@ Emerald's: the S.S. Tidal leaves the harbor (VAR_0x8004 = its local id)
+Common_EventScript_FerryDepart::
+	delay 60
+	applymovement VAR_0x8004, Movement_FerryDepart
+	waitmovement 0
+	return
+
+Movement_FerryDepart:
+	walk_slow_right
+	walk_slow_right
+	walk_slow_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	step_end
+
 EventScript_SetSail::
 	closemessage
 	delay 20

@@ -1566,6 +1566,19 @@ bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2)
         }
         return (i == playerId * MULTI_PARTY_SIZE + MULTI_PARTY_SIZE);
     }
+    else if ((gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) && GetBattlerSide(battler) == B_SIDE_OPPONENT)
+    {   // Emerald's: each opponent's own three
+        party = gEnemyParty;
+        playerId = (battler == 1) ? 0 : MULTI_PARTY_SIZE;
+        for (i = playerId; i < playerId + MULTI_PARTY_SIZE; i++)
+        {
+            if (GetMonData(&party[i], MON_DATA_HP) != 0
+             && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_NONE
+             && GetMonData(&party[i], MON_DATA_SPECIES_OR_EGG) != SPECIES_EGG)
+                break;
+        }
+        return (i == playerId + MULTI_PARTY_SIZE);
+    }
     else
     {
         if (GetBattlerSide(battler) == B_SIDE_OPPONENT)

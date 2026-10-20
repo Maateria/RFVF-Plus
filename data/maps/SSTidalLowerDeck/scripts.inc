@@ -1,6 +1,12 @@
 SSTidalLowerDeck_MapScripts::
 	.byte 0
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SSTidalLowerDeck/scripts.inc
-SSTidalLowerDeck_EventScript_Phillip::          @ trainer #1 (10,4) TRAINER_PHILLIP, Emerald NORMAL sight 3
-SSTidalLowerDeck_EventScript_Leonard::          @ trainer #2 (7,4) TRAINER_LEONARD, Emerald NORMAL sight 3
+SSTidalLowerDeck_EventScript_Phillip::
+	trainerbattle_single TRAINER_PHILLIP, SSTidalLowerDeck_Text_PhillipIntro, SSTidalLowerDeck_Text_PhillipDefeat
+	msgbox SSTidalLowerDeck_Text_PhillipPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+SSTidalLowerDeck_EventScript_Leonard::
+	trainerbattle_single TRAINER_LEONARD, SSTidalLowerDeck_Text_LeonardIntro, SSTidalLowerDeck_Text_LeonardDefeat
+	msgbox SSTidalLowerDeck_Text_LeonardPostBattle, MSGBOX_AUTOCLOSE
+	end
+

@@ -1,14 +1,17 @@
 .equ LOCALID_LEAGUE_NURSE, 1
 .equ LOCALID_LEAGUE_GUARD_1, 3
 .equ LOCALID_LEAGUE_GUARD_2, 4
+.equ LOCALID_LEAGUE_SCOTT, 5
 
 EverGrandeCity_PokemonLeague_1F_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, EverGrandeCity_PokemonLeague_1F_OnTransition
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, EverGrandeCity_PokemonLeague_1F_OnFrame
 	.byte 0
 
 EverGrandeCity_PokemonLeague_1F_OnTransition:
 	setrespawn SPAWN_EVER_GRANDE_CITY_POKEMON_LEAGUE
 	setflag FLAG_LANDMARK_POKEMON_LEAGUE
+	call EverGrandeCity_PokemonLeague_1F_EventScript_TryShowScott
 	call_if_unset FLAG_ENTERED_ELITE_FOUR, EverGrandeCity_PokemonLeague_1F_EventScript_GuardsBlockDoor
 	end
 
@@ -120,4 +123,89 @@ EverGrandeCity_PokemonLeague_1F_Movement_LeftGuardOutOfWay:
 EverGrandeCity_PokemonLeague_1F_Movement_RightGuardOutOfWay:
 	walk_right
 	walk_in_place_faster_down
+	step_end
+
+@ RFVF+: Emerald's S.S. Tidal scene with Scott, here after Hoenn's Hall of Fame (user's choice, 2026-10-20)
+EverGrandeCity_PokemonLeague_1F_EventScript_TryShowScott::
+	setflag FLAG_TEMP_1
+	goto_if_unset FLAG_HOENN_GAME_CLEAR, Common_EventScript_NopReturn
+	goto_if_set FLAG_MET_SCOTT_ON_SS_TIDAL, Common_EventScript_NopReturn
+	clearflag FLAG_TEMP_1
+	getplayerxy VAR_TEMP_2, VAR_TEMP_3
+	goto_if_ne VAR_TEMP_2, 3, Common_EventScript_NopReturn
+	goto_if_ne VAR_TEMP_3, 4, Common_EventScript_NopReturn
+	setvar VAR_TEMP_4, 1
+	return
+
+EverGrandeCity_PokemonLeague_1F_OnFrame:
+	map_script_2 VAR_TEMP_4, 1, EverGrandeCity_PokemonLeague_1F_EventScript_ScottScene
+	.2byte 0
+
+EverGrandeCity_PokemonLeague_1F_EventScript_ScottScene::
+	lockall
+	setvar VAR_TEMP_4, 0
+	applymovement LOCALID_LEAGUE_SCOTT, EverGrandeCity_PokemonLeague_1F_Movement_ScottApproachPlayer
+	waitmovement 0
+	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_WalkInPlaceFasterRight
+	waitmovement 0
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_ScottBattleFrontierInvite, MSGBOX_DEFAULT
+	closemessage
+	applymovement LOCALID_LEAGUE_SCOTT, EverGrandeCity_PokemonLeague_1F_Movement_ScottLeavePlayer
+	waitmovement 0
+	call EverGrandeCity_PokemonLeague_1F_EventScript_ScottExit
+	releaseall
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_Scott::
+	lock
+	faceplayer
+	msgbox EverGrandeCity_PokemonLeague_1F_Text_ScottBattleFrontierInvite, MSGBOX_DEFAULT
+	closemessage
+	call_if_eq VAR_FACING, DIR_NORTH, EverGrandeCity_PokemonLeague_1F_EventScript_ScottSidestep
+	applymovement LOCALID_LEAGUE_SCOTT, EverGrandeCity_PokemonLeague_1F_Movement_ScottExit
+	waitmovement 0
+	call EverGrandeCity_PokemonLeague_1F_EventScript_ScottExit
+	release
+	end
+
+EverGrandeCity_PokemonLeague_1F_EventScript_ScottSidestep::
+	applymovement LOCALID_LEAGUE_SCOTT, EverGrandeCity_PokemonLeague_1F_Movement_ScottSidestep
+	waitmovement 0
+	return
+
+EverGrandeCity_PokemonLeague_1F_EventScript_ScottExit::
+	playse SE_EXIT
+	waitse
+	removeobject LOCALID_LEAGUE_SCOTT
+	setflag FLAG_MET_SCOTT_ON_SS_TIDAL
+	return
+
+EverGrandeCity_PokemonLeague_1F_Movement_ScottApproachPlayer:
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	walk_left
+	step_end
+
+EverGrandeCity_PokemonLeague_1F_Movement_ScottLeavePlayer:
+	walk_in_place_faster_down
+	delay_16
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+	walk_right
+EverGrandeCity_PokemonLeague_1F_Movement_ScottExit:
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	walk_down
+	step_end
+
+EverGrandeCity_PokemonLeague_1F_Movement_ScottSidestep:
+	walk_right
 	step_end

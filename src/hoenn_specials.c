@@ -334,3 +334,83 @@ void UpdateCyclingRoadState(void)
         Overworld_SetSavedMusic(MUS_DUMMY);
     }
 }
+
+// ---------------------------------------------------------------- S.S. Tidal (Emerald's, batch 4)
+// RFVF+: it only sails to the Battle Frontier; the LAND states are the Frontier's harbor (see constants/vars.h)
+void SetSSTidalFlag(void)
+{
+    FlagSet(FLAG_SYS_CRUISE_MODE);
+    *GetVarPointer(VAR_CRUISE_STEP_COUNT) = 0;
+}
+
+void ResetSSTidalFlag(void)
+{
+    FlagClear(FLAG_SYS_CRUISE_MODE);
+}
+
+// Returns TRUE if the Cruise is over
+bool32 CountSSTidalStep(u16 delta)
+{
+    if (!FlagGet(FLAG_SYS_CRUISE_MODE) || (*GetVarPointer(VAR_CRUISE_STEP_COUNT) += delta) < SS_TIDAL_MAX_STEPS)
+        return FALSE;
+
+    return TRUE;
+}
+
+u8 GetSSTidalLocation(s8 *mapGroup, s8 *mapNum, s16 *x, s16 *y)
+{
+    u16 *varCruiseStepCount = GetVarPointer(VAR_CRUISE_STEP_COUNT);
+    switch (*GetVarPointer(VAR_SS_TIDAL_STATE))
+    {
+    case SS_TIDAL_BOARD_SLATEPORT:
+        return SS_TIDAL_LOCATION_SLATEPORT;
+    case SS_TIDAL_HALFWAY_LILYCOVE:
+    case SS_TIDAL_EXIT_CURRENTS_RIGHT:
+        return SS_TIDAL_LOCATION_ROUTE131;
+    case SS_TIDAL_BOARD_LILYCOVE:
+        return SS_TIDAL_LOCATION_LILYCOVE;
+    case SS_TIDAL_LAND_LILYCOVE:
+    case SS_TIDAL_LAND_SLATEPORT:
+        return SS_TIDAL_LOCATION_FRONTIER;
+    case SS_TIDAL_DEPART_LILYCOVE:
+    case SS_TIDAL_EXIT_CURRENTS_LEFT:
+        return SS_TIDAL_LOCATION_ROUTE124;
+    case SS_TIDAL_DEPART_SLATEPORT:
+        if (*varCruiseStepCount < 60)
+        {
+            *mapNum = MAP_NUM(ROUTE134);
+            *x = *varCruiseStepCount + 19;
+        }
+        else if (*varCruiseStepCount < 140)
+        {
+            *mapNum = MAP_NUM(ROUTE133);
+            *x = *varCruiseStepCount - 60;
+        }
+        else
+        {
+            *mapNum = MAP_NUM(ROUTE132);
+            *x = *varCruiseStepCount - 140;
+        }
+        break;
+    case SS_TIDAL_HALFWAY_SLATEPORT:
+        if (*varCruiseStepCount < 66)
+        {
+            *mapNum = MAP_NUM(ROUTE132);
+            *x = 65 - *varCruiseStepCount;
+        }
+        else if (*varCruiseStepCount < 146)
+        {
+            *mapNum = MAP_NUM(ROUTE133);
+            *x = 145 - *varCruiseStepCount;
+        }
+        else
+        {
+            *mapNum = MAP_NUM(ROUTE134);
+            *x = 224 - *varCruiseStepCount;
+        }
+        break;
+    }
+    *mapGroup = MAP_GROUP(ROUTE132);
+    *y = 20;
+    return SS_TIDAL_LOCATION_CURRENTS;
+}

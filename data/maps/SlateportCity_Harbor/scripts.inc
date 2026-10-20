@@ -79,11 +79,56 @@ SlateportCity_Harbor_EventScript_SailToLilycove::
 	goto EventScript_SetSail
 	end
 
+@ RFVF+: on board the S.S. Tidal (Emerald's crossing), the only ship to the Battle Frontier (user's choice)
 SlateportCity_Harbor_EventScript_SailToFrontier::
-	msgbox SlateportCity_Harbor_Text_PleaseBoardFerry
-	setvar VAR_0x8006, SEAGALLOP_BATTLE_FRONTIER
-	goto EventScript_SetSail
+	msgbox SlateportCity_Harbor_Text_BattleFrontierItIs, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, SlateportCity_Harbor_EventScript_ChooseNewDestination
+	setvar VAR_SS_TIDAL_STATE, SS_TIDAL_BOARD_SLATEPORT
+	call SlateportCity_Harbor_EventScript_BoardFerry
+	warp MAP_SS_TIDAL_CORRIDOR, 1, 10
+	waitstate
+	release
 	end
+
+SlateportCity_Harbor_EventScript_ChooseNewDestination::
+	message SlateportCity_Harbor_Text_WhereWouldYouLikeToGo
+	waitmessage
+	goto SlateportCity_Harbor_EventScript_ChooseWithFrontier
+	end
+
+SlateportCity_Harbor_EventScript_BoardFerry::
+	msgbox SlateportCity_Harbor_Text_PleaseBoardFerry, MSGBOX_DEFAULT
+	closemessage
+	applymovement VAR_LAST_TALKED, Common_Movement_WalkInPlaceFasterUp
+	waitmovement 0
+	delay 30
+	hideobjectat VAR_LAST_TALKED, MAP_SLATEPORT_CITY_HARBOR
+	call_if_eq VAR_FACING, DIR_NORTH, SlateportCity_Harbor_EventScript_BoardFerryNorth
+	call_if_eq VAR_FACING, DIR_EAST, SlateportCity_Harbor_EventScript_BoardFerryEast
+	delay 30
+	hideobjectat OBJ_EVENT_ID_PLAYER, 0
+	setvar VAR_0x8004, LOCALID_SLATEPORT_HARBOR_SS_TIDAL
+	call Common_EventScript_FerryDepart
+	return
+
+SlateportCity_Harbor_EventScript_BoardFerryEast::
+	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_Harbor_Movement_BoardFerryEast
+	waitmovement 0
+	return
+
+SlateportCity_Harbor_EventScript_BoardFerryNorth::
+	applymovement OBJ_EVENT_ID_PLAYER, SlateportCity_Harbor_Movement_BoardFerryNorth
+	waitmovement 0
+	return
+
+SlateportCity_Harbor_Movement_BoardFerryEast:
+	walk_right
+	walk_in_place_faster_up
+	step_end
+
+SlateportCity_Harbor_Movement_BoardFerryNorth:
+	walk_up
+	step_end
 
 SlateportCity_Harbor_EventScript_ExitSailSelect::
 	msgbox SlateportCity_Harbor_Text_SailAnotherTime

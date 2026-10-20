@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "gflib.h"
 #include "data.h"
 #include "m4a.h"
@@ -212,7 +213,7 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
 {
     bool8 var = FALSE;
 
-    if (!IsDoubleBattle() || ((IsDoubleBattle() && (gBattleTypeFlags & BATTLE_TYPE_MULTI))))
+    if (!IsDoubleBattle() || ((IsDoubleBattle() && (gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_TWO_OPPONENTS)))))
     {
         if (gSprites[gHealthboxSpriteIds[gActiveBattler]].callback == SpriteCallbackDummy)
             var = TRUE;
@@ -224,7 +225,19 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
     }
     if (IsCryPlayingOrClearCrySongs())
         var = FALSE;
-    if (var && gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim && gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].finishedShinyMonAnim)
+    if (var && gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) // RFVF+: Emerald's, each opponent sends out its own
+    {
+        if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim)
+            return;
+        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].triedShinyMonAnim = FALSE;
+        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim = FALSE;
+        FreeSpriteTilesByTag(ANIM_TAG_GOLD_STARS);
+        FreeSpritePaletteByTag(ANIM_TAG_GOLD_STARS);
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 256);
+        gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 3;
+        gBattlerControllerFuncs[gActiveBattler] = Intro_DelayAndEnd;
+    }
+    else if (var && gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim && gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].finishedShinyMonAnim)
     {
         gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].triedShinyMonAnim = FALSE;
         gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim = FALSE;
@@ -245,11 +258,12 @@ static void Intro_TryShinyAnimShowHealthbox(void)
 {
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].triedShinyMonAnim && !gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].ballAnimActive)
         TryShinyAnimation(gActiveBattler, &gEnemyParty[gBattlerPartyIndexes[gActiveBattler]]);
-    if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].triedShinyMonAnim && !gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].ballAnimActive)
+    if (!(gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+     && !gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].triedShinyMonAnim && !gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].ballAnimActive)
         TryShinyAnimation(gActiveBattler ^ BIT_FLANK, &gEnemyParty[gBattlerPartyIndexes[gActiveBattler ^ BIT_FLANK]]);
     if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].ballAnimActive && !gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].ballAnimActive)
     {
-        if (IsDoubleBattle() && !(gBattleTypeFlags & BATTLE_TYPE_MULTI))
+        if (IsDoubleBattle() && !(gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_TWO_OPPONENTS)))
         {
             DestroySprite(&gSprites[gBattleControllerData[gActiveBattler ^ BIT_FLANK]]);
             UpdateHealthboxAttribute(gHealthboxSpriteIds[gActiveBattler ^ BIT_FLANK],
@@ -1121,30 +1135,42 @@ static void DoSwitchOutAnimation(void)
     }
 }
 
-static void OpponentHandleDrawTrainerPic(void)
+// RFVF+: with Emerald's two opponents, the right battler is trainer B
+static u32 GetOpponentTrainerPicId(void)
 {
-    u32 trainerPicId;
     struct Trainer* sTrainers;
+    u16 trainerId = gTrainerBattleOpponent_A;
 
     if(FlagGet(FLAG_MASTER_TRAINER_BATTLE))
         sTrainers = (struct Trainer*)gMasterTrainers;
     else
         sTrainers = (struct Trainer*)gTrainers;
 
+    if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && gActiveBattler != 1)
+        trainerId = gTrainerBattleOpponent_B;
     if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
-        trainerPicId = GetSecretBaseTrainerPicIndex();
+        return GetSecretBaseTrainerPicIndex();
     else if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
-        trainerPicId = GetBattleTowerTrainerFrontSpriteId();
+        return GetBattleTowerTrainerFrontSpriteId();
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
-        trainerPicId = GetTrainerTowerTrainerFrontSpriteId();
+        return GetTrainerTowerTrainerFrontSpriteId();
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+        return GetTrainerHillTrainerFrontSpriteId(trainerId);
     else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
-        trainerPicId = GetEreaderTrainerFrontSpriteId();
+        return GetEreaderTrainerFrontSpriteId();
     else
-        trainerPicId = sTrainers[gTrainerBattleOpponent_A].trainerPic;
+        return sTrainers[trainerId].trainerPic;
+}
+
+static void OpponentHandleDrawTrainerPic(void)
+{
+    u32 trainerPicId;
+
+    trainerPicId = GetOpponentTrainerPicId();
     DecompressTrainerFrontPic(trainerPicId, gActiveBattler);
     SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
     gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate,
-                                                     176,
+                                                     (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) ? ((GetBattlerPosition(gActiveBattler) & BIT_FLANK) ? 152 : 200) : 176,
                                                      (8 - gTrainerFrontPicCoords[trainerPicId].size) * 4 + 40,
                                                      GetBattlerSpriteSubpriority(gActiveBattler));
     gSprites[gBattlerSpriteIds[gActiveBattler]].x2 = -DISPLAY_WIDTH;
@@ -1162,23 +1188,8 @@ static void OpponentHandleDrawTrainerPic(void)
 static void OpponentHandleTrainerSlide(void)
 {
     u32 trainerPicId;
-    struct Trainer* sTrainers;
 
-    if(FlagGet(FLAG_MASTER_TRAINER_BATTLE))
-        sTrainers = (struct Trainer*)gMasterTrainers;
-    else
-        sTrainers = (struct Trainer*)gTrainers;
-
-    if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
-        trainerPicId = GetSecretBaseTrainerPicIndex();
-    else if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
-        trainerPicId = GetBattleTowerTrainerFrontSpriteId();
-    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
-        trainerPicId = GetTrainerTowerTrainerFrontSpriteId();
-    else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
-        trainerPicId = GetEreaderTrainerFrontSpriteId();
-    else
-        trainerPicId = sTrainers[gTrainerBattleOpponent_A].trainerPic;
+    trainerPicId = GetOpponentTrainerPicId();
     DecompressTrainerFrontPic(trainerPicId, gActiveBattler);
     SetMultiuseSpriteTemplateToTrainerBack(trainerPicId, GetBattlerPosition(gActiveBattler));
     gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate,
@@ -1435,6 +1446,7 @@ static void OpponentHandleChoosePokemon(void)
         if (chosenMonId == PARTY_SIZE)
         {
             s32 battler1, battler2;
+            s32 firstId = 0, lastId = PARTY_SIZE;
 
             if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
             {
@@ -1445,7 +1457,15 @@ static void OpponentHandleChoosePokemon(void)
                 battler1 = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
                 battler2 = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
             }
-            for (chosenMonId = 0; chosenMonId < PARTY_SIZE; ++chosenMonId)
+
+            if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS) // Emerald: each opponent's own three
+            {
+                if (gActiveBattler == 1)
+                    lastId = PARTY_SIZE / 2;
+                else
+                    firstId = PARTY_SIZE / 2;
+            }
+            for (chosenMonId = firstId; chosenMonId < lastId; ++chosenMonId)
                 if (GetMonData(&gEnemyParty[chosenMonId], MON_DATA_HP) != 0
                  && chosenMonId != gBattlerPartyIndexes[battler1]
                  && chosenMonId != gBattlerPartyIndexes[battler2])
@@ -1672,7 +1692,7 @@ static void Task_StartSendOutAnim(u8 taskId)
     u8 savedActiveBattler = gActiveBattler;
 
     gActiveBattler = gTasks[taskId].data[0];
-    if (!IsDoubleBattle() || (gBattleTypeFlags & BATTLE_TYPE_MULTI))
+    if (!IsDoubleBattle() || (gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_TWO_OPPONENTS)))
     {
         gBattleBufferA[gActiveBattler][1] = gBattlerPartyIndexes[gActiveBattler];
         StartSendOutAnim(gActiveBattler, FALSE);

@@ -2774,6 +2774,7 @@ const u16 gTilesetPalettes_HoennMirageTower[][16] =
 };
 
 const u32 gTilesetTiles_HoennTrainerHill[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill/tiles.4bpp.lz");
+const u32 gTilesetTiles_HoennTrainerHillFloors[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill_floors/tiles.4bpp.lz");
 
 const u16 gTilesetPalettes_HoennTrainerHill[][16] =
 {

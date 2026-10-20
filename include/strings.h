@@ -1167,6 +1167,10 @@ extern const u8 gText_Lower[];
 extern const u8 gText_Symbols[];
 extern const u8 gText_Register2[];
 extern const u8 gText_Exit[];
+extern const u8 gText_NormalTagMatch[]; // RFVF+: the Trainer Hill's modes (script_menu.c)
+extern const u8 gText_VarietyTagMatch[];
+extern const u8 gText_UniqueTagMatch[];
+extern const u8 gText_ExpertTagMatch[];
 
 // wireless_communication_status_screen
 extern const u8 gText_Dynamic0Players[];

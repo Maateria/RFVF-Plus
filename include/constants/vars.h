@@ -249,9 +249,9 @@
 #define VAR_ABNORMAL_WEATHER_LOCATION 0x40C4
 #define VAR_SHOULD_END_ABNORMAL_WEATHER 0x40C5
 #define VAR_MIRAGE_TOWER_STATE     0x40C6
-#define VAR_0x40C7                 0x40C7
-#define VAR_0x40C8                 0x40C8
-#define VAR_0x40C9                 0x40C9
+#define VAR_SS_TIDAL_STATE         0x40C7  // Hoenn batch 4 (S.S. Tidal), Emerald names; SS_TIDAL_* below
+#define VAR_CRUISE_STEP_COUNT      0x40C8
+#define VAR_TRAINER_HILL_IS_ACTIVE 0x40C9  // Hoenn batch 5, Emerald's name
 #define VAR_0x40CA                 0x40CA
 #define VAR_0x40CB                 0x40CB
 #define VAR_0x40CC                 0x40CC
@@ -346,5 +346,26 @@
 #define NPC_TEXT_COLOR_MON       2 // Black, for Pokémon
 #define NPC_TEXT_COLOR_NEUTRAL   3 // Black, for inanimate objects and messages from the game
 #define NPC_TEXT_COLOR_DEFAULT 255 // If an NPC is selected, use the color specified by GetColorFromTextColorTable, otherwise use Neutral.
+
+// VAR_SS_TIDAL_STATE (Emerald's values). RFVF+: the S.S. Tidal only sails to the Battle Frontier, from Slateport
+// (the *_LILYCOVE states after DEPART_SLATEPORT) or from Lilycove (the *_SLATEPORT states after DEPART_LILYCOVE)
+#define SS_TIDAL_BOARD_SLATEPORT     1
+#define SS_TIDAL_DEPART_SLATEPORT    2
+#define SS_TIDAL_HALFWAY_LILYCOVE    3
+#define SS_TIDAL_LAND_LILYCOVE       4 // landed at the Battle Frontier
+#define SS_TIDAL_BOARD_LILYCOVE      5
+#define SS_TIDAL_DEPART_LILYCOVE     6
+#define SS_TIDAL_HALFWAY_SLATEPORT   7
+#define SS_TIDAL_LAND_SLATEPORT      8 // landed at the Battle Frontier
+#define SS_TIDAL_EXIT_CURRENTS_RIGHT 9
+#define SS_TIDAL_EXIT_CURRENTS_LEFT  10
+#define SS_TIDAL_MAX_STEPS           205
+
+#define SS_TIDAL_LOCATION_CURRENTS   0
+#define SS_TIDAL_LOCATION_SLATEPORT  1
+#define SS_TIDAL_LOCATION_LILYCOVE   2
+#define SS_TIDAL_LOCATION_ROUTE124   3
+#define SS_TIDAL_LOCATION_ROUTE131   4
+#define SS_TIDAL_LOCATION_FRONTIER   5 // RFVF+
 
 #endif // GUARD_CONSTANTS_VARS_H

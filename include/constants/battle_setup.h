@@ -11,5 +11,6 @@
 #define TRAINER_BATTLE_REMATCH_DOUBLE                   7
 #define TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC  8
 #define TRAINER_BATTLE_EARLY_RIVAL                      9
+#define TRAINER_BATTLE_HILL                             12 // RFVF+: Emerald's Trainer Hill (its value)
 
 #endif // GUARD_CONSTANTS_BATTLE_SETUP_H

@@ -1135,6 +1135,14 @@ bool8 MetatileBehavior_IsBurglary(u8 metatileBehavior)
         return FALSE;
 }
 
+bool8 MetatileBehavior_IsTrainerHillTimer(u8 metatileBehavior) // RFVF+: Emerald's
+{
+    if (metatileBehavior == MB_TRAINER_HILL_TIMER)
+        return TRUE;
+    else
+        return FALSE;
+}
+
 bool8 MetatileBehavior_IsTrainerTowerMonitor(u8 metatileBehavior)
 {
     if (metatileBehavior == MB_TRAINER_TOWER_MONITOR)

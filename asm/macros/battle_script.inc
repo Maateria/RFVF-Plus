@@ -1249,6 +1249,11 @@
 	.byte 0xf7
 	.endm
 
+	.macro trainerslideout position:req @ RFVF+: Emerald's 0xF8 (two opponents)
+	.byte 0xf8
+	.byte \position
+	.endm
+
 @ various command changed to more readable macros
 	.macro cancelmultiturnmoves battler:req
 	various \battler, VARIOUS_CANCEL_MULTI_TURN_MOVES

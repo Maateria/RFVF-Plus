@@ -2915,10 +2915,22 @@ BattleScript_LinkHandleFaintedMonMultipleEnd::
 	end2
 
 BattleScript_LocalTrainerBattleWon::
+	jumpifbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_LocalTwoTrainersDefeated
 	printstring STRINGID_PLAYERDEFEATEDTRAINER1
+	goto BattleScript_LocalBattleWonLoseTexts
+BattleScript_LocalTwoTrainersDefeated:: @ RFVF+: Emerald's two opponents
+	printstring STRINGID_TWOENEMIESDEFEATED
+BattleScript_LocalBattleWonLoseTexts::
 	trainerslidein BS_ATTACKER
 	waitstate
 	printstring STRINGID_TRAINER1LOSETEXT
+	jumpifnotbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_LocalBattleWonReward
+	trainerslideout B_POSITION_OPPONENT_LEFT
+	waitstate
+	trainerslidein BS_FAINTED
+	waitstate
+	printstring STRINGID_TRAINER2LOSETEXT
+BattleScript_LocalBattleWonReward::
 	getmoneyreward BattleScript_LocalTrainerBattleWonGotMoney
 BattleScript_LocalTrainerBattleWonGotMoney::
 	printstring STRINGID_PLAYERGOTMONEY
@@ -2939,6 +2951,7 @@ BattleScript_PickedUpItemSolo::
 	return
 
 BattleScript_LocalBattleLost::
+	jumpifbattletype BATTLE_TYPE_TRAINER_HILL, BattleScript_TrainerHillBattleLost
 	jumpifbattletype BATTLE_TYPE_BATTLE_TOWER, BattleScript_EReaderOrSecretBaseTrainerEnd
 	jumpifbattletype BATTLE_TYPE_TRAINER_TOWER, BattleScript_BattleTowerLost
 	jumpifbattletype BATTLE_TYPE_EREADER_TRAINER, BattleScript_EReaderOrSecretBaseTrainerEnd
@@ -2978,6 +2991,55 @@ BattleScript_RivalBattleLostSkipMonRecall::
 	waitstate
 	printstring STRINGID_TRAINER1WINTEXT
 	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, 2, BattleScript_LocalBattleLostPrintWhiteOut
+	end2
+
+@ RFVF+: Emerald's, running from a Trainer Hill battle
+BattleScript_AskIfWantsToForfeitMatch::
+	printselectionstring STRINGID_QUESTIONFORFEITMATCH
+	various BS_ATTACKER, VARIOUS_EMIT_YESNOBOX
+	endselectionscript
+
+BattleScript_PrintPlayerForfeited::
+	printstring STRINGID_FORFEITEDMATCH
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+@ RFVF+: Emerald's Trainer Hill (BattleScript_LocalBattleLostPrintTrainersWinText): no white out, the trainers speak
+BattleScript_TrainerHillBattleLost::
+	returnopponentmon1toball
+	waitstate
+	returnopponentmon2toball
+	waitstate
+	trainerslidein BS_ATTACKER
+	waitstate
+	printstring STRINGID_TRAINER1WINTEXT
+	jumpifnotbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_TrainerHillBattleLostEnd
+	trainerslideout B_POSITION_OPPONENT_LEFT
+	waitstate
+	trainerslidein BS_FAINTED
+	waitstate
+	printstring STRINGID_TRAINER2WINTEXT
+BattleScript_TrainerHillBattleLostEnd::
+	end2
+
+@ RFVF+: Emerald's BattleScript_FrontierTrainerBattleWon, for the Trainer Hill (no prize money)
+BattleScript_TrainerHillBattleWon::
+	jumpifbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_TrainerHillTwoDefeated
+	printstring STRINGID_PLAYERDEFEATEDTRAINER1
+	goto BattleScript_TrainerHillWonLoseTexts
+BattleScript_TrainerHillTwoDefeated::
+	printstring STRINGID_TWOENEMIESDEFEATED
+BattleScript_TrainerHillWonLoseTexts::
+	trainerslidein BS_ATTACKER
+	waitstate
+	printstring STRINGID_TRAINER1LOSETEXT
+	jumpifnotbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_TrainerHillBattleWonEnd
+	trainerslideout B_POSITION_OPPONENT_LEFT
+	waitstate
+	trainerslidein BS_FAINTED
+	waitstate
+	printstring STRINGID_TRAINER2LOSETEXT
+BattleScript_TrainerHillBattleWonEnd::
 	end2
 
 BattleScript_BattleTowerLost::

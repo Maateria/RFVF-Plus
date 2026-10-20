@@ -7664,7 +7664,7 @@ static u16 GetBattleBGM(void)
         return MUS_C_VS_LEGEND_BEAST;
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         return MUS_RS_VS_TRAINER;
-    if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
+    if (gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_TRAINER_HILL))
         return MUS_RS_VS_TRAINER;
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && IsHoennTrainer(gTrainerBattleOpponent_A))
     {   // Emerald's

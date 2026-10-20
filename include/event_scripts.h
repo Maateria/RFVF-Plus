@@ -1161,6 +1161,9 @@ extern const u8 EventScript_TryDoNormalTrainerBattle[];
 extern const u8 EventScript_TryDoDoubleRematchBattle[];
 extern const u8 EventScript_TryDoRematchBattle[];
 extern const u8 EventScript_DoTrainerBattleFromApproach[];
+extern const u8 EventScript_TryGetTrainerScript[];
+extern const u8 EventScript_TrainerHillTimer[];
+extern const u8 TrainerHill_EventScript_TrainerBattle[];
 
 // new_game
 extern const u8 EventScript_ResetAllMapFlags[];
@@ -1273,6 +1276,7 @@ extern const u8 EventScript_FieldPoison[];
 extern const u8 EventScript_EggHatch[];
 extern const u8 AbnormalWeather_EventScript_EndEventAndCleanup_1[];
 extern const u8 IslandCave_EventScript_OpenRegiEntrance[];
+extern const u8 SSTidalCorridor_EventScript_ReachedStepCount[];
 extern const u8 EventScript_DoFallWarp[];
 extern const u8 EventScript_SafariZone_ExtensionSign[];
 

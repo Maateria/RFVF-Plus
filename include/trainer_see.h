@@ -3,7 +3,21 @@
 
 #include "global.h"
 
+// RFVF+: Emerald's two trainers spotting the player at once (Hoenn trainers, Trainer Hill)
+struct ApproachingTrainer
+{
+    u8 objectEventId;
+    u8 radius; // plus 1
+    const u8 *trainerScriptPtr;
+    u8 taskId;
+};
+
+extern u8 gNoOfApproachingTrainers;
+extern u8 gApproachingTrainerId;
+extern struct ApproachingTrainer gApproachingTrainers[2];
+
 bool8 CheckForTrainersWantingBattle(void);
+void TryPrepareSecondApproachingTrainer(void);
 void MovementAction_RevealTrainer_RunTrainerSeeFuncList(struct ObjectEvent *var);
 u8 FldEff_ExclamationMarkIcon1(void);
 u8 FldEff_DoubleExclMarkIcon(void);

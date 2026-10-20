@@ -393,6 +393,8 @@ const u32 gMetatileAttributes_HoennMirageTower[] = INCBIN_U32("data/tilesets/sec
 
 const u16 gMetatiles_HoennTrainerHill[] = INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill/metatiles.bin");
 const u32 gMetatileAttributes_HoennTrainerHill[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill/metatile_attributes.bin");
+const u16 gMetatiles_HoennTrainerHillFloors[] = INCBIN_U16("data/tilesets/secondary/hoenn_trainer_hill_floors/metatiles.bin");
+const u32 gMetatileAttributes_HoennTrainerHillFloors[] = INCBIN_U32("data/tilesets/secondary/hoenn_trainer_hill_floors/metatile_attributes.bin");
 
 const u16 gMetatiles_HoennBattleDome[] = INCBIN_U16("data/tilesets/secondary/hoenn_battle_dome/metatiles.bin");
 const u32 gMetatileAttributes_HoennBattleDome[] = INCBIN_U32("data/tilesets/secondary/hoenn_battle_dome/metatile_attributes.bin");

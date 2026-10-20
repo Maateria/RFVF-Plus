@@ -155,6 +155,7 @@ bool8 MetatileBehavior_IsImpressiveMachine(u8 metatileBehavior);
 bool8 MetatileBehavior_IsVideoGame(u8 metatileBehavior);
 bool8 MetatileBehavior_IsBurglary(u8 metatileBehavior);
 bool8 MetatileBehavior_IsTrainerTowerMonitor(u8 metatileBehavior);
+bool8 MetatileBehavior_IsTrainerHillTimer(u8 metatileBehavior);
 bool8 MetatileBehavior_IsAshGrass(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSecretBaseJumpMat(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSecretBaseSpinMat(u8 metatileBehavior);

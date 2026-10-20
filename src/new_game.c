@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "gflib.h"
 #include "random.h"
 #include "overworld.h"
@@ -154,6 +155,7 @@ void NewGameInitData(void)
     RunScriptImmediately(EventScript_ResetAllMapFlags);
     StringCopy(gSaveBlock1Ptr->rivalName, rivalName);
     ResetTrainerTowerResults();
+    ResetTrainerHillResults();
     gSaveBlock1Ptr->keyFlags.expMod = 2; // normal exp
 }
 

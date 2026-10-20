@@ -10,6 +10,10 @@
 #include "constants/moves.h"
 #include "constants/pokemon.h"
 
+// RFVF+: Emerald's two opponents, each switches among its own half of gEnemyParty
+#define AI_PARTY_FIRST ((gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && (gActiveBattler & BIT_FLANK)) ? PARTY_SIZE / 2 : 0)
+#define AI_PARTY_END ((gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && !(gActiveBattler & BIT_FLANK)) ? PARTY_SIZE / 2 : PARTY_SIZE)
+
 static bool8 HasSuperEffectiveMoveAgainstOpponents(bool8 noRng);
 static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent);
 static bool8 ShouldUseItem(void);
@@ -51,7 +55,7 @@ static bool8 ShouldSwitchIfWonderGuard(void)
                 return FALSE;
         }
         // Find a Pokemon in the party that has a super effective move.
-        for (i = 0; i < PARTY_SIZE; ++i)
+        for (i = AI_PARTY_FIRST; i < AI_PARTY_END; ++i)
         {
             if (GetMonData(&gEnemyParty[i], MON_DATA_HP) == 0
              || GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE
@@ -114,7 +118,7 @@ static bool8 FindMonThatAbsorbsOpponentsMove(void)
         return FALSE;
     if (gBattleMons[gActiveBattler].ability == absorbingTypeAbility)
         return FALSE;
-    for (i = 0; i < PARTY_SIZE; ++i)
+    for (i = AI_PARTY_FIRST; i < AI_PARTY_END; ++i)
     {
         u16 species;
         u8 monAbility;
@@ -259,7 +263,7 @@ static bool8 FindMonWithFlagsAndSuperEffective(u8 flags, u8 moduloPercent)
         battlerIn1 = gActiveBattler;
         battlerIn2 = gActiveBattler;
     }
-    for (i = 0; i < PARTY_SIZE; ++i)
+    for (i = AI_PARTY_FIRST; i < AI_PARTY_END; ++i)
     {
         u16 species;
         u8 monAbility;
@@ -327,7 +331,7 @@ static bool8 ShouldSwitch(void)
         battlerIn2 = gActiveBattler;
         battlerIn1 = gActiveBattler;
     }
-    for (i = 0; i < PARTY_SIZE; ++i)
+    for (i = AI_PARTY_FIRST; i < AI_PARTY_END; ++i)
     {
         if ((GetMonData(&gEnemyParty[i], MON_DATA_HP) == 0)
          || (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES_OR_EGG) == SPECIES_NONE)
@@ -378,7 +382,7 @@ void AI_TrySwitchOrUseItem(void)
                         battlerIn1 = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
                         battlerIn2 = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
                     }
-                    for (monToSwitchId = 0; monToSwitchId < PARTY_SIZE; ++monToSwitchId)
+                    for (monToSwitchId = AI_PARTY_FIRST; monToSwitchId < AI_PARTY_END; ++monToSwitchId)
                     {
                         if ((!GetMonData(&gEnemyParty[monToSwitchId], MON_DATA_HP) == 0)
                          && (monToSwitchId != gBattlerPartyIndexes[battlerIn1])
@@ -461,7 +465,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
         bestDmg = 0;
         bestMonId = 6;
         // Find the mon whose type is the most suitable offensively.
-        for (i = 0; i < PARTY_SIZE; ++i)
+        for (i = AI_PARTY_FIRST; i < AI_PARTY_END; ++i)
         {
             u16 species = GetMonData(&gEnemyParty[i], MON_DATA_SPECIES);
             if (species != SPECIES_NONE
@@ -515,7 +519,7 @@ u8 GetMostSuitableMonToSwitchInto(void)
     bestDmg = 0;
     bestMonId = 6;
     // If we couldn't find the best mon in terms of typing, find the one that deals most damage.
-    for (i = 0; i < PARTY_SIZE; ++i)
+    for (i = AI_PARTY_FIRST; i < AI_PARTY_END; ++i)
     {
         if (((u16)(GetMonData(&gEnemyParty[i], MON_DATA_SPECIES)) == SPECIES_NONE)
          || (GetMonData(&gEnemyParty[i], MON_DATA_HP) == 0)

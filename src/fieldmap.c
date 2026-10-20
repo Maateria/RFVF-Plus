@@ -1,4 +1,5 @@
 #include "global.h"
+#include "trainer_hill.h"
 #include "gflib.h"
 #include "overworld.h"
 #include "script.h"
@@ -91,12 +92,14 @@ const struct MapHeader * GetMapHeaderFromConnection(const struct MapConnection *
 void InitMap(void)
 {
     InitMapLayoutData(&gMapHeader);
+    GenerateTrainerHillFloorLayout(); // RFVF+: Emerald's InitTrainerHillMap
     RunOnLoadMapScript();
 }
 
 void InitMapFromSavedGame(void)
 {
     InitMapLayoutData(&gMapHeader);
+    GenerateTrainerHillFloorLayout();
     LoadSavedMapView();
     RunOnLoadMapScript();
 }

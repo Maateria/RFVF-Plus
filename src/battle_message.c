@@ -16,6 +16,7 @@
 #include "battle_controllers.h"
 #include "graphics.h"
 #include "battle_ai_switch_items.h"
+#include "trainer_hill.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 #include "constants/trainers.h"
@@ -385,6 +386,13 @@ static const u8 sText_TheGhostAppeared[] = _("Le FANTOME apparaît!\p");
 static const u8 sText_SilphScopeUnveil[] = _("Le SCOPE SYLPHE révèle l'identité\ndu FANTOME!");
 static const u8 sText_TheGhostWas[] = _("Le FANTOME était OSSATUEUR!\p\n");
 static const u8 sText_Trainer1WantsToBattle[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME}\nveut se battre!\p");
+// RFVF+: Emerald's two opponents, official French texts
+static const u8 sText_TwoTrainersWantToBattle[] = _("Un combat est lancé\npar {B_TRAINER1_CLASS} {B_TRAINER1_NAME} et\l{B_TRAINER2_CLASS} {B_TRAINER2_NAME}!\p");
+static const u8 sText_TwoTrainersSentPkmn[] = _("{B_OPPONENT_MON1_NAME} est envoyé par\n{B_TRAINER1_CLASS} {B_TRAINER1_NAME}!\p{B_OPPONENT_MON2_NAME} est envoyé par\n{B_TRAINER2_CLASS} {B_TRAINER2_NAME}!");
+static const u8 sText_Trainer2SentOutPkmn[] = _("{B_BUFF1} est envoyé par\n{B_TRAINER2_CLASS} {B_TRAINER2_NAME}!");
+static const u8 sText_QuestionForfeitMatch[] = _("Voulez-vous abandonner et\nquitter le combat?");
+static const u8 sText_ForfeitedMatch[] = _("{B_PLAYER_NAME} abandonne le match!");
+static const u8 sText_TwoInGameTrainersDefeated[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} et\n{B_TRAINER2_CLASS} {B_TRAINER2_NAME}\lont perdu!\p");
 static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nveut se battre!");
 static const u8 sText_TwoLinkTrainersWantToBattle[] = _("{B_LINK_OPPONENT1_NAME} et {B_LINK_OPPONENT2_NAME}\nveulent se battre!");
 static const u8 sText_Trainer1SentOutPkmn[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} envoie\n{B_OPPONENT_MON1_NAME}!{PAUSE 60}");
@@ -904,7 +912,10 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_TRAINER1MON1AND2COMEBACK - BATTLESTRINGS_TABLE_START]      = sText_Trainer1RecallBoth,
     [STRINGID_ENEMYABOUTTOSWITCHPKMNNOPREDICT - BATTLESTRINGS_TABLE_START] = sText_EnemyAboutToSwitchPkmnNoPredict,
     [STRINGID_PICKUP - BATTLESTRINGS_TABLE_START]                        = sText_MonPickedUpItem,
-    [STRINGID_PICKUPSOLO - BATTLESTRINGS_TABLE_START]                    = sText_MonPickedUpItemSolo
+    [STRINGID_PICKUPSOLO - BATTLESTRINGS_TABLE_START]                    = sText_MonPickedUpItemSolo,
+    [STRINGID_TWOENEMIESDEFEATED - BATTLESTRINGS_TABLE_START]            = sText_TwoInGameTrainersDefeated,
+    [STRINGID_QUESTIONFORFEITMATCH - BATTLESTRINGS_TABLE_START]          = sText_QuestionForfeitMatch,
+    [STRINGID_FORFEITEDMATCH - BATTLESTRINGS_TABLE_START]                = sText_ForfeitedMatch
 };
 
 const u16 gMissStringIds[] =
@@ -1465,6 +1476,10 @@ void BufferStringBattle(u16 stringId)
                         stringPtr = sText_LinkTrainerWantsToBattle;
                 }
             }
+            else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+            {
+                stringPtr = sText_TwoTrainersWantToBattle;
+            }
             else
             {
                 stringPtr = sText_Trainer1WantsToBattle;
@@ -1533,6 +1548,8 @@ void BufferStringBattle(u16 stringId)
                     else
                         stringPtr = sText_LinkTrainerSentOutTwoPkmn;
                 }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+                    stringPtr = sText_TwoTrainersSentPkmn;
                 else
                     stringPtr = sText_Trainer1SentOutTwoPkmn;
             }
@@ -1621,6 +1638,10 @@ void BufferStringBattle(u16 stringId)
                     else
                         stringPtr = sText_LinkTrainerSentOutPkmn2;
                 }
+            }
+            else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && gBattleScripting.battler != 1)
+            {
+                stringPtr = sText_Trainer2SentOutPkmn; // the right opponent's (Emerald's)
             }
             else
             {
@@ -1999,10 +2020,29 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                     toCpy = gTrainerClassNames[GetBattleTowerTrainerClassNameId()];
                 else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
                     toCpy = gTrainerClassNames[GetTrainerTowerOpponentClass()];
+                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                    toCpy = gTrainerClassNames[GetTrainerHillOpponentClass(gTrainerBattleOpponent_A)];
                 else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
                     toCpy = gTrainerClassNames[GetEreaderTrainerClassId()];
                 else
                     toCpy = gTrainerClassNames[sTrainers[gTrainerBattleOpponent_A].trainerClass];
+                break;
+            case B_TXT_TRAINER2_CLASS: // RFVF+: Emerald's two opponents
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                    toCpy = gTrainerClassNames[GetTrainerHillOpponentClass(gTrainerBattleOpponent_B)];
+                else
+                    toCpy = gTrainerClassNames[gTrainers[gTrainerBattleOpponent_B].trainerClass];
+                break;
+            case B_TXT_TRAINER2_NAME:
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                {
+                    GetTrainerHillTrainerName(text, gTrainerBattleOpponent_B);
+                    toCpy = text;
+                }
+                else
+                {
+                    toCpy = gTrainers[gTrainerBattleOpponent_B].trainerName;
+                }
                 break;
             case B_TXT_TRAINER1_NAME: // trainer1 name
                 if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
@@ -2024,6 +2064,11 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                 else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
                 {
                     GetTrainerTowerOpponentName(text);
+                    toCpy = text;
+                }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                {
+                    GetTrainerHillTrainerName(text, gTrainerBattleOpponent_A);
                     toCpy = text;
                 }
                 else if (gBattleTypeFlags & BATTLE_TYPE_EREADER_TRAINER)
@@ -2155,6 +2200,11 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                     GetTrainerTowerOpponentLoseText(gStringVar4, 0);
                     toCpy = gStringVar4;
                 }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                {
+                    CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_WON, gTrainerBattleOpponent_A);
+                    toCpy = gStringVar4;
+                }
                 else
                 {
                     toCpy = GetTrainerALoseText();
@@ -2166,18 +2216,47 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst)
                     GetTrainerTowerOpponentWinText(gStringVar4, 0);
                     toCpy = gStringVar4;
                 }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                {
+                    CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_LOST, gTrainerBattleOpponent_A);
+                    toCpy = gStringVar4;
+                }
                 else
                 {
                     toCpy = GetTrainerWonSpeech();
                 }
                 break;
             case B_TXT_TRAINER2_LOSE_TEXT:
-                GetTrainerTowerOpponentLoseText(gStringVar4, 1);
-                toCpy = gStringVar4;
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                {
+                    CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_WON, gTrainerBattleOpponent_B);
+                    toCpy = gStringVar4;
+                }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+                {
+                    toCpy = GetTrainerBLoseText();
+                }
+                else
+                {
+                    GetTrainerTowerOpponentLoseText(gStringVar4, 1);
+                    toCpy = gStringVar4;
+                }
                 break;
             case B_TXT_TRAINER2_WIN_TEXT:
-                GetTrainerTowerOpponentWinText(gStringVar4, 1);
-                toCpy = gStringVar4;
+                if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)
+                {
+                    CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_PLAYER_LOST, gTrainerBattleOpponent_B);
+                    toCpy = gStringVar4;
+                }
+                else if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
+                {
+                    toCpy = GetTrainerWonSpeech();
+                }
+                else
+                {
+                    GetTrainerTowerOpponentWinText(gStringVar4, 1);
+                    toCpy = gStringVar4;
+                }
                 break;
             case B_TXT_26: // ?
                 HANDLE_NICKNAME_STRING_CASE(gBattleScripting.battler, *(&gBattleStruct->scriptPartyIdx))

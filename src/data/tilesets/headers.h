@@ -1452,6 +1452,18 @@ const struct Tileset gTileset_HoennTrainerHill =
 	.callback = NULL
 };
 
+// RFVF+: the Trainer Hill's floors, Emerald's ids (work/hoenn_scripts/trainer_hill_data.py)
+const struct Tileset gTileset_HoennTrainerHillFloors = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennTrainerHillFloors,
+	.palettes = gTilesetPalettes_HoennTrainerHill,
+	.metatiles = gMetatiles_HoennTrainerHillFloors,
+	.metatileAttributes = gMetatileAttributes_HoennTrainerHillFloors,
+	.callback = NULL
+};
+
 const struct Tileset gTileset_HoennBattleDome = 
 {
 	.isCompressed = TRUE,
