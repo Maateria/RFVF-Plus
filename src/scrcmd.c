@@ -38,6 +38,8 @@
 #include "fieldmap.h"
 #include "field_door.h"
 #include "constants/event_objects.h"
+#include "decoration.h"
+#include "decoration_inventory.h"
 #include "constants/maps.h"
 #include "constants/sound.h"
 
@@ -529,7 +531,7 @@ bool8 ScrCmd_adddecoration(struct ScriptContext * ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-//    gSpecialVar_Result = DecorationAdd(decorId);
+    gSpecialVar_Result = DecorationAdd(decorId);
     return FALSE;
 }
 
@@ -537,7 +539,7 @@ bool8 ScrCmd_removedecoration(struct ScriptContext * ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-//    gSpecialVar_Result = DecorationRemove(decorId);
+    gSpecialVar_Result = DecorationRemove(decorId);
     return FALSE;
 }
 
@@ -545,7 +547,7 @@ bool8 ScrCmd_checkdecorspace(struct ScriptContext * ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-//    gSpecialVar_Result = DecorationCheckSpace(decorId);
+    gSpecialVar_Result = DecorationCheckSpace(decorId);
     return FALSE;
 }
 
@@ -553,7 +555,7 @@ bool8 ScrCmd_checkdecor(struct ScriptContext * ctx)
 {
     u32 decorId = VarGet(ScriptReadHalfword(ctx));
 
-//    gSpecialVar_Result = CheckHasDecoration(decorId);
+    gSpecialVar_Result = CheckHasDecoration(decorId);
     return FALSE;
 }
 
@@ -1670,7 +1672,7 @@ bool8 ScrCmd_bufferdecorationname(struct ScriptContext * ctx)
     u8 stringVarIndex = ScriptReadByte(ctx);
     u16 decorId = VarGet(ScriptReadHalfword(ctx));
 
-//    StringCopy(sScriptStringVars[stringVarIndex], gDecorations[decorId].name);
+    StringCopy(sScriptStringVars[stringVarIndex], gDecorations[decorId].name);
     return FALSE;
 }
 

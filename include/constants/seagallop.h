@@ -16,6 +16,8 @@
 #define SEAGALLOP_BATTLE_TOWER    12
 #define SEAGALLOP_SOUTHERN_ISLAND 13
 #define SEAGALLOP_LILYCOVE_CITY   14
+#define SEAGALLOP_SLATEPORT_CITY  15 // RFVF+: Hoenn's harbors and the Battle Frontier's
+#define SEAGALLOP_BATTLE_FRONTIER 16
 
 #define SEAGALLOP_MORE           254
 

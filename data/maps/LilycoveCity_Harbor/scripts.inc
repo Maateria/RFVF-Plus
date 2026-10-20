@@ -6,7 +6,8 @@ LilycoveCity_Harbor_OnTransition:
 	setescapewarp MAP_LILYCOVE_CITY, 12, 33
 	end
 
-@ Seagallop link to Vermilion (FRLG's ferry scene, src/seagallop.c), with Emerald's attendant texts
+@ Seagallop link (FRLG's ferry scene, src/seagallop.c) to Vermilion and Slateport, and to the Battle Frontier once
+@ Hoenn's League is beaten (user's choice), with Emerald's attendant texts. Slateport's attendant does the same.
 LilycoveCity_Harbor_EventScript_FerryAttendant::
 	lock
 	faceplayer
@@ -14,11 +15,33 @@ LilycoveCity_Harbor_EventScript_FerryAttendant::
 	message LilycoveCity_Harbor_Text_FlashTicketWhereTo
 	waitmessage
 	setvar VAR_0x8004, SEAGALLOP_LILYCOVE_CITY
-	multichoice 20, 8, MULTICHOICE_SEAGALLOP_VERMILION, FALSE
+	goto_if_set FLAG_HOENN_GAME_CLEAR, LilycoveCity_Harbor_EventScript_ChooseWithFrontier
+	multichoice 18, 6, MULTI_SEAGALLOP_FROM_LILYCOVE, FALSE
 	switch VAR_RESULT
 	case 0, LilycoveCity_Harbor_EventScript_SailToVermilion
-	case 1, LilycoveCity_Harbor_EventScript_ExitSailSelect
-	case 127, LilycoveCity_Harbor_EventScript_ExitSailSelect
+	case 1, LilycoveCity_Harbor_EventScript_SailToSlateport
+	goto LilycoveCity_Harbor_EventScript_ExitSailSelect
+	end
+
+LilycoveCity_Harbor_EventScript_ChooseWithFrontier::
+	multichoice 18, 4, MULTI_SEAGALLOP_FROM_LILYCOVE_BF, FALSE
+	switch VAR_RESULT
+	case 0, LilycoveCity_Harbor_EventScript_SailToVermilion
+	case 1, LilycoveCity_Harbor_EventScript_SailToSlateport
+	case 2, LilycoveCity_Harbor_EventScript_SailToFrontier
+	goto LilycoveCity_Harbor_EventScript_ExitSailSelect
+	end
+
+LilycoveCity_Harbor_EventScript_SailToSlateport::
+	msgbox LilycoveCity_Harbor_Text_PleaseBoard
+	setvar VAR_0x8006, SEAGALLOP_SLATEPORT_CITY
+	goto EventScript_SetSail
+	end
+
+LilycoveCity_Harbor_EventScript_SailToFrontier::
+	msgbox LilycoveCity_Harbor_Text_PleaseBoard
+	setvar VAR_0x8006, SEAGALLOP_BATTLE_FRONTIER
+	goto EventScript_SetSail
 	end
 
 LilycoveCity_Harbor_EventScript_SailToVermilion::

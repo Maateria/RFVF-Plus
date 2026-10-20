@@ -37,3 +37,25 @@ SlateportCity_Harbor_Text_IfYouWantToTradeLetMeKnow::
     .string "Ça ne te sert à rien, {PLAYER}{KUN}…\p"
     .string "Bon, d'accord alors. Si tu veux\n"
     .string "échanger ton SCANNER, fais-moi signe!$"
+
+SlateportCity_Harbor_Text_MayISeeYourTicket::
+    .string "Bonjour. C'est pour le ferry?\n"
+    .string "Puis-je voir votre PASSE BATEAU?$"
+
+SlateportCity_Harbor_Text_FlashedTicketWhereTo::
+    .string "{PLAYER} montre le PASSE BATEAU…\p"
+    .string "Parfait! Tout y est!\p"
+    .string "Et où souhaitez-vous aller?$"
+
+SlateportCity_Harbor_Text_PleaseBoardFerry::
+    .string "Veuillez monter sur le ferry et\n"
+    .string "attendre le départ.$"
+
+SlateportCity_Harbor_Text_SailAnotherTime::
+    .string "Revenez une autre fois!$"
+
+SlateportCity_Harbor_Text_LoveToGoDeepUnderwaterSomeday::
+    .string "Un voyage au fond de la mer…\n"
+    .string "Je me demande comment c'est.\p"
+    .string "Un jour, j'aimerais bien aller comme\n"
+    .string "ça, dans les profondeurs de la mer.$"

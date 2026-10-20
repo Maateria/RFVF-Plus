@@ -53,3 +53,62 @@ DewfordTown_Text_ThrowInFishingAdvice::
 DewfordTown_Text_ThatsTooBadThen::
     .string "Ah, c'est comme ça?\n"
     .string "C'est vraiment dommage.$"
+
+DewfordTown_Text_XIsTheBiggestHappeningThingRight::
+    .string "J'aime ce qui est en vogue,\n"
+    .string "branché et à la mode. Je\l"
+    .string "me tiens toujours informé.\p"
+    .string "Hé, t'as déjà entendu parler de\n"
+    .string "“{STR_VAR_1}”?\p"
+    .string "C'est ça!\n"
+    .string "Bien sûr que tu connais!\p"
+    .string "Forcément, ouais,\n"
+    .string "“{STR_VAR_1}”…\l"
+    .string "Y a pas plus cool!\p"
+    .string "Peu importe d'où tu viens,\n"
+    .string "“{STR_VAR_1}”,\l"
+    .string "c'est ce qu'il y a\l"
+    .string "de plus branché, hein?$"
+
+DewfordTown_Text_YeahDefinitionOfInRightNow::
+    .string "Ouais, tout à fait!\p"
+    .string "“{STR_VAR_1}”\n"
+    .string "reflète bien la tendance actuelle.$"
+
+DewfordTown_Text_TellMeWhatsNewAndIn::
+    .string "Hum?\n"
+    .string "C'est pas ce qui est à la mode?\p"
+    .string "Bon, alors dis-moi ce qui est nouveau\n"
+    .string "et “in”?$"
+
+DewfordTown_Text_OfCourseIKnowAboutThat::
+    .string "Hum?\n"
+    .string "“{STR_VAR_2}”?\p"
+    .string "… …\p"
+    .string "… Hum… Ouais, c'est ça!\n"
+    .string "Ouais, je l'savais!\l"
+    .string "Je l'savais déjà!\p"
+    .string "Bien sûr que j'étais au courant!\n"
+    .string "“{STR_VAR_2}”, hein?\p"
+    .string "Ouais, bien sûr, tout juste!\n"
+    .string "Attends, y a pas plus cool que\l"
+    .string "“{STR_VAR_2}”.\p"
+    .string "Y a pas plus branché en vocabulaire\n"
+    .string "branché. Tu croyais\l"
+    .string "que j'savais pas?\p"
+    .string "“{STR_VAR_1}”…\n"
+    .string "C'était cool il y a cinq minutes.\p"
+    .string "Mais “{STR_VAR_2}”,\n"
+    .string "c'est ce qui est à\l"
+    .string "la mode maintenant!$"
+
+DewfordTown_Text_HearOfAnyTrendsComeShareWithMe::
+    .string "Si tu entends parler de nouvelles\n"
+    .string "modes, viens m'en parler, d'accord?$"
+
+DewfordTown_Text_XHuhIThinkYIsCool::
+    .string "Hum…\n"
+    .string "“{STR_VAR_2}”, hein?\p"
+    .string "Mais personnellement, je trouve que\n"
+    .string "“{STR_VAR_1}”\l"
+    .string "est définitivement plus cool.$"

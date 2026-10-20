@@ -493,4 +493,32 @@ gSpecials::
 	def_special FinishCyclingRoadChallenge
 	def_special GetRecordedCyclingRoadResults
 	def_special UpdateCyclingRoadState
+	def_special IsLilycoveClearOutSaleDay
+	def_special BufferTrendyPhraseString
+	def_special IsTrendyPhraseBoring
+	def_special GetDewfordHallPaintingNameIndex
+	def_special GetHoennBerryTreeBerries
+	def_special IsMirageIslandPresent
+	def_special TryShowMirageIsland
+	def_special Script_GetCurrentMauvilleMan
+	def_special HasBardSongBeenChanged
+	def_special SaveBardSongLyrics
+	def_special PlayBardSong
+	def_special HasHipsterTaughtWord
+	def_special SetHipsterTaughtWord
+	def_special HipsterTryTeachWord
+	def_special GiddyShouldTellAnotherTale
+	def_special GenerateGiddyLine
+	def_special TraderMenuGetDecoration
+	def_special GetTraderTradedFlag
+	def_special DoesPlayerHaveNoDecorations
+	def_special IsDecorationCategoryFull
+	def_special TraderShowDecorationMenu
+	def_special TraderDoDecorationTrade
+	def_special StorytellerStoryListMenu
+	def_special Script_StorytellerDisplayStory
+	def_special StorytellerGetFreeStorySlot
+	def_special StorytellerUpdateStat
+	def_special HasStorytellerAlreadyRecorded
+	def_special Script_StorytellerInitializeRandomStat
 gSpecialsEnd::

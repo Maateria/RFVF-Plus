@@ -1,6 +1,18 @@
 Route130_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route130_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route130_OnTransition)
+
+@ Emerald's, without the abnormal weather (lot 3). Mirage Island: src/hoenn_specials.c IsMirageIslandPresent
+Route130_OnTransition:
+	specialvar VAR_RESULT, IsMirageIslandPresent
+	goto_if_eq VAR_RESULT, TRUE, Route130_EventScript_SetMirageIslandLayout
+	setflag FLAG_HOENN_BERRY_TREE_ROUTE_130_LIECHI
+	setmaplayoutindex LAYOUT_ROUTE130
+	end
+
+Route130_EventScript_SetMirageIslandLayout::
+	setmaplayoutindex LAYOUT_ROUTE130_MIRAGE_ISLAND
+	end
 
 Route130_EventScript_Rodney::
 	trainerbattle_single TRAINER_RODNEY, Route130_Text_RodneyIntro, Route130_Text_RodneyDefeat

@@ -26,6 +26,8 @@
 #include "quest_log.h"
 #include "script.h"
 #include "strings.h"
+#include "decoration.h"
+#include "decoration_inventory.h"
 #include "constants/songs.h"
 #include "constants/items.h"
 #include "constants/game_stat.h"
@@ -79,7 +81,7 @@ EWRAM_DATA u16 (*gShopTilemapBuffer2)[0x400] = {0};
 EWRAM_DATA u16 (*gShopTilemapBuffer3)[0x400] = {0};
 EWRAM_DATA u16 (*gShopTilemapBuffer4)[0x400] = {0};
 EWRAM_DATA struct ListMenuItem *sShopMenuListMenu = {0};
-static EWRAM_DATA u8 (*sShopMenuItemStrings)[13] = {0};
+static EWRAM_DATA u8 (*sShopMenuItemStrings)[16] = {0}; // RFVF+: 13 -> 16, room for the decoration names (15 letters)
 EWRAM_DATA struct QuestLogEvent_Shop sHistory[2] = {0};
 
 //Function Declarations
@@ -145,6 +147,15 @@ static const struct MenuAction sShopMenuActions_BuySellQuit[] =
     {gText_ShopSell, {.void_u8 = Task_HandleShopMenuSell}},
     {gText_ShopQuit, {.void_u8 = Task_HandleShopMenuQuit}}
 };
+
+// Emerald's decoration shops only sell
+static const struct MenuAction sShopMenuActions_DecorBuyQuit[] =
+{
+    {gText_ShopBuy, {.void_u8 = Task_HandleShopMenuBuy}},
+    {gText_ShopQuit, {.void_u8 = Task_HandleShopMenuQuit}}
+};
+
+#define IS_DECOR_MART (sShopData.martType == MART_TYPE_DECOR || sShopData.martType == MART_TYPE_DECOR2)
 
 static const struct YesNoFuncTable sShopMenuActions_BuyQuit[] =
 {
@@ -213,10 +224,20 @@ static u8 CreateShopMenu(u8 martType)
     else
         sShopData.fontId = FONT_FEMALE;
 
-    sShopMenuWindowId = AddWindow(&sShopMenuWindowTemplate);
+    if (IS_DECOR_MART)
+    {
+        struct WindowTemplate template = sShopMenuWindowTemplate;
+        template.height = 4;
+        sShopMenuWindowId = AddWindow(&template);
+    }
+    else
+    {
+        sShopMenuWindowId = AddWindow(&sShopMenuWindowTemplate);
+    }
     SetStdWindowBorderStyle(sShopMenuWindowId, 0);
-    PrintTextArray(sShopMenuWindowId, FONT_NORMAL, GetMenuCursorDimensionByFont(FONT_NORMAL, 0), 2, 16, 3, sShopMenuActions_BuySellQuit);
-    Menu_InitCursor(sShopMenuWindowId, FONT_NORMAL, 0, 2, 16, 3, 0);
+    PrintTextArray(sShopMenuWindowId, FONT_NORMAL, GetMenuCursorDimensionByFont(FONT_NORMAL, 0), 2, 16, IS_DECOR_MART ? 2 : 3,
+                   IS_DECOR_MART ? sShopMenuActions_DecorBuyQuit : sShopMenuActions_BuySellQuit);
+    Menu_InitCursor(sShopMenuWindowId, FONT_NORMAL, 0, 2, 16, IS_DECOR_MART ? 2 : 3, 0);
     PutWindowTilemap(sShopMenuWindowId);
     CopyWindowToVram(sShopMenuWindowId, COPYWIN_MAP);
     return CreateTask(Task_ShopMenu, 8);
@@ -268,7 +289,7 @@ static void Task_ShopMenu(u8 taskId)
         Task_HandleShopMenuQuit(taskId);
         break;
     default:
-        sShopMenuActions_BuySellQuit[Menu_GetCursorPos()].func.void_u8(taskId);
+        (IS_DECOR_MART ? sShopMenuActions_DecorBuyQuit : sShopMenuActions_BuySellQuit)[Menu_GetCursorPos()].func.void_u8(taskId);
         break;
     }
 }
@@ -565,7 +586,10 @@ bool8 BuyMenuBuildListMenuTemplate(void)
 
 static void PokeMartWriteNameAndIdAt(struct ListMenuItem *list, u16 index, u8 *dst)
 {
-    CopyItemName(index, dst);
+    if (IS_DECOR_MART)
+        StringCopy(dst, gDecorations[index].name);
+    else
+        CopyItemName(index, dst);
     list->label = dst;
     list->index = index;
 }
@@ -578,7 +602,7 @@ static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, s
         PlaySE(SE_SELECT);
 
     if (item != INDEX_CANCEL)
-        description = ItemId_GetDescription(item);
+        description = IS_DECOR_MART ? gDecorations[item].description : ItemId_GetDescription(item);
     else
         description = gText_QuitShopping;
 
@@ -586,7 +610,9 @@ static void BuyMenuPrintItemDescriptionAndShowItemIcon(s32 item, bool8 onInit, s
     if (sShopData.martType != MART_TYPE_TMHM)
     {
         DestroyItemMenuIcon(sShopData.itemSlot ^ 1);
-        if (item != INDEX_CANCEL)
+        if (item != INDEX_CANCEL && IS_DECOR_MART)
+            CreateDecorMenuIcon(item, sShopData.itemSlot);
+        else if (item != INDEX_CANCEL)
             CreateItemMenuIcon(item, sShopData.itemSlot);
         else
             CreateItemMenuIcon(ITEMS_COUNT, sShopData.itemSlot);
@@ -609,7 +635,7 @@ static void BuyMenuPrintPriceInList(u8 windowId, u32 item, u8 y)
 
     if (item != INDEX_CANCEL)
     {
-        ConvertIntToDecimalStringN(gStringVar1, ItemId_GetPrice(item), 0, 5);
+        ConvertIntToDecimalStringN(gStringVar1, IS_DECOR_MART ? gDecorations[item].price : ItemId_GetPrice(item), 0, 5);
         x = 5 - StringLength(gStringVar1);
         loc = gStringVar4;
         while (x-- != 0)
@@ -897,10 +923,18 @@ static void Task_BuyMenu(u8 taskId)
             BuyMenuRemoveScrollIndicatorArrows();
             BuyMenuPrintCursor(tListTaskId, 2);
             RecolorItemDescriptionBox(1);
-            sShopData.itemPrice = ItemId_GetPrice(itemId);
+            sShopData.itemPrice = IS_DECOR_MART ? gDecorations[itemId].price : ItemId_GetPrice(itemId);
             if (!IsEnoughMoney(&gSaveBlock1Ptr->money, sShopData.itemPrice))
             {
                 BuyMenuDisplayMessage(taskId, gText_YouDontHaveMoney, BuyMenuReturnToItemList);
+            }
+            else if (IS_DECOR_MART) // one at a time, as in Emerald
+            {
+                tItemCount = 1;
+                PutWindowTilemap(4);
+                StringCopy(gStringVar1, gDecorations[itemId].name);
+                ConvertIntToDecimalStringN(gStringVar2, sShopData.itemPrice, STR_CONV_MODE_LEFT_ALIGN, 6);
+                BuyMenuDisplayMessage(taskId, sShopData.martType == MART_TYPE_DECOR ? gText_Var1IsItThatllBeVar2 : gText_YouWantedVar1ThatllBeVar2, CreateBuyMenuConfirmPurchaseWindow);
             }
             else if (ItemId_GetPocket(itemId) == POCKET_TM_CASE && CheckBagHasItem(itemId, 1))
             {
@@ -1002,7 +1036,14 @@ static void BuyMenuTryMakePurchase(u8 taskId)
     s16 *data = gTasks[taskId].data;
 
     PutWindowTilemap(4);
-    if (AddBagItem(tItemId, tItemCount) == TRUE)
+    if (IS_DECOR_MART)
+    {
+        if (DecorationAdd(tItemId))
+            BuyMenuDisplayMessage(taskId, sShopData.martType == MART_TYPE_DECOR ? gText_ThankYouIllSendItHome : gText_ThanksIllSendItHome, BuyMenuSubtractMoney);
+        else
+            BuyMenuDisplayMessage(taskId, gText_SpaceForVar1Full, BuyMenuReturnToItemList);
+    }
+    else if (AddBagItem(tItemId, tItemCount) == TRUE)
     {
         BuyMenuDisplayMessage(taskId, gText_HereYouGoThankYou, BuyMenuSubtractMoney);
         DebugFunc_PrintPurchaseDetails(taskId);

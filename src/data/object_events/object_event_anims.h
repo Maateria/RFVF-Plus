@@ -2028,3 +2028,17 @@ static const struct StepAnimTable sStepAnimTables[] = {
     },
     {}
 };
+
+// BEGIN berry_trees.py (work/hoenn_scripts, lot 2)
+// Emerald's sAnim_BerryTreeStage4 (the fully grown tree sways), whatever the facing
+static const union AnimCmd sAnim_HoennBerryTree[] =
+{
+    ANIMCMD_FRAME(0, 48),
+    ANIMCMD_FRAME(1, 48),
+    ANIMCMD_JUMP(0),
+};
+
+static const union AnimCmd *const sAnimTable_HoennBerryTree[] = {
+    sAnim_HoennBerryTree, sAnim_HoennBerryTree, sAnim_HoennBerryTree, sAnim_HoennBerryTree,
+};
+// END berry_trees.py (work/hoenn_scripts, lot 2)

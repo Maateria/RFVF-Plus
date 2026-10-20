@@ -147,3 +147,8 @@ MauvilleCity_GameCorner_Text_YouWantOneButNotNow::
 MauvilleCity_GameCorner_Text_DontBeNegativeTakeOne::
     .string "Oh, ne t'en fais pas!\n"
     .string "Tu sais, tu peux le prendre.$"
+
+MauvilleCity_GameCorner_Text_SendToYourHomePC::
+    .string "Merci!\n"
+    .string "Ce sera envoyé chez\l"
+    .string "vous, sur votre PC.$"

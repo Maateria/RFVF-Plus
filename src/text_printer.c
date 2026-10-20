@@ -73,6 +73,7 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *textSubPrinter, u8 speed, void
     if (!gFonts)
         return FALSE;
 
+    gDisableTextPrinters = FALSE; // Emerald's: a new text undoes the Mauville bard's pause
     sTempTextPrinter.active = TRUE;
     sTempTextPrinter.state = RENDER_STATE_HANDLE_CHAR;
     sTempTextPrinter.textSpeed = speed;
@@ -112,10 +113,14 @@ bool16 AddTextPrinter(struct TextPrinterTemplate *textSubPrinter, u8 speed, void
     return TRUE;
 }
 
+EWRAM_DATA bool8 gDisableTextPrinters = FALSE; // RFVF+: Emerald's, for the Mauville bard's song
+
 void RunTextPrinters(void)
 {
     int i;
 
+    if (gDisableTextPrinters)
+        return;
     do
     {
         int numEmpty = 0;

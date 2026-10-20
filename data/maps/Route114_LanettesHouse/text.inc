@@ -45,3 +45,20 @@ Route114_LanettesHouse_Text_EmailFromBill::
     .string "Gestion de Stocks.\p"
     .string "De la part de LEO.\n"
     .string "… … … … … … … …$"
+
+Route114_LanettesHouse_Text_EverythingClutteredKeepThis::
+    .string "ANNETTE: Oh! {PLAYER}{KUN}!\p"
+    .string "Je suis désolée. C'est la\n"
+    .string "pagaille. Quand je suis plongée\l"
+    .string "dans mes recherches, je\l"
+    .string "n'ai pas le temps de ranger…\p"
+    .string "C'est très embarrassant… Si tu n'en\n"
+    .string "parles à personne, je te donne ça.$"
+
+Route114_LanettesHouse_Text_OrganizeYourBoxes::
+    .string "Je peux te donner un conseil sur mon\n"
+    .string "programme de Gestion de Stocks de\l"
+    .string "POKéMON?\p"
+    .string "Tu peux organiser tes BOITES pour\n"
+    .string "savoir quels POKéMON\l"
+    .string "elles contiennent.$"

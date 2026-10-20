@@ -55,3 +55,9 @@ MoveTutor_Text_SubstituteTaught::
     .string "Nous, les humains, devrions profiter\n"
     .string "à fond de l'instant présent!\p"
     .string "Enfin, c'est ce que je pense!$"
+
+LilycoveCity_DepartmentStoreRooftop_Text_BeenWaitingForClearOutSale::
+    .string "Oui! Ça faisait longtemps que\n"
+    .string "j'attendais ces soldes.\p"
+    .string "Il y a des objets qu'on ne trouve\n"
+    .string "qu'ici. Moi, je vais faire le plein!$"

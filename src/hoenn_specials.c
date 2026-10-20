@@ -13,6 +13,9 @@
 #include "constants/songs.h"
 #include "field_specials.h"
 #include "hoenn_specials.h"
+#include "dewford_trend.h"
+#include "berry.h"
+#include "event_object_movement.h"
 #include "constants/items.h"
 #include "constants/species.h"
 #include "constants/trainers.h"
@@ -90,20 +93,76 @@ u8 GetPokeblockNameByMonNature(void)
 
 void HoennDays_OnStep(void)
 {
+    u16 i;
     u16 steps = VarGet(VAR_HOENN_DAY_STEPS) + 1;
 
     if (steps >= STEPS_PER_DAY)
     {
         steps = 0;
         VarSet(VAR_HOENN_DAY_COUNT, VarGet(VAR_HOENN_DAY_COUNT) + 1);
+        UpdateDewfordTrendPerDay(1);
+        for (i = FLAG_HOENN_BERRY_TREES_START; i <= FLAG_HOENN_BERRY_TREES_END; i++) // the picked trees grow back
+            FlagClear(i);
     }
     VarSet(VAR_HOENN_DAY_STEPS, steps);
+}
+
+#include "data/hoenn_berry_trees.h"
+
+// The berry tree just talked to (Emerald's tree id in its object): VAR_0x8004 = its berry, VAR_0x8005 = how many
+// (Emerald's yield without watering: the berry's minimum), STR_VAR_1 = their name, STR_VAR_2 = the count
+void GetHoennBerryTreeBerries(void)
+{
+    u16 item = sHoennBerryTrees[gObjectEvents[gSelectedObjectEvent].trainerRange_berryTreeId];
+    u8 count = gBerries[item - FIRST_BERRY_INDEX].minYield;
+    u8 *s;
+
+    gSpecialVar_0x8004 = item;
+    gSpecialVar_0x8005 = count;
+    CopyItemName(item, gStringVar1);
+    // "BAIE ORAN" -> "BAIES ORAN"
+    if (count > 1 && gStringVar1[4] == CHAR_SPACE)
+    {
+        for (s = gStringVar1 + StringLength(gStringVar1) + 1; s > gStringVar1 + 4; s--)
+            *s = *(s - 1);
+        gStringVar1[4] = CHAR_S;
+    }
+    ConvertIntToDecimalStringN(gStringVar2, count, STR_CONV_MODE_LEFT_ALIGN, 2);
+}
+
+// Mirage Island (Route 130): RFVF+'s rule (user's choice): the Pacifidlog watcher sees it when the party has Latios or
+// Latias, and it stays until the next day. VAR_MIRAGE_ISLAND_DAY = that day + 1.
+bool8 IsMirageIslandPresent(void)
+{
+    return VarGet(VAR_MIRAGE_ISLAND_DAY) == (u16)(VarGet(VAR_HOENN_DAY_COUNT) + 1);
+}
+
+bool8 TryShowMirageIsland(void)
+{
+    u8 i;
+
+    for (i = 0; i < PARTY_SIZE && !IsMirageIslandPresent(); i++)
+    {
+        u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
+        if (species == SPECIES_LATIOS || species == SPECIES_LATIAS)
+        {
+            VarSet(VAR_MIRAGE_ISLAND_DAY, VarGet(VAR_HOENN_DAY_COUNT) + 1);
+            FlagClear(FLAG_HOENN_BERRY_TREE_ROUTE_130_LIECHI); // hidden while the island was away
+        }
+    }
+    return IsMirageIslandPresent();
 }
 
 // Emerald's Pacifidlog Fan Club TM: once a week (7 days)
 void SetPacifidlogTMReceivedDay(void)
 {
     VarSet(VAR_PACIFIDLOG_TM_RECEIVED_DAY, VarGet(VAR_HOENN_DAY_COUNT));
+}
+
+// Lilycove Department Store's clear-out sale (Emerald's comes with a TV news): every 7th day
+bool8 IsLilycoveClearOutSaleDay(void)
+{
+    return VarGet(VAR_HOENN_DAY_COUNT) % 7 == 0;
 }
 
 u16 GetDaysUntilPacifidlogTMAvailable(void)

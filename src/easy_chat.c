@@ -88,7 +88,7 @@ static bool8 IsECGroupUnlocked(u8 groupId)
     switch (groupId)
     {
     case EC_GROUP_TRENDY_SAYING:
-        return FALSE;
+        return FlagGet(FLAG_UNLOCKED_TRENDY_SAYINGS); // RFVF+: Emerald's (the Mauville hipster)
     case EC_GROUP_EVENTS:
     case EC_GROUP_MOVE_1:
     case EC_GROUP_MOVE_2:
@@ -100,7 +100,7 @@ static bool8 IsECGroupUnlocked(u8 groupId)
     }
 }
 
-static u16 EasyChat_GetNumWordsInGroup(u8 groupId)
+u16 EasyChat_GetNumWordsInGroup(u8 groupId)
 {
     if (groupId == EC_GROUP_POKEMON)
         return GetNationalPokedexCount(FLAG_GET_SEEN);
@@ -262,7 +262,18 @@ static u16 GetRandomWordFromGroup(u16 groupId)
     return EC_WORD(groupId, index);
 }
 
-static u16 GetRandomWordFromAnyGroup(u16 groupId)
+u16 GetEasyChatGroupNumWords(u8 groupId)
+{
+    return sEasyChatGroups[groupId].numWords;
+}
+
+// Emerald's name (dewford_trend.c)
+u16 GetRandomEasyChatWordFromGroup(u16 groupId)
+{
+    return GetRandomWordFromGroup(groupId);
+}
+
+u16 GetRandomWordFromAnyGroup(u16 groupId)
 {
     if (!IsECGroupUnlocked(groupId))
         return EC_WORD_UNDEFINED;
@@ -353,7 +364,7 @@ static u8 GetNumUnlockedTrendySayings(void)
     return numAdditionalPhrasesUnlocked;
 }
 
-static u16 UnlockRandomTrendySaying(void)
+u16 UnlockRandomTrendySaying(void)
 {
     u32 i;
     u16 additionalPhraseId;
@@ -514,6 +525,9 @@ static void PopulateECGroups(void)
         sEasyChatSelectionData->groups[sEasyChatSelectionData->numGroups++] = EC_GROUP_MOVE_1;
         sEasyChatSelectionData->groups[sEasyChatSelectionData->numGroups++] = EC_GROUP_MOVE_2;
     }
+
+    if (FlagGet(FLAG_UNLOCKED_TRENDY_SAYINGS))
+        sEasyChatSelectionData->groups[sEasyChatSelectionData->numGroups++] = EC_GROUP_TRENDY_SAYING;
 
     if (IsNationalPokedexEnabled())
         sEasyChatSelectionData->groups[sEasyChatSelectionData->numGroups++] = EC_GROUP_POKEMON_2;
@@ -702,6 +716,8 @@ static bool8 UnlockedECMonOrMove(u16 wordIndex, u8 groupId)
     case EC_GROUP_MOVE_1:
     case EC_GROUP_MOVE_2:
         return TRUE;
+    case EC_GROUP_TRENDY_SAYING: // only those the hipster taught
+        return IsTrendySayingUnlocked(wordIndex);
     default:
         return sEasyChatGroups[groupId].wordData.words[wordIndex].enabled;
     }

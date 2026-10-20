@@ -74,3 +74,25 @@ Route110_TrickHouseEnd_Text_NoRoomForThis::
 Route110_TrickHouseEnd_Text_YoureIgnoringMe::
     .string "Quoi? Comment oses-tu? Tu m'ignores,\n"
     .string "maintenant? Ça me fend le cœur!$"
+
+Route110_TrickHouseEnd_Text_DefeatedMePreferWhichTent::
+    .string "Ça me coûte de l'admettre, mais je\n"
+    .string "crois que tu as fait mieux que moi!\p"
+    .string "Cependant, mon charisme doit\n"
+    .string "t'impressionner, puisque tu viens me\l"
+    .string "voir très souvent. Aucun doute!\p"
+    .string "Mais malgré tout, j'ai perdu!\p"
+    .string "Pour sceller cette nouvelle amitié\n"
+    .string "entre toi, le disciple, et moi, le\l"
+    .string "génie, je te propose de garder un\l"
+    .string "petit souvenir!\p"
+    .string "Tu as le choix entre une TENTE ROUGE\n"
+    .string "ou une TENTE BLEUE.\l"
+    .string "Que préfères-tu?$"
+
+Route110_TrickHouseEnd_Text_NoRoomInPC::
+    .string "Quoi? Plus de place dans ton PC?\n"
+    .string "Qu'est-ce que je vais faire de ça?\p"
+    .string "J'aimerais te dire tant\n"
+    .string "pis, mais je suis sympa.\l"
+    .string "J'attendrai que tu reviennes!$"

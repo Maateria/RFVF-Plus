@@ -1,9 +1,60 @@
 LilycoveCity_DepartmentStoreRooftop_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, LilycoveCity_DepartmentStoreRooftop_OnTransition
 	.byte 0
 
-LilycoveCity_DepartmentStoreRooftop_EventScript_Man::
-	msgbox LilycoveCity_DepartmentStoreRooftop_Text_SetDatesForClearOutSales, MSGBOX_NPC
+@ Emerald's clear-out sale comes with a TV news; RFVF+: every 7th day (src/hoenn_specials.c). FLAG_TEMP_1 hides the
+@ sale woman (Emerald's FLAG_HIDE_LILYCOVE_DEPARTMENT_STORE_ROOFTOP_SALE_WOMAN)
+LilycoveCity_DepartmentStoreRooftop_OnTransition:
+	specialvar VAR_RESULT, IsLilycoveClearOutSaleDay
+	call_if_eq VAR_RESULT, FALSE, LilycoveCity_DepartmentStoreRooftop_EventScript_HideSaleWoman
 	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_HideSaleWoman::
+	setflag FLAG_TEMP_1
+	return
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_Man::
+	lock
+	faceplayer
+	specialvar VAR_RESULT, IsLilycoveClearOutSaleDay
+	call_if_eq VAR_RESULT, TRUE, LilycoveCity_DepartmentStoreRooftop_EventScript_ManClearOutSale
+	msgbox LilycoveCity_DepartmentStoreRooftop_Text_SetDatesForClearOutSales, MSGBOX_DEFAULT
+	release
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_ManClearOutSale::
+	msgbox LilycoveCity_DepartmentStoreRooftop_Text_BeenWaitingForClearOutSale, MSGBOX_DEFAULT
+	release
+	end
+
+LilycoveCity_DepartmentStoreRooftop_EventScript_SaleWoman::
+	lock
+	faceplayer
+	goto_if_questlog EventScript_ReleaseEnd
+	message Text_MayIHelpYou
+	waitmessage
+	pokemartdecoration LilycoveCity_DepartmentStoreRooftop_PokemartDecor_ClearOutSale
+	msgbox Text_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+LilycoveCity_DepartmentStoreRooftop_PokemartDecor_ClearOutSale::
+	.2byte DECOR_MUD_BALL
+	.2byte DECOR_FENCE_LENGTH
+	.2byte DECOR_FENCE_WIDTH
+	.2byte DECOR_TIRE
+	.2byte DECOR_BREAKABLE_DOOR
+	.2byte DECOR_SOLID_BOARD
+	.2byte DECOR_SAND_ORNAMENT
+	.2byte DECOR_STAND
+	.2byte DECOR_SLIDE
+	.2byte DECOR_TV
+	.2byte DECOR_ROUND_TV
+	.2byte DECOR_CUTE_TV
+	.2byte DECOR_WAILMER_DOLL
+	.2byte DECOR_RHYDON_DOLL
+	pokemartlistend
 
 LilycoveCity_DepartmentStoreRooftop_EventScript_ThirstyMan::
 	msgbox LilycoveCity_DepartmentStoreRooftop_Text_BoneDryThirsty, MSGBOX_NPC

@@ -395,14 +395,29 @@ Route110_TrickHouseEntrance_EventScript_GivePuzzle7Reward::
 	releaseall
 	end
 
-@ RFVF+: a Nugget instead of the Tent
+@ Emerald's tent, kept by the mechadoll while the PC was full
 Route110_TrickHouseEntrance_EventScript_GivePuzzle8Reward::
-	giveitem ITEM_NUGGET
+	msgbox Route110_TrickHouseEntrance_Text_MechadollWhichTent, MSGBOX_DEFAULT
+	call Route110_TrickHouseEntrance_EventScript_ChooseTent
 	goto_if_eq VAR_RESULT, TRUE, Route110_TrickHouseEntrance_EventScript_GotReward
-	call_if_eq VAR_RESULT, FALSE, Common_EventScript_BagIsFull
-	msgbox Route110_TrickHouseEntrance_Text_DidYouNotComeToClaimReward, MSGBOX_DEFAULT
+	call_if_eq VAR_RESULT, FALSE, Common_EventScript_NoRoomForDecor
+	msgbox Route110_TrickHouseEntrance_Text_PCFullAgain, MSGBOX_DEFAULT
 	releaseall
 	end
+
+Route110_TrickHouseEntrance_EventScript_ChooseTent::
+	multichoice 0, 0, MULTI_TENT, TRUE
+	switch VAR_RESULT
+	case 0, Route110_TrickHouseEntrance_EventScript_GiveRedTent
+	goto Route110_TrickHouseEntrance_EventScript_GiveBlueTent
+
+Route110_TrickHouseEntrance_EventScript_GiveRedTent::
+	givedecoration DECOR_RED_TENT
+	return
+
+Route110_TrickHouseEntrance_EventScript_GiveBlueTent::
+	givedecoration DECOR_BLUE_TENT
+	return
 
 Route110_TrickHouseEntrance_EventScript_GotReward::
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0

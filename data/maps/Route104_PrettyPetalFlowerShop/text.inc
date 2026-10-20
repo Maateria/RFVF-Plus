@@ -32,3 +32,42 @@ Route104_PrettyPetalFlowerShop_Text_YouCanHaveThis::
     .string "Vous allez aimer soigner\n"
     .string "vos fleurs, j'en suis sûre.\l"
     .string "Tenez, c'est pour vous.$"
+
+Route104_PrettyPetalFlowerShop_Text_ThisIsPrettyPetalFlowerShop::
+    .string "Bonjour!\p"
+    .string "Voici le FLEURISTE JOLIE FLEUR.\n"
+    .string "Vive les fleurs, plantons-en partout!$"
+
+Route104_PrettyPetalFlowerShop_Text_IntroLearnAboutBerries::
+    .string "Comment vous appelez-vous?\p"
+    .string "{PLAYER}{KUN}.\n"
+    .string "Quel joli nom!\p"
+    .string "{PLAYER}{KUN}, voulez-vous en savoir plus\n"
+    .string "sur les BAIES?$"
+
+gText_PlayerWhatCanIDoForYou::
+    .string "Bienvenue {PLAYER}{KUN}!\p"
+    .string "Que puis-je faire pour vous?$"
+
+Route104_PrettyPetalFlowerShop_Text_LearnAboutBerries::
+    .string "{PLAYER}{KUN}, voulez-vous en savoir plus\n"
+    .string "sur les BAIES?$"
+
+Route104_PrettyPetalFlowerShop_Text_BerriesExplanation::
+    .string "Les BAIES proviennent d'arbres\n"
+    .string "poussant sur un sol\l"
+    .string "meuble et fertile.\p"
+    .string "Quand on cueille une BAIE, il faut\n"
+    .string "en replanter une au même endroit.\p"
+    .string "La BAIE plantée poussera rapidement\n"
+    .string "pour devenir une plante, fleurir, et\l"
+    .string "donner à son tour des BAIES.\p"
+    .string "J'aimerais que le monde entier soit\n"
+    .string "recouvert de fleurs magnifiques.\l"
+    .string "C'est mon rêve le plus cher.\p"
+    .string "Vous pouvez m'aider, {PLAYER}{KUN}, en\n"
+    .string "plantant des BAIES un peu partout.$"
+
+Route104_PrettyPetalFlowerShop_Text_FlowersBringHappiness::
+    .string "Les fleurs illuminent la vie des gens,\n"
+    .string "n'est-ce pas?$"

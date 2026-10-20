@@ -141,19 +141,39 @@ Route110_TrickHouseEnd_EventScript_CompletedPuzzle7::
 	release
 	end
 
-@ RFVF+: a Nugget instead of the Tent, and the Trick Master keeps making puzzles (the house starts again)
+@ Emerald's tent (red or blue); RFVF+: the Trick Master keeps making puzzles (the house starts again)
 Route110_TrickHouseEnd_EventScript_CompletedPuzzle8::
 	msgbox Route110_TrickHouseEnd_Text_AllNightPolishingFloors, MSGBOX_DEFAULT
-	msgbox Route110_TrickHouseEnd_Text_YouHaveEarnedThisReward, MSGBOX_DEFAULT
+	msgbox Route110_TrickHouseEnd_Text_DefeatedMePreferWhichTent, MSGBOX_DEFAULT
 	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 0
-	giveitem ITEM_NUGGET
-	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_BagFull
+	call Route110_TrickHouseEnd_EventScript_ChooseTent
+	call_if_eq VAR_RESULT, FALSE, Route110_TrickHouseEnd_EventScript_NoRoomForTent
 	msgbox Route110_TrickHouseEnd_Text_MakeNewTricksToStumpYou, MSGBOX_DEFAULT
 	closemessage
 	call Route110_TrickHouseEnd_EventScript_TrickMasterExit
 	special ResetTrickHouseNuggetFlag
 	release
 	end
+
+Route110_TrickHouseEnd_EventScript_ChooseTent::
+	multichoice 0, 0, MULTI_TENT, TRUE
+	switch VAR_RESULT
+	case 0, Route110_TrickHouseEnd_EventScript_GiveRedTent
+	goto Route110_TrickHouseEnd_EventScript_GiveBlueTent
+
+Route110_TrickHouseEnd_EventScript_GiveRedTent::
+	givedecoration DECOR_RED_TENT
+	return
+
+Route110_TrickHouseEnd_EventScript_GiveBlueTent::
+	givedecoration DECOR_BLUE_TENT
+	return
+
+Route110_TrickHouseEnd_EventScript_NoRoomForTent::
+	call Common_EventScript_NoRoomForDecor
+	msgbox Route110_TrickHouseEnd_Text_NoRoomInPC, MSGBOX_DEFAULT
+	setvar VAR_TRICK_HOUSE_PRIZE_PICKUP, 1
+	return
 
 Route110_TrickHouseEnd_EventScript_TrickMasterExit::
 	applymovement LOCALID_TRICK_MASTER_END, Route110_TrickHouse_Movement_TrickMasterSpin

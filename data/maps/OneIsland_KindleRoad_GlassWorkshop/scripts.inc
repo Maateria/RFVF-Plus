@@ -7,6 +7,8 @@ OneIsland_KindleRoad_GlassWorkshop_MapScripts::
 	.set RED_FLUTE_PRICE,    500
 	.set WHITE_FLUTE_PRICE,  1000
 	.set BLACK_FLUTE_PRICE,  1000
+	.set PRETTY_CHAIR_PRICE, 6000 @ Emerald's two glass decorations (Route 113's workshop runs on this script)
+	.set PRETTY_DESK_PRICE,  8000
 	.set LOWEST_ASH_PRICE,   BLUE_FLUTE_PRICE
 
 OneIsland_KindleRoad_GlassWorkshop_OnTransition:
@@ -65,7 +67,9 @@ OneIsland_KindleRoad_GlassWorkshop_EventScript_ChooseGlassItem::
 	case 2, OneIsland_KindleRoad_GlassWorkshop_EventScript_RedFlute
 	case 3, OneIsland_KindleRoad_GlassWorkshop_EventScript_WhiteFlute
 	case 4, OneIsland_KindleRoad_GlassWorkshop_EventScript_BlackFlute
-	case 5, OneIsland_KindleRoad_GlassWorkshop_EventScript_CancelGlassItemSelect
+	case 5, OneIsland_KindleRoad_GlassWorkshop_EventScript_PrettyChair
+	case 6, OneIsland_KindleRoad_GlassWorkshop_EventScript_PrettyDesk
+	case 7, OneIsland_KindleRoad_GlassWorkshop_EventScript_CancelGlassItemSelect
 	case 127, OneIsland_KindleRoad_GlassWorkshop_EventScript_CancelGlassItemSelect
 	end
 
@@ -139,6 +143,56 @@ OneIsland_KindleRoad_GlassWorkshop_EventScript_BlackFlute::
 	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_MakeGlassItem
 	end
 
+@ VAR_0x8009 (the menu row) >= 5: a decoration
+OneIsland_KindleRoad_GlassWorkshop_EventScript_PrettyChair::
+	setvar VAR_0x8008, DECOR_PRETTY_CHAIR
+	bufferdecorationname STR_VAR_1, VAR_0x8008
+	setvar VAR_0x800A, PRETTY_CHAIR_PRICE
+	goto_if_lt VAR_ASH_GATHER_COUNT, PRETTY_CHAIR_PRICE, OneIsland_KindleRoad_GlassWorkshop_EventScript_NotEnoughAshForItem
+	msgbox OneIsland_KindleRoad_GlassWorkshop_Text_IsThatTheItemForYou, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, OneIsland_KindleRoad_GlassWorkshop_EventScript_ChooseDifferentItem
+	setvar VAR_GLASS_WORKSHOP_STATE, 15
+	subvar VAR_ASH_GATHER_COUNT, PRETTY_CHAIR_PRICE
+	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_MakeGlassItem
+	end
+
+OneIsland_KindleRoad_GlassWorkshop_EventScript_PrettyDesk::
+	setvar VAR_0x8008, DECOR_PRETTY_DESK
+	bufferdecorationname STR_VAR_1, VAR_0x8008
+	setvar VAR_0x800A, PRETTY_DESK_PRICE
+	goto_if_lt VAR_ASH_GATHER_COUNT, PRETTY_DESK_PRICE, OneIsland_KindleRoad_GlassWorkshop_EventScript_NotEnoughAshForItem
+	msgbox OneIsland_KindleRoad_GlassWorkshop_Text_IsThatTheItemForYou, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, OneIsland_KindleRoad_GlassWorkshop_EventScript_ChooseDifferentItem
+	setvar VAR_GLASS_WORKSHOP_STATE, 16
+	subvar VAR_ASH_GATHER_COUNT, PRETTY_DESK_PRICE
+	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_MakeGlassItem
+	end
+
+OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveGlassDecor::
+	givedecoration VAR_0x8008
+	goto_if_eq VAR_RESULT, FALSE, OneIsland_KindleRoad_GlassWorkshop_EventScript_NoRoomForDecor
+	return
+
+OneIsland_KindleRoad_GlassWorkshop_EventScript_NoRoomForDecor::
+	call Common_EventScript_NoRoomForDecor
+	msgbox OneIsland_KindleRoad_GlassWorkshop_Text_NoRoomInPC, MSGBOX_DEFAULT
+	release
+	end
+
+OneIsland_KindleRoad_GlassWorkshop_EventScript_GivePrettyChair::
+	setvar VAR_0x8009, 5
+	setvar VAR_0x8008, DECOR_PRETTY_CHAIR
+	bufferdecorationname STR_VAR_1, DECOR_PRETTY_CHAIR
+	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
+	end
+
+OneIsland_KindleRoad_GlassWorkshop_EventScript_GivePrettyDesk::
+	setvar VAR_0x8009, 6
+	setvar VAR_0x8008, DECOR_PRETTY_DESK
+	bufferdecorationname STR_VAR_1, DECOR_PRETTY_DESK
+	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
+	end
+
 OneIsland_KindleRoad_GlassWorkshop_EventScript_CancelGlassItemSelect::
 	msgbox OneIsland_KindleRoad_GlassWorkshop_Text_AllThatAshButDontWantAnything, MSGBOX_DEFAULT
 	release
@@ -174,7 +228,8 @@ OneIsland_KindleRoad_GlassWorkshop_EventScript_MakeGlassItem::
 	delay 30
 	fadescreen FADE_FROM_BLACK
 	msgbox OneIsland_KindleRoad_GlassWorkshop_Text_IveFinishedGlassItem, MSGBOX_DEFAULT
-	call OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveGlassFlute
+	call_if_lt VAR_0x8009, 5, OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveGlassFlute
+	call_if_ge VAR_0x8009, 5, OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveGlassDecor
 	setvar VAR_GLASS_WORKSHOP_STATE, 2
 	release
 	end
@@ -231,33 +286,40 @@ OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveItemAfterNoRoom::
 	case 12, OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveRedFlute
 	case 13, OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveWhiteFlute
 	case 14, OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveBlackFlute
+	case 15, OneIsland_KindleRoad_GlassWorkshop_EventScript_GivePrettyChair
+	case 16, OneIsland_KindleRoad_GlassWorkshop_EventScript_GivePrettyDesk
 	end
 
 OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveBlueFlute::
+	setvar VAR_0x8009, 0
 	setvar VAR_0x8008, ITEM_BLUE_FLUTE
 	bufferitemname STR_VAR_1, VAR_0x8008
 	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
 	end
 
 OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveYellowFlute::
+	setvar VAR_0x8009, 1
 	setvar VAR_0x8008, ITEM_YELLOW_FLUTE
 	bufferitemname STR_VAR_1, VAR_0x8008
 	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
 	end
 
 OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveRedFlute::
+	setvar VAR_0x8009, 2
 	setvar VAR_0x8008, ITEM_RED_FLUTE
 	bufferitemname STR_VAR_1, VAR_0x8008
 	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
 	end
 
 OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveWhiteFlute::
+	setvar VAR_0x8009, 3
 	setvar VAR_0x8008, ITEM_WHITE_FLUTE
 	bufferitemname STR_VAR_1, VAR_0x8008
 	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
 	end
 
 OneIsland_KindleRoad_GlassWorkshop_EventScript_GiveBlackFlute::
+	setvar VAR_0x8009, 4
 	setvar VAR_0x8008, ITEM_BLACK_FLUTE
 	bufferitemname STR_VAR_1, VAR_0x8008
 	goto OneIsland_KindleRoad_GlassWorkshop_EventScript_TryGiveItemAgain
@@ -281,6 +343,14 @@ OneIsland_KindleRoad_GlassWorkshop_EventScript_Girl::
 OneIsland_KindleRoad_GlassWorkshop_EventScript_Sign::
 	msgbox OneIsland_KindleRoad_GlassWorkshop_Text_Sign, MSGBOX_SIGN
 	end
+
+@ Adapted (RFVF+): Emerald's, official French text
+OneIsland_KindleRoad_GlassWorkshop_Text_NoRoomInPC:
+    .string "C'est vraiment bête,\n"
+    .string "rheu-teu.\p"
+    .string "Je vais garder l'objet. Reviens me\n"
+    .string "voir plus tard, rheu-teu.$"
+
 
 OneIsland_KindleRoad_GlassWorkshop_Text_GoCollectAshWithThis:
 	.string "Cet endroit est recouvert de cendres\n"

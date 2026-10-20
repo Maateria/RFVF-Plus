@@ -38,6 +38,11 @@ u8 *ConvertEasyChatWordsToString(u8 *dest, const u16 *src, u16 columns, u16 rows
 bool8 EC_DoesEasyChatStringFitOnLine(const u16 *easyChatWords, u8 columns, u8 rows, u16 maxLength);
 void InitQuestionnaireWords(void);
 void InitEasyChatPhrases(void);
+u16 GetRandomEasyChatWordFromGroup(u16 groupId);
+u16 GetEasyChatGroupNumWords(u8 groupId);
+u16 EasyChat_GetNumWordsInGroup(u8 groupId);
+u16 UnlockRandomTrendySaying(void);
+u16 GetRandomWordFromAnyGroup(u16 groupId);
 void EnableRareWord(u8);
 bool8 InitEasyChatSelection(void);
 void DestroyEasyChatSelectionData(void);

@@ -173,3 +173,15 @@ Route110_TrickHousePuzzle8_Text_WroteSecretCodeLockOpened::
     .string "“J'aime le MAITRE DES PIEGES.”\n"
     .string "… … … … … … … …\p"
     .string "La porte s'ouvre!$"
+
+Route110_TrickHouseEntrance_Text_MechadollWhichTent::
+    .string "MECAPOUPEE 5 JE SUIS!\n"
+    .string "SI RECOMPENSE PAS PRISE\l"
+    .string "PAR TOI, ALORS MAITRE DES\l"
+    .string "PIEGES PAS POUVOIR SUIVRE.\p"
+    .string "TENTE ROUGE OU TENTE BLEUE,\n"
+    .string "LAQUELLE TOI PREFERER?$"
+
+Route110_TrickHouseEntrance_Text_PCFullAgain::
+    .string "ETAT DU PC: ENCORE PLEIN.\n"
+    .string "C'EST PAS SYMPA.$"

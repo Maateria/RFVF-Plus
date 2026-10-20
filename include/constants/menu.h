@@ -133,6 +133,12 @@
 #define MULTI_SHARDS_RBG                                       126
 #define MULTI_SHARDS_YBG                                       127
 #define MULTI_SHARDS_RYBG                                      128
+#define MULTI_TENT                                             129 // Emerald's (Trick House)
+#define MULTI_SEAGALLOP_FROM_LILYCOVE                          130 // RFVF+: Hoenn's harbors and the Frontier's
+#define MULTI_SEAGALLOP_FROM_LILYCOVE_BF                       131
+#define MULTI_SEAGALLOP_FROM_SLATEPORT                         132
+#define MULTI_SEAGALLOP_FROM_SLATEPORT_BF                      133
+#define MULTI_SEAGALLOP_FROM_FRONTIER                          134
 
 
 #define MULTICHOICE_NONE                                      255

@@ -405,6 +405,51 @@
       "script": "Route110_EventScript_ItemElixir",
       "flag": "FLAG_ITEM_ROUTE_110_ELIXIR",
       "in_connection": false
+    },
+    {
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_BERRY_TREE_MAGO",
+      "x": 5,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "16",
+      "script": "EventScript_HoennBerryTree",
+      "flag": "FLAG_HOENN_BERRY_TREE_ROUTE_110_NANAB_1",
+      "in_connection": false
+    },
+    {
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_BERRY_TREE_MAGO",
+      "x": 6,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "17",
+      "script": "EventScript_HoennBerryTree",
+      "flag": "FLAG_HOENN_BERRY_TREE_ROUTE_110_NANAB_2",
+      "in_connection": false
+    },
+    {
+      "type": "object",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_BERRY_TREE_MAGO",
+      "x": 7,
+      "y": 11,
+      "elevation": 3,
+      "movement_type": "MOVEMENT_TYPE_NONE",
+      "movement_range_x": 0,
+      "movement_range_y": 0,
+      "trainer_type": "TRAINER_TYPE_NONE",
+      "trainer_sight_or_berry_tree_id": "18",
+      "script": "EventScript_HoennBerryTree",
+      "flag": "FLAG_HOENN_BERRY_TREE_ROUTE_110_NANAB_3",
+      "in_connection": false
     }
   ],
   "warp_events": [

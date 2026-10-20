@@ -248,8 +248,52 @@ SlateportCity_EventScript_ExplainBerryPowder::
 	release
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SlateportCity/scripts.inc
-SlateportCity_EventScript_DecorClerk::          @ NPC #14 (6,38)
-SlateportCity_EventScript_DollClerk::           @ NPC #15 (5,51)
+SlateportCity_EventScript_DollClerk::
+	lock
+	faceplayer
+	goto_if_questlog EventScript_ReleaseEnd
+	message Text_MayIHelpYou
+	waitmessage
+	pokemartdecoration SlateportCity_PokemartDecor_Dolls
+	msgbox Text_PleaseComeAgain, MSGBOX_DEFAULT
+	release
 	end
+
+	.align 2
+SlateportCity_PokemartDecor_Dolls::
+	.2byte DECOR_AZURILL_DOLL
+	.2byte DECOR_MARILL_DOLL
+	.2byte DECOR_SKITTY_DOLL
+	pokemartlistend
+
+@ Emerald sells these only once the player has Secret Power; RFVF+: always (the secret bases come later)
+SlateportCity_EventScript_DecorClerk::
+	lock
+	faceplayer
+	goto_if_questlog EventScript_ReleaseEnd
+	message Text_MayIHelpYou
+	waitmessage
+	pokemartdecoration SlateportCity_PokemartDecor
+	msgbox Text_PleaseComeAgain
+	release
+	end
+
+	.align 2
+SlateportCity_PokemartDecor::
+	.2byte DECOR_RED_BRICK
+	.2byte DECOR_BLUE_BRICK
+	.2byte DECOR_YELLOW_BRICK
+	.2byte DECOR_RED_BALLOON
+	.2byte DECOR_BLUE_BALLOON
+	.2byte DECOR_YELLOW_BALLOON
+	.2byte DECOR_C_LOW_NOTE_MAT
+	.2byte DECOR_D_NOTE_MAT
+	.2byte DECOR_E_NOTE_MAT
+	.2byte DECOR_F_NOTE_MAT
+	.2byte DECOR_G_NOTE_MAT
+	.2byte DECOR_A_NOTE_MAT
+	.2byte DECOR_B_NOTE_MAT
+	.2byte DECOR_C_HIGH_NOTE_MAT
+	pokemartlistend
+
 @ hoenn_import: left out: trigger (10,13) VAR_SLATEPORT_OUTSIDE_MUSEUM_STATE==2 -> SlateportCity_EventScript_ScottBattleTentScene

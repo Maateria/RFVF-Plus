@@ -79,6 +79,9 @@ STATIC_ASSERT(sizeof(struct PokemonStorage) <= SECTOR_DATA_SIZE * (SECTOR_ID_PKM
 // offsets: the save layout must not move
 STATIC_ASSERT(offsetof(struct SaveBlock2, extFlags) == 0xB20 && sizeof(struct SaveBlock2) == 0xF24, SaveBlock2ExtFlagsLayout);
 STATIC_ASSERT(offsetof(struct SaveBlock1, waldaPhrase) == 0x3A94 && sizeof(struct WaldaPhrase) == 0x18 && offsetof(struct SaveBlock1, registeredTexts) == 0x3AD4, SaveBlock1WaldaPhraseLayout);
+STATIC_ASSERT(offsetof(struct SaveBlock1, daycare) == offsetof(struct SaveBlock1, dewfordTrends) + 36 && sizeof(OldMan) == 0x40
+              && offsetof(struct SaveBlock1, dewfordTrends) == offsetof(struct SaveBlock1, oldMan) + 0x40, SaveBlock1TrendsOldManLayout);
+STATIC_ASSERT(offsetof(struct SaveBlock1, decorations) == 0x348C && offsetof(struct SaveBlock1, nuzlockeDupeFlags) == 0x348C + 176, SaveBlock1DecorationsLayout);
 STATIC_ASSERT(TRAINER_FLAG(TRAINER_HOENN_START) == TRAINER_FLAGS_EXT_START && TRAINER_FLAG(MAX_TRAINERS_COUNT - 1) == TRAINER_FLAGS_END
               && TRAINER_FLAG(NUM_TRAINERS - 1) < TRAINER_FLAGS_EXT_START + 1024, HoennTrainerFlagsInTheirBlock);
 STATIC_ASSERT(sizeof(struct ObjectEvent) == 0x24 && offsetof(struct ObjectEvent, graphicsIdHi) == 0x23, ObjectEventSaveLayout);

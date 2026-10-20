@@ -410,6 +410,8 @@ static const struct MenuAction sMultichoiceList_GlassWorkshopVendor[] = {
     { gText_RedFlute_Ash },
     { gText_WhiteFlute_Ash },
     { gText_BlackFlute_Ash },
+    { gText_PrettyChair_Ash },
+    { gText_PrettyDesk_Ash },
     { gText_SmallExit }
 };
 
@@ -620,11 +622,12 @@ static const struct MenuAction sMultichoiceList_Exit[] = {
     { gOtherText_Exit }
 };
 
-// RFVF+: Vermilion's Seagallop menus after the Hall of Fame, with Lilycove
+// RFVF+: Vermilion's Seagallop menus after the Hall of Fame, with Lilycove and Slateport
 static const struct MenuAction sMultichoiceList_SeviiBattleTowerLilycove[] = {
     { gText_SeviiIslands },
     { gText_BattleTower },
     { gText_LilycoveCity },
+    { gText_SlateportCity },
     { gOtherText_Exit }
 };
 
@@ -633,6 +636,7 @@ static const struct MenuAction sMultichoiceList_SeviiBattleTowerOtherLilycove[] 
     { gText_BattleTower },
     { gText_Other },
     { gText_LilycoveCity },
+    { gText_SlateportCity },
     { gOtherText_Exit }
 };
 
@@ -640,6 +644,7 @@ static const struct MenuAction sMultichoiceList_SeviiOtherLilycove[] = {
     { gText_SeviiIslands },
     { gText_Other },
     { gText_LilycoveCity },
+    { gText_SlateportCity },
     { gOtherText_Exit }
 };
 
@@ -648,16 +653,43 @@ static const struct MenuAction sMultichoiceList_Seagallop123Lilycove[] = {
     { gText_TwoIsland },
     { gText_ThreeIsland },
     { gText_LilycoveCity },
+    { gText_SlateportCity },
     { gOtherText_Exit }
 };
 
 static const struct MenuAction sMultichoiceList_SeagallopLilycove[] = {
     { gText_LilycoveCity },
+    { gText_SlateportCity },
     { gOtherText_Exit }
+};
+
+// RFVF+: the Seagallop from Hoenn's harbors (the Battle Frontier once Hoenn's League is beaten) and the Frontier's
+static const struct MenuAction sMultichoiceList_SeagallopFromLilycove[] = {
+    { gText_Vermilion }, { gText_SlateportCity }, { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeagallopFromLilycoveBF[] = {
+    { gText_Vermilion }, { gText_SlateportCity }, { gText_BattleFrontier }, { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeagallopFromSlateport[] = {
+    { gText_Vermilion }, { gText_LilycoveCity }, { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeagallopFromSlateportBF[] = {
+    { gText_Vermilion }, { gText_LilycoveCity }, { gText_BattleFrontier }, { gOtherText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SeagallopFromFrontier[] = {
+    { gText_Vermilion }, { gText_SlateportCity }, { gText_LilycoveCity }, { gOtherText_Exit }
 };
 
 // Mauville's Game Corner (Emerald's lists; RFVF+: Hoenn's starters instead of their dolls)
 static const u8 sText_Treecko_1000Coins[] = _("ARCKO{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
+// Emerald's doll prizes (official French texts)
+static const u8 sText_TreeckoDoll_1000Coins[] = _("POUPEE ARCKO{CLEAR_TO 0x4F}1000 JETONS");
+static const u8 sText_TorchicDoll_1000Coins[] = _("POUP. POUSSIFEU{CLEAR_TO 0x5E}1000 JET.");
+static const u8 sText_MudkipDoll_1000Coins[] = _("POUPEE GOBOU{CLEAR_TO 0x4F}1000 JETONS");
 static const u8 sText_Torchic_1000Coins[] = _("POUSSIFEU{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
 static const u8 sText_Mudkip_1000Coins[] = _("GOBOU{CLEAR_TO 0x4B}{FONT_SMALL} 1,000 JETONS");
 static const u8 sText_Tm32_1500Coins[] = _("CT32{CLEAR_TO 0x48}{FONT_SMALL}1,500 JETONS");
@@ -672,10 +704,20 @@ static const struct MenuAction sMultichoiceList_GameCornerHoennCoins[] = {
     { gOtherText_Exit },
 };
 
+static const u8 sText_RedTent[] = _("TENTE ROUGE");
+static const u8 sText_BlueTent[] = _("TENTE BLEUE");
+static const struct MenuAction sMultichoiceList_Tent[] = {
+    { sText_RedTent },
+    { sText_BlueTent },
+};
+
 static const struct MenuAction sMultichoiceList_GameCornerHoennStarters[] = {
     { sText_Treecko_1000Coins },
     { sText_Torchic_1000Coins },
     { sText_Mudkip_1000Coins },
+    { sText_TreeckoDoll_1000Coins },
+    { sText_TorchicDoll_1000Coins },
+    { sText_MudkipDoll_1000Coins },
     { gText_NoThanks_2 },
 };
 
@@ -1078,6 +1120,12 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_SHARDS_RBG] = MULTICHOICE(sMultichoiceList_ShardsRbg),
 	[MULTI_SHARDS_YBG] = MULTICHOICE(sMultichoiceList_ShardsYbg),
 	[MULTI_SHARDS_RYBG] = MULTICHOICE(sMultichoiceList_ShardsRybg),
+	[MULTI_TENT] = MULTICHOICE(sMultichoiceList_Tent),
+	[MULTI_SEAGALLOP_FROM_LILYCOVE] = MULTICHOICE(sMultichoiceList_SeagallopFromLilycove),
+	[MULTI_SEAGALLOP_FROM_LILYCOVE_BF] = MULTICHOICE(sMultichoiceList_SeagallopFromLilycoveBF),
+	[MULTI_SEAGALLOP_FROM_SLATEPORT] = MULTICHOICE(sMultichoiceList_SeagallopFromSlateport),
+	[MULTI_SEAGALLOP_FROM_SLATEPORT_BF] = MULTICHOICE(sMultichoiceList_SeagallopFromSlateportBF),
+	[MULTI_SEAGALLOP_FROM_FRONTIER] = MULTICHOICE(sMultichoiceList_SeagallopFromFrontier),
 };
 
 // From Cool to Berries goes unused

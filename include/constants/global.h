@@ -44,6 +44,7 @@
 #define PARTY_NOTHING_CHOSEN (PARTY_SIZE + 1) // Emerald's name for FRLG's cancel slot (src/party_menu.c SLOT_CANCEL)
 #define PC_MAIL_NUM(i)     (PARTY_SIZE + (i))
 #define DECOR_MAX_SECRET_BASE 16
+#define DECOR_INVENTORY_SIZE 150 // RFVF+: Emerald's 10 desks, 10 chairs, 10 plants, 30 ornaments, 30 mats, 10 posters, 40 dolls, 10 cushions
 #define MAX_REMATCH_ENTRIES 100
 #define UNION_ROOM_KB_ROW_COUNT 10
 #define GIFT_RIBBONS_COUNT 11
@@ -89,6 +90,14 @@
 #define GENDER_COUNT 2
 
 #define BARD_SONG_LENGTH       6
+#define NUM_BARD_SONG_WORDS    BARD_SONG_LENGTH // Emerald's name
+// Emerald's Mauville old men (src/mauville_old_man.c)
+#define MAUVILLE_MAN_BARD           0
+#define MAUVILLE_MAN_HIPSTER        1
+#define MAUVILLE_MAN_TRADER         2
+#define MAUVILLE_MAN_STORYTELLER    3
+#define MAUVILLE_MAN_GIDDY          4
+#define SAVED_TRENDS_COUNT     4 // RFVF+: Dewford trends (5 in Emerald; FRLG left room for 4)
 #define NUM_STORYTELLER_TALES  4
 #define NUM_TRADER_ITEMS       4
 #define GIDDY_MAX_TALES       10

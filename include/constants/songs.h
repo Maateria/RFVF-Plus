@@ -540,6 +540,12 @@
 #define PH_NURSE_BLEND              607
 #define PH_NURSE_HELD               608
 #define PH_NURSE_SOLO               609
+// Emerald's (the Mauville bard, src/bard_music.c)
+#define FIRST_PHONEME_SONG          PH_TRAP_BLEND
+#define LAST_PHONEME_SONG           PH_NURSE_SOLO
+#define NUM_PHONEME_SONGS           (LAST_PHONEME_SONG - FIRST_PHONEME_SONG + 1)
+#define PHONEME_ID(song)            ((song) - FIRST_PHONEME_SONG)
+#define PHONEME_ID_NONE             0xFF
 // BEGIN johto_music
 #define MUS_HG_AZALEA                  610 // PokemonHnS (HeartGold/SoulSilver)
 #define MUS_HG_BELL_TOWER              611 // PokemonHnS (HeartGold/SoulSilver)

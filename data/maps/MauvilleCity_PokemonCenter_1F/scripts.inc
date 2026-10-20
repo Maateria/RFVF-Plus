@@ -27,6 +27,6 @@ MauvilleCity_PokemonCenter_1F_EventScript_Youngster::
 	msgbox MauvilleCity_PokemonCenter_1F_Text_RecordCornerSoundsFun, MSGBOX_NPC
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MauvilleCity_PokemonCenter_1F/scripts.inc
-MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan:: @ NPC #2 (2,3)
-	end
+@ MauvilleCity_PokemonCenter_1F_EventScript_MauvilleOldMan: Emerald's, data/scripts/mauville_man.inc (one a day,
+@ src/mauville_old_man.c)
+

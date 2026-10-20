@@ -988,9 +988,17 @@ Common_ShowEasyChatScreen::
 	fadescreen FADE_FROM_BLACK
 	return
 
+@ Emerald's (Dewford), STR_VAR_1 = the trendy phrase
+Common_EventScript_BufferTrendyPhrase::
+	setvar VAR_0x8004, 0
+	special BufferTrendyPhraseString
+	return
+
 	.include "data/scripts/surf.inc"
 	.include "data/scripts/set_gym_trainers.inc"
 	.include "data/scripts/hoenn_gyms.inc"
+	.include "data/scripts/mauville_man.inc"
+	.include "data/scripts/hoenn_berry_trees.inc"
 	.include "data/scripts/bag_full.inc"
 
 EventScript_OutOfCenterPartyHeal::
@@ -1661,6 +1669,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/DewfordTown_Gym/text.inc"
 
 	.include "data/maps/DewfordTown_Hall/scripts.inc"
+	.include "data/maps/DewfordTown_Hall/text.inc"
 
 	.include "data/maps/DewfordTown_House2/scripts.inc"
 	.include "data/maps/DewfordTown_House2/text.inc"
@@ -2024,6 +2033,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/SootopolisCity_House5/text.inc"
 
 	.include "data/maps/SootopolisCity_House6/scripts.inc"
+	.include "data/maps/SootopolisCity_House6/text.inc"
 
 	.include "data/maps/SootopolisCity_House7/scripts.inc"
 	.include "data/maps/SootopolisCity_House7/text.inc"

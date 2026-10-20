@@ -10,6 +10,7 @@ MauvilleCity_GameCorner_MapScripts::
 	.set TM_THUNDERBOLT_COINS, 4000
 	.set TM_ICE_BEAM_COINS, 4000
 	.set STARTER_COINS, 1000
+	.set DOLL_COINS, 1000
 	.set STARTER_LEVEL, 5
 	.set COINS_PRICE_50,  1000
 	.set COINS_PRICE_500, 10000
@@ -100,6 +101,9 @@ MauvilleCity_GameCorner_EventScript_ChooseStarterPrize::
 	case 0, MauvilleCity_GameCorner_EventScript_PrizeTreecko
 	case 1, MauvilleCity_GameCorner_EventScript_PrizeTorchic
 	case 2, MauvilleCity_GameCorner_EventScript_PrizeMudkip
+	case 3, MauvilleCity_GameCorner_EventScript_PrizeTreeckoDoll
+	case 4, MauvilleCity_GameCorner_EventScript_PrizeTorchicDoll
+	case 5, MauvilleCity_GameCorner_EventScript_PrizeMudkipDoll
 	goto MauvilleCity_GameCorner_EventScript_CancelPrize
 	end
 
@@ -116,6 +120,45 @@ MauvilleCity_GameCorner_EventScript_PrizeTorchic::
 MauvilleCity_GameCorner_EventScript_PrizeMudkip::
 	setvar VAR_TEMP_1, SPECIES_MUDKIP
 	goto MauvilleCity_GameCorner_EventScript_ConfirmStarterPrize
+	end
+
+@ Emerald's doll prizes, next to the starters (user's choice, 2026-10-19)
+MauvilleCity_GameCorner_EventScript_PrizeTreeckoDoll::
+	setvar VAR_TEMP_1, DECOR_TREECKO_DOLL
+	goto MauvilleCity_GameCorner_EventScript_ConfirmDollPrize
+	end
+
+MauvilleCity_GameCorner_EventScript_PrizeTorchicDoll::
+	setvar VAR_TEMP_1, DECOR_TORCHIC_DOLL
+	goto MauvilleCity_GameCorner_EventScript_ConfirmDollPrize
+	end
+
+MauvilleCity_GameCorner_EventScript_PrizeMudkipDoll::
+	setvar VAR_TEMP_1, DECOR_MUDKIP_DOLL
+	goto MauvilleCity_GameCorner_EventScript_ConfirmDollPrize
+	end
+
+MauvilleCity_GameCorner_EventScript_ConfirmDollPrize::
+	bufferdecorationname STR_VAR_1, VAR_TEMP_1
+	msgbox MauvilleCity_GameCorner_Text_SoYourChoiceIsX, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MauvilleCity_GameCorner_EventScript_CancelPrize
+	checkcoins VAR_TEMP_2
+	goto_if_lt VAR_TEMP_2, DOLL_COINS, MauvilleCity_GameCorner_EventScript_NotEnoughCoinsForStarter
+	bufferdecorationname STR_VAR_2, VAR_TEMP_1
+	checkdecorspace VAR_TEMP_1
+	goto_if_eq VAR_RESULT, FALSE, MauvilleCity_GameCorner_EventScript_NoRoomForDoll
+	removecoins DOLL_COINS
+	adddecoration VAR_TEMP_1
+	updatecoinsbox 0, 0
+	playse SE_SHOP
+	msgbox MauvilleCity_GameCorner_Text_SendToYourHomePC, MSGBOX_DEFAULT
+	goto MauvilleCity_GameCorner_EventScript_ChooseStarterPrize
+	end
+
+MauvilleCity_GameCorner_EventScript_NoRoomForDoll::
+	call Common_EventScript_NoRoomForDecor
+	hidecoinsbox 0, 0
+	release
 	end
 
 MauvilleCity_GameCorner_EventScript_ConfirmStarterPrize::

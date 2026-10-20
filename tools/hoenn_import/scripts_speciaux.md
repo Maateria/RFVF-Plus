@@ -1,6 +1,6 @@
 # Hoenn : scripts spéciaux à décider
 
-Ces PNJ, panneaux et dresseurs font plus que parler, défier ou dire où l'on est. Ils restent muets en attendant qu'on décide ensemble quoi en faire. Les dialogues simples, les infirmières, les vendeurs et le point de retour des Centres Pokémon sont faits (2026-10-18), puis les choix du 2026-10-18 pour Rosyères, Clémenti-Ville, Mérouville et le pêcheur de Myokara (`work/hoenn_scripts/manual.py`), puis le lot 1 du 2026-10-19 : PNJ et services (`manual_b1.py`). Chaque ligne restante indique son lot.
+Ces PNJ, panneaux et dresseurs font plus que parler, défier ou dire où l'on est. Ils restent muets en attendant qu'on décide ensemble quoi en faire. Les dialogues simples, les infirmières, les vendeurs et le point de retour des Centres Pokémon sont faits (2026-10-18), puis les choix du 2026-10-18 pour Rosyères, Clémenti-Ville, Mérouville et le pêcheur de Myokara (`work/hoenn_scripts/manual.py`), puis le lot 1 du 2026-10-19 : PNJ et services (`manual_b1.py`), puis le lot 2 du 2026-10-19 : systèmes (phrase à la mode, vieil homme de Lavandia, décorations, Île Mirage, arbres à baies : `manual_b2.py`). Chaque ligne restante indique son lot.
 
 Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = drapeaux ou variables d'Émeraude que le script regarde.
 
@@ -18,40 +18,12 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | LittlerootTown_ProfessorBirchsLab | Birch (PNJ) | parle seulement, mais selon VAR_DEX_UPGRADE_JOHTO_STARTER_STATE | PROF. SEKO: Où est {RIVAL}? A la maison, je pense. Ou alors quelque pa… |
 | LittlerootTown_ProfessorBirchsLab | Rival (PNJ) | parle seulement, mais selon VAR_DEX_UPGRADE_JOHTO_STARTER_STATE | BRICE: Où est-ce que je vais aller chercher des POKéMON, maintenant? |
 
-## Myokara (13)
+## Poivressel (2)
 
 | Carte | Script | Ce qu'il fait | Premier texte |
 |---|---|---|---|
-| DewfordTown | TrendyPhraseBoy (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | J'aime ce qui est en vogue, branché et à la mode. Je me tiens toujours… |
-| DewfordTown_Hall | Bookshelf (panneau) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | RECONNAITRE LES BONS “{STR_VAR_1}” ET LES MAUVAIS “{STR_VAR_1}”… LE LI… |
-| DewfordTown_Hall | ExpertM (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | Tout le monde parle de “{STR_VAR_1}”… N'y aurait-il pas une émission d… |
-| DewfordTown_Hall | Girl (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | Qu'est-ce qui est à la mode? Heu, sans doute “{STR_VAR_1}”! Je n'imagi… |
-| DewfordTown_Hall | LittleBoy (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | Je collectionne les objets dérivés de “{STR_VAR_1}”. J'ai les poupées … |
-| DewfordTown_Hall | Man (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | En ce moment, j'étudie cette mode du “{STR_VAR_1}”. C'est vrai qu'il y… |
-| DewfordTown_Hall | Painting (panneau) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | Le titre est: “LE DERNIER {STR_VAR_1}”. |
-| DewfordTown_Hall | PsychicM (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | Si nous formons une équipe, nous serons invincibles, dès qu'il s'agira… |
-| DewfordTown_Hall | SchoolKidM (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | Si nous formons une équipe, nous serons invincibles, dès qu'il s'agira… |
-| DewfordTown_Hall | SludgeBombMan (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — donne CT36; phrase à la mode (système de Myokara, non porté) (selon FLAG_RECEIVED_TM_SLUDGE_BOMB) | Pour moi, la BOMB-BEURK, c'est le nec plus ultra. Pas de doute possibl… |
-| DewfordTown_Hall | Twin (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | De l'autre côté de l'océan? Tu crois que “{STR_VAR_1}” est encore plus… |
-| DewfordTown_Hall | Woman (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — phrase à la mode (système de Myokara, non porté) | J'essaie d'apprendre “{STR_VAR_1}” à mon POKéMON, mais ça ne marche pa… |
-| DewfordTown_House2 | Man (PNJ) | **lot 2 : phrase à la mode (et Barpau)** — donne MOUCH. SOIE (selon FLAG_RECEIVED_SILK_SCARF) | Regarde-moi cette merveille! C'est un MOUCH. SOIE. C'est à la pointe d… |
-
-## Poivressel (6)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| SlateportCity | DecorClerk (PNJ) | **lot 2 : décorations** — décorations (système non porté) (selon FLAG_RECEIVED_SECRET_POWER) | Bienvenue! En quoi puis-je vous aider? |
-| SlateportCity | DollClerk (PNJ) | **lot 2 : décorations** — décorations (système non porté) | Bienvenue! En quoi puis-je vous aider? |
 | SlateportCity_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT de POIVRESSEL! Je serai votre guide … |
 | SlateportCity_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — menu à choix | Règles du COMBAT ECHANGE. |
-| SlateportCity_Harbor | FerryAttendant (PNJ) | **lot 4 : S.S. Aqua** — menu à choix (selon FLAG_MET_SCOTT_ON_SS_TIDAL, FLAG_SYS_GAME_CLEAR, VAR_SS_TIDAL_STATE) | Je vous demande pardon? Vous cherchez un bateau? Désolée, vous ne pouv… |
-| SlateportCity_Harbor | Sailor (PNJ) | **pas porté (décision du 2026-10-19)** — indique où Groudon / Kyogre causent une météo anormale (après la Ligue) (selon FLAG_DEFEATED_GROUDON, FLAG_DEFEATED_KYOGRE, FLAG_SYS_GAME_CLEAR) | Pour appareiller en toute sécurité, nous devons d'abord consulter la m… |
-
-## Lavandia (1)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| MauvilleCity_PokemonCenter_1F | MauvilleOldMan (PNJ) | **lot 2 : vieil homme de Lavandia** — Vieil homme de Lavandia (chansons/histoires, non porté) (selon FLAG_UNLOCKED_TRENDY_SAYINGS) | Je m'appelle PAPOTEUR! J'ai une super histoire à te raconter! Tu veux … |
 
 ## Vergazon (2)
 
@@ -66,32 +38,6 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 |---|---|---|---|
 | FallarborTown_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT d'AUTEQUIA! Je serai votre guide pou… |
 | FallarborTown_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — menu à choix | Règles du TOURNOI K.O. |
-
-## Cimetronelle (2)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| FortreeCity_DecorationShop | ClerkChairs (PNJ) | **lot 2 : décorations** — décorations (système non porté) | Bienvenue! En quoi puis-je vous aider? |
-| FortreeCity_DecorationShop | ClerkDesks (PNJ) | **lot 2 : décorations** — décorations (système non porté) | Bienvenue! En quoi puis-je vous aider? |
-
-## Atalanopolis (1)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| SootopolisCity_House6 | Woman (PNJ) | **lot 2 : décorations** — décorations (système non porté) (selon FLAG_RECEIVED_WAILMER_DOLL) | Bonjour! Vous êtes la première personne à venir chez nous depuis longt… |
-
-## Pacifiville (1)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| PacifidlogTown_House5 | MirageIslandWatcher (PNJ) | **lot 2 : Île Mirage (avec Latios ou Latias dans l'équipe)** — Île Mirage (selon le jour) | Je n'vois pas l'ILE MIRAGE aujourd'hui… |
-
-## Routes (2)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| Route104_PrettyPetalFlowerShop | ShopOwner (PNJ) | **lot 2 : décorations** — décorations (système non porté) (selon FLAG_MET_PRETTY_PETAL_SHOP_OWNER) | Bonjour! Voici le FLEURISTE JOLIE FLEUR. Vive les fleurs, plantons-en … |
-| Route114_LanettesHouse | Lanette (PNJ) | **lot 2 : décorations** — décorations (système non porté) (selon FLAG_RECEIVED_DOLL_LANETTE, FLAG_SYS_PC_LANETTE) | ANNETTE: Oh! {PLAYER}{KUN}! Je suis désolée. C'est la pagaille. Quand … |
 
 ## Zone de Combat (47)
 

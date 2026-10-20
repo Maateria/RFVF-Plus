@@ -1,6 +1,8 @@
 #ifndef GUARD_DECORATION_H
 #define GUARD_DECORATION_H
 
+#include "task.h"
+
 enum DecorationPermission
 {
     /*
@@ -53,5 +55,9 @@ struct Decoration
 };
 
 extern const struct Decoration gDecorations[];
+
+void DoDecorationPCMenu(u8 taskId, TaskFunc exitFunc);
+void ShowDecorationCategoriesWindow(u8 taskId);
+void CopyDecorationCategoryName(u8 *dest, u8 category);
 
 #endif //GUARD_DECORATION_H

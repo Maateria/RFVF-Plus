@@ -241,8 +241,8 @@
 #define VAR_MYSTERY_GIFT_7         0x40BC
 #define VAR_CYCLING_ROAD_RECORD_TIME_H 0x40BD
 #define VAR_CYCLING_ROAD_RECORD_COLLISIONS 0x40BE
-#define VAR_0x40BF                 0x40BF
-#define VAR_0x40C0                 0x40C0
+#define VAR_MAUVILLE_OLD_MAN_DAY   0x40BF // RFVF+: the Hoenn day + 1 the Mauville old man was set up (one a day)
+#define VAR_MIRAGE_ISLAND_DAY      0x40C0 // RFVF+: the Hoenn day + 1 Mirage Island shows (src/hoenn_specials.c)
 #define VAR_0x40C1                 0x40C1
 #define VAR_0x40C2                 0x40C2
 #define VAR_0x40C3                 0x40C3

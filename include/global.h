@@ -466,7 +466,7 @@ struct MauvilleManBard
 {
     /*0x00*/ u8 id;
     /*0x02*/ u16 songLyrics[BARD_SONG_LENGTH];
-    /*0x0E*/ u16 temporaryLyrics[BARD_SONG_LENGTH];
+    /*0x0E*/ u16 newSongLyrics[BARD_SONG_LENGTH];
     /*0x1A*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
     /*0x22*/ u8 filler_2DB6[0x3];
     /*0x25*/ u8 playerTrainerId[TRAINER_ID_LENGTH];
@@ -498,14 +498,14 @@ struct MauvilleManGiddy
 struct MauvilleManHipster
 {
     u8 id;
-    bool8 alreadySpoken;
+    bool8 taughtWord;
     u8 language;
 };
 
 struct MauvilleOldManTrader
 {
     u8 id;
-    u8 decorIds[NUM_TRADER_ITEMS];
+    u8 decorations[NUM_TRADER_ITEMS];
     u8 playerNames[NUM_TRADER_ITEMS][11];
     u8 alreadyTraded;
     u8 language[NUM_TRADER_ITEMS];
@@ -830,8 +830,9 @@ struct SaveBlock1
     /*0x2CC4*/ u16 easyChatBattleLost[EASY_CHAT_BATTLE_WORDS_COUNT]; //referred to, but functionally unused
     /*0x2CD0*/ struct Mail mail[MAIL_COUNT];
     /*0x2F10*/ u8 additionalPhrases[NUM_ADDITIONAL_PHRASE_BYTES];
-    /*0x2F18*/ u8 filler_oldMan[64]; // unused, was struct OldMan oldMan
-    /*0x2F54*/ u8 filler_EasyChatPairs[36]; // unused, was struct DewfordTrend dewfordTrends[5], which was 40 bytes, but I had to add 2 bytes to the Daycare struct (which got padded to 4).
+    /*0x2F18*/ OldMan oldMan; // RFVF+: Emerald's Mauville old man (mauville_old_man.c); zero in older saves
+    /*0x2F58*/ struct DewfordTrend dewfordTrends[SAVED_TRENDS_COUNT]; // RFVF+: Emerald's (dewford_trend.c); was 5 (40 bytes) in R/S, but 2 bytes went to the Daycare struct (padded to 4)
+               u8 filler_DewfordTrends[36 - SAVED_TRENDS_COUNT * sizeof(struct DewfordTrend)];
     /*0x2F80*/ struct DayCare daycare;
     /*0x309C*/ u8 giftRibbons[GIFT_RIBBONS_COUNT];
     /*0x30A7*/ struct ExternalEventData externalEventData;
@@ -839,7 +840,8 @@ struct SaveBlock1
     /*0x30D0*/ struct Roamer roamer;
     /*0x30EC*/ struct EnigmaBerry enigmaBerry;
     /*0x3120*/ struct MysteryGiftSave mysteryGift; //0x36C in length
-    /*0x348C*/ u8 unused_348C[176];
+    /*0x348C*/ u8 decorations[DECOR_INVENTORY_SIZE]; // RFVF+: Emerald's decoration inventory, by category (decoration_inventory.c); never written before: zero in older saves
+    /*0x3522*/ u8 unused_3522[176 - DECOR_INVENTORY_SIZE];
     //^^^this & the mysteryEventBuffers field are labeled "FreeWork" & combined in the source, though 0x36C of FreeWork is set aside for MEventBuffers in mevent.c,
     //^^^which is likely where the above field was documented from. The rest of FreeWork is unreferenced in the source, so this field is likely unused.
                u8 nuzlockeDupeFlags[52]; //taken from filler_348c field, which was originally 400 bytes. Used to prevent hijacking the dupe clause in Nuzlocke by catching fainted Pokemon.

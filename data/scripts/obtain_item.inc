@@ -115,6 +115,16 @@ EventScript_NoRoomForDecor::
 	setvar VAR_RESULT, FALSE
 	return
 
+@ Emerald's (RFVF+: Hoenn's decoration gifts), STR_VAR_2 = the decoration
+Common_EventScript_ShowNoRoomForDecor::
+	msgbox Text_NoRoomForAnotherDecor, MSGBOX_DEFAULT
+	release
+	end
+
+Common_EventScript_NoRoomForDecor::
+	msgbox Text_NoRoomForAnotherDecor, MSGBOX_DEFAULT
+	return
+
 Std_FindItem::
 	lock
 	faceplayer

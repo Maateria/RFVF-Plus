@@ -8,7 +8,49 @@ FortreeCity_DecorationShop_EventScript_Girl::
 	msgbox FortreeCity_DecorationShop_Text_BuyingDeskForDolls, MSGBOX_NPC
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/FortreeCity_DecorationShop/scripts.inc
-FortreeCity_DecorationShop_EventScript_ClerkDesks:: @ NPC #3 (1,2)
-FortreeCity_DecorationShop_EventScript_ClerkChairs:: @ NPC #4 (6,2)
+FortreeCity_DecorationShop_EventScript_ClerkDesks::
+	lock
+	faceplayer
+	goto_if_questlog EventScript_ReleaseEnd
+	message Text_MayIHelpYou
+	waitmessage
+	pokemartdecoration FortreeCity_DecorationShop_PokemartDecor_Desks
+	msgbox Text_PleaseComeAgain, MSGBOX_DEFAULT
+	release
 	end
+
+	.align 2
+FortreeCity_DecorationShop_PokemartDecor_Desks::
+	.2byte DECOR_SMALL_DESK
+	.2byte DECOR_POKEMON_DESK
+	.2byte DECOR_HEAVY_DESK
+	.2byte DECOR_RAGGED_DESK
+	.2byte DECOR_COMFORT_DESK
+	.2byte DECOR_BRICK_DESK
+	.2byte DECOR_CAMP_DESK
+	.2byte DECOR_HARD_DESK
+	pokemartlistend
+
+FortreeCity_DecorationShop_EventScript_ClerkChairs::
+	lock
+	faceplayer
+	goto_if_questlog EventScript_ReleaseEnd
+	message Text_MayIHelpYou
+	waitmessage
+	pokemartdecoration FortreeCity_DecorationShop_PokemartDecor_Chairs
+	msgbox Text_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+	.align 2
+FortreeCity_DecorationShop_PokemartDecor_Chairs::
+	.2byte DECOR_SMALL_CHAIR
+	.2byte DECOR_POKEMON_CHAIR
+	.2byte DECOR_HEAVY_CHAIR
+	.2byte DECOR_RAGGED_CHAIR
+	.2byte DECOR_COMFORT_CHAIR
+	.2byte DECOR_BRICK_CHAIR
+	.2byte DECOR_CAMP_CHAIR
+	.2byte DECOR_HARD_CHAIR
+	pokemartlistend
+

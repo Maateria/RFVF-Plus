@@ -413,6 +413,36 @@ void CreateItemMenuIcon(u16 itemId, u8 idx)
     }
 }
 
+#include "constants/decorations.h"
+#include "data/decoration/icon.h"
+
+// RFVF+: a decoration's 32x32 icon (graphics/decorations, centred, unlike the 24x24 item icons) in an item icon slot
+void CreateDecorMenuIcon(u8 decor, u8 idx)
+{
+    u8 * spriteIds = &sItemMenuIconSpriteIds[SPR_ITEM_ICON];
+    struct SpriteTemplate template;
+    struct CompressedSpriteSheet sheet = {sDecorIconTable[decor][0], 0x200, TAG_ITEM_ICON + idx};
+    struct CompressedSpritePalette palette = {sDecorIconTable[decor][1], TAG_ITEM_ICON + idx};
+    u8 spriteId;
+
+    if (spriteIds[idx] != SPRITE_NONE)
+        return;
+    FreeSpriteTilesByTag(TAG_ITEM_ICON + idx);
+    FreeSpritePaletteByTag(TAG_ITEM_ICON + idx);
+    LoadCompressedSpriteSheet(&sheet);
+    LoadCompressedSpritePalette(&palette);
+    template = sSpriteTemplate_ItemIcon;
+    template.tileTag = TAG_ITEM_ICON + idx;
+    template.paletteTag = TAG_ITEM_ICON + idx;
+    spriteId = CreateSprite(&template, 0, 0, 0);
+    if (spriteId != MAX_SPRITES)
+    {
+        spriteIds[idx] = spriteId;
+        gSprites[spriteId].x2 = 20; // the item icons' 24x24 picture sits in the top left of their 32x32 sprite
+        gSprites[spriteId].y2 = 136;
+    }
+}
+
 void DestroyItemMenuIcon(u8 idx)
 {
     u8 * spriteIds = &sItemMenuIconSpriteIds[SPR_ITEM_ICON];

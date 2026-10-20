@@ -20,6 +20,7 @@ void ResetItemMenuIconState(void);
 void CreateSwapLine(void);
 void DestroyItemMenuIcon(bool8 a0);
 void CreateItemMenuIcon(u16 itemId, bool8 a0);
+void CreateDecorMenuIcon(u8 decor, u8 idx);
 void CopyItemIconPicTo4x4Buffer(const void *src, void *dest);
 u8 AddItemIconObject(u16 tilesTag, u16 paletteTag, u16 itemId);
 u8 AddItemIconObjectWithCustomObjectTemplate(const struct SpriteTemplate * origTemplate, u16 tilesTag, u16 paletteTag, u16 itemId);

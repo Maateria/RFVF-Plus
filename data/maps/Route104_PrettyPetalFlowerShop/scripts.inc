@@ -1,8 +1,8 @@
 .equ LOCALID_FLOWER_SHOP_OWNER, 1
 
 Route104_PrettyPetalFlowerShop_MapScripts::
+	map_script MAP_SCRIPT_ON_TRANSITION, Route104_PrettyPetalFlowerShop_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route104_PrettyPetalFlowerShop_OnTransition)
 Route104_PrettyPetalFlowerShop_EventScript_RandomBerryGirl::
 	lock
 	faceplayer
@@ -38,6 +38,61 @@ Route104_PrettyPetalFlowerShop_EventScript_GiveWailmerPail::
 	release
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route104_PrettyPetalFlowerShop/scripts.inc
-Route104_PrettyPetalFlowerShop_EventScript_ShopOwner:: @ NPC #1 (0,3)
+@ Emerald's, without its landmark flag (no Hoenn landmarks here)
+Route104_PrettyPetalFlowerShop_OnTransition:
+	goto_if_unset FLAG_MET_PRETTY_PETAL_SHOP_OWNER, Route104_PrettyPetalFlowerShop_EventScript_MoveShopOwner
+	goto_if_unset FLAG_HOENN_BADGE03_GET, Route104_PrettyPetalFlowerShop_EventScript_MoveShopOwner
+	setflag FLAG_TEMP_1
 	end
+
+Route104_PrettyPetalFlowerShop_EventScript_MoveShopOwner::
+	setobjectxyperm LOCALID_FLOWER_SHOP_OWNER, 4, 6
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_ShopOwner::
+	lock
+	faceplayer
+	goto_if_questlog EventScript_ReleaseEnd
+	goto_if_set FLAG_TEMP_1, Route104_PrettyPetalFlowerShop_EventScript_SellDecorations
+	msgbox Route104_PrettyPetalFlowerShop_Text_ThisIsPrettyPetalFlowerShop, MSGBOX_DEFAULT
+	goto_if_set FLAG_MET_PRETTY_PETAL_SHOP_OWNER, Route104_PrettyPetalFlowerShop_EventScript_AlreadyMet
+	setflag FLAG_MET_PRETTY_PETAL_SHOP_OWNER
+	msgbox Route104_PrettyPetalFlowerShop_Text_IntroLearnAboutBerries, MSGBOX_YESNO
+	call_if_eq VAR_RESULT, YES, Route104_PrettyPetalFlowerShop_EventScript_ExplainBerries
+	call_if_eq VAR_RESULT, NO, Route104_PrettyPetalFlowerShop_EventScript_DontExplainBerries
+	release
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_SellDecorations::
+	message gText_PlayerWhatCanIDoForYou
+	waitmessage
+	pokemartdecoration2 Route104_PrettyPetalFlowerShop_Pokemart_Plants
+	msgbox Text_PleaseComeAgain, MSGBOX_DEFAULT
+	release
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_AlreadyMet::
+	msgbox Route104_PrettyPetalFlowerShop_Text_LearnAboutBerries, MSGBOX_YESNO
+	call_if_eq VAR_RESULT, YES, Route104_PrettyPetalFlowerShop_EventScript_ExplainBerries
+	call_if_eq VAR_RESULT, NO, Route104_PrettyPetalFlowerShop_EventScript_DontExplainBerries
+	release
+	end
+
+Route104_PrettyPetalFlowerShop_EventScript_ExplainBerries::
+	msgbox Route104_PrettyPetalFlowerShop_Text_BerriesExplanation, MSGBOX_DEFAULT
+	return
+
+Route104_PrettyPetalFlowerShop_EventScript_DontExplainBerries::
+	msgbox Route104_PrettyPetalFlowerShop_Text_FlowersBringHappiness, MSGBOX_DEFAULT
+	return
+
+	.align 2
+Route104_PrettyPetalFlowerShop_Pokemart_Plants::
+	.2byte DECOR_RED_PLANT
+	.2byte DECOR_TROPICAL_PLANT
+	.2byte DECOR_PRETTY_FLOWERS
+	.2byte DECOR_COLORFUL_PLANT
+	.2byte DECOR_BIG_PLANT
+	.2byte DECOR_GORGEOUS_PLANT
+	pokemartlistend
+

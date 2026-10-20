@@ -19,6 +19,7 @@
 #include "item_menu.h"
 #include "item_pc.h"
 #include "party_menu.h"
+#include "decoration.h"
 #include "constants/items.h"
 #include "constants/songs.h"
 #include "constants/field_weather.h"
@@ -44,6 +45,8 @@ static void Task_TopMenuHandleInput(u8 taskId);
 static void Task_PlayerPcItemStorage(u8 taskId);
 static void Task_PlayerPcMailbox(u8 taskId);
 static void Task_PlayerPcTurnOff(u8 taskId);
+static void Task_PlayerPcDecoration(u8 taskId);
+static void Task_ReturnToTopMenu(u8 taskId);
 static void Task_CreateItemStorageSubmenu(u8 taskId, u8 cursorPos);
 static void PrintStringOnWindow0WithDialogueFrame(const u8 *str);
 static void Task_TopMenu_ItemStorageSubmenu_HandleInput(u8 taskId);
@@ -85,11 +88,12 @@ static const u8 *const sItemStorageActionDescriptionPtrs[] = {
 static const struct MenuAction sMenuActions_TopMenu[] = {
     {gText_ItemStorage, Task_PlayerPcItemStorage},
     {gText_Mailbox, Task_PlayerPcMailbox},
-    {gText_TurnOff, Task_PlayerPcTurnOff}
+    {gText_TurnOff, Task_PlayerPcTurnOff},
+    {gText_Decoration, Task_PlayerPcDecoration}, // RFVF+: Emerald's decorations, in every PC (user's choice)
 };
 
-static const u8 sItemOrder_BedroomPC[] = { 0, 1, 2 };
-static const u8 sItemOrder_PlayerPC[] = { 0, 1, 2 };
+static const u8 sItemOrder_BedroomPC[] = { 0, 1, 3, 2 };
+static const u8 sItemOrder_PlayerPC[] = { 0, 1, 3, 2 };
 
 static const struct MenuAction sMenuActions_ItemPc[] = {
     {gText_WithdrawItem2, Task_PlayerPcWithdrawItem},
@@ -155,7 +159,7 @@ void BedroomPC(void)
     gPlayerPcMenuManager.notInRoom = FALSE;
     BackupHelpContext();
     sItemOrder = sItemOrder_BedroomPC;
-    sTopMenuItemCount = 3;
+    sTopMenuItemCount = 4;
     taskId = CreateTask(TaskDummy, 0);
     DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
 }
@@ -167,7 +171,7 @@ void PlayerPC(void)
     gPlayerPcMenuManager.notInRoom = TRUE;
     BackupHelpContext();
     sItemOrder = sItemOrder_PlayerPC;
-    sTopMenuItemCount = 3;
+    sTopMenuItemCount = 4;
     taskId = CreateTask(TaskDummy, 0);
     DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_WhatWouldYouLikeToDo, Task_DrawPlayerPcTopMenu);
 }
@@ -252,6 +256,11 @@ static void Task_PlayerPcMailbox(u8 taskId)
             DisplayItemMessageOnField(taskId, FONT_NORMAL, gText_TheresNoMailHere, Task_ReturnToTopMenu);
         }
     }
+}
+
+static void Task_PlayerPcDecoration(u8 taskId)
+{
+    DoDecorationPCMenu(taskId, Task_ReturnToTopMenu);
 }
 
 static void Task_PlayerPcTurnOff(u8 taskId)

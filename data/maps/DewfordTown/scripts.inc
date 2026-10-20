@@ -41,6 +41,44 @@ DewfordTown_EventScript_AlreadyHaveOldRod::
 	release
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/DewfordTown/scripts.inc
-DewfordTown_EventScript_TrendyPhraseBoy::       @ NPC #3 (1,6)
+DewfordTown_EventScript_TrendyPhraseBoy::
+	lock
+	faceplayer
+	call Common_EventScript_BufferTrendyPhrase
+	msgbox DewfordTown_Text_XIsTheBiggestHappeningThingRight, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, YES, DewfordTown_EventScript_ConfirmTrendyPhrase
+	goto_if_eq VAR_RESULT, NO, DewfordTown_EventScript_RejectTrendyPhrase
 	end
+
+DewfordTown_EventScript_ConfirmTrendyPhrase::
+	msgbox DewfordTown_Text_YeahDefinitionOfInRightNow, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_EventScript_RejectTrendyPhrase::
+	msgbox DewfordTown_Text_TellMeWhatsNewAndIn, MSGBOX_DEFAULT
+	setvar VAR_0x8004, EASY_CHAT_TYPE_TRENDY_PHRASE
+	call Common_ShowEasyChatScreen
+	lock
+	faceplayer
+	goto_if_eq VAR_RESULT, TRUE, DewfordTown_EventScript_GiveNewTrendyPhrase
+	goto_if_eq VAR_RESULT, FALSE, DewfordTown_EventScript_CancelNewTrendyPhrase
+	end
+
+DewfordTown_EventScript_GiveNewTrendyPhrase::
+	incrementgamestat GAME_STAT_STARTED_TRENDS
+	goto_if_eq VAR_0x8004, FALSE, DewfordTown_EventScript_PhraseNotTrendyEnough
+	msgbox DewfordTown_Text_OfCourseIKnowAboutThat, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_EventScript_CancelNewTrendyPhrase::
+	msgbox DewfordTown_Text_HearOfAnyTrendsComeShareWithMe, MSGBOX_DEFAULT
+	release
+	end
+
+DewfordTown_EventScript_PhraseNotTrendyEnough::
+	msgbox DewfordTown_Text_XHuhIThinkYIsCool, MSGBOX_DEFAULT
+	release
+	end
+

@@ -18,6 +18,7 @@
 #include "constants/items.h"
 #include "constants/layouts.h"
 #include "constants/weather.h"
+#include "dewford_trend.h"
 
 #define MAX_ENCOUNTER_RATE 1600
 
@@ -634,10 +635,103 @@ bool8 DoesCurrentMapHaveFishingMons(void)
     return TRUE;
 }
 
+// RFVF+: Emerald's Feebas, on 6 of Route 119's fishing tiles drawn from Dewford's trendy phrase (dewford_trend.c)
+#define NUM_FEEBAS_SPOTS 6
+#define NUM_FISHING_SPOTS_1 131
+#define NUM_FISHING_SPOTS_2 167
+#define NUM_FISHING_SPOTS_3 149
+#define NUM_FISHING_SPOTS (NUM_FISHING_SPOTS_1 + NUM_FISHING_SPOTS_2 + NUM_FISHING_SPOTS_3)
+
+static const struct WildPokemon sWildFeebas = {20, 25, SPECIES_FEEBAS};
+
+static const u16 sRoute119WaterTileData[] =
+{
+//yMin, yMax, numSpots in previous sections
+     0,  45,  0,
+    46,  91,  NUM_FISHING_SPOTS_1,
+    92, 139,  NUM_FISHING_SPOTS_1 + NUM_FISHING_SPOTS_2,
+};
+
+static EWRAM_DATA u32 sFeebasRngValue = 0;
+
+static u16 FeebasRandom(void)
+{
+    sFeebasRngValue = ISO_RANDOMIZE2(sFeebasRngValue);
+    return sFeebasRngValue >> 16;
+}
+
+static u16 GetFeebasFishingSpotId(s16 targetX, s16 targetY, u8 section)
+{
+    u16 x, y;
+    u16 yMin = sRoute119WaterTileData[section * 3 + 0];
+    u16 yMax = sRoute119WaterTileData[section * 3 + 1];
+    u16 spotId = sRoute119WaterTileData[section * 3 + 2];
+
+    for (y = yMin; y <= yMax; y++)
+    {
+        for (x = 0; x < gMapHeader.mapLayout->width; x++)
+        {
+            if (MetatileBehavior_IsSurfableAndNotWaterfall(MapGridGetMetatileBehaviorAt(x + MAP_OFFSET, y + MAP_OFFSET)))
+            {
+                spotId++;
+                if (targetX == x && targetY == y)
+                    return spotId;
+            }
+        }
+    }
+    return spotId + 1;
+}
+
+static bool8 CheckFeebas(void)
+{
+    u8 i;
+    u16 feebasSpots[NUM_FEEBAS_SPOTS];
+    s16 x, y;
+    u8 section = 0;
+
+    if (gSaveBlock1Ptr->location.mapGroup != MAP_GROUP(ROUTE119) || gSaveBlock1Ptr->location.mapNum != MAP_NUM(ROUTE119))
+        return FALSE;
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    x -= MAP_OFFSET;
+    y -= MAP_OFFSET;
+    for (i = 0; i < 3; i++)
+    {
+        if (y >= sRoute119WaterTileData[3 * i + 0] && y <= sRoute119WaterTileData[3 * i + 1])
+            section = i;
+    }
+    if (Random() % 100 > 49)
+        return FALSE;
+
+    sFeebasRngValue = GetDewfordTrendRand();
+    for (i = 0; i != NUM_FEEBAS_SPOTS;)
+    {
+        feebasSpots[i] = FeebasRandom() % NUM_FISHING_SPOTS;
+        if (feebasSpots[i] == 0)
+            feebasSpots[i] = NUM_FISHING_SPOTS;
+        // spots 1-3 are under bridges: drawn again
+        if (feebasSpots[i] < 1 || feebasSpots[i] >= 4)
+            i++;
+    }
+    x = GetFeebasFishingSpotId(x, y, section);
+    for (i = 0; i < NUM_FEEBAS_SPOTS; i++)
+    {
+        if (x == feebasSpots[i])
+            return TRUE;
+    }
+    return FALSE;
+}
+
 void FishingWildEncounter(u8 rod)
 {
     const struct WildPokemonInfo * currentFishTable;
 
+    if (CheckFeebas())
+    {
+        GenerateWildMon(SPECIES_FEEBAS, ChooseWildMonLevel(&sWildFeebas), 0);
+        IncrementGameStat(GAME_STAT_FISHING_CAPTURES);
+        StartWildBattle();
+        return;
+    }
     if(gSaveBlock1Ptr->keyFlags.version == 0)
     {
         currentFishTable = gWildMonHeaders[GetCurrentMapWildMonHeaderId()].fishingMonsInfo_FR;

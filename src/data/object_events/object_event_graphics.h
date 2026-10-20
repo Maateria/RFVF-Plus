@@ -586,3 +586,24 @@ const u16 gSevenIsland_Grass[] = INCBIN_U16("graphics/object_events/pics/unknown
 const u16 gBlackSandFootPrints_Pal[] = INCBIN_U16("graphics/object_events/palettes/black_sand_footprints.gbapal");
 const u16 gSnowFootPrints_Pal[] = INCBIN_U16("graphics/object_events/palettes/snow_footprints.gbapal");
 const u16 gThreeIslandGrass_Pal[] = INCBIN_U16("graphics/object_events/palettes/three_island_grass.gbapal");
+
+// BEGIN berry_trees.py (work/hoenn_scripts, lot 2)
+const u16 gObjectEventPic_HoennBerryTreeAspear[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/aspear.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeCheri[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/cheri.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeChesto[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/chesto.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeGrepa[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/grepa.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeHondew[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/hondew.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeIapapa[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/iapapa.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeKelpsy[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/kelpsy.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeLeppa[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/leppa.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeLiechi[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/liechi.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeMago[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/mago.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeOran[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/oran.4bpp");
+const u16 gObjectEventPic_HoennBerryTreePecha[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/pecha.4bpp");
+const u16 gObjectEventPic_HoennBerryTreePersim[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/persim.4bpp");
+const u16 gObjectEventPic_HoennBerryTreePomeg[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/pomeg.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeRawst[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/rawst.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeRazz[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/razz.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeSitrus[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/sitrus.4bpp");
+const u16 gObjectEventPic_HoennBerryTreeWepear[] = INCBIN_U16("graphics/object_events/pics/hoenn/berry_trees/wepear.4bpp");
+// END berry_trees.py (work/hoenn_scripts, lot 2)

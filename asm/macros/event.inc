@@ -1805,6 +1805,12 @@
 	callstd STD_OBTAIN_ITEM
 	.endm
 
+	@ Gives the player a decoration (Emerald's), sent to the PC's decoration storage.
+	.macro givedecoration decoration:req
+	setorcopyvar VAR_0x8000, \decoration
+	callstd STD_OBTAIN_DECORATION
+	.endm
+
 	@ For picking up items in the overworld. Similar to giveitem, but with different language and
 	@ sets the flag of the last-talked to object (the item the player picked up).
 	.macro finditem item:req, amount=1

@@ -1,6 +1,8 @@
 #include "global.h"
 #include "gflib.h"
 #include "easy_chat.h"
+#include "dewford_trend.h"
+#include "mauville_old_man.h"
 #include "event_data.h"
 #include "menu.h"
 #include "mystery_gift.h"
@@ -189,6 +191,8 @@ static void Task_RunEasyChat(u8 taskId)
         {
             if (data[EZCHAT_TASK_TYPE] == EASY_CHAT_TYPE_QUESTIONNAIRE)
                 CompareQuestionnaireResponseWithPassphrase();
+            if (data[EZCHAT_TASK_TYPE] == EASY_CHAT_TYPE_TRENDY_PHRASE && gSpecialVar_Result)
+                SubmitTrendyPhraseInput();
             if (data[EZCHAT_TASK_TYPE] == EASY_CHAT_TYPE_PROFILE)
             {
                 FlagSet(FLAG_SYS_SET_TRAINER_CARD_PROFILE);
@@ -275,6 +279,12 @@ void ShowEasyChatScreen(void)
         break;
     case EASY_CHAT_TYPE_MAIL:
         words = gSaveBlock1Ptr->mail[gSpecialVar_0x8005].words;
+        break;
+    case EASY_CHAT_TYPE_BARD_SONG: // RFVF+: Emerald's Mauville bard
+        words = InitBardSongInput();
+        break;
+    case EASY_CHAT_TYPE_TRENDY_PHRASE: // RFVF+: Emerald's Dewford trend
+        words = InitTrendyPhraseInput();
         break;
     default:
         return;

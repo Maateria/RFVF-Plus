@@ -23,6 +23,20 @@ Route114_LanettesHouse_EventScript_PC::
 	msgbox Route114_LanettesHouse_Text_EmailFromBill, MSGBOX_SIGN
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/Route114_LanettesHouse/scripts.inc
-Route114_LanettesHouse_EventScript_Lanette::    @ NPC #1 (5,4)
+@ Emerald's; RFVF+: the PC keeps Bill's name (no FLAG_SYS_PC_LANETTE)
+Route114_LanettesHouse_EventScript_Lanette::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_DOLL_LANETTE, Route114_LanettesHouse_EventScript_OfferAdvice
+	msgbox Route114_LanettesHouse_Text_EverythingClutteredKeepThis, MSGBOX_DEFAULT
+	givedecoration DECOR_LOTAD_DOLL
+	goto_if_eq VAR_RESULT, FALSE, Common_EventScript_ShowNoRoomForDecor
+	setflag FLAG_RECEIVED_DOLL_LANETTE
+	release
 	end
+
+Route114_LanettesHouse_EventScript_OfferAdvice::
+	msgbox Route114_LanettesHouse_Text_OrganizeYourBoxes, MSGBOX_DEFAULT
+	release
+	end
+

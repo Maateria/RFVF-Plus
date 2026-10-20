@@ -108,11 +108,19 @@ VermilionCity_EventScript_CheckSeagallopPresent::
 	release
 	end
 
-@ RFVF+: after the Hall of Fame, every Seagallop menu here also offers Lilycove (Nenucrique), right before Exit
+@ RFVF+: after the Hall of Fame, every Seagallop menu here also offers Lilycove (Nenucrique) and Slateport
+@ (Poivressel), right before Exit
 VermilionCity_EventScript_SetSailToLilycove::
 	msgbox VermilionCity_Text_Seagallop13Departing
 	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
 	setvar VAR_0x8006, SEAGALLOP_LILYCOVE_CITY
+	goto EventScript_SetSail
+	end
+
+VermilionCity_EventScript_SetSailToSlateport::
+	msgbox VermilionCity_Text_Seagallop13Departing
+	setvar VAR_0x8004, SEAGALLOP_VERMILION_CITY
+	setvar VAR_0x8006, SEAGALLOP_SLATEPORT_CITY
 	goto EventScript_SetSail
 	end
 
@@ -122,7 +130,8 @@ VermilionCity_EventScript_ChooseSeagallopDestNoPassLilycove::
 	multichoice 19, 8, MULTICHOICE_SEAGALLOP_LILYCOVE, FALSE
 	switch VAR_RESULT
 	case 0, VermilionCity_EventScript_SetSailToLilycove
-	case 1, EventScript_CancelSail
+	case 1, VermilionCity_EventScript_SetSailToSlateport
+	case 2, EventScript_CancelSail
 	case 127, EventScript_CancelSail
 	end
 
@@ -132,7 +141,8 @@ VermilionCity_EventScript_RainbowPassLilycove::
 	case 0, EventScript_SeviiDestinationsPage1
 	case 1, VermilionCity_EventScript_SetSailToBattleTower
 	case 2, VermilionCity_EventScript_SetSailToLilycove
-	case 3, EventScript_CancelSail
+	case 3, VermilionCity_EventScript_SetSailToSlateport
+	case 4, EventScript_CancelSail
 	case 127, EventScript_CancelSail
 	end
 
@@ -143,7 +153,8 @@ VermilionCity_EventScript_HasTicketsRainbowPassLilycove::
 	case 1, VermilionCity_EventScript_SetSailToBattleTower
 	case 2, VermilionCity_EventScript_EventIslandsMultichoice
 	case 3, VermilionCity_EventScript_SetSailToLilycove
-	case 4, EventScript_CancelSail
+	case 4, VermilionCity_EventScript_SetSailToSlateport
+	case 5, EventScript_CancelSail
 	case 127, EventScript_CancelSail
 	end
 
@@ -154,7 +165,8 @@ VermilionCity_EventScript_TriPassLilycove::
 	case 1, EventScript_SailToTwoIsland2
 	case 2, EventScript_SailToThreeIsland2
 	case 3, VermilionCity_EventScript_SetSailToLilycove
-	case 4, EventScript_CancelSail
+	case 4, VermilionCity_EventScript_SetSailToSlateport
+	case 5, EventScript_CancelSail
 	case 127, EventScript_CancelSail
 	end
 
@@ -164,7 +176,8 @@ VermilionCity_EventScript_HasTicketsTriPassLilycove::
 	case 0, VermilionCity_EventScript_TriPassOriginalMultichoice
 	case 1, VermilionCity_EventScript_EventIslandsMultichoice
 	case 2, VermilionCity_EventScript_SetSailToLilycove
-	case 3, EventScript_CancelSail
+	case 3, VermilionCity_EventScript_SetSailToSlateport
+	case 4, EventScript_CancelSail
 	case 127, EventScript_CancelSail
 	end
 
