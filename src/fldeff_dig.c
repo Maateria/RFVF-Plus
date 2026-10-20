@@ -5,13 +5,14 @@
 #include "item_use.h"
 #include "overworld.h"
 #include "party_menu.h"
+#include "hoenn_dungeons.h"
 
 static void FieldCallback_Dig(void);
 static void StartDigFieldEffect(void);
 
 bool8 SetUpFieldMove_Dig(void)
 {
-    if (CanUseEscapeRopeOnCurrMap() == TRUE)
+    if (CanUseEscapeRopeOnCurrMap() == TRUE || ShouldDoBrailleDigEffect())
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
         gPostMenuFieldCallback = FieldCallback_Dig;
@@ -32,7 +33,8 @@ bool8 FldEff_UseDig(void)
     u8 taskId = CreateFieldEffectShowMon();
 
     FLDEFF_SET_FUNC_TO_DATA(StartDigFieldEffect);
-    SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
+    if (!ShouldDoBrailleDigEffect())
+        SetPlayerAvatarTransitionFlags(PLAYER_AVATAR_FLAG_ON_FOOT);
     return FALSE;
 }
 
@@ -41,6 +43,11 @@ static void StartDigFieldEffect(void)
     u8 taskId;
 
     FieldEffectActiveListRemove(FLDEFF_USE_DIG);
+    if (ShouldDoBrailleDigEffect()) // Emerald's: the Sealed Chamber's wall opens
+    {
+        DoBrailleDigEffect();
+        return;
+    }
     taskId = CreateTask(Task_UseDigEscapeRopeOnField, 8);
     gTasks[taskId].data[0] = 0;
 }

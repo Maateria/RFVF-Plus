@@ -1,9 +1,34 @@
 ShoalCave_LowTideStairsRoom_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, ShoalCave_LowTideStairsRoom_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_LOAD (ShoalCave_LowTideStairsRoom_OnLoad)
 ShoalCave_LowTideStairsRoom_EventScript_ItemIceHeal:: @ item ball, works (FLAG_ITEM_SHOAL_CAVE_STAIRS_ROOM_ICE_HEAL)
 	finditem ITEM_ICE_HEAL
 	end
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/ShoalCave_LowTideStairsRoom/scripts.inc
-ShoalCave_LowTideStairsRoom_EventScript_ShoalSalt3:: @ sign (11,11)
+ShoalCave_LowTideStairsRoom_OnLoad::
+	call ShoalCave_LowTideStairsRoom_EventScript_SetShoalItemMetatiles
 	end
+
+ShoalCave_LowTideStairsRoom_EventScript_SetShoalItemMetatiles::
+	goto_if_set FLAG_RECEIVED_SHOAL_SALT_3, ShoalCave_LowTideStairsRoom_EventScript_SetShoalItemMetatilesEnd
+	setmetatile 11, 11, METATILE_HoennCave_ShoalCave_DirtPile_Large, TRUE
+	return
+
+ShoalCave_LowTideStairsRoom_EventScript_SetShoalItemMetatilesEnd::
+	return
+
+ShoalCave_LowTideStairsRoom_EventScript_ShoalSalt3::
+	lockall
+	goto_if_set FLAG_RECEIVED_SHOAL_SALT_3, ShoalCave_LowTideStairsRoom_EventScript_ReceivedShoalSalt
+	giveitem ITEM_SHOAL_SALT
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setmetatile 11, 11, METATILE_HoennCave_ShoalCave_DirtPile_Small, FALSE
+	special DrawWholeMapView
+	setflag FLAG_RECEIVED_SHOAL_SALT_3
+	releaseall
+	end
+
+ShoalCave_LowTideStairsRoom_EventScript_ReceivedShoalSalt::
+	msgbox ShoalCave_Text_WasShoalSaltNowNothing, MSGBOX_DEFAULT
+	releaseall
+	end
+

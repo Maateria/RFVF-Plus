@@ -8,6 +8,19 @@ MtPyre_1F_EventScript_Man::
 	msgbox MtPyre_1F_Text_RestingPlaceOfZigzagoon, MSGBOX_NPC
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtPyre_1F/scripts.inc
-MtPyre_1F_EventScript_CleanseTagWoman::         @ NPC #1 (21,2)
+MtPyre_1F_EventScript_CleanseTagWoman::
+	lock
+	faceplayer
+	goto_if_set FLAG_RECEIVED_CLEANSE_TAG, MtPyre_1F_EventScript_ReceivedCleanseTag
+	msgbox MtPyre_1F_Text_TakeThisForYourOwnGood, MSGBOX_DEFAULT
+	giveitem ITEM_CLEANSE_TAG
+	goto_if_eq VAR_RESULT, FALSE, EventScript_BagIsFull
+	setflag FLAG_RECEIVED_CLEANSE_TAG
+	release
 	end
+
+MtPyre_1F_EventScript_ReceivedCleanseTag::
+	msgbox MtPyre_1F_Text_ExplainCleanseTag, MSGBOX_DEFAULT
+	release
+	end
+

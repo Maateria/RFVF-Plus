@@ -1,6 +1,8 @@
 Route114_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route114_OnFrame
+	map_script MAP_SCRIPT_ON_TRANSITION, Route114_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Route114_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route114_OnTransition), ON_LOAD (Route114_OnLoad), ON_FRAME_TABLE (Route114_OnFrame)
 Route114_EventScript_ItemRareCandy::            @ item ball, works (FLAG_ITEM_ROUTE_114_RARE_CANDY)
 	finditem ITEM_RARE_CANDY
 	end
@@ -150,3 +152,19 @@ Route114_EventScript_Kai::
 	trainerbattle_single TRAINER_KAI, Route114_Text_KaiIntro, Route114_Text_KaiDefeat
 	msgbox Route114_Text_KaiPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+@ Emerald's abnormal weather (data/scripts/hoenn_dungeons.inc)
+Route114_OnLoad:
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_114_NORTH, AbnormalWeather_EventScript_PlaceTilesRoute114North
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_EventScript_PlaceTilesRoute114South
+	end
+
+Route114_OnTransition:
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_114_NORTH, AbnormalWeather_StartGroudonWeather
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_114_SOUTH, AbnormalWeather_StartGroudonWeather
+	end
+
+Route114_OnFrame:
+	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	.2byte 0

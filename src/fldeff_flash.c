@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hoenn_dungeons.h"
 #include "gflib.h"
 #include "event_data.h"
 #include "event_scripts.h"
@@ -171,6 +172,12 @@ static const u32 sCaveTransitionTiles[] = INCBIN_U32("graphics/cave_transition/t
 
 bool8 SetUpFieldMove_Flash(void)
 {
+    if (ShouldDoBrailleRegisteelEffect()) // Emerald's Ancient Tomb puzzle
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_UseTombPuzzle;
+        return TRUE;
+    }
     if (gMapHeader.cave != TRUE)
         return FALSE;
 

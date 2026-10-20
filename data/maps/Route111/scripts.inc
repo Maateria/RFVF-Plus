@@ -4,13 +4,17 @@
 .equ LOCALID_ROUTE111_VICTORIA, 32
 .equ LOCALID_ROUTE111_VIVI, 33
 .equ LOCALID_ROUTE111_VICKY, 34
+.equ LOCALID_ROUTE111_PLAYER_FALLING, 39
 
 Route111_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route111_OnFrame
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, Route111_OnWarp
+	map_script MAP_SCRIPT_ON_LOAD, Route111_OnLoad
 	map_script MAP_SCRIPT_ON_TRANSITION, Route111_OnTransition
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_LOAD (Route111_OnLoad), ON_WARP_INTO_MAP_TABLE (Route111_OnWarp), ON_FRAME_TABLE (Route111_OnFrame)
 @ hoenn_import: Emerald's mechanics, without its story lines (hoenn_decisions.MECHANICAL_SCRIPTS)
 Route111_OnTransition:
+	call_if_eq VAR_MIRAGE_TOWER_STATE, 1, Route111_EventScript_SetFallingPlayerGfx
 	call Route111_EventScript_CheckSetSandstorm
 	goto_if_not_defeated TRAINER_VICKY, Route111_EventScript_SetWinstratesNotDefeated
 	end
@@ -340,3 +344,79 @@ Route111_Movement_WaitForNextWinstrate:
 	delay_16
 	delay_16
 	step_end
+
+Route111_OnLoad:
+	call_if_unset FLAG_REGI_DOORS_OPENED, Route111_EventScript_CloseDesertRuins
+	call_if_ge VAR_MIRAGE_TOWER_STATE, 2, Route111_EventScript_HideMirageTower
+	end
+
+Route111_EventScript_CloseDesertRuins::
+	setmetatile 29, 86, METATILE_HoennGeneral_RockWall_RockBase, TRUE
+	setmetatile 29, 87, METATILE_HoennGeneral_RockWall_SandBase, TRUE
+	return
+
+@ The tower is in the layout here (Emerald swaps layouts): sand where it stood, as mirage_tower.c leaves it
+Route111_EventScript_HideMirageTower::
+	setmetatile 18, 53, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 19, 53, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 20, 53, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 18, 54, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 19, 54, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 20, 54, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 18, 55, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 19, 55, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 20, 55, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 18, 56, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 19, 56, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 20, 56, METATILE_HoennMauville2_DeepSand_Center, FALSE
+	setmetatile 18, 57, METATILE_HoennMauville2_DeepSand_BottomMid, FALSE
+	setmetatile 19, 57, METATILE_HoennMauville2_DeepSand_BottomMid, FALSE
+	setmetatile 20, 57, METATILE_HoennMauville2_DeepSand_BottomMid, FALSE
+	setmetatile 18, 58, METATILE_HoennGeneral_SandPit_Center, FALSE
+	setmetatile 19, 58, METATILE_HoennGeneral_SandPit_Center, FALSE
+	setmetatile 20, 58, METATILE_HoennGeneral_SandPit_Center, FALSE
+	return
+
+Route111_EventScript_SetFallingPlayerGfx::
+	setflag FLAG_HIDE_ROUTE_111_PLAYER_DESCENT
+	checkplayergender
+	goto_if_eq VAR_RESULT, MALE, Route111_EventScript_SetFallingPlayerGfxMale
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_GREEN_NORMAL
+	return
+
+Route111_EventScript_SetFallingPlayerGfxMale::
+	setvar VAR_OBJ_GFX_ID_0, OBJ_EVENT_GFX_RED_NORMAL
+	return
+
+Route111_OnWarp:
+	map_script_2 VAR_MIRAGE_TOWER_STATE, 1, Route111_EventScript_HidePlayerForMirageTower
+	.2byte 0
+
+Route111_EventScript_HidePlayerForMirageTower::
+	hideobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE111
+	end
+
+Route111_OnFrame:
+	map_script_2 VAR_MIRAGE_TOWER_STATE, 1, Route111_EventScript_MirageTowerDisappear
+	.2byte 0
+
+@ Emerald's, without the sinking fossil (both are taken here)
+Route111_EventScript_MirageTowerDisappear::
+	lockall
+	special StartMirageTowerShake
+	waitstate
+	delay 24
+	playse SE_FALL
+	addobject LOCALID_ROUTE111_PLAYER_FALLING
+	special StartPlayerDescendMirageTower
+	waitstate
+	showobjectat OBJ_EVENT_ID_PLAYER, MAP_ROUTE111
+	removeobject LOCALID_ROUTE111_PLAYER_FALLING
+	delay 16
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
+	delay 16
+	special StartMirageTowerDisintegration
+	waitstate
+	setvar VAR_MIRAGE_TOWER_STATE, 2
+	releaseall
+	end

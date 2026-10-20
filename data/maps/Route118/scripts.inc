@@ -1,6 +1,8 @@
 Route118_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route118_OnFrame
+	map_script MAP_SCRIPT_ON_TRANSITION, Route118_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Route118_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route118_OnTransition), ON_LOAD (Route118_OnLoad), ON_FRAME_TABLE (Route118_OnFrame)
 Route118_EventScript_ItemHyperPotion::          @ item ball, works (FLAG_ITEM_ROUTE_118_HYPER_POTION)
 	finditem ITEM_HYPER_POTION
 	end
@@ -92,3 +94,19 @@ Route118_EventScript_Deandre::
 	trainerbattle_single TRAINER_DEANDRE, Route118_Text_DeandreIntro, Route118_Text_DeandreDefeat
 	msgbox Route118_Text_DeandrePostBattle, MSGBOX_AUTOCLOSE
 	end
+
+@ Emerald's abnormal weather (data/scripts/hoenn_dungeons.inc)
+Route118_OnLoad:
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_118_EAST, AbnormalWeather_EventScript_PlaceTilesRoute118East
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_118_WEST, AbnormalWeather_EventScript_PlaceTilesRoute118West
+	end
+
+Route118_OnTransition:
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_118_EAST, AbnormalWeather_StartGroudonWeather
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_118_WEST, AbnormalWeather_StartGroudonWeather
+	end
+
+Route118_OnFrame:
+	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	.2byte 0

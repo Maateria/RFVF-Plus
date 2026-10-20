@@ -46,6 +46,7 @@ EverGrandeCity_HallOfFame_EventScript_EnterHallOfFame::
 	setvar VAR_TEMP_1, 1
 	@ RFVF+: back to the League\'s Pokémon Center afterwards, no credits
 	setflag FLAG_HOENN_GAME_CLEAR
+	call EventScript_ResetHoennLegendaries
 	call EverGrandeCity_HallOfFame_EventScript_ResetEliteFour
 	setrespawn SPAWN_EVER_GRANDE_CITY_POKEMON_LEAGUE
 	fadescreenspeed FADE_TO_BLACK, 24

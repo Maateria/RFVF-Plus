@@ -98,3 +98,19 @@ MtChimney_Text_RouteSign::
 MtChimney_Text_MachineMakesNoResponse::
     .string "Cette mystérieuse machine…\n"
     .string "Elle ne répond pas.$"
+
+MtChimney_Text_LavaCookiesJust200::
+    .string "Les LAVA COOKIES sont les spécialités\n"
+    .string "locales du MONT CHIMNEE.\p"
+    .string "Goûtes-en un. Ça ne coûte que 200¥.$"
+
+MtChimney_Text_ThankYouDear::
+    .string "Merci, mon p'tit!$"
+
+MtChimney_Text_OhFineThen::
+    .string "Bon, très bien.$"
+
+MtChimney_Text_YouveNotGotTheMoney::
+    .string "Oh, tu ne peux pas acheter\n"
+    .string "ce que tu veux, si tu\l"
+    .string "n'as pas assez d'argent.$"

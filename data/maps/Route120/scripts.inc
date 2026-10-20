@@ -1,6 +1,7 @@
 Route120_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, Route120_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_RESUME (Route120_OnResume), ON_TRANSITION (Route120_OnTransition), ON_LOAD (Route120_OnLoad)
+@ hoenn_import: Emerald map scripts not ported: ON_RESUME (Route120_OnResume), ON_TRANSITION (Route120_OnTransition)
 Route120_EventScript_ItemNugget::               @ item ball, works (FLAG_ITEM_ROUTE_120_NUGGET)
 	finditem ITEM_NUGGET
 	end
@@ -167,3 +168,12 @@ Route120_EventScript_Leonel::
 	trainerbattle_single TRAINER_LEONEL, Route120_Text_LeonelIntro, Route120_Text_LeonelDefeat
 	msgbox Route120_Text_LeonelPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+Route120_OnLoad:
+	call_if_unset FLAG_REGI_DOORS_OPENED, Route120_EventScript_CloseAncientTomb
+	end
+
+Route120_EventScript_CloseAncientTomb::
+	setmetatile 7, 54, METATILE_HoennGeneral_RockWall_RockBase, TRUE
+	setmetatile 7, 55, METATILE_HoennGeneral_RockWall_SandBase, TRUE
+	return

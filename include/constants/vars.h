@@ -243,12 +243,12 @@
 #define VAR_CYCLING_ROAD_RECORD_COLLISIONS 0x40BE
 #define VAR_MAUVILLE_OLD_MAN_DAY   0x40BF // RFVF+: the Hoenn day + 1 the Mauville old man was set up (one a day)
 #define VAR_MIRAGE_ISLAND_DAY      0x40C0 // RFVF+: the Hoenn day + 1 Mirage Island shows (src/hoenn_specials.c)
-#define VAR_0x40C1                 0x40C1
-#define VAR_0x40C2                 0x40C2
-#define VAR_0x40C3                 0x40C3
-#define VAR_0x40C4                 0x40C4
-#define VAR_0x40C5                 0x40C5
-#define VAR_0x40C6                 0x40C6
+#define VAR_REGICE_STEPS_1         0x40C1  // Hoenn batch 3 (dungeons), Emerald names
+#define VAR_REGICE_STEPS_2         0x40C2
+#define VAR_REGICE_STEPS_3         0x40C3
+#define VAR_ABNORMAL_WEATHER_LOCATION 0x40C4
+#define VAR_SHOULD_END_ABNORMAL_WEATHER 0x40C5
+#define VAR_MIRAGE_TOWER_STATE     0x40C6
 #define VAR_0x40C7                 0x40C7
 #define VAR_0x40C8                 0x40C8
 #define VAR_0x40C9                 0x40C9

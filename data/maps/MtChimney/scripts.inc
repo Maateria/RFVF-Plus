@@ -15,9 +15,46 @@ MtChimney_EventScript_MeteoriteMachine::
 	msgbox MtChimney_Text_MachineMakesNoResponse, MSGBOX_SIGN
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/MtChimney/scripts.inc
-MtChimney_EventScript_LavaCookieLady::          @ NPC #1 (19,39)
+MtChimney_EventScript_LavaCookieLady::
+	lock
+	faceplayer
+	showmoneybox 0, 0
+	msgbox MtChimney_Text_LavaCookiesJust200, MSGBOX_YESNO
+	goto_if_eq VAR_RESULT, NO, MtChimney_EventScript_DeclineLavaCookie
+	checkmoney 200
+	goto_if_eq VAR_RESULT, FALSE, MtChimney_EventScript_NotEnoughMoney
+	msgbox MtChimney_Text_ThankYouDear, MSGBOX_DEFAULT
+	checkitemspace ITEM_LAVA_COOKIE
+	call_if_eq VAR_RESULT, TRUE, MtChimney_EventScript_RemoveMoney
+	giveitem ITEM_LAVA_COOKIE
+	goto_if_eq VAR_RESULT, FALSE, MtChimney_EventScript_BagIsFull
+	hidemoneybox
+	release
 	end
+
+MtChimney_EventScript_DeclineLavaCookie::
+	msgbox MtChimney_Text_OhFineThen, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
+MtChimney_EventScript_NotEnoughMoney::
+	msgbox MtChimney_Text_YouveNotGotTheMoney, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
+MtChimney_EventScript_RemoveMoney::
+	removemoney 200
+	updatemoneybox
+	return
+
+MtChimney_EventScript_BagIsFull::
+	msgbox Text_TooBadBagFull, MSGBOX_DEFAULT
+	hidemoneybox
+	release
+	end
+
 
 MtChimney_EventScript_Shelby::
 	trainerbattle_single TRAINER_SHELBY_1, MtChimney_Text_ShelbyIntro, MtChimney_Text_ShelbyDefeat

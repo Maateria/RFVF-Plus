@@ -3,7 +3,7 @@
 Route119_WeatherInstitute_2F_MapScripts::
 	.byte 0
 @ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route119_WeatherInstitute_2F_OnTransition)
-@ Emerald's Castform gift in FRLG's gift idiom; the abnormal weather reports come with batch 3 (Marine/Terra caves)
+@ Emerald's Castform gift in FRLG's gift idiom; the abnormal weather reports: batch 3 (src/hoenn_dungeons.c)
 Route119_WeatherInstitute_2F_EventScript_WeatherScientist::
 	lock
 	faceplayer
@@ -52,7 +52,34 @@ Route119_WeatherInstitute_2F_EventScript_ReceivedCastformFanfare::
 	return
 
 Route119_WeatherInstitute_2F_EventScript_ScientistMentionWeather::
+	goto_if_set FLAG_HOENN_GAME_CLEAR, Route119_WeatherInstitute_2F_EventScript_TryStartAbnormalWeather
 	msgbox Route119_WeatherInstitute_2F_Text_ChangingWeatherRidiculous
+	release
+	end
+
+@ RFVF+: a new route each day from the League win (src/hoenn_dungeons.c); he only makes one when there is none
+@ (or when the last one is over, legendary met)
+Route119_WeatherInstitute_2F_EventScript_TryStartAbnormalWeather::
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE, Route119_WeatherInstitute_2F_EventScript_CreateAbnormalWeather
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, Route119_WeatherInstitute_2F_EventScript_CreateAbnormalWeather
+	goto_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_NONE, Route119_WeatherInstitute_2F_EventScript_NoAbnormalWeather
+	specialvar VAR_RESULT, GetAbnormalWeatherMapNameAndType
+	goto_if_eq VAR_RESULT, TRUE, Route119_WeatherInstitute_2F_EventScript_KyogreWeather
+	msgbox Route119_WeatherInstitute_2F_Text_GroudonWeather, MSGBOX_DEFAULT
+	release
+	end
+
+Route119_WeatherInstitute_2F_EventScript_KyogreWeather::
+	msgbox Route119_WeatherInstitute_2F_Text_KyogreWeather, MSGBOX_DEFAULT
+	release
+	end
+
+Route119_WeatherInstitute_2F_EventScript_CreateAbnormalWeather::
+	special CreateAbnormalWeatherEvent
+	return
+
+Route119_WeatherInstitute_2F_EventScript_NoAbnormalWeather::
+	msgbox Route119_WeatherInstitute_2F_Text_NoAbnormalWeather, MSGBOX_DEFAULT
 	release
 	end
 

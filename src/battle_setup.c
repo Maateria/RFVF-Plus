@@ -463,6 +463,14 @@ void StartLegendaryBattle(void)
     case SPECIES_LUGIA:
         CreateBattleStartTask(B_TRANSITION_BLUR, MUS_VS_LEGEND);
         break;
+    // Emerald's music (its own transitions do not exist here)
+    case SPECIES_KYOGRE:
+    case SPECIES_GROUDON:
+        CreateBattleStartTask(B_TRANSITION_BLUR, MUS_VS_KYOGRE_GROUDON);
+        break;
+    case SPECIES_RAYQUAZA:
+        CreateBattleStartTask(B_TRANSITION_BLUR, MUS_VS_RAYQUAZA);
+        break;
     default:
         CreateBattleStartTask(B_TRANSITION_BLUR, MUS_RS_VS_TRAINER);
         break;
@@ -489,7 +497,7 @@ void StartRegiBattle(void)
     LockPlayerFieldControls();
     gMain.savedCallback = CB2_EndScriptedWildBattle;
     gBattleTypeFlags = BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_REGI;
-    CreateBattleStartTask(B_TRANSITION_BLUR, MUS_RS_VS_TRAINER);
+    CreateBattleStartTask(B_TRANSITION_BLUR, MUS_VS_REGI); // Emerald's music
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
 }

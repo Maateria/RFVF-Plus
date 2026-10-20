@@ -34,6 +34,7 @@
 #include "constants/metatile_behaviors.h"
 #include "constants/region_map_sections.h"
 #include "hoenn_specials.h"
+#include "hoenn_dungeons.h"
 
 #define SIGNPOST_POKECENTER 0
 #define SIGNPOST_POKEMART 1
@@ -714,6 +715,16 @@ static bool8 TryStartStepCountScript(u16 metatileBehavior)
         {
             IncrementGameStat(GAME_STAT_HATCHED_EGGS);
             ScriptContext_SetupScript(EventScript_EggHatch);
+            return TRUE;
+        }
+        else if (AbnormalWeatherHasExpired() == TRUE)
+        {
+            ScriptContext_SetupScript(AbnormalWeather_EventScript_EndEventAndCleanup_1);
+            return TRUE;
+        }
+        else if (ShouldDoBrailleRegicePuzzle() == TRUE)
+        {
+            ScriptContext_SetupScript(IslandCave_EventScript_OpenRegiEntrance);
             return TRUE;
         }
     }

@@ -1,6 +1,6 @@
 # Hoenn : scripts spéciaux à décider
 
-Ces PNJ, panneaux et dresseurs font plus que parler, défier ou dire où l'on est. Ils restent muets en attendant qu'on décide ensemble quoi en faire. Les dialogues simples, les infirmières, les vendeurs et le point de retour des Centres Pokémon sont faits (2026-10-18), puis les choix du 2026-10-18 pour Rosyères, Clémenti-Ville, Mérouville et le pêcheur de Myokara (`work/hoenn_scripts/manual.py`), puis le lot 1 du 2026-10-19 : PNJ et services (`manual_b1.py`), puis le lot 2 du 2026-10-19 : systèmes (phrase à la mode, vieil homme de Lavandia, décorations, Île Mirage, arbres à baies : `manual_b2.py`). Chaque ligne restante indique son lot.
+Ces PNJ, panneaux et dresseurs font plus que parler, défier ou dire où l'on est. Ils restent muets en attendant qu'on décide ensemble quoi en faire. Les dialogues simples, les infirmières, les vendeurs et le point de retour des Centres Pokémon sont faits (2026-10-18), puis les choix du 2026-10-18 pour Rosyères, Clémenti-Ville, Mérouville et le pêcheur de Myokara (`work/hoenn_scripts/manual.py`), puis le lot 1 du 2026-10-19 : PNJ et services (`manual_b1.py`), puis le lot 2 du 2026-10-19 : systèmes (phrase à la mode, vieil homme de Lavandia, décorations, Île Mirage, arbres à baies : `manual_b2.py`), puis le lot 3 du 2026-10-20 : donjons (braille et Regis, Grotte Tréfonds, Épave, Pilier Céleste, Tour Mirage, météo anormale : `manual_b3.py`). Chaque ligne restante indique son lot.
 
 Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = drapeaux ou variables d'Émeraude que le script regarde.
 
@@ -117,60 +117,3 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | TrainerHill_Entrance | Attendant (PNJ) | **lot 5 : Mont Dresseurs** — Mont Dresseurs (défi chronométré) | Faites de votre mieux! |
 | TrainerHill_Entrance | Records (panneau) | **lot 5 : Mont Dresseurs** — tableau des records du Mont Dresseurs |  |
 | TrainerHill_Roof | Owner (PNJ) | **lot 5 : Mont Dresseurs** — Mont Dresseurs (défi chronométré) | Hum! Hum! Te voilà enfin! Oui, te voilà! Non, ne dis rien! Je sais pou… |
-
-## Donjons (52)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| AbandonedShip_CaptainsOffice | CaptSternAide (PNJ) | **lot 3 : donjons** — demande / reprend SCANNER (selon FLAG_EXCHANGED_SCANNER) | J'examine ce bateau pour le CAPT. POUPE. Il m'a aussi demandé de rappo… |
-| AbandonedShip_Corridors_B1F | StorageRoomDoor (panneau) | **lot 3 : donjons** — demande / reprend CLE STOCKAGE (selon FLAG_USED_STORAGE_KEY) | {PLAYER} insère et tourne la  CLE STOCKAGE. La CLE insérée se coince u… |
-| AbandonedShip_HiddenFloorCorridors | Room1Door (panneau) | **lot 3 : donjons** — demande / reprend CLE SALLE 1 (selon FLAG_USED_ROOM_1_KEY) | {PLAYER} insère et tourne la CLE. La CLE insérée se coince un peu, mai… |
-| AbandonedShip_HiddenFloorCorridors | Room2Door (panneau) | **lot 3 : donjons** — demande / reprend CLE SALLE 2 (selon FLAG_USED_ROOM_2_KEY) | {PLAYER} insère et tourne la CLE. La CLE insérée se coince un peu, mai… |
-| AbandonedShip_HiddenFloorCorridors | Room4Door (panneau) | **lot 3 : donjons** — demande / reprend CLE SALLE 4 (selon FLAG_USED_ROOM_4_KEY) | {PLAYER} insère et tourne la CLE. La CLE insérée se coince un peu, mai… |
-| AbandonedShip_HiddenFloorCorridors | Room6Door (panneau) | **lot 3 : donjons** — demande / reprend CLE SALLE 6 (selon FLAG_USED_ROOM_6_KEY) | {PLAYER} insère et tourne la CLE. La CLE insérée se coince un peu, mai… |
-| AncientTomb | CaveEntranceMiddle (panneau) | **lot 3 : donjons** — texte en braille (selon FLAG_SYS_REGISTEEL_PUZZLE_COMPLETED) | Il y a un gros trou dans le mur. |
-| AncientTomb | CaveEntranceSide (panneau) | **lot 3 : donjons** — texte en braille |  |
-| AncientTomb | Registeel (PNJ) | **lot 3 : donjons** — combat contre un Pokémon sauvage (SPECIES_REGISTEEL) (selon FLAG_DEFEATED_REGISTEEL, FLAG_SYS_CTRL_OBJ_DELETE) | Le {STR_VAR_1} s'est enfui! |
-| AquaHideout_B1F | Electrode1 (PNJ) | **lot 3 : donjons** — combat contre un Pokémon sauvage (SPECIES_ELECTRODE) (selon FLAG_DEFEATED_ELECTRODE_1_AQUA_HIDEOUT, FLAG_SYS_CTRL_OBJ_DELETE) |  |
-| AquaHideout_B1F | Electrode2 (PNJ) | **lot 3 : donjons** — combat contre un Pokémon sauvage (SPECIES_ELECTRODE) (selon FLAG_DEFEATED_ELECTRODE_2_AQUA_HIDEOUT, FLAG_SYS_CTRL_OBJ_DELETE) |  |
-| DesertRuins | CaveEntranceMiddle (panneau) | **lot 3 : donjons** — texte en braille (selon FLAG_SYS_REGIROCK_PUZZLE_COMPLETED) | Il y a un gros trou dans le mur. |
-| DesertRuins | CaveEntranceSide (panneau) | **lot 3 : donjons** — texte en braille |  |
-| DesertRuins | Regirock (PNJ) | **lot 3 : donjons** — combat contre un Pokémon sauvage (SPECIES_REGIROCK) (selon FLAG_DEFEATED_REGIROCK, FLAG_SYS_CTRL_OBJ_DELETE) | Le {STR_VAR_1} s'est enfui! |
-| IslandCave | CaveEntranceMiddle (panneau) | **lot 3 : donjons** — texte en braille (selon FLAG_SYS_BRAILLE_REGICE_COMPLETED, VAR_REGICE_STEPS_1, VAR_REGICE_STEPS_2)… | Il y a un gros trou dans le mur. |
-| IslandCave | CaveEntranceSide (panneau) | **lot 3 : donjons** — texte en braille (selon FLAG_SYS_BRAILLE_REGICE_COMPLETED, VAR_REGICE_STEPS_1, VAR_REGICE_STEPS_2)… |  |
-| IslandCave | Regice (PNJ) | **lot 3 : donjons** — combat contre un Pokémon sauvage (SPECIES_REGICE) (selon FLAG_DEFEATED_REGICE, FLAG_SYS_CTRL_OBJ_DELETE) | Le {STR_VAR_1} s'est enfui! |
-| MirageTower_4F | ClawFossil (PNJ) | **lot 3 : donjons** — donne FOSS. GRIFFE (selon FLAG_CHOSE_CLAW_FOSSIL, FLAG_LANDMARK_MIRAGE_TOWER, VAR_MIRAGE_TOWER_STATE) | Tu as trouvé le FOSS. GRIFFE. Si ce FOSSILE est retiré, le sol autour … |
-| MirageTower_4F | RootFossil (PNJ) | **lot 3 : donjons** — donne FOSS. RACINE (selon FLAG_CHOSE_ROOT_FOSSIL, FLAG_LANDMARK_MIRAGE_TOWER, VAR_MIRAGE_TOWER_STATE) | Tu as trouvé le FOSS. RACINE. Si ce FOSSILE est retiré, le sol autour … |
-| MtChimney | LavaCookieLady (PNJ) | **lot 3 : donjons** — donne LAVA COOKIE; fait payer | Les LAVA COOKIES sont les spécialités locales du MONT CHIMNEE. Goûtes-… |
-| MtPyre_1F | CleanseTagWoman (PNJ) | **lot 3 : donjons** — donne RUNE PURIF. (selon FLAG_RECEIVED_CLEANSE_TAG) | Toutes sortes d'êtres se promènent sur les versants du MONT MEMORIA… O… |
-| SealedChamber_InnerRoom | BrailleBackWall (panneau) | **lot 3 : donjons** — texte en braille (selon FLAG_REGI_DOORS_OPENED) | Ça résonne comme si une porte s'était ouverte au loin. |
-| SealedChamber_InnerRoom | BrailleStoryPart1 (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_InnerRoom | BrailleStoryPart2 (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_InnerRoom | BrailleStoryPart3 (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_InnerRoom | BrailleStoryPart4 (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_InnerRoom | BrailleStoryPart5 (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_InnerRoom | BrailleStoryPart6 (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleABC (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleComma (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleDEF (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleDigHere (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleGHI (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleJKL (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleMNO (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BraillePQRS (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BraillePeriod (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleTUV (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | BrailleWXYZ (panneau) | **lot 3 : donjons** — texte en braille |  |
-| SealedChamber_OuterRoom | InnerRoomEntranceWall (panneau) | **lot 3 : donjons** — texte en braille (selon FLAG_SYS_BRAILLE_DIG) | Il y a un gros trou dans le mur. |
-| ShoalCave_LowTideEntranceRoom | ShellBellExpert (PNJ) | **lot 3 : donjons** — donne SEL TREFONDS, CO. TREFOND, GRELOT COQUE (selon FLAG_RECEIVED_SHOAL_SALT_1, FLAG_RECEIVED_SHOAL_SALT_2, FLAG_RECEIVED_SHOAL_SALT_3)… | Oh, hé! Des SELS TREFONDS et des  CO. TREFONDS! Et suffisamment! Tu ve… |
-| ShoalCave_LowTideInnerRoom | ShoalSalt1 (panneau) | **lot 3 : donjons** — donne SEL TREFONDS (selon FLAG_RECEIVED_SHOAL_SALT_1) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideInnerRoom | ShoalSalt2 (panneau) | **lot 3 : donjons** — donne SEL TREFONDS (selon FLAG_RECEIVED_SHOAL_SALT_2) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideInnerRoom | ShoalShell1 (panneau) | **lot 3 : donjons** — donne CO. TREFOND (selon FLAG_RECEIVED_SHOAL_SHELL_1) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideInnerRoom | ShoalShell2 (panneau) | **lot 3 : donjons** — donne CO. TREFOND (selon FLAG_RECEIVED_SHOAL_SHELL_2) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideInnerRoom | ShoalShell3 (panneau) | **lot 3 : donjons** — donne CO. TREFOND (selon FLAG_RECEIVED_SHOAL_SHELL_3) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideInnerRoom | ShoalShell4 (panneau) | **lot 3 : donjons** — donne CO. TREFOND (selon FLAG_RECEIVED_SHOAL_SHELL_4) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideLowerRoom | BlackBelt (PNJ) | **lot 3 : donjons** — donne BANDEAU (selon FLAG_RECEIVED_FOCUS_BAND) | Ce froid pénétrant dans les alentours est un obstacle à l'entraînement… |
-| ShoalCave_LowTideLowerRoom | ShoalSalt4 (panneau) | **lot 3 : donjons** — donne SEL TREFONDS (selon FLAG_RECEIVED_SHOAL_SALT_4) | Dommage! Le SAC est plein. |
-| ShoalCave_LowTideStairsRoom | ShoalSalt3 (panneau) | **lot 3 : donjons** — donne SEL TREFONDS (selon FLAG_RECEIVED_SHOAL_SALT_3) | Dommage! Le SAC est plein. |
-| SkyPillar_Top | Rayquaza (PNJ) | **lot 3 : donjons** — combat contre un Pokémon sauvage (SPECIES_RAYQUAZA) (selon FLAG_DEFEATED_RAYQUAZA, FLAG_SYS_CTRL_OBJ_DELETE) | Le {STR_VAR_1} s'est enfui! |
-| Underwater_SealedChamber | Braille (panneau) | **lot 3 : donjons** — texte en braille |  |

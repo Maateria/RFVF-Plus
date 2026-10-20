@@ -57,7 +57,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "AquaHideout_B1F_EventScript_Electrode1",
-      "flag": "0",
+      "flag": "FLAG_DEFEATED_ELECTRODE_1_AQUA_HIDEOUT",
       "in_connection": false
     },
     {
@@ -87,7 +87,7 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "AquaHideout_B1F_EventScript_Electrode2",
-      "flag": "0",
+      "flag": "FLAG_DEFEATED_ELECTRODE_2_AQUA_HIDEOUT",
       "in_connection": false
     }
   ],

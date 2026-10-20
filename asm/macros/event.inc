@@ -1915,3 +1915,20 @@
 	setfieldeffectargument 2, \priority
 	dofieldeffect FLDEFF_SPARKLE
 	.endm
+
+	@ Emerald's braillemessage / closebraillemessage: a window sized to the braille text (src/hoenn_dungeons.c)
+	.macro braillewindow text:req
+	.byte 0xd8
+	.4byte \text
+	.endm
+
+	.macro closebraillewindow
+	.byte 0xd9
+	.endm
+
+	@ Emerald's braillemsgbox
+	.macro braillemsgbox text:req
+	braillewindow \text
+	waitbuttonpress
+	closebraillewindow
+	.endm

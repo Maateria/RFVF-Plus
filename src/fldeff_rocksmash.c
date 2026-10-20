@@ -1,4 +1,5 @@
 #include "global.h"
+#include "hoenn_dungeons.h"
 #include "gflib.h"
 #include "field_player_avatar.h"
 #include "field_effect.h"
@@ -106,6 +107,12 @@ static void Task_FieldEffectShowMon_Cleanup(u8 taskId)
 
 bool8 SetUpFieldMove_RockSmash(void)
 {
+    if (ShouldDoBrailleRegirockEffect()) // Emerald's Desert Ruins puzzle
+    {
+        gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;
+        gPostMenuFieldCallback = FieldCallback_UseTombPuzzle;
+        return TRUE;
+    }
     if (CheckObjectGraphicsInFrontOfPlayer(IsRockSmashRockGfxId) == TRUE)
     {
         gFieldCallback2 = FieldCallback_PrepareFadeInFromMenu;

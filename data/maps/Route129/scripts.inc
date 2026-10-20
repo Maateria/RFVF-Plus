@@ -1,6 +1,8 @@
 Route129_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route129_OnFrame
+	map_script MAP_SCRIPT_ON_TRANSITION, Route129_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Route129_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route129_OnTransition), ON_LOAD (Route129_OnLoad), ON_FRAME_TABLE (Route129_OnFrame)
 
 Route129_EventScript_Chase::
 	trainerbattle_single TRAINER_CHASE, Route129_Text_ChaseIntro, Route129_Text_ChaseDefeat
@@ -26,3 +28,19 @@ Route129_EventScript_Clarence::
 	trainerbattle_single TRAINER_CLARENCE, Route129_Text_ClarenceIntro, Route129_Text_ClarenceDefeat
 	msgbox Route129_Text_ClarencePostBattle, MSGBOX_AUTOCLOSE
 	end
+
+@ Emerald's abnormal weather (data/scripts/hoenn_dungeons.inc)
+Route129_OnLoad:
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_129_WEST, AbnormalWeather_EventScript_PlaceTilesRoute129West
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_129_EAST, AbnormalWeather_EventScript_PlaceTilesRoute129East
+	end
+
+Route129_OnTransition:
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_129_WEST, AbnormalWeather_StartKyogreWeather
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_129_EAST, AbnormalWeather_StartKyogreWeather
+	end
+
+Route129_OnFrame:
+	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	.2byte 0

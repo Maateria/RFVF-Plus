@@ -521,4 +521,19 @@ gSpecials::
 	def_special StorytellerUpdateStat
 	def_special HasStorytellerAlreadyRecorded
 	def_special Script_StorytellerInitializeRandomStat
+	def_special UpdateShoalTideFlag
+	def_special CheckRelicanthWailord
+	def_special DoSealedChamberShakingEffect_Long
+	def_special DoSealedChamberShakingEffect_Short
+	def_special ShouldDoBrailleRegicePuzzle
+	def_special FoundAbandonedShipRoom1Key
+	def_special FoundAbandonedShipRoom2Key
+	def_special FoundAbandonedShipRoom4Key
+	def_special FoundAbandonedShipRoom6Key
+	def_special CreateAbnormalWeatherEvent
+	def_special GetAbnormalWeatherMapNameAndType
+	def_special DoMirageTowerCeilingCrumble
+	def_special StartMirageTowerShake
+	def_special StartPlayerDescendMirageTower
+	def_special StartMirageTowerDisintegration
 gSpecialsEnd::

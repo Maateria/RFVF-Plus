@@ -103,6 +103,8 @@ void HoennDays_OnStep(void)
         UpdateDewfordTrendPerDay(1);
         for (i = FLAG_HOENN_BERRY_TREES_START; i <= FLAG_HOENN_BERRY_TREES_END; i++) // the picked trees grow back
             FlagClear(i);
+        for (i = FLAG_RECEIVED_SHOAL_SALT_1; i <= FLAG_RECEIVED_SHOAL_SHELL_4; i++) // Shoal Cave's salt and shells too
+            FlagClear(i);
     }
     VarSet(VAR_HOENN_DAY_STEPS, steps);
 }

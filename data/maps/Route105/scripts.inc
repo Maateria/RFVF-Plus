@@ -1,6 +1,8 @@
 Route105_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route105_OnFrame
+	map_script MAP_SCRIPT_ON_TRANSITION, Route105_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Route105_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_LOAD (Route105_OnLoad), ON_TRANSITION (Route105_OnTransition), ON_FRAME_TABLE (Route105_OnFrame)
 Route105_EventScript_ItemIron::                 @ item ball, works (FLAG_ITEM_ROUTE_105_IRON)
 	finditem ITEM_IRON
 	end
@@ -47,3 +49,25 @@ Route105_EventScript_AndresRematch::
 	trainerbattle_rematch TRAINER_ANDRES_1, Route105_Text_AndresRematchIntro, Route105_Text_AndresRematchDefeated
 	msgbox Route105_Text_AndresRematchPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+Route105_CloseRegiEntrance::
+	setmetatile 9, 19, METATILE_HoennGeneral_RockWall_RockBase, TRUE
+	setmetatile 9, 20, METATILE_HoennGeneral_RockWall_SandBase, TRUE
+	return
+
+@ Emerald's abnormal weather (data/scripts/hoenn_dungeons.inc)
+Route105_OnLoad:
+	call_if_unset FLAG_REGI_DOORS_OPENED, Route105_CloseRegiEntrance
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_105_NORTH, AbnormalWeather_EventScript_PlaceTilesRoute105North
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_105_SOUTH, AbnormalWeather_EventScript_PlaceTilesRoute105South
+	end
+
+Route105_OnTransition:
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_105_NORTH, AbnormalWeather_StartKyogreWeather
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_105_SOUTH, AbnormalWeather_StartKyogreWeather
+	end
+
+Route105_OnFrame:
+	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	.2byte 0

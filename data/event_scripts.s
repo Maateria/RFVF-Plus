@@ -999,6 +999,7 @@ Common_EventScript_BufferTrendyPhrase::
 	.include "data/scripts/hoenn_gyms.inc"
 	.include "data/scripts/mauville_man.inc"
 	.include "data/scripts/hoenn_berry_trees.inc"
+	.include "data/scripts/hoenn_dungeons.inc"
 	.include "data/scripts/bag_full.inc"
 
 EventScript_OutOfCenterPartyHeal::
@@ -2142,10 +2143,12 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/AbandonedShip_Rooms2_1F/text.inc"
 
 	.include "data/maps/AbandonedShip_CaptainsOffice/scripts.inc"
+	.include "data/maps/AbandonedShip_CaptainsOffice/text.inc"
 
 	.include "data/maps/AbandonedShip_Underwater2/scripts.inc"
 
 	.include "data/maps/AbandonedShip_HiddenFloorCorridors/scripts.inc"
+	.include "data/maps/AbandonedShip_HiddenFloorCorridors/text.inc"
 
 	.include "data/maps/AbandonedShip_HiddenFloorRooms/scripts.inc"
 	.include "data/maps/AbandonedShip_HiddenFloorRooms/text.inc"
@@ -2186,12 +2189,15 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/AquaHideout_UnusedRubyMap3/scripts.inc"
 
 	.include "data/maps/ShoalCave_LowTideEntranceRoom/scripts.inc"
+	.include "data/maps/ShoalCave_LowTideEntranceRoom/text.inc"
 
 	.include "data/maps/ShoalCave_LowTideInnerRoom/scripts.inc"
+	.include "data/maps/ShoalCave_LowTideInnerRoom/text.inc"
 
 	.include "data/maps/ShoalCave_LowTideStairsRoom/scripts.inc"
 
 	.include "data/maps/ShoalCave_LowTideLowerRoom/scripts.inc"
+	.include "data/maps/ShoalCave_LowTideLowerRoom/text.inc"
 
 	.include "data/maps/ShoalCave_HighTideEntranceRoom/scripts.inc"
 
@@ -2281,6 +2287,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/MirageTower_3F/scripts.inc"
 
 	.include "data/maps/MirageTower_4F/scripts.inc"
+	.include "data/maps/MirageTower_4F/text.inc"
 
 	.include "data/maps/ScorchedSlab/scripts.inc"
 

@@ -11,6 +11,17 @@ EventScript_SetReadyTryGiveNationalDexScene::
 	setvar VAR_MAP_SCENE_PALLET_TOWN_OAK, 2
 	return
 
+@ Hoenn's legendaries knocked out or fled are back (both Leagues), and the abnormal weather picks a route at once
+EventScript_ResetHoennLegendaries::
+	clearflag FLAG_DEFEATED_REGIROCK
+	clearflag FLAG_DEFEATED_REGICE
+	clearflag FLAG_DEFEATED_REGISTEEL
+	clearflag FLAG_DEFEATED_RAYQUAZA
+	clearflag FLAG_DEFEATED_KYOGRE
+	clearflag FLAG_DEFEATED_GROUDON
+	special CreateAbnormalWeatherEvent
+	return
+
 EventScript_ResetLegendaries::
 	clearflag FLAG_LUGIA_FLEW_AWAY
 	clearflag FLAG_HO_OH_FLEW_AWAY
@@ -25,6 +36,7 @@ EventScript_ResetLegendaries::
 	clearflag FLAG_DEFEATED_LATIOS
 	clearflag FLAG_DEFEATED_LATIAS
 	clearflag FLAG_DEFEATED_SUDOWOODO
+	call EventScript_ResetHoennLegendaries
 	special InitRoamer
 	return
 

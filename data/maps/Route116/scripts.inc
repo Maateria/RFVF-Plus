@@ -1,6 +1,8 @@
 Route116_MapScripts::
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, Route116_OnFrame
+	map_script MAP_SCRIPT_ON_TRANSITION, Route116_OnTransition
+	map_script MAP_SCRIPT_ON_LOAD, Route116_OnLoad
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (Route116_OnTransition), ON_LOAD (Route116_OnLoad), ON_FRAME_TABLE (Route116_OnFrame)
 Route116_EventScript_ItemEther::                @ item ball, works (FLAG_ITEM_ROUTE_116_ETHER)
 	finditem ITEM_ETHER
 	end
@@ -178,3 +180,19 @@ Route116_EventScript_Devan::
 	trainerbattle_single TRAINER_DEVAN, Route116_Text_DevanIntro, Route116_Text_DevanDefeat
 	msgbox Route116_Text_DevanPostBattle, MSGBOX_AUTOCLOSE
 	end
+
+@ Emerald's abnormal weather (data/scripts/hoenn_dungeons.inc)
+Route116_OnLoad:
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_116_NORTH, AbnormalWeather_EventScript_PlaceTilesRoute116North
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_116_SOUTH, AbnormalWeather_EventScript_PlaceTilesRoute116South
+	end
+
+Route116_OnTransition:
+	call_if_eq VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_HideMapNamePopup
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_116_NORTH, AbnormalWeather_StartGroudonWeather
+	call_if_eq VAR_ABNORMAL_WEATHER_LOCATION, ABNORMAL_WEATHER_ROUTE_116_SOUTH, AbnormalWeather_StartGroudonWeather
+	end
+
+Route116_OnFrame:
+	map_script_2 VAR_SHOULD_END_ABNORMAL_WEATHER, 1, AbnormalWeather_EventScript_EndEventAndCleanup_1
+	.2byte 0

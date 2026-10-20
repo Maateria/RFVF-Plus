@@ -1,17 +1,100 @@
 SealedChamber_OuterRoom_MapScripts::
+	map_script MAP_SCRIPT_ON_LOAD, SealedChamber_OuterRoom_OnLoad
+	map_script MAP_SCRIPT_ON_RESUME, SealedChamber_OuterRoom_OnResume
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_RESUME (SealedChamber_OuterRoom_OnResume), ON_TRANSITION (SealedChamber_OuterRoom_OnTransition), ON_LOAD (SealedChamber_OuterRoom_OnLoad)
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/SealedChamber_OuterRoom/scripts.inc
-SealedChamber_OuterRoom_EventScript_BrailleABC:: @ sign (5,6)
-SealedChamber_OuterRoom_EventScript_BrailleGHI:: @ sign (5,9)
-SealedChamber_OuterRoom_EventScript_BrailleMNO:: @ sign (5,12)
-SealedChamber_OuterRoom_EventScript_BrailleTUV:: @ sign (5,15)
-SealedChamber_OuterRoom_EventScript_BrailleDEF:: @ sign (11,6)
-SealedChamber_OuterRoom_EventScript_BrailleJKL:: @ sign (11,9)
-SealedChamber_OuterRoom_EventScript_BraillePQRS:: @ sign (11,12)
-SealedChamber_OuterRoom_EventScript_BrailleWXYZ:: @ sign (11,15)
-SealedChamber_OuterRoom_EventScript_BraillePeriod:: @ sign (16,6)
-SealedChamber_OuterRoom_EventScript_BrailleComma:: @ sign (16,9)
-SealedChamber_OuterRoom_EventScript_InnerRoomEntranceWall:: @ sign (10,2)
-SealedChamber_OuterRoom_EventScript_BrailleDigHere:: @ sign (9,2)
+@ hoenn_import: Emerald map scripts not ported: ON_TRANSITION (SealedChamber_OuterRoom_OnTransition)
+SealedChamber_OuterRoom_OnResume:
+	setescapewarp MAP_UNDERWATER_SEALED_CHAMBER, 12, 44
 	end
+
+SealedChamber_OuterRoom_OnLoad::
+	call_if_unset FLAG_SYS_BRAILLE_DIG, SealedChamber_OuterRoom_EventScript_CloseInnerRoomEntrance
+	end
+
+SealedChamber_OuterRoom_EventScript_CloseInnerRoomEntrance::
+	setmetatile 9, 1, METATILE_HoennCave_EntranceCover, TRUE
+	setmetatile 10, 1, METATILE_HoennCave_EntranceCover, TRUE
+	setmetatile 11, 1, METATILE_HoennCave_EntranceCover, TRUE
+	setmetatile 9, 2, METATILE_HoennCave_SealedChamberBraille_Mid, TRUE
+	setmetatile 10, 2, METATILE_HoennCave_SealedChamberBraille_Mid, TRUE
+	setmetatile 11, 2, METATILE_HoennCave_SealedChamberBraille_Mid, TRUE
+	return
+
+SealedChamber_OuterRoom_EventScript_BrailleABC::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_ABC
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleGHI::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_GHI
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleMNO::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_MNO
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleTUV::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_TUV
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleDEF::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_DEF
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleJKL::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_JKL
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BraillePQRS::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_PQRS
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BraillePeriod::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_Period
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleWXYZ::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_WXYZ
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleComma::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_Comma
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_InnerRoomEntranceWall::
+	lockall
+	goto_if_set FLAG_SYS_BRAILLE_DIG, SealedChamber_OuterRoom_EventScript_HoleInWall
+	braillemsgbox SealedChamber_OuterRoom_Braille_DigHere
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_HoleInWall::
+	msgbox gText_BigHoleInTheWall, MSGBOX_DEFAULT
+	releaseall
+	end
+
+SealedChamber_OuterRoom_EventScript_BrailleDigHere::
+	lockall
+	braillemsgbox SealedChamber_OuterRoom_Braille_DigHere
+	releaseall
+	end
+

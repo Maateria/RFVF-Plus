@@ -17,3 +17,17 @@ AbandonedShip_Corridors_B1F_Text_DuncanPostBattle::
 AbandonedShip_Corridors_B1F_Text_YayItsAShip::
     .string "Yé!\n"
     .string "C'est un bateau!$"
+
+AbandonedShip_Corridors_B1F_Text_InsertedStorageKey::
+    .string "{PLAYER} insère et tourne la \n"
+    .string "CLE STOCKAGE.\p"
+    .string "La CLE insérée se coince un peu,\n"
+    .string "mais la porte s'ouvre.$"
+
+AbandonedShip_Text_TheDoorIsOpen::
+    .string "La porte est ouverte.$"
+
+AbandonedShip_Corridors_B1F_Text_DoorIsLocked::
+    .string "La porte est fermée.\p"
+    .string "Il est inscrit sur la porte:\n"
+    .string "“STOCKAGE”.$"
