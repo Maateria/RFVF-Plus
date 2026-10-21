@@ -1,6 +1,8 @@
 #include "global.h"
 #include "gflib.h"
 #include "data.h"
+#include "decompress.h"
+#include "trainer_pokemon_sprites.h"
 #include "item.h"
 #include "item_menu.h"
 #include "link.h"
@@ -2204,6 +2206,27 @@ static void PlayerHandleDrawTrainerPic(void)
     s16 xPos;
     u32 trainerPicId;
 
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's: both partners face the screen (front pics)
+    {
+        struct Sprite *sprite;
+
+        trainerPicId = PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE);
+        DecompressPicFromTable(&gTrainerFrontPicTable[trainerPicId], gMonSpritesGfxPtr->sprites[GetBattlerPosition(gActiveBattler)], SPECIES_NONE);
+        LoadCompressedSpritePaletteUsingHeap(&gTrainerFrontPicPaletteTable[trainerPicId]);
+        SetMultiuseSpriteTemplateToTrainerFront(trainerPicId, GetBattlerPosition(gActiveBattler));
+        gBattlerSpriteIds[gActiveBattler] = CreateSprite(&gMultiuseSpriteTemplate, 90, (8 - gTrainerFrontPicCoords[trainerPicId].size) * 4 + 80, GetBattlerSpriteSubpriority(gActiveBattler));
+        sprite = &gSprites[gBattlerSpriteIds[gActiveBattler]];
+        sprite->oam.paletteNum = IndexOfSpritePaletteTag(gTrainerFrontPicPaletteTable[trainerPicId].tag);
+        sprite->x2 = DISPLAY_WIDTH;
+        sprite->y2 = 48;
+        sprite->data[0] = -2;
+        sprite->callback = SpriteCB_TrainerSlideIn;
+        sprite->oam.affineMode = ST_OAM_AFFINE_OFF;
+        sprite->hFlip = 1;
+        gBattlerControllerFuncs[gActiveBattler] = CompleteOnBattlerSpriteCallbackDummy;
+        return;
+    }
+
     if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
     {
         if ((GetBattlerPosition(gActiveBattler) & BIT_FLANK) != B_FLANK_LEFT) // Second mon, on the right.
@@ -2817,10 +2840,13 @@ static void PlayerHandleIntroTrainerBallThrow(void)
     gSprites[gBattlerSpriteIds[gActiveBattler]].callback = PlayerThrowBall_StartAnimLinearTranslation;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[5] = gActiveBattler;
     StoreSpriteCallbackInData6(&gSprites[gBattlerSpriteIds[gActiveBattler]], SpriteCB_FreePlayerSpriteLoadMonSprite);
+    if (!(gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)) // RFVF+: the salon partner battles' front pic keeps its palette
+    {
     StartSpriteAnim(&gSprites[gBattlerSpriteIds[gActiveBattler]], 1);
     paletteNum = AllocSpritePalette(0xD6F8);
     LoadCompressedPalette(gTrainerBackPicPaletteTable[gSaveBlock2Ptr->playerGender].data, OBJ_PLTT_ID(paletteNum), PLTT_SIZE_4BPP);
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = paletteNum;
+    }
     taskId = CreateTask(Task_StartSendOutAnim, 5);
     gTasks[taskId].data[0] = gActiveBattler;
     if (gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].partyStatusSummaryShown)

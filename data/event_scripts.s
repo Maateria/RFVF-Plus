@@ -1266,6 +1266,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/text/new_game_intro.inc"
 	.include "data/text/pokedude.inc"
 	.include "data/text/frontier_brain.inc"
+	.include "data/text/apprentice.inc"
 
 	.include "data/maps/FarawayIsland_Exterior/scripts.inc"
 	.include "data/maps/FarawayIsland_Exterior/text.inc"
@@ -2368,6 +2369,7 @@ EventScript_NoMoreRoomForPokemon::
 
 	.include "data/maps/BattleFrontier_BattleTowerLobby/scripts.inc"
 	.include "data/maps/BattleFrontier_BattleTowerLobby/text.inc"
+	.include "data/scripts/apprentice.inc"
 
 	.include "data/maps/BattleFrontier_BattleTowerElevator/scripts.inc"
 
@@ -2382,6 +2384,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattleFrontier_BattleTowerMultiCorridor/scripts.inc"
 
 	.include "data/maps/BattleFrontier_BattleTowerMultiBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerMultiBattleRoom/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleDomeLobby/scripts.inc"
 	.include "data/maps/BattleFrontier_BattleDomeLobby/text.inc"

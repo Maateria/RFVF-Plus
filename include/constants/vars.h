@@ -253,7 +253,7 @@
 #define VAR_CRUISE_STEP_COUNT      0x40C8
 #define VAR_TRAINER_HILL_IS_ACTIVE 0x40C9  // Hoenn batch 5, Emerald's name
 #define VAR_BRAVO_TRAINER_BATTLE_TOWER_ON                 0x40CA // RFVF+: Emerald's 0x40BC (taken), batch 6
-#define VAR_0x40CB                 0x40CB
+#define VAR_HAS_ENTERED_BATTLE_FRONTIER 0x40CB // RFVF+: Emerald's (the reception gate gives the Frontier Pass)
 #define VAR_0x40CC                 0x40CC
 #define VAR_0x40CD                 0x40CD
 #define VAR_TEMP_CHALLENGE_STATUS VAR_TEMP_0 // RFVF+: Emerald's alias (Battle Frontier)

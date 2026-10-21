@@ -57,6 +57,8 @@
 #define B_TXT_BUFF3 0x30
 #define B_TXT_TRAINER2_CLASS 0x31 // RFVF+: Emerald's two opponents (its 0x2E, 0x2F)
 #define B_TXT_TRAINER2_NAME 0x32
+#define B_TXT_PARTNER_CLASS 0x33 // RFVF+: Emerald's (its 0x32, 0x33)
+#define B_TXT_PARTNER_NAME 0x34
 
 // for B_TXT_BUFF1, B_TXT_BUFF2 and B_TXT_BUFF3
 

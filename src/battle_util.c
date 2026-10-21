@@ -1556,7 +1556,8 @@ bool8 HasNoMonsToSwitch(u8 battler, u8 partyIdBattlerOn1, u8 partyIdBattlerOn2)
         else
             party = gEnemyParty;
 
-        playerId = GetLinkTrainerFlankId(flankId);
+        playerId = (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) ? (battler & BIT_FLANK) / 2 // Emerald's
+                                                                   : GetLinkTrainerFlankId(flankId);
         for (i = playerId * MULTI_PARTY_SIZE; i < playerId * MULTI_PARTY_SIZE + MULTI_PARTY_SIZE; i++)
         {
             if (GetMonData(&party[i], MON_DATA_HP) != 0

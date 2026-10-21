@@ -2,6 +2,8 @@
 #include "field_camera.h"
 #include "task.h"
 #include "fieldmap.h"
+#include "event_data.h"
+#include "constants/maps.h"
 #include "metatile_behavior.h"
 #include "constants/songs.h"
 #include "constants/metatile_labels.h"
@@ -219,6 +221,7 @@ static const u8 sDoorAnimTiles_HoennSootopolis[] = INCBIN_U8("graphics/door_anim
 static const u8 sDoorAnimTiles_HoennVerdanturf[] = INCBIN_U8("graphics/door_anims/hoenn_verdanturf.4bpp");
 static const u8 sDoorAnimTiles_HoennTrainerHillRoofElevator[] = INCBIN_U8("graphics/door_anims/hoenn_trainer_hill_roof_elevator.4bpp");
 static const u8 sDoorAnimTiles_HoennBattlePalaceLobby[] = INCBIN_U8("graphics/door_anims/hoenn_battle_palace_lobby.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleTowerMultiCorridor[] = INCBIN_U8("graphics/door_anims/hoenn_battle_tower_multi_corridor.4bpp");
 
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
@@ -321,6 +324,7 @@ static const u8 sDoorAnimPalettes_HoennSootopolis[] = {11, 11, 11, 11, 11, 11, 1
 static const u8 sDoorAnimPalettes_HoennVerdanturf[] = {12, 12, 5, 5, 5, 5, 5, 5}; // Emerald {6, 6, 5, 5, 5, 5, 5, 5}
 static const u8 sDoorAnimPalettes_HoennTrainerHillRoofElevator[] = {9, 9, 7, 7, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_HoennBattlePalaceLobby[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleTowerMultiCorridor[] = {7, 7, 7, 7, 7, 7, 7, 7};
 
 static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_General_Door,                                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_General, sDoorAnimPalettes_General},
@@ -402,6 +406,7 @@ static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
     {METATILE_HoennMauville_Door_Verdanturf,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennVerdanturf, sDoorAnimPalettes_HoennVerdanturf},
     {METATILE_HoennTrainerHill_Door_Elevator_Roof,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennTrainerHillRoofElevator, sDoorAnimPalettes_HoennTrainerHillRoofElevator},
     {METATILE_HoennBattlePalace_Door,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattlePalaceLobby, sDoorAnimPalettes_HoennBattlePalaceLobby},
+    {METATILE_HoennBattleFrontier_Door_MultiCorridor,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTowerMultiCorridor, sDoorAnimPalettes_HoennBattleTowerMultiCorridor},
     {}
 };
 
@@ -418,14 +423,28 @@ static const struct DoorGraphics *GetDoorGraphicsTable(void)
     return sDoorGraphics;
 }
 
+// RFVF+: Emerald's, opens the Battle Tower multi partner's door in sync with the player's door
+static bool8 ShouldUseMultiCorridorDoor(void)
+{
+    return FlagGet(FLAG_ENABLE_MULTI_CORRIDOR_DOOR)
+        && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(BATTLE_FRONTIER_BATTLE_TOWER_MULTI_CORRIDOR)
+        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(BATTLE_FRONTIER_BATTLE_TOWER_MULTI_CORRIDOR);
+}
+
 static void DrawDoor(const struct DoorGraphics *gfx, const struct DoorAnimFrame *frames, int x, int y)
 {
     if (frames->tileOffset == CLOSED_DOOR_TILES_OFFSET)
+    {
         DrawClosedDoorTiles(gfx, x, y);
+        if (ShouldUseMultiCorridorDoor())
+            DrawClosedDoorTiles(gfx, gSpecialVar_0x8004 + MAP_OFFSET, gSpecialVar_0x8005 + MAP_OFFSET);
+    }
     else
     {
         CopyDoorTilesToVram(&gfx->tiles[frames->tileOffset]);
         DrawCurrentDoorAnimFrame(gfx, x, y, gfx->paletteNums);
+        if (ShouldUseMultiCorridorDoor())
+            DrawCurrentDoorAnimFrame(gfx, gSpecialVar_0x8004 + MAP_OFFSET, gSpecialVar_0x8005 + MAP_OFFSET, gfx->paletteNums);
     }
 }
 

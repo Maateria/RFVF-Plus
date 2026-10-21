@@ -10,7 +10,17 @@ BattleFrontier_BattleTowerLobby_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_BattleTowerLobby_OnTransition
 	.byte 0
 
-@ RFVF+: Emerald's scripts (batch 6, manual_b6.py); no TV here: no reporter
+@ RFVF+: Emerald's scripts (batch 6, manual_b6.py); no TV here: no reporter, the interview airs nowhere
+BattleFrontier_BattleTowerLobby_EventScript_ShowApprentice::
+	clearflag FLAG_HIDE_APPRENTICE
+	apprentice_setgfx
+BattleFrontier_BattleTowerLobby_EventScript_EndShowOrHideApprentice::
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_HideApprentice::
+	setflag FLAG_HIDE_APPRENTICE
+	goto BattleFrontier_BattleTowerLobby_EventScript_EndShowOrHideApprentice
+
 BattleFrontier_BattleTowerLobby_OnWarp:
 	map_script_2 VAR_TEMP_1, 0, BattleFrontier_BattleTowerLobby_EventScript_PlayerFaceNorth
 	.2byte 0
@@ -275,6 +285,132 @@ BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeDoublesChallenge::
 BattleFrontier_BattleTowerLobby_EventScript_ExplainDoublesChallenge::
 	msgbox BattleFrontier_BattleTowerLobby_Text_ExplainDoublesChallenge, MSGBOX_DEFAULT
 	goto BattleFrontier_BattleTowerLobby_EventScript_AskEnterDoublesChallenge
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_MultisAttendant::
+	lock
+	faceplayer
+	setvar VAR_FRONTIER_FACILITY, FRONTIER_FACILITY_TOWER
+	clearflag FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER
+	special SavePlayerParty
+	msgbox BattleFrontier_BattleTowerLobby_Text_WelcomeMultiBattle, MSGBOX_DEFAULT
+BattleFrontier_BattleTowerLobby_EventScript_AskEnterMultisChallenge::
+	message BattleFrontier_BattleTowerLobby_Text_TakeMultisChallenge
+	waitmessage
+	multichoice 17, 6, MULTI_CHALLENGEINFO, FALSE
+	switch VAR_RESULT
+	case 0, BattleFrontier_BattleTowerLobby_EventScript_TryEnterMultisChallenge
+	case 1, BattleFrontier_BattleTowerLobby_EventScript_ExplainMultisChallenge
+	case 2, BattleFrontier_BattleTowerLobby_EventScript_CancelChallenge
+	case SCR_MENU_CANCEL, BattleFrontier_BattleTowerLobby_EventScript_CancelChallenge
+
+BattleFrontier_BattleTowerLobby_EventScript_TryEnterMultisChallenge::
+	setvar VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_MULTIS
+	message BattleFrontier_BattleTowerLobby_Text_WhichLevelMode
+	waitmessage
+	multichoice 17, 6, MULTI_LEVEL_MODE, FALSE
+	switch VAR_RESULT
+	case FRONTIER_LVL_TENT, BattleFrontier_BattleTowerLobby_EventScript_CancelChallenge
+	case SCR_MENU_CANCEL, BattleFrontier_BattleTowerLobby_EventScript_CancelChallenge
+	frontier_checkineligible
+	goto_if_eq VAR_0x8004, TRUE, BattleFrontier_BattleTowerLobby_EventScript_NotEnoughValidMons
+	frontier_set FRONTIER_DATA_LVL_MODE, VAR_RESULT
+	msgbox BattleFrontier_BattleTowerLobby_Text_PleaseSelectTwoMons, MSGBOX_DEFAULT
+	fadescreen FADE_TO_BLACK
+	call BattleFrontier_EventScript_GetLvlMode
+	copyvar VAR_0x8004, VAR_RESULT
+	setvar VAR_0x8005, FRONTIER_MULTI_PARTY_SIZE
+	special ChoosePartyForBattleFrontier
+	waitstate
+	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_LoadPartyCancelChallenge
+	msgbox BattleFrontier_BattleTowerLobby_Text_OkayToSaveBeforeEntering, MSGBOX_YESNO
+	switch VAR_RESULT
+	case NO, BattleFrontier_BattleTowerLobby_EventScript_LoadPartyCancelChallenge
+	case YES, BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeMultisChallenge
+	case SCR_MENU_CANCEL, BattleFrontier_BattleTowerLobby_EventScript_LoadPartyCancelChallenge
+
+BattleFrontier_BattleTowerLobby_EventScript_SaveBeforeMultisChallenge::
+	frontier_set FRONTIER_DATA_SELECTED_MON_ORDER
+	setvar VAR_TEMP_CHALLENGE_STATUS, 0
+	tower_init
+	tower_set TOWER_DATA_WIN_STREAK_ACTIVE, TRUE
+	frontier_set FRONTIER_DATA_PAUSED, FALSE
+	special LoadPlayerParty
+	closemessage
+	delay 2
+	call EventScript_AskSaveGame
+	setvar VAR_TEMP_CHALLENGE_STATUS, 255
+	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_CancelChallengeSaveFailed
+	incrementgamestat GAME_STAT_ENTERED_BATTLE_TOWER
+	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, FALSE
+	goto BattleFrontier_BattleTowerLobby_EventScript_EnterElevator
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_ExplainMultisChallenge::
+	msgbox BattleFrontier_BattleTowerLobby_Text_ExplainMultisChallenge, MSGBOX_DEFAULT
+	goto BattleFrontier_BattleTowerLobby_EventScript_AskEnterMultisChallenge
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_FeelingsMan::
+	lock
+	faceplayer
+	message BattleFrontier_BattleTowerLobby_Text_DescribeFeelingsAboutBattleTower
+	waitmessage
+	multichoice 16, 4, MULTI_BATTLE_TOWER_FEELINGS, FALSE
+	switch VAR_RESULT
+	case 0, BattleFrontier_BattleTowerLobby_EventScript_FeelingsBattleNow
+	case 1, BattleFrontier_BattleTowerLobby_EventScript_FeelingsIWon
+	case 2, BattleFrontier_BattleTowerLobby_EventScript_FeelingsILost
+	case 3, BattleFrontier_BattleTowerLobby_EventScript_FeelingsWontTell
+	case SCR_MENU_CANCEL, BattleFrontier_BattleTowerLobby_EventScript_FeelingsWontTell
+	release
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_FeelingsBattleNow::
+	msgbox BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouBegin, MSGBOX_DEFAULT
+	setvar VAR_0x8004, EASY_CHAT_TYPE_BATTLE_START
+	call Common_ShowEasyChatScreen
+	lock
+	faceplayer
+	goto BattleFrontier_BattleTowerLobby_EventScript_CheckFeelings
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_FeelingsIWon::
+	msgbox BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouveWon, MSGBOX_DEFAULT
+	setvar VAR_0x8004, EASY_CHAT_TYPE_BATTLE_WON
+	call Common_ShowEasyChatScreen
+	lock
+	faceplayer
+	goto BattleFrontier_BattleTowerLobby_EventScript_CheckFeelings
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_FeelingsILost::
+	msgbox BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouveLost, MSGBOX_DEFAULT
+	setvar VAR_0x8004, EASY_CHAT_TYPE_BATTLE_LOST
+	call Common_ShowEasyChatScreen
+	lock
+	faceplayer
+	goto BattleFrontier_BattleTowerLobby_EventScript_CheckFeelings
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_FeelingsWontTell::
+	msgbox BattleFrontier_BattleTowerLobby_Text_DontThinkMuchAboutIt, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_CheckFeelings::
+	goto_if_eq VAR_RESULT, 0, BattleFrontier_BattleTowerLobby_EventScript_CanceledEasyChat
+	goto_if_eq VAR_RESULT, 1, BattleFrontier_BattleTowerLobby_EventScript_SubmittedFeelings
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_CanceledEasyChat::
+	msgbox BattleFrontier_BattleTowerLobby_Text_ChangedYourMind, MSGBOX_DEFAULT
+	release
+	end
+
+BattleFrontier_BattleTowerLobby_EventScript_SubmittedFeelings::
+	msgbox BattleFrontier_BattleTowerLobby_Text_ThatsHowYouFeel, MSGBOX_DEFAULT
+	release
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_Woman::
@@ -580,14 +716,25 @@ BattleFrontier_BattleTowerLobby_EventScript_ExitRules::
 	releaseall
 	end
 
-@ RFVF+: the apprentice stays hidden until session 2 ports Emerald's (apprentice.c)
-BattleFrontier_BattleTowerLobby_OnTransition:
-	setflag FLAG_HIDE_APPRENTICE
+@ RFVF+: no cable here, the link multis attendant welcomes the player, then explains a friend is needed
+BattleFrontier_BattleTowerLobby_EventScript_LinkMultisAttendant::
+	lock
+	faceplayer
+	msgbox BattleFrontier_BattleTowerLobby_Text_WelcomeLinkMultiBattle, MSGBOX_DEFAULT
+	msgbox BattleFrontier_BattleTowerLobby_Text_NeedFriendWithCable, MSGBOX_DEFAULT
+	release
 	end
 
-@ hoenn_import: silent until scripted; Emerald source: pokeemerald/data/maps/BattleFrontier_BattleTowerLobby/scripts.inc (batch 6: a later session)
-BattleFrontier_BattleTowerLobby_EventScript_FeelingsMan:: @ NPC #2 (23,5)
-BattleFrontier_BattleTowerLobby_EventScript_MultisAttendant:: @ NPC #7 (14,5)
-BattleFrontier_BattleTowerLobby_EventScript_LinkMultisAttendant:: @ NPC #8 (18,5)
-BattleFrontier_BattleTowerLobby_EventScript_Apprentice:: @ NPC #5 (1,5)
-	end
+BattleFrontier_BattleTowerLobby_Text_NeedFriendWithCable:
+	.string "Pour un COMBAT MULTI LINK, il vous\n"
+	.string "faut un ami muni lui aussi d'un\l"
+	.string "câble Game Boy Advance Game Link.\p"
+	.string "Revenez avec votre ami pour\n"
+	.string "relever ce défi!$"
+
+@ RFVF+: Emerald's, without the TV reporter
+BattleFrontier_BattleTowerLobby_OnTransition:
+	apprentice_shouldcheckgone
+	goto_if_eq VAR_0x8004, FALSE, BattleFrontier_BattleTowerLobby_EventScript_ShowApprentice
+	goto_if_set FLAG_DAILY_APPRENTICE_LEAVES, BattleFrontier_BattleTowerLobby_EventScript_HideApprentice
+	goto BattleFrontier_BattleTowerLobby_EventScript_ShowApprentice

@@ -146,6 +146,9 @@
 #define MULTI_GO_ON_RECORD_REST_RETIRE                         138
 #define MULTI_GO_ON_REST_RETIRE                                139
 #define MULTI_BATTLE_TOWER_RULES                               140
+#define MULTI_FRONTIER_RULES                                   141
+#define MULTI_FRONTIER_PASS_INFO                               142
+#define MULTI_BATTLE_TOWER_FEELINGS                            143
 
 
 #define MULTICHOICE_NONE                                      255
@@ -159,6 +162,7 @@
 #define LISTMENU_TRAINER_TOWER_FLOORS      6
 #define LISTMENU_GYM_LEADERS               7
 #define LISTMENU_MASTER_TRAINER_TITLES     8
+#define LISTMENU_BF_RECEPTIONIST           9 // RFVF+: Emerald's SCROLL_MULTI_BF_RECEPTIONIST
 
 // Std String Ids
 #define STDSTRING_COOL              0

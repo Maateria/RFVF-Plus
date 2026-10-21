@@ -1403,3 +1403,66 @@ ALIGNED(4) const u8 gText_RecordsOpenLevel[] = _("NIVEAU LIBRE");
 const u8 gText_Space2[] = _(" ");
 const u8 gText_SpaceAndSpace[] = _(" et ");
 ALIGNED(4) const u8 gText_123Dot[][3] = {_("1."), _("2."), _("3.")};
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_Give[] = _("Montrer");
+const u8 gText_NoNeed[] = _("Pas besoin");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_ApprenticesPhrase[] = _("Expression de l'apprenti");
+const u8 gText_FindWordsWhichFit[] = _("Trouvez des mots pour décrire");
+const u8 gText_TheTrainersImage[] = _("l'image du DRESSEUR.");
+const u8 gText_ApprenticePhrase[] = _("L'expression de l'apprenti");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_BattleArena2[] = _("DOJO");
+const u8 gText_BattleArenaDesc[] = _("Gagnez avec des équipes de POKéMON\npour prouver que vous avez du cran.");
+const u8 gText_BattleArenaGutsSymbol[] = _("Dojo de combat - Symbole cran");
+const u8 gText_BattleDome2[] = _("DOME");
+const u8 gText_BattleDomeDesc[] = _("Enchaînez les victoires en\nfaisant preuve de tactique.");
+const u8 gText_BattleDomeTacticsSymbol[] = _("Dôme de combat - Symbole tactique");
+const u8 gText_BattleFactory2[] = _("USINE");
+const u8 gText_BattleFactoryDesc[] = _("Visez la victoire en louant des\nPOKéMON pour prouver votre savoir.");
+const u8 gText_BattleFactoryKnowledgeSymbol[] = _("Usine de combat - Symbole savoir");
+const u8 gText_BattlePalace2[] = _("PALACE");
+const u8 gText_BattlePalaceDesc[] = _("Regardez vos POKéMON se battre\net mettez votre esprit à l'épreuve.");
+const u8 gText_BattlePalaceSpiritsSymbol[] = _("Palace de combat - Symbole esprit");
+const u8 gText_BattlePike2[] = _("REPTILE");
+const u8 gText_BattlePikeDesc[] = _("Choisissez un des trois chemins pour\ncombattre et testez votre chance.");
+const u8 gText_BattlePikeLuckSymbol[] = _("Reptile de combat - Symbole chance");
+const u8 gText_BattlePoints[] = _("Points de combat");
+const u8 gText_BattlePyramid2[] = _("PYRAMIDE");
+const u8 gText_BattlePyramidBraveSymbol[] = _("Pyramide de combat - Symbole bravoure");
+const u8 gText_BattlePyramidDesc[] = _("Partez à l'aventure et rendez-vous au\nsommet pour prouver votre bravoure.");
+const u8 gText_BattleRecord[] = _("Enregistrement");
+const u8 gText_BattleTower3[] = _("TOUR");
+const u8 gText_BattleTowerAbilitySymbol[] = _("Tour de combat - Symbole capacité");
+const u8 gText_BattleTowerDesc[] = _("Eliminez vos adversaires pour aller\nau sommet et prouver votre talent.");
+const u8 gText_CheckFrontierMap[] = _("Voir la CARTE de la ZONE DE COMBAT.");
+const u8 gText_CheckTrainerCard[] = _("Voir la CARTE DE DRESSEUR.");
+const u8 gText_CollectedSymbols[] = _("Les symboles que vous avez collectés.");
+const u8 gText_CurrentBattlePoints[] = _("Vos points de combat actuels.");
+const u8 gText_EmptyString7[] = _("");
+const u8 gText_PutAwayFrontierPass[] = _("Quitter le PASSE ZONE.");
+const u8 gText_SymbolsEarned[] = _("Symboles");
+const u8 gText_ThereIsNoBattleRecord[] = _("Pas d'enregistrement.");
+const u8 gText_ViewRecordedBattle[] = _("Voir le combat enregistré.");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_RankingHall[] = _("CLASSEMENT");
+const u8 gText_ExchangeService[] = _("ECHANGE");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_Symbols2[] = _("SYMBOLES");
+const u8 gText_Record3[] = _("ENREG.");
+const u8 gText_BattlePts[] = _("PTS COMBAT");
+const u8 gText_TwoStyles[] = _("DEUX STYLES");
+const u8 gText_Lv50_3[] = _("NIVEAU 50");
+const u8 gText_OpenLevel2[] = _("NIVEAU LIBRE");
+const u8 gText_MonTypeAndNo[] = _("TYPE ET Nº DU PKMN");
+const u8 gText_HoldItems[] = _("OBJETS TENUS");
+const u8 gText_IllBattleNow[] = _("Préparation");
+const u8 gText_IWon[] = _("Victoire");
+const u8 gText_ILost[] = _("Défaite");
+const u8 gText_IWontTell[] = _("J'dirai rien!");
+const u8 gText_OpenLevel[] = _("NIVEAU LIBRE");

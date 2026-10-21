@@ -329,7 +329,7 @@ void BattleAI_SetupAIData(void)
     // Decide a random target battlerId in doubles.
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
-        gBattlerTarget = (Random() & BIT_FLANK);
+        gBattlerTarget = (Random() & BIT_FLANK) + (GetBattlerSide(gActiveBattler) ^ BIT_SIDE); // Emerald's: the salon partner aims at the foes
 
         if (gAbsentBattlerFlags & gBitTable[gBattlerTarget])
             gBattlerTarget ^= BIT_FLANK;

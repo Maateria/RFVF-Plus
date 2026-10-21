@@ -2082,4 +2082,66 @@ extern const u8 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmerMMon2Ask[
 extern const u8 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmerMAccept[];
 extern const u8 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmerMReject[];
 
+// RFVF+: Emerald's Battle Frontier strings (batch 6)
+extern const u8 gText_Give[];
+extern const u8 gText_NoNeed[];
+
+// RFVF+: Emerald's Battle Frontier strings (batch 6)
+extern const u8 gText_ApprenticesPhrase[];
+extern const u8 gText_FindWordsWhichFit[];
+extern const u8 gText_TheTrainersImage[];
+extern const u8 gText_ApprenticePhrase[];
+
+// RFVF+: Emerald's Battle Frontier strings (batch 6)
+extern const u8 gText_BattleArena2[];
+extern const u8 gText_BattleArenaDesc[];
+extern const u8 gText_BattleArenaGutsSymbol[];
+extern const u8 gText_BattleDome2[];
+extern const u8 gText_BattleDomeDesc[];
+extern const u8 gText_BattleDomeTacticsSymbol[];
+extern const u8 gText_BattleFactory2[];
+extern const u8 gText_BattleFactoryDesc[];
+extern const u8 gText_BattleFactoryKnowledgeSymbol[];
+extern const u8 gText_BattlePalace2[];
+extern const u8 gText_BattlePalaceDesc[];
+extern const u8 gText_BattlePalaceSpiritsSymbol[];
+extern const u8 gText_BattlePike2[];
+extern const u8 gText_BattlePikeDesc[];
+extern const u8 gText_BattlePikeLuckSymbol[];
+extern const u8 gText_BattlePoints[];
+extern const u8 gText_BattlePyramid2[];
+extern const u8 gText_BattlePyramidBraveSymbol[];
+extern const u8 gText_BattlePyramidDesc[];
+extern const u8 gText_BattleRecord[];
+extern const u8 gText_BattleTower3[];
+extern const u8 gText_BattleTowerAbilitySymbol[];
+extern const u8 gText_BattleTowerDesc[];
+extern const u8 gText_CheckFrontierMap[];
+extern const u8 gText_CheckTrainerCard[];
+extern const u8 gText_CollectedSymbols[];
+extern const u8 gText_CurrentBattlePoints[];
+extern const u8 gText_EmptyString7[];
+extern const u8 gText_PutAwayFrontierPass[];
+extern const u8 gText_SymbolsEarned[];
+extern const u8 gText_ThereIsNoBattleRecord[];
+extern const u8 gText_ViewRecordedBattle[];
+
+// RFVF+: Emerald's Battle Frontier strings (batch 6)
+extern const u8 gText_RankingHall[];
+extern const u8 gText_ExchangeService[];
+
+// RFVF+: Emerald's Battle Frontier strings (batch 6)
+extern const u8 gText_Symbols2[];
+extern const u8 gText_Record3[];
+extern const u8 gText_BattlePts[];
+extern const u8 gText_TwoStyles[];
+extern const u8 gText_Lv50_3[];
+extern const u8 gText_OpenLevel2[];
+extern const u8 gText_MonTypeAndNo[];
+extern const u8 gText_HoldItems[];
+extern const u8 gText_IllBattleNow[];
+extern const u8 gText_IWon[];
+extern const u8 gText_ILost[];
+extern const u8 gText_IWontTell[];
+
 #endif //GUARD_STRINGS_H

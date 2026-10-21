@@ -105,6 +105,7 @@ void HoennDays_OnStep(void)
             FlagClear(i);
         for (i = FLAG_RECEIVED_SHOAL_SALT_1; i <= FLAG_RECEIVED_SHOAL_SHELL_4; i++) // Shoal Cave's salt and shells too
             FlagClear(i);
+        FlagClear(FLAG_DAILY_APPRENTICE_LEAVES); // the Battle Tower apprentice is back
     }
     VarSet(VAR_HOENN_DAY_STEPS, steps);
 }

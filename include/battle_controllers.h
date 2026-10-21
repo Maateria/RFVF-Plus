@@ -307,5 +307,6 @@ void SetControllerToLinkOpponent(void);
 
 // link partner controller
 void SetControllerToLinkPartner(void);
+void SetControllerToPlayerPartner(void);
 
 #endif // GUARD_BATTLE_CONTROLLERS_H

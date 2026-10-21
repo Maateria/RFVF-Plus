@@ -1,4 +1,5 @@
 #include "global.h"
+#include "apprentice.h"
 #include "trainer_hill.h"
 #include "gflib.h"
 #include "random.h"
@@ -85,6 +86,7 @@ static void ClearBattleTower(void)
     CpuFill32(0, &gSaveBlock2Ptr->frontier, offsetof(struct SaveBlock2, mapView) - offsetof(struct SaveBlock2, frontier));
     gSaveBlock2Ptr->frontier.opponentNames[0][0] = EOS;
     gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
+    ResetAllApprenticeData();
 }
 
 static void WarpToPlayersRoom(void)

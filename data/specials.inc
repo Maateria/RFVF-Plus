@@ -542,4 +542,8 @@ gSpecials::
 	def_special ShouldTryGetTrainerScript
 	def_special CallTrainerHillFunction
 	def_special ShowTrainerHillRecords
+	def_special CallApprenticeFunction
+	def_special ShowRankingHallRecordsWindow
+	def_special ScrollRankingHallRecordsWindow
+	def_special OffsetCameraForBattle
 gSpecialsEnd::

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "frontier_pass.h"
 #include "gflib.h"
 #include "scanline_effect.h"
 #include "overworld.h"
@@ -508,7 +509,10 @@ static bool8 StartMenuPlayerCallback(void)
         PlayRainStoppingSoundEffect();
         DestroySafariZoneStatsWindow();
         CleanupOverworldWindowsAndTilemaps();
-        ShowPlayerTrainerCard(CB2_ReturnToFieldWithOpenMenu);
+        if (FlagGet(FLAG_SYS_FRONTIER_PASS)) // Emerald's: the Frontier Pass holds the trainer card
+            ShowFrontierPass(CB2_ReturnToFieldWithOpenMenu);
+        else
+            ShowPlayerTrainerCard(CB2_ReturnToFieldWithOpenMenu);
         return TRUE;
     }
     return FALSE;

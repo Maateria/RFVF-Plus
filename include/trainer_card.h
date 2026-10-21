@@ -53,4 +53,6 @@ void ShowTrainerCardInLink(u8 whoseCard, MainCallback callback);
 u8 GetTrainerCardStars(u8 cardId);
 void TrainerCard_GenerateCardForLinkPlayer(struct TrainerCard *trainerCard);
 
+u32 CountPlayerTrainerStars(void);
+
 #endif //GUARD_TRAINER_CARD_H

@@ -1442,7 +1442,7 @@ static void OpponentHandleChoosePokemon(void)
 {
     s32 chosenMonId;
 
-    if (*(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) == PARTY_SIZE)
+    if (*(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) == PARTY_SIZE)
     {
         chosenMonId = GetMostSuitableMonToSwitchInto();
 
@@ -1477,8 +1477,8 @@ static void OpponentHandleChoosePokemon(void)
     }
     else
     {
-        chosenMonId = *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1));
-        *(gBattleStruct->AI_monToSwitchIntoId + (GetBattlerPosition(gActiveBattler) >> 1)) = PARTY_SIZE;
+        chosenMonId = *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler);
+        *(gBattleStruct->AI_monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
     }
     *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = chosenMonId;
     BtlController_EmitChosenMonReturnValue(1, chosenMonId, NULL);

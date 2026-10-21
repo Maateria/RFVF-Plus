@@ -437,13 +437,13 @@ struct BattleStruct
     u8 expGetterBattlerId;
     u8 field_90; // unused
     u8 absentBattlerFlags;
-    u8 AI_monToSwitchIntoId[2];
+    u8 AI_monToSwitchIntoId[MAX_BATTLERS_COUNT]; // RFVF+: per battler (Emerald's), the salon partner also switches
     u8 simulatedInputState[4];  // used by Oak/Old Man/Pokedude controllers
     u8 lastTakenMove[MAX_BATTLERS_COUNT * 2 * 2]; // ask gamefreak why they declared it that way
     u16 hpOnSwitchout[2];
     u8 abilityPreventingSwitchout;
     u8 hpScale;
-    u16 savedBattleTypeFlags;
+    u32 savedBattleTypeFlags; // RFVF+: u32 (Emerald's), the Frontier bits are above 16
     void (*savedCallback)(void);
     u8 synchronizeMoveEffect;
     u8 multiplayerId;

@@ -2241,7 +2241,9 @@ static void GetPlayerHallRecords(struct PlayerHallRecords *dst)
         CopyTrainerId(dst->twoPlayers[j].id1, gSaveBlock2Ptr->playerTrainerId);
         CopyTrainerId(dst->twoPlayers[j].id2, gSaveBlock2Ptr->frontier.opponentTrainerIds[j]);
         StringCopy(dst->twoPlayers[j].name1, gSaveBlock2Ptr->playerName);
-        StringCopy(dst->twoPlayers[j].name2, gSaveBlock2Ptr->frontier.opponentNames[j]);
+        // RFVF+: bounded, a save that never had a link partner holds no EOS there (the copy overran the heap block)
+        StringCopyN(dst->twoPlayers[j].name2, gSaveBlock2Ptr->frontier.opponentNames[j], PLAYER_NAME_LENGTH);
+        dst->twoPlayers[j].name2[PLAYER_NAME_LENGTH] = EOS;
     }
 
     for (i = 0; i < FRONTIER_LVL_MODE_COUNT; i++)

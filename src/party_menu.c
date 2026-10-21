@@ -6235,6 +6235,22 @@ static void SetPartyIdAtBattleSlot(u8 slot, u8 setVal)
         gBattlePartyCurrentOrder[slot] = (gBattlePartyCurrentOrder[slot] & 0xF) | (setVal << 4);
 }
 
+// RFVF+: Emerald's (battle_util2.c), the Battle Tower salon partner's switches
+void SwitchPartyOrderInGameMulti(u8 battlerId, u8 slot)
+{
+    if (GetBattlerSide(battlerId) != B_SIDE_OPPONENT)
+    {
+        s32 i;
+        for (i = 0; i < (int)ARRAY_COUNT(gBattlePartyCurrentOrder); i++)
+            gBattlePartyCurrentOrder[i] = *(i + (u8 *)(gBattleStruct->battlerPartyOrders));
+
+        SwitchPartyMonSlots(GetPartyIdFromBattlePartyId(gBattlerPartyIndexes[battlerId]), GetPartyIdFromBattlePartyId(slot));
+
+        for (i = 0; i < (int)ARRAY_COUNT(gBattlePartyCurrentOrder); i++)
+            *(i + (u8 *)(gBattleStruct->battlerPartyOrders)) = gBattlePartyCurrentOrder[i];
+    }
+}
+
 void SwitchPartyMonSlots(u8 slot, u8 slot2)
 {
     u8 partyId = GetPartyIdFromBattleSlot(slot);

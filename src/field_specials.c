@@ -1482,6 +1482,16 @@ void ListMenu(void)
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
+    case LISTMENU_BF_RECEPTIONIST: // RFVF+: the Battle Frontier's facility guide
+        task->data[0] = 6;
+        task->data[1] = 10;
+        task->data[2] = 17;
+        task->data[3] = 1;
+        task->data[4] = 11;
+        task->data[5] = 11;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
     case 99:
         break;
     default:
@@ -1577,7 +1587,20 @@ static const u8 *const sListMenuLabels[][12] = {
     [LISTMENU_MASTER_TRAINER_TITLES] =
     {
         gOtherText_Exit,
-    }
+    },
+    [LISTMENU_BF_RECEPTIONIST] =
+    {
+        gText_BattleTower2,
+        gText_BattleDome,
+        gText_BattlePalace,
+        gText_BattleArena,
+        gText_BattleFactory,
+        gText_BattlePike,
+        gText_BattlePyramid,
+        gText_RankingHall,
+        gText_ExchangeService,
+        gText_Exit,
+    },
 };
 
 // to figure out how big the title list should be
@@ -3267,4 +3290,11 @@ void BufferBattleTowerElevatorFloors(void)
 
     gSpecialVar_0x8005 = 4;
     gSpecialVar_0x8006 = 12;
+}
+
+// RFVF+: Emerald's (the Battle Frontier's battle rooms and the multi corridor keep the camera still)
+void OffsetCameraForBattle(void)
+{
+    SetCameraPanningCallback(NULL);
+    SetCameraPanning(8, 0);
 }

@@ -286,6 +286,9 @@ void ShowEasyChatScreen(void)
     case EASY_CHAT_TYPE_TRENDY_PHRASE: // RFVF+: Emerald's Dewford trend
         words = InitTrendyPhraseInput();
         break;
+    case EASY_CHAT_TYPE_APPRENTICE: // RFVF+: Emerald's Battle Tower apprentice
+        words = gSaveBlock2Ptr->apprentices[0].speechWon;
+        break;
     default:
         return;
     }
@@ -403,6 +406,16 @@ static const struct EasyChatScreenTemplate sEasyChatScreenTemplates[] = {
         .instructionsText1 = gText_CombineTwoWordsOrPhrases,
         .instructionsText2 = gText_AndMakeATrendySaying,
         .confirmText1 = gText_TheTrendySaying,
+        .confirmText2 = gText_IsAsShownOkay
+    }, {
+        .type = EASY_CHAT_TYPE_APPRENTICE, // RFVF+: Emerald's
+        .numColumns = 2,
+        .numRows = 3,
+        .frameId = 1,
+        .titleText =  gText_ApprenticesPhrase,
+        .instructionsText1 = gText_FindWordsWhichFit,
+        .instructionsText2 = gText_TheTrainersImage,
+        .confirmText1 = gText_ApprenticePhrase,
         .confirmText2 = gText_IsAsShownOkay
     }, {
         .type = EASY_CHAT_TYPE_QUESTIONNAIRE,

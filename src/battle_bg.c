@@ -974,6 +974,10 @@ void InitLinkBattleVsScreen(u8 taskId)
     }
 }
 
+// RFVF+: Emerald's layout, drawn with FRLG's building battle background tiles
+static const u32 sMultiBattleIntroBg_Opponent_Tilemap[] = INCBIN_U32("graphics/battle_frontier/multi_battle_intro_bg_opponent.bin.lz");
+static const u32 sMultiBattleIntroBg_Player_Tilemap[] = INCBIN_U32("graphics/battle_frontier/multi_battle_intro_bg_player.bin.lz");
+
 void DrawBattleEntryBackground(void)
 {
     struct Trainer* sTrainers;
@@ -1003,6 +1007,16 @@ void DrawBattleEntryBackground(void)
     else if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)
     {
         LoadBattleTerrainEntryGfx(BATTLE_TERRAIN_GRASS);
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER)
+    {
+        // Emerald's: the multi battle intro where both teams slide in facing the screen
+        SetBgAttribute(1, BG_ATTR_CHARBASEINDEX, 2);
+        SetBgAttribute(2, BG_ATTR_CHARBASEINDEX, 2);
+        CopyToBgTilemapBuffer(1, sMultiBattleIntroBg_Opponent_Tilemap, 0, 0);
+        CopyToBgTilemapBuffer(2, sMultiBattleIntroBg_Player_Tilemap, 0, 0);
+        CopyBgTilemapBufferToVram(1);
+        CopyBgTilemapBufferToVram(2);
     }
     else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
     {

@@ -4613,7 +4613,8 @@ static void Cmd_jumpifcantswitch(void)
             party = gPlayerParty;
 
         i = 0;
-        if (GetLinkTrainerFlankId(GetBattlerMultiplayerId(gActiveBattler)) == TRUE)
+        if ((gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) ? (gActiveBattler & BIT_FLANK) != 0 // Emerald's
+                                                           : GetLinkTrainerFlankId(GetBattlerMultiplayerId(gActiveBattler)) == TRUE)
             i = 3;
         for (lastMonId = i + 3; i < lastMonId; i++)
         {
@@ -5012,7 +5013,11 @@ static void Cmd_switchhandleorder(void)
         gBattleCommunication[0] = gBattleBufferB[gActiveBattler][1];
         *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = gBattleBufferB[gActiveBattler][1];
 
-        if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's
+        {
+            SwitchPartyOrderInGameMulti(gActiveBattler, *(gBattleStruct->monToSwitchIntoId + gActiveBattler));
+        }
+        else if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
         {
             *(gActiveBattler * 3 + (u8 *)(gBattleStruct->battlerPartyOrders) + 0) &= 0xF;
             *(gActiveBattler * 3 + (u8 *)(gBattleStruct->battlerPartyOrders) + 0) |= (gBattleBufferB[gActiveBattler][2] & 0xF0);
@@ -6991,7 +6996,7 @@ static void Cmd_forcerandomswitch(void)
         // RFVF+: Emerald's two opponents each have half the party, as link multi trainers
         bool8 halfParty = (gBattleTypeFlags & BATTLE_TYPE_MULTI)
                        || (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS && GetBattlerSide(gBattlerTarget) == B_SIDE_OPPONENT);
-        bool8 upperHalf = (gBattleTypeFlags & BATTLE_TYPE_MULTI) ? GetLinkTrainerFlankId(GetBattlerMultiplayerId(gBattlerTarget)) == 1
+        bool8 upperHalf = (gBattleTypeFlags & BATTLE_TYPE_MULTI) && !(gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) ? GetLinkTrainerFlankId(GetBattlerMultiplayerId(gBattlerTarget)) == 1
                                                                  : (gBattlerTarget & BIT_FLANK) != 0;
 
         if (GetBattlerSide(gBattlerTarget) == B_SIDE_PLAYER)
@@ -7072,8 +7077,15 @@ static void Cmd_forcerandomswitch(void)
             *(gBattleStruct->monToSwitchIntoId + gBattlerTarget) = i;
             if (!IsMultiBattle())
                 UpdatePartyOwnerOnSwitch_NonMulti(gBattlerTarget);
-            SwitchPartyOrderLinkMulti(gBattlerTarget, i, 0);
-            SwitchPartyOrderLinkMulti(gBattlerTarget ^ BIT_FLANK, i, 1);
+            if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's
+            {
+                SwitchPartyOrderInGameMulti(gBattlerTarget, i);
+            }
+            else
+            {
+                SwitchPartyOrderLinkMulti(gBattlerTarget, i, 0);
+                SwitchPartyOrderLinkMulti(gBattlerTarget ^ BIT_FLANK, i, 1);
+            }
         }
     }
     else

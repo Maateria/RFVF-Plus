@@ -410,6 +410,8 @@ B_TRAINER2_WIN_TEXT = FD 2F
 B_BUFF3 = FD 30
 B_TRAINER2_CLASS = FD 31
 B_TRAINER2_NAME = FD 32
+B_PARTNER_CLASS = FD 33
+B_PARTNER_NAME = FD 34
 
 @ indicates the end of a town/city name (before " TOWN" or " CITY")
 NAME_END = FC 00

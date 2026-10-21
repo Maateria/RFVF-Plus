@@ -4350,6 +4350,17 @@ void SetMultiuseSpriteTemplateToTrainerBack(u16 trainerSpriteId, u8 battlerPosit
     }
 }
 
+// RFVF+: Emerald's (the Battle Tower salon partner battles show front pics on the player's side)
+void SetMultiuseSpriteTemplateToTrainerFront(u16 trainerPicId, u8 battlerPosition)
+{
+    if (gMonSpritesGfxPtr != NULL)
+        gMultiuseSpriteTemplate = gMonSpritesGfxPtr->templates[battlerPosition];
+    else
+        gMultiuseSpriteTemplate = gSpriteTemplates_Battlers[battlerPosition];
+    gMultiuseSpriteTemplate.paletteTag = trainerPicId;
+    gMultiuseSpriteTemplate.anims = gTrainerFrontAnimsPtrTable[trainerPicId];
+}
+
 static void EncryptBoxMon(struct BoxPokemon *boxMon)
 {
     u32 i;
@@ -8133,6 +8144,11 @@ bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 u8 *GetTrainerPartnerName(void)
 {
     u8 id = GetMultiplayerId();
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's: "can't switch with <partner>'s mon"
+    {
+        GetFrontierTrainerName(gStringVar1, gPartnerTrainerId);
+        return gStringVar1;
+    }
     return gLinkPlayers[GetBattlerMultiplayerId(gLinkPlayers[id].id ^ 2)].name;
 }
 

@@ -839,6 +839,17 @@ static u8 GetTrainerStarCount(struct TrainerCard *trainerCard)
     return stars;
 }
 
+static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType);
+
+// RFVF+: Emerald's name (the Frontier Pass's card), FRLG's trainer card star rules
+u32 CountPlayerTrainerStars(void)
+{
+    struct TrainerCard card;
+
+    SetPlayerCardData(&card, CARD_TYPE_FRLG);
+    return card.rse.stars;
+}
+
 static void SetPlayerCardData(struct TrainerCard *trainerCard, u8 cardType)
 {
     u32 playTime;

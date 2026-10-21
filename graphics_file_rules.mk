@@ -763,3 +763,23 @@ $(WALLPAPERGFXDIR)/ludicolo/tiles.4bpp: $(WALLPAPERGFXDIR)/friends_frame2.4bpp $
 $(WALLPAPERGFXDIR)/whiscash/tiles.4bpp: $(WALLPAPERGFXDIR)/friends_frame2.4bpp $(WALLPAPERGFXDIR)/whiscash/bg.4bpp
 	@cat $^ >$@
 
+
+# RFVF+: Emerald's Battle Frontier battle transitions (batch 6)
+$(BATTRANSGFXDIR)/frontier_square_1.4bpp: $(BATTRANSGFXDIR)/frontier_squares_blanktiles.4bpp \
+                                          $(BATTRANSGFXDIR)/frontier_squares_1.4bpp
+	@cat $^ >$@
+
+$(BATTRANSGFXDIR)/frontier_square_2.4bpp: $(BATTRANSGFXDIR)/frontier_squares_blanktiles.4bpp \
+                                          $(BATTRANSGFXDIR)/frontier_squares_2.4bpp
+	@cat $^ >$@
+
+$(BATTRANSGFXDIR)/frontier_square_3.4bpp: $(BATTRANSGFXDIR)/frontier_squares_blanktiles.4bpp \
+                                          $(BATTRANSGFXDIR)/frontier_squares_3.4bpp
+	@cat $^ >$@
+
+$(BATTRANSGFXDIR)/frontier_square_4.4bpp: $(BATTRANSGFXDIR)/frontier_squares_blanktiles.4bpp \
+                                          $(BATTRANSGFXDIR)/frontier_squares_4.4bpp
+	@cat $^ >$@
+
+$(BATTRANSGFXDIR)/frontier_logo_center.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 43 -Wnum_tiles

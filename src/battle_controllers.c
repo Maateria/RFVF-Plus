@@ -83,7 +83,28 @@ void InitBattleControllers(void)
 
 static void InitSinglePlayerBtlControllers(void)
 {
-    if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's: the Battle Tower salon partner
+    {
+        gBattleMainFunc = BeginBattleIntro;
+        gBattlerControllerFuncs[0] = SetControllerToPlayer;
+        gBattlerPositions[0] = B_POSITION_PLAYER_LEFT;
+        gBattlerControllerFuncs[1] = SetControllerToOpponent;
+        gBattlerPositions[1] = B_POSITION_OPPONENT_LEFT;
+        gBattlerControllerFuncs[2] = SetControllerToPlayerPartner;
+        gBattlerPositions[2] = B_POSITION_PLAYER_RIGHT;
+        gBattlerControllerFuncs[3] = SetControllerToOpponent;
+        gBattlerPositions[3] = B_POSITION_OPPONENT_RIGHT;
+        gBattlersCount = MAX_BATTLERS_COUNT;
+        BufferBattlePartyCurrentOrderBySide(0, 0);
+        BufferBattlePartyCurrentOrderBySide(1, 0);
+        BufferBattlePartyCurrentOrderBySide(2, 1);
+        BufferBattlePartyCurrentOrderBySide(3, 1);
+        gBattlerPartyIndexes[0] = 0;
+        gBattlerPartyIndexes[1] = 0;
+        gBattlerPartyIndexes[2] = 3;
+        gBattlerPartyIndexes[3] = 3;
+    }
+    else if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
     {
         gBattleMainFunc = BeginBattleIntro;
         if (gBattleTypeFlags & BATTLE_TYPE_POKEDUDE)

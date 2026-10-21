@@ -11,6 +11,7 @@
 #define EASY_CHAT_TYPE_INTERVIEW               7
 #define EASY_CHAT_TYPE_TRENDY_PHRASE           9
 #define EASY_CHAT_TYPE_QUESTIONNAIRE           14
+#define EASY_CHAT_TYPE_APPRENTICE              19 // RFVF+: Emerald's (the Battle Tower apprentice)
 
 #define EC_GROUP_POKEMON_2      0x0
 #define EC_GROUP_TRAINER        0x1

@@ -67,6 +67,7 @@ static void HandleEndTurn_MonFled(void);
 static void HandleEndTurn_FinishBattle(void);
 static void CB2_InitBattleInternal(void);
 static void CB2_PreInitMultiBattle(void);
+static void CB2_PreInitIngamePlayerPartnerBattle(void);
 static void CB2_HandleStartMultiBattle(void);
 static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 firstTrainer);
 static void CB2_HandleStartBattle(void);
@@ -620,7 +621,12 @@ void CB2_InitBattle(void)
     AllocateBattleResources();
     AllocateBattleSpritesData();
     AllocateMonSpritesGfx();
-    if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's: the salon partner's team is shown first
+    {
+        SetMainCallback2(CB2_PreInitIngamePlayerPartnerBattle);
+        gBattleCommunication[MULTIUSE_STATE] = 0;
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
     {
         HandleLinkBattleSetup();
         SetMainCallback2(CB2_PreInitMultiBattle);
@@ -666,6 +672,14 @@ static void CB2_InitBattleInternal(void)
     SetGpuReg(REG_OFFSET_WINOUT, 0);
 
     gBattle_WIN0H = DISPLAY_WIDTH;
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's
+    {
+        gBattle_WIN0V = DISPLAY_HEIGHT - 1;
+        gBattle_WIN1H = DISPLAY_WIDTH;
+        gBattle_WIN1V = 32;
+    }
+    else
+    {
     gBattle_WIN0V = WIN_RANGE(DISPLAY_HEIGHT / 2, DISPLAY_HEIGHT / 2 + 1);
     ScanlineEffect_Clear();
 
@@ -680,6 +694,7 @@ static void CB2_InitBattleInternal(void)
         gScanlineEffectRegBuffers[1][i] = 0xFF10;
     }
     ScanlineEffect_SetParams(sIntroScanlineParams16Bit);
+    }
 
     ResetPaletteFade();
     gBattle_BG0_X = 0;
@@ -703,9 +718,9 @@ static void CB2_InitBattleInternal(void)
     SetVBlankCallback(VBlankCB_Battle);
     SetUpBattleVars();
 
-    if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
+    if ((gBattleTypeFlags & BATTLE_TYPE_MULTI) && !(gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER))
         SetMainCallback2(CB2_HandleStartMultiBattle);
-    else
+    else // RFVF+: the salon partner's battle starts as a plain one (Emerald's non-link CB2_HandleStartMultiPartnerBattle)
         SetMainCallback2(CB2_HandleStartBattle);
     if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
     {
@@ -1121,12 +1136,71 @@ static void PrepareOwnMultiPartnerBuffer(void)
     memcpy(gBattleStruct->multiBuffer.multiBattleMons, gMultiPartnerParty, sizeof(gMultiPartnerParty));
 }
 
+// RFVF+: Emerald's (the Battle Tower salon partner)
+EWRAM_DATA static struct MultiPartnerMenuPokemon *sMultiPartnerPartyBuffer = NULL;
+
+static void SetMultiPartnerMenuParty(u8 offset)
+{
+    s32 i;
+
+    for (i = 0; i < MULTI_PARTY_SIZE; i++)
+    {
+        gMultiPartnerParty[i].species     = GetMonData(&gPlayerParty[offset + i], MON_DATA_SPECIES);
+        gMultiPartnerParty[i].heldItem    = GetMonData(&gPlayerParty[offset + i], MON_DATA_HELD_ITEM);
+        GetMonData(&gPlayerParty[offset + i], MON_DATA_NICKNAME, gMultiPartnerParty[i].nickname);
+        gMultiPartnerParty[i].level       = GetMonData(&gPlayerParty[offset + i], MON_DATA_LEVEL);
+        gMultiPartnerParty[i].hp          = GetMonData(&gPlayerParty[offset + i], MON_DATA_HP);
+        gMultiPartnerParty[i].maxhp       = GetMonData(&gPlayerParty[offset + i], MON_DATA_MAX_HP);
+        gMultiPartnerParty[i].status      = GetMonData(&gPlayerParty[offset + i], MON_DATA_STATUS);
+        gMultiPartnerParty[i].personality = GetMonData(&gPlayerParty[offset + i], MON_DATA_PERSONALITY);
+        gMultiPartnerParty[i].gender      = GetMonGender(&gPlayerParty[offset + i]);
+        StripExtCtrlCodes(gMultiPartnerParty[i].nickname);
+    }
+    memcpy(sMultiPartnerPartyBuffer, gMultiPartnerParty, sizeof(gMultiPartnerParty));
+}
+
+static void CB2_PreInitIngamePlayerPartnerBattle(void)
+{
+    u32 *savedBattleTypeFlags;
+    void (**savedCallback)(void);
+
+    savedCallback = &gBattleStruct->savedCallback;
+    savedBattleTypeFlags = &gBattleStruct->savedBattleTypeFlags;
+
+    RunTasks();
+    AnimateSprites();
+    BuildOamBuffer();
+
+    switch (gBattleCommunication[MULTIUSE_STATE])
+    {
+    case 0:
+        sMultiPartnerPartyBuffer = Alloc(sizeof(gMultiPartnerParty));
+        SetMultiPartnerMenuParty(MULTI_PARTY_SIZE);
+        gBattleCommunication[MULTIUSE_STATE]++;
+        *savedCallback = gMain.savedCallback;
+        *savedBattleTypeFlags = gBattleTypeFlags;
+        gMain.savedCallback = CB2_PreInitIngamePlayerPartnerBattle;
+        ShowPartyMenuToShowcaseMultiBattleParty();
+        break;
+    case 1:
+        if (!gPaletteFade.active)
+        {
+            gBattleCommunication[MULTIUSE_STATE] = 2;
+            gBattleTypeFlags = *savedBattleTypeFlags;
+            gMain.savedCallback = *savedCallback;
+            SetMainCallback2(CB2_InitBattleInternal);
+            FREE_AND_SET_NULL(sMultiPartnerPartyBuffer);
+        }
+        break;
+    }
+}
+
 static void CB2_PreInitMultiBattle(void)
 {
     s32 i;
     u8 playerMultiplierId;
     u8 r4 = 0xF;
-    u16 *savedBattleTypeFlags;
+    u32 *savedBattleTypeFlags;
     void (**savedCallback)(void);
 
     playerMultiplierId = GetMultiplayerId();
@@ -2418,8 +2492,8 @@ static void BattleStartClearSetData(void)
         *(i + 2 * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
         *(i + 3 * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
     }
-    *(gBattleStruct->AI_monToSwitchIntoId + 0) = PARTY_SIZE;
-    *(gBattleStruct->AI_monToSwitchIntoId + 1) = PARTY_SIZE;
+    for (i = 0; i < MAX_BATTLERS_COUNT; i++)
+        *(gBattleStruct->AI_monToSwitchIntoId + i) = PARTY_SIZE;
     *(&gBattleStruct->givenExpMons) = 0;
     for (i = 0; i < 11; i++)
         gBattleResults.catchAttempts[i] = 0;
@@ -3569,7 +3643,17 @@ static void HandleTurnActionSelectionState(void)
     }
     // Check if everyone chose actions.
     if (gBattleCommunication[ACTIONS_CONFIRMED_COUNT] == gBattlersCount)
+    {
         gBattleMainFunc = SetActionsAndBattlersTurnOrder;
+        if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's
+        {
+            for (i = 0; i < gBattlersCount; i++)
+            {
+                if (gChosenActionByBattler[i] == B_ACTION_SWITCH)
+                    SwitchPartyOrderInGameMulti(i, *(gBattleStruct->monToSwitchIntoId + i));
+            }
+        }
+    }
 }
 
 void SwapTurnOrder(u8 id1, u8 id2)

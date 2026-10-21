@@ -303,3 +303,290 @@ BattleFrontier_BattleTowerLobby_Text_ExplainMultiLinkRules::
     .string "SALLES, vous ne pouvez pas\l"
     .string "faire de pause dans une\l"
     .string "SALLE DE COMBAT MULTI LINK.$"
+
+BattleFrontier_BattleTowerLobby_Text_EarnedFabulousPrize::
+    .string "For beating seven TRAINERS in a row,\n"
+    .string "you have earned\l"
+    .string "this fabulous prize!\p"
+    .string "$"
+
+BattleFrontier_BattleTowerLobby_Text_ReceivedPrize::
+    .string "{PLAYER} reçoit {STR_VAR_1}\n"
+    .string "en récompense.$"
+
+BattleFrontier_BattleTowerLobby_Text_BagFullMakeRoom::
+    .string "Oh, your BAG appears to be full.\p"
+    .string "Please make room in your BAG, then\n"
+    .string "come see me.$"
+
+BattleFrontier_BattleTowerLobby_Text_DescribeFeelingsAboutBattleTower::
+    .string "Bonjour, bonjour!\n"
+    .string "Vous avez un instant?\p"
+    .string "Pouvez-vous me dire ce que vous\n"
+    .string "ressentez quand vous vous\l"
+    .string "préparez? Ou ce que vous\l"
+    .string "dites quand vous avez\l"
+    .string "gagné ou perdu un combat?$"
+
+BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouBegin::
+    .string "Quel est votre sentiment quand vous\n"
+    .string "vous préparez à un combat?$"
+
+BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouveWon::
+    .string "Que dites-vous quand vous avez\n"
+    .string "gagné un combat?$"
+
+BattleFrontier_BattleTowerLobby_Text_FeelWhatWhenYouveLost::
+    .string "Que dites-vous quand vous avez\n"
+    .string "perdu un combat?$"
+
+BattleFrontier_BattleTowerLobby_Text_DontThinkMuchAboutIt::
+    .string "Vous ne voulez rien dire?\n"
+    .string "Vous n'êtes pas facile, vous.$"
+
+BattleFrontier_BattleTowerLobby_Text_ChangedYourMind::
+    .string "Hein? Vous avez changé d'avis?\n"
+    .string "Vous m'avez l'air bien lunatique.$"
+
+BattleFrontier_BattleTowerLobby_Text_ThatsHowYouFeel::
+    .string "Tiens, je ne m'attendais pas à ça.\n"
+    .string "Voilà qui n'est pas ordinaire.\p"
+    .string "Merci!$"
+
+BattleFrontier_BattleTowerLobby_Text_DoubleBattleRoomConstruction::
+    .string "Welcome to the BATTLE TOWER\n"
+    .string "DOUBLE BATTLE CORNER!\p"
+    .string "Unfortunately, the BATTLE ROOMS\n"
+    .string "are still under construction.\p"
+    .string "Please come back when the work\n"
+    .string "is completed.$"
+
+BattleFrontier_BattleTowerLobby_Text_MultiBattleRoomConstruction::
+    .string "Welcome to the BATTLE TOWER\n"
+    .string "MULTI BATTLE CORNER!\p"
+    .string "Unfortunately, the BATTLE ROOMS\n"
+    .string "are still under construction.\p"
+    .string "Please come back when the work\n"
+    .string "is completed.$"
+
+BattleFrontier_BattleTowerLobby_Text_PleaseSelectMons::
+    .string "Please select the POKéMON you wish\n"
+    .string "to enter.$"
+
+BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLv50::
+    .string "Excuse me!\p"
+    .string "You don't have {STR_VAR_2}\n"
+    .string "eligible POKéMON.\p"
+    .string "You must have {STR_VAR_2}\n"
+    .string "different POKéMON of\l"
+    .string "Level 50 or less to enter.\p"
+    .string "They also must be holding different\n"
+    .string "kinds of items.\p"
+    .string "EGGS{STR_VAR_1} ineligible.\p"
+    .string "Please come see me\n"
+    .string "when you are ready.$"
+
+BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLvOpen::
+    .string "Excuse me!\p"
+    .string "You don't have {STR_VAR_2}\n"
+    .string "eligible POKéMON.\p"
+    .string "You must have {STR_VAR_2} different\n"
+    .string "POKéMON to enter.\p"
+    .string "They also must be holding different\n"
+    .string "kinds of items.\p"
+    .string "EGGS{STR_VAR_1} ineligible.\p"
+    .string "Please come see me\n"
+    .string "when you are ready.$"
+
+BattleFrontier_BattleTowerLobby_Text_WelcomeMultiBattle::
+    .string "Bienvenue dans la TOUR DE COMBAT!\p"
+    .string "Ici, nous mettons à l'épreuve\n"
+    .string "le talent des DRESSEURS!\p"
+    .string "Je serai votre guide dans les\n"
+    .string "SALLES DE COMBAT MULTI!$"
+
+BattleFrontier_BattleTowerLobby_Text_TakeMultisChallenge::
+    .string "Voulez-vous relever le défi d'une\n"
+    .string "SALLE DE COMBAT MULTI?$"
+
+BattleFrontier_BattleTowerLobby_Text_ExplainMultisChallenge::
+    .string "Les SALLES DE COMBAT MULTI de la\n"
+    .string "TOUR DE COMBAT sont consacrées aux\l"
+    .string "COMBATS MULTI.\p"
+    .string "Pour les COMBATS MULTI, vous devez\n"
+    .string "faire équipe avec un\l"
+    .string "DRESSEUR de la TOUR et\l"
+    .string "avoir deux POKéMON chacun.\p"
+    .string "Dans le SALON DE COMBAT de la TOUR,\n"
+    .string "vous pouvez rencontrer d'autres\l"
+    .string "DRESSEURS.\p"
+    .string "Vous devez y trouver le\n"
+    .string "DRESSEUR qui sera votre\l"
+    .string "partenaire de COMBAT MULTI.\p"
+    .string "Vous devez ensuite vous rendre dans\n"
+    .string "une SALLE DE COMBAT MULTI.\p"
+    .string "Dans chaque SALLE DE COMBAT MULTI,\n"
+    .string "sept équipes sont\l"
+    .string "prêtes à vous défier.\p"
+    .string "Battez-les toutes et vous recevrez\n"
+    .string "des POINTS DE COMBAT.\p"
+    .string "Vous pouvez aussi faire une pause\n"
+    .string "et sauvegarder pendant un défi.\p"
+    .string "Assurez-vous de bien sauvegarder, ou\n"
+    .string "vous ne pourrez pas\l"
+    .string "reprendre le défi.$"
+
+BattleFrontier_BattleTowerLobby_Text_PleaseSelectTwoMons::
+    .string "Veuillez choisir les deux POKéMON\n"
+    .string "que vous souhaitez inscrire.$"
+
+BattleFrontier_BattleTowerLobby_Text_WelcomeLinkMultiBattle::
+    .string "Bienvenue dans la TOUR DE COMBAT!\p"
+    .string "Ici, nous mettons à l'épreuve\n"
+    .string "le talent des DRESSEURS!\p"
+    .string "Je serai votre guide dans les\n"
+    .string "SALLES DE COMBAT MULTI LINK.$"
+
+BattleFrontier_BattleTowerLobby_Text_TakeLinkMultisChallenge::
+    .string "Voulez-vous relever le défi d'une\n"
+    .string "SALLE DE COMBAT MULTI LINK?$"
+
+BattleFrontier_BattleTowerLobby_Text_ExplainLinkMultisChallenge::
+    .string "Les SALLES DE COMBAT MULTI\n"
+    .string "LINK de la TOUR DE COMBAT\l"
+    .string "sont consacrées aux COMBATS\l"
+    .string "MULTI LINK avec un ami.\p"
+    .string "Vous devez vous connecter avec\n"
+    .string "un ami à l'aide d'adaptateurs\l"
+    .string "sans fil ou d'un câble Game\l"
+    .string "Boy Advance Game Link.\p"
+    .string "Vous devez faire équipe\n"
+    .string "avec votre ami et inscrire\l"
+    .string "deux POKéMON différents.\p"
+    .string "Il y a de nombreuses SALLES\n"
+    .string "DE COMBAT MULTI LINK\l"
+    .string "dans la TOUR DE COMBAT.\p"
+    .string "Dans chaque SALLE DE COMBAT MULTI\n"
+    .string "LINK, sept équipes sont prêtes à\l"
+    .string "vous défier.\p"
+    .string "Battez-les toutes et vous recevrez\n"
+    .string "des POINTS DE COMBAT.\p"
+    .string "Contrairement aux autres\n"
+    .string "SALLES, vous ne pouvez pas\l"
+    .string "faire de pause dans une\l"
+    .string "SALLE DE COMBAT MULTI LINK.\p"
+    .string "Une fois le défi commencé, vous\n"
+    .string "devez faire sept COMBATS MULTI\l"
+    .string "LINK à la suite sans vous arrêter.$"
+
+BattleFrontier_BattleTowerLobby_Text_PleaseSelectTwoMons2::
+    .string "Veuillez choisir les deux POKéMON\n"
+    .string "que vous souhaitez inscrire.$"
+
+BattleFrontier_BattleTowerLobby_Text_ChoseSameMonAsFriend::
+    .string "You have chosen the same kind of\n"
+    .string "POKéMON as your friend.\p"
+    .string "Please choose two POKéMON different\n"
+    .string "from your friend's, match the level\l"
+    .string "you wish to enter,\l"
+    .string "and register again.$"
+
+BattleFrontier_BattleTowerLobby_Text_LinkMultiOnlyForTwoPlayers::
+    .string "Les SALLES DE COMBAT MULTI\n"
+    .string "LINK sont prévues pour\l"
+    .string "deux joueurs connectés.$"
+
+BattleFrontier_BattleTowerLobby_Text_FriendAlsoSelectedMon::
+    .string "Votre partenaire a également choisi\n"
+    .string "le POKéMON {STR_VAR_1}.$"
+
+BattleFrontier_BattleTowerLobby_Text_FriendAlsoSelectedMons::
+    .string "Votre partenaire a également\n"
+    .string "choisi les POKéMON\l"
+    .string "{STR_VAR_1} et {STR_VAR_2}.$"
+
+BattleFrontier_BattleTowerLobby_Text_FriendChoseDifferentLvlMode::
+    .string "Votre partenaire a choisi un niveau\n"
+    .string "différent.$"
+
+BattleFrontier_BattleTowerLobby_Text_FriendChoseDifferentLvlModeSameMon::
+    .string "Your friend has chosen a different\n"
+    .string "battle level.\p"
+    .string "Your friend has also selected\n"
+    .string "the POKéMON {STR_VAR_1}.$"
+
+BattleFrontier_BattleTowerLobby_Text_FriendChoseDifferentLvlModeSameMons::
+    .string "Your friend has chosen a different\n"
+    .string "battle level.\p"
+    .string "Your friend has also selected the\n"
+    .string "POKéMON {STR_VAR_1} and {STR_VAR_2}.$"
+
+BattleFrontier_BattleTowerLobby_Text_ChooseDifferentMonsMatchLvlMode::
+    .string "Choisissez deux POKéMON autres que\n"
+    .string "ceux de votre partenaire\l"
+    .string "et le même niveau puis\l"
+    .string "inscrivez-vous de nouveau.$"
+
+BattleFrontier_BattleTowerLobby_Text_SaveGameBeforeShowingIn::
+    .string "Vous devez sauvegarder avant d'aller\n"
+    .string "plus loin. Veuillez patienter.$"
+
+BattleFrontier_BattleTowerLobby_Text_InterviewRequest::
+    .string "Bonjour! C'est vous qui venez de\n"
+    .string "vous battre, n'est-ce pas?\p"
+    .string "J'interviewe tous les DRESSEURS\n"
+    .string "du coin.\p"
+    .string "Vous pouvez me donner vos impressions\n"
+    .string "sur le combat?$"
+
+BattleFrontier_BattleTowerLobby_Text_HowDidBattleTowerTurnOut::
+    .string "Vraiment? Vous acceptez?\n"
+    .string "Merci!\l"
+    .string "Donc, heu…\p"
+    .string "Comment ça s'est passé dans la TOUR\n"
+    .string "DE COMBAT?\p"
+    .string "En gardez-vous une bonne impression?\n"
+    .string "Ou une mauvaise impression?$"
+
+BattleFrontier_BattleTowerLobby_Text_SorryWeDisturbedYou::
+    .string "Oh…\n"
+    .string "Je m'excuse du dérangement.\p"
+    .string "J'espère que vous accepterez\n"
+    .string "de nous répondre lors de votre\l"
+    .string "prochaine visite.$"
+
+BattleFrontier_BattleTowerLobby_Text_ObviousYouHadGreatBattle::
+    .string "Mais bien sûr!\p"
+    .string "Cette incroyable lueur de\n"
+    .string "satisfaction dans vos yeux…\p"
+    .string "De toute évidence, vous avez fait un\n"
+    .string "très beau combat.$"
+
+BattleFrontier_BattleTowerLobby_Text_DifficultToMakeBattleTurnOutAsPlanned::
+    .string "Oh, je vois…\p"
+    .string "Oui, les combats ne se déroulent pas\n"
+    .string "toujours comme prévu.$"
+
+BattleFrontier_BattleTowerLobby_Text_DescribeYourBattle::
+    .string "Une dernière petite question?\p"
+    .string "Si vous deviez résumer\n"
+    .string "vos impressions sur ce\l"
+    .string "combat, que diriez-vous?$"
+
+BattleFrontier_BattleTowerLobby_Text_ThatsGreatLine::
+    .string "Incroyable!\p"
+    .string "Quelle déclaration! Bonne chance\n"
+    .string "pour vos prochains combats.\p"
+    .string "A bientôt, j'espère!$"
+
+BattleFrontier_BattleTowerLobby_Text_SilentType::
+    .string "Oh, je vois…\p"
+    .string "Mais être du genre silencieux, c'est\n"
+    .string "bien aussi, non?\p"
+    .string "J'espère avoir de nouveau l'occasion\n"
+    .string "de parler avec vous!$"
+
+BattleFrontier_BattleTowerLobby_Text_LookingForwardToNextBattle::
+    .string "J'ai hâte que vous fassiez votre\n"
+    .string "prochain combat!$"
+

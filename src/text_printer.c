@@ -265,6 +265,8 @@ void CopyGlyphToWindow(struct TextPrinter *textPrinter)
         glyphHeight = gWindows[textPrinter->printerTemplate.windowId].window.height * 8 - textPrinter->printerTemplate.currentY;
     else
         glyphHeight = gGlyphInfo.height;
+    if (glyphWidth <= 0 || glyphHeight <= 0) // RFVF+: a glyph past the window's edge (the copy loops would run ~forever)
+        return;
 
     sizeType = 0;
     if (glyphWidth > 8)

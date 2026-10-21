@@ -38,6 +38,8 @@
 #include "hoenn_specials.h"
 #include "trainer_hill.h"
 #include "trainer_see.h"
+#include "random.h"
+#include "constants/battle_frontier.h"
 #include "constants/trainer_hill.h"
 
 enum {
@@ -871,15 +873,63 @@ static u8 GetTrainerBattleTransition(void)
 
 // RFVF+: Emerald's. ponytail: the Frontier's own logo/square/circle transitions are not ported yet (batch 6,
 // session 2): its facilities use the Trainer Hill pair meanwhile.
+// RFVF+: Emerald's
+static const u8 sBattleTransitionTable_BattleFrontier[] =
+{
+    B_TRANSITION_FRONTIER_LOGO_WIGGLE,
+    B_TRANSITION_FRONTIER_LOGO_WAVE,
+    B_TRANSITION_FRONTIER_SQUARES,
+    B_TRANSITION_FRONTIER_SQUARES_SCROLL,
+    B_TRANSITION_FRONTIER_CIRCLES_MEET,
+    B_TRANSITION_FRONTIER_CIRCLES_CROSS,
+    B_TRANSITION_FRONTIER_CIRCLES_ASYMMETRIC_SPIRAL,
+    B_TRANSITION_FRONTIER_CIRCLES_SYMMETRIC_SPIRAL,
+    B_TRANSITION_FRONTIER_CIRCLES_MEET_IN_SEQ,
+    B_TRANSITION_FRONTIER_CIRCLES_CROSS_IN_SEQ,
+    B_TRANSITION_FRONTIER_CIRCLES_ASYMMETRIC_SPIRAL_IN_SEQ,
+    B_TRANSITION_FRONTIER_CIRCLES_SYMMETRIC_SPIRAL_IN_SEQ,
+};
+
+static const u8 sBattleTransitionTable_BattlePyramid[] =
+{
+    B_TRANSITION_FRONTIER_SQUARES,
+    B_TRANSITION_FRONTIER_SQUARES_SCROLL,
+    B_TRANSITION_FRONTIER_SQUARES_SPIRAL,
+};
+
+static const u8 sBattleTransitionTable_BattleDome[] =
+{
+    B_TRANSITION_FRONTIER_LOGO_WIGGLE,
+    B_TRANSITION_FRONTIER_SQUARES,
+    B_TRANSITION_FRONTIER_SQUARES_SCROLL,
+    B_TRANSITION_FRONTIER_SQUARES_SPIRAL,
+};
+
 u8 GetSpecialBattleTransition(s32 id)
 {
+    u16 var;
     u8 enemyLevel = GetMonData(&gEnemyParty[0], MON_DATA_LEVEL);
     u8 playerLevel = GetSumOfPlayerPartyLevel(1);
 
-    if (enemyLevel < playerLevel)
-        return B_TRANSITION_POKEBALLS_TRAIL;
-    else
-        return B_TRANSITION_BIG_POKEBALL;
+    switch (id)
+    {
+    case B_TRANSITION_GROUP_TRAINER_HILL:
+    case B_TRANSITION_GROUP_SECRET_BASE:
+    case B_TRANSITION_GROUP_E_READER:
+        return (enemyLevel < playerLevel) ? B_TRANSITION_POKEBALLS_TRAIL : B_TRANSITION_BIG_POKEBALL;
+    case B_TRANSITION_GROUP_B_PYRAMID:
+        return sBattleTransitionTable_BattlePyramid[Random() % ARRAY_COUNT(sBattleTransitionTable_BattlePyramid)];
+    case B_TRANSITION_GROUP_B_DOME:
+        return sBattleTransitionTable_BattleDome[Random() % ARRAY_COUNT(sBattleTransitionTable_BattleDome)];
+    }
+
+    if (VarGet(VAR_FRONTIER_BATTLE_MODE) != FRONTIER_MODE_LINK_MULTIS)
+        return sBattleTransitionTable_BattleFrontier[Random() % ARRAY_COUNT(sBattleTransitionTable_BattleFrontier)];
+
+    var = gSaveBlock2Ptr->frontier.trainerIds[gSaveBlock2Ptr->frontier.curChallengeBattleNum * 2 + 0]
+        + gSaveBlock2Ptr->frontier.trainerIds[gSaveBlock2Ptr->frontier.curChallengeBattleNum * 2 + 1];
+
+    return sBattleTransitionTable_BattleFrontier[var % ARRAY_COUNT(sBattleTransitionTable_BattleFrontier)];
 }
 
 static u32 TrainerBattleLoadArg32(const u8 *ptr)
