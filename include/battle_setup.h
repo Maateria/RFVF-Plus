@@ -4,6 +4,7 @@
 #include "global.h"
 
 void StartWildBattle(void);
+u8 GetSpecialBattleTransition(s32 id); // RFVF+: Emerald's (Battle Frontier, Trainer Hill)
 void StartRoamerBattle(void);
 void StartOldManTutorialBattle(void);
 void StartScriptedWildBattle(void);
@@ -13,7 +14,6 @@ void StartLegendaryBattle(void);
 void StartGroudonKyogreBattle(void);
 void StartRegiBattle(void);
 u8 BattleSetup_GetTerrainId(void);
-u8 BattleSetup_GetBattleTowerBattleTransition(void);
 const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data);
 void ConfigureAndSetUpOneTrainerBattle(u8 trainerEventObjId, const u8 *trainerScript);
 void ConfigureTwoTrainersBattle(u8 trainerObjEventId, const u8 *trainerScript);

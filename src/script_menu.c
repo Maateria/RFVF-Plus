@@ -689,6 +689,35 @@ const u8 gText_NormalTagMatch[] = _("MATCH NORMAL");
 const u8 gText_VarietyTagMatch[] = _("MATCH VARIE");
 const u8 gText_UniqueTagMatch[] = _("MATCH UNIQUE");
 const u8 gText_ExpertTagMatch[] = _("MATCH EXPERT");
+// RFVF+: Emerald's Battle Frontier lists (batch 6), French Emerald's texts
+static const u8 sText_TakeChallenge[] = _("RELEVER LE DEFI");
+static const u8 sText_Informations[] = _("INFORMATIONS");
+static const u8 sText_Lv50[] = _("NIVEAU 50");
+static const u8 sText_OpenLevel[] = _("NIVEAU LIBRE");
+static const u8 sText_GoOn[] = _("CONTINUER");
+static const u8 sText_Record[] = _("ENREGISTRER");
+static const u8 sText_Rest[] = _("REPOS");
+static const u8 sText_Retire[] = _("PARTIR");
+static const u8 sText_FrontierPokemon[] = _("POKéMON");
+static const u8 sText_BattleSalon[] = _("SALON DE COMBAT");
+static const u8 sText_MultiLink[] = _("MULTI LINK");
+static const u8 sText_FrontierCancel[] = _("ANNULER");
+static const struct MenuAction sMultichoiceList_ChallengeInfo[] = {
+    { sText_TakeChallenge }, { sText_Informations }, { sText_FrontierCancel }
+};
+static const struct MenuAction sMultichoiceList_LevelMode[] = {
+    { sText_Lv50 }, { sText_OpenLevel }, { sText_FrontierCancel }
+};
+static const struct MenuAction sMultichoiceList_GoOnRecordRestRetire[] = {
+    { sText_GoOn }, { sText_Record }, { sText_Rest }, { sText_Retire }
+};
+static const struct MenuAction sMultichoiceList_GoOnRestRetire[] = {
+    { sText_GoOn }, { sText_Rest }, { sText_Retire }
+};
+static const struct MenuAction sMultichoiceList_BattleTowerRules[] = {
+    { sText_Informations }, { sText_FrontierPokemon }, { sText_BattleSalon }, { sText_MultiLink }, { sText_FrontierCancel }
+};
+
 static const struct MenuAction sMultichoiceList_TagMatchType[] = {
     { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
 };
@@ -1136,9 +1165,20 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_SEAGALLOP_FROM_SLATEPORT_BF] = MULTICHOICE(sMultichoiceList_SeagallopFromSlateportBF),
 	[MULTI_SEAGALLOP_FROM_FRONTIER] = MULTICHOICE(sMultichoiceList_SeagallopFromFrontier),
 	[MULTI_TAG_MATCH_TYPE] = MULTICHOICE(sMultichoiceList_TagMatchType),
+	[MULTI_CHALLENGEINFO] = MULTICHOICE(sMultichoiceList_ChallengeInfo),
+	[MULTI_LEVEL_MODE] = MULTICHOICE(sMultichoiceList_LevelMode),
+	[MULTI_GO_ON_RECORD_REST_RETIRE] = MULTICHOICE(sMultichoiceList_GoOnRecordRestRetire),
+	[MULTI_GO_ON_REST_RETIRE] = MULTICHOICE(sMultichoiceList_GoOnRestRetire),
+	[MULTI_BATTLE_TOWER_RULES] = MULTICHOICE(sMultichoiceList_BattleTowerRules),
 };
 
 // From Cool to Berries goes unused
+// RFVF+: Emerald's Battle Frontier modes, French Emerald's texts
+static const u8 sText_StdSingle[] = _("SOLO");
+static const u8 sText_StdDouble[] = _("DUO");
+static const u8 sText_StdMulti[] = _("MULTI");
+static const u8 sText_StdMultiLink[] = _("MULTI LINK");
+
 const u8 *const gStdStringPtrs[] = {
     [STDSTRING_COOL]             = gText_Cool,
     [STDSTRING_BEAUTY]           = gText_Beauty,
@@ -1170,7 +1210,11 @@ const u8 *const gStdStringPtrs[] = {
     [STDSTRING_TM_CASE]          = gText_TmCase,
     [STDSTRING_BERRY_POUCH]      = gText_BerryPouch_2,
     [STDSTRING_MEDICINE_POCKET]  = gText_MedicinePocket,
-    [STDSTRING_HELD_ITEMS_POCKET] = gText_HeldItemsPocket
+    [STDSTRING_HELD_ITEMS_POCKET] = gText_HeldItemsPocket,
+    [STDSTRING_SINGLE]           = sText_StdSingle,
+    [STDSTRING_DOUBLE]           = sText_StdDouble,
+    [STDSTRING_MULTI]            = sText_StdMulti,
+    [STDSTRING_MULTI_LINK]       = sText_StdMultiLink,
 };
 
 static const u8 *const sDescriptionPtrs_CableClub_TradeBattleCancel[] = {

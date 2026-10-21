@@ -6,6 +6,8 @@
 #include "battle_gfx_sfx_util.h"
 #include "battle_interface.h"
 #include "battle_tower.h"
+#include "frontier_util.h"
+#include "constants/battle_frontier.h"
 #include "berry_pouch.h"
 #include "data.h"
 #include "decompress.h"
@@ -201,6 +203,7 @@ static void DisplayPartyPokemonHPCheck(struct Pokemon *mon, struct PartyMenuBox 
 static void DisplayPartyPokemonMaxHPCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
 static void DisplayPartyPokemonHPBarCheck(struct Pokemon *mon, struct PartyMenuBox *menuBox);
 static void DisplayPartyPokemonDescriptionText(u8 stringId, struct PartyMenuBox *menuBox, u8 drawMenuBoxOrText);
+static u8 GetMaxBattleEntries(void);
 static bool8 GetBattleEntryEligibility(struct Pokemon *mon);
 static bool8 IsMonAllowedInMinigame(u8 slot);
 static void DisplayPartyPokemonDataToTeachMove(u8 slot, u16 item, u8 tutor);
@@ -414,7 +417,7 @@ EWRAM_DATA MainCallback gPostMenuFieldCallback = NULL;
 static EWRAM_DATA u16 *sSlot1TilemapBuffer = NULL; // for switching party slots
 static EWRAM_DATA u16 *sSlot2TilemapBuffer = NULL;
 static EWRAM_DATA struct Pokemon *sSacredAshQuestLogMonBackup = NULL;
-EWRAM_DATA u8 gSelectedOrderFromParty[3] = {0};
+EWRAM_DATA u8 gSelectedOrderFromParty[MAX_FRONTIER_PARTY_SIZE] = {0};
 static EWRAM_DATA u16 sPartyMenuItemId = ITEM_NONE;
 ALIGNED(4) EWRAM_DATA u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2] = {0}; // bits 0-3 are the current pos of Slot 1, 4-7 are Slot 2, and so on
 
@@ -824,10 +827,7 @@ static void DisplayPartyPokemonDataForChooseMultiple(u8 slot)
         DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_NOT_ABLE);
     else
     {
-        if (gPartyMenu.chooseMonsBattleType == CHOOSE_MONS_FOR_UNION_ROOM_BATTLE)
-            maxBattlers = 2;
-        else
-            maxBattlers = 3;
+        maxBattlers = GetMaxBattleEntries();
         for (i = 0; i < maxBattlers; ++i)
         {
             if (order[i] != 0 && (order[i] - 1) == slot)
@@ -3792,14 +3792,19 @@ static void CursorCB_Enter(u8 taskId)
     u32 i;
     const u8 *str;
     
+    maxBattlers = GetMaxBattleEntries();
     if (gPartyMenu.chooseMonsBattleType == CHOOSE_MONS_FOR_UNION_ROOM_BATTLE)
     {
-        maxBattlers = 2;
         str = gText_NoMoreThanTwoMayEnter;
+    }
+    else if (gPartyMenu.chooseMonsBattleType == CHOOSE_MONS_FOR_BATTLE_TOWER)
+    {
+        ConvertIntToDecimalStringN(gStringVar1, maxBattlers, STR_CONV_MODE_LEFT_ALIGN, 1);
+        StringExpandPlaceholders(gStringVar4, gText_NoMoreThanVar1Pkmn);
+        str = gStringVar4;
     }
     else
     {
-        maxBattlers = 3;
         str = gText_NoMoreThanThreeMayEnter;
     }
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
@@ -3837,23 +3842,14 @@ static void CursorCB_NoEntry(u8 taskId)
     PlaySE(SE_SELECT);
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
     PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
-    for (i = 0; i < 3; ++i)
+    for (i = 0; i < GetMaxBattleEntries(); ++i)
     {
-        if (gSelectedOrderFromParty[i] ==  gPartyMenu.slotId + 1)
+        if (gSelectedOrderFromParty[i] == gPartyMenu.slotId + 1)
         {
+            // RFVF+: Emerald's, up to 4 entries: the next ones move up
+            for (; i < MAX_FRONTIER_PARTY_SIZE - 1; i++)
+                gSelectedOrderFromParty[i] = gSelectedOrderFromParty[i + 1];
             gSelectedOrderFromParty[i] = 0;
-            switch (i)
-            {
-            case 0:
-                gSelectedOrderFromParty[0] = gSelectedOrderFromParty[1];
-                gSelectedOrderFromParty[1] = gSelectedOrderFromParty[2];
-                gSelectedOrderFromParty[2] = 0;
-                break;
-            case 1:
-                gSelectedOrderFromParty[1] = gSelectedOrderFromParty[2];
-                gSelectedOrderFromParty[2] = 0;
-                break;
-            }
             break;
         }
     }
@@ -5730,6 +5726,20 @@ static u8 GetPartySlotEntryStatus(s8 slot)
         return 0; // Eligible, not selected
 }
 
+// RFVF+: Emerald's Battle Frontier picks gSpecialVar_0x8005 mons (3, 4 for doubles, 2 for multis)
+static u8 GetMaxBattleEntries(void)
+{
+    switch (gPartyMenu.chooseMonsBattleType)
+    {
+    case CHOOSE_MONS_FOR_UNION_ROOM_BATTLE:
+        return 2;
+    case CHOOSE_MONS_FOR_BATTLE_TOWER:
+        return gSpecialVar_0x8005;
+    default:
+        return 3;
+    }
+}
+
 static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
 {
     u16 species;
@@ -5747,13 +5757,13 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
         if (GetMonData(mon, MON_DATA_HP) == 0)
             return FALSE;
         break;
-    case CHOOSE_MONS_FOR_BATTLE_TOWER:
-        if (gSaveBlock2Ptr->battleTower.battleTowerLevelType == 0 // level 50
-         && GetMonData(mon, MON_DATA_LEVEL) > 50)
+    case CHOOSE_MONS_FOR_BATTLE_TOWER: // RFVF+: Emerald's Battle Frontier rules
+        if (gSaveBlock2Ptr->frontier.lvlMode == FRONTIER_LVL_50
+         && GetMonData(mon, MON_DATA_LEVEL) > FRONTIER_MAX_LEVEL_50)
             return FALSE;
         species = GetMonData(mon, MON_DATA_SPECIES);
-        for (; gBattleTowerBannedSpecies[i] != 0xFFFF; ++i)
-            if (gBattleTowerBannedSpecies[i] == species)
+        for (; gFrontierBannedSpecies[i] != 0xFFFF; ++i)
+            if (gFrontierBannedSpecies[i] == species)
                 return FALSE;
         break;
     }
@@ -5768,14 +5778,17 @@ static u8 CheckBattleEntriesAndGetMessage(void)
     
     switch (gPartyMenu.chooseMonsBattleType)
     {
-    case CHOOSE_MONS_FOR_BATTLE_TOWER:
-        if (order[2] == 0)
-            return PARTY_MSG_THREE_MONS_ARE_NEEDED;
-        for (i = 0; i < 2; ++i)
+    case CHOOSE_MONS_FOR_BATTLE_TOWER: // RFVF+: Emerald's, gSpecialVar_0x8005 mons (Battle Frontier)
+        if (order[gSpecialVar_0x8005 - 1] == 0)
+        {
+            ConvertIntToDecimalStringN(gStringVar1, gSpecialVar_0x8005, STR_CONV_MODE_LEFT_ALIGN, 1);
+            return PARTY_MSG_X_MONS_ARE_NEEDED;
+        }
+        for (i = 0; i < gSpecialVar_0x8005 - 1; ++i)
         {
             sPartyMenuInternal->data[15] = GetMonData(&party[order[i] - 1], MON_DATA_SPECIES);
             sPartyMenuInternal->data[14] = GetMonData(&party[order[i] - 1], MON_DATA_HELD_ITEM);
-            for (j = i + 1; j < 3; ++j)
+            for (j = i + 1; j < gSpecialVar_0x8005; ++j)
             {
                 if (sPartyMenuInternal->data[15] == GetMonData(&party[order[j] - 1], MON_DATA_SPECIES))
                     return PARTY_MSG_MONS_CANT_BE_SAME;

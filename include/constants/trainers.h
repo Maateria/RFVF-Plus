@@ -2,6 +2,7 @@
 #define GUARD_CONSTANTS_TRAINERS_H
 
 #include "constants/opponents.h"
+#include "constants/battle_frontier_trainers.h"
 #include "constants/master_opponents.h"
 
 #define TRAINER_ENCOUNTER_MUSIC_MALE         0 // standard male encounter music
@@ -202,9 +203,17 @@
 #define TRAINER_BACK_PIC_EMERALD_MAY            7
 
 // Special Trainer Ids.
-#define TRAINER_UNION_ROOM          0xC00
-#define TRAINER_LINK_OPPONENT       0x800
-#define TRAINER_SECRET_BASE         0x400
+// RFVF+: above every region block (Kanto 0-767, Hoenn 768-1791, Johto 1792-2815): FRLG's 0x400 was Hoenn's TRAINER_WALTER_2
+#define TRAINER_SECRET_BASE         0xF000
+#define TRAINER_LINK_OPPONENT       0xF001
+#define TRAINER_UNION_ROOM          0xF002
+// Emerald's Battle Frontier trainer ids. Ids below TRAINER_FRONTIER_BRAIN are only read in Frontier/e-Reader battles.
+#define TRAINER_RECORD_MIXING_FRIEND        FRONTIER_TRAINERS_COUNT
+#define TRAINER_RECORD_MIXING_APPRENTICE    400
+#define TRAINER_EREADER                     500
+#define TRAINER_FRONTIER_BRAIN              0xF003
+#define TRAINER_PLAYER                      0xF004
+#define TRAINER_STEVEN_PARTNER              0xF005
 
 #define TRAINER_CLASS_NONE                0
 #define TRAINER_CLASS_PKMN_TRAINER_UNUSED 1

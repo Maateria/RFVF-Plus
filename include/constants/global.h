@@ -80,6 +80,22 @@
 #define MAX_MON_MOVES 4
 #define PARTY_SIZE 6
 #define MULTI_PARTY_SIZE (PARTY_SIZE / 2)
+// RFVF+: Emerald's Battle Frontier sizes
+#define FRONTIER_PARTY_SIZE         3
+#define FRONTIER_DOUBLES_PARTY_SIZE 4
+#define FRONTIER_MULTI_PARTY_SIZE   2
+#define MAX_FRONTIER_PARTY_SIZE     4
+#define APPRENTICE_COUNT 4
+#define APPRENTICE_MAX_QUESTIONS 9
+#define PYRAMID_BAG_ITEMS_COUNT 10
+#define DOME_TOURNAMENT_TRAINERS_COUNT 16
+// Excludes link modes. See RANKING_HALL_* in include/constants/battle_frontier.h
+#define HALL_FACILITIES_COUNT 9
+#define HALL_RECORDS_COUNT 3
+#define FRONTIER_LVL_50         0
+#define FRONTIER_LVL_OPEN       1
+#define FRONTIER_LVL_MODE_COUNT 2
+#define FRONTIER_LVL_TENT       FRONTIER_LVL_MODE_COUNT // Special usage for indicating Battle Tent
 
 #define QUEST_LOG_SCENE_COUNT 4
 

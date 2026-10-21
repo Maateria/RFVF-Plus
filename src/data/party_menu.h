@@ -629,6 +629,7 @@ static const u8 *const sActionStringTable[] =
     [PARTY_MSG_BOOST_PP_WHICH_MOVE]    = gText_BoostPp,
     [PARTY_MSG_DO_WHAT_WITH_ITEM]      = gText_DoWhatWithItem,
     [PARTY_MSG_DO_WHAT_WITH_MAIL]      = gText_DoWhatWithMail,
+    [PARTY_MSG_X_MONS_ARE_NEEDED]      = gText_PokemonAreNeeded,
 };
 
 static const u8 *const sDescriptionStringTable[] =
@@ -638,6 +639,7 @@ static const u8 *const sDescriptionStringTable[] =
     [PARTYBOX_DESC_FIRST]      = gText_First_PM,
     [PARTYBOX_DESC_SECOND]     = gText_Second_PM,
     [PARTYBOX_DESC_THIRD]      = gText_Third_PM,
+    [PARTYBOX_DESC_FOURTH]     = gText_Fourth_PM,
     [PARTYBOX_DESC_ABLE]       = gText_Able2,
     [PARTYBOX_DESC_NOT_ABLE]   = gText_NotAble,
     [PARTYBOX_DESC_ABLE_2]     = gText_Able3,

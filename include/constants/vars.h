@@ -252,11 +252,12 @@
 #define VAR_SS_TIDAL_STATE         0x40C7  // Hoenn batch 4 (S.S. Tidal), Emerald names; SS_TIDAL_* below
 #define VAR_CRUISE_STEP_COUNT      0x40C8
 #define VAR_TRAINER_HILL_IS_ACTIVE 0x40C9  // Hoenn batch 5, Emerald's name
-#define VAR_0x40CA                 0x40CA
+#define VAR_BRAVO_TRAINER_BATTLE_TOWER_ON                 0x40CA // RFVF+: Emerald's 0x40BC (taken), batch 6
 #define VAR_0x40CB                 0x40CB
 #define VAR_0x40CC                 0x40CC
 #define VAR_0x40CD                 0x40CD
-#define VAR_0x40CE                 0x40CE
+#define VAR_TEMP_CHALLENGE_STATUS VAR_TEMP_0 // RFVF+: Emerald's alias (Battle Frontier)
+#define VAR_FRONTIER_BATTLE_MODE                 0x40CE // RFVF+: Emerald's (batch 6)
 #define VAR_FRONTIER_FACILITY      0x40CF
 #define VAR_0x40D0                 0x40D0
 #define VAR_0x40D1                 0x40D1

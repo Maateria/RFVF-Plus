@@ -277,7 +277,7 @@ void BattleAI_HandleItemUseBeforeAISetup(void)
     // Items are allowed to use in ONLY trainer battles.
     if ((gBattleTypeFlags & BATTLE_TYPE_TRAINER)
         && (gTrainerBattleOpponent_A != TRAINER_SECRET_BASE)
-        && !(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER_HILL))
+        && !(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_LINK | BATTLE_TYPE_TRAINER_HILL))
         )
     {
         for (i = 0; i < MAX_TRAINER_ITEMS; i++)
@@ -352,7 +352,7 @@ void BattleAI_SetupAIData(void)
         AI_THINKING_STRUCT->aiFlags = AI_SCRIPT_ROAMING;
         return;
     }
-    else if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_TRAINER_HILL)) && (gTrainerBattleOpponent_A != TRAINER_SECRET_BASE))
+    else if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)) && (gTrainerBattleOpponent_A != TRAINER_SECRET_BASE))
     {
         if (gBattleTypeFlags & BATTLE_TYPE_WILD_SCRIPTED)
         {

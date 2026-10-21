@@ -16,7 +16,7 @@
 #include "constants/region_map_sections.h"
 
 static void CB2_ReturnFromChooseHalfParty(void);
-static void CB2_ReturnFromChooseBattleTowerParty(void);
+static void CB2_ReturnFromChooseBattleFrontierParty(void);
 
  #define IN_OAKS_LAB \
     (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(PALLET_TOWN_PROFESSOR_OAKS_LAB) \
@@ -254,22 +254,21 @@ static void CB2_ReturnFromChooseHalfParty(void)
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
-void ChooseBattleTowerPlayerParty(void)
+// RFVF+: Emerald's Battle Frontier choice (VAR_0x8005 = number of mons; the order stays in gSelectedOrderFromParty)
+void ChoosePartyForBattleFrontier(void)
 {
-    gMain.savedCallback = CB2_ReturnFromChooseBattleTowerParty;
+    gMain.savedCallback = CB2_ReturnFromChooseBattleFrontierParty;
     InitChooseMonsForBattle(CHOOSE_MONS_FOR_BATTLE_TOWER);
 }
 
-static void CB2_ReturnFromChooseBattleTowerParty(void)
+static void CB2_ReturnFromChooseBattleFrontierParty(void)
 {
     switch (gSelectedOrderFromParty[0])
     {
     case 0:
-        LoadPlayerParty();
         gSpecialVar_Result = FALSE;
         break;
     default:
-        ReducePlayerPartyToThree();
         gSpecialVar_Result = TRUE;
         break;
     }
@@ -277,22 +276,24 @@ static void CB2_ReturnFromChooseBattleTowerParty(void)
     SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
 }
 
-void ReducePlayerPartyToThree(void)
+// RFVF+: Emerald's (up to 4 mons, the Battle Frontier's doubles), was R/S's ReducePlayerPartyToSelectedMons
+void ReducePlayerPartyToSelectedMons(void)
 {
-    struct Pokemon * party = AllocZeroed(3 * sizeof(struct Pokemon));
+    struct Pokemon party[MAX_FRONTIER_PARTY_SIZE];
     int i;
 
+    CpuFill32(0, party, sizeof party);
+
     // copy the selected pokemon according to the order.
-    for (i = 0; i < 3; i++)
+    for (i = 0; i < MAX_FRONTIER_PARTY_SIZE; i++)
         if (gSelectedOrderFromParty[i]) // as long as the order keeps going (did the player select 1 mon? 2? 3?), do not stop
             party[i] = gPlayerParty[gSelectedOrderFromParty[i] - 1]; // index is 0 based, not literal
 
     CpuFill32(0, gPlayerParty, sizeof gPlayerParty);
 
-    // overwrite the first 3 with the order copied to.
-    for (i = 0; i < 3; i++)
+    // overwrite the first 4 with the order copied to.
+    for (i = 0; i < MAX_FRONTIER_PARTY_SIZE; i++)
         gPlayerParty[i] = party[i];
 
     CalculatePlayerPartyCount();
-    Free(party);
 }

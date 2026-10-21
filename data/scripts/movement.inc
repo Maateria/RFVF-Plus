@@ -80,3 +80,8 @@ Common_Movement_WalkUp2::
 	walk_up
 	walk_up
 	step_end
+
+@ RFVF+: Emerald's (Battle Frontier, batch 6)
+Common_Movement_WalkInPlaceLeft::
+	walk_in_place_left
+	step_end

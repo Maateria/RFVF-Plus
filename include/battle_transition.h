@@ -37,6 +37,20 @@ enum {
     B_TRANSITION_COUNT
 };
 
+// RFVF+: Emerald's IDs for GetSpecialBattleTransition (battle_setup.c)
+enum {
+    B_TRANSITION_GROUP_B_TOWER,
+    B_TRANSITION_GROUP_B_DOME = 3,
+    B_TRANSITION_GROUP_B_PALACE,
+    B_TRANSITION_GROUP_B_ARENA,
+    B_TRANSITION_GROUP_B_FACTORY,
+    B_TRANSITION_GROUP_B_PIKE,
+    B_TRANSITION_GROUP_B_PYRAMID = 10,
+    B_TRANSITION_GROUP_TRAINER_HILL,
+    B_TRANSITION_GROUP_SECRET_BASE,
+    B_TRANSITION_GROUP_E_READER,
+};
+
 extern const struct SpritePalette gSpritePalette_Pokeball;
 
 bool8 IsBattleTransitionDone(void);

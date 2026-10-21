@@ -67,6 +67,20 @@
 #define BATTLE_TYPE_TRAINER_TOWER      (1 << 19) // Used in pokeemerald as BATTLE_TYPE_FACTORY.
 #define BATTLE_TYPE_TWO_OPPONENTS      (1 << 20) // RFVF+: Emerald's two trainers who spot the player at once (Hoenn, Trainer Hill)
 #define BATTLE_TYPE_TRAINER_HILL       (1 << 21) // RFVF+: Emerald's Trainer Hill
+// RFVF+: Emerald's Battle Frontier (batch 6). No cable here: the link-only types are 0, their code stays dead.
+#define BATTLE_TYPE_DOME               (1 << 22)
+#define BATTLE_TYPE_PALACE             (1 << 23)
+#define BATTLE_TYPE_ARENA              (1 << 24)
+#define BATTLE_TYPE_FACTORY            (1 << 25)
+#define BATTLE_TYPE_PIKE               (1 << 26)
+#define BATTLE_TYPE_PYRAMID            (1 << 27)
+#define BATTLE_TYPE_INGAME_PARTNER     (1 << 28)
+#define BATTLE_TYPE_RECORDED           (1 << 29)
+#define BATTLE_TYPE_TOWER_LINK_MULTI   0
+#define BATTLE_TYPE_RECORDED_LINK      0
+#define BATTLE_TYPE_RECORDED_IS_MASTER 0
+#define BATTLE_TYPE_FRONTIER                (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_DOME | BATTLE_TYPE_PALACE | BATTLE_TYPE_ARENA | BATTLE_TYPE_FACTORY | BATTLE_TYPE_PIKE | BATTLE_TYPE_PYRAMID)
+#define BATTLE_TYPE_FRONTIER_NO_PYRAMID     (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_DOME | BATTLE_TYPE_PALACE | BATTLE_TYPE_ARENA | BATTLE_TYPE_FACTORY | BATTLE_TYPE_PIKE)
 
 #define IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && !((flags) & BATTLE_TYPE_GHOST_UNVEILED))
 #define IS_BATTLE_TYPE_GHOST_WITH_SCOPE(flags) ((flags) & BATTLE_TYPE_GHOST && (flags) & BATTLE_TYPE_GHOST_UNVEILED)

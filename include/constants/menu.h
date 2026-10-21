@@ -140,6 +140,12 @@
 #define MULTI_SEAGALLOP_FROM_SLATEPORT_BF                      133
 #define MULTI_SEAGALLOP_FROM_FRONTIER                          134
 #define MULTI_TAG_MATCH_TYPE                                   135 // RFVF+: the Trainer Hill's modes (Emerald's)
+// RFVF+: Emerald's Battle Frontier (batch 6), French Emerald's texts
+#define MULTI_CHALLENGEINFO                                    136
+#define MULTI_LEVEL_MODE                                       137
+#define MULTI_GO_ON_RECORD_REST_RETIRE                         138
+#define MULTI_GO_ON_REST_RETIRE                                139
+#define MULTI_BATTLE_TOWER_RULES                               140
 
 
 #define MULTICHOICE_NONE                                      255
@@ -186,5 +192,10 @@
 #define STDSTRING_BERRY_POUCH       28
 #define STDSTRING_MEDICINE_POCKET   29
 #define STDSTRING_HELD_ITEMS_POCKET 30
+// RFVF+: Emerald's Battle Frontier modes (batch 6)
+#define STDSTRING_SINGLE            31
+#define STDSTRING_DOUBLE            32
+#define STDSTRING_MULTI             33
+#define STDSTRING_MULTI_LINK        34
 
 #endif //GUARD_CONSTANTS_MENU_H

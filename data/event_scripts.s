@@ -39,6 +39,17 @@
 #include "constants/trainer_fan_club.h"
 #include "constants/mystery_gift.h"
 #include "constants/trainer_hill.h"
+#include "constants/apprentice.h"
+#include "constants/battle_arena.h"
+#include "constants/battle_dome.h"
+#include "constants/battle_factory.h"
+#include "constants/battle_frontier.h"
+#include "constants/battle_palace.h"
+#include "constants/battle_pike.h"
+#include "constants/battle_pyramid.h"
+#include "constants/battle_tent.h"
+#include "constants/battle_tower.h"
+#include "constants/frontier_util.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.set FALSE, 0
@@ -86,6 +97,7 @@ gStdScripts::
 	.4byte Std_ObtainDecoration     @ STD_OBTAIN_DECORATION
 	.4byte Std_PutItemAway          @ STD_PUT_ITEM_AWAY
 	.4byte Std_ReceivedItem         @ STD_RECEIVED_ITEM
+	.4byte Std_MsgboxGetPoints      @ MSGBOX_GETPOINTS
 gStdScriptsEnd::
 
 	.include "data/maps/BattleColosseum_2P/scripts.inc"
@@ -1253,6 +1265,7 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/text/save.inc"
 	.include "data/text/new_game_intro.inc"
 	.include "data/text/pokedude.inc"
+	.include "data/text/frontier_brain.inc"
 
 	.include "data/maps/FarawayIsland_Exterior/scripts.inc"
 	.include "data/maps/FarawayIsland_Exterior/text.inc"
@@ -2361,8 +2374,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattleFrontier_BattleTowerCorridor/scripts.inc"
 
 	.include "data/maps/BattleFrontier_BattleTowerBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerBattleRoom/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleTowerMultiPartnerRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleTowerMultiPartnerRoom/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleTowerMultiCorridor/scripts.inc"
 

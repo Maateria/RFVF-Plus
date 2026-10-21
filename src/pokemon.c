@@ -1,6 +1,9 @@
 #define IS_POKEMON_C
 
 #include "global.h"
+#include "battle_tower.h"
+#include "apprentice.h"
+#include "constants/battle_frontier.h"
 #include "gflib.h"
 #include "random.h"
 #include "text.h"
@@ -81,7 +84,6 @@ static EWRAM_DATA struct MonSpritesGfxManager *sMonSpritesGfxManager = NULL;
 
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, u8 substructType);
 static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId);
-static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 static u16 ModifyStatByNature(u8 nature, u16 n, u8 statIndex);
 u8 GetNatureFromPersonality(u32 personality);
 static bool8 PartyMonHasStatus(struct Pokemon *mon, u32 unused, u32 healMask, u8 battleId);
@@ -3265,6 +3267,135 @@ void CreateMonWithEVSpread(struct Pokemon *mon, u16 species, u8 level, u8 fixedI
     CalculateMonStats(mon, FALSE);
 }
 
+// RFVF+: Emerald's Battle Frontier mons (frontier stats as given: CalculateMonStats override)
+void CreateBattleTowerMon_HandleLevel(struct Pokemon *mon, struct BattleTowerPokemon *src, bool8 lvl50)
+{
+    s32 i;
+    u8 nickname[32];
+    u8 level;
+    u8 language;
+    u8 value;
+
+    if (gSaveBlock2Ptr->frontier.lvlMode != FRONTIER_LVL_50)
+        level = GetFrontierEnemyMonLevel(gSaveBlock2Ptr->frontier.lvlMode);
+    else if (lvl50)
+        level = FRONTIER_MAX_LEVEL_50;
+    else
+        level = src->level;
+
+    CreateMon(mon, src->species, level, 0, TRUE, src->personality, OT_ID_PRESET, src->otId);
+
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        SetMonMoveSlot(mon, src->moves[i], i);
+
+    SetMonData(mon, MON_DATA_PP_BONUSES, &src->ppBonuses);
+    SetMonData(mon, MON_DATA_HELD_ITEM, &src->heldItem);
+    SetMonData(mon, MON_DATA_FRIENDSHIP, &src->friendship);
+
+    StringCopy(nickname, src->nickname);
+
+    if (nickname[0] == EXT_CTRL_CODE_BEGIN && nickname[1] == EXT_CTRL_CODE_JPN)
+    {
+        language = LANGUAGE_JAPANESE;
+        StripExtCtrlCodes(nickname);
+    }
+    else
+    {
+        language = GAME_LANGUAGE;
+    }
+
+    SetMonData(mon, MON_DATA_LANGUAGE, &language);
+    SetMonData(mon, MON_DATA_NICKNAME, nickname);
+    SetMonData(mon, MON_DATA_HP_EV, &src->hpEV);
+    SetMonData(mon, MON_DATA_ATK_EV, &src->attackEV);
+    SetMonData(mon, MON_DATA_DEF_EV, &src->defenseEV);
+    SetMonData(mon, MON_DATA_SPEED_EV, &src->speedEV);
+    SetMonData(mon, MON_DATA_SPATK_EV, &src->spAttackEV);
+    SetMonData(mon, MON_DATA_SPDEF_EV, &src->spDefenseEV);
+    value = src->abilityNum;
+    SetMonData(mon, MON_DATA_ABILITY_NUM, &value);
+    value = src->hpIV;
+    SetMonData(mon, MON_DATA_HP_IV, &value);
+    value = src->attackIV;
+    SetMonData(mon, MON_DATA_ATK_IV, &value);
+    value = src->defenseIV;
+    SetMonData(mon, MON_DATA_DEF_IV, &value);
+    value = src->speedIV;
+    SetMonData(mon, MON_DATA_SPEED_IV, &value);
+    value = src->spAttackIV;
+    SetMonData(mon, MON_DATA_SPATK_IV, &value);
+    value = src->spDefenseIV;
+    SetMonData(mon, MON_DATA_SPDEF_IV, &value);
+    MonRestorePP(mon);
+    CalculateMonStats(mon, TRUE);
+}
+
+void CreateApprenticeMon(struct Pokemon *mon, const struct Apprentice *src, u8 monId)
+{
+    s32 i;
+    u16 evAmount;
+    u8 language;
+    u32 otId = gApprentices[src->id].otId;
+    u32 personality = ((gApprentices[src->id].otId >> 8) | ((gApprentices[src->id].otId & 0xFF) << 8))
+                    + src->party[monId].species + src->number;
+
+    CreateMon(mon,
+              src->party[monId].species,
+              GetFrontierEnemyMonLevel(src->lvlMode - 1),
+              MAX_PER_STAT_IVS,
+              TRUE,
+              personality,
+              OT_ID_PRESET,
+              otId);
+
+    SetMonData(mon, MON_DATA_HELD_ITEM, &src->party[monId].item);
+    for (i = 0; i < MAX_MON_MOVES; i++)
+        SetMonMoveSlot(mon, src->party[monId].moves[i], i);
+
+    evAmount = MAX_TOTAL_EVS / NUM_STATS;
+    for (i = 0; i < NUM_STATS; i++)
+        SetMonData(mon, MON_DATA_HP_EV + i, &evAmount);
+
+    language = src->language;
+    SetMonData(mon, MON_DATA_LANGUAGE, &language);
+    SetMonData(mon, MON_DATA_OT_NAME, GetApprenticeNameInLanguage(src->id, language));
+    CalculateMonStats(mon, TRUE);
+}
+
+void CreateMonWithEVSpreadNatureOTID(struct Pokemon *mon, u16 species, u8 level, u8 nature, u8 fixedIV, u8 evSpread, u32 otId)
+{
+    s32 i;
+    s32 statCount = 0;
+    u8 evsBits;
+    u16 evAmount;
+
+    // i is reused as personality value
+    do
+    {
+        i = Random32();
+    } while (nature != GetNatureFromPersonality(i));
+
+    CreateMon(mon, species, level, fixedIV, TRUE, i, OT_ID_PRESET, otId);
+    evsBits = evSpread;
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        if (evsBits & 1)
+            statCount++;
+        evsBits >>= 1;
+    }
+
+    evAmount = MAX_TOTAL_EVS / statCount;
+    evsBits = 1;
+    for (i = 0; i < NUM_STATS; i++)
+    {
+        if (evSpread & evsBits)
+            SetMonData(mon, MON_DATA_HP_EV + i, &evAmount);
+        evsBits <<= 1;
+    }
+
+    CalculateMonStats(mon, TRUE);
+}
+
 void CreateBattleTowerMon(struct Pokemon *mon, struct BattleTowerPokemon *src)
 {
     s32 i;
@@ -3794,7 +3925,7 @@ static void DeleteFirstMoveAndGiveMoveToBoxMon(struct BoxPokemon *boxMon, u16 mo
 
 // Own function in pokeemerald
 #define ShouldGetStatBadgeBoost(flag, battler)\
-    (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER)) && FlagGet(flag) && gSaveBlock1Ptr->keyFlags.difficulty != DIFFICULTY_CHALLENGE && GetBattlerSide(battler) == B_SIDE_PLAYER)
+    (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER)) && FlagGet(flag) && gSaveBlock1Ptr->keyFlags.difficulty != DIFFICULTY_CHALLENGE && GetBattlerSide(battler) == B_SIDE_PLAYER)
 
 s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *defender, u32 move, u16 sideStatus, u16 powerOverride, u8 typeOverride, u8 battlerIdAtk, u8 battlerIdDef)
 {
@@ -3889,9 +4020,9 @@ s32 CalculateBaseDamage(struct BattlePokemon *attacker, struct BattlePokemon *de
     // Apply boosts from hold items
     if (attackerHoldEffect == HOLD_EFFECT_CHOICE_BAND)
         attack = (150 * attack) / 100;
-    if (attackerHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS))
+    if (attackerHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (attacker->species == SPECIES_LATIAS || attacker->species == SPECIES_LATIOS))
         spAttack = (150 * spAttack) / 100;
-    if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
+    if (defenderHoldEffect == HOLD_EFFECT_SOUL_DEW && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER)) && (defender->species == SPECIES_LATIAS || defender->species == SPECIES_LATIOS))
         spDefense = (150 * spDefense) / 100;
     if (attackerHoldEffect == HOLD_EFFECT_DEEP_SEA_TOOTH && attacker->species == SPECIES_CLAMPERL)
         spAttack *= 2;
@@ -7664,7 +7795,9 @@ static u16 GetBattleBGM(void)
         return MUS_C_VS_LEGEND_BEAST;
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         return MUS_RS_VS_TRAINER;
-    if (gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_TRAINER_HILL))
+    if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && gTrainerBattleOpponent_A == TRAINER_FRONTIER_BRAIN)
+        return MUS_VS_FRONTIER_BRAIN; // RFVF+: Emerald's Frontier Brains
+    if (gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL))
         return MUS_RS_VS_TRAINER;
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && IsHoennTrainer(gTrainerBattleOpponent_A))
     {   // Emerald's
@@ -7740,6 +7873,33 @@ void PlayMapChosenOrBattleBGM(u16 songId)
     else
         PlayNewMapMusic(GetBattleBGM());
 }
+
+// RFVF+: Emerald's
+static void Task_PlayMapChosenOrBattleBGM(u8 taskId);
+
+// Only used by Battle Dome
+#define tSongId data[0]
+void CreateTask_PlayMapChosenOrBattleBGM(u16 songId)
+{
+    u8 taskId;
+
+    ResetMapMusic();
+    m4aMPlayAllStop();
+
+    taskId = CreateTask(Task_PlayMapChosenOrBattleBGM, 0);
+    gTasks[taskId].tSongId = songId;
+}
+
+static void Task_PlayMapChosenOrBattleBGM(u8 taskId)
+{
+    if (gTasks[taskId].tSongId)
+        PlayNewMapMusic(gTasks[taskId].tSongId);
+    else
+        PlayNewMapMusic(GetBattleBGM());
+    DestroyTask(taskId);
+}
+
+#undef tSongId
 
 const u32 *GetMonFrontSpritePal(struct Pokemon *mon)
 {
@@ -7961,7 +8121,7 @@ bool8 IsMonShiny(struct Pokemon *mon)
     return IsShinyOtIdPersonality(otId, personality);
 }
 
-static bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
+bool8 IsShinyOtIdPersonality(u32 otId, u32 personality)
 {
     bool8 retVal = FALSE;
     u32 shinyValue = GET_SHINY_VALUE(otId, personality);
@@ -8074,7 +8234,7 @@ static u16 GetDeoxysStat(struct Pokemon *mon, s32 statId)
         forme = GetMonData(mon, MON_DATA_FORME, NULL);
         ivVal = GetMonData(mon, MON_DATA_HP_IV + statId, NULL);
         evVal = GetMonData(mon, MON_DATA_HP_EV + statId, NULL);
-        if(!FlagGet(FLAG_SYS_IS_LINKING) || !(gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER))
+        if(!FlagGet(FLAG_SYS_IS_LINKING) || !(gBattleTypeFlags & BATTLE_TYPE_FRONTIER))
         {   // Deoxys can't enter Battle Tower anyway, but checked just in case.
             if(ivCalcMode == IV_CALC_PERFECT)
                 ivVal = 31;
@@ -8397,7 +8557,7 @@ void SetFirstDeoxysForm(void)
 
 static bool32 ShouldSkipFriendshipChange(void)
 {
-    if (gMain.inBattle && gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER))
+    if (gMain.inBattle && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER))
         return TRUE;
     /*if (!gMain.inBattle && (InBattlePike() || InBattlePyramid()))
         return TRUE;*/

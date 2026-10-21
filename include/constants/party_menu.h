@@ -128,6 +128,7 @@
 #define PARTY_MSG_BOOST_PP_WHICH_MOVE       24
 #define PARTY_MSG_DO_WHAT_WITH_ITEM         25
 #define PARTY_MSG_DO_WHAT_WITH_MAIL         26
+#define PARTY_MSG_X_MONS_ARE_NEEDED         27 // RFVF+: Emerald's, Battle Frontier
 #define PARTY_MSG_NONE                      127
 
 // IDs for DisplayPartyPokemonDescriptionText, to display a message in the party pokemon's box
@@ -136,11 +137,12 @@
 #define PARTYBOX_DESC_FIRST       2
 #define PARTYBOX_DESC_SECOND      3
 #define PARTYBOX_DESC_THIRD       4
-#define PARTYBOX_DESC_ABLE        5
-#define PARTYBOX_DESC_NOT_ABLE    6
-#define PARTYBOX_DESC_ABLE_2      7
-#define PARTYBOX_DESC_NOT_ABLE_2  8
-#define PARTYBOX_DESC_LEARNED     9
+#define PARTYBOX_DESC_FOURTH      5 // RFVF+: Emerald's, Battle Frontier doubles
+#define PARTYBOX_DESC_ABLE        6
+#define PARTYBOX_DESC_NOT_ABLE    7
+#define PARTYBOX_DESC_ABLE_2      8
+#define PARTYBOX_DESC_NOT_ABLE_2  9
+#define PARTYBOX_DESC_LEARNED     10
 
 #define SELECTWINDOW_ACTIONS  0
 #define SELECTWINDOW_ITEM     1

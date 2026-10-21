@@ -12,4 +12,10 @@
 
 #define NUM_TRAINER_FAN_CLUB_MEMBERS  8
 
+// RFVF+: Emerald's counter ids (TryGainNewFanFromCounter: sCounterIncrements), the Battle Tower uses the 4th
+#define FANCOUNTER_DEFEATED_DRAKE    0
+#define FANCOUNTER_BATTLED_AT_BASE   1
+#define FANCOUNTER_FINISHED_CONTEST  2
+#define FANCOUNTER_USED_BATTLE_TOWER 3
+
 #endif //GUARD_CONSTANTS_TRAINER_FAN_CLUB_H

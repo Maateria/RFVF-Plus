@@ -63,6 +63,7 @@
 	STD_OBTAIN_DECORATION = 7
 	STD_PUT_ITEM_AWAY = 8
 	STD_RECEIVED_ITEM = 9
+	MSGBOX_GETPOINTS = 10 @ RFVF+: Emerald's (Battle Points fanfare)
 
 	@ Calls the script in gStdScripts at index function.
 	.macro callstd function:req

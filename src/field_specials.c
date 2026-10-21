@@ -1,4 +1,5 @@
 #include "global.h"
+#include "constants/battle_frontier.h"
 #include "gflib.h"
 #include "quest_log.h"
 #include "list_menu.h"
@@ -347,7 +348,7 @@ void RemoveCameraObject(void)
 
 void BufferEReaderTrainerName(void)
 {
-    CopyEReaderTrainerName5(gStringVar1);
+    GetEreaderTrainerName(gStringVar1);
 }
 
 // Unused
@@ -3059,3 +3060,211 @@ static const u8 gTitleNames[][18] = {
     _("MEW MASTER"),
     _("GRAND MASTER"),
 };
+
+// RFVF+: Emerald's Battle Tower elevator (batch 6): the shake + the window lights, and its floor counts
+#define ELEVATOR_WINDOW_WIDTH  3
+#define ELEVATOR_WINDOW_HEIGHT 3
+#define ELEVATOR_LIGHT_STAGES  3
+
+static void Task_MoveElevator(u8 taskId);
+static void MoveElevatorWindowLights(u16 floorDelta, bool8 descending);
+static void Task_MoveElevatorWindowLights(u8 taskId);
+
+static const u16 sElevatorWindowTiles_Ascending[ELEVATOR_WINDOW_HEIGHT][ELEVATOR_LIGHT_STAGES] =
+{
+    {
+        METATILE_HoennBattleFrontier_Elevator_Top0,
+        METATILE_HoennBattleFrontier_Elevator_Top1,
+        METATILE_HoennBattleFrontier_Elevator_Top2
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Mid0,
+        METATILE_HoennBattleFrontier_Elevator_Mid1,
+        METATILE_HoennBattleFrontier_Elevator_Mid2
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Bottom0,
+        METATILE_HoennBattleFrontier_Elevator_Bottom1,
+        METATILE_HoennBattleFrontier_Elevator_Bottom2
+    },
+};
+
+static const u16 sElevatorWindowTiles_Descending[ELEVATOR_WINDOW_HEIGHT][ELEVATOR_LIGHT_STAGES] =
+{
+    {
+        METATILE_HoennBattleFrontier_Elevator_Top0,
+        METATILE_HoennBattleFrontier_Elevator_Top2,
+        METATILE_HoennBattleFrontier_Elevator_Top1
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Mid0,
+        METATILE_HoennBattleFrontier_Elevator_Mid2,
+        METATILE_HoennBattleFrontier_Elevator_Mid1
+    },
+    {
+        METATILE_HoennBattleFrontier_Elevator_Bottom0,
+        METATILE_HoennBattleFrontier_Elevator_Bottom2,
+        METATILE_HoennBattleFrontier_Elevator_Bottom1
+    },
+};
+
+
+// Task data for Task_MoveElevator
+#define tTimer       data[1]
+#define tMoveCounter data[2]
+#define tVerticalPan data[4]
+#define tTotalMoves  data[5]
+#define tDescending  data[6]
+
+// The maximum considered difference between floors.
+// Elevator trips with a larger difference are treated the same
+// (i.e. traveling 9 floors and 200 floors would take the same amount of time).
+#define MAX_ELEVATOR_TRIP 9
+
+// gSpecialVar_0x8005 here is expected to be the current floor number, and
+// gSpecialVar_0x8006 is expected to be the destination floor number.
+void MoveElevator(void)
+{
+    static const u8 sElevatorTripLength[MAX_ELEVATOR_TRIP] = { 8, 16, 24, 32, 38, 46, 52, 56, 57 };
+
+    s16 *data = gTasks[CreateTask(Task_MoveElevator, 9)].data;
+    u16 floorDelta;
+
+    tTimer = 0;
+    tMoveCounter = 0;
+    tVerticalPan = 1;
+
+    if (gSpecialVar_0x8005 > gSpecialVar_0x8006)
+    {
+        floorDelta = gSpecialVar_0x8005 - gSpecialVar_0x8006;
+        tDescending = TRUE;
+    }
+    else
+    {
+        floorDelta = gSpecialVar_0x8006 - gSpecialVar_0x8005;
+        tDescending = FALSE;
+    }
+
+    if (floorDelta > MAX_ELEVATOR_TRIP - 1)
+        floorDelta = MAX_ELEVATOR_TRIP - 1;
+
+    tTotalMoves = sElevatorTripLength[floorDelta];
+
+    SetCameraPanningCallback(NULL);
+    MoveElevatorWindowLights(floorDelta, tDescending);
+    PlaySE(SE_ELEVATOR);
+}
+
+static void Task_MoveElevator(u8 taskId)
+{
+    s16 *data = gTasks[taskId].data;
+    tTimer++;
+    if (tTimer % 3 == 0)
+    {
+        tTimer = 0;
+        tMoveCounter++;
+        tVerticalPan = -tVerticalPan;
+        SetCameraPanning(0, tVerticalPan);
+
+        if (tMoveCounter == tTotalMoves)
+        {
+            // Arrived at floor
+            PlaySE(SE_DING_DONG);
+            DestroyTask(taskId);
+            ScriptContext_Enable();
+            InstallCameraPanAheadCallback();
+        }
+    }
+}
+
+#undef tTimer
+#undef tMoveCounter
+#undef tVerticalPan
+#undef tTotalMoves
+#undef tDescending
+
+// Task data for Task_MoveElevatorWindowLights
+#define tMoveCounter data[0]
+#define tTimer       data[1]
+#define tDescending  data[2]
+#define tTotalMoves  data[3]
+
+static void MoveElevatorWindowLights(u16 floorDelta, bool8 descending)
+{
+    static const u8 sElevatorLightCycles[MAX_ELEVATOR_TRIP] = { 3, 6, 9, 12, 15, 18, 21, 24, 27 };
+
+    if (FuncIsActiveTask(Task_MoveElevatorWindowLights) != TRUE)
+    {
+        u8 taskId = CreateTask(Task_MoveElevatorWindowLights, 8);
+        gTasks[taskId].tMoveCounter = 0;
+        gTasks[taskId].tTimer = 0;
+        gTasks[taskId].tDescending = descending;
+        gTasks[taskId].tTotalMoves = sElevatorLightCycles[floorDelta];
+    }
+}
+
+static void Task_MoveElevatorWindowLights(u8 taskId)
+{
+    u8 x, y;
+    s16 *data = gTasks[taskId].data;
+
+    if (tTimer == 6)
+    {
+        tMoveCounter++;
+
+        if (!tDescending)
+        {
+            // Ascending
+            for (y = 0; y < ELEVATOR_WINDOW_HEIGHT; y++)
+            {
+                for (x = 0; x < ELEVATOR_WINDOW_WIDTH; x++)
+                    MapGridSetMetatileIdAt(x + MAP_OFFSET + 1, y + MAP_OFFSET, sElevatorWindowTiles_Ascending[y][tMoveCounter % ELEVATOR_LIGHT_STAGES] | MAPGRID_COLLISION_MASK);
+            }
+        }
+        else
+        {
+            // Descending
+            for (y = 0; y < ELEVATOR_WINDOW_HEIGHT; y++)
+            {
+                for (x = 0; x < ELEVATOR_WINDOW_WIDTH; x++)
+                    MapGridSetMetatileIdAt(x + MAP_OFFSET + 1, y + MAP_OFFSET, sElevatorWindowTiles_Descending[y][tMoveCounter % ELEVATOR_LIGHT_STAGES] | MAPGRID_COLLISION_MASK);
+            }
+        }
+        DrawWholeMapView();
+        tTimer = 0;
+        if (tMoveCounter == tTotalMoves)
+            DestroyTask(taskId);
+    }
+    tTimer++;
+}
+
+void BufferBattleTowerElevatorFloors(void)
+{
+    static const u16 sBattleTowerStreakThresholds[] = {
+        7, 14, 21, 28, 35, 49, 63, 77, 91, 0
+    };
+
+    u8 i;
+    u16 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
+    u8 lvlMode = gSaveBlock2Ptr->frontier.lvlMode;
+
+    if (battleMode == FRONTIER_MODE_MULTIS && !FlagGet(FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER))
+    {
+        gSpecialVar_0x8005 = 5;
+        gSpecialVar_0x8006 = 4;
+        return;
+    }
+
+    for (i = 0; i < ARRAY_COUNT(sBattleTowerStreakThresholds) - 1; i++)
+    {
+        if (sBattleTowerStreakThresholds[i] > gSaveBlock2Ptr->frontier.towerWinStreaks[battleMode][lvlMode])
+        {
+            gSpecialVar_0x8005 = 4;
+            gSpecialVar_0x8006 = i + 5;
+            return;
+        }
+    }
+
+    gSpecialVar_0x8005 = 4;
+    gSpecialVar_0x8006 = 12;
+}

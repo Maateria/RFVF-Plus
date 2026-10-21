@@ -1587,7 +1587,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
         return 0;
 
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
-     && !(gBattleTypeFlags & (BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_TRAINER_HILL)))
+     && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_TRAINER_HILL)))
     {
         if (firstTrainer == TRUE)
             ZeroEnemyPartyMons();
@@ -2723,7 +2723,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                  && !(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
                                        | BATTLE_TYPE_TRAINER_HILL
                                        | BATTLE_TYPE_TRAINER_TOWER
-                                       | BATTLE_TYPE_BATTLE_TOWER
+                                       | BATTLE_TYPE_FRONTIER
                                        | BATTLE_TYPE_POKEDUDE
                                        | BATTLE_TYPE_LINK
                                        | BATTLE_TYPE_GHOST
@@ -2742,7 +2742,7 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
                 }
                 else if (!(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
                                             | BATTLE_TYPE_TRAINER_TOWER
-                                            | BATTLE_TYPE_BATTLE_TOWER
+                                            | BATTLE_TYPE_FRONTIER
                                             | BATTLE_TYPE_POKEDUDE
                                             | BATTLE_TYPE_LINK
                                             | BATTLE_TYPE_GHOST
@@ -2925,7 +2925,7 @@ static void BattleIntroRecordMonsToDex(void)
             if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT
              && !(gBattleTypeFlags & (BATTLE_TYPE_EREADER_TRAINER
                                    | BATTLE_TYPE_TRAINER_TOWER
-                                   | BATTLE_TYPE_BATTLE_TOWER
+                                   | BATTLE_TYPE_FRONTIER
                                    | BATTLE_TYPE_POKEDUDE
                                    | BATTLE_TYPE_LINK
                                    | BATTLE_TYPE_GHOST
@@ -3329,7 +3329,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER)) || FlagGet(FLAG_MASTER_TRAINER_BATTLE))
+                    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER)) || FlagGet(FLAG_MASTER_TRAINER_BATTLE))
                     {
                         gSelectionBattleScripts[gActiveBattler] = BattleScript_ActionSelectionItemsCantBeUsed;
                         gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT;
@@ -3923,7 +3923,7 @@ static void HandleEndTurn_BattleWon(void)
         gBattlescriptCurrInstr = BattleScript_LinkBattleWonOrLost;
         gBattleOutcome &= ~(B_OUTCOME_LINK_BATTLE_RAN);
     }
-    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_BATTLE_TOWER))
+    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER))
     {
         BattleStopLowHpSound();
         PlayBGM(MUS_VICTORY_TRAINER);
@@ -4059,7 +4059,7 @@ static void HandleEndTurn_FinishBattle(void)
 {
     if (gCurrentActionFuncId == B_ACTION_TRY_FINISH || gCurrentActionFuncId == B_ACTION_FINISHED)
     {
-        if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_LINK)))
+        if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_OLD_MAN_TUTORIAL | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_SAFARI | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_LINK)))
         {
             for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
             {
@@ -4078,8 +4078,10 @@ static void HandleEndTurn_FinishBattle(void)
                 }
             }
         }
-        TrySetQuestLogBattleEvent();
-        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
+        // RFVF+: Frontier and Trainer Hill opponents are not gTrainers ids (their id would hit a Kanto trainer's data)
+        if (!(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)))
+            TrySetQuestLogBattleEvent();
+        if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)))
             ClearRematchStateByTrainerId();
         BeginFastPaletteFade(3);
         FadeOutMapMusic(5);

@@ -35,7 +35,6 @@ static void ResetBGPos(void);
 static void PrintBattleRecords(void);
 static void CommitWindow(u8 windowId);
 static void LoadFrameGfxOnBg(u8 bgId);
-void ShowBattleTowerRecords(void);
 void RemoveRecordsWindow(void);
 
 static const u16 sTiles[] = INCBIN_U16("graphics/battle_records/bg_tiles.4bpp");
@@ -597,100 +596,11 @@ static void PrintHyphens(s32 y, u8 gRecordsWindowId)
     AddTextPrinterParameterized(gRecordsWindowId, 1, text, 4, y, TEXT_SKIP_DRAW, NULL);
 }
 
-// Battle Tower records.
-static bool32 sub_8110494(u8 level)
-{
-    switch (gSaveBlock2Ptr->battleTower.var_4AE[level])
-    {
-    case 0:
-        return FALSE;
-    case 1:
-        return FALSE;
-    case 2:
-        return TRUE;
-    case 4:
-        return FALSE;
-    case 3:
-        return TRUE;
-    case 5:
-        return FALSE;
-    case 6:
-        return TRUE;
-    default:
-        return FALSE;
-    }
-}
-
-static void TowerPrintStreak(const u8 *str, u16 num, u8 x1, u8 x2, u8 y, u8 gRecordsWindowId)
-{
-    AddTextPrinterParameterized(gRecordsWindowId, 1, str, x1, y, TEXT_SKIP_DRAW, NULL);
-    if (num > 9999)
-        num = 9999;
-    ConvertIntToDecimalStringN(gStringVar1, num, STR_CONV_MODE_RIGHT_ALIGN, 4);
-    StringExpandPlaceholders(gStringVar4, gOtherText_WinStreak);
-    AddTextPrinterParameterized(gRecordsWindowId, 1, gStringVar4, x2, y, TEXT_SKIP_DRAW, NULL);
-}
-
-static void TowerPrintRecordStreak(u8 battleMode, u8 lvlMode, u8 x1, u8 x2, u8 y, u8 gRecordsWindowId)
-{
-    u16 num = gSaveBlock2Ptr->battleTower.recordWinStreaks[lvlMode];
-    TowerPrintStreak(gOtherText_Record, num, x1, x2, y, gRecordsWindowId);
-}
-
-static u16 TowerGetWinStreak(u8 battleMode, u8 lvlMode)
-{
-    u16 winStreak = gSaveBlock2Ptr->battleTower.currentWinStreaks[lvlMode];
-    if (winStreak > 9999)
-        return 9999;
-    else
-        return winStreak;
-}
-
-static void TowerPrintPrevOrCurrentStreak(u8 battleMode, u8 lvlMode, u8 x1, u8 x2, u8 y, u8 gRecordsWindowId)
-{
-    bool8 isCurrent;
-    u16 winStreak = TowerGetWinStreak(battleMode, lvlMode);
-    if (lvlMode != 0)
-        isCurrent = sub_8110494(lvlMode);
-    else
-        isCurrent = sub_8110494(lvlMode);
-    if (isCurrent == TRUE)
-        TowerPrintStreak(gOtherText_Current, winStreak, x1, x2, y, gRecordsWindowId);
-    else
-        TowerPrintStreak(gOtherText_Prev, winStreak, x1, x2, y, gRecordsWindowId);
-}
-
-static void PrintAligned(const u8 *str, s32 y, u8 gRecordsWindowId)
-{
-    s32 x = GetStringCenterAlignXOffset(1, str, 224);
-    y = (y * 8) + 1;
-    AddTextPrinterParameterized(gRecordsWindowId, 1, str, x, y, TEXT_SKIP_DRAW, NULL);
-}
-
-void ShowBattleTowerRecords(void)
-{
-    u8 battleMode = 0;
-    u8 gRecordsWindowId;
-    gRecordsWindowId = AddWindow(&sFrontierResultsWindowTemplate);
-    DrawStdWindowFrame(gRecordsWindowId, FALSE);
-    FillWindowPixelBuffer(gRecordsWindowId, PIXEL_FILL(1));
-    StringExpandPlaceholders(gStringVar4, gOtherText_BattleTowerResults);
-
-    PrintAligned(gStringVar4, 2, gRecordsWindowId);
-    AddTextPrinterParameterized(gRecordsWindowId, 1, gText_Lv50, 8, 49, TEXT_SKIP_DRAW, NULL);
-    AddTextPrinterParameterized(gRecordsWindowId, 1, gText_OpenLv, 8, 97, TEXT_SKIP_DRAW, NULL);
-    PrintHyphens(10, gRecordsWindowId);
-    TowerPrintPrevOrCurrentStreak(battleMode, 0, 72, 121, 49, gRecordsWindowId);
-    TowerPrintRecordStreak(battleMode, 0, 72, 121, 65, gRecordsWindowId);
-    TowerPrintPrevOrCurrentStreak(battleMode, 1, 72, 121, 97, gRecordsWindowId);
-    TowerPrintRecordStreak(battleMode, 1, 72, 121, 113, gRecordsWindowId);
-    PutWindowTilemap(gRecordsWindowId);
-    CopyWindowToVram(gRecordsWindowId, 3);
-    gSpecialVar_Result = gRecordsWindowId;
-}
+// RFVF+: Emerald's (the Battle Frontier's results windows keep their id here)
+EWRAM_DATA u8 gRecordsWindowId = 0;
 
 void RemoveRecordsWindow(void)
 {
-    ClearStdWindowAndFrame(gSpecialVar_Result, FALSE);
-    RemoveWindow(gSpecialVar_Result);
+    ClearStdWindowAndFrame(gRecordsWindowId, FALSE);
+    RemoveWindow(gRecordsWindowId);
 }

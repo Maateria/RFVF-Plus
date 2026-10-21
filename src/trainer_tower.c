@@ -741,7 +741,7 @@ static void DoTrainerTowerBattle(void)
     BuildEnemyParty();
     CreateTask(Task_DoTrainerTowerBattle, 1);
     PlayMapChosenOrBattleBGM(0);
-    BattleTransition_StartOnField(BattleSetup_GetBattleTowerBattleTransition());
+    BattleTransition_StartOnField(GetSpecialBattleTransition(B_TRANSITION_GROUP_TRAINER_HILL));
 }
 
 static void TrainerTowerGetChallengeType(void)
@@ -856,16 +856,16 @@ static void GetTrainerTowerChallengeStatus(void)
     if (TRAINER_TOWER.hasLost)
     {
         TRAINER_TOWER.hasLost = FALSE;
-        gSpecialVar_Result = CHALLENGE_STATUS_LOST;
+        gSpecialVar_Result = TT_CHALLENGE_STATUS_LOST;
     }
     else if (TRAINER_TOWER.unkA_4)
     {
         TRAINER_TOWER.unkA_4 = FALSE;
-        gSpecialVar_Result = CHALLENGE_STATUS_UNK;
+        gSpecialVar_Result = TT_CHALLENGE_STATUS_UNK;
     }
     else
     {
-        gSpecialVar_Result = CHALLENGE_STATUS_NORMAL;
+        gSpecialVar_Result = TT_CHALLENGE_STATUS_NORMAL;
     }
 }
 

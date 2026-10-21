@@ -1,5 +1,6 @@
 #include "global.h"
 #include "task.h"
+#include "battle_setup.h"
 #include "help_system.h"
 #include "overworld.h"
 #include "item.h"
@@ -89,6 +90,7 @@ static EWRAM_DATA u8 *sTrainerABattleScriptRetAddr = NULL;
 static EWRAM_DATA u16 sRivalBattleFlags = 0;
 // RFVF+: Emerald's second trainer, when two spot the player at once (Hoenn, Trainer Hill)
 EWRAM_DATA u16 gTrainerBattleOpponent_B = 0;
+EWRAM_DATA u16 gPartnerTrainerId = 0;
 static EWRAM_DATA u8 *sTrainerBIntroSpeech = NULL;
 static EWRAM_DATA u8 *sTrainerBDefeatSpeech = NULL;
 static EWRAM_DATA u8 *sTrainerBBattleScriptRetAddr = NULL;
@@ -426,11 +428,9 @@ static void DoTrainerBattle(void)
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
 }
 
-u8 BattleSetup_GetBattleTowerBattleTransition(void);
-
 static void DoTrainerHillBattle(void)
 {
-    CreateBattleStartTask(BattleSetup_GetBattleTowerBattleTransition(), 0);
+    CreateBattleStartTask(GetSpecialBattleTransition(B_TRANSITION_GROUP_TRAINER_HILL), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
 }
@@ -869,7 +869,9 @@ static u8 GetTrainerBattleTransition(void)
         return sBattleTransitionTable_Trainer[transitionType][1];
 }
 
-u8 BattleSetup_GetBattleTowerBattleTransition(void)
+// RFVF+: Emerald's. ponytail: the Frontier's own logo/square/circle transitions are not ported yet (batch 6,
+// session 2): its facilities use the Trainer Hill pair meanwhile.
+u8 GetSpecialBattleTransition(s32 id)
 {
     u8 enemyLevel = GetMonData(&gEnemyParty[0], MON_DATA_LEVEL);
     u8 playerLevel = GetSumOfPlayerPartyLevel(1);

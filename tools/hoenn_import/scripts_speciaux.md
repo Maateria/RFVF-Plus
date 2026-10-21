@@ -39,7 +39,7 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | FallarborTown_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT d'AUTEQUIA! Je serai votre guide pou… |
 | FallarborTown_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — menu à choix | Règles du TOURNOI K.O. |
 
-## Zone de Combat (47)
+## Zone de Combat (42)
 
 | Carte | Script | Ce qu'il fait | Premier texte |
 |---|---|---|---|
@@ -74,15 +74,10 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | BattleFrontier_BattlePyramidLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Pyramide de Combat : accueil, règles ou résultats du défi | Règles du COMBAT QUETE. |
 | BattleFrontier_BattlePyramidLobby | ShowResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Pyramide de Combat : accueil, règles ou résultats du défi |  |
 | BattleFrontier_BattlePyramidTop | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Pyramide de Combat : accueil, règles ou résultats du défi | Ça me fait plaisir de vous revoir! Vous avez atteint le sommet de la P… |
-| BattleFrontier_BattleTowerLobby | DoublesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi; ouvre une porte (selon FLAG_CANCEL_BATTLE_ROOM_CHALLENGE, VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, VAR_FRONTIER_BATTLE_MODE)… | Bienvenue dans la TOUR DE COMBAT! Ici, nous mettons à l'épreuve le tal… |
+| BattleFrontier_BattleTowerLobby | Apprentice (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi; une fois par jour |  |
 | BattleFrontier_BattleTowerLobby | FeelingsMan (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi | Bonjour, bonjour! Vous avez un instant? Pouvez-vous me dire ce que vou… |
 | BattleFrontier_BattleTowerLobby | LinkMultisAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi; ouvre une porte (selon FLAG_CANCEL_BATTLE_ROOM_CHALLENGE, VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, VAR_FRONTIER_BATTLE_MODE)… | Bienvenue dans la TOUR DE COMBAT! Ici, nous mettons à l'épreuve le tal… |
 | BattleFrontier_BattleTowerLobby | MultisAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi; ouvre une porte (selon FLAG_CANCEL_BATTLE_ROOM_CHALLENGE, FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER, VAR_BRAVO_TRAINER_BATTLE_TOWER_ON)… | Bienvenue dans la TOUR DE COMBAT! Ici, nous mettons à l'épreuve le tal… |
-| BattleFrontier_BattleTowerLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi | Règles de la TOUR DE COMBAT. |
-| BattleFrontier_BattleTowerLobby | ShowDoublesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleTowerLobby | ShowLinkMultisResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleTowerLobby | ShowMultisResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleTowerLobby | ShowSinglesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Tour de Combat : accueil, règles ou résultats du défi |  |
 | BattleFrontier_BattleTowerMultiPartnerRoom | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat (selon VAR_FRONTIER_BATTLE_MODE) | {PLAYER}, vous n'avez pas trouvé de partenaire. Voulez-vous arrêter de… |
 | BattleFrontier_BattleTowerMultiPartnerRoom | Partner1 (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat (selon FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER) |  |
 | BattleFrontier_BattleTowerMultiPartnerRoom | Partner2 (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat (selon FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER) |  |

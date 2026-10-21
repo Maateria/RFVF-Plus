@@ -13,6 +13,7 @@
 #include "battle_message.h"
 #include "battle_interface.h"
 #include "battle_tower.h"
+#include "frontier_util.h"
 #include "battle_gfx_sfx_util.h"
 #include "battle_ai_script_commands.h"
 #include "battle_ai_switch_items.h"
@@ -1150,8 +1151,10 @@ static u32 GetOpponentTrainerPicId(void)
         trainerId = gTrainerBattleOpponent_B;
     if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE)
         return GetSecretBaseTrainerPicIndex();
-    else if (gBattleTypeFlags & BATTLE_TYPE_BATTLE_TOWER)
-        return GetBattleTowerTrainerFrontSpriteId();
+    else if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && gTrainerBattleOpponent_A == TRAINER_FRONTIER_BRAIN)
+        return GetFrontierBrainTrainerPicIndex();
+    else if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+        return GetFrontierTrainerFrontSpriteId(trainerId);
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
         return GetTrainerTowerTrainerFrontSpriteId();
     else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)

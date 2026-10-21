@@ -5,6 +5,7 @@
 
 u8 GetLeadMonIndex(void);
 s32 CountDigits(s32 number);
+void FrontierGamblerSetWonOrLost(bool8 won); // RFVF+: Emerald's (Lounge 3 gambler, batch 6)
 void TV_PrintIntToStringVar(u8 varidx, s32 number);
 u16 GetStarterSpecies(void);
 void StopPokemonLeagueLightingEffectTask(void);

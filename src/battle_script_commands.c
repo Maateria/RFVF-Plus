@@ -2650,7 +2650,7 @@ void SetMoveEffect(bool8 primary, u8 certain)
                     if (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT
                         && !(gBattleTypeFlags &
                             (BATTLE_TYPE_EREADER_TRAINER
-                            | BATTLE_TYPE_BATTLE_TOWER
+                            | BATTLE_TYPE_FRONTIER
                             | BATTLE_TYPE_LINK))
                         && gTrainerBattleOpponent_A != TRAINER_SECRET_BASE)
                     {
@@ -2658,7 +2658,7 @@ void SetMoveEffect(bool8 primary, u8 certain)
                     }
                     else if (!(gBattleTypeFlags &
                             (BATTLE_TYPE_EREADER_TRAINER
-                            | BATTLE_TYPE_BATTLE_TOWER
+                            | BATTLE_TYPE_FRONTIER
                             | BATTLE_TYPE_LINK))
                         && gTrainerBattleOpponent_A != TRAINER_SECRET_BASE
                         && (gWishFutureKnock.knockedOffMons[side] & gBitTable[gBattlerPartyIndexes[gBattlerAttacker]]))
@@ -3159,7 +3159,7 @@ static void Cmd_getexp(void)
         if (GetBattlerSide(gBattlerFainted) != B_SIDE_OPPONENT || (gBattleTypeFlags &
              (BATTLE_TYPE_LINK
               | BATTLE_TYPE_TRAINER_TOWER
-              | BATTLE_TYPE_BATTLE_TOWER
+              | BATTLE_TYPE_FRONTIER
               | BATTLE_TYPE_SAFARI
               | BATTLE_TYPE_EREADER_TRAINER)))
         {
@@ -4576,7 +4576,7 @@ static void Cmd_switchinanim(void)
     if (GetBattlerSide(gActiveBattler) == B_SIDE_OPPONENT
         && !(gBattleTypeFlags & (BATTLE_TYPE_LINK
                                  | BATTLE_TYPE_TRAINER_TOWER
-                                 | BATTLE_TYPE_BATTLE_TOWER
+                                 | BATTLE_TYPE_FRONTIER
                                  | BATTLE_TYPE_LEGENDARY
                                  | BATTLE_TYPE_OLD_MAN_TUTORIAL
                                  | BATTLE_TYPE_POKEDUDE
@@ -8884,7 +8884,7 @@ static void Cmd_tryswapitems(void)
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER
         || (GetBattlerSide(gBattlerAttacker) == B_SIDE_OPPONENT
             && !(gBattleTypeFlags & (BATTLE_TYPE_LINK
-                                  | BATTLE_TYPE_BATTLE_TOWER
+                                  | BATTLE_TYPE_FRONTIER
                                   | BATTLE_TYPE_EREADER_TRAINER))
                 && gTrainerBattleOpponent_A != TRAINER_SECRET_BASE))
     {
@@ -8897,7 +8897,7 @@ static void Cmd_tryswapitems(void)
 
         // you can't swap items if they were knocked off in regular battles
         if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK
-                             | BATTLE_TYPE_BATTLE_TOWER
+                             | BATTLE_TYPE_FRONTIER
                              | BATTLE_TYPE_EREADER_TRAINER))
             && gTrainerBattleOpponent_A != TRAINER_SECRET_BASE
             && (gWishFutureKnock.knockedOffMons[sideAttacker] & gBitTable[gBattlerPartyIndexes[gBattlerAttacker]]

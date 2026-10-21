@@ -58,3 +58,11 @@ EventScript_AskSaveGame::
 	special Field_AskSaveTheGame
 	waitstate
 	return
+
+@ RFVF+: Emerald's (Battle Points, batch 6)
+Std_MsgboxGetPoints::
+	message 0x0
+	playfanfare MUS_OBTAIN_B_POINTS
+	waitfanfare
+	waitmessage
+	return

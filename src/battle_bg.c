@@ -1004,7 +1004,7 @@ void DrawBattleEntryBackground(void)
     {
         LoadBattleTerrainEntryGfx(BATTLE_TERRAIN_GRASS);
     }
-    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))
+    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
     {
         LoadBattleTerrainEntryGfx(BATTLE_TERRAIN_BUILDING);
     }
@@ -1057,7 +1057,7 @@ static u8 GetBattleTerrainOverride(void)
     else
         sTrainers = (struct Trainer*)gTrainers;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_BATTLE_TOWER | BATTLE_TYPE_EREADER_TRAINER))
+    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
     {
         return BATTLE_TERRAIN_LINK;
     }

@@ -667,7 +667,7 @@ static void Task_StartWiredCableClubBattle(u8 taskId)
             gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK | BATTLE_TYPE_DOUBLE;
             break;
         case USING_MULTI_BATTLE:
-            ReducePlayerPartyToThree();
+            ReducePlayerPartyToSelectedMons();
             gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI;
             break;
         }
@@ -740,7 +740,7 @@ static void Task_StartWirelessCableClubBattle(u8 taskId)
             gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK | BATTLE_TYPE_DOUBLE;
             break;
         case USING_MULTI_BATTLE:
-            ReducePlayerPartyToThree();
+            ReducePlayerPartyToSelectedMons();
             gBattleTypeFlags = BATTLE_TYPE_TRAINER | BATTLE_TYPE_LINK | BATTLE_TYPE_DOUBLE | BATTLE_TYPE_MULTI;
             break;
         }

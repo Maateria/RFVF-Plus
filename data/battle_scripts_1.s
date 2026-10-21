@@ -2952,7 +2952,7 @@ BattleScript_PickedUpItemSolo::
 
 BattleScript_LocalBattleLost::
 	jumpifbattletype BATTLE_TYPE_TRAINER_HILL, BattleScript_TrainerHillBattleLost
-	jumpifbattletype BATTLE_TYPE_BATTLE_TOWER, BattleScript_EReaderOrSecretBaseTrainerEnd
+	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_TrainerHillBattleLost @ RFVF+: Emerald's Frontier says its win text too
 	jumpifbattletype BATTLE_TYPE_TRAINER_TOWER, BattleScript_BattleTowerLost
 	jumpifbattletype BATTLE_TYPE_EREADER_TRAINER, BattleScript_EReaderOrSecretBaseTrainerEnd
 	jumpifhalfword CMP_EQUAL, gTrainerBattleOpponent_A, TRAINER_SECRET_BASE, BattleScript_EReaderOrSecretBaseTrainerEnd
@@ -3071,12 +3071,24 @@ BattleScript_BattleTowerTrainerBattleWon::
 	printstring STRINGID_PLAYERDEFEATEDTRAINER1
 	trainerslidein BS_ATTACKER
 	waitstate
+	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_FrontierTrainerBattleWonText
 	jumpifnotbattletype BATTLE_TYPE_TRAINER_TOWER, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
 	printstring STRINGID_TRAINER1LOSETEXT
 	jumpifnotbattletype BATTLE_TYPE_DOUBLE, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
 	printstring STRINGID_TRAINER2LOSETEXT
 BattleScript_BattleTowerEtcTrainerBattleWonSkipText::
 	//pickup
+	end2
+
+@ RFVF+: Emerald's Battle Frontier (BattleScript_FrontierTrainerBattleWon): the loser's speech, both trainers in multis
+BattleScript_FrontierTrainerBattleWonText::
+	printstring STRINGID_TRAINER1LOSETEXT
+	jumpifnotbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
+	trainerslideout B_POSITION_OPPONENT_LEFT
+	waitstate
+	trainerslidein BS_FAINTED
+	waitstate
+	printstring STRINGID_TRAINER2LOSETEXT
 	end2
 
 BattleScript_MasterTrainerBattleWon::

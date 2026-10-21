@@ -541,6 +541,7 @@ struct BattleScripting
     u8 reshowMainState;
     u8 reshowHelperState;
     u8 levelUpHP;
+    u8 specialTrainerBattleType; // RFVF+: Emerald's (Battle Frontier)
 };
 
 struct BattleSpriteInfo
@@ -666,6 +667,7 @@ extern u32 gBattleTypeFlags;
 extern struct MonSpritesGfx *gMonSpritesGfxPtr;
 extern u16 gTrainerBattleOpponent_A;
 extern u16 gTrainerBattleOpponent_B;
+extern u16 gPartnerTrainerId; // RFVF+: Emerald's (Battle Tower multi partners)
 extern u16 gMoveToLearn;
 extern u16 gBattleMovePower;
 extern struct BattleEnigmaBerry gEnigmaBerries[MAX_BATTLERS_COUNT];

@@ -268,22 +268,10 @@ struct RecordMixingGift
 #include "global.berry.h"
 #include "pokemon.h"
 
-struct BattleTowerRecord // record mixing
-{
-    /*0x00*/ u8 battleTowerLevelType; // 0 = level 50, 1 = level 100
-    /*0x01*/ u8 trainerClass;
-    /*0x02*/ u16 winStreak;
-    /*0x04*/ u8 name[PLAYER_NAME_LENGTH + 1];
-    /*0x0C*/ u8 trainerId[TRAINER_ID_LENGTH];
-    /*0x10*/ u16 greeting[EASY_CHAT_BATTLE_WORDS_COUNT];
-    /*0x1C*/ struct BattleTowerPokemon party[3];
-    /*0xA0*/ u32 checksum;
-};
-
 struct BattleTowerEReaderTrainer
 {
     /*0x4A0 0x3F0 0x00*/ u8 unk0;
-    /*0x4A1 0x3F1 0x01*/ u8 trainerClass;
+    /*0x4A1 0x3F1 0x01*/ u8 facilityClass; // RFVF+: Emerald's name (was trainerClass)
     /*0x4A2 0x3F2 0x02*/ u16 winStreak;
     /*0x4A4 0x3F4 0x04*/ u8 name[8];
     /*0x4AC 0x3FC 0x0C*/ u8 trainerId[4];
@@ -294,32 +282,219 @@ struct BattleTowerEReaderTrainer
     /*0x558 0x4A8 0xB8*/ u32 checksum;
 };
 
-struct BattleTowerData // Leftover from R/S
+// RFVF+: Emerald's Battle Frontier save data, in R/S's old Battle Tower data (SaveBlock2 0xB0, zeroed at new game, never
+// written by FRLG but for the e-Reader trainer). No record mixing here: no towerRecords / hall records from others.
+#define BATTLE_TOWER_RECORD_COUNT 0 // RFVF+: Emerald's 5 come from record mixing (no cable here): loops never run
+
+struct RankingHall1P
 {
-    /*0x0000, 0x00B0*/ struct BattleTowerRecord playerRecord;
-    /*0x00A4, 0x0154*/ struct BattleTowerRecord records[5]; // from record mixing
-    /*0x03D8, 0x0488*/ u16 firstMonSpecies; // species of the first pokemon in the player's battle tower party
-    /*0x03DA, 0x048A*/ u16 defeatedBySpecies; // species of the pokemon that defated the player
-    /*0x03DC, 0x048C*/ u8 defeatedByTrainerName[8];
-    /*0x03E4, 0x0494*/ u8 firstMonNickname[POKEMON_NAME_LENGTH]; // nickname of the first pokemon in the player's battle tower party
-    /*0x03F0, 0x04A0*/ struct BattleTowerEReaderTrainer ereaderTrainer;
-    /*0x04AC, 0x055C*/ u8 battleTowerLevelType:1; // 0 = level 50; 1 = level 100
-    /*0x04AC, 0x055C*/ u8 unk_554:1;
-    /*0x04AD, 0x055D*/ u8 battleOutcome;
-    /*0x04AE, 0x055E*/ u8 var_4AE[2];
-    /*0x04B0, 0x0560*/ u16 curChallengeBattleNum[2]; // 1-based index of battle in the current challenge. (challenges consist of 7 battles)
-    /*0x04B4, 0x0564*/ u16 curStreakChallengesNum[2]; // 1-based index of the current challenge in the current streak.
-    /*0x04B8, 0x0568*/ u16 recordWinStreaks[2];
-    /*0x04BC, 0x056C*/ u8 battleTowerTrainerId; // index for gBattleTowerTrainers table
-    /*0x04BD, 0x056D*/ u8 selectedPartyMons[0x3]; // indices of the 3 selected player party mons.
-    /*0x04C0, 0x0570*/ u16 prizeItem;
-    /*0x04C2, 0x0572*/ u8 battledTrainerIds[6];
-    /*0x04C8, 0x0578*/ u16 totalBattleTowerWins;
-    /*0x04CA, 0x057A*/ u16 bestBattleTowerWinStreak;
-    /*0x04CC, 0x057C*/ u16 currentWinStreaks[2];
-    /*0x04D0, 0x0580*/ u8 lastStreakLevelType; // 0 = level 50, 1 = level 100.  level type of the last streak. Used by tv to report the level mode.
-    /*0x04D1, 0x0581*/ u8 filler_4D1[0x317];
-}; /* size = 0x7E8 */
+    u8 id[TRAINER_ID_LENGTH];
+    u16 winStreak;
+    u8 name[PLAYER_NAME_LENGTH + 1];
+    u8 language;
+    //u8 padding;
+};
+
+struct RankingHall2P
+{
+    u8 id1[TRAINER_ID_LENGTH];
+    u8 id2[TRAINER_ID_LENGTH];
+    u16 winStreak;
+    u8 name1[PLAYER_NAME_LENGTH + 1];
+    u8 name2[PLAYER_NAME_LENGTH + 1];
+    u8 language;
+    //u8 padding;
+};
+
+struct EmeraldBattleTowerRecord
+{
+    u8 lvlMode; // 0 = level 50, 1 = level 100
+    u8 facilityClass;
+    u16 winStreak;
+    u8 name[PLAYER_NAME_LENGTH + 1];
+    u8 trainerId[TRAINER_ID_LENGTH];
+    u16 greeting[EASY_CHAT_BATTLE_WORDS_COUNT];
+    u16 speechWon[EASY_CHAT_BATTLE_WORDS_COUNT];
+    u16 speechLost[EASY_CHAT_BATTLE_WORDS_COUNT];
+    struct BattleTowerPokemon party[MAX_FRONTIER_PARTY_SIZE];
+    u8 language;
+    //u8 padding[3];
+    u32 checksum;
+};
+
+struct BattleTowerInterview
+{
+    u16 playerSpecies;
+    u16 opponentSpecies;
+    u8 opponentName[PLAYER_NAME_LENGTH + 1];
+    u8 opponentMonNickname[POKEMON_NAME_LENGTH + 1];
+    u8 opponentLanguage;
+};
+
+struct BattleDomeTrainer
+{
+    u16 trainerId:10;
+    u16 isEliminated:1;
+    u16 eliminatedAt:2;
+    u16 forfeited:3;
+};
+
+struct DomeMonData
+{
+    u16 moves[MAX_MON_MOVES];
+    u8 evs[NUM_STATS];
+    u8 nature;
+    //u8 padding;
+};
+
+struct PyramidBag
+{
+    u16 itemId[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
+    u8 quantity[FRONTIER_LVL_MODE_COUNT][PYRAMID_BAG_ITEMS_COUNT];
+};
+
+struct RentalMon
+{
+    u16 monId;
+    //u8 padding1[2];
+    u32 personality;
+    u8 ivs;
+    u8 abilityNum;
+    //u8 padding2[2];
+};
+
+struct ApprenticeMon
+{
+    u16 species;
+    u16 moves[MAX_MON_MOVES];
+    u16 item;
+};
+
+struct ApprenticeQuestion
+{
+    u8 questionId:2;
+    u8 monId:2;
+    u8 moveSlot:2;
+    u8 suggestedChange:2; // TRUE if told to use held item or second move, FALSE if told to use no item or first move
+    //u8 padding;
+    u16 data; // used both as an itemId and a move
+};
+
+struct PlayersApprentice
+{
+    u8 id;
+    u8 lvlMode:2;  //0: Unassigned, 1: Lv 50, 2: Open Lv
+    u8 questionsAnswered:4;
+    u8 leadMonId:2;
+    u8 party:3;
+             u8 saveId:2;
+             //u8 padding1:3;
+    u8 unused;
+    u8 speciesIds[MULTI_PARTY_SIZE];
+    //u8 padding2;
+    struct ApprenticeQuestion questions[APPRENTICE_MAX_QUESTIONS];
+};
+
+struct Apprentice
+{
+    u8 id:5;
+    u8 lvlMode:2;
+    //u8 padding1:1;
+    u8 numQuestions;
+    u8 number;
+    //u8 padding2;
+    struct ApprenticeMon party[MULTI_PARTY_SIZE];
+    u16 speechWon[EASY_CHAT_BATTLE_WORDS_COUNT];
+    u8 playerId[TRAINER_ID_LENGTH];
+    u8 playerName[PLAYER_NAME_LENGTH];
+    u8 language;
+    u32 checksum;
+};
+
+struct BattleFrontier
+{
+    struct EmeraldBattleTowerRecord towerPlayer;
+    struct EmeraldBattleTowerRecord towerRecords[BATTLE_TOWER_RECORD_COUNT]; // RFVF+: empty, see above
+    struct BattleTowerInterview towerInterview;
+    struct BattleTowerEReaderTrainer ereaderTrainer;
+    u8 challengeStatus;
+    u8 lvlMode:2;
+              u8 challengePaused:1;
+              u8 disableRecordBattle:1;
+              //u8 padding1:4;
+    u16 selectedPartyMons[MAX_FRONTIER_PARTY_SIZE];
+    u16 curChallengeBattleNum; // Battle number / room number (Pike) / floor number (Pyramid)
+    u16 trainerIds[20];
+    u32 winStreakActiveFlags;
+    u16 towerWinStreaks[4][FRONTIER_LVL_MODE_COUNT];
+    u16 towerRecordWinStreaks[4][FRONTIER_LVL_MODE_COUNT];
+    u16 battledBrainFlags;
+    u16 towerSinglesStreak; // Never read
+    u16 towerNumWins; // Increments to MAX_STREAK but never read otherwise
+    u8 towerBattleOutcome;
+    u8 towerLvlMode;
+    u8 domeAttemptedSingles50:1;
+    u8 domeAttemptedSinglesOpen:1;
+    u8 domeHasWonSingles50:1;
+    u8 domeHasWonSinglesOpen:1;
+    u8 domeAttemptedDoubles50:1;
+    u8 domeAttemptedDoublesOpen:1;
+    u8 domeHasWonDoubles50:1;
+    u8 domeHasWonDoublesOpen:1;
+    u8 domeUnused;
+    u8 domeLvlMode;
+    u8 domeBattleMode;
+    u16 domeWinStreaks[2][FRONTIER_LVL_MODE_COUNT];
+    u16 domeRecordWinStreaks[2][FRONTIER_LVL_MODE_COUNT];
+    u16 domeTotalChampionships[2][FRONTIER_LVL_MODE_COUNT];
+    struct BattleDomeTrainer domeTrainers[DOME_TOURNAMENT_TRAINERS_COUNT];
+    u16 domeMonIds[DOME_TOURNAMENT_TRAINERS_COUNT][FRONTIER_PARTY_SIZE];
+    u16 unused_DC4;
+    u16 palacePrize;
+    u16 palaceWinStreaks[2][FRONTIER_LVL_MODE_COUNT];
+    u16 palaceRecordWinStreaks[2][FRONTIER_LVL_MODE_COUNT];
+    u16 arenaPrize;
+    u16 arenaWinStreaks[FRONTIER_LVL_MODE_COUNT];
+    u16 arenaRecordStreaks[FRONTIER_LVL_MODE_COUNT];
+    u16 factoryWinStreaks[2][FRONTIER_LVL_MODE_COUNT];
+    u16 factoryRecordWinStreaks[2][FRONTIER_LVL_MODE_COUNT];
+    u16 factoryRentsCount[2][FRONTIER_LVL_MODE_COUNT];
+    u16 factoryRecordRentsCount[2][FRONTIER_LVL_MODE_COUNT];
+    u16 pikePrize;
+    u16 pikeWinStreaks[FRONTIER_LVL_MODE_COUNT];
+    u16 pikeRecordStreaks[FRONTIER_LVL_MODE_COUNT];
+    u16 pikeTotalStreaks[FRONTIER_LVL_MODE_COUNT];
+    u8 pikeHintedRoomIndex:3;
+              u8 pikeHintedRoomType:4;
+              u8 pikeHealingRoomsDisabled:1;
+    //u8 padding2;
+    u16 pikeHeldItemsBackup[FRONTIER_PARTY_SIZE];
+    u16 pyramidPrize;
+    u16 pyramidWinStreaks[FRONTIER_LVL_MODE_COUNT];
+    u16 pyramidRecordStreaks[FRONTIER_LVL_MODE_COUNT];
+    u16 pyramidRandoms[4];
+    u8 pyramidTrainerFlags; // 1 bit for each trainer (MAX_PYRAMID_TRAINERS)
+    //u8 padding3;
+    struct PyramidBag pyramidBag;
+    u8 pyramidLightRadius;
+    //u8 padding4;
+    u16 verdanturfTentPrize;
+    u16 fallarborTentPrize;
+    u16 slateportTentPrize;
+    struct RentalMon rentalMons[FRONTIER_PARTY_SIZE * 2];
+    u16 battlePoints;
+    u16 cardBattlePoints;
+    u32 battlesCount;
+    u16 domeWinningMoves[DOME_TOURNAMENT_TRAINERS_COUNT];
+    u8 trainerFlags;
+    u8 opponentNames[FRONTIER_LVL_MODE_COUNT][PLAYER_NAME_LENGTH + 1];
+    u8 opponentTrainerIds[FRONTIER_LVL_MODE_COUNT][TRAINER_ID_LENGTH];
+    u8 unk_EF9:7; // Never read
+    u8 savedGame:1;
+    u8 unused_EFA;
+    u8 unused_EFB;
+    struct DomeMonData domePlayerPartyData[FRONTIER_PARTY_SIZE];
+};
 
 struct SaveBlock2
 {
@@ -349,7 +524,10 @@ struct SaveBlock2
     /*0x0A8*/ u32 gcnLinkFlags; // Read by Pokemon Colosseum/XD
     /*0x0AC*/ bool8 unkFlag1; // Set TRUE, never read
     /*0x0AD*/ bool8 unkFlag2; // Set FALSE, never read
-    /*0x0B0*/ struct BattleTowerData battleTower;
+    /*0x0B0*/ struct BattleFrontier frontier; // RFVF+: Emerald's (was R/S's struct BattleTowerData, 0x7E8 bytes)
+              struct PlayersApprentice playerApprentice;
+              struct Apprentice apprentices[APPRENTICE_COUNT];
+              u8 unused_frontier[0x898 - 0xB0 - sizeof(struct BattleFrontier) - sizeof(struct PlayersApprentice) - sizeof(struct Apprentice) * APPRENTICE_COUNT];
     /*0x898*/ u16 mapView[0x100];
     /*0xA98*/ struct LinkBattleRecords linkBattleRecords;
     /*0xAF0*/ struct BerryCrush berryCrush;

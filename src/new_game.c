@@ -81,7 +81,10 @@ static void ClearPokedexFlags(void)
 
 static void ClearBattleTower(void)
 {
-    CpuFill32(0, &gSaveBlock2Ptr->battleTower, sizeof(gSaveBlock2Ptr->battleTower));
+    // RFVF+: Emerald's Battle Frontier data + apprentices, in R/S's old Battle Tower slot (ClearFrontierRecord)
+    CpuFill32(0, &gSaveBlock2Ptr->frontier, offsetof(struct SaveBlock2, mapView) - offsetof(struct SaveBlock2, frontier));
+    gSaveBlock2Ptr->frontier.opponentNames[0][0] = EOS;
+    gSaveBlock2Ptr->frontier.opponentNames[1][0] = EOS;
 }
 
 static void WarpToPlayersRoom(void)

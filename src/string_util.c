@@ -1,7 +1,7 @@
 #include "global.h"
 #include "gflib.h"
 
-EWRAM_DATA u8 gStringVar1[32] = {};
+EWRAM_DATA u8 gStringVar1[0x100] = {}; // RFVF+: Emerald's size (the Frontier lists banned species in it)
 EWRAM_DATA u8 gStringVar2[20] = {};
 EWRAM_DATA u8 gStringVar3[20] = {};
 EWRAM_DATA u8 gStringVar4[1000] = {};
@@ -691,4 +691,10 @@ void StripExtCtrlCodes(u8 *str)
         }
     }
     str[destIndex] = 0xFF;
+}
+
+// RFVF+: declared by FRLG, never defined. No Japanese names here (no record mixing): Emerald's Frontier asks it.
+bool32 IsStringJapanese(u8 *str)
+{
+    return FALSE;
 }
