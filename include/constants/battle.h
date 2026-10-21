@@ -367,6 +367,16 @@
 #define B_WIN_VS_OUTCOME_RIGHT   23
 #define B_WIN_OAK_OLD_MAN        24
 
+// RFVF+: Emerald's Battle Arena windows (they take the VS windows' slots; the referee speaks in the Oak window)
+#define ARENA_WIN_PLAYER_NAME      15
+#define ARENA_WIN_VS               16
+#define ARENA_WIN_OPPONENT_NAME    17
+#define ARENA_WIN_MIND             18
+#define ARENA_WIN_SKILL            19
+#define ARENA_WIN_BODY             20
+#define ARENA_WIN_JUDGMENT_TITLE   21
+#define ARENA_WIN_JUDGMENT_TEXT    B_WIN_OAK_OLD_MAN
+
 #define B_TEXT_FLAG_NPC_CONTEXT_FONT    (1 << 6)
 #define B_TEXT_FLAG_WINDOW_CLEAR        (1 << 7)
 

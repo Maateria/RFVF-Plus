@@ -299,40 +299,73 @@ void BattleScriptPop(void)
     gBattlescriptCurrInstr = gBattleResources->battleScriptsStack->ptr[--gBattleResources->battleScriptsStack->size];
 }
 
+// RFVF+: Emerald's, with the Battle Palace's own scripts (the mon picks its move itself)
 u8 TrySetCantSelectMoveBattleScript(void)
 {
-    u8 holdEffect;
     u8 limitations = 0;
     u16 move = gBattleMons[gActiveBattler].moves[gBattleBufferB[gActiveBattler][2]];
+    u8 holdEffect;
     u16 *choicedMove = &gBattleStruct->choicedMove[gActiveBattler];
 
     if (gDisableStructs[gActiveBattler].disabledMove == move && move != MOVE_NONE)
     {
         gBattleScripting.battler = gActiveBattler;
         gCurrentMove = move;
-        gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingDisabledMove;
-        limitations = 1;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gPalaceSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingDisabledMoveInPalace;
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingDisabledMove;
+            limitations = 1;
+        }
     }
 
     if (move == gLastMoves[gActiveBattler] && move != MOVE_STRUGGLE && (gBattleMons[gActiveBattler].status2 & STATUS2_TORMENT))
     {
         CancelMultiTurnMoves(gActiveBattler);
-        gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingTormentedMove;
-        limitations++;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gPalaceSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingTormentedMoveInPalace;
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingTormentedMove;
+            limitations++;
+        }
     }
 
     if (gDisableStructs[gActiveBattler].tauntTimer != 0 && gBattleMoves[move].power == 0)
     {
         gCurrentMove = move;
-        gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveTaunt;
-        limitations++;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gPalaceSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveTauntInPalace;
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveTaunt;
+            limitations++;
+        }
     }
 
     if (GetImprisonedMovesCount(gActiveBattler, move))
     {
         gCurrentMove = move;
-        gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingImprisonedMove;
-        limitations++;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gPalaceSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingImprisonedMoveInPalace;
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingImprisonedMove;
+            limitations++;
+        }
     }
 
     if (gBattleMons[gActiveBattler].item == ITEM_ENIGMA_BERRY)
@@ -346,15 +379,30 @@ u8 TrySetCantSelectMoveBattleScript(void)
     {
         gCurrentMove = *choicedMove;
         gLastUsedItem = gBattleMons[gActiveBattler].item;
-        gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveChoiceItem;
-        limitations++;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingNotAllowedMoveChoiceItem;
+            limitations++;
+        }
     }
 
     if (gBattleMons[gActiveBattler].pp[gBattleBufferB[gActiveBattler][2]] == 0)
     {
-        gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingMoveWithNoPP;
-        limitations++;
+        if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        {
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+        }
+        else
+        {
+            gSelectionBattleScripts[gActiveBattler] = BattleScript_SelectingMoveWithNoPP;
+            limitations++;
+        }
     }
+
     return limitations;
 }
 
@@ -1130,6 +1178,25 @@ bool8 HandleWishPerishSongOnTurnEnd(void)
                 BattleScriptExecute(gBattlescriptCurrInstr);
                 return TRUE;
             }
+        }
+        // RFVF+: the Battle Arena's judgment after 3 turns (Emerald)
+        gBattleStruct->wishPerishSongState = 2;
+        gBattleStruct->wishPerishSongBattlerId = 0;
+        // fall through
+    case 2:
+        if ((gBattleTypeFlags & BATTLE_TYPE_ARENA)
+         && gBattleStruct->arenaTurnCounter == 2
+         && gBattleMons[0].hp != 0 && gBattleMons[1].hp != 0)
+        {
+            s32 i;
+
+            for (i = 0; i < 2; i++)
+                CancelMultiTurnMoves(i);
+
+            gBattlescriptCurrInstr = BattleScript_ArenaDoJudgment;
+            BattleScriptExecute(BattleScript_ArenaDoJudgment);
+            gBattleStruct->wishPerishSongState++;
+            return TRUE;
         }
         break;
     }

@@ -1188,7 +1188,8 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
                     gSprites[ballIconSpritesIds[i]].oam.tileNum += 1;
                     gSprites[ballIconSpritesIds[i]].sIsEmptyBall = TRUE;
                 }
-                else if (partyInfo[i].hp == 0)
+                else if (partyInfo[i].hp == 0
+                      || (gBattleTypeFlags & BATTLE_TYPE_ARENA && gBattleStruct->arenaLostPlayerMons & (1 << i)))
                     gSprites[ballIconSpritesIds[i]].oam.tileNum += 3;
                 else if (partyInfo[i].status != STATUS1_NONE)
                     gSprites[ballIconSpritesIds[i]].oam.tileNum += 2;
@@ -1200,7 +1201,8 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
                     gSprites[ballIconSpritesIds[i]].oam.tileNum += 1;
                     gSprites[ballIconSpritesIds[i]].sIsEmptyBall = TRUE;
                 }
-                else if (partyInfo[i].hp == 0)
+                else if (partyInfo[i].hp == 0
+                      || (gBattleTypeFlags & BATTLE_TYPE_ARENA && gBattleStruct->arenaLostPlayerMons & (1 << i)))
                     gSprites[ballIconSpritesIds[i]].oam.tileNum += 3;
                 else if (partyInfo[i].status != STATUS1_NONE)
                     gSprites[ballIconSpritesIds[i]].oam.tileNum += 2;
@@ -1218,7 +1220,8 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
                     gSprites[ballIconSpritesIds[5 - i]].oam.tileNum += 1;
                     gSprites[ballIconSpritesIds[5 - i]].sIsEmptyBall = TRUE;
                 }
-                else if (partyInfo[i].hp == 0)
+                else if (partyInfo[i].hp == 0
+                      || (gBattleTypeFlags & BATTLE_TYPE_ARENA && gBattleStruct->arenaLostOpponentMons & (1 << i)))
                     gSprites[ballIconSpritesIds[5 - i]].oam.tileNum += 3;
                 else if (partyInfo[i].status != STATUS1_NONE)
                     gSprites[ballIconSpritesIds[5 - i]].oam.tileNum += 2;
@@ -1231,7 +1234,8 @@ u8 CreatePartyStatusSummarySprites(u8 battlerId, struct HpAndStatus *partyInfo, 
                     gSprites[ballIconSpritesIds[5 - i]].oam.tileNum += 1;
                     gSprites[ballIconSpritesIds[5 - i]].sIsEmptyBall = TRUE;
                 }
-                else if (partyInfo[i].hp == 0)
+                else if (partyInfo[i].hp == 0
+                      || (gBattleTypeFlags & BATTLE_TYPE_ARENA && gBattleStruct->arenaLostOpponentMons & (1 << i)))
                     gSprites[ballIconSpritesIds[5 - i]].oam.tileNum += 3;
                 else if (partyInfo[i].status != STATUS1_NONE)
                 {

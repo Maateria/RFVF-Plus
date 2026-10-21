@@ -90,6 +90,21 @@
 #define VARIOUS_CHECK_POKEFLUTE                 11
 #define VARIOUS_WAIT_FANFARE                    12
 #define VARIOUS_EMIT_YESNOBOX                   13 // RFVF+: Emerald's (Trainer Hill forfeit)
+// RFVF+: Emerald's Battle Palace and Battle Arena (other ids than Emerald's)
+#define VARIOUS_PALACE_FLAVOR_TEXT              14
+#define VARIOUS_ARENA_JUDGMENT_WINDOW           15
+#define VARIOUS_ARENA_OPPONENT_MON_LOST         16
+#define VARIOUS_ARENA_PLAYER_MON_LOST           17
+#define VARIOUS_ARENA_BOTH_MONS_LOST            18
+#define VARIOUS_DRAW_ARENA_REF_TEXT_BOX         19
+#define VARIOUS_ERASE_ARENA_REF_TEXT_BOX        20
+#define VARIOUS_ARENA_JUDGMENT_STRING           21
+#define VARIOUS_ARENA_WAIT_STRING               22
+#define VARIOUS_WAIT_CRY                        23
+#define VARIOUS_VOLUME_DOWN                     24
+#define VARIOUS_VOLUME_UP                       25
+#define VARIOUS_PALACE_TRY_ESCAPE_STATUS        26
+#define VARIOUS_SET_ALREADY_STATUS_MOVE_ATTEMPT 27
 
 // Cmd_manipulatedmg
 #define DMG_CHANGE_SIGN            0

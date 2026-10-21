@@ -880,6 +880,7 @@ Text_GiveNicknameToThisMon::
 	.include "data/text/route23.inc"
 	.include "data/text/aide.inc"
 	.include "data/text/ingame_trade.inc"
+	.include "data/text/battle_tent.inc"
 
 Text_CardKeyOpenedDoor::
     .string "Bingo!\n"
@@ -2399,8 +2400,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattleFrontier_BattlePalaceLobby/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePalaceCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePalaceCorridor/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePalaceBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePalaceBattleRoom/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePyramidLobby/scripts.inc"
 	.include "data/maps/BattleFrontier_BattlePyramidLobby/text.inc"
@@ -2413,8 +2416,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattleFrontier_BattleArenaLobby/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleArenaCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleArenaCorridor/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleArenaBattleRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattleArenaBattleRoom/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleFactoryLobby/scripts.inc"
 	.include "data/maps/BattleFrontier_BattleFactoryLobby/text.inc"

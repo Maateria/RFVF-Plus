@@ -25,27 +25,10 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | SlateportCity_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT de POIVRESSEL! Je serai votre guide … |
 | SlateportCity_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — menu à choix | Règles du COMBAT ECHANGE. |
 
-## Vergazon (2)
+## Zone de Combat (24)
 
 | Carte | Script | Ce qu'il fait | Premier texte |
 |---|---|---|---|
-| VerdanturfTown_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT de VERGAZON! Nous testons la confian… |
-| VerdanturfTown_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — panneau de règles à menu déroulant | Règles de la TENTE DE COMBAT de VERGAZON. |
-
-## Autéquia (2)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| FallarborTown_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT d'AUTEQUIA! Je serai votre guide pou… |
-| FallarborTown_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — menu à choix | Règles du TOURNOI K.O. |
-
-## Zone de Combat (31)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| BattleFrontier_BattleArenaLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palais Combat (Arène) : accueil, règles ou résultats du défi; ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue au DOJO DE COMBAT! Ici, nous mettons à l'épreuve le cran des… |
-| BattleFrontier_BattleArenaLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palais Combat (Arène) : accueil, règles ou résultats du défi | Règles du TOURNOI K.O. |
-| BattleFrontier_BattleArenaLobby | ShowResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palais Combat (Arène) : accueil, règles ou résultats du défi |  |
 | BattleFrontier_BattleDomeLobby | DoublesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi; soigne l'équipe; ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Le tournoi propose deux niveaux de défi: niveau 50 et niveau libre. Qu… |
 | BattleFrontier_BattleDomeLobby | Maniac (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi | Tu as assisté au dernier TOURNOI DE COMBAT? {STR_VAR_1}, le vainqueur,… |
 | BattleFrontier_BattleDomeLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi | Règles du TOURNOI DE COMBAT. |
@@ -58,10 +41,6 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | BattleFrontier_BattleFactoryLobby | ShowDoublesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi |  |
 | BattleFrontier_BattleFactoryLobby | ShowSinglesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi |  |
 | BattleFrontier_BattleFactoryLobby | SinglesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Que choisissez-vous: niveau 50 ou niveau libre? |
-| BattleFrontier_BattlePalaceLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palace de Combat : accueil, règles ou résultats du défi | Règles des HALLS DE COMBAT. |
-| BattleFrontier_BattlePalaceLobby | ShowDoublesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palace de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattlePalaceLobby | ShowSinglesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palace de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattlePalaceLobby | SinglesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Palace de Combat : accueil, règles ou résultats du défi; soigne l'équipe; ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Il y a deux HALLS DE COMBAT: niveau 50 et niveau libre. Que choisissez… |
 | BattleFrontier_BattlePikeLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Reptile de Combat : accueil, règles ou résultats du défi; soigne l'équipe (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue au REPTILE DE COMBAT… Ici, nous mettons à l'épreuve la chanc… |
 | BattleFrontier_BattlePikeLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Reptile de Combat : accueil, règles ou résultats du défi | Règles du COMBAT HASARD. |
 | BattleFrontier_BattlePikeLobby | ShowResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Reptile de Combat : accueil, règles ou résultats du défi |  |

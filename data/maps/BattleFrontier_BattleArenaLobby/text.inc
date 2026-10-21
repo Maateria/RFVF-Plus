@@ -25,3 +25,209 @@ BattleFrontier_BattleArenaLobby_Text_BadIdeaToNotAttack::
     .string "J'aurais dû attaquer…\p"
     .string "Mais je n'ai utilisé que des capacités\n"
     .string "défensives…$"
+
+BattleFrontier_BattleArenaLobby_Text_WelcomeToBattleArena::
+    .string "Bienvenue au DOJO DE COMBAT!\p"
+    .string "Ici, nous mettons à l'épreuve\n"
+    .string "le cran des DRESSEURS!\p"
+    .string "Je serai votre guide pour le\n"
+    .string "TOURNOI K.O.!$"
+
+BattleFrontier_BattleArenaLobby_Text_WishToTakeChallenge::
+    .string "Voulez-vous relever le défi du\n"
+    .string "DOJO DE COMBAT?$"
+
+BattleFrontier_BattleArenaLobby_Text_AwaitAnotherChallenge::
+    .string "Nous espérons que vous relèverez\n"
+    .string "bientôt notre défi!$"
+
+BattleFrontier_BattleArenaLobby_Text_ExplainChallenge::
+    .string "Au DOJO DE COMBAT, vous participez à\n"
+    .string "un TOURNOI K.O.\p"
+    .string "Les participants s'inscrivent avec une\n"
+    .string "équipe de trois POKéMON.\p"
+    .string "Ces POKéMON doivent être placés dans\n"
+    .string "l'ordre dans lequel\l"
+    .string "ils apparaîtront.\p"
+    .string "Pendant un combat, ils apparaîtront\n"
+    .string "l'un après l'autre dans l'ordre\l"
+    .string "prédéfini.\p"
+    .string "Un POKéMON qui entre au combat doit\n"
+    .string "y rester jusqu'à la fin.\p"
+    .string "S'il n'y a pas de vainqueur\n"
+    .string "au bout de trois tours,\l"
+    .string "l'ARBITRE intervient.\p"
+    .string "Si vous voulez interrompre le défi,\n"
+    .string "veuillez sauvegarder la partie.\p"
+    .string "Si vous ne sauvegardez pas, vous ne\n"
+    .string "pourrez pas reprendre ce défi.\p"
+    .string "Si vous mettez K.O. sept DRESSEURS\n"
+    .string "à la suite, nous vous remettons des\l"
+    .string "POINTS DE COMBAT.$"
+
+BattleFrontier_BattleArenaLobby_Text_OkayToSave::
+    .string "Avant de me suivre dans le DOJO DE\n"
+    .string "COMBAT, vous devez sauvegarder. OK?$"
+
+BattleFrontier_BattleArenaLobby_Text_WhichLevelMode::
+    .string "Au DOJO DE COMBAT, vous avez le\n"
+    .string "choix entre niveau 50 et niveau\l"
+    .string "libre. Que choisissez-vous?$"
+
+BattleFrontier_BattleArenaLobby_Text_SelectThreeMons::
+    .string "Veuillez choisir les trois POKéMON\n"
+    .string "que vous souhaitez inscrire.$"
+
+BattleFrontier_BattleArenaLobby_Text_NotEnoughValidMonsLvOpen::
+    .string "Je regrette, cher DRESSEUR!\p"
+    .string "Vous n'avez pas trois POKéMON\n"
+    .string "aptes à participer.\p"
+    .string "Il vous faut trois POKéMON différents\n"
+    .string "pour participer.\p"
+    .string "Ils doivent aussi tenir des objets\n"
+    .string "différents.\p"
+    .string "Les OEUFS{STR_VAR_1}\n"
+    .string "inaptes au combat.\p"
+    .string "Revenez me voir quand vous aurez\n"
+    .string "ce qu'il faut.$"
+
+BattleFrontier_BattleArenaLobby_Text_NotEnoughValidMonsLv50::
+    .string "Je regrette, cher DRESSEUR!\p"
+    .string "Vous n'avez pas trois POKéMON\n"
+    .string "aptes à participer.\p"
+    .string "Il vous faut trois POKéMON différents\n"
+    .string "pour participer.\p"
+    .string "Il vous faut trois POKéMON différents\n"
+    .string "de niveau 50 ou\l"
+    .string "moins pour participer.\p"
+    .string "Ils doivent aussi tenir des objets\n"
+    .string "différents.\p"
+    .string "Les OEUFS{STR_VAR_1}\n"
+    .string "inaptes au combat.\p"
+    .string "Revenez me voir quand vous aurez\n"
+    .string "ce qu'il faut.$"
+
+BattleFrontier_BattleArenaLobby_Text_GuideYouToArena::
+    .string "Suivez-moi dans le DOJO DE COMBAT.$"
+
+BattleFrontier_BattleArenaLobby_Text_DidntSaveBeforeShuttingDown::
+    .string "Je regrette, cher DRESSEUR!\p"
+    .string "Vous n'avez pas sauvegardé avant de\n"
+    .string "quitter votre dernier défi.\p"
+    .string "Dans ce cas, c'est la\n"
+    .string "disqualification. Quel dommage!\p"
+    .string "Bien entendu, vous pouvez\n"
+    .string "recommencer un autre défi.$"
+
+BattleFrontier_BattleArenaLobby_Text_CongratsOnSevenWins::
+    .string "Toutes mes félicitations! Vous avez\n"
+    .string "battu sept DRESSEURS à la suite!$"
+
+BattleFrontier_BattleArenaLobby_Text_RecordAchievement::
+    .string "Votre performance va être\n"
+    .string "sauvegardée. Veuillez patienter.$"
+
+BattleFrontier_BattleArenaLobby_Text_PresentYouWithPrize::
+    .string "In commemoration of your\n"
+    .string "7-win streak, we present\l"
+    .string "you with this prize.$"
+
+BattleFrontier_BattleArenaLobby_Text_ReceivedPrize::
+    .string "{PLAYER} received the prize\n"
+    .string "{STR_VAR_1}.$"
+
+BattleFrontier_BattleArenaLobby_Text_BagFullReturnForPrize::
+    .string "Oh?\n"
+    .string "Your BAG seems to be full.\p"
+    .string "I urge you to clear space and\n"
+    .string "return for your prize.$"
+
+BattleFrontier_BattleArenaLobby_Text_ThankYouWaitWhileSave::
+    .string "Merci d'avoir participé!\p"
+    .string "Votre résultat va être sauvegardé.\n"
+    .string "Veuillez patienter.$"
+
+BattleFrontier_BattleArenaLobby_Text_AwaitAnotherChallenge2::
+    .string "J'espère vous revoir bientôt au DOJO\n"
+    .string "DE COMBAT.$"
+
+BattleFrontier_BattleArenaLobby_Text_LookingForwardToArrivalSaveGame::
+    .string "Nous vous attendions!\p"
+    .string "Vous devez sauvegarder avant de me\n"
+    .string "suivre dans le DOJO DE COMBAT.\l"
+    .string "Veuillez patienter.$"
+
+BattleFrontier_BattleArenaLobby_Text_RecordLastMatch::
+    .string "J'enregistre votre dernier combat au\n"
+    .string "DOJO DE COMBAT sur\l"
+    .string "votre PASSE ZONE?$"
+
+BattleFrontier_BattleArenaLobby_Text_RulesAreListed::
+    .string "Règles du TOURNOI K.O.$"
+
+BattleFrontier_BattleArenaLobby_Text_ReadWhichHeading::
+    .string "Quel chapitre voulez-vous lire?$"
+
+BattleFrontier_BattleArenaLobby_Text_ExplainBattleRules::
+    .string "Le TOURNOI K.O. n'a pas les mêmes\n"
+    .string "règles que les combats normaux.\p"
+    .string "Tout d'abord, un combat ne dure que\n"
+    .string "trois tours.\p"
+    .string "S'il n'y a pas de vainqueur\n"
+    .string "au bout de trois tours,\l"
+    .string "l'ARBITRE intervient.\p"
+    .string "L'ARBITRE basera son choix\n"
+    .string "sur la façon dont les\l"
+    .string "POKéMON ont combattu.\p"
+    .string "Aussi, un POKéMON qui entre au\n"
+    .string "combat doit y rester jusqu'à la fin.$"
+
+BattleFrontier_BattleArenaLobby_Text_ExplainMindRules::
+    .string "Le premier critère de jugement\n"
+    .string "est le “mental”.\l"
+    .string "C'est l'agressivité des concurrents.\p"
+    .string "Cela dépend du nombre de capacités\n"
+    .string "offensives qui ont été utilisées.$"
+
+BattleFrontier_BattleArenaLobby_Text_ExplainSkillRules::
+    .string "Le second critère de jugement est\n"
+    .string "la “technique”.\l"
+    .string "C'est l'efficacité avec laquelle les\l"
+    .string "POKéMON utilisent leurs capacités.\p"
+    .string "Si une capacité est réussie, le\n"
+    .string "niveau de technique augmente.\p"
+    .string "Si une capacité a échoué, le niveau\n"
+    .string "de technique diminue.\p"
+    .string "Pour une capacité offensive, le\n"
+    .string "niveau de technique augmente\l"
+    .string "si la capacité est “super\l"
+    .string "efficace” et diminue si elle\l"
+    .string "n'est “pas très efficace”.\p"
+    .string "Les capacités telles qu'ABRI et\n"
+    .string "DETECTION ne comptent pas.\p"
+    .string "Si l'adversaire a utilisé ABRI ou\n"
+    .string "DETECTION et que l'attaque\l"
+    .string "de votre POKéMON n'a pas\l"
+    .string "pu l'atteindre, son niveau\l"
+    .string "de technique ne descend pas.$"
+
+BattleFrontier_BattleArenaLobby_Text_ExplainBodyRules::
+    .string "Le troisième critère de jugement est\n"
+    .string "le “physique”.\l"
+    .string "Il dépend du nombre de PV restant\l"
+    .string "à la fin du combat.\p"
+    .string "Cela prend en compte les PV que le\n"
+    .string "POKéMON avait au début et ceux qui\l"
+    .string "lui restent à la fin.$"
+
+BattleFrontier_BattleArenaLobby_Text_CongratsOnDefeatingTycoon::
+    .string "Vous avez arraché la victoire à la\n"
+    .string "PRO DU DOJO et battu\l"
+    .string "sept DRESSEURS!\p"
+    .string "Félicitations pour cette magnifique\n"
+    .string "performance!$"
+
+BattleFrontier_BattleArenaLobby_Text_PleaseAcceptBattlePoints::
+    .string "Cher DRESSEUR, votre cran vous\n"
+    .string "rapporte des POINTS DE COMBAT.$"
+

@@ -390,8 +390,17 @@
 #define STRINGID_TWOENEMIESDEFEATED 389 // RFVF+: Emerald's two opponents
 #define STRINGID_QUESTIONFORFEITMATCH 390 // RFVF+: Emerald's Trainer Hill
 #define STRINGID_FORFEITEDMATCH 391
+// RFVF+: Emerald's Battle Palace and Battle Arena
+#define STRINGID_PKMNINCAPABLEOFPOWER       392
+#define STRINGID_GLINTAPPEARSINEYE          393
+#define STRINGID_PKMNGETTINGINTOPOSITION    394
+#define STRINGID_PKMNBEGANGROWLINGDEEPLY    395
+#define STRINGID_PKMNEAGERFORMORE           396
+#define STRINGID_DEFEATEDOPPONENTBYREFEREE  397
+#define STRINGID_LOSTTOOPPONENTBYREFEREE    398
+#define STRINGID_TIEDOPPONENTBYREFEREE      399
 
-#define BATTLESTRINGS_COUNT     392
+#define BATTLESTRINGS_COUNT     400
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,
@@ -551,6 +560,7 @@
 #define B_MSG_WONT_OBEY          1
 #define B_MSG_TURNED_AWAY        2
 #define B_MSG_PRETEND_NOT_NOTICE 3
+#define B_MSG_INCAPABLE_OF_POWER 4 // RFVF+: Emerald's Battle Palace
 #define NUM_LOAF_STRINGS         4 // For randomly selecting a disobey string
 
 // gSafariGetNearStringIds
@@ -593,5 +603,22 @@
 #define B_MSG_DEFROSTED_BY_MOVE 1
 
 #define NUM_TRAPPING_MOVES 6
+
+// RFVF+: Emerald's gBattlePalaceFlavorTextTable (Battle Palace)
+#define B_MSG_GLINT_IN_EYE   0
+#define B_MSG_GETTING_IN_POS 1
+#define B_MSG_GROWL_DEEPLY   2
+#define B_MSG_EAGER_FOR_MORE 3
+
+// RFVF+: Emerald's gRefereeStringsTable (Battle Arena)
+#define B_MSG_REF_NOTHING_IS_DECIDED 0
+#define B_MSG_REF_THATS_IT           1
+#define B_MSG_REF_JUDGE_MIND         2
+#define B_MSG_REF_JUDGE_SKILL        3
+#define B_MSG_REF_JUDGE_BODY         4
+#define B_MSG_REF_PLAYER_WON         5
+#define B_MSG_REF_OPPONENT_WON       6
+#define B_MSG_REF_DRAW               7
+#define B_MSG_REF_COMMENCE_BATTLE    8
 
 #endif // GUARD_BATTLE_STRING_IDS_H

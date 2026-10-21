@@ -11,6 +11,7 @@
 enum {
     DOOR_SOUND_NORMAL,
     DOOR_SOUND_SLIDING,
+    DOOR_SOUND_ARENA, // RFVF+: Emerald's Battle Arena lobby door
 };
 
 enum {
@@ -31,6 +32,7 @@ struct DoorGraphics
     u8 size;
     const u8 *tiles;
     const u8 *paletteNums;
+    const struct Tileset *tileset; // RFVF+: the tileset the door belongs to (NULL: any); tilesets reuse metatile ids
 };
 
 static void DrawClosedDoorTiles(const struct DoorGraphics *gfx, int x, int y);
@@ -221,7 +223,22 @@ static const u8 sDoorAnimTiles_HoennSootopolis[] = INCBIN_U8("graphics/door_anim
 static const u8 sDoorAnimTiles_HoennVerdanturf[] = INCBIN_U8("graphics/door_anims/hoenn_verdanturf.4bpp");
 static const u8 sDoorAnimTiles_HoennTrainerHillRoofElevator[] = INCBIN_U8("graphics/door_anims/hoenn_trainer_hill_roof_elevator.4bpp");
 static const u8 sDoorAnimTiles_HoennBattlePalaceLobby[] = INCBIN_U8("graphics/door_anims/hoenn_battle_palace_lobby.4bpp");
+static const u8 sDoorAnimTiles_FrontierArena[] = INCBIN_U8("graphics/door_anims/frontier_arena.4bpp");
+static const u8 sDoorAnimTiles_FrontierDome[] = INCBIN_U8("graphics/door_anims/frontier_dome.4bpp");
+static const u8 sDoorAnimTiles_FrontierFactory[] = INCBIN_U8("graphics/door_anims/frontier_factory.4bpp");
+static const u8 sDoorAnimPalettes_FrontierArena[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_FrontierDome[] = {3, 3, 3, 3, 3, 3, 3, 3};
+static const u8 sDoorAnimPalettes_FrontierFactory[] = {9, 9, 9, 9, 9, 9, 9, 9};
+extern const struct Tileset gTileset_BattleFrontierOutsideEast;
+extern const struct Tileset gTileset_BattleFrontierOutsideWest;
+extern const struct Tileset gTileset_BattleFrontier;
 static const u8 sDoorAnimTiles_HoennBattleTowerMultiCorridor[] = INCBIN_U8("graphics/door_anims/hoenn_battle_tower_multi_corridor.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleTowerElevator[] = INCBIN_U8("graphics/door_anims/hoenn_battle_tower_elevator.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleArenaLobby[] = INCBIN_U8("graphics/door_anims/hoenn_battle_arena_lobby.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleDomeLobby[] = INCBIN_U8("graphics/door_anims/hoenn_battle_dome_lobby.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleDomeCorridor[] = INCBIN_U8("graphics/door_anims/hoenn_battle_dome_corridor.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleDomePreBattleRoom[] = INCBIN_U8("graphics/door_anims/hoenn_battle_dome_pre_battle_room.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleTentInterior[] = INCBIN_U8("graphics/door_anims/hoenn_battle_tent_interior.4bpp");
 
 #define CLOSED_DOOR_TILES_OFFSET 0xFFFF
 
@@ -325,6 +342,12 @@ static const u8 sDoorAnimPalettes_HoennVerdanturf[] = {12, 12, 5, 5, 5, 5, 5, 5}
 static const u8 sDoorAnimPalettes_HoennTrainerHillRoofElevator[] = {9, 9, 7, 7, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_HoennBattlePalaceLobby[] = {7, 7, 7, 7, 7, 7, 7, 7};
 static const u8 sDoorAnimPalettes_HoennBattleTowerMultiCorridor[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleTowerElevator[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleArenaLobby[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleDomeLobby[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleDomeCorridor[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleDomePreBattleRoom[] = {9, 9, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimPalettes_HoennBattleTentInterior[] = {9, 9, 9, 9, 9, 9, 9, 9};
 
 static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_General_Door,                                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_General, sDoorAnimPalettes_General},
@@ -364,49 +387,83 @@ static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_TrainerTower_LobbyElevatorDoor,              DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_TrainerTowerLobbyElevator, sDoorAnimPalettes_TrainerTowerLobbyElevator},
     {METATILE_TrainerTower_RoofElevatorDoor,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_TrainerTowerRoofElevator, sDoorAnimPalettes_TrainerTowerRoofElevator},
     {METATILE_BerryForest_Door,                            DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_Sevii45, sDoorAnimPalettes_Sevii45},
-    {METATILE_BattleFrontierOutsideEast_BattleTower,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTower, sDoorAnimPalettes_SlidingSingle},
-    {METATILE_BattleFrontier_BattleTowerElevator,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTowerElevator, sDoorAnimPalettes_SSAnne},
+    {METATILE_BattleFrontierOutsideEast_BattleTower,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTower, sDoorAnimPalettes_SlidingSingle, &gTileset_BattleFrontierOutsideEast},
+    {METATILE_BattleFrontier_BattleTowerElevator,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTowerElevator, sDoorAnimPalettes_SSAnne, &gTileset_BattleFrontier},
+    // RFVF+: FRLG-Plus's Battle Frontier doors had no animation (frames drawn from their own tiles, work/hoenn_scripts/frontier_doors.py)
+    {METATILE_BattleFrontierOutsideEast_Door_BattleArena,  DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_FrontierArena, sDoorAnimPalettes_FrontierArena, &gTileset_BattleFrontierOutsideEast},
+    {METATILE_BattleFrontierOutsideWest_Door_BattleDome,   DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_FrontierDome, sDoorAnimPalettes_FrontierDome, &gTileset_BattleFrontierOutsideWest},
+    {METATILE_BattleFrontierOutsideWest_Door_BattleFactory, DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_FrontierFactory, sDoorAnimPalettes_FrontierFactory, &gTileset_BattleFrontierOutsideWest},
     {}
 };
 
+// RFVF+: Hoenn doors match on the tileset too (the import renumbered metatiles: ids collide between tilesets)
+extern const struct Tileset gTileset_HoennBattleArena;
+extern const struct Tileset gTileset_HoennBattleDome;
+extern const struct Tileset gTileset_HoennBattleFrontier;
+extern const struct Tileset gTileset_HoennBattlePalace;
+extern const struct Tileset gTileset_HoennBattleTent;
+extern const struct Tileset gTileset_HoennDewford;
+extern const struct Tileset gTileset_HoennEverGrande;
+extern const struct Tileset gTileset_HoennFallarbor;
+extern const struct Tileset gTileset_HoennGeneral;
+extern const struct Tileset gTileset_HoennInsideShip;
+extern const struct Tileset gTileset_HoennLilycove;
+extern const struct Tileset gTileset_HoennMauville;
+extern const struct Tileset gTileset_HoennMauville2;
+extern const struct Tileset gTileset_HoennMossdeep;
+extern const struct Tileset gTileset_HoennPacifidlog;
+extern const struct Tileset gTileset_HoennPetalburg;
+extern const struct Tileset gTileset_HoennPokemonCenter;
+extern const struct Tileset gTileset_HoennRustboro;
+extern const struct Tileset gTileset_HoennShop;
+extern const struct Tileset gTileset_HoennSlateport;
+extern const struct Tileset gTileset_HoennSootopolis;
+extern const struct Tileset gTileset_HoennTrainerHill;
 static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
-    {METATILE_HoennGeneral_Door_PokeCenter,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokeCenter, sDoorAnimPalettes_HoennPokeCenter},
-    {METATILE_HoennGeneral_Door_Contest,                   DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennContest, sDoorAnimPalettes_HoennContest},
-    {METATILE_HoennLilycove_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycove, sDoorAnimPalettes_HoennLilycove},
-    {METATILE_HoennLilycove_Door_Wooden,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveWooden, sDoorAnimPalettes_HoennLilycoveWooden},
-    {METATILE_HoennLilycove_Door_DeptStore,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStore, sDoorAnimPalettes_HoennLilycoveDeptStore},
-    {METATILE_HoennGeneral_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennGeneral, sDoorAnimPalettes_HoennGeneral},
-    {METATILE_HoennGeneral_Door_PokeMart,                  DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokeMart, sDoorAnimPalettes_HoennPokeMart},
-    {METATILE_HoennGeneral_Door_Gym,                       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennGym, sDoorAnimPalettes_HoennGym},
-    {METATILE_HoennLilycove_Door_SafariZone,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennSafariZone, sDoorAnimPalettes_HoennSafariZone},
-    {METATILE_HoennShop_Door_Elevator,                     DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStoreElevator, sDoorAnimPalettes_HoennLilycoveDeptStoreElevator},
-    {METATILE_HoennPokemonCenter_Door_CableClub,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennCableClub, sDoorAnimPalettes_HoennCableClub},
-    {METATILE_HoennInsideShip_IntactDoor_Bottom_Unlocked,   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennAbandonedShip, sDoorAnimPalettes_HoennAbandonedShip},
-    {METATILE_HoennInsideShip_IntactDoor_Bottom_Interior,   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennAbandonedShipRoom, sDoorAnimPalettes_HoennAbandonedShipRoom},
-    {METATILE_HoennDewford_Door,                            DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennDewford, sDoorAnimPalettes_HoennDewford},
-    {METATILE_HoennEverGrande_Door_PokemonLeague,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokemonLeague, sDoorAnimPalettes_HoennPokemonLeague},
-    {METATILE_HoennFallarbor_Door_BattleTent,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
-    {METATILE_HoennFallarbor_Door_LightRoof,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennFallarborLightRoof, sDoorAnimPalettes_HoennFallarborLightRoof},
-    {METATILE_HoennPetalburg_Door_Littleroot,               DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLittleroot, sDoorAnimPalettes_HoennLittleroot},
-    {METATILE_HoennPetalburg_Door_BirchsLab,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBirchsLab, sDoorAnimPalettes_HoennBirchsLab},
-    {METATILE_HoennMauville_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennMauville, sDoorAnimPalettes_HoennMauville},
-    {METATILE_HoennMossdeep_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennMossdeep, sDoorAnimPalettes_HoennMossdeep},
-    {METATILE_HoennMossdeep_Door_SpaceCenter,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennMossdeepSpaceCenter, sDoorAnimPalettes_HoennMossdeepSpaceCenter},
-    {METATILE_HoennPetalburg_Door_Oldale,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennOldale, sDoorAnimPalettes_HoennOldale},
-    {METATILE_HoennPacifidlog_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennPacifidlog, sDoorAnimPalettes_HoennPacifidlog},
-    {METATILE_HoennMauville2_Door_CyclingRoad,              DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennCyclingRoad, sDoorAnimPalettes_HoennCyclingRoad},
-    {METATILE_HoennFallarbor_Door_DarkRoof,                 DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennFallarborDarkRoof, sDoorAnimPalettes_HoennFallarborDarkRoof},
-    {METATILE_HoennRustboro_Door_Tan,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennRustboroTan, sDoorAnimPalettes_HoennRustboroTan},
-    {METATILE_HoennRustboro_Door_Gray,                      DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennRustboroGray, sDoorAnimPalettes_HoennRustboroGray},
-    {METATILE_HoennSlateport_Door_BattleTent,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
-    {METATILE_HoennSlateport_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSlateport, sDoorAnimPalettes_HoennSlateport},
-    {METATILE_HoennSootopolis_Door_PeakedRoof,              DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolisPeakedRoof, sDoorAnimPalettes_HoennSootopolisPeakedRoof},
-    {METATILE_HoennSootopolis_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolis, sDoorAnimPalettes_HoennSootopolis},
-    {METATILE_HoennMauville_Door_BattleTent,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent},
-    {METATILE_HoennMauville_Door_Verdanturf,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennVerdanturf, sDoorAnimPalettes_HoennVerdanturf},
-    {METATILE_HoennTrainerHill_Door_Elevator_Roof,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennTrainerHillRoofElevator, sDoorAnimPalettes_HoennTrainerHillRoofElevator},
-    {METATILE_HoennBattlePalace_Door,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattlePalaceLobby, sDoorAnimPalettes_HoennBattlePalaceLobby},
-    {METATILE_HoennBattleFrontier_Door_MultiCorridor,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTowerMultiCorridor, sDoorAnimPalettes_HoennBattleTowerMultiCorridor},
+    {METATILE_HoennGeneral_Door_PokeCenter,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokeCenter, sDoorAnimPalettes_HoennPokeCenter, &gTileset_HoennGeneral},
+    {METATILE_HoennGeneral_Door_Contest,                   DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennContest, sDoorAnimPalettes_HoennContest, &gTileset_HoennGeneral},
+    {METATILE_HoennLilycove_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycove, sDoorAnimPalettes_HoennLilycove, &gTileset_HoennLilycove},
+    {METATILE_HoennLilycove_Door_Wooden,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveWooden, sDoorAnimPalettes_HoennLilycoveWooden, &gTileset_HoennLilycove},
+    {METATILE_HoennLilycove_Door_DeptStore,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStore, sDoorAnimPalettes_HoennLilycoveDeptStore, &gTileset_HoennLilycove},
+    {METATILE_HoennGeneral_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennGeneral, sDoorAnimPalettes_HoennGeneral, &gTileset_HoennGeneral},
+    {METATILE_HoennGeneral_Door_PokeMart,                  DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokeMart, sDoorAnimPalettes_HoennPokeMart, &gTileset_HoennGeneral},
+    {METATILE_HoennGeneral_Door_Gym,                       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennGym, sDoorAnimPalettes_HoennGym, &gTileset_HoennGeneral},
+    {METATILE_HoennLilycove_Door_SafariZone,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennSafariZone, sDoorAnimPalettes_HoennSafariZone, &gTileset_HoennLilycove},
+    {METATILE_HoennShop_Door_Elevator,                     DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennLilycoveDeptStoreElevator, sDoorAnimPalettes_HoennLilycoveDeptStoreElevator, &gTileset_HoennShop},
+    {METATILE_HoennPokemonCenter_Door_CableClub,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennCableClub, sDoorAnimPalettes_HoennCableClub, &gTileset_HoennPokemonCenter},
+    {METATILE_HoennInsideShip_IntactDoor_Bottom_Unlocked,   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennAbandonedShip, sDoorAnimPalettes_HoennAbandonedShip, &gTileset_HoennInsideShip},
+    {METATILE_HoennInsideShip_IntactDoor_Bottom_Interior,   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennAbandonedShipRoom, sDoorAnimPalettes_HoennAbandonedShipRoom, &gTileset_HoennInsideShip},
+    {METATILE_HoennDewford_Door,                            DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennDewford, sDoorAnimPalettes_HoennDewford, &gTileset_HoennDewford},
+    {METATILE_HoennEverGrande_Door_PokemonLeague,           DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennPokemonLeague, sDoorAnimPalettes_HoennPokemonLeague, &gTileset_HoennEverGrande},
+    {METATILE_HoennFallarbor_Door_BattleTent,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent, &gTileset_HoennFallarbor},
+    {METATILE_HoennFallarbor_Door_LightRoof,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennFallarborLightRoof, sDoorAnimPalettes_HoennFallarborLightRoof, &gTileset_HoennFallarbor},
+    {METATILE_HoennPetalburg_Door_Littleroot,               DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennLittleroot, sDoorAnimPalettes_HoennLittleroot, &gTileset_HoennPetalburg},
+    {METATILE_HoennPetalburg_Door_BirchsLab,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBirchsLab, sDoorAnimPalettes_HoennBirchsLab, &gTileset_HoennPetalburg},
+    {METATILE_HoennMauville_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennMauville, sDoorAnimPalettes_HoennMauville, &gTileset_HoennMauville},
+    {METATILE_HoennMossdeep_Door,                           DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennMossdeep, sDoorAnimPalettes_HoennMossdeep, &gTileset_HoennMossdeep},
+    {METATILE_HoennMossdeep_Door_SpaceCenter,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennMossdeepSpaceCenter, sDoorAnimPalettes_HoennMossdeepSpaceCenter, &gTileset_HoennMossdeep},
+    {METATILE_HoennPetalburg_Door_Oldale,                   DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennOldale, sDoorAnimPalettes_HoennOldale, &gTileset_HoennPetalburg},
+    {METATILE_HoennPacifidlog_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennPacifidlog, sDoorAnimPalettes_HoennPacifidlog, &gTileset_HoennPacifidlog},
+    {METATILE_HoennMauville2_Door_CyclingRoad,              DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennCyclingRoad, sDoorAnimPalettes_HoennCyclingRoad, &gTileset_HoennMauville2},
+    {METATILE_HoennFallarbor_Door_DarkRoof,                 DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennFallarborDarkRoof, sDoorAnimPalettes_HoennFallarborDarkRoof, &gTileset_HoennFallarbor},
+    {METATILE_HoennRustboro_Door_Tan,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennRustboroTan, sDoorAnimPalettes_HoennRustboroTan, &gTileset_HoennRustboro},
+    {METATILE_HoennRustboro_Door_Gray,                      DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennRustboroGray, sDoorAnimPalettes_HoennRustboroGray, &gTileset_HoennRustboro},
+    {METATILE_HoennSlateport_Door_BattleTent,               DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent, &gTileset_HoennSlateport},
+    {METATILE_HoennSlateport_Door,                          DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSlateport, sDoorAnimPalettes_HoennSlateport, &gTileset_HoennSlateport},
+    {METATILE_HoennSootopolis_Door_PeakedRoof,              DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolisPeakedRoof, sDoorAnimPalettes_HoennSootopolisPeakedRoof, &gTileset_HoennSootopolis},
+    {METATILE_HoennSootopolis_Door,                         DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennSootopolis, sDoorAnimPalettes_HoennSootopolis, &gTileset_HoennSootopolis},
+    {METATILE_HoennMauville_Door_BattleTent,                DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTent, sDoorAnimPalettes_HoennBattleTent, &gTileset_HoennMauville},
+    {METATILE_HoennMauville_Door_Verdanturf,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennVerdanturf, sDoorAnimPalettes_HoennVerdanturf, &gTileset_HoennMauville},
+    {METATILE_HoennTrainerHill_Door_Elevator_Roof,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennTrainerHillRoofElevator, sDoorAnimPalettes_HoennTrainerHillRoofElevator, &gTileset_HoennTrainerHill},
+    {METATILE_HoennBattlePalace_Door,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattlePalaceLobby, sDoorAnimPalettes_HoennBattlePalaceLobby, &gTileset_HoennBattlePalace},
+    {METATILE_HoennBattleFrontier_Door_MultiCorridor,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTowerMultiCorridor, sDoorAnimPalettes_HoennBattleTowerMultiCorridor, &gTileset_HoennBattleFrontier},
+    {METATILE_HoennBattleFrontier_Door_Elevator,      DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTowerElevator, sDoorAnimPalettes_HoennBattleTowerElevator, &gTileset_HoennBattleFrontier},
+    {METATILE_HoennBattleArena_Door,                  DOOR_SOUND_ARENA, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleArenaLobby, sDoorAnimPalettes_HoennBattleArenaLobby, &gTileset_HoennBattleArena},
+    {METATILE_HoennBattleDome_Door_Lobby,             DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleDomeLobby, sDoorAnimPalettes_HoennBattleDomeLobby, &gTileset_HoennBattleDome},
+    {METATILE_HoennBattleDome_Door_Corridor,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleDomeCorridor, sDoorAnimPalettes_HoennBattleDomeCorridor, &gTileset_HoennBattleDome},
+    {METATILE_HoennBattleDome_Door_PreBattleRoom,     DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleDomePreBattleRoom, sDoorAnimPalettes_HoennBattleDomePreBattleRoom, &gTileset_HoennBattleDome},
+    {METATILE_HoennBattleTent_Door,                   DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTentInterior, sDoorAnimPalettes_HoennBattleTentInterior, &gTileset_HoennBattleTent},
+    {METATILE_HoennMauville2_Door,                    DOOR_SOUND_NORMAL, DOOR_SIZE_1x2, sDoorAnimTiles_HoennMauville, sDoorAnimPalettes_HoennMauville, &gTileset_HoennMauville2},
     {}
 };
 
@@ -553,7 +610,10 @@ static const struct DoorGraphics *GetDoorGraphics(const struct DoorGraphics *gfx
     {
         if (gfx->metatileId == id && (table != sDoorGraphics_Johto
          || sDoorTilesets_Johto[gfx - table] == gMapHeader.mapLayout->primaryTileset
-         || sDoorTilesets_Johto[gfx - table] == gMapHeader.mapLayout->secondaryTileset))
+         || sDoorTilesets_Johto[gfx - table] == gMapHeader.mapLayout->secondaryTileset)
+         && (gfx->tileset == NULL
+         || gfx->tileset == gMapHeader.mapLayout->primaryTileset
+         || gfx->tileset == gMapHeader.mapLayout->secondaryTileset))
             return gfx;
         gfx++;
     }
@@ -665,10 +725,15 @@ bool8 FieldIsDoorAnimationRunning(void)
 
 u16 GetDoorSoundEffect(int x, int y)
 {
-    if (GetDoorSoundType(GetDoorGraphicsTable(), x, y) == DOOR_SOUND_NORMAL)
+    switch (GetDoorSoundType(GetDoorGraphicsTable(), x, y))
+    {
+    case DOOR_SOUND_NORMAL:
         return SE_DOOR;
-    else // DOOR_SOUND_SLIDING
+    case DOOR_SOUND_ARENA:
+        return SE_REPEL;
+    default: // DOOR_SOUND_SLIDING
         return SE_SLIDING_DOOR;
+    }
 }
 
 static s8 GetDoorSoundType(const struct DoorGraphics *gfx, int x, int y)

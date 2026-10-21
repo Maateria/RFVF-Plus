@@ -3,6 +3,11 @@
 
 // gTileset_BattleFrontierOutsideEast
 #define METATILE_BattleFrontierOutsideEast_BattleTower  0x330
+#define METATILE_BattleFrontierOutsideEast_Door_BattleArena  0x3D7
+
+// gTileset_BattleFrontierOutsideWest
+#define METATILE_BattleFrontierOutsideWest_Door_BattleDome  0x3C5
+#define METATILE_BattleFrontierOutsideWest_Door_BattleFactory  0x35C
 
 // gTileset_BattleFrontier
 #define METATILE_BattleFrontier_BattleTowerElevator  0x28E

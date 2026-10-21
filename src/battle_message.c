@@ -1,6 +1,8 @@
 #include "global.h"
 #include "gflib.h"
 #include "battle.h"
+#include "battle_bg.h"
+#include "menu.h"
 #include "battle_anim.h"
 #include "strings.h"
 #include "battle_message.h"
@@ -395,6 +397,31 @@ static const u8 sText_TwoTrainersSentPkmn[] = _("{B_OPPONENT_MON1_NAME} est envo
 static const u8 sText_Trainer2SentOutPkmn[] = _("{B_BUFF1} est envoyé par\n{B_TRAINER2_CLASS} {B_TRAINER2_NAME}!");
 static const u8 sText_QuestionForfeitMatch[] = _("Voulez-vous abandonner et\nquitter le combat?");
 static const u8 sText_ForfeitedMatch[] = _("{B_PLAYER_NAME} abandonne le match!");
+// RFVF+: Emerald's Battle Palace and Battle Arena
+static const u8 sText_PkmnIncapableOfPower[] = _("{B_ATK_NAME_WITH_PREFIX} est incapable\nd'utiliser sa puissance!");
+static const u8 sText_GlintAppearsInEye[] = _("Une lueur apparaît dans les\nyeux de {B_SCR_ACTIVE_NAME_WITH_PREFIX}!");
+static const u8 sText_PkmnGettingIntoPosition[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} se met\nen position!");
+static const u8 sText_PkmnBeganGrowlingDeeply[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} commence\nà grogner méchamment!");
+static const u8 sText_PkmnEagerForMore[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} en veut encore!");
+static const u8 sText_RefIfNothingIsDecided[] = _("ARBITRE: Si rien n'est décidé en 3\ntours, nous donnerons notre jugement!");
+static const u8 sText_RefThatsIt[] = _("ARBITRE: Nous allons maintenant\ndécider du vainqueur.");
+static const u8 sText_RefJudgeMind[] = _("ARBITRE: Catégorie 1, le mental!\nLe POKéMON le plus agressif!\p");
+static const u8 sText_RefJudgeSkill[] = _("ARBITRE: Catégorie 2, la technique!\nLe POKéMON qui maîtrise le mieux\lses capacités!\p");
+static const u8 sText_RefJudgeBody[] = _("ARBITRE: Catégorie 3, le physique!\nLe POKéMON le plus résistant!\p");
+static const u8 sText_RefPlayerWon[] = _("ARBITRE: Jugement: {B_BUFF1} à {B_BUFF2}!\nLe gagnant est le {B_PLAYER_MON1_NAME}\lde {B_PLAYER_NAME}!\p");
+static const u8 sText_RefOpponentWon[] = _("ARBITRE: Jugement: {B_BUFF1} à {B_BUFF2}!\nLe gagnant est le {B_OPPONENT_MON1_NAME}\lde {B_TRAINER1_NAME}!\p");
+static const u8 sText_RefDraw[] = _("ARBITRE: Jugement: 3 à 3!\nC'est un match nul!\p");
+static const u8 sText_DefeatedOpponentByReferee[] = _("{B_PLAYER_MON1_NAME} bat {B_OPPONENT_MON1_NAME} sur\ndécision de l'ARBITRE!");
+static const u8 sText_LostToOpponentByReferee[] = _("{B_PLAYER_MON1_NAME} perd contre {B_OPPONENT_MON1_NAME}\nsur décision de l'ARBITRE!");
+static const u8 sText_TiedOpponentByReferee[] = _("{B_PLAYER_MON1_NAME} est à égalité avec\n{B_OPPONENT_MON1_NAME} sur décision de l'ARBITRE!");
+static const u8 sText_RefCommenceBattle[] = _("ARBITRE: {B_PLAYER_MON1_NAME} VS {B_OPPONENT_MON1_NAME}!\nCommencez le combat!");
+const u8 gText_PlayerMon1Name[] = _("{B_PLAYER_MON1_NAME}");
+const u8 gText_Vs[] = _("VS");
+const u8 gText_OpponentMon1Name[] = _("{B_OPPONENT_MON1_NAME}");
+const u8 gText_Mind[] = _("Mental");
+const u8 gText_Skill[] = _("Technique");
+const u8 gText_Body[] = _("Physique");
+const u8 gText_Judgment[] = _("{B_BUFF1}{CLEAR 13}Jugement{CLEAR 13}{B_BUFF2}");
 static const u8 sText_TwoInGameTrainersDefeated[] = _("{B_TRAINER1_CLASS} {B_TRAINER1_NAME} et\n{B_TRAINER2_CLASS} {B_TRAINER2_NAME}\lont perdu!\p");
 static const u8 sText_LinkTrainerWantsToBattle[] = _("{B_LINK_OPPONENT1_NAME}\nveut se battre!");
 static const u8 sText_TwoLinkTrainersWantToBattle[] = _("{B_LINK_OPPONENT1_NAME} et {B_LINK_OPPONENT2_NAME}\nveulent se battre!");
@@ -918,7 +945,15 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT - BATTLESTRINGS_TABLE_ST
     [STRINGID_PICKUPSOLO - BATTLESTRINGS_TABLE_START]                    = sText_MonPickedUpItemSolo,
     [STRINGID_TWOENEMIESDEFEATED - BATTLESTRINGS_TABLE_START]            = sText_TwoInGameTrainersDefeated,
     [STRINGID_QUESTIONFORFEITMATCH - BATTLESTRINGS_TABLE_START]          = sText_QuestionForfeitMatch,
-    [STRINGID_FORFEITEDMATCH - BATTLESTRINGS_TABLE_START]                = sText_ForfeitedMatch
+    [STRINGID_FORFEITEDMATCH - BATTLESTRINGS_TABLE_START]                = sText_ForfeitedMatch,
+    [STRINGID_PKMNINCAPABLEOFPOWER - BATTLESTRINGS_TABLE_START]          = sText_PkmnIncapableOfPower,
+    [STRINGID_GLINTAPPEARSINEYE - BATTLESTRINGS_TABLE_START]             = sText_GlintAppearsInEye,
+    [STRINGID_PKMNGETTINGINTOPOSITION - BATTLESTRINGS_TABLE_START]       = sText_PkmnGettingIntoPosition,
+    [STRINGID_PKMNBEGANGROWLINGDEEPLY - BATTLESTRINGS_TABLE_START]       = sText_PkmnBeganGrowlingDeeply,
+    [STRINGID_PKMNEAGERFORMORE - BATTLESTRINGS_TABLE_START]              = sText_PkmnEagerForMore,
+    [STRINGID_DEFEATEDOPPONENTBYREFEREE - BATTLESTRINGS_TABLE_START]     = sText_DefeatedOpponentByReferee,
+    [STRINGID_LOSTTOOPPONENTBYREFEREE - BATTLESTRINGS_TABLE_START]       = sText_LostToOpponentByReferee,
+    [STRINGID_TIEDOPPONENTBYREFEREE - BATTLESTRINGS_TABLE_START]         = sText_TiedOpponentByReferee,
 };
 
 const u16 gMissStringIds[] =
@@ -1212,7 +1247,30 @@ const u16 gInobedientStringIds[] =
     [B_MSG_LOAFING]            = STRINGID_PKMNLOAFING,
     [B_MSG_WONT_OBEY]          = STRINGID_PKMNWONTOBEY,
     [B_MSG_TURNED_AWAY]        = STRINGID_PKMNTURNEDAWAY,
-    [B_MSG_PRETEND_NOT_NOTICE] = STRINGID_PKMNPRETENDNOTNOTICE
+    [B_MSG_PRETEND_NOT_NOTICE] = STRINGID_PKMNPRETENDNOTNOTICE,
+    [B_MSG_INCAPABLE_OF_POWER] = STRINGID_PKMNINCAPABLEOFPOWER
+};
+
+// RFVF+: Emerald's Battle Palace and Battle Arena
+const u16 gBattlePalaceFlavorTextTable[] =
+{
+    [B_MSG_GLINT_IN_EYE]   = STRINGID_GLINTAPPEARSINEYE,
+    [B_MSG_GETTING_IN_POS] = STRINGID_PKMNGETTINGINTOPOSITION,
+    [B_MSG_GROWL_DEEPLY]   = STRINGID_PKMNBEGANGROWLINGDEEPLY,
+    [B_MSG_EAGER_FOR_MORE] = STRINGID_PKMNEAGERFORMORE,
+};
+
+const u8 *const gRefereeStringsTable[] =
+{
+    [B_MSG_REF_NOTHING_IS_DECIDED] = sText_RefIfNothingIsDecided,
+    [B_MSG_REF_THATS_IT]           = sText_RefThatsIt,
+    [B_MSG_REF_JUDGE_MIND]         = sText_RefJudgeMind,
+    [B_MSG_REF_JUDGE_SKILL]        = sText_RefJudgeSkill,
+    [B_MSG_REF_JUDGE_BODY]         = sText_RefJudgeBody,
+    [B_MSG_REF_PLAYER_WON]         = sText_RefPlayerWon,
+    [B_MSG_REF_OPPONENT_WON]       = sText_RefOpponentWon,
+    [B_MSG_REF_DRAW]               = sText_RefDraw,
+    [B_MSG_REF_COMMENCE_BATTLE]    = sText_RefCommenceBattle,
 };
 
 const u16 gSafariReactionStringIds[NUM_SAFARI_REACTIONS] =
@@ -2487,6 +2545,66 @@ static void ExpandBattleTextBuffPlaceholders(const u8 *src, u8 *dst)
     }
 }
 
+// RFVF+: Emerald's Battle Arena judgment windows (ARENA_WIN_PLAYER_NAME on), centered
+static const struct BattleWindowText sTextOnWindowsInfo_Arena[] = {
+    [ARENA_WIN_PLAYER_NAME - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 1,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+    [ARENA_WIN_VS - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 13,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+    [ARENA_WIN_OPPONENT_NAME - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 13,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+    [ARENA_WIN_MIND - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 13,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+    [ARENA_WIN_SKILL - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 13,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+    [ARENA_WIN_BODY - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 13,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+    [ARENA_WIN_JUDGMENT_TITLE - ARENA_WIN_PLAYER_NAME] = {
+        .fillValue = PIXEL_FILL(0xE),
+        .fontId = FONT_NORMAL,
+        .y = 1,
+        .fgColor = 13,
+        .bgColor = 14,
+        .shadowColor = 15,
+    },
+};
+
 static const struct BattleWindowText sTextOnWindowsInfo_Normal[] = {
     [B_WIN_MSG] = {
         .fillValue = PIXEL_FILL(0xf),
@@ -2798,6 +2916,23 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
 
     u8 textFlags = windowId & 0xC0;
     windowId &= 0x3F;
+    if ((gBattleTypeFlags & BATTLE_TYPE_ARENA) && windowId >= ARENA_WIN_PLAYER_NAME && windowId <= ARENA_WIN_JUDGMENT_TITLE)
+    {
+        // RFVF+: a Battle Arena judgment window (Emerald), text centered
+        const struct BattleWindowText *info = &sTextOnWindowsInfo_Arena[windowId - ARENA_WIN_PLAYER_NAME];
+        u8 colors[3];
+
+        colors[0] = info->bgColor;
+        colors[1] = info->fgColor;
+        colors[2] = info->shadowColor;
+        FillWindowPixelBuffer(windowId, info->fillValue);
+        x = ((int)GetBattleArenaWindowPixelWidth(windowId) - GetStringWidth(info->fontId, text, info->letterSpacing)) / 2;
+        AddTextPrinterParameterized4(windowId, info->fontId, x < 0 ? 0 : x, info->y, info->letterSpacing, info->lineSpacing,
+                                     colors, 0, text);
+        PutWindowTilemap(windowId);
+        CopyWindowToVram(windowId, COPYWIN_FULL);
+        return;
+    }
     if (!(textFlags & 0x80))
         FillWindowPixelBuffer(windowId, sTextOnWindowsInfo_Normal[windowId].fillValue);
     if (textFlags & 0x40) {
@@ -2842,7 +2977,7 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     printerTemplate.fgColor = sTextOnWindowsInfo_Normal[windowId].fgColor;
     printerTemplate.bgColor = sTextOnWindowsInfo_Normal[windowId].bgColor;
     printerTemplate.shadowColor = sTextOnWindowsInfo_Normal[windowId].shadowColor;
-    if (windowId == B_WIN_OAK_OLD_MAN)
+    if (windowId == B_WIN_OAK_OLD_MAN) // and the Battle Arena referee's box (ARENA_WIN_JUDGMENT_TEXT)
         gTextFlags.useAlternateDownArrow = FALSE;
     else
         gTextFlags.useAlternateDownArrow = TRUE;

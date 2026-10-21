@@ -27,6 +27,9 @@
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "battle_setup.h"
+#include "battle_arena.h"
+#include "m4a.h"
+#include "battle_util2.h"
 #include "constants/battle_anim.h"
 #include "constants/battle_move_effects.h"
 #include "constants/battle_script_commands.h"
@@ -816,6 +819,74 @@ static const u8 sBallCatchBonuses[] =
     [ITEM_POKE_BALL - ITEM_ULTRA_BALL]   = 10,
     [ITEM_SAFARI_BALL - ITEM_ULTRA_BALL] = 15
 };
+
+// RFVF+: Emerald's Battle Palace
+// In Battle Palace, moves are chosen based on the pokemons nature rather than by the player
+// Moves are grouped into "Attack", "Defense", or "Support" (see PALACE_MOVE_GROUP_*)
+// Each nature has a certain percent chance of selecting a move from a particular group
+// and a separate percent chance for each group when at or below 50% HP
+// The table below doesn't list percentages for Support because you can subtract the other two
+// Support percentages are listed in comments off to the side instead
+#define PALACE_STYLE(atk, def, atkLow, defLow) {atk, atk + def, atkLow, atkLow + defLow}
+
+const ALIGNED(4) u8 gBattlePalaceNatureToMoveGroupLikelihood[NUM_NATURES][4] =
+{
+    [NATURE_HARDY]   = PALACE_STYLE(61,  7, 61,  7), // 32% support >= 50% HP, 32% support < 50% HP
+    [NATURE_LONELY]  = PALACE_STYLE(20, 25, 84,  8), // 55%,  8%
+    [NATURE_BRAVE]   = PALACE_STYLE(70, 15, 32, 60), // 15%,  8%
+    [NATURE_ADAMANT] = PALACE_STYLE(38, 31, 70, 15), // 31%, 15%
+    [NATURE_NAUGHTY] = PALACE_STYLE(20, 70, 70, 22), // 10%,  8%
+    [NATURE_BOLD]    = PALACE_STYLE(30, 20, 32, 58), // 50%, 10%
+    [NATURE_DOCILE]  = PALACE_STYLE(56, 22, 56, 22), // 22%, 22%
+    [NATURE_RELAXED] = PALACE_STYLE(25, 15, 75, 15), // 60%, 10%
+    [NATURE_IMPISH]  = PALACE_STYLE(69,  6, 28, 55), // 25%, 17%
+    [NATURE_LAX]     = PALACE_STYLE(35, 10, 29,  6), // 55%, 65%
+    [NATURE_TIMID]   = PALACE_STYLE(62, 10, 30, 20), // 28%, 50%
+    [NATURE_HASTY]   = PALACE_STYLE(58, 37, 88,  6), //  5%,  6%
+    [NATURE_SERIOUS] = PALACE_STYLE(34, 11, 29, 11), // 55%, 60%
+    [NATURE_JOLLY]   = PALACE_STYLE(35,  5, 35, 60), // 60%,  5%
+    [NATURE_NAIVE]   = PALACE_STYLE(56, 22, 56, 22), // 22%, 22%
+    [NATURE_MODEST]  = PALACE_STYLE(35, 45, 34, 60), // 20%,  6%
+    [NATURE_MILD]    = PALACE_STYLE(44, 50, 34,  6), //  6%, 60%
+    [NATURE_QUIET]   = PALACE_STYLE(56, 22, 56, 22), // 22%, 22%
+    [NATURE_BASHFUL] = PALACE_STYLE(30, 58, 30, 58), // 12%, 12%
+    [NATURE_RASH]    = PALACE_STYLE(30, 13, 27,  6), // 57%, 67%
+    [NATURE_CALM]    = PALACE_STYLE(40, 50, 25, 62), // 10%, 13%
+    [NATURE_GENTLE]  = PALACE_STYLE(18, 70, 90,  5), // 12%,  5%
+    [NATURE_SASSY]   = PALACE_STYLE(88,  6, 22, 20), //  6%, 58%
+    [NATURE_CAREFUL] = PALACE_STYLE(42, 50, 42,  5), //  8%, 53%
+    [NATURE_QUIRKY]  = PALACE_STYLE(56, 22, 56, 22)  // 22%, 22%
+};
+
+static const u8 sBattlePalaceNatureToFlavorTextId[NUM_NATURES] =
+{
+    [NATURE_HARDY]   = B_MSG_EAGER_FOR_MORE,
+    [NATURE_LONELY]  = B_MSG_GLINT_IN_EYE,
+    [NATURE_BRAVE]   = B_MSG_GETTING_IN_POS,
+    [NATURE_ADAMANT] = B_MSG_GLINT_IN_EYE,
+    [NATURE_NAUGHTY] = B_MSG_GLINT_IN_EYE,
+    [NATURE_BOLD]    = B_MSG_GETTING_IN_POS,
+    [NATURE_DOCILE]  = B_MSG_EAGER_FOR_MORE,
+    [NATURE_RELAXED] = B_MSG_GLINT_IN_EYE,
+    [NATURE_IMPISH]  = B_MSG_GETTING_IN_POS,
+    [NATURE_LAX]     = B_MSG_GROWL_DEEPLY,
+    [NATURE_TIMID]   = B_MSG_GROWL_DEEPLY,
+    [NATURE_HASTY]   = B_MSG_GLINT_IN_EYE,
+    [NATURE_SERIOUS] = B_MSG_EAGER_FOR_MORE,
+    [NATURE_JOLLY]   = B_MSG_GETTING_IN_POS,
+    [NATURE_NAIVE]   = B_MSG_EAGER_FOR_MORE,
+    [NATURE_MODEST]  = B_MSG_GETTING_IN_POS,
+    [NATURE_MILD]    = B_MSG_GROWL_DEEPLY,
+    [NATURE_QUIET]   = B_MSG_EAGER_FOR_MORE,
+    [NATURE_BASHFUL] = B_MSG_EAGER_FOR_MORE,
+    [NATURE_RASH]    = B_MSG_GROWL_DEEPLY,
+    [NATURE_CALM]    = B_MSG_GETTING_IN_POS,
+    [NATURE_GENTLE]  = B_MSG_GLINT_IN_EYE,
+    [NATURE_SASSY]   = B_MSG_GROWL_DEEPLY,
+    [NATURE_CAREFUL] = B_MSG_GROWL_DEEPLY,
+    [NATURE_QUIRKY]  = B_MSG_EAGER_FOR_MORE,
+};
+
 
 // unknown unused data
 static const u32 sUnused = 0xFF7EAE60;
@@ -2964,9 +3035,13 @@ static void Cmd_cleareffectsonfaint(void)
     {
         gActiveBattler = GetBattlerForBattleScript(gBattlescriptCurrInstr[1]);
 
-        gBattleMons[gActiveBattler].status1 = 0;
-        BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].status1), &gBattleMons[gActiveBattler].status1);
-        MarkBattlerForControllerExec(gActiveBattler);
+        // RFVF+: a Battle Arena referee's decision keeps the status of the mon that lost (Emerald)
+        if (!(gBattleTypeFlags & BATTLE_TYPE_ARENA) || gBattleMons[gActiveBattler].hp == 0)
+        {
+            gBattleMons[gActiveBattler].status1 = 0;
+            BtlController_EmitSetMonData(BUFFER_A, REQUEST_STATUS_BATTLE, 0, sizeof(gBattleMons[gActiveBattler].status1), &gBattleMons[gActiveBattler].status1);
+            MarkBattlerForControllerExec(gActiveBattler);
+        }
 
         FaintClearSetData(); // Effects like attractions, trapping, etc.
         gBattlescriptCurrInstr += 2;
@@ -3441,7 +3516,9 @@ static void Cmd_checkteamslost(void)
 
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG))
+        // RFVF+: mons lost on a Battle Arena referee's decision do not count (Emerald)
+        if (GetMonData(&gPlayerParty[i], MON_DATA_SPECIES) && !GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG)
+         && (!(gBattleTypeFlags & BATTLE_TYPE_ARENA) || !(gBattleStruct->arenaLostPlayerMons & gBitTable[i])))
         {
             HP_count += GetMonData(&gPlayerParty[i], MON_DATA_HP);
         }
@@ -3453,7 +3530,8 @@ static void Cmd_checkteamslost(void)
     // Get total HP for the enemy's party to determine if the player has won
     for (i = 0; i < PARTY_SIZE; i++)
     {
-        if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES) && !GetMonData(&gEnemyParty[i], MON_DATA_IS_EGG))
+        if (GetMonData(&gEnemyParty[i], MON_DATA_SPECIES) && !GetMonData(&gEnemyParty[i], MON_DATA_IS_EGG)
+         && (!(gBattleTypeFlags & BATTLE_TYPE_ARENA) || !(gBattleStruct->arenaLostOpponentMons & gBitTable[i])))
         {
             HP_count += GetMonData(&gEnemyParty[i], MON_DATA_HP);
         }
@@ -3854,6 +3932,9 @@ static void Cmd_return(void)
 
 static void Cmd_end(void)
 {
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_AddSkillPoints(gBattlerAttacker);
+
     gMoveResultFlags = 0;
     gActiveBattler = 0;
     gCurrentActionFuncId = B_ACTION_TRY_FINISH;
@@ -4559,6 +4640,14 @@ static void Cmd_switchindataupdate(void)
 
     SwitchInClearSetData();
 
+    if (gBattleTypeFlags & BATTLE_TYPE_PALACE
+        && gBattleMons[gActiveBattler].maxHP / 2 >= gBattleMons[gActiveBattler].hp
+        && gBattleMons[gActiveBattler].hp != 0
+        && !(gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP))
+    {
+        gBattleStruct->palaceFlags |= gBitTable[gActiveBattler];
+    }
+
     gBattleScripting.battler = gActiveBattler;
 
     PREPARE_MON_NICK_BUFFER(gBattleTextBuff1, gActiveBattler, gBattlerPartyIndexes[gActiveBattler]);
@@ -4590,6 +4679,9 @@ static void Cmd_switchinanim(void)
     MarkBattlerForControllerExec(gActiveBattler);
 
     gBattlescriptCurrInstr += 3;
+
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_InitPoints();
 }
 
 static void Cmd_jumpifcantswitch(void)
@@ -6293,6 +6385,87 @@ static void Cmd_various(void)
     case VARIOUS_EMIT_YESNOBOX:
         BtlController_EmitUnknownYesNoBox(BUFFER_A, 0);
         MarkBattlerForControllerExec(gActiveBattler);
+        break;
+    // RFVF+: Emerald's Battle Palace and Battle Arena
+    case VARIOUS_PALACE_FLAVOR_TEXT:
+        // Try and print end-of-turn Battle Palace flavor text (e.g. "A glint appears in mon's eyes")
+        gBattleCommunication[0] = FALSE; // whether or not msg should be printed
+        gBattleScripting.battler = gActiveBattler = gBattleCommunication[1];
+
+        if (!(gBattleStruct->palaceFlags & gBitTable[gActiveBattler])
+            && gBattleMons[gActiveBattler].maxHP / 2 >= gBattleMons[gActiveBattler].hp
+            && gBattleMons[gActiveBattler].hp != 0
+            && !(gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP))
+        {
+            gBattleStruct->palaceFlags |= gBitTable[gActiveBattler];
+            gBattleCommunication[0] = TRUE;
+            gBattleCommunication[MULTISTRING_CHOOSER] = sBattlePalaceNatureToFlavorTextId[GetNatureFromPersonality(gBattleMons[gActiveBattler].personality)];
+        }
+        break;
+    case VARIOUS_ARENA_JUDGMENT_WINDOW:
+        i = BattleArena_ShowJudgmentWindow(&gBattleCommunication[0]);
+
+        // BattleArena_ShowJudgmentWindow's last state was an intermediate step.
+        // Return without advancing the current instruction so that it will be called again.
+        if (i == ARENA_RESULT_RUNNING)
+            return;
+
+        gBattleCommunication[1] = i;
+        break;
+    case VARIOUS_ARENA_OPPONENT_MON_LOST:
+        gBattleMons[1].hp = 0;
+        gHitMarker |= HITMARKER_FAINTED(1);
+        gBattleStruct->arenaLostOpponentMons |= gBitTable[gBattlerPartyIndexes[1]];
+        gDisableStructs[1].truantSwitchInHack = 1;
+        break;
+    case VARIOUS_ARENA_PLAYER_MON_LOST:
+        gBattleMons[0].hp = 0;
+        gHitMarker |= HITMARKER_FAINTED(0);
+        gHitMarker |= HITMARKER_PLAYER_FAINTED;
+        gBattleStruct->arenaLostPlayerMons |= gBitTable[gBattlerPartyIndexes[0]];
+        gDisableStructs[0].truantSwitchInHack = 1;
+        break;
+    case VARIOUS_ARENA_BOTH_MONS_LOST:
+        gBattleMons[0].hp = 0;
+        gBattleMons[1].hp = 0;
+        gHitMarker |= HITMARKER_FAINTED(0);
+        gHitMarker |= HITMARKER_FAINTED(1);
+        gHitMarker |= HITMARKER_PLAYER_FAINTED;
+        gBattleStruct->arenaLostPlayerMons |= gBitTable[gBattlerPartyIndexes[0]];
+        gBattleStruct->arenaLostOpponentMons |= gBitTable[gBattlerPartyIndexes[1]];
+        gDisableStructs[0].truantSwitchInHack = 1;
+        gDisableStructs[1].truantSwitchInHack = 1;
+        break;
+    case VARIOUS_DRAW_ARENA_REF_TEXT_BOX:
+        DrawArenaRefereeTextBox();
+        break;
+    case VARIOUS_ERASE_ARENA_REF_TEXT_BOX:
+        EraseArenaRefereeTextBox();
+        break;
+    case VARIOUS_ARENA_JUDGMENT_STRING:
+        BattleStringExpandPlaceholdersToDisplayedString(gRefereeStringsTable[gBattlescriptCurrInstr[1]]);
+        BattlePutTextOnWindow(gDisplayedStringBattle, ARENA_WIN_JUDGMENT_TEXT);
+        break;
+    case VARIOUS_ARENA_WAIT_STRING:
+        if (IsTextPrinterActive(ARENA_WIN_JUDGMENT_TEXT))
+            return;
+        break;
+    case VARIOUS_WAIT_CRY:
+        if (!IsCryFinished())
+            return;
+        break;
+    case VARIOUS_VOLUME_DOWN:
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x55);
+        break;
+    case VARIOUS_VOLUME_UP:
+        m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 0x100);
+        break;
+    case VARIOUS_SET_ALREADY_STATUS_MOVE_ATTEMPT:
+        gBattleStruct->alreadyStatusedMoveAttempt |= gBitTable[gActiveBattler];
+        break;
+    case VARIOUS_PALACE_TRY_ESCAPE_STATUS:
+        if (BattlePalace_TryEscapeStatus(gActiveBattler))
+            return;
         break;
     }
 

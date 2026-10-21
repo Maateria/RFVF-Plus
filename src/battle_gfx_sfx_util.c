@@ -13,6 +13,12 @@
 #include "battle_main.h"
 #include "battle_anim.h"
 #include "battle_interface.h"
+#include "battle_ai_script_commands.h"
+#include "battle_controllers.h"
+#include "battle_util.h"
+#include "random.h"
+#include "constants/battle_palace.h"
+#include "battle_script_commands.h"
 #include "constants/battle_anim.h"
 #include "constants/moves.h"
 #include "constants/songs.h"
@@ -126,6 +132,291 @@ void FreeBattleSpritesData(void)
         FREE_AND_SET_NULL(gBattleSpritesDataPtr->battlerData);
         FREE_AND_SET_NULL(gBattleSpritesDataPtr);
     }
+}
+
+// RFVF+: Emerald's Battle Palace
+static u8 GetBattlePalaceMoveGroup(u16 move);
+static u16 GetBattlePalaceTarget(void);
+
+static const u8 gBattlePalaceNatureToMoveTarget[NUM_NATURES] =
+{
+    [NATURE_HARDY]   = PALACE_TARGET_STRONGER,
+    [NATURE_LONELY]  = PALACE_TARGET_STRONGER,
+    [NATURE_BRAVE]   = PALACE_TARGET_WEAKER,
+    [NATURE_ADAMANT] = PALACE_TARGET_STRONGER,
+    [NATURE_NAUGHTY] = PALACE_TARGET_WEAKER,
+    [NATURE_BOLD]    = PALACE_TARGET_WEAKER,
+    [NATURE_DOCILE]  = PALACE_TARGET_RANDOM,
+    [NATURE_RELAXED] = PALACE_TARGET_STRONGER,
+    [NATURE_IMPISH]  = PALACE_TARGET_STRONGER,
+    [NATURE_LAX]     = PALACE_TARGET_STRONGER,
+    [NATURE_TIMID]   = PALACE_TARGET_WEAKER,
+    [NATURE_HASTY]   = PALACE_TARGET_WEAKER,
+    [NATURE_SERIOUS] = PALACE_TARGET_WEAKER,
+    [NATURE_JOLLY]   = PALACE_TARGET_STRONGER,
+    [NATURE_NAIVE]   = PALACE_TARGET_RANDOM,
+    [NATURE_MODEST]  = PALACE_TARGET_WEAKER,
+    [NATURE_MILD]    = PALACE_TARGET_STRONGER,
+    [NATURE_QUIET]   = PALACE_TARGET_WEAKER,
+    [NATURE_BASHFUL] = PALACE_TARGET_WEAKER,
+    [NATURE_RASH]    = PALACE_TARGET_STRONGER,
+    [NATURE_CALM]    = PALACE_TARGET_STRONGER,
+    [NATURE_GENTLE]  = PALACE_TARGET_STRONGER,
+    [NATURE_SASSY]   = PALACE_TARGET_WEAKER,
+    [NATURE_CAREFUL] = PALACE_TARGET_WEAKER,
+    [NATURE_QUIRKY]  = PALACE_TARGET_STRONGER,
+};
+
+// Pokémon chooses move to use in Battle Palace rather than player
+u16 ChooseMoveAndTargetInBattlePalace(void)
+{
+    s32 i, var1, var2;
+    s32 chosenMoveId = -1;
+    struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
+    u8 unusableMovesBits = CheckMoveLimitations(gActiveBattler, 0, MOVE_LIMITATIONS_ALL);
+    s32 percent = Random() % 100;
+
+    // Heavy variable re-use here makes this hard to read without defines
+    // Possibly just optimization? might still match with additional vars
+    #define maxGroupNum var1
+    #define minGroupNum var2
+    #define selectedGroup percent
+    #define selectedMoves var2
+    #define moveTarget var1
+    #define numMovesPerGroup var1
+    #define numMultipleMoveGroups var2
+    #define randSelectGroup var2
+
+    // If battler is < 50% HP and not asleep, use second set of move group likelihoods
+    // otherwise use first set
+    i = (gBattleStruct->palaceFlags & gBitTable[gActiveBattler]) ? 2 : 0;
+    minGroupNum = i;
+
+    maxGroupNum = i + 2; // + 2 because there are two percentages per set of likelihoods
+
+    // Each nature has a different percent chance to select a move from one of 3 move groups
+    // If percent is less than 1st check, use move from "Attack" group
+    // If percent is less than 2nd check, use move from "Defense" group
+    // Otherwise use move from "Support" group
+    for (; i < maxGroupNum; i++)
+    {
+        if (gBattlePalaceNatureToMoveGroupLikelihood[GetNatureFromPersonality(gBattleMons[gActiveBattler].personality)][i] > percent)
+            break;
+    }
+    selectedGroup = i - minGroupNum;
+    if (i == maxGroupNum)
+        selectedGroup = PALACE_MOVE_GROUP_SUPPORT;
+
+    // Flag moves that match selected group, to be passed to AI
+    for (selectedMoves = 0, i = 0; i < MAX_MON_MOVES; i++)
+    {
+        if (moveInfo->moves[i] == MOVE_NONE)
+            break;
+        if (selectedGroup == GetBattlePalaceMoveGroup(moveInfo->moves[i]) && moveInfo->currentPp[i] != 0)
+            selectedMoves |= gBitTable[i];
+    }
+
+    // Pass selected moves to AI, pick one
+    if (selectedMoves != 0)
+    {
+        // Lower 4 bits of palaceFlags are flags for each battler.
+        // Clear the rest of palaceFlags, then set the selected moves in the upper 4 bits.
+        gBattleStruct->palaceFlags &= (1 << MAX_BATTLERS_COUNT) - 1;
+        gBattleStruct->palaceFlags |= (selectedMoves << MAX_BATTLERS_COUNT);
+        BattleAI_SetupAIDataMoves(selectedMoves);
+        chosenMoveId = BattleAI_ChooseMoveOrAction();
+    }
+
+    // If no moves matched the selected group, pick a new move from groups the Pokémon has
+    // In this case the AI is not checked again, so the choice may be worse
+    // If a move is chosen this way, there's a 50% chance that it will be unable to use it anyway
+    if (chosenMoveId == -1)
+    {
+        if (unusableMovesBits != ALL_MOVES_MASK)
+        {
+            numMovesPerGroup = 0, numMultipleMoveGroups = 0;
+
+            for (i = 0; i < MAX_MON_MOVES; i++)
+            {
+                // Count the number of usable moves the battler has in each move group.
+                // The totals will be stored separately in 3 groups of 4 bits each in numMovesPerGroup.
+                if (GetBattlePalaceMoveGroup(moveInfo->moves[i]) == PALACE_MOVE_GROUP_ATTACK && !(gBitTable[i] & unusableMovesBits))
+                    numMovesPerGroup += (1 << 0);
+                if (GetBattlePalaceMoveGroup(moveInfo->moves[i]) == PALACE_MOVE_GROUP_DEFENSE && !(gBitTable[i] & unusableMovesBits))
+                    numMovesPerGroup += (1 << 4);
+                if (GetBattlePalaceMoveGroup(moveInfo->moves[i]) == PALACE_MOVE_GROUP_SUPPORT && !(gBitTable[i] & unusableMovesBits))
+                    numMovesPerGroup += (1 << 8);
+            }
+
+            // Count the number of move groups for which the battler has at least 2 usable moves.
+            // This is a roundabout way to determine if there is a move group that should be
+            // preferred, because it has multiple move options and the others do not.
+            // The condition intended to check the total for the Support group is accidentally
+            // checking the Defense total, and is never true. As a result the preferences for
+            // random move selection here will skew away from the Support move group.
+            if ((numMovesPerGroup & 0xF) >= 2)
+                numMultipleMoveGroups++;
+            if ((numMovesPerGroup & (0xF << 4)) >= (2 << 4))
+                numMultipleMoveGroups++;
+#ifdef BUGFIX
+            if ((numMovesPerGroup & (0xF << 8)) >= (2 << 8))
+#else
+            if ((numMovesPerGroup & (0xF << 4)) >= (2 << 8))
+#endif
+                numMultipleMoveGroups++;
+
+
+            // By this point we already know the battler only has usable moves from at most 2 of the 3 move groups,
+            // because they had no usable moves from the move group that was selected based on Nature.
+            //
+            // The below condition is effectively 'numMultipleMoveGroups != 1'.
+            // There is no stand-out group with multiple moves to choose from, so we pick randomly.
+            // Note that because of the bug above the battler may actually have any number of Support moves.
+            if (numMultipleMoveGroups > 1 || numMultipleMoveGroups == 0)
+            {
+                do
+                {
+                    i = Random() % MAX_MON_MOVES;
+                    if (!(gBitTable[i] & unusableMovesBits))
+                        chosenMoveId = i;
+                } while (chosenMoveId == -1);
+            }
+            else
+            {
+                // The battler has just 1 move group with multiple move options to choose from.
+                // Choose a move randomly from this group.
+
+                // Same bug as the previous set of conditions (the condition for Support is never true).
+                // This bug won't cause a softlock below, because if Support is the only group with multiple
+                // moves then it won't have been counted, and the 'numMultipleMoveGroups == 0' above will be true.
+                if ((numMovesPerGroup & 0xF) >= 2)
+                    randSelectGroup = PALACE_MOVE_GROUP_ATTACK;
+                if ((numMovesPerGroup & (0xF << 4)) >= (2 << 4))
+                    randSelectGroup = PALACE_MOVE_GROUP_DEFENSE;
+#ifdef BUGFIX
+                if ((numMovesPerGroup & (0xF << 8)) >= (2 << 8))
+#else
+                if ((numMovesPerGroup & (0xF << 4)) >= (2 << 8))
+#endif
+                    randSelectGroup = PALACE_MOVE_GROUP_SUPPORT;
+
+                do
+                {
+                    i = Random() % MAX_MON_MOVES;
+                    if (!(gBitTable[i] & unusableMovesBits) && randSelectGroup == GetBattlePalaceMoveGroup(moveInfo->moves[i]))
+                        chosenMoveId = i;
+                } while (chosenMoveId == -1);
+            }
+
+            // Because the selected move was not from the Nature-chosen move group there's a 50% chance
+            // that it will be unable to use it. This could have been checked earlier to avoid the above work.
+            if (Random() % 100 >= 50)
+            {
+                gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+                return 0;
+            }
+        }
+        else
+        {
+            // All the battler's moves were flagged as unusable.
+            gProtectStructs[gActiveBattler].palaceUnableToUseMove = TRUE;
+            return 0;
+        }
+    }
+
+    if (moveInfo->moves[chosenMoveId] == MOVE_CURSE)
+    {
+        if (moveInfo->monType1 != TYPE_GHOST && moveInfo->monType2 != TYPE_GHOST)
+            moveTarget = MOVE_TARGET_USER;
+        else
+            moveTarget = MOVE_TARGET_SELECTED;
+    }
+    else
+    {
+        moveTarget = gBattleMoves[moveInfo->moves[chosenMoveId]].target;
+    }
+
+    if (moveTarget & MOVE_TARGET_USER)
+        chosenMoveId |= (gActiveBattler << 8);
+    else if (moveTarget == MOVE_TARGET_SELECTED)
+        chosenMoveId |= GetBattlePalaceTarget();
+    else
+        chosenMoveId |= (GetBattlerAtPosition(BATTLE_OPPOSITE(GET_BATTLER_SIDE(gActiveBattler))) << 8);
+
+    return chosenMoveId;
+}
+
+#undef maxGroupNum
+#undef minGroupNum
+#undef selectedGroup
+#undef selectedMoves
+#undef moveTarget
+#undef numMovesPerGroup
+#undef numMultipleMoveGroups
+#undef randSelectGroup
+
+static u8 GetBattlePalaceMoveGroup(u16 move)
+{
+    switch (gBattleMoves[move].target)
+    {
+    case MOVE_TARGET_SELECTED:
+    case MOVE_TARGET_USER_OR_SELECTED:
+    case MOVE_TARGET_RANDOM:
+    case MOVE_TARGET_BOTH:
+    case MOVE_TARGET_FOES_AND_ALLY:
+        if (gBattleMoves[move].power == 0)
+            return PALACE_MOVE_GROUP_SUPPORT;
+        else
+            return PALACE_MOVE_GROUP_ATTACK;
+        break;
+    case MOVE_TARGET_DEPENDS:
+    case MOVE_TARGET_OPPONENTS_FIELD:
+        return PALACE_MOVE_GROUP_SUPPORT;
+    case MOVE_TARGET_USER:
+        return PALACE_MOVE_GROUP_DEFENSE;
+    default:
+        return PALACE_MOVE_GROUP_ATTACK;
+    }
+}
+
+static u16 GetBattlePalaceTarget(void)
+{
+    if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
+    {
+        u8 opposing1, opposing2;
+
+        if (GetBattlerSide(gActiveBattler) == B_SIDE_PLAYER)
+        {
+            opposing1 = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+            opposing2 = GetBattlerAtPosition(B_POSITION_OPPONENT_RIGHT);
+        }
+        else
+        {
+            opposing1 = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
+            opposing2 = GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT);
+        }
+
+        if (gBattleMons[opposing1].hp == gBattleMons[opposing2].hp)
+            return (BATTLE_OPPOSITE(gActiveBattler & BIT_SIDE) + (Random() & 2)) << 8;
+
+        switch (gBattlePalaceNatureToMoveTarget[GetNatureFromPersonality(gBattleMons[gActiveBattler].personality)])
+        {
+        case PALACE_TARGET_STRONGER:
+            if (gBattleMons[opposing1].hp > gBattleMons[opposing2].hp)
+                return opposing1 << 8;
+            else
+                return opposing2 << 8;
+        case PALACE_TARGET_WEAKER:
+            if (gBattleMons[opposing1].hp < gBattleMons[opposing2].hp)
+                return opposing1 << 8;
+            else
+                return opposing2 << 8;
+        case PALACE_TARGET_RANDOM:
+            return (BATTLE_OPPOSITE(gActiveBattler & BIT_SIDE) + (Random() & 2)) << 8;
+        }
+    }
+
+    return BATTLE_OPPOSITE(gActiveBattler) << 8;
 }
 
 void SpriteCB_WaitForBattlerBallReleaseAnim(struct Sprite *sprite)

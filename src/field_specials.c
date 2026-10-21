@@ -1492,6 +1492,16 @@ void ListMenu(void)
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
+    case LISTMENU_BATTLE_TENT_RULES: // RFVF+: the Verdanturf tent's rules board (Emerald)
+        task->data[0] = 6;
+        task->data[1] = 7;
+        task->data[2] = 14;
+        task->data[3] = 1;
+        task->data[4] = 14;
+        task->data[5] = 11;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
     case 99:
         break;
     default:
@@ -1599,6 +1609,16 @@ static const u8 *const sListMenuLabels[][12] = {
         gText_BattlePyramid,
         gText_RankingHall,
         gText_ExchangeService,
+        gText_Exit,
+    },
+    [LISTMENU_BATTLE_TENT_RULES] =
+    {
+        gText_BattleTrainers,
+        gText_BattleBasics,
+        gText_PokemonNature,
+        gText_PokemonMoves,
+        gText_Underpowered,
+        gText_WhenInDanger,
         gText_Exit,
     },
 };

@@ -10,6 +10,7 @@
 #define MOVE_LIMITATION_TAUNT                   (1 << 4)
 #define MOVE_LIMITATION_IMPRISON                (1 << 5)
 #define MOVE_LIMITATIONS_ALL                    0xFF
+#define ALL_MOVES_MASK ((1 << MAX_MON_MOVES) - 1) // RFVF+: Emerald's
 
 #define ABILITYEFFECT_ON_SWITCHIN                0
 #define ABILITYEFFECT_ENDTURN                    1

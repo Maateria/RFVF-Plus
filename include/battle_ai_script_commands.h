@@ -10,6 +10,7 @@
 
 void BattleAI_HandleItemUseBeforeAISetup(void);
 void BattleAI_SetupAIData(void);
+void BattleAI_SetupAIDataMoves(u8 defaultScoreMoves);
 u8 BattleAI_ChooseMoveOrAction(void);
 void ClearBankMoveHistory(u8 bank);
 void RecordAbilityBattle(u8 bank, u8 abilityId);

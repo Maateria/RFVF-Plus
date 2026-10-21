@@ -255,4 +255,15 @@ extern const u8 gText_Win[];
 extern const u8 gText_Loss[];
 extern const u8 gText_Draw[];
 
+// RFVF+: Emerald's Battle Palace and Battle Arena
+extern const u16 gBattlePalaceFlavorTextTable[];
+extern const u8 *const gRefereeStringsTable[];
+extern const u8 gText_PlayerMon1Name[];
+extern const u8 gText_Vs[];
+extern const u8 gText_OpponentMon1Name[];
+extern const u8 gText_Mind[];
+extern const u8 gText_Skill[];
+extern const u8 gText_Body[];
+extern const u8 gText_Judgment[];
+
 #endif // GUARD_BATTLE_MESSAGE_H

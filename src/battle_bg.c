@@ -360,6 +360,78 @@ static const struct WindowTemplate sStandardBattleWindowTemplates[] = {
     DUMMY_WIN_TEMPLATE
 };
 
+// RFVF+: Emerald's Battle Arena judgment windows, in place of the link VS ones (ARENA_WIN_PLAYER_NAME on)
+static const struct WindowTemplate sBattleArenaWindowTemplates[] = {
+    [ARENA_WIN_PLAYER_NAME - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 6,
+        .tilemapTop = 1,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x0100,
+    },
+    [ARENA_WIN_VS - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 14,
+        .tilemapTop = 1,
+        .width = 2,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x0110,
+    },
+    [ARENA_WIN_OPPONENT_NAME - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 16,
+        .tilemapTop = 1,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x0114,
+    },
+    [ARENA_WIN_MIND - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 11,
+        .tilemapTop = 4,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+       .baseBlock = 0x0124,
+    },
+    [ARENA_WIN_SKILL - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 11,
+        .tilemapTop = 6,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+       .baseBlock = 0x0134,
+    },
+    [ARENA_WIN_BODY - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 11,
+        .tilemapTop = 8,
+        .width = 8,
+        .height = 2,
+        .paletteNum = 5,
+       .baseBlock = 0x0144,
+    },
+    [ARENA_WIN_JUDGMENT_TITLE - ARENA_WIN_PLAYER_NAME] = {
+        .bg = 0,
+        .tilemapLeft = 8,
+        .tilemapTop = 11,
+        .width = 14,
+        .height = 2,
+        .paletteNum = 5,
+        .baseBlock = 0x0154,
+    },
+};
+
+u32 GetBattleArenaWindowPixelWidth(u8 windowId)
+{
+    return sBattleArenaWindowTemplates[windowId - ARENA_WIN_PLAYER_NAME].width * 8;
+}
+
 static const u32 sBattleTerrainPalette_Grass[] = INCBIN_U32("graphics/battle_terrain/grass/terrain.gbapal.lz");
 static const u32 sBattleTerrainTiles_Grass[] = INCBIN_U32("graphics/battle_terrain/grass/terrain.4bpp.lz");
 static const u32 sBattleTerrainTilemap_Grass[] = INCBIN_U32("graphics/battle_terrain/grass/terrain.bin.lz");
@@ -669,7 +741,18 @@ void BattleInitBgsAndWindows(void)
 {
     ResetBgsAndClearDma3BusyFlags(FALSE);
     InitBgsFromTemplates(0, gBattleBgTemplates, NELEMS(gBattleBgTemplates));
-    InitWindows(sStandardBattleWindowTemplates);
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+    {
+        struct WindowTemplate templates[NELEMS(sStandardBattleWindowTemplates)];
+
+        memcpy(templates, sStandardBattleWindowTemplates, sizeof(templates));
+        memcpy(&templates[ARENA_WIN_PLAYER_NAME], sBattleArenaWindowTemplates, sizeof(sBattleArenaWindowTemplates));
+        InitWindows(templates);
+    }
+    else
+    {
+        InitWindows(sStandardBattleWindowTemplates);
+    }
     DeactivateAllTextPrinters();
 }
 
@@ -694,7 +777,8 @@ void LoadBattleMenuWindowGfx(void)
     gPlttBufferUnfaded[BG_PLTT_ID(5) + 15] = RGB( 26,  26,  25);
     CpuCopy16(&gPlttBufferUnfaded[BG_PLTT_ID(5) + 12], &gPlttBufferFaded[BG_PLTT_ID(5) + 12], PLTT_SIZEOF(4));
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_POKEDUDE))
+    // RFVF+: the Battle Arena referee's box too (Emerald)
+    if (gBattleTypeFlags & (BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_POKEDUDE | BATTLE_TYPE_ARENA))
     {
         Menu_LoadStdPalAt(BG_PLTT_ID(7));
         LoadMenuMessageWindowGfx(0, 0x030, BG_PLTT_ID(7));

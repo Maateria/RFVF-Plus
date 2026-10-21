@@ -6,6 +6,7 @@
 #include "battle_controllers.h"
 #include "battle_interface.h"
 #include "battle_main.h"
+#include "battle_arena.h"
 #include "battle_message.h"
 #include "battle_scripts.h"
 #include "battle_setup.h"
@@ -176,6 +177,8 @@ EWRAM_DATA const u8 *gBattlescriptCurrInstr = NULL;
 EWRAM_DATA u32 gUnusedBattleMainVar = 0;
 EWRAM_DATA u8 gChosenActionByBattler[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA const u8 *gSelectionBattleScripts[MAX_BATTLERS_COUNT] = {NULL};
+EWRAM_DATA const u8 *gPalaceSelectionBattleScripts[MAX_BATTLERS_COUNT] = {NULL}; // RFVF+: Emerald's Battle Palace
+EWRAM_DATA u32 gBattlePalaceMoveSelectionRngValue = 0;
 EWRAM_DATA u16 gLastPrintedMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastMoves[MAX_BATTLERS_COUNT] = {0};
 EWRAM_DATA u16 gLastLandedMoves[MAX_BATTLERS_COUNT] = {0};
@@ -2428,6 +2431,7 @@ static void BattleStartClearSetData(void)
         gLockedMoves[i] = MOVE_NONE;
         gLastPrintedMoves[i] = MOVE_NONE;
         gBattleResources->flags->flags[i] = 0;
+        gPalaceSelectionBattleScripts[i] = NULL;
     }
 
     for (i = 0; i < 2; i++)
@@ -2605,6 +2609,8 @@ void SwitchInClearSetData(void)
     *(3 * 2 + gActiveBattler * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
     *(3 * 2 + gActiveBattler * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 1) = 0;
 
+    gBattleStruct->palaceFlags &= ~(gBitTable[gActiveBattler]);
+
     for (i = 0; i < gBattlersCount; i++)
     {
         if (i != gActiveBattler)
@@ -2621,6 +2627,7 @@ void SwitchInClearSetData(void)
 
     gBattleResources->flags->flags[gActiveBattler] = 0;
     gCurrentMove = MOVE_NONE;
+    gBattleStruct->arenaTurnCounter = 0xFF;
 }
 
 void FaintClearSetData(void)
@@ -2693,6 +2700,8 @@ void FaintClearSetData(void)
     *(2 * 2 + gActiveBattler * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 1) = 0;
     *(3 * 2 + gActiveBattler * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 0) = 0;
     *(3 * 2 + gActiveBattler * 8 + (u8 *)(gBattleStruct->lastTakenMoveFrom) + 1) = 0;
+
+    gBattleStruct->palaceFlags &= ~(gBitTable[gActiveBattler]);
 
     for (i = 0; i < gBattlersCount; i++)
     {
@@ -2841,6 +2850,8 @@ static void BattleIntroDrawTrainersOrMonsSprites(void)
             MarkBattlerForControllerExec(gActiveBattler);
         }
     }
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_InitPoints();
     gBattleMainFunc = BattleIntroDrawPartySummaryScreens;
 }
 
@@ -3147,6 +3158,12 @@ static void TryDoEventsBeforeFirstTurn(void)
     gBattleStruct->turnCountersTracker = 0;
     gMoveResultFlags = 0;
     gRandomTurnNumber = Random();
+
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+    {
+        StopCryAndClearCrySongs();
+        BattleScriptExecute(BattleScript_ArenaTurnBeginning);
+    }
 }
 
 static void HandleEndTurn_ContinueBattle(void)
@@ -3209,7 +3226,10 @@ void BattleTurnPassed(void)
         return;
     }
     if (gBattleResults.battleTurnCounter < 0xFF)
+    {
         ++gBattleResults.battleTurnCounter;
+        gBattleStruct->arenaTurnCounter++;
+    }
     for (i = 0; i < gBattlersCount; i++)
     {
         gChosenActionByBattler[i] = B_ACTION_NONE;
@@ -3220,6 +3240,11 @@ void BattleTurnPassed(void)
     *(&gBattleStruct->absentBattlerFlags) = gAbsentBattlerFlags;
     gBattleMainFunc = HandleTurnActionSelectionState;
     gRandomTurnNumber = Random();
+
+    if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+        BattleScriptExecute(BattleScript_PalacePrintFlavorText);
+    else if (gBattleTypeFlags & BATTLE_TYPE_ARENA && gBattleStruct->arenaTurnCounter == 0)
+        BattleScriptExecute(BattleScript_ArenaTurnBeginning);
 }
 
 u8 IsRunningFromBattleImpossible(void)
@@ -3419,7 +3444,9 @@ static void HandleTurnActionSelectionState(void)
                     break;
                 case B_ACTION_SWITCH:
                     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
-                    if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION) || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
+                    if (gBattleMons[gActiveBattler].status2 & (STATUS2_WRAPPED | STATUS2_ESCAPE_PREVENTION)
+                     || gBattleTypeFlags & BATTLE_TYPE_ARENA
+                     || gStatuses3[gActiveBattler] & STATUS3_ROOTED)
                     {
                         BtlController_EmitChoosePokemon(BUFFER_A, PARTY_ACTION_CANT_SWITCH, 6, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
                     }
@@ -3454,6 +3481,10 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_CANCEL_PARTNER:
+                    // RFVF+: the Battle Palace picks the partner's move again with the same luck (Emerald)
+                    if (gBattleTypeFlags & BATTLE_TYPE_PALACE
+                     && gChosenActionByBattler[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] == B_ACTION_USE_MOVE)
+                        gRngValue = gBattlePalaceMoveSelectionRngValue;
                     gBattleCommunication[gActiveBattler] = STATE_WAIT_SET_BEFORE_ACTION;
                     gBattleCommunication[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] = STATE_BEFORE_ACTION_CHOSEN;
                     BtlController_EmitEndBounceEffect(0);
@@ -4462,7 +4493,34 @@ static void HandleAction_UseMove(void)
             }
         }
     }
-    gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect];
+    if (gBattleTypeFlags & BATTLE_TYPE_PALACE && gProtectStructs[gBattlerAttacker].palaceUnableToUseMove)
+    {
+        // RFVF+: Battle Palace, select battle script for failure to use move (Emerald)
+        if (gBattleMons[gBattlerAttacker].hp == 0)
+        {
+            gCurrentActionFuncId = B_ACTION_FINISHED;
+            return;
+        }
+        else if (gPalaceSelectionBattleScripts[gBattlerAttacker] != NULL)
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_INCAPABLE_OF_POWER;
+            gBattlescriptCurrInstr = gPalaceSelectionBattleScripts[gBattlerAttacker];
+            gPalaceSelectionBattleScripts[gBattlerAttacker] = NULL;
+        }
+        else
+        {
+            gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_INCAPABLE_OF_POWER;
+            gBattlescriptCurrInstr = BattleScript_MoveUsedLoafingAround;
+        }
+    }
+    else
+    {
+        gBattlescriptCurrInstr = gBattleScriptsForMoveEffects[gBattleMoves[gCurrentMove].effect];
+    }
+
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        BattleArena_AddMindPoints(gBattlerAttacker);
+
     gCurrentActionFuncId = B_ACTION_EXEC_SCRIPT;
 }
 

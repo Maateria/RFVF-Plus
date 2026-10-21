@@ -149,6 +149,9 @@
 #define MULTI_FRONTIER_RULES                                   141
 #define MULTI_FRONTIER_PASS_INFO                               142
 #define MULTI_BATTLE_TOWER_FEELINGS                            143
+#define MULTI_BATTLE_PALACE_RULES                              144
+#define MULTI_BATTLE_ARENA_RULES                               145
+#define MULTI_FALLARBOR_TENT_RULES                             146
 
 
 #define MULTICHOICE_NONE                                      255
@@ -163,6 +166,7 @@
 #define LISTMENU_GYM_LEADERS               7
 #define LISTMENU_MASTER_TRAINER_TITLES     8
 #define LISTMENU_BF_RECEPTIONIST           9 // RFVF+: Emerald's SCROLL_MULTI_BF_RECEPTIONIST
+#define LISTMENU_BATTLE_TENT_RULES        10 // RFVF+: Emerald's SCROLL_MULTI_BATTLE_TENT_RULES
 
 // Std String Ids
 #define STDSTRING_COOL              0

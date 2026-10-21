@@ -295,6 +295,12 @@ void BattleAI_HandleItemUseBeforeAISetup(void)
 
 void BattleAI_SetupAIData(void)
 {
+    BattleAI_SetupAIDataMoves(ALL_MOVES_MASK);
+}
+
+// RFVF+: Emerald's: only the moves of defaultScoreMoves start with a score (the Battle Palace's chosen move group)
+void BattleAI_SetupAIDataMoves(u8 defaultScoreMoves)
+{
     s32 i;
     u8 *data = (u8 *)AI_THINKING_STRUCT;
     u8 moveLimitations;
@@ -310,7 +316,14 @@ void BattleAI_SetupAIData(void)
         data[i] = 0;
 
     for (i = 0; i < MAX_MON_MOVES; i++)
-        AI_THINKING_STRUCT->score[i] = 100;
+    {
+        if (defaultScoreMoves & 1)
+            AI_THINKING_STRUCT->score[i] = 100;
+        else
+            AI_THINKING_STRUCT->score[i] = 0;
+
+        defaultScoreMoves >>= 1;
+    }
 
     moveLimitations = CheckMoveLimitations(gActiveBattler, 0, 0xFF);
 

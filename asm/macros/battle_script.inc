@@ -1307,6 +1307,64 @@
 	various \battler, VARIOUS_WAIT_FANFARE
 	.endm
 
+	@ RFVF+: Emerald's Battle Palace and Battle Arena
+	.macro palaceflavortext battler:req
+	various \battler, VARIOUS_PALACE_FLAVOR_TEXT
+	.endm
+
+	.macro arenajudgmentwindow
+	various BS_ATTACKER, VARIOUS_ARENA_JUDGMENT_WINDOW
+	.endm
+
+	.macro arenaopponentmonlost
+	various BS_ATTACKER, VARIOUS_ARENA_OPPONENT_MON_LOST
+	.endm
+
+	.macro arenaplayermonlost
+	various BS_ATTACKER, VARIOUS_ARENA_PLAYER_MON_LOST
+	.endm
+
+	.macro arenabothmonlost
+	various BS_ATTACKER, VARIOUS_ARENA_BOTH_MONS_LOST
+	.endm
+
+	.macro arenadrawreftextbox
+	various BS_ATTACKER, VARIOUS_DRAW_ARENA_REF_TEXT_BOX
+	.endm
+
+	.macro arenaerasereftextbox
+	various BS_ATTACKER, VARIOUS_ERASE_ARENA_REF_TEXT_BOX
+	.endm
+
+	.macro arenajudgmentstring id:req
+	various \id, VARIOUS_ARENA_JUDGMENT_STRING
+	.endm
+
+	.macro arenawaitmessage id:req
+	various \id, VARIOUS_ARENA_WAIT_STRING
+	.endm
+
+	.macro waitcry battler:req
+	various \battler, VARIOUS_WAIT_CRY
+	.endm
+
+	.macro volumedown
+	various BS_ATTACKER, VARIOUS_VOLUME_DOWN
+	.endm
+
+	.macro volumeup
+	various BS_ATTACKER, VARIOUS_VOLUME_UP
+	.endm
+
+	.macro palacetryescapestatus battler:req
+	various \battler, VARIOUS_PALACE_TRY_ESCAPE_STATUS
+	.endm
+
+	.macro setalreadystatusedmoveattempt battler:req
+	various \battler, VARIOUS_SET_ALREADY_STATUS_MOVE_ATTEMPT
+	.endm
+
+
 @ helpful macros
 	.macro setstatchanger stat:req, stages:req, down:req
 	setbyte sSTATCHANGER \stat | \stages << 4 | \down << 7

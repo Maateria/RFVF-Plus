@@ -9,6 +9,7 @@ void InitBattleBgsVideo(void);
 void DrawBattleEntryBackground(void);
 void InitLinkBattleVsScreen(u8 taskId);
 void LoadBattleMenuWindowGfx(void);
+u32 GetBattleArenaWindowPixelWidth(u8 windowId);
 void LoadBattleTextboxAndBackground(void);
 void BattleInitBgsAndWindows(void);
 void DrawMainBattleBackground(void);

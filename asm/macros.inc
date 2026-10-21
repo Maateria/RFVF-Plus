@@ -16,6 +16,7 @@
 	.include "asm/macros/battle_frontier/battle_arena.inc"
 	.include "asm/macros/battle_frontier/battle_pike.inc"
 	.include "asm/macros/battle_frontier/battle_pyramid.inc"
+	.include "asm/macros/battle_tent.inc"
 
 	.macro region_map_location x, y, width, height, name
 	.byte \x

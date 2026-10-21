@@ -18,3 +18,8 @@ BattleFrontier_BattleDomeLobby_Text_TrashedInFirstRound::
     .string "Au premier tour, j'ai affronté un\n"
     .string "habitué du DOME DE COMBAT.\p"
     .string "Je me suis fait ratatiner…$"
+
+BattleFrontier_BattleDomeLobby_Text_ReceivedPrize::
+    .string "{PLAYER} reçoit {STR_VAR_1}\n"
+    .string "en récompense.$"
+

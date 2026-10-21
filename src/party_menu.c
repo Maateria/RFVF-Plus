@@ -1052,6 +1052,10 @@ static u8 GetPartyBoxPaletteFlags(u8 slot, u8 animNum)
     if (gPartyMenu.layout == PARTY_LAYOUT_MULTI
      && (slot == 1 || slot == 4 || slot == 5))
         palFlags |= PARTY_PAL_MULTI_ALT;
+    // RFVF+: a mon lost on a Battle Arena referee's decision (Emerald)
+    if (slot < MULTI_PARTY_SIZE && (gBattleTypeFlags & BATTLE_TYPE_ARENA) && gMain.inBattle
+     && (gBattleStruct->arenaLostPlayerMons >> GetPartyIdFromBattleSlot(slot) & 1))
+        palFlags |= PARTY_PAL_MULTI_ALT;
     if (gPartyMenu.action == PARTY_ACTION_SWITCHING)
         palFlags |= PARTY_PAL_SWITCHING;
     if (gPartyMenu.action == PARTY_ACTION_SWITCH)
@@ -5981,6 +5985,8 @@ static u8 GetPartyMenuActionsTypeInBattle(struct Pokemon *mon)
         return ACTIONS_SUMMARY_ONLY;
     else if (gPartyMenu.action == PARTY_ACTION_SEND_OUT)
         return ACTIONS_SEND_OUT;
+    else if (gBattleTypeFlags & BATTLE_TYPE_ARENA) // RFVF+: no switching in the Battle Arena (Emerald)
+        return ACTIONS_SUMMARY_ONLY;
     else
         return ACTIONS_SHIFT;
 }

@@ -546,4 +546,8 @@ gSpecials::
 	def_special ShowRankingHallRecordsWindow
 	def_special ScrollRankingHallRecordsWindow
 	def_special OffsetCameraForBattle
+	def_special CallBattlePalaceFunction
+	def_special CallBattleArenaFunction
+	def_special CallVerdanturfTentFunction
+	def_special CallFallarborTentFunction
 gSpecialsEnd::

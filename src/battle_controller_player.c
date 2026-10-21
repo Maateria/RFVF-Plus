@@ -1,4 +1,7 @@
 #include "global.h"
+#include "battle_arena.h"
+#include "battle_gfx_sfx_util.h"
+#include "random.h"
 #include "gflib.h"
 #include "data.h"
 #include "decompress.h"
@@ -2454,6 +2457,7 @@ static void PlayerHandlePrintString(void)
     else
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
     gBattlerControllerFuncs[gActiveBattler] = CompleteOnInactiveTextPrinter2;
+    BattleArena_DeductSkillPoints(gActiveBattler, *stringId);
 }
 
 static void PlayerHandlePrintSelectionString(void)
@@ -2560,10 +2564,29 @@ static void HandleChooseMoveAfterDma3(void)
     }
 }
 
+// RFVF+: Emerald's Battle Palace: the mon picks its move (arenaMindPoints is used here as a placeholder for a timer)
+static void PlayerChooseMoveInBattlePalace(void)
+{
+    if (--*(gBattleStruct->arenaMindPoints + gActiveBattler) == 0)
+    {
+        gBattlePalaceMoveSelectionRngValue = gRngValue;
+        BtlController_EmitTwoReturnValues(1, 10, ChooseMoveAndTargetInBattlePalace());
+        PlayerBufferExecCompleted();
+    }
+}
+
 static void PlayerHandleChooseMove(void)
 {
-    InitMoveSelectionsVarsAndStrings();
-    gBattlerControllerFuncs[gActiveBattler] = HandleChooseMoveAfterDma3;
+    if (gBattleTypeFlags & BATTLE_TYPE_PALACE)
+    {
+        *(gBattleStruct->arenaMindPoints + gActiveBattler) = 8;
+        gBattlerControllerFuncs[gActiveBattler] = PlayerChooseMoveInBattlePalace;
+    }
+    else
+    {
+        InitMoveSelectionsVarsAndStrings();
+        gBattlerControllerFuncs[gActiveBattler] = HandleChooseMoveAfterDma3;
+    }
 }
 
 void InitMoveSelectionsVarsAndStrings(void)
@@ -2590,6 +2613,15 @@ static void PlayerHandleChoosePokemon(void)
 {
     s32 i;
 
+    // RFVF+: the Battle Arena sends the next mon in order (Emerald)
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA && (gBattleBufferA[gActiveBattler][1] & 0xF) != PARTY_ACTION_CANT_SWITCH)
+    {
+        for (i = 0; i < 3; ++i)
+            gBattlePartyCurrentOrder[i] = gBattleBufferA[gActiveBattler][4 + i];
+        BtlController_EmitChosenMonReturnValue(1, gBattlerPartyIndexes[gActiveBattler] + 1, gBattlePartyCurrentOrder);
+        PlayerBufferExecCompleted();
+        return;
+    }
     gBattleControllerData[gActiveBattler] = CreateTask(TaskDummy, 0xFF);
     gTasks[gBattleControllerData[gActiveBattler]].data[0] = gBattleBufferA[gActiveBattler][1] & 0xF;
     *(&gBattleStruct->battlerPreventingSwitchout) = gBattleBufferA[gActiveBattler][1] >> 4;

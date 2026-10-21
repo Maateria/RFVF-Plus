@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_arena.h"
+#include "battle_gfx_sfx_util.h"
 #include "trainer_hill.h"
 #include "gflib.h"
 #include "data.h"
@@ -1347,6 +1349,7 @@ static void OpponentHandlePrintString(void)
         BattlePutTextOnWindow(gDisplayedStringBattle, (B_WIN_MSG | B_TEXT_FLAG_NPC_CONTEXT_FONT));
     else
         BattlePutTextOnWindow(gDisplayedStringBattle, B_WIN_MSG);
+    BattleArena_DeductSkillPoints(gActiveBattler, *stringId);
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE)
     {
         switch (*stringId)
@@ -1383,6 +1386,12 @@ static void OpponentHandleChooseMove(void)
     u8 chosenMoveId;
     struct ChooseMoveStruct *moveInfo = (struct ChooseMoveStruct *)(&gBattleBufferA[gActiveBattler][4]);
 
+    if (gBattleTypeFlags & BATTLE_TYPE_PALACE) // RFVF+: Emerald's
+    {
+        BtlController_EmitTwoReturnValues(1, 10, ChooseMoveAndTargetInBattlePalace());
+        OpponentBufferExecCompleted();
+        return;
+    }
     if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER | BATTLE_TYPE_FIRST_BATTLE | BATTLE_TYPE_SAFARI | BATTLE_TYPE_ROAMER))
     {
 

@@ -727,6 +727,15 @@ static const struct MenuAction sMultichoiceList_FrontierPassInfo[] = {
 static const struct MenuAction sMultichoiceList_BattleTowerFeelings[] = {
     { gText_IllBattleNow }, { gText_IWon }, { gText_ILost }, { gText_IWontTell }
 };
+static const struct MenuAction sMultichoiceList_BattlePalaceRules[] = {
+    { gText_BattleBasics }, { gText_PokemonNature }, { gText_PokemonMoves }, { gText_Underpowered }, { gText_WhenInDanger }, { gText_Exit }
+};
+static const struct MenuAction sMultichoiceList_BattleArenaRules[] = {
+    { gText_BattleRules }, { gText_JudgeMind }, { gText_JudgeSkill }, { gText_JudgeBody }, { gText_Exit }
+};
+static const struct MenuAction sMultichoiceList_FallarborTentRules[] = {
+    { gText_BattleTrainers }, { gText_BattleRules }, { gText_JudgeMind }, { gText_JudgeSkill }, { gText_JudgeBody }, { gText_Exit }
+};
 
 static const struct MenuAction sMultichoiceList_TagMatchType[] = {
     { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
@@ -1183,6 +1192,9 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_FRONTIER_RULES] = MULTICHOICE(sMultichoiceList_FrontierRules),
 	[MULTI_FRONTIER_PASS_INFO] = MULTICHOICE(sMultichoiceList_FrontierPassInfo),
 	[MULTI_BATTLE_TOWER_FEELINGS] = MULTICHOICE(sMultichoiceList_BattleTowerFeelings),
+	[MULTI_BATTLE_PALACE_RULES] = MULTICHOICE(sMultichoiceList_BattlePalaceRules),
+	[MULTI_BATTLE_ARENA_RULES] = MULTICHOICE(sMultichoiceList_BattleArenaRules),
+	[MULTI_FALLARBOR_TENT_RULES] = MULTICHOICE(sMultichoiceList_FallarborTentRules),
 };
 
 // From Cool to Berries goes unused

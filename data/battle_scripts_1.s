@@ -12,6 +12,7 @@
 #include "constants/trainers.h"
 #include "constants/game_stat.h"
 #include "constants/battle_string_ids.h"
+#include "constants/battle_arena.h"
 	.include "asm/macros/battle_script.inc"
 @ Define these here since misc_constants.inc conflicts with the C headers
 	.set NULL, 0
@@ -301,6 +302,7 @@ BattleScript_EffectSleep::
 	goto BattleScript_MoveEnd
 
 BattleScript_AlreadyAsleep::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYASLEEP
 	waitmessage B_WAIT_TIME_LONG
@@ -706,6 +708,7 @@ BattleScript_EffectToxic::
 	goto BattleScript_MoveEnd
 
 BattleScript_AlreadyPoisoned::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_LONG
 	printstring STRINGID_PKMNALREADYPOISONED
 	waitmessage B_WAIT_TIME_LONG
@@ -753,6 +756,7 @@ BattleScript_RestCantSleep::
 	goto BattleScript_MoveEnd
 
 BattleScript_RestIsAlreadyAsleep::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYASLEEP2
 	waitmessage B_WAIT_TIME_LONG
@@ -917,6 +921,7 @@ BattleScript_EffectConfuse::
 	goto BattleScript_MoveEnd
 
 BattleScript_AlreadyConfused::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYCONFUSED
 	waitmessage B_WAIT_TIME_LONG
@@ -1023,6 +1028,7 @@ BattleScript_EffectParalyze::
 	goto BattleScript_MoveEnd
 
 BattleScript_AlreadyParalyzed::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNISALREADYPARALYZED
 	waitmessage B_WAIT_TIME_LONG
@@ -1099,6 +1105,7 @@ BattleScript_SubstituteString::
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
 BattleScript_AlreadyHasSubstitute::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNHASSUBSTITUTE
 	waitmessage B_WAIT_TIME_LONG
@@ -2191,6 +2198,7 @@ BattleScript_WaterVeilPrevents::
 	goto BattleScript_MoveEnd
 
 BattleScript_AlreadyBurned::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYHASBURN
 	waitmessage B_WAIT_TIME_LONG
@@ -2607,6 +2615,7 @@ BattleScript_TeeterDanceSubstitutePrevents::
 	goto BattleScript_TeeterDanceLoopIncrement
 
 BattleScript_TeeterDanceAlreadyConfused::
+	setalreadystatusedmoveattempt BS_ATTACKER
 	pause B_WAIT_TIME_SHORT
 	printstring STRINGID_PKMNALREADYCONFUSED
 	waitmessage B_WAIT_TIME_LONG
@@ -2837,7 +2846,7 @@ BattleScript_FaintedMonTryChoose::
 	switchhandleorder BS_FAINTED, 2
 	jumpifnotbattletype BATTLE_TYPE_TRAINER, BattleScript_FaintedMonSendOutNew
 	jumpifbattletype BATTLE_TYPE_LINK, BattleScript_FaintedMonSendOutNew
-	jumpifbattletype BATTLE_TYPE_BATTLE_TOWER, BattleScript_FaintedMonSendOutNew
+	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_FaintedMonSendOutNew
 	jumpifbattletype BATTLE_TYPE_DOUBLE, BattleScript_FaintedMonSendOutNew
 	jumpifword CMP_COMMON_BITS, gHitMarker, HITMARKER_PLAYER_FAINTED, BattleScript_FaintedMonSendOutNew
 	jumpifbyte CMP_EQUAL, sBATTLE_STYLE, OPTIONS_BATTLE_STYLE_SET, BattleScript_FaintedMonSendOutNew
@@ -3419,6 +3428,13 @@ BattleScript_SelectingDisabledMove::
 	printselectionstring STRINGID_PKMNMOVEISDISABLED
 	endselectionscript
 
+@ RFVF+: Emerald's Battle Palace
+BattleScript_SelectingDisabledMoveInPalace::
+	printstring STRINGID_PKMNMOVEISDISABLED
+BattleScript_SelectingUnusableMoveInPalace::
+	moveendto MOVEEND_NEXT_TARGET
+	end
+
 BattleScript_DisabledNoMore::
 	printstring STRINGID_PKMNMOVEDISABLEDNOMORE
 	waitmessage B_WAIT_TIME_LONG
@@ -3617,6 +3633,10 @@ BattleScript_SelectingTormentedMove::
 	printselectionstring STRINGID_PKMNCANTUSEMOVETORMENT
 	endselectionscript
 
+BattleScript_SelectingTormentedMoveInPalace::
+	printstring STRINGID_PKMNCANTUSEMOVETORMENT
+	goto BattleScript_SelectingUnusableMoveInPalace
+
 	printstring STRINGID_PKMNCANTUSEMOVETORMENT
 	waitmessage B_WAIT_TIME_LONG
 	goto BattleScript_MoveEnd
@@ -3624,6 +3644,10 @@ BattleScript_SelectingTormentedMove::
 BattleScript_SelectingNotAllowedMoveTaunt::
 	printselectionstring STRINGID_PKMNCANTUSEMOVETAUNT
 	endselectionscript
+
+BattleScript_SelectingNotAllowedMoveTauntInPalace::
+	printstring STRINGID_PKMNCANTUSEMOVETAUNT
+	goto BattleScript_SelectingUnusableMoveInPalace
 
 BattleScript_MoveUsedIsTaunted::
 	printstring STRINGID_PKMNCANTUSEMOVETAUNT
@@ -3698,6 +3722,10 @@ BattleScript_MoveUsedIsImprisoned::
 BattleScript_SelectingImprisonedMove::
 	printselectionstring STRINGID_PKMNCANTUSEMOVESEALED
 	endselectionscript
+
+BattleScript_SelectingImprisonedMoveInPalace::
+	printstring STRINGID_PKMNCANTUSEMOVESEALED
+	goto BattleScript_SelectingUnusableMoveInPalace
 
 BattleScript_GrudgeTakesPp::
 	printstring STRINGID_PKMNLOSTPPGRUDGE
@@ -4286,6 +4314,12 @@ BattleScript_IgnoresAndUsesRandomMove::
 	waitmessage B_WAIT_TIME_LONG
 	jumptocalledmove 0
 BattleScript_MoveUsedLoafingAround::
+	@ Skip ahead if not the Battle Palace message (RFVF+: Emerald's)
+	jumpifbyte CMP_NOT_EQUAL, cMULTISTRING_CHOOSER, B_MSG_INCAPABLE_OF_POWER, BattleScript_MoveUsedLoafingAroundMsg
+	setbyte gBattleCommunication, 0
+	palacetryescapestatus BS_ATTACKER
+	setbyte cMULTISTRING_CHOOSER, B_MSG_INCAPABLE_OF_POWER
+BattleScript_MoveUsedLoafingAroundMsg::
 	printfromtable gInobedientStringIds
 	waitmessage B_WAIT_TIME_LONG
 	moveendto MOVEEND_NEXT_TARGET
@@ -4480,3 +4514,117 @@ BattleScript_ActionSelectionItemsCantBeUsed::
 BattleScript_FlushMessageBox::
 	printstring STRINGID_EMPTYSTRING3
 	return
+
+@ RFVF+: Emerald's Battle Palace and Battle Arena
+BattleScript_PalacePrintFlavorText::
+	setbyte gBattleCommunication + 1, 0
+BattleScript_PalaceTryBattlerFlavorText::
+	palaceflavortext BS_ATTACKER @ BS_ATTACKER here overwritten by gBattleCommunication + 1
+	jumpifbyte CMP_NOT_EQUAL, gBattleCommunication, TRUE, BattleScript_PalaceEndFlavorText
+	printfromtable gBattlePalaceFlavorTextTable
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_PalaceEndFlavorText::
+	addbyte gBattleCommunication + 1, 1
+	jumpifbytenotequal gBattleCommunication + 1, gBattlersCount, BattleScript_PalaceTryBattlerFlavorText
+	setbyte gBattleCommunication, 0
+	setbyte gBattleCommunication + 1, 0
+	end2
+
+BattleScript_ArenaTurnBeginning::
+	waitcry BS_ATTACKER
+	volumedown
+	playse SE_ARENA_TIMEUP1
+	pause 8
+	playse SE_ARENA_TIMEUP1
+	arenadrawreftextbox
+	arenajudgmentstring B_MSG_REF_COMMENCE_BATTLE
+	arenawaitmessage B_MSG_REF_COMMENCE_BATTLE
+	pause B_WAIT_TIME_LONG
+	arenaerasereftextbox
+	volumeup
+	end2
+
+@ Unused
+BattleScript_ArenaNothingDecided::
+	playse SE_DING_DONG
+	arenadrawreftextbox
+	arenajudgmentstring B_MSG_REF_NOTHING_IS_DECIDED
+	arenawaitmessage B_MSG_REF_NOTHING_IS_DECIDED
+	pause B_WAIT_TIME_LONG
+	arenaerasereftextbox
+	end2
+
+BattleScript_ArenaDoJudgment::
+	makevisible BS_PLAYER1
+	waitstate
+	makevisible BS_OPPONENT1
+	waitstate
+	volumedown
+	playse SE_ARENA_TIMEUP1
+	pause 8
+	playse SE_ARENA_TIMEUP1
+	pause B_WAIT_TIME_LONG
+	arenadrawreftextbox
+	arenajudgmentstring B_MSG_REF_THATS_IT
+	arenawaitmessage B_MSG_REF_THATS_IT
+	pause B_WAIT_TIME_LONG
+	setbyte gBattleCommunication, 0  @ Reset state for arenajudgmentwindow
+	arenajudgmentwindow
+	pause B_WAIT_TIME_LONG
+	arenajudgmentwindow
+	arenajudgmentstring B_MSG_REF_JUDGE_MIND
+	arenawaitmessage B_MSG_REF_JUDGE_MIND
+	arenajudgmentwindow
+	arenajudgmentstring B_MSG_REF_JUDGE_SKILL
+	arenawaitmessage B_MSG_REF_JUDGE_SKILL
+	arenajudgmentwindow
+	arenajudgmentstring B_MSG_REF_JUDGE_BODY
+	arenawaitmessage B_MSG_REF_JUDGE_BODY
+	arenajudgmentwindow
+	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, ARENA_RESULT_PLAYER_LOST, BattleScript_ArenaJudgmentPlayerLoses
+	jumpifbyte CMP_EQUAL, gBattleCommunication + 1, ARENA_RESULT_TIE, BattleScript_ArenaJudgmentDraw
+@ ARENA_RESULT_PLAYER_WON
+	arenajudgmentstring B_MSG_REF_PLAYER_WON
+	arenawaitmessage B_MSG_REF_PLAYER_WON
+	arenajudgmentwindow
+	arenaerasereftextbox
+	printstring STRINGID_DEFEATEDOPPONENTBYREFEREE
+	waitmessage B_WAIT_TIME_LONG
+	playfaintcry BS_OPPONENT1
+	waitcry BS_ATTACKER
+	dofaintanimation BS_OPPONENT1
+	cleareffectsonfaint BS_OPPONENT1
+	arenaopponentmonlost
+	end2
+
+BattleScript_ArenaJudgmentPlayerLoses:
+	arenajudgmentstring B_MSG_REF_OPPONENT_WON
+	arenawaitmessage B_MSG_REF_OPPONENT_WON
+	arenajudgmentwindow
+	arenaerasereftextbox
+	printstring STRINGID_LOSTTOOPPONENTBYREFEREE
+	waitmessage B_WAIT_TIME_LONG
+	playfaintcry BS_PLAYER1
+	waitcry BS_ATTACKER
+	dofaintanimation BS_PLAYER1
+	cleareffectsonfaint BS_PLAYER1
+	arenaplayermonlost
+	end2
+
+BattleScript_ArenaJudgmentDraw:
+	arenajudgmentstring B_MSG_REF_DRAW
+	arenawaitmessage B_MSG_REF_DRAW
+	arenajudgmentwindow
+	arenaerasereftextbox
+	printstring STRINGID_TIEDOPPONENTBYREFEREE
+	waitmessage B_WAIT_TIME_LONG
+	playfaintcry BS_PLAYER1
+	waitcry BS_ATTACKER
+	dofaintanimation BS_PLAYER1
+	cleareffectsonfaint BS_PLAYER1
+	playfaintcry BS_OPPONENT1
+	waitcry BS_ATTACKER
+	dofaintanimation BS_OPPONENT1
+	cleareffectsonfaint BS_OPPONENT1
+	arenabothmonlost
+	end2

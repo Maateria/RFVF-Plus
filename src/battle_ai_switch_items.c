@@ -321,6 +321,8 @@ static bool8 ShouldSwitch(void)
     if (AbilityBattleEffects(ABILITYEFFECT_FIELD_SPORT, 0, ABILITY_MAGNET_PULL, 0, 0))
         if ((gBattleMons[gActiveBattler].type1 == TYPE_STEEL) || (gBattleMons[gActiveBattler].type2 == TYPE_STEEL))
             return FALSE;
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA) // RFVF+: Emerald's
+        return FALSE;
     availableToSwitch = 0;
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
@@ -445,6 +447,8 @@ u8 GetMostSuitableMonToSwitchInto(void)
 
     if (*(gBattleStruct->monToSwitchIntoId + gActiveBattler) != PARTY_SIZE)
         return *(gBattleStruct->monToSwitchIntoId + gActiveBattler);
+    if (gBattleTypeFlags & BATTLE_TYPE_ARENA) // RFVF+: Emerald's, the Battle Arena sends the next mon in order
+        return gBattlerPartyIndexes[gActiveBattler] + 1;
     if (gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
     {
         battlerIn1 = gActiveBattler;

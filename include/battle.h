@@ -217,7 +217,8 @@ struct ProtectStruct
     u32 flag_x20 : 1;           // 0x20
     u32 flag_x40 : 1;           // 0x40
     u32 flag_x80 : 1;           // 0x80
-    u32 field3 : 8;
+    u32 palaceUnableToUseMove:1; // RFVF+: Emerald's Battle Palace
+    u32 field3 : 7;
 
     u32 physicalDmg;
     u32 specialDmg;
@@ -471,7 +472,16 @@ struct BattleStruct
         struct LinkBattlerHeader linkBattlerHeader;
         struct MultiBattlePokemonTx multiBattleMons[3];
     } multiBuffer;
-    u8 padding_1E4[0x1C];
+    // RFVF+: Emerald's Battle Palace and Battle Arena
+    u8 palaceFlags; // First 4 bits are "is <= 50% HP and not asleep" for each battler, last 4 bits are selected moves to pass to AI
+    u8 arenaTurnCounter;
+    s8 arenaMindPoints[2];
+    s8 arenaSkillPoints[2];
+    u8 arenaLostPlayerMons; // Bits for party member, lost as in referee's decision, not by fainting.
+    u8 arenaLostOpponentMons;
+    u16 arenaStartHp[2];
+    u8 alreadyStatusedMoveAttempt; // As bits for battlers; For example when using Thunder Wave on an already paralyzed Pokémon.
+    u8 padding_1E4[0x1C - 13];
 }; // size == 0x200 bytes
 
 extern struct BattleStruct *gBattleStruct;
@@ -711,6 +721,8 @@ extern u32 gStatuses3[MAX_BATTLERS_COUNT];
 extern u8 gSentPokesToOpponent[2];
 extern const u8 *gBattlescriptCurrInstr;
 extern const u8 *gSelectionBattleScripts[MAX_BATTLERS_COUNT];
+extern const u8 *gPalaceSelectionBattleScripts[MAX_BATTLERS_COUNT]; // RFVF+: Emerald's
+extern u32 gBattlePalaceMoveSelectionRngValue;
 extern u16 gLastMoves[MAX_BATTLERS_COUNT];
 extern u8 gBattlerByTurnOrder[MAX_BATTLERS_COUNT];
 extern u8 gBattleCommunication[BATTLE_COMMUNICATION_ENTRIES_COUNT];
