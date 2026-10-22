@@ -729,6 +729,7 @@ const u8 gText_PokeSum_Met_BoldGentleGrammar[] = _("Nature {DYNAMIC 0x00}.\nRenc
 const u8 gText_PokeSum_ApparentlyMet[] = _("Nature {DYNAMIC 0x00}.\nApparemment rencontré à {DYNAMIC 0x02}\nau N. {DYNAMIC 0x01}.");
 const u8 gText_PokeSum_ApparentlyMet_BoldGentleGrammar[] = _("Nature {DYNAMIC 0x00}.\nApparemment rencontré à {DYNAMIC 0x02}\nau N. {DYNAMIC 0x01}.");
 const u8 gText_PokeSum_Hatched[] = _("Nature {DYNAMIC 0x00}.\nEclos: {DYNAMIC 0x02}\nau N. {DYNAMIC 0x01}.");
+const u8 gText_PokeSum_RentalNature[] = _("Nature {DYNAMIC 0x00}."); // RFVF+ (Battle Factory rentals)
 const u8 gText_PokeSum_Hatched_BoldGentleGrammar[] = _("Nature {DYNAMIC 0x00}.\nEclos: {DYNAMIC 0x02}\nau N. {DYNAMIC 0x01}.");
 const u8 gText_PokeSum_JP_ApparentlyHatched[] = _("{DYNAMIC 0x00}なせいかく N.{DYNAMIC 0x01}のとき\n{DYNAMIC 0x02}で かえった ようだ");
 const u8 gText_PokeSum_JP_ApparentlyHatched_BoldGentleGrammar[] = _("{DYNAMIC 0x00}せいかく N.{DYNAMIC 0x01}のとき\n{DYNAMIC 0x02}で かえった ようだ");
@@ -1476,3 +1477,51 @@ const u8 gText_IWon[] = _("Victoire");
 const u8 gText_ILost[] = _("Défaite");
 const u8 gText_IWontTell[] = _("J'dirai rien!");
 const u8 gText_OpenLevel[] = _("NIVEAU LIBRE");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_AcceptThisPkmn[] = _("Accepter ce POKéMON?");
+const u8 gText_Cancel3[] = _("ANNULER");
+const u8 gText_CantSelectSamePkmn[] = _("Impossible de sélec. le même.");
+const u8 gText_Deselect[] = _("ANNULER");
+const u8 gText_No2[] = _("NON");
+const u8 gText_No3[] = _("NON");
+const u8 gText_Others2[] = _("RETOUR");
+const u8 gText_PkmnForSwap[] = _("{PKMN} A ECHANGER");
+const u8 gText_PkmnSwap[] = _("ECHANGE");
+const u8 gText_QuitSwapping[] = _("Quitter l'échange?");
+const u8 gText_Rechoose[] = _("RETOUR");
+const u8 gText_Rent[] = _("LOUER");
+const u8 gText_RentalPkmn2[] = _("LOCATION");
+const u8 gText_SamePkmnInPartyAlready[] = _("Ce {PKMN} est déjà dans l'équipe.");
+const u8 gText_SelectFirstPkmn[] = _("Sélectionnez le premier.");
+const u8 gText_SelectPkmnToAccept[] = _("Choisir un PKMN à recevoir.");
+const u8 gText_SelectPkmnToSwap[] = _("Choisir un PKMN à échanger.");
+const u8 gText_SelectSecondPkmn[] = _("Sélectionnez le deuxième.");
+const u8 gText_SelectThirdPkmn[] = _("Sélectionnez le troisième.");
+const u8 gText_Summary[] = _("RESUME");
+const u8 gText_Summary2[] = _("RESUME");
+const u8 gText_Swap[] = _("ECHANGER");
+const u8 gText_TheseThreePkmnOkay[] = _("OK avec ces trois POKéMON?");
+const u8 gText_Yes2[] = _("OUI");
+const u8 gText_Yes3[] = _("OUI");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_BasicRules[] = _("REGLES DE BASE");
+const u8 gText_SwapPartners[] = _("ECHANGE: POKéMON");
+const u8 gText_SwapNumber[] = _("ECHANGE: NOMBRE");
+const u8 gText_SwapNotes[] = _("ECHANGE: NOTES");
+const u8 gText_OpenLevel3[] = _("NIVEAU LIBRE");
+const u8 gText_BattlePokemon[] = _("POKéMON");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_Opponent[] = _("ADVERSAIRE");
+const u8 gText_Tourney_Tree[] = _("TABLEAU");
+const u8 gText_ReadyToStart[] = _("COMBATTRE");
+const u8 gText_Record2[] = _("ENREGISTRER");
+const u8 gText_Rest[] = _("REPOS");
+const u8 gText_Retire[] = _("PARTIR");
+const u8 gText_Matchup[] = _("RENCONTRES");
+const u8 gText_TourneyTree[] = _("TABLEAU");
+const u8 gText_DoubleKO[] = _("DOUBLE K.O.");

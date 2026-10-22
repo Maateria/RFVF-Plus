@@ -550,4 +550,8 @@ gSpecials::
 	def_special CallBattleArenaFunction
 	def_special CallVerdanturfTentFunction
 	def_special CallFallarborTentFunction
+	def_special CallBattleFactoryFunction
+	def_special CallSlateportTentFunction
+	def_special CallBattleDomeFunction
+	def_special DoDomeConfetti
 gSpecialsEnd::

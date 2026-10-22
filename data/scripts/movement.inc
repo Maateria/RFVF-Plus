@@ -85,3 +85,8 @@ Common_Movement_WalkUp2::
 Common_Movement_WalkInPlaceLeft::
 	walk_in_place_left
 	step_end
+
+@ RFVF+: Emerald's (the Battle Dome)
+Common_Movement_WalkInPlaceDown::
+	walk_in_place_down
+	step_end

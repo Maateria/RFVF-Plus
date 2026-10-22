@@ -71,7 +71,7 @@ bool16 InitWindows(const struct WindowTemplate *templates)
             }
         }
 
-        allocatedTilemapBuffer = Alloc((u16)(0x20 * (templates[i].width * templates[i].height)));
+        allocatedTilemapBuffer = AllocZeroed((u16)(0x20 * (templates[i].width * templates[i].height))); // RFVF+: zeroed as in Emerald (its ported screens rely on it)
 
         if (allocatedTilemapBuffer == NULL)
         {
@@ -146,7 +146,7 @@ u16 AddWindow(const struct WindowTemplate *template)
         }
     }
 
-    allocatedTilemapBuffer = Alloc((u16)(0x20 * (template->width * template->height)));
+    allocatedTilemapBuffer = AllocZeroed((u16)(0x20 * (template->width * template->height))); // RFVF+: zeroed as in Emerald
 
     if (allocatedTilemapBuffer == NULL)
     {

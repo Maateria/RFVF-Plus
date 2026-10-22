@@ -21,7 +21,7 @@ u8 GetWeatherBallType(void);
 enum PokemonSummaryScreenMode
 {
     PSS_MODE_NORMAL,
-    PSS_MODE_UNK1,
+    PSS_MODE_LOCK_MOVES, // RFVF+: Emerald's name (the Battle Factory's rentals: no move swap)
     PSS_MODE_SELECT_MOVE,
     PSS_MODE_FORGET_MOVE,
     PSS_MODE_TRADE,

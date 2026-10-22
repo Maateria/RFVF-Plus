@@ -152,6 +152,11 @@
 #define MULTI_BATTLE_PALACE_RULES                              144
 #define MULTI_BATTLE_ARENA_RULES                               145
 #define MULTI_FALLARBOR_TENT_RULES                             146
+#define MULTI_BATTLE_FACTORY_RULES                             147
+#define MULTI_SLATEPORT_TENT_RULES                             148
+#define MULTI_BATTLE_DOME_RULES                                149
+#define MULTI_TOURNEY_WITH_RECORD                              150
+#define MULTI_TOURNEY_NO_RECORD                                151
 
 
 #define MULTICHOICE_NONE                                      255

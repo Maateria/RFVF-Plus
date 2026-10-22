@@ -328,6 +328,8 @@ void CreateTask_PlayMapChosenOrBattleBGM(u16 songId);
 bool8 IsShinyOtIdPersonality(u32 otId, u32 personality);
 void ConvertPokemonToBattleTowerPokemon(struct Pokemon *mon, struct BattleTowerPokemon *dest);
 void CalculateMonStats(struct Pokemon *mon, bool8 calcOverride);
+u16 ModifyStatByNature(u8 nature, u16 stat, u8 statIndex);
+extern const s8 gNatureStatTable[][NUM_NATURE_STATS];
 void BoxMonToMon(struct BoxPokemon *src, struct Pokemon *dest);
 u8 GetLevelFromBoxMonExp(struct BoxPokemon *boxMon);
 u16 GiveMoveToMon(struct Pokemon *mon, u16 move);

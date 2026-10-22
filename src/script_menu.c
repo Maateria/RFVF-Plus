@@ -737,6 +737,26 @@ static const struct MenuAction sMultichoiceList_FallarborTentRules[] = {
     { gText_BattleTrainers }, { gText_BattleRules }, { gText_JudgeMind }, { gText_JudgeSkill }, { gText_JudgeBody }, { gText_Exit }
 };
 
+static const struct MenuAction sMultichoiceList_BattleFactoryRules[] = {
+    { gText_BasicRules }, { gText_SwapPartners }, { gText_SwapNumber }, { gText_SwapNotes }, { gText_OpenLevel3 }, { gText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_SlateportTentRules[] = {
+    { gText_BasicRules }, { gText_SwapPartners }, { gText_SwapNumber }, { gText_SwapNotes }, { gText_BattlePokemon }, { gText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_BattleDomeRules[] = {
+    { gText_Matchup }, { gText_TourneyTree }, { gText_DoubleKO }, { gText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_TourneyWithRecord[] = {
+    { gText_Opponent }, { gText_Tourney_Tree }, { gText_ReadyToStart }, { gText_Record2 }, { gText_Rest }, { gText_Retire }
+};
+
+static const struct MenuAction sMultichoiceList_TourneyNoRecord[] = {
+    { gText_Opponent }, { gText_Tourney_Tree }, { gText_ReadyToStart }, { gText_Rest }, { gText_Retire }
+};
+
 static const struct MenuAction sMultichoiceList_TagMatchType[] = {
     { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
 };
@@ -1195,6 +1215,11 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_BATTLE_PALACE_RULES] = MULTICHOICE(sMultichoiceList_BattlePalaceRules),
 	[MULTI_BATTLE_ARENA_RULES] = MULTICHOICE(sMultichoiceList_BattleArenaRules),
 	[MULTI_FALLARBOR_TENT_RULES] = MULTICHOICE(sMultichoiceList_FallarborTentRules),
+	[MULTI_BATTLE_FACTORY_RULES] = MULTICHOICE(sMultichoiceList_BattleFactoryRules),
+	[MULTI_SLATEPORT_TENT_RULES] = MULTICHOICE(sMultichoiceList_SlateportTentRules),
+	[MULTI_BATTLE_DOME_RULES] = MULTICHOICE(sMultichoiceList_BattleDomeRules),
+	[MULTI_TOURNEY_WITH_RECORD] = MULTICHOICE(sMultichoiceList_TourneyWithRecord),
+	[MULTI_TOURNEY_NO_RECORD] = MULTICHOICE(sMultichoiceList_TourneyNoRecord),
 };
 
 // From Cool to Berries goes unused

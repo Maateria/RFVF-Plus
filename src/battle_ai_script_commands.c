@@ -6,6 +6,7 @@
 #include "item.h"
 #include "random.h"
 #include "battle_ai_script_commands.h"
+#include "battle_factory.h"
 #include "constants/abilities.h"
 #include "constants/battle_ai.h"
 #include "constants/battle_move_effects.h"
@@ -363,6 +364,11 @@ void BattleAI_SetupAIDataMoves(u8 defaultScoreMoves)
     else if (gBattleTypeFlags & BATTLE_TYPE_ROAMER)
     {
         AI_THINKING_STRUCT->aiFlags = AI_SCRIPT_ROAMING;
+        return;
+    }
+    else if (gBattleTypeFlags & BATTLE_TYPE_FACTORY) // RFVF+: Emerald's (Factory/Slateport tent: the AI grows with the streak)
+    {
+        AI_THINKING_STRUCT->aiFlags = GetAiScriptsInBattleFactory();
         return;
     }
     else if (!(gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)) && (gTrainerBattleOpponent_A != TRAINER_SECRET_BASE))

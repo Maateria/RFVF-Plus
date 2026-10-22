@@ -18,29 +18,10 @@ Liste produite par `work/hoenn_scripts/port.py` (hors dépôt). « Selon » = dr
 | LittlerootTown_ProfessorBirchsLab | Birch (PNJ) | parle seulement, mais selon VAR_DEX_UPGRADE_JOHTO_STARTER_STATE | PROF. SEKO: Où est {RIVAL}? A la maison, je pense. Ou alors quelque pa… |
 | LittlerootTown_ProfessorBirchsLab | Rival (PNJ) | parle seulement, mais selon VAR_DEX_UPGRADE_JOHTO_STARTER_STATE | BRICE: Où est-ce que je vais aller chercher des POKéMON, maintenant? |
 
-## Poivressel (2)
+## Zone de Combat (12)
 
 | Carte | Script | Ce qu'il fait | Premier texte |
 |---|---|---|---|
-| SlateportCity_BattleTentLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Tente de Combat (défi, prix); ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue dans la TENTE DE COMBAT de POIVRESSEL! Je serai votre guide … |
-| SlateportCity_BattleTentLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — menu à choix | Règles du COMBAT ECHANGE. |
-
-## Zone de Combat (24)
-
-| Carte | Script | Ce qu'il fait | Premier texte |
-|---|---|---|---|
-| BattleFrontier_BattleDomeLobby | DoublesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi; soigne l'équipe; ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Le tournoi propose deux niveaux de défi: niveau 50 et niveau libre. Qu… |
-| BattleFrontier_BattleDomeLobby | Maniac (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi | Tu as assisté au dernier TOURNOI DE COMBAT? {STR_VAR_1}, le vainqueur,… |
-| BattleFrontier_BattleDomeLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi | Règles du TOURNOI DE COMBAT. |
-| BattleFrontier_BattleDomeLobby | ShowDoublesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleDomeLobby | ShowPrevTourneyTree (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi | Résultats du dernier TOURNOI DE COMBAT DUO niveau libre. |
-| BattleFrontier_BattleDomeLobby | ShowSinglesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleDomeLobby | SinglesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Dôme de Combat : accueil, règles ou résultats du défi; soigne l'équipe; ouvre une porte (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Le tournoi propose deux niveaux de défi: niveau 50 et niveau libre. Qu… |
-| BattleFrontier_BattleFactoryLobby | DoublesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Que choisissez-vous: niveau 50 ou niveau libre? |
-| BattleFrontier_BattleFactoryLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi | Règles du COMBAT ECHANGE. |
-| BattleFrontier_BattleFactoryLobby | ShowDoublesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleFactoryLobby | ShowSinglesResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi |  |
-| BattleFrontier_BattleFactoryLobby | SinglesAttendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Usine de Combat : accueil, règles ou résultats du défi (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Que choisissez-vous: niveau 50 ou niveau libre? |
 | BattleFrontier_BattlePikeLobby | Attendant (PNJ) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Reptile de Combat : accueil, règles ou résultats du défi; soigne l'équipe (selon VAR_FRONTIER_BATTLE_MODE, VAR_FRONTIER_FACILITY) | Bienvenue au REPTILE DE COMBAT… Ici, nous mettons à l'épreuve la chanc… |
 | BattleFrontier_BattlePikeLobby | RulesBoard (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Reptile de Combat : accueil, règles ou résultats du défi | Règles du COMBAT HASARD. |
 | BattleFrontier_BattlePikeLobby | ShowResults (panneau) | **lot 6 : Tentes et Zone de Combat** — Zone de Combat, Reptile de Combat : accueil, règles ou résultats du défi |  |

@@ -1,11 +1,19 @@
 #include "global.h"
 #include "pokedex.h"
 #include "pokedex_screen.h"
+#include "string_util.h"
+#include "strings.h"
 
 // Unused
 const u8 *GetPokedexCategoryName(u16 dexNum)
 {
     return gPokedexEntries[dexNum].categoryName;
+}
+
+// RFVF+: Emerald's (the Battle Factory's screens), worded as this Pokedex's "<category> POKeMON"
+void CopyMonCategoryText(u16 dexNum, u8 *dst)
+{
+    StringCopy(StringCopy(dst, gPokedexEntries[dexNum].categoryName), gText_PokedexPokemon);
 }
 
 u16 GetPokedexHeightWeight(u16 dexNum, u8 data)

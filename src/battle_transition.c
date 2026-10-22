@@ -1092,7 +1092,7 @@ static bool8 PatternWeave_CircularMask(struct Task *task)
     {
         DmaStop(0);
         FadeScreenBlack();
-        DestroyTask(FindTaskIdByFunc(Task_BigPokeball)); // FindTaskIdByFunc(task->func) in Emerald to accomdate other functions
+        DestroyTask(FindTaskIdByFunc(task->func)); // RFVF+: Emerald's (was Task_BigPokeball only: the Frontier logo transition never ended)
     }
     if (!task->tVBlankSet)
     {

@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_factory.h"
+#include "battle_tent.h"
 #include "gflib.h"
 #include "pokemon.h"
 #include "pokemon_summary_screen.h"
@@ -123,6 +125,7 @@ static void PokeSum_PrintTrainerMemo(void);
 static void PokeSum_PrintExpPoints_NextLv(void);
 static void PokeSum_PrintSelectedMoveStats(void);
 static void PokeSum_PrintTrainerMemo_Mon(void);
+static bool8 IsRentalMon(void);
 static void PokeSum_PrintTrainerMemo_Egg(void);
 static bool32 MapSecIsInKantoOrSevii(u8 mapSec);
 static bool32 IsMultiBattlePartner(void);
@@ -2682,8 +2685,15 @@ static void PrintInfoPage(void)
     if (!sMonSummaryScreen->isEgg)
     {
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47 + sMonSkillsPrinterXpos->unk00, 5, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.dexNumStrBuf);
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 49, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.otNameStrBuf);
-        AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 64, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.unk306C);
+        if (IsRentalMon()) // RFVF+: Emerald's Battle Factory/Slateport tent (no OT, no ID: a rental)
+        {
+            AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 49, sLevelNickTextColors[0], TEXT_SKIP_DRAW, gText_RentalPkmn2);
+        }
+        else
+        {
+            AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 49, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.otNameStrBuf);
+            AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 64, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.unk306C);
+        }
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_RIGHT_PANE], FONT_NORMAL, 47, 79, sLevelNickTextColors[0], TEXT_SKIP_DRAW, sMonSummaryScreen->summary.itemNameStrBuf);
     }
     else
@@ -3026,8 +3036,23 @@ static bool8 IsMonFromOrre(void)
     return FALSE;
 }
 
+static bool8 IsRentalMon(void)
+{
+    return InBattleFactory() == TRUE || InSlateportBattleTent() == TRUE;
+}
+
 static void PokeSum_PrintTrainerMemo_Mon(void)
 {
+    if (IsRentalMon()) // RFVF+: Emerald's (a rental's memo is its nature only)
+    {
+        u8 str[32];
+
+        DynamicPlaceholderTextUtil_Reset();
+        DynamicPlaceholderTextUtil_SetPlaceholderPtr(0, gNatureNamePointers[GetNature(&sMonSummaryScreen->currentMon)]);
+        DynamicPlaceholderTextUtil_ExpandPlaceholders(str, gText_PokeSum_RentalNature);
+        AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], FONT_NORMAL, 0, 3, 0, 0, sLevelNickTextColors[0], TEXT_SKIP_DRAW, str);
+        return;
+    }
     // Pokemon from Orre are always considered outsiders by the summary screen
     if (PokeSum_BufferOtName_IsEqualToCurrentOwner(&sMonSummaryScreen->currentMon) == TRUE && !IsMonFromOrre())
         PokeSum_PrintTrainerMemo_Mon_HeldByOT();
@@ -3880,7 +3905,7 @@ static void Task_HandleInput_SelectMove(u8 taskId)
 
             if (sMonSummaryScreen->isSwappingMoves != TRUE)
             {
-                if (sMonSummaryScreen->isEnemyParty == FALSE
+                if (sMonSummaryScreen->isEnemyParty == FALSE && sMonSummaryScreen->mode != PSS_MODE_LOCK_MOVES
                     && gMain.inBattle == 0
                     && gReceivedRemoteLinkPlayers == 0)
                 {
