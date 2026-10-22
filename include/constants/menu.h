@@ -157,6 +157,9 @@
 #define MULTI_BATTLE_DOME_RULES                                149
 #define MULTI_TOURNEY_WITH_RECORD                              150
 #define MULTI_TOURNEY_NO_RECORD                                151
+#define MULTI_BATTLE_PIKE_RULES                                152
+#define MULTI_BATTLE_PYRAMID_RULES                             153
+#define MULTI_FRONTIER_ITEM_CHOOSE                             154
 
 
 #define MULTICHOICE_NONE                                      255

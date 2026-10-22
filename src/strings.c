@@ -828,6 +828,7 @@ const u8 gStartMenuDesc_Save[] = _("Permet de sauvegarder la partie\nlorsque vou
 const u8 gStartMenuDesc_Option[] = _("Permet de modifier certains réglages\ncomme la vitesse, règles etc.");
 const u8 gStartMenuDesc_Exit[] = _("Ferme ce MENU.");
 const u8 gStartMenuDesc_Retire[] = _("Quitter le PARC SAFARI et retourne\nau comptoir d'enregistrement.");
+const u8 gStartMenuDesc_PyramidRetire[] = _("Abandonner la PYRAMIDE et retourner\nà l'accueil."); // RFVF+: no Emerald text (no help bar there)
 
 #include "data/text/quest_log.h"
 
@@ -1525,3 +1526,53 @@ const u8 gText_Retire[] = _("PARTIR");
 const u8 gText_Matchup[] = _("RENCONTRES");
 const u8 gText_TourneyTree[] = _("TABLEAU");
 const u8 gText_DoubleKO[] = _("DOUBLE K.O.");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_TheField[] = _("au jeu");
+const u8 gText_TheBattle[] = _("au combat");
+const u8 gText_ThePokemonList[] = _("à la LISTE POKéMON");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_Floor1[] = _("Niveau 1");
+const u8 gText_Floor2[] = _("Niveau 2");
+const u8 gText_Floor3[] = _("Niveau 3");
+const u8 gText_Floor4[] = _("Niveau 4");
+const u8 gText_Floor5[] = _("Niveau 5");
+const u8 gText_Floor6[] = _("Niveau 6");
+const u8 gText_Floor7[] = _("Niveau 7");
+const u8 gText_Peak[] = _("Sommet");
+const u8 gText_BattlePyramidFloor[] = _("Pyramide\n{STR_VAR_1}");
+const u8 gText_MenuRest[] = _("REPOS");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gMenuText_Give[] = _("DONNER");
+const u8 gMenuText_Toss[] = _("JETER");
+const u8 gMenuText_Use[] = _("UTILIS.");
+const u8 gText_Cancel2[] = _("RETOUR");
+const u8 gText_CantWriteMail[] = _("Vous ne pouvez pas\nécrire de LETTRE ici.");
+const u8 gText_ConfirmTossItems[] = _("{STR_VAR_1}:\nen jeter {STR_VAR_2}?");
+const u8 gText_DadsAdvice[] = _("Conseil de PAPA…\n{PLAYER}, chaque chose en son temps!{PAUSE_UNTIL_PRESS}");
+const u8 gText_EmptyString2[] = _("");
+const u8 gText_MoveVar1Where[] = _("Où voulez-vous\nplacer\n{STR_VAR_1}?");
+const u8 gText_NumberItem_TMBerry[] = _("{NO}{STR_VAR_1}{CLEAR 7}{STR_VAR_2}");
+const u8 gText_ReturnToVar1[] = _("Retourner\n{STR_VAR_1}.");
+const u8 gText_ThrewAwayVar2Var1s[] = _("{STR_VAR_1}:\njeté {STR_VAR_2}.");
+const u8 gText_TossHowManyVar1s[] = _("En jeter combien?");
+const u8 gText_Var1CantBeHeld[] = _("Impossible de tenir {STR_VAR_1}!");
+const u8 gText_xVar1[] = _("×{STR_VAR_1}");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_BattleBag[] = _("SAC DE COMBAT");
+const u8 gText_HeldItem[] = _("OBJET TENU");
+const u8 gText_PyramidPokemon[] = _("POKéMON SAUVAGES");
+const u8 gText_PyramidTrainers[] = _("DRESSEURS");
+const u8 gText_PyramidMaze[] = _("LABYRINTHES");
+const u8 gText_BattleBag2[] = _("SAC DE COMBAT");
+const u8 gText_PokenavAndBag[] = _("POKéNAV ET SAC");
+const u8 gText_PokemonOrder[] = _("ORDRE");
+
+// RFVF+: Emerald's Battle Frontier strings, French Emerald's text (batch 6, fr_cstrings.py)
+const u8 gText_ThrowAwayItem[] = _("Jeter {STR_VAR_1}?");
+const u8 gText_ItemThrownAway[] = _("{STR_VAR_1} a été jeté.{PAUSE_UNTIL_PRESS}");
+const u8 gText_Have[] = _("PORTE");
+const u8 gText_DontHave[] = _("PAS D'OBJET");

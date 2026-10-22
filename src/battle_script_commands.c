@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_pyramid.h"
+#include "battle_pike.h"
 #include "gflib.h"
 #include "item.h"
 #include "util.h"
@@ -9537,6 +9539,11 @@ static void Cmd_pickup(void)
     u32 count = 0;
     u32 pickupSuccess = 0;
 
+    if (InBattlePike()) // RFVF+: Emerald's, no Pickup in the Battle Pike
+    {
+        gBattlescriptCurrInstr++;
+        return;
+    }
     for (i = 0; i < PARTY_SIZE; i++)
     {
         species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES_OR_EGG);
@@ -9552,7 +9559,15 @@ static void Cmd_pickup(void)
             for (j = 0; j < 15; ++j)
                 if (sPickupItems[j].chance > random)
                     break;
-            SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[j]);
+            if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's, the Pyramid's own items
+            {
+                heldItem = GetBattlePyramidPickupItemId();
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &heldItem);
+            }
+            else
+            {
+                SetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM, &sPickupItems[j]);
+            }
             pickupSuccess++;
             index = i;
         }

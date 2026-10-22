@@ -1,4 +1,7 @@
 #include "global.h"
+#include "battle_tower.h"
+#include "battle_pike.h"
+#include "battle_pyramid.h"
 #include "task.h"
 #include "battle_setup.h"
 #include "help_system.h"
@@ -383,6 +386,11 @@ static void DoStandardWildBattle(void)
     StopPlayerAvatar();
     gMain.savedCallback = CB2_EndWildBattle;
     gBattleTypeFlags = 0;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+    {
+        VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
+        gBattleTypeFlags |= BATTLE_TYPE_PYRAMID;
+    }
     CreateBattleStartTask(GetWildBattleTransition(), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_WILD_BATTLES);
@@ -430,9 +438,25 @@ static void DoTrainerBattle(void)
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
 }
 
+// RFVF+: Emerald's
+void BattleSetup_StartBattlePikeWildBattle(void)
+{
+    LockPlayerFieldControls();
+    FreezeObjectEvents();
+    StopPlayerAvatar();
+    gMain.savedCallback = CB2_EndWildBattle;
+    gBattleTypeFlags = BATTLE_TYPE_PIKE;
+    CreateBattleStartTask(GetWildBattleTransition(), 0);
+    IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
+    IncrementGameStat(GAME_STAT_WILD_BATTLES);
+}
+
 static void DoTrainerHillBattle(void)
 {
-    CreateBattleStartTask(GetSpecialBattleTransition(B_TRANSITION_GROUP_TRAINER_HILL), 0);
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's DoBattlePyramidTrainerHillBattle
+        CreateBattleStartTask(GetSpecialBattleTransition(B_TRANSITION_GROUP_B_PYRAMID), 0);
+    else
+        CreateBattleStartTask(GetSpecialBattleTransition(B_TRANSITION_GROUP_TRAINER_HILL), 0);
     IncrementGameStat(GAME_STAT_TOTAL_BATTLES);
     IncrementGameStat(GAME_STAT_TRAINER_BATTLES);
 }
@@ -609,7 +633,8 @@ static void CB2_EndWildBattle(void)
     }
     CpuFill16(0, (void *)BG_PLTT, BG_PLTT_SIZE);
     ResetOamRange(0, 128);
-    if (IsPlayerDefeated(gBattleOutcome) == TRUE)
+    // RFVF+: Emerald's, a loss in the Pyramid or the Pike goes back to the field (its script ends the challenge)
+    if (IsPlayerDefeated(gBattleOutcome) == TRUE && CurrentBattlePyramidLocation() == PYRAMID_LOCATION_NONE && !InBattlePike())
     {
         SetMainCallback2(CB2_WhiteOut);
     }
@@ -1101,6 +1126,19 @@ const u8 *BattleSetup_ConfigureTrainerBattle(const u8 *data)
     case TRAINER_BATTLE_EARLY_RIVAL:
         TrainerBattleLoadArgs(sEarlyRivalBattleParams, data);
         return EventScript_DoNoIntroTrainerBattle;
+    case TRAINER_BATTLE_PYRAMID: // Emerald's Battle Pyramid: the floor's trainers
+        if (gApproachingTrainerId == 0)
+        {
+            TrainerBattleLoadArgs(sOrdinaryBattleParams, data);
+            SetMapVarsToTrainer();
+            gTrainerBattleOpponent_A = LocalIdToPyramidTrainerId(gSpecialVar_LastTalked);
+        }
+        else
+        {
+            TrainerBattleLoadArgs(sTrainerBOrdinaryBattleParams, data);
+            gTrainerBattleOpponent_B = LocalIdToPyramidTrainerId(gSpecialVar_LastTalked);
+        }
+        return EventScript_TryDoNormalTrainerBattle;
     case TRAINER_BATTLE_HILL: // Emerald's Trainer Hill: the trainers come from its floor data
         if (gApproachingTrainerId == 0)
         {
@@ -1234,7 +1272,27 @@ void StartTrainerBattle(void)
         gBattleTypeFlags = BATTLE_TYPE_TRAINER;
     if (GetTrainerBattleMode() == TRAINER_BATTLE_EARLY_RIVAL && GetRivalBattleFlags() & RIVAL_BATTLE_TUTORIAL)
         gBattleTypeFlags |= BATTLE_TYPE_FIRST_BATTLE;
-    if (InTrainerHillChallenge())
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+    {
+        VarSet(VAR_TEMP_PLAYING_PYRAMID_MUSIC, 0);
+        gBattleTypeFlags |= BATTLE_TYPE_PYRAMID;
+        if (gNoOfApproachingTrainers == 2)
+        {
+            FillFrontierTrainersParties(1);
+            ZeroMonData(&gEnemyParty[1]);
+            ZeroMonData(&gEnemyParty[2]);
+            ZeroMonData(&gEnemyParty[4]);
+            ZeroMonData(&gEnemyParty[5]);
+        }
+        else
+        {
+            FillFrontierTrainerParty(1);
+            ZeroMonData(&gEnemyParty[1]);
+            ZeroMonData(&gEnemyParty[2]);
+        }
+        MarkApproachingPyramidTrainersAsBattled();
+    }
+    else if (InTrainerHillChallenge())
     {
         gBattleTypeFlags |= BATTLE_TYPE_TRAINER_HILL;
         if (gNoOfApproachingTrainers == 2)
@@ -1247,7 +1305,7 @@ void StartTrainerBattle(void)
     gNoOfApproachingTrainers = 0;
     sShouldCheckTrainerBScript = FALSE;
     gMain.savedCallback = CB2_EndTrainerBattle;
-    if (InTrainerHillChallenge())
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InTrainerHillChallenge())
         DoTrainerHillBattle();
     else
         DoTrainerBattle();
@@ -1300,7 +1358,7 @@ static void CB2_EndTrainerBattle(void)
             }
             return;
         }
-        if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE || InTrainerHillChallenge()) // the hill: its own flags, no white out
+        if (gTrainerBattleOpponent_A == TRAINER_SECRET_BASE || InTrainerHillChallenge() || CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // the hill/pyramid: own flags, no white out
         {
             SetMainCallback2(CB2_ReturnToFieldContinueScriptPlayMapMusic);
         }
@@ -1348,7 +1406,15 @@ void StartRematchBattle(void)
 
 void ShowTrainerIntroSpeech(void)
 {
-    if (InTrainerHillChallenge())
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+    {
+        if (gNoOfApproachingTrainers == 0 || gNoOfApproachingTrainers == 1)
+            CopyPyramidTrainerSpeechBefore(LocalIdToPyramidTrainerId(gSpecialVar_LastTalked));
+        else
+            CopyPyramidTrainerSpeechBefore(LocalIdToPyramidTrainerId(gObjectEvents[gApproachingTrainers[gApproachingTrainerId].objectEventId].localId));
+        ShowFieldMessage(gStringVar4);
+    }
+    else if (InTrainerHillChallenge())
     {
         if (gNoOfApproachingTrainers == 0 || gNoOfApproachingTrainers == 1)
             CopyTrainerHillTrainerText(TRAINER_HILL_TEXT_INTRO, LocalIdToHillTrainerId(gSpecialVar_LastTalked));
@@ -1439,7 +1505,9 @@ void PlayTrainerEncounterMusic(void)
      && sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_NO_MUSIC
      && sTrainerBattleMode != TRAINER_BATTLE_CONTINUE_SCRIPT_DOUBLE_NO_MUSIC)
     {
-        if (InTrainerHillChallenge())
+        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+            music = sHoennEncounterMusic[GetTrainerEncounterMusicIdInBattlePyramid(trainerId)];
+        else if (InTrainerHillChallenge())
             music = sHoennEncounterMusic[GetTrainerEncounterMusicIdInTrainerHill(trainerId)];
         else if (IsHoennTrainer(trainerId))
             music = sHoennEncounterMusic[GetTrainerEncounterMusicId(trainerId)];

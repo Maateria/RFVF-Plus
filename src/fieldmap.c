@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_pyramid.h"
+#include "constants/layouts.h"
 #include "trainer_hill.h"
 #include "gflib.h"
 #include "overworld.h"
@@ -89,8 +91,20 @@ const struct MapHeader * GetMapHeaderFromConnection(const struct MapConnection *
     return Overworld_GetMapHeaderByGroupAndId(connection->mapGroup, connection->mapNum);
 }
 
+// RFVF+: Emerald's
+void InitBattlePyramidMap(bool8 setPlayerPosition)
+{
+    CpuFastFill16(MAPGRID_UNDEFINED, gBackupMapData, sizeof(gBackupMapData));
+    GenerateBattlePyramidFloorLayout(gBackupMapData, setPlayerPosition);
+}
+
 void InitMap(void)
 {
+    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+    {
+        InitBattlePyramidMap(FALSE);
+        return;
+    }
     InitMapLayoutData(&gMapHeader);
     GenerateTrainerHillFloorLayout(); // RFVF+: Emerald's InitTrainerHillMap
     RunOnLoadMapScript();
@@ -98,6 +112,11 @@ void InitMap(void)
 
 void InitMapFromSavedGame(void)
 {
+    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR) // RFVF+: Emerald's
+    {
+        InitBattlePyramidMap(TRUE);
+        return;
+    }
     InitMapLayoutData(&gMapHeader);
     GenerateTrainerHillFloorLayout();
     LoadSavedMapView();

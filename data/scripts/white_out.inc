@@ -305,7 +305,22 @@ EventScript_FieldPoison::
 	special TryFieldPoisonWhiteOut
 	waitstate
 	goto_if_eq VAR_RESULT, TRUE, EventScript_FieldWhiteOut
+	goto_if_eq VAR_RESULT, 2, EventScript_FrontierFieldWhiteOut
 	releaseall
+	end
+
+@ RFVF+: Emerald's (the battle facilities' own white out: the challenge is lost)
+EventScript_FrontierFieldWhiteOut::
+	msgbox Text_WhitedOut
+	pike_inchallenge
+	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePike_EventScript_Retire
+	pyramid_getlocation
+	goto_if_eq VAR_RESULT, PYRAMID_LOCATION_FLOOR, BattleFrontier_BattlePyramid_EventScript_WarpToLobbyLost
+	goto_if_eq VAR_RESULT, PYRAMID_LOCATION_TOP, BattleFrontier_BattlePyramid_EventScript_WarpToLobbyLost
+	trainerhill_inchallenge
+	goto_if_eq VAR_RESULT, TRUE, TrainerHill_1F_EventScript_Lost
+	special SetCB2WhiteOut
+	waitstate
 	end
 
 EventScript_FieldWhiteOut::

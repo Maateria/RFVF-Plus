@@ -757,6 +757,18 @@ static const struct MenuAction sMultichoiceList_TourneyNoRecord[] = {
     { gText_Opponent }, { gText_Tourney_Tree }, { gText_ReadyToStart }, { gText_Rest }, { gText_Retire }
 };
 
+static const struct MenuAction sMultichoiceList_BattlePikeRules[] = {
+    { gText_PokenavAndBag }, { gText_HeldItems }, { gText_PokemonOrder }, { gText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_BattlePyramidRules[] = {
+    { gText_PyramidPokemon }, { gText_PyramidTrainers }, { gText_PyramidMaze }, { gText_BattleBag2 }, { gText_Exit }
+};
+
+static const struct MenuAction sMultichoiceList_FrontierItemChoose[] = {
+    { gText_BattleBag }, { gText_HeldItem }, { gText_Exit }
+};
+
 static const struct MenuAction sMultichoiceList_TagMatchType[] = {
     { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
 };
@@ -1220,6 +1232,9 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_BATTLE_DOME_RULES] = MULTICHOICE(sMultichoiceList_BattleDomeRules),
 	[MULTI_TOURNEY_WITH_RECORD] = MULTICHOICE(sMultichoiceList_TourneyWithRecord),
 	[MULTI_TOURNEY_NO_RECORD] = MULTICHOICE(sMultichoiceList_TourneyNoRecord),
+	[MULTI_BATTLE_PIKE_RULES] = MULTICHOICE(sMultichoiceList_BattlePikeRules),
+	[MULTI_BATTLE_PYRAMID_RULES] = MULTICHOICE(sMultichoiceList_BattlePyramidRules),
+	[MULTI_FRONTIER_ITEM_CHOOSE] = MULTICHOICE(sMultichoiceList_FrontierItemChoose),
 };
 
 // From Cool to Berries goes unused

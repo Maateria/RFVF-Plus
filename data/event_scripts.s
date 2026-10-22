@@ -2412,8 +2412,10 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattleFrontier_BattlePyramidLobby/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePyramidFloor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePyramidFloor/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePyramidTop/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePyramidTop/text.inc"
 
 	.include "data/maps/BattleFrontier_BattleArenaLobby/scripts.inc"
 	.include "data/maps/BattleFrontier_BattleArenaLobby/text.inc"
@@ -2437,12 +2439,16 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattleFrontier_BattlePikeLobby/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePikeCorridor/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeCorridor/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePikeThreePathRoom/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeThreePathRoom/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePikeRoomNormal/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeRoomNormal/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePikeRoomFinal/scripts.inc"
+	.include "data/maps/BattleFrontier_BattlePikeRoomFinal/text.inc"
 
 	.include "data/maps/BattleFrontier_BattlePikeRoomWildMons/scripts.inc"
 
@@ -2481,3 +2487,4 @@ EventScript_NoMoreRoomForPokemon::
 	.include "data/maps/BattlePyramidSquare16/scripts.inc"
 
 	.include "data/scripts/johto_maps.inc"
+	.include "data/scripts/battle_pike.inc"

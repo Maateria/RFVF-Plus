@@ -730,6 +730,12 @@
 		.elseif \type == TRAINER_BATTLE_EARLY_RIVAL
 			.4byte \pointer1 @ text
 			.4byte \pointer2 @ text
+		.elseif \type == TRAINER_BATTLE_HILL @ RFVF+: Emerald's (two placeholder texts)
+			.4byte \pointer1 @ text
+			.4byte \pointer2 @ text
+		.elseif \type == TRAINER_BATTLE_PYRAMID
+			.4byte \pointer1 @ text
+			.4byte \pointer2 @ text
 		.endif
 	.endm
 

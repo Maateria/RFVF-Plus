@@ -68,6 +68,7 @@ enum {
 extern const struct SpritePalette gSpritePalette_Pokeball;
 
 bool8 IsBattleTransitionDone(void);
+bool8 IsIntroTaskDone(void);
 void GetBg0TilesDst(u16 **tilemap, u16 **tileset);
 void BattleTransition_StartOnField(u8 transitionId);
 bool8 FldEff_PokeballTrail(void);

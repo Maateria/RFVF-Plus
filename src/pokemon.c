@@ -1,6 +1,8 @@
 #define IS_POKEMON_C
 
 #include "global.h"
+#include "battle_pyramid.h"
+#include "battle_pike.h"
 #include "battle_tower.h"
 #include "apprentice.h"
 #include "constants/battle_frontier.h"
@@ -8064,7 +8066,7 @@ void SetMonPreventsSwitchingString(void)
 
 void SetWildMonHeldItem(void)
 {
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_POKEDUDE | BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_TRAINER)))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_POKEDUDE | BATTLE_TYPE_LEGENDARY | BATTLE_TYPE_TRAINER | BATTLE_TYPE_PYRAMID | BATTLE_TYPE_PIKE))) // RFVF+: Emerald's
     {
         u16 rnd = Random() % 100;
         u16 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
@@ -8574,7 +8576,7 @@ static bool32 ShouldSkipFriendshipChange(void)
 {
     if (gMain.inBattle && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER))
         return TRUE;
-    /*if (!gMain.inBattle && (InBattlePike() || InBattlePyramid()))
-        return TRUE;*/
+    if (!gMain.inBattle && (InBattlePike() || CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)) // RFVF+: Emerald's
+        return TRUE;
     return FALSE;
 }

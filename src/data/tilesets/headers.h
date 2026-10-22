@@ -1472,7 +1472,7 @@ const struct Tileset gTileset_HoennBattleDome =
 	.palettes = gTilesetPalettes_HoennBattleDome,
 	.metatiles = gMetatiles_HoennBattleDome,
 	.metatileAttributes = gMetatileAttributes_HoennBattleDome,
-	.callback = NULL
+	.callback = InitTilesetAnim_HoennBattleDome
 };
 
 const struct Tileset gTileset_HoennBattlePalace = 

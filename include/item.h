@@ -98,4 +98,7 @@ void DeserializeKeyItemSlots(void);
 u16 GetBagItemQuantity(u16 * ptr);
 bool8 CheckAssetsForSoftlock(void);
 
+bool8 AddPyramidBagItem(u16 itemId, u16 count);
+bool8 RemovePyramidBagItem(u16 itemId, u16 count);
+
 #endif // GUARD_ITEM_H

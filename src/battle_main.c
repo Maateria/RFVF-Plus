@@ -1,4 +1,5 @@
 #include "global.h"
+#include "battle_pyramid.h"
 #include "gflib.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -3428,7 +3429,7 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_USE_ITEM:
-                    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER)) || FlagGet(FLAG_MASTER_TRAINER_BATTLE))
+                    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER_NO_PYRAMID | BATTLE_TYPE_EREADER_TRAINER)) || FlagGet(FLAG_MASTER_TRAINER_BATTLE)) // RFVF+: the Pyramid has its bag
                     {
                         gSelectionBattleScripts[gActiveBattler] = BattleScript_ActionSelectionItemsCantBeUsed;
                         gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT;
@@ -4637,16 +4638,30 @@ bool8 TryRunFromBattle(u8 battler)
     }
     else if (gBattleMons[battler].ability == ABILITY_RUN_AWAY)
     {
-        gLastUsedAbility = ABILITY_RUN_AWAY;
-        gProtectStructs[battler].fleeType = FLEE_ABILITY;
-        effect++;
+        if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+        {
+            gBattleStruct->runTries++;
+            speedVar = (gBattleMons[battler].speed * GetPyramidRunMultiplier()) / (gBattleMons[BATTLE_OPPOSITE(battler)].speed) + (gBattleStruct->runTries * 30);
+            if (speedVar > (Random() & 0xFF))
+            {
+                gLastUsedAbility = ABILITY_RUN_AWAY;
+                gProtectStructs[battler].fleeType = FLEE_ABILITY;
+                effect++;
+            }
+        }
+        else
+        {
+            gLastUsedAbility = ABILITY_RUN_AWAY;
+            gProtectStructs[battler].fleeType = FLEE_ABILITY;
+            effect++;
+        }
     }
     else if (IS_BATTLE_TYPE_GHOST_WITHOUT_SCOPE(gBattleTypeFlags))
     {
         if (GetBattlerSide(battler) == B_SIDE_PLAYER)
             effect++;
     }
-    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL && gBattleTypeFlags & BATTLE_TYPE_TRAINER) // Emerald's: the player forfeits
+    else if (gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL) && gBattleTypeFlags & BATTLE_TYPE_TRAINER) // Emerald's: the player forfeits
     {
         effect++;
     }
@@ -4654,7 +4669,13 @@ bool8 TryRunFromBattle(u8 battler)
     {
         if (!(gBattleTypeFlags & BATTLE_TYPE_DOUBLE))
         {
-            if (gBattleMons[battler].speed < gBattleMons[BATTLE_OPPOSITE(battler)].speed)
+            if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+            {
+                speedVar = (gBattleMons[battler].speed * GetPyramidRunMultiplier()) / (gBattleMons[BATTLE_OPPOSITE(battler)].speed) + (gBattleStruct->runTries * 30);
+                if (speedVar > (Random() & 0xFF))
+                    effect++;
+            }
+            else if (gBattleMons[battler].speed < gBattleMons[BATTLE_OPPOSITE(battler)].speed)
             {
                 speedVar = (gBattleMons[battler].speed * 128) / (gBattleMons[BATTLE_OPPOSITE(battler)].speed) + (gBattleStruct->runTries * 30);
                 if (speedVar > (Random() & 0xFF))

@@ -215,7 +215,7 @@ static void LaunchBattleTransitionTask(u8 transitionId);
 static void Task_BattleTransition(u8 taskId);
 static void InitTransitionData(void);
 static void CreateIntroTask(s16 fadeOutDelay, s16 fadeInDelay, s16 blinkTimes, s16 fadeOutSpeed, s16 fadeInSpeed);
-static bool8 IsIntroTaskDone(void);
+bool8 IsIntroTaskDone(void);
 static void VBlankCB_BattleTransition(void);
 static void GetBg0TilemapDst(u16 **tilesetPtr);
 static void SetSinWave(s16 *buffer, s16 offset, s16 sinIndex, s16 frequency, s16 amplitude, s16 bufSize);
@@ -2832,7 +2832,7 @@ static void CreateIntroTask(s16 fadeToGrayDelay, s16 fadeFromGrayDelay, s16 numF
     gTasks[taskId].tDelayTimer = fadeToGrayDelay;
 }
 
-static bool8 IsIntroTaskDone(void)
+bool8 IsIntroTaskDone(void) // RFVF+: not static (the Battle Dome floor lights)
 {
     if (FindTaskIdByFunc(Task_BattleTransition_Intro) == TASK_NONE)
         return TRUE;

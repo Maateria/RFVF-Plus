@@ -1,4 +1,7 @@
 #include "global.h"
+#include "battle_pike.h"
+#include "battle_pyramid_bag.h"
+#include "battle_pyramid.h"
 #include "gflib.h"
 #include "bag.h"
 #include "battle_controllers.h"
@@ -392,7 +395,10 @@ void CB2_BagMenuFromStartMenu(void)
 
 void CB2_BagMenuFromBattle(void)
 {
-    GoToBagMenu(ITEMMENULOCATION_BATTLE, OPEN_BAG_LAST, SetCB2ToReshowScreenAfterMenu2);
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+        GoToBattlePyramidBagMenu(PYRAMIDBAG_LOC_BATTLE, SetCB2ToReshowScreenAfterMenu2);
+    else
+        GoToBagMenu(ITEMMENULOCATION_BATTLE, OPEN_BAG_LAST, SetCB2ToReshowScreenAfterMenu2);
 }
 
 static void CB2_BagMenuRun(void)
@@ -937,6 +943,11 @@ static void DestroyBagMenuResources(void)
 
 void ItemMenu_StartFadeToExitCallback(u8 taskId)
 {
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        CloseBattlePyramidBag(taskId);
+        return;
+    }
     BeginNormalPaletteFade(PALETTES_ALL, -2, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_ItemMenu_WaitFadeAndSwitchToExitCallback;
 }
@@ -986,7 +997,14 @@ static void ShowBagOrBeginWin0OpenTask(void)
 void Bag_BeginCloseWin0Animation(void)
 {
 
-    u8 taskId = CreateTask(Task_AnimateWin0v, 0);
+    u8 taskId;
+
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        gBagMenuState.bagOpen = FALSE;
+        return;
+    }
+    taskId = CreateTask(Task_AnimateWin0v, 0);
     gTasks[taskId].data[0] = -16;
     gTasks[taskId].data[1] =  16;
     gBagMenuState.bagOpen = FALSE;
@@ -1063,6 +1081,12 @@ static void All_CalculateNItemsAndMaxShowed(void)
 void DisplayItemMessageInBag(u8 taskId, u8 fontId, const u8 * string, TaskFunc followUpFunc)
 {
     s16 *data = gTasks[taskId].data;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        DisplayItemMessageInBattlePyramid(taskId, string, followUpFunc == Task_ReturnToBagFromContextMenu
+                                          ? Task_CloseBattlePyramidBagMessage : followUpFunc);
+        return;
+    }
     data[10] = OpenBagWindow(5);
     FillWindowPixelBuffer(data[10], PIXEL_FILL(1));
     DisplayMessageAndContinueTask(taskId, data[10], 0x06D, 0x0D, fontId, GetTextSpeedSetting(), string, followUpFunc);
@@ -1071,6 +1095,11 @@ void DisplayItemMessageInBag(u8 taskId, u8 fontId, const u8 * string, TaskFunc f
 
 void ItemMenu_SetExitCallback(MainCallback cb)
 {
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        gPyramidBagMenu->newScreenCallback = cb;
+        return;
+    }
     sBagMenuDisplay->exitCB = cb;
 }
 
@@ -2151,7 +2180,7 @@ static void Task_TryDoItemDeposit(u8 taskId)
 bool8 UseRegisteredKeyItemOnField(void)
 {
     u8 taskId;
-    if (InUnionRoom() == TRUE)
+    if (InUnionRoom() == TRUE || CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InBattlePike()) // RFVF+: Emerald's
         return FALSE;
     DismissMapNamePopup();
     ChangeBgY(0, 0, 0);

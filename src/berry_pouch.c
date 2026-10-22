@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_pyramid_bag.h"
+#include "battle_pyramid.h"
 #include "malloc.h"
 #include "bg.h"
 #include "decompress.h"
@@ -860,6 +862,11 @@ static void BerryPouch_DestroyResources(void)
 
 void BerryPouch_StartFadeToExitCallback(u8 taskId)
 {
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        CloseBattlePyramidBag(taskId);
+        return;
+    }
     BeginNormalPaletteFade(PALETTES_ALL, -2, 0, 16, RGB_BLACK);
     gTasks[taskId].func = Task_BerryPouchFadeToExitCallback;
 }
@@ -905,6 +912,11 @@ static void SortAndCountBerries(void)
 
 void BerryPouch_SetExitCallback(void (*callback)(void))
 {
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        gPyramidBagMenu->newScreenCallback = callback;
+        return;
+    }
     sResources->exitCallback = callback;
 }
 
@@ -1483,6 +1495,11 @@ static u8 GetVariableWindowId(u8 winIdx)
 
 void DisplayItemMessageInBerryPouch(u8 taskId, u8 fontId, const u8 * str, TaskFunc followUpFunc)
 {
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's Pyramid bag
+    {
+        DisplayItemMessageInBattlePyramid(taskId, str, Task_CloseBattlePyramidBagMessage);
+        return;
+    }
     if (sVariableWindowIds[5] == 0xFF)
         sVariableWindowIds[5] = AddWindow(&sWindowTemplates_Variable[5]);
     DisplayMessageAndContinueTask(taskId, sVariableWindowIds[5], 0x013, 0xD, fontId, GetTextSpeedSetting(), str, followUpFunc);

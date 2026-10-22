@@ -89,6 +89,14 @@ static void SetFlashScanlineEffectWindowBoundary(u16 *dest, u32 y, s32 left, s32
  * doesn't change on every iteration, we will frequently overwrite
  * boundaries set in the previous iteration.
  */
+// RFVF+: Emerald's (the Battle Pyramid's light circle)
+void SetFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s32 centerY, s32 radius);
+void WriteBattlePyramidViewScanlineEffectBuffer(void)
+{
+    SetFlashScanlineEffectWindowBoundaries(&gScanlineEffectRegBuffers[0][0], DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, gSaveBlock2Ptr->frontier.pyramidLightRadius);
+    CpuFastSet(&gScanlineEffectRegBuffers[0], &gScanlineEffectRegBuffers[1], 480);
+}
+
 void SetFlashScanlineEffectWindowBoundaries(u16 *dest, s32 centerX, s32 centerY, s32 radius)
 {
     s32 xy = radius;

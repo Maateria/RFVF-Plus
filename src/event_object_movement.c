@@ -1,4 +1,5 @@
 #include "global.h"
+#include "battle_pyramid.h"
 #include "trainer_hill.h"
 #include "gflib.h"
 #include "event_data.h"
@@ -1864,7 +1865,10 @@ u8 Unref_TryInitLocalObjectEvent(u8 localId)
     if (gMapHeader.events == NULL)
         return OBJECT_EVENTS_COUNT;
 
-    objectEventCount = gMapHeader.events->objectEventCount;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+        objectEventCount = GetNumBattlePyramidObjectEvents();
+    else
+        objectEventCount = gMapHeader.events->objectEventCount;
     
     for (i = 0; i < objectEventCount; i++)
     {
@@ -2197,7 +2201,7 @@ void TrySpawnObjectEvents(s16 cameraX, s16 cameraY)
         s16 top = gSaveBlock1Ptr->pos.y;
         s16 bottom = gSaveBlock1Ptr->pos.y + MAP_OFFSET_H + 2;
 
-        objectCount = InTrainerHill() ? HILL_TRAINERS_PER_FLOOR : gMapHeader.events->objectEventCount; // Emerald's
+        objectCount = CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE ? GetNumBattlePyramidObjectEvents() : InTrainerHill() ? HILL_TRAINERS_PER_FLOOR : gMapHeader.events->objectEventCount; // Emerald's
 
         for (i = 0; i < objectCount; i++)
         {
@@ -3063,7 +3067,7 @@ static const struct ObjectEventTemplate *GetObjectEventTemplateByLocalIdAndMap(u
     if (gSaveBlock1Ptr->location.mapNum == mapNum && gSaveBlock1Ptr->location.mapGroup == mapGroup)
     {
         templates = gSaveBlock1Ptr->objectEventTemplates;
-        count = InTrainerHill() ? HILL_TRAINERS_PER_FLOOR : gMapHeader.events->objectEventCount;
+        count = CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE ? GetNumBattlePyramidObjectEvents() : InTrainerHill() ? HILL_TRAINERS_PER_FLOOR : gMapHeader.events->objectEventCount;
     }
     else
     {

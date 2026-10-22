@@ -215,7 +215,7 @@ NO_COUNTERPART = dict(
     MB_ROULETTE="game corner", MB_SLOT_MACHINE="game corner, the machines are bg events",
     MB_PETALBURG_GYM_DOOR="gym door, a script opens it", MB_POKEBLOCK_FEEDER="Safari feeder",
     MB_PLAYER_ROOM_PC_ON="bedroom PC", MB_RUNNING_SHOES_INSTRUCTION="tutorial sign", MB_TRAINER_HILL_TIMER="Trainer Hill",
-    MB_BATTLE_PYRAMID_WARP="Battle Pyramid", MB_UNUSED_SOOTOPOLIS_DEEP_WATER="unused water, not surfable in Emerald",
+    MB_UNUSED_SOOTOPOLIS_DEEP_WATER="unused water, not surfable in Emerald",  # MB_BATTLE_PYRAMID_WARP: defined here since batch 6
     MB_UNUSED_SOOTOPOLIS_DEEP_WATER_2="unused water, not surfable in Emerald",
     MB_LAVARIDGE_GYM_B1F_WARP="Lavaridge Gym B1F geyser (engine E3)",
 )

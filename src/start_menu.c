@@ -1,4 +1,8 @@
 #include "global.h"
+#include "battle_pike.h"
+#include "battle_pyramid_bag.h"
+#include "battle_pyramid.h"
+#include "constants/battle_frontier.h"
 #include "frontier_pass.h"
 #include "gflib.h"
 #include "scanline_effect.h"
@@ -49,6 +53,9 @@ enum StartMenuOption
     STARTMENU_EXIT,
     STARTMENU_RETIRE,
     STARTMENU_PLAYER2,
+    STARTMENU_PYRAMID_BAG,    // RFVF+: Emerald's Battle Pyramid
+    STARTMENU_PYRAMID_REST,
+    STARTMENU_PYRAMID_RETIRE,
     MAX_STARTMENU_ITEMS
 };
 
@@ -76,6 +83,8 @@ static void SetUpStartMenu_Link(void);
 static void SetUpStartMenu_UnionRoom(void);
 static void SetUpStartMenu_SafariZone(void);
 static void SetUpStartMenu_NormalField(void);
+static void SetUpStartMenu_BattlePyramid(void);
+static void SetUpStartMenu_BattlePike(void);
 static bool8 StartCB_HandleInput(void);
 static void StartMenu_FadeScreenIfLeavingOverworld(void);
 static bool8 StartMenuPokedexSanityCheck(void);
@@ -88,6 +97,13 @@ static bool8 StartMenuOptionCallback(void);
 static bool8 StartMenuExitCallback(void);
 static bool8 StartMenuSafariZoneRetireCallback(void);
 static bool8 StartMenuLinkPlayerCallback(void);
+static bool8 StartMenuBattlePyramidBagCallback(void);
+static bool8 StartMenuBattlePyramidRetireCallback(void);
+static bool8 StartCB_PyramidRetire(void);
+static void PrintSaveTextWithFollowupFunc(const u8 *str, bool8 (*saveDialogCB)(void));
+static u8 SaveDialogCB_PrintAskRetireText(void);
+static u8 SaveDialogCB_PyramidRetireYesNo(void);
+static u8 SaveDialogCB_PyramidRetireHandleInput(void);
 static bool8 StartCB_Save1(void);
 static bool8 StartCB_Save2(void);
 static void StartMenu_PrepareForSave(void);
@@ -122,7 +138,38 @@ static const struct MenuAction sStartMenuActionTable[] = {
     { gText_MenuOption, {.u8_void = StartMenuOptionCallback} },
     { gText_MenuExit, {.u8_void = StartMenuExitCallback} },
     { gText_MenuRetire, {.u8_void = StartMenuSafariZoneRetireCallback} },
-    { gText_MenuPlayer, {.u8_void = StartMenuLinkPlayerCallback} }
+    { gText_MenuPlayer, {.u8_void = StartMenuLinkPlayerCallback} },
+    { gText_MenuBag, {.u8_void = StartMenuBattlePyramidBagCallback} },
+    { gText_MenuRest, {.u8_void = StartMenuSaveCallback} },
+    { gText_MenuRetire, {.u8_void = StartMenuBattlePyramidRetireCallback} }
+};
+
+// RFVF+: Emerald's Battle Pyramid floor window
+static EWRAM_DATA u8 sBattlePyramidFloorWindowId = 0;
+
+static const u8 *const sPyramidFloorNames[FRONTIER_STAGES_PER_CHALLENGE + 1] =
+{
+    gText_Floor1, gText_Floor2, gText_Floor3, gText_Floor4, gText_Floor5, gText_Floor6, gText_Floor7, gText_Peak
+};
+
+static const struct WindowTemplate sWindowTemplate_PyramidFloor = {
+    .bg = 0,
+    .tilemapLeft = 1,
+    .tilemapTop = 1,
+    .width = 10,
+    .height = 4,
+    .paletteNum = 15,
+    .baseBlock = 0x8
+};
+
+static const struct WindowTemplate sWindowTemplate_PyramidPeak = {
+    .bg = 0,
+    .tilemapLeft = 1,
+    .tilemapTop = 1,
+    .width = 12,
+    .height = 4,
+    .paletteNum = 15,
+    .baseBlock = 0x8
 };
 
 static const struct WindowTemplate sSafariZoneStatsWindowTemplate = {
@@ -144,7 +191,10 @@ static const u8 *const sStartMenuDescPointers[] = {
     gStartMenuDesc_Option,
     gStartMenuDesc_Exit,
     gStartMenuDesc_Retire,
-    gStartMenuDesc_Player
+    gStartMenuDesc_Player,
+    gStartMenuDesc_Bag,             // RFVF+: the Battle Pyramid's entries (Emerald has no help bar)
+    gStartMenuDesc_Save,
+    gStartMenuDesc_PyramidRetire
 };
 
 static const struct BgTemplate sBGTemplates_AfterLinkSaveMessage[] = {
@@ -201,6 +251,10 @@ static void SetUpStartMenu(void)
         SetUpStartMenu_UnionRoom();
     else if (GetSafariZoneFlag() == TRUE)
         SetUpStartMenu_SafariZone();
+    else if (InBattlePike()) // RFVF+: Emerald's
+        SetUpStartMenu_BattlePike();
+    else if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
+        SetUpStartMenu_BattlePyramid();
     else
         SetUpStartMenu_NormalField();
 }
@@ -219,6 +273,28 @@ static void SetUpStartMenu_NormalField(void)
     AppendToStartMenuItems(STARTMENU_BAG);
     AppendToStartMenuItems(STARTMENU_PLAYER);
     AppendToStartMenuItems(STARTMENU_SAVE);
+    AppendToStartMenuItems(STARTMENU_OPTION);
+    AppendToStartMenuItems(STARTMENU_EXIT);
+}
+
+// RFVF+: Emerald's (no bag, no save)
+static void SetUpStartMenu_BattlePike(void)
+{
+    AppendToStartMenuItems(STARTMENU_POKEDEX);
+    AppendToStartMenuItems(STARTMENU_POKEMON);
+    AppendToStartMenuItems(STARTMENU_PLAYER);
+    AppendToStartMenuItems(STARTMENU_OPTION);
+    AppendToStartMenuItems(STARTMENU_EXIT);
+}
+
+// RFVF+: Emerald's order
+static void SetUpStartMenu_BattlePyramid(void)
+{
+    AppendToStartMenuItems(STARTMENU_POKEMON);
+    AppendToStartMenuItems(STARTMENU_PYRAMID_BAG);
+    AppendToStartMenuItems(STARTMENU_PLAYER);
+    AppendToStartMenuItems(STARTMENU_PYRAMID_REST);
+    AppendToStartMenuItems(STARTMENU_PYRAMID_RETIRE);
     AppendToStartMenuItems(STARTMENU_OPTION);
     AppendToStartMenuItems(STARTMENU_EXIT);
 }
@@ -265,8 +341,28 @@ static void DrawSafariZoneStatsWindow(void)
     CopyWindowToVram(sSafariZoneStatsWindowId, COPYWIN_GFX);
 }
 
+static void DrawPyramidFloorWindow(void)
+{
+    if (gSaveBlock2Ptr->frontier.curChallengeBattleNum == FRONTIER_STAGES_PER_CHALLENGE)
+        sBattlePyramidFloorWindowId = AddWindow(&sWindowTemplate_PyramidPeak);
+    else
+        sBattlePyramidFloorWindowId = AddWindow(&sWindowTemplate_PyramidFloor);
+    PutWindowTilemap(sBattlePyramidFloorWindowId);
+    DrawStdWindowFrame(sBattlePyramidFloorWindowId, FALSE);
+    StringCopy(gStringVar1, sPyramidFloorNames[gSaveBlock2Ptr->frontier.curChallengeBattleNum]);
+    StringExpandPlaceholders(gStringVar4, gText_BattlePyramidFloor);
+    AddTextPrinterParameterized(sBattlePyramidFloorWindowId, FONT_NORMAL, gStringVar4, 0, 1, TEXT_SKIP_DRAW, NULL);
+    CopyWindowToVram(sBattlePyramidFloorWindowId, COPYWIN_GFX);
+}
+
 static void DestroySafariZoneStatsWindow(void)
 {
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: the Pyramid's floor window too
+    {
+        ClearStdWindowAndFrameToTransparent(sBattlePyramidFloorWindowId, FALSE);
+        CopyWindowToVram(sBattlePyramidFloorWindowId, COPYWIN_GFX);
+        RemoveWindow(sBattlePyramidFloorWindowId);
+    }
     if (GetSafariZoneFlag())
     {
         ClearStdWindowAndFrameToTransparent(sSafariZoneStatsWindowId, FALSE);
@@ -319,6 +415,8 @@ static s8 DoDrawStartMenu(void)
     case 3:
         if (GetSafariZoneFlag())
             DrawSafariZoneStatsWindow();
+        else if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE)
+            DrawPyramidFloorWindow();
         sDrawStartMenuState[0]++;
         break;
     case 4:
@@ -448,7 +546,8 @@ static void StartMenu_FadeScreenIfLeavingOverworld(void)
 {
     if (sStartMenuCallback != StartMenuSaveCallback
      && sStartMenuCallback != StartMenuExitCallback
-     && sStartMenuCallback != StartMenuSafariZoneRetireCallback)
+     && sStartMenuCallback != StartMenuSafariZoneRetireCallback
+     && sStartMenuCallback != StartMenuBattlePyramidRetireCallback) // RFVF+: its question stays on the field
     {
         StopPokemonLeagueLightingEffectTask();
         FadeScreen(FADE_TO_BLACK, 0);
@@ -500,6 +599,86 @@ static bool8 StartMenuBagCallback(void)
         return TRUE;
     }
     return FALSE;
+}
+
+// RFVF+: Emerald's
+static bool8 StartMenuBattlePyramidBagCallback(void)
+{
+    if (!gPaletteFade.active)
+    {
+        PlayRainStoppingSoundEffect();
+        DestroySafariZoneStatsWindow();
+        CleanupOverworldWindowsAndTilemaps();
+        SetMainCallback2(CB2_PyramidBagMenuFromStartMenu);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+// Emerald's retire question, run like the SAVE/REST dialog (the floor window stays until it ends)
+static bool8 StartMenuBattlePyramidRetireCallback(void)
+{
+    sSaveDialogCB = SaveDialogCB_PrintAskRetireText;
+    sSaveDialogIsPrinting = FALSE;
+    sStartMenuCallback = StartCB_PyramidRetire;
+    return FALSE;
+}
+
+static u8 SaveDialogCB_PrintAskRetireText(void)
+{
+    ClearStdWindowAndFrame(GetStartMenuWindowId(), FALSE);
+    RemoveStartMenuWindow();
+    DestroyHelpMessageWindow(0);
+    PrintSaveTextWithFollowupFunc(gText_BattlePyramidConfirmRetire, SaveDialogCB_PyramidRetireYesNo);
+    return SAVECB_RETURN_CONTINUE;
+}
+
+static u8 SaveDialogCB_PyramidRetireYesNo(void)
+{
+    DisplayYesNoMenuDefaultNo();
+    sSaveDialogCB = SaveDialogCB_PyramidRetireHandleInput;
+    return SAVECB_RETURN_CONTINUE;
+}
+
+static u8 SaveDialogCB_PyramidRetireHandleInput(void)
+{
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0:
+        return SAVECB_RETURN_OKAY; // retire
+    case 1:
+    case MENU_B_PRESSED:
+        return SAVECB_RETURN_CANCEL;
+    }
+    return SAVECB_RETURN_CONTINUE;
+}
+
+static bool8 StartCB_PyramidRetire(void)
+{
+    switch (RunSaveDialogCB())
+    {
+    case SAVECB_RETURN_OKAY:
+        DestroySafariZoneStatsWindow();
+        ClearDialogWindowAndFrameToTransparent(0, TRUE);
+        ClearPlayerHeldMovementAndUnfreezeObjectEvents();
+        UnlockPlayerFieldControls();
+        ScriptContext_SetupScript(BattlePyramid_Retire);
+        return TRUE;
+    case SAVECB_RETURN_CANCEL:
+        DestroySafariZoneStatsWindow(); // the menu draws it again
+        ClearDialogWindowAndFrameToTransparent(0, FALSE);
+        DrawStartMenuInOneGo();
+        sStartMenuCallback = StartCB_HandleInput;
+        break;
+    }
+    return FALSE;
+}
+
+// Functionally unused in Emerald (battle_pyramid.c names it)
+void ShowBattlePyramidStartMenu(void)
+{
+    ClearDialogWindowAndFrameToTransparent(0, FALSE);
+    ShowStartMenu();
 }
 
 static bool8 StartMenuPlayerCallback(void)
@@ -588,6 +767,7 @@ static bool8 StartCB_Save2(void)
         ClearPlayerHeldMovementAndUnfreezeObjectEvents();
         UnlockPlayerFieldControls();
         RestoreHelpContext();
+        SoftResetInBattlePyramid(); // RFVF+: Emerald's REST
         return TRUE;
     case SAVECB_RETURN_CANCEL:
         ClearDialogWindowAndFrameToTransparent(0, FALSE);
@@ -715,7 +895,10 @@ static u8 SaveDialogCB_PrintAskSaveText(void)
     RemoveStartMenuWindow();
     DestroyHelpMessageWindow(0);
     PrintSaveStats();
-    PrintSaveTextWithFollowupFunc(gText_WouldYouLikeToSaveTheGame, SaveDialogCB_AskSavePrintYesNoMenu);
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's REST
+        PrintSaveTextWithFollowupFunc(gText_BattlePyramidConfirmRest, SaveDialogCB_AskSavePrintYesNoMenu);
+    else
+        PrintSaveTextWithFollowupFunc(gText_WouldYouLikeToSaveTheGame, SaveDialogCB_AskSavePrintYesNoMenu);
     return SAVECB_RETURN_CONTINUE;
 }
 
@@ -794,6 +977,7 @@ static u8 SaveDialogCB_PrintSavingDontTurnOffPower(void)
 static u8 SaveDialogCB_DoSave(void)
 {
     IncrementGameStat(GAME_STAT_SAVED_GAME);
+    PausePyramidChallenge(); // RFVF+: Emerald's (does nothing outside the Pyramid)
     if (gDifferentSaveFile == TRUE)
     {
         TrySavingData(SAVE_OVERWRITE_DIFFERENT_FILE);

@@ -14,3 +14,157 @@ BattleFrontier_BattlePikeLobby_Text_ThinkAbilitiesUsefulHere::
     .string "Tu ne penses pas que les capacités\n"
     .string "spéciales des POKéMON risquent\l"
     .string "d'être utiles ici?$"
+
+BattleFrontier_BattlePikeLobby_Text_WelcomeToBattlePike::
+    .string "Bienvenue au REPTILE DE COMBAT…\p"
+    .string "Ici, nous mettons à l'épreuve la\n"
+    .string "chance des DRESSEURS…\p"
+    .string "Je serai votre guide dans le\n"
+    .string "REPTILE DE COMBAT…$"
+
+BattleFrontier_BattlePikeLobby_Text_TakeChallenge::
+    .string "Voulez-vous relever le défi du\n"
+    .string "COMBAT HASARD?$"
+
+BattleFrontier_BattlePikeLobby_Text_ExplainBattlePike::
+    .string "Ici, nous vous proposons le\n"
+    .string "COMBAT HASARD.\p"
+    .string "Les règles du COMBAT HASARD sont\n"
+    .string "très simples…\p"
+    .string "Il faut choisir l'un des trois\n"
+    .string "chemins et rejoindre la\l"
+    .string "dernière salle à l'extrémité du\l"
+    .string "REPTILE DE COMBAT. C'est tout.\p"
+    .string "Cependant, ce qui se passe sur le\n"
+    .string "chemin choisi n'est qu'une question\l"
+    .string "de chance…\p"
+    .string "Si vous rejoignez l'arrivée, vous\n"
+    .string "recevez des POINTS DE COMBAT.\p"
+    .string "Si vous voulez interrompre votre\n"
+    .string "défi, veuillez parler avec notre\l"
+    .string "personnel dans les grandes salles.\p"
+    .string "Assurez-vous de bien sauvegarder, ou\n"
+    .string "vous ne pourrez pas\l"
+    .string "reprendre le défi.$"
+
+BattleFrontier_BattlePikeLobby_Text_LookForwardToSeeingYou::
+    .string "Nous attendrons votre prochain défi\n"
+    .string "avec impatience.$"
+
+BattleFrontier_BattlePikeLobby_Text_WhichChallengeMode::
+    .string "Choisissez-vous niveau 50 ou niveau\n"
+    .string "libre?$"
+
+BattleFrontier_BattlePikeLobby_Text_NotEnoughValidMonsLv50::
+    .string "Je regrette…\p"
+    .string "Vous n'avez pas trois POKéMON\n"
+    .string "aptes à participer\l"
+    .string "au COMBAT HASARD.\p"
+    .string "Il vous faut trois POKéMON différents\n"
+    .string "de niveau 50 ou\l"
+    .string "moins pour participer.\p"
+    .string "Ils doivent aussi tenir des objets\n"
+    .string "différents.\p"
+    .string "Les OEUFS{STR_VAR_1}\n"
+    .string "inaptes au combat.\p"
+    .string "Revenez me voir quand vous aurez\n"
+    .string "ce qu'il faut…$"
+
+BattleFrontier_BattlePikeLobby_Text_NotEnoughValidMonsLvOpen::
+    .string "Je regrette…\p"
+    .string "Vous n'avez pas trois POKéMON\n"
+    .string "aptes à participer\l"
+    .string "au COMBAT HASARD.\p"
+    .string "Il vous faut trois POKéMON différents\n"
+    .string "pour participer.\p"
+    .string "Ils doivent aussi tenir des objets\n"
+    .string "différents.\p"
+    .string "Les OEUFS{STR_VAR_1}\n"
+    .string "inaptes au combat.\p"
+    .string "Revenez me voir quand vous aurez\n"
+    .string "ce qu'il faut…$"
+
+BattleFrontier_BattlePikeLobby_Text_PleaseChooseThreeMons::
+    .string "Veuillez choisir les trois POKéMON\n"
+    .string "qui vous accompagneront…$"
+
+BattleFrontier_BattlePikeLobby_Text_SaveBeforeChallenge::
+    .string "Avant de commencer un COMBAT\n"
+    .string "HASARD, la partie doit être\l"
+    .string "sauvegardée. Cela vous convient-il?$"
+
+BattleFrontier_BattlePikeLobby_Text_StepThisWay::
+    .string "Veuillez me suivre…$"
+
+BattleFrontier_BattlePikeLobby_Text_ChallengeEndedRecordResults::
+    .string "Votre défi est terminé…\p"
+    .string "Votre résultat va être sauvegardé.\n"
+    .string "Veuillez patienter.$"
+
+BattleFrontier_BattlePikeLobby_Text_PossessLuckInAbundance::
+    .string "Vous avez réussi votre défi…\p"
+    .string "Je dois dire que vous avez\n"
+    .string "énormément de chance…$"
+
+BattleFrontier_BattlePikeLobby_Text_ShallRecordResults::
+    .string "Votre résultat va être sauvegardé.\n"
+    .string "Veuillez patienter…$"
+
+BattleFrontier_BattlePikeLobby_Text_AwardYouTheseBattlePoints2::
+    .string "To commemorate your completion of\n"
+    .string "the Battle Choice challenge, we\l"
+    .string "award you these Battle Point(s)…$"
+
+BattleFrontier_BattlePikeLobby_Text_ReachedBattlePointLimit::
+    .string "You appear to have reached the limit\n"
+    .string "for Battle Points…\p"
+    .string "Please exchange some Battle Points\n"
+    .string "for prizes, then return…$"
+
+BattleFrontier_BattlePikeLobby_Text_FailedToSaveBeforeQuitting::
+    .string "Je regrette…\p"
+    .string "Vous n'avez pas sauvegardé avant de\n"
+    .string "quitter votre dernier défi.\p"
+    .string "Dans ce cas, c'est la\n"
+    .string "disqualification. C'est dommage…$"
+
+BattleFrontier_BattlePikeLobby_Text_SnatchedVictoryFromQueen::
+    .string "Félicitations…\p"
+    .string "Vous avez arraché la victoire à la\n"
+    .string "REINE VENIN et réussi ce défi…$"
+
+BattleFrontier_BattlePikeLobby_Text_AwardYouTheseBattlePoints::
+    .string "Votre chance va être récompensée par\n"
+    .string "des POINTS DE COMBAT…$"
+
+BattleFrontier_BattlePikeLobby_Text_TrainersWhicheverPathIChoose::
+    .string "What is this weird place?\n"
+    .string "I can't figure it out at all!\p"
+    .string "I've taken the challenge a bunch\n"
+    .string "of times, but all I ever\l"
+    .string "do is run into TRAINERS\l"
+    .string "whichever path I choose.$"
+
+BattleFrontier_BattlePikeLobby_Text_RulesAreListed::
+    .string "Règles du COMBAT HASARD.$"
+
+BattleFrontier_BattlePikeLobby_Text_ReadWhichHeading::
+    .string "Quel chapitre voulez-vous lire?$"
+
+BattleFrontier_BattlePikeLobby_Text_ExplainPokenavBagRules::
+    .string "Vous ne pouvez utiliser ni le SAC ni\n"
+    .string "le POKéNAV lors du défi du COMBAT\l"
+    .string "HASARD.$"
+
+BattleFrontier_BattlePikeLobby_Text_ExplainHeldItemRules::
+    .string "Lors du défi du COMBAT HASARD,\n"
+    .string "chaque BAIE ou HERBE tenue par un\l"
+    .string "POKéMON n'aura d'effet qu'une fois.$"
+
+BattleFrontier_BattlePikeLobby_Text_ExplainMonOrderRules::
+    .string "Lors du défi du COMBAT HASARD,\n"
+    .string "l'ordre des POKéMON ne peut pas\l"
+    .string "être modifié.\p"
+    .string "L'ordre doit être décidé avant le\n"
+    .string "début du défi.$"
+

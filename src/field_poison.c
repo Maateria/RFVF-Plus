@@ -1,4 +1,7 @@
 #include "global.h"
+#include "trainer_hill.h"
+#include "battle_pike.h"
+#include "battle_pyramid.h"
 #include "gflib.h"
 #include "strings.h"
 #include "task.h"
@@ -74,7 +77,13 @@ static void Task_TryFieldPoisonWhiteOut(u8 taskId)
         break;
     case 2:
         if (AllMonsFainted())
-            gSpecialVar_Result = TRUE;
+        {
+            // RFVF+: Emerald's, the battle facilities have their own white out (the challenge is lost)
+            if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || InBattlePike() || InTrainerHillChallenge())
+                gSpecialVar_Result = 2;
+            else
+                gSpecialVar_Result = TRUE;
+        }
         else
             gSpecialVar_Result = FALSE;
         ScriptContext_Enable();

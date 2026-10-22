@@ -1332,4 +1332,10 @@ extern const u8 Route110_TrickHousePuzzle_EventScript_Door[];
 extern const u8 EventScript_Headbutt[];
 extern const u8 EventScript_Whirlpool[];
 
+// RFVF+: Emerald's (batch 6, add_externs.py)
+extern const u8 BattlePyramid_FindItemBall[];
+extern const u8 BattlePyramid_Retire[];
+extern const u8 BattlePyramid_WarpToNextFloor[];
+extern const u8 BattlePyramid_TrainerBattle[];
+
 #endif //GUARD_EVENT_SCRIPTS_H

@@ -1,4 +1,7 @@
 #include "global.h"
+#include "battle_pike.h"
+#include "battle_pyramid_bag.h"
+#include "battle_pyramid.h"
 #include "gflib.h"
 #include "battle.h"
 #include "battle_anim.h"
@@ -293,6 +296,12 @@ static void CB2_WriteMailToGiveMon(void);
 static void Task_SwitchHoldItemsPrompt(u8 taskId);
 static void Task_GiveHoldItem(u8 taskId);
 static void Task_UpdateHeldItemSprite(u8 taskId);
+static void CursorCb_Toss(u8 taskId);
+static void Task_TossHeldItemYesNo(u8 taskId);
+static void Task_HandleTossHeldItemYesNoInput(u8 taskId);
+static void Task_TossHeldItem(u8 taskId);
+static void Task_BattlePyramidChooseMonHeldItems(u8 taskId);
+static void DisplayPartyPokemonDataForBattlePyramidHeldItem(u8 slot);
 static void Task_HandleSwitchItemsYesNoInput(u8 taskId);
 static void Task_SwitchItemsYesNo(u8 taskId);
 static void Task_WriteMailToGiveMonAfterText(u8 taskId);
@@ -373,7 +382,7 @@ static void Task_InitMultiPartnerPartySlideIn(u8 taskId);
 static void Task_WaitAfterMultiPartnerPartySlideIn(u8 taskId);
 static void SlideMultiPartyMenuBoxSpritesOneStep(u8 taskId);
 static void Task_MultiPartnerPartySlideIn(u8 taskId);
-static bool8 CB2_FadeFromPartyMenu(void);
+bool8 CB2_FadeFromPartyMenu(void); // RFVF+: used by the Battle Pyramid bag (as in Emerald)
 static void Task_PartyMenuWaitForFade(u8 taskId);
 static void Task_FirstBattleEnterParty_DarkenScreen(u8 taskId);
 static void Task_FirstBattleEnterParty_WaitDarken(u8 taskId);
@@ -769,6 +778,8 @@ static void RenderPartyMenuBox(u8 slot)
                 DisplayPartyPokemonDataForChooseMultiple(slot);
             else if (gPartyMenu.menuType == PARTY_MENU_TYPE_MINIGAME)
                 DisplayPartyPokemonDataForWirelessMinigame(slot);
+            else if (gPartyMenu.menuType == PARTY_MENU_TYPE_STORE_PYRAMID_HELD_ITEMS)
+                DisplayPartyPokemonDataForBattlePyramidHeldItem(slot);
             else if (!DisplayPartyPokemonDataForMoveTutorOrEvolutionItem(slot))
                 DisplayPartyPokemonData(slot);
             if (gPartyMenu.menuType == PARTY_MENU_TYPE_MULTI_SHOWCASE)
@@ -3012,12 +3023,15 @@ static void SetPartyMonFieldSelectionActions(struct Pokemon *mons, u8 slotId)
             }
         }
     }
-    if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
-        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_SWITCH);
-    if (ItemIsMail(GetMonData(&mons[slotId], MON_DATA_HELD_ITEM)))
-        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_MAIL);
-    else
-        AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_ITEM);
+    if (!InBattlePike()) // RFVF+: Emerald's
+    {
+        if (GetMonData(&mons[1], MON_DATA_SPECIES) != SPECIES_NONE)
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_SWITCH);
+        if (ItemIsMail(GetMonData(&mons[slotId], MON_DATA_HELD_ITEM)))
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_MAIL);
+        else
+            AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_ITEM);
+    }
     AppendToList(sPartyMenuInternal->actions, &sPartyMenuInternal->numActions, CURSOR_OPTION_CANCEL1);
 }
 
@@ -3061,6 +3075,9 @@ static u8 GetPartyMenuActionsType(struct Pokemon *mon)
         break;
     case PARTY_MENU_TYPE_SPIN_TRADE:
         actionType = ACTIONS_SPIN_TRADE;
+        break;
+    case PARTY_MENU_TYPE_STORE_PYRAMID_HELD_ITEMS:
+        actionType = ACTIONS_TAKEITEM_TOSS;
         break;
     // The following have no selection actions (i.e. they exit immediately upon selection)
     // PARTY_MENU_TYPE_CONTEST
@@ -3454,7 +3471,10 @@ static void CursorCB_Give(u8 taskId)
 
 void CB2_SelectBagItemToGive(void)
 {
-    GoToBagMenu(ITEMMENULOCATION_PARTY, OPEN_BAG_LAST, CB2_GiveHoldItem);
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+        GoToBattlePyramidBagMenu(PYRAMIDBAG_LOC_PARTY, CB2_GiveHoldItem);
+    else
+        GoToBagMenu(ITEMMENULOCATION_PARTY, OPEN_BAG_LAST, CB2_GiveHoldItem);
 }
 
 void CB2_GiveHoldItem(void)
@@ -3615,6 +3635,9 @@ static void Task_UpdateHeldItemSprite(u8 taskId)
     if (IsPartyMenuTextPrinterActive() != TRUE)
     {
         UpdatePartyMonHeldItemSprite(&gPlayerParty[slotId], &sPartyMenuBoxes[slotId]);
+        if (gPartyMenu.menuType == PARTY_MENU_TYPE_STORE_PYRAMID_HELD_ITEMS) // RFVF+: Emerald's
+            DisplayPartyPokemonDescriptionText(GetMonData(&gPlayerParty[slotId], MON_DATA_HELD_ITEM) != ITEM_NONE
+                                               ? PARTYBOX_DESC_HAVE : PARTYBOX_DESC_DONT_HAVE, &sPartyMenuBoxes[slotId], 1);
         Task_ReturnToChooseMonAfterText(taskId);
     }
 }
@@ -4287,7 +4310,10 @@ void CB2_ShowPartyMenuForItemUse(void)
 
 static void CB2_ReturnToBagMenu(void)
 {
-    GoToBagMenu(ITEMMENULOCATION_LAST, OPEN_BAG_LAST, NULL);
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+        GoToBattlePyramidBagMenu(PYRAMIDBAG_LOC_PREV, gPyramidBagMenuState.exitCallback);
+    else
+        GoToBagMenu(ITEMMENULOCATION_LAST, OPEN_BAG_LAST, NULL);
 }
 
 static void CB2_ReturnToTMCaseMenu(void)
@@ -5751,6 +5777,10 @@ static bool8 GetBattleEntryEligibility(struct Pokemon *mon)
 
     if (GetMonData(mon, MON_DATA_IS_EGG))
         return FALSE;
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY) // RFVF+: Emerald's
+        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(BATTLE_FRONTIER_BATTLE_PYRAMID_LOBBY)
+        && GetMonData(mon, MON_DATA_HELD_ITEM) != ITEM_NONE)
+        return FALSE;
     switch (gPartyMenu.chooseMonsBattleType)
     {
     default:
@@ -6418,7 +6448,7 @@ void ChoosePartyMonByMenuType(u8 menuType)
     InitPartyMenu(menuType, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_AND_CLOSE, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, CB2_ReturnToField);
 }
 
-static bool8 CB2_FadeFromPartyMenu(void)
+bool8 CB2_FadeFromPartyMenu(void)
 {
     FadeInFromBlack();
     CreateTask(Task_PartyMenuWaitForFade, 10);
@@ -6596,3 +6626,124 @@ static bool8 SetUpFieldMove_Dive(void)
     return FALSE;
 }
 
+// RFVF+: Emerald's Battle Pyramid (held items going back to the Pyramid bag when the challenge ends)
+static void DisplayPartyPokemonDataForBattlePyramidHeldItem(u8 slot)
+{
+    if (GetMonData(&gPlayerParty[slot], MON_DATA_HELD_ITEM))
+        DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_HAVE);
+    else
+        DisplayPartyPokemonDescriptionData(slot, PARTYBOX_DESC_DONT_HAVE);
+}
+
+static void CursorCb_Toss(u8 taskId)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+    u16 item = GetMonData(mon, MON_DATA_HELD_ITEM);
+
+    PlaySE(SE_SELECT);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[0]);
+    PartyMenuRemoveWindow(&sPartyMenuInternal->windowId[1]);
+    if (item == ITEM_NONE)
+    {
+        GetMonNickname(mon, gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_PkmnNotHolding);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        gTasks[taskId].func = Task_UpdateHeldItemSprite;
+    }
+    else
+    {
+        CopyItemName(item, gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_ThrowAwayItem);
+        DisplayPartyMenuMessage(gStringVar4, TRUE);
+        gTasks[taskId].func = Task_TossHeldItemYesNo;
+    }
+}
+
+static void Task_TossHeldItemYesNo(u8 taskId)
+{
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        PartyMenuDisplayYesNoMenu();
+        gTasks[taskId].func = Task_HandleTossHeldItemYesNoInput;
+    }
+}
+
+static void Task_HandleTossHeldItemYesNoInput(u8 taskId)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    switch (Menu_ProcessInputNoWrapClearOnChoose())
+    {
+    case 0:
+        CopyItemName(GetMonData(mon, MON_DATA_HELD_ITEM), gStringVar1);
+        StringExpandPlaceholders(gStringVar4, gText_ItemThrownAway);
+        DisplayPartyMenuMessage(gStringVar4, FALSE);
+        gTasks[taskId].func = Task_TossHeldItem;
+        break;
+    case MENU_B_PRESSED:
+        PlaySE(SE_SELECT);
+        // fallthrough
+    case 1:
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+        break;
+    }
+}
+
+static void Task_TossHeldItem(u8 taskId)
+{
+    struct Pokemon *mon = &gPlayerParty[gPartyMenu.slotId];
+
+    if (IsPartyMenuTextPrinterActive() != TRUE)
+    {
+        u16 item = ITEM_NONE;
+
+        SetMonData(mon, MON_DATA_HELD_ITEM, &item);
+        UpdatePartyMonHeldItemSprite(mon, &sPartyMenuBoxes[gPartyMenu.slotId]);
+        DisplayPartyPokemonDescriptionText(PARTYBOX_DESC_DONT_HAVE, &sPartyMenuBoxes[gPartyMenu.slotId], 1);
+        gTasks[taskId].func = Task_ReturnToChooseMonAfterText;
+    }
+}
+
+void DoBattlePyramidMonsHaveHeldItem(void)
+{
+    u8 i;
+
+    gSpecialVar_Result = FALSE;
+    for (i = 0; i < FRONTIER_PARTY_SIZE; i++)
+    {
+        if (GetMonData(&gPlayerParty[i], MON_DATA_HELD_ITEM) != ITEM_NONE)
+        {
+            gSpecialVar_Result = TRUE;
+            break;
+        }
+    }
+}
+
+// Can be called if the Battle Pyramid Bag is full on exiting and at least one party mon still has held items
+// The player can then select to toss items from the bag or take/toss held items from the party
+void BattlePyramidChooseMonHeldItems(void)
+{
+    LockPlayerFieldControls();
+    FadeScreen(FADE_TO_BLACK, 0);
+    CreateTask(Task_BattlePyramidChooseMonHeldItems, 10);
+}
+
+// Emerald's: the chosen slot in VAR_0x8004, back on the field
+static void BufferMonSelection(void)
+{
+    gSpecialVar_0x8004 = GetCursorSelectionMonId();
+    if (gSpecialVar_0x8004 >= PARTY_SIZE)
+        gSpecialVar_0x8004 = PARTY_NOTHING_CHOSEN;
+    gFieldCallback2 = CB2_FadeFromPartyMenu;
+    SetMainCallback2(CB2_ReturnToField);
+}
+
+static void Task_BattlePyramidChooseMonHeldItems(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        InitPartyMenu(PARTY_MENU_TYPE_STORE_PYRAMID_HELD_ITEMS, PARTY_LAYOUT_SINGLE, PARTY_ACTION_CHOOSE_MON, FALSE, PARTY_MSG_CHOOSE_MON, Task_HandleChooseMonInput, BufferMonSelection);
+        DestroyTask(taskId);
+    }
+}

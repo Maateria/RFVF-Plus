@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_pyramid.h"
+#include "battle_pike.h"
 #include "random.h"
 #include "wild_encounter.h"
 #include "event_data.h"
@@ -53,6 +55,7 @@ static bool8 TryGetRandomWildMonIndexByType(const struct WildPokemon *wildMon, u
 static u8 ViridianForestNuzlockeOverride(const struct WildPokemonInfo * info, u8 slot);
 
 #include "data/wild_encounters.h"
+#include "data/wild_encounters_frontier.h"
 
 static const u8 sUnownLetterSlots[][LAND_WILD_COUNT] = {
   //  A   A   A   A   A   A   A   A   A   A   A   ?
@@ -351,7 +354,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo * info, u8 area, u8
     {
         return FALSE;
     }
-    if (flags & WILD_CHECK_KEEN_EYE && !IsAbilityAllowingEncounter(level))
+    if (!(gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS) && flags & WILD_CHECK_KEEN_EYE && !IsAbilityAllowingEncounter(level)) // RFVF+: Emerald's
         return FALSE;
 
     GenerateWildMon(info->wildPokemon[slot].species, level, slot);
@@ -391,6 +394,9 @@ static bool8 DoWildEncounterRateTest(u32 encounterRate, bool8 ignoreAbility)
         case 2:
             encounterRate *= 2;
             break;
+        case 3:
+            encounterRate = encounterRate * 3 / 4;
+            break;
         }
     }
     if (encounterRate > MAX_ENCOUNTER_RATE)
@@ -404,7 +410,9 @@ static u8 GetAbilityEncounterRateModType(void)
     if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG))
     {
         u8 ability = GetMonAbility(&gPlayerParty[0]);
-        if (ability == ABILITY_STENCH)
+        if (ability == ABILITY_STENCH && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR) // RFVF+: Emerald's (a quarter, not half)
+            sWildEncounterData.abilityEffect = 3;
+        else if (ability == ABILITY_STENCH)
             sWildEncounterData.abilityEffect = 1;
         else if (ability == ABILITY_ILLUMINATE)
             sWildEncounterData.abilityEffect = 2;
@@ -446,6 +454,34 @@ bool8 StandardWildEncounter(u32 currMetatileAttrs, u16 previousMetatileBehavior)
 
     if (sWildEncountersDisabled == TRUE)
         return FALSE;
+
+    if (headerId == HEADER_NONE && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS) // RFVF+: Emerald's
+    {
+        headerId = GetBattlePikeWildMonHeaderId();
+        if (previousMetatileBehavior != ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR) && !DoGlobalWildEncounterDiceRoll())
+            return FALSE;
+        else if (DoWildEncounterRateTest(gBattlePikeWildMonHeaders[headerId].landMonsInfo_FR->encounterRate, FALSE) != TRUE)
+            return FALSE;
+        else if (TryGenerateWildMon(gBattlePikeWildMonHeaders[headerId].landMonsInfo_FR, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE) != TRUE)
+            return FALSE;
+        else if (!TryGenerateBattlePikeWildMon(TRUE))
+            return FALSE;
+        BattleSetup_StartBattlePikeWildBattle();
+        return TRUE;
+    }
+    if (headerId == HEADER_NONE && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR) // RFVF+: Emerald's
+    {
+        headerId = gSaveBlock2Ptr->frontier.curChallengeBattleNum;
+        if (previousMetatileBehavior != ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_BEHAVIOR) && !DoGlobalWildEncounterDiceRoll())
+            return FALSE;
+        else if (DoWildEncounterRateTest(gBattlePyramidWildMonHeaders[headerId].landMonsInfo_FR->encounterRate, FALSE) != TRUE)
+            return FALSE;
+        else if (TryGenerateWildMon(gBattlePyramidWildMonHeaders[headerId].landMonsInfo_FR, WILD_AREA_LAND, WILD_CHECK_KEEN_EYE) != TRUE)
+            return FALSE;
+        GenerateBattlePyramidWildMon();
+        StartWildBattle();
+        return TRUE;
+    }
 
     if (headerId != HEADER_NONE)
     {
@@ -577,6 +613,24 @@ bool8 SweetScentWildEncounter(void)
     }
 
     PlayerGetDestCoords(&x, &y);
+    if (headerId == HEADER_NONE && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS) // RFVF+: Emerald's
+    {
+        headerId = GetBattlePikeWildMonHeaderId();
+        if (TryGenerateWildMon(gBattlePikeWildMonHeaders[headerId].landMonsInfo_FR, WILD_AREA_LAND, 0) != TRUE)
+            return FALSE;
+        TryGenerateBattlePikeWildMon(FALSE);
+        BattleSetup_StartBattlePikeWildBattle();
+        return TRUE;
+    }
+    if (headerId == HEADER_NONE && gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR) // RFVF+: Emerald's
+    {
+        headerId = gSaveBlock2Ptr->frontier.curChallengeBattleNum;
+        if (TryGenerateWildMon(gBattlePyramidWildMonHeaders[headerId].landMonsInfo_FR, WILD_AREA_LAND, 0) != TRUE)
+            return FALSE;
+        GenerateBattlePyramidWildMon();
+        StartWildBattle();
+        return TRUE;
+    }
     if (headerId != HEADER_NONE)
     {
         if (MapGridGetMetatileAttributeAt(x, y, METATILE_ATTRIBUTE_ENCOUNTER_TYPE) == TILE_ENCOUNTER_LAND)
@@ -816,6 +870,8 @@ bool8 UpdateRepelCounter(void)
 {
     u16 steps;
 
+    if (InBattlePike() || CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+        return FALSE;
     if (InUnionRoom() == TRUE)
         return FALSE;
 
@@ -965,6 +1021,10 @@ static bool8 HandleWildEncounterCooldown(u32 currMetatileAttrs)
     u8 encounterType = ExtractMetatileAttribute(currMetatileAttrs, METATILE_ATTRIBUTE_ENCOUNTER_TYPE);
     u32 minSteps;
     u32 encRate;
+    // RFVF+: Emerald's Battle Pike wild room and Pyramid floors: every tile, every step (no header, no encounter type)
+    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PIKE_ROOM_WILD_MONS
+     || gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR)
+        return TRUE;
     if (encounterType == TILE_ENCOUNTER_NONE)
         return FALSE;
     minSteps = GetMapBaseEncounterCooldown(encounterType);

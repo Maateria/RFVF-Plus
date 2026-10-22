@@ -21,6 +21,7 @@
 #define VAR_TEMP_D                 (TEMP_VARS_START + 0xD)
 #define VAR_TEMP_E                 (TEMP_VARS_START + 0xE)
 #define VAR_TEMP_F                 (TEMP_VARS_START + 0xF)
+#define VAR_TEMP_PLAYING_PYRAMID_MUSIC  VAR_TEMP_E // RFVF+: Emerald's alias (the Battle Pyramid)
 #define TEMP_VARS_END              VAR_TEMP_F
 
 // Object event graphics IDs which can be changed by

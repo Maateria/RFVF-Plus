@@ -90,6 +90,7 @@
 #define MB_UNION_ROOM_WARP 0x71
 //
 #define MB_COUNTER 0x80
+#define MB_BATTLE_PYRAMID_WARP 0x0D // RFVF+: Emerald's (free value here)
 #define MB_BOOKSHELF 0x81
 #define MB_POKEMART_SHELF 0x82
 #define MB_PC 0x83

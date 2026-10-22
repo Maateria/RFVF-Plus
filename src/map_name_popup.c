@@ -1,4 +1,7 @@
 #include "global.h"
+#include "constants/layouts.h"
+#include "constants/battle_frontier.h"
+#include "battle_pyramid.h"
 #include "gflib.h"
 #include "task.h"
 #include "event_data.h"
@@ -13,6 +16,21 @@
 #include "constants/region_map_sections.h"
 
 #define FLOOR_ROOFTOP 127
+
+// RFVF+: Emerald's (French Emerald's names)
+static const u8 sText_PyramidFloor1[] = _("PYRAMIDE Niv.1");
+static const u8 sText_PyramidFloor2[] = _("PYRAMIDE Niv.2");
+static const u8 sText_PyramidFloor3[] = _("PYRAMIDE Niv.3");
+static const u8 sText_PyramidFloor4[] = _("PYRAMIDE Niv.4");
+static const u8 sText_PyramidFloor5[] = _("PYRAMIDE Niv.5");
+static const u8 sText_PyramidFloor6[] = _("PYRAMIDE Niv.6");
+static const u8 sText_PyramidFloor7[] = _("PYRAMIDE Niv.7");
+static const u8 sText_Pyramid[] = _("PYRAMIDE");
+static const u8 *const sBattlePyramid_MapHeaderStrings[FRONTIER_STAGES_PER_CHALLENGE + 1] =
+{
+    sText_PyramidFloor1, sText_PyramidFloor2, sText_PyramidFloor3, sText_PyramidFloor4,
+    sText_PyramidFloor5, sText_PyramidFloor6, sText_PyramidFloor7, sText_Pyramid,
+};
 
 static void Task_MapNamePopup(u8 taskId);
 static u16 MapNamePopupCreateWindow(bool32 palIntoFadedBuffer);
@@ -197,7 +215,14 @@ static void MapNamePopupPrintMapNameOnWindow(u16 windowId)
     u32 maxWidth = 112;
     u32 xpos;
     u8 *ptr = GetMapName(mapName, gMapHeader.regionMapSectionId, 0);
-    if(gMapHeader.mapType == MAP_TYPE_UNDERWATER)
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's floor names
+    {
+        if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_TOP)
+            ptr = StringCopy(mapName, sBattlePyramid_MapHeaderStrings[FRONTIER_STAGES_PER_CHALLENGE]);
+        else
+            ptr = StringCopy(mapName, sBattlePyramid_MapHeaderStrings[gSaveBlock2Ptr->frontier.curChallengeBattleNum]);
+    }
+    else if(gMapHeader.mapType == MAP_TYPE_UNDERWATER)
     {
         ptr = GetMapName(mapName, MAPSEC_UNDERWATER_124, 0);
     }

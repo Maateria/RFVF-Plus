@@ -100,6 +100,7 @@ bool8 MetatileBehavior_IsWater(u8 metatileBehavior);
 bool8 MetatileBehavior_IsFallWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsCrackedFloor(u8 metatileBehavior);
 bool8 MetatileBehavior_IsCrackedFloorHole(u8 metatileBehavior);
+bool8 MetatileBehavior_IsBattlePyramidWarp(u8 metatileBehavior);
 bool8 MetatileBehavior_IsMuddySlope(u8 metatileBehavior);
 bool8 MetatileBehavior_IsVase(u8 metatileBehavior);
 bool8 MetatileBehavior_IsClosedSootopolisDoor(u8 metatileBehavior);

@@ -1,16 +1,9 @@
 // RFVF+: TEMPORARY. Batch 6 ports Emerald's Battle Frontier over several sessions (memory hoenn-lot6-frontier):
 // these stand in for the files of the later sessions and go away, one block per session, as their real code lands.
-// ponytail: stubs only reached by facilities not ported yet (Pyramid, recordings).
+// ponytail: stubs only reached by facilities not ported yet (recordings, the gambler).
 #include "global.h"
 #include "characters.h"
-#include "battle_pyramid.h"
 #include "recorded_battle.h"
-
-// ---- session 6: battle_pyramid.c (the Frontier Pass asks where the player stands)
-u8 CurrentBattlePyramidLocation(void)
-{
-    return PYRAMID_LOCATION_NONE;
-}
 
 // ---- session 7: the Lounge 3 gambler (field_specials.c)
 void FrontierGamblerSetWonOrLost(bool8 won)

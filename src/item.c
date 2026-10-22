@@ -13,6 +13,8 @@
 #include "constants/hold_effects.h"
 #include "constants/items.h"
 #include "constants/maps.h"
+#include "battle_pyramid.h"
+#include "battle_pyramid_bag.h"
 
 EWRAM_DATA struct BagPocket gBagPockets[NUM_BAG_POCKETS] = {};
 EWRAM_DATA struct ItemSlot gTmHmItemSlots[BAG_TMHM_COUNT] = {0};
@@ -23,6 +25,9 @@ static void RemoveTMItemBall(u16 itemId);
 
 // Item descriptions and data
 #include "data/items.h"
+
+static bool8 CheckPyramidBagHasItem(u16 itemId, u16 count);
+static bool8 CheckPyramidBagHasSpace(u16 itemId, u16 count);
 
 u16 GetBagItemQuantity(u16 * ptr)
 {
@@ -163,6 +168,8 @@ bool8 CheckBagHasItem(u16 itemId, u16 count)
 
     if (ItemId_GetPocket(itemId) == 0)
         return FALSE;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
+        return CheckPyramidBagHasItem(itemId, count); // RFVF+: Emerald's Battle Pyramid bag
 
     pocket = ItemId_GetPocket(itemId) - 1;
     // Check for item slots that contain the item
@@ -218,6 +225,8 @@ bool8 CheckBagHasSpace(u16 itemId, u16 count)
 
     if (ItemId_GetPocket(itemId) == 0)
         return FALSE;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
+        return CheckPyramidBagHasSpace(itemId, count); // RFVF+: Emerald's Battle Pyramid bag
 
     pocket = ItemId_GetPocket(itemId) - 1;
     // Check for item slots that contain the item
@@ -259,6 +268,8 @@ bool8 AddBagItem(u16 itemId, u16 count)
 
     if (ItemId_GetPocket(itemId) == 0)
         return FALSE;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
+        return AddPyramidBagItem(itemId, count); // RFVF+: Emerald's Battle Pyramid bag
 
     pocket = ItemId_GetPocket(itemId) - 1;
     if (pocket == POCKET_TM_CASE - 1)
@@ -449,6 +460,8 @@ bool8 RemoveBagItem(u16 itemId, u16 count)
 
     if (ItemId_GetPocket(itemId) == 0)
         return FALSE;
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE || FlagGet(FLAG_STORING_ITEMS_IN_PYRAMID_BAG) == TRUE)
+        return RemovePyramidBagItem(itemId, count); // RFVF+: Emerald's Battle Pyramid bag
 
     if (itemId == ITEM_NONE)
         return FALSE;
@@ -890,4 +903,185 @@ bool8 CheckAssetsForSoftlock(void)
         }
     }
     return TRUE;
+}
+
+// RFVF+: Emerald's Battle Pyramid bag (batch 6, session 6)
+static bool8 CheckPyramidBagHasItem(u16 itemId, u16 count)
+{
+    u8 i;
+    u16 *items = gSaveBlock2Ptr->frontier.pyramidBag.itemId[gSaveBlock2Ptr->frontier.lvlMode];
+    u8 *quantities = gSaveBlock2Ptr->frontier.pyramidBag.quantity[gSaveBlock2Ptr->frontier.lvlMode];
+
+    for (i = 0; i < PYRAMID_BAG_ITEMS_COUNT; i++)
+    {
+        if (items[i] == itemId)
+        {
+            if (quantities[i] >= count)
+                return TRUE;
+
+            count -= quantities[i];
+            if (count == 0)
+                return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+static bool8 CheckPyramidBagHasSpace(u16 itemId, u16 count)
+{
+    u8 i;
+    u16 *items = gSaveBlock2Ptr->frontier.pyramidBag.itemId[gSaveBlock2Ptr->frontier.lvlMode];
+    u8 *quantities = gSaveBlock2Ptr->frontier.pyramidBag.quantity[gSaveBlock2Ptr->frontier.lvlMode];
+
+    for (i = 0; i < PYRAMID_BAG_ITEMS_COUNT; i++)
+    {
+        if (items[i] == itemId || items[i] == ITEM_NONE)
+        {
+            if (quantities[i] + count <= MAX_PYRAMID_BAG_ITEM_CAPACITY)
+                return TRUE;
+
+            count = (quantities[i] + count) - MAX_PYRAMID_BAG_ITEM_CAPACITY;
+            if (count == 0)
+                return TRUE;
+        }
+    }
+
+    return FALSE;
+}
+
+bool8 AddPyramidBagItem(u16 itemId, u16 count)
+{
+    u16 i;
+
+    u16 *items = gSaveBlock2Ptr->frontier.pyramidBag.itemId[gSaveBlock2Ptr->frontier.lvlMode];
+    u8 *quantities = gSaveBlock2Ptr->frontier.pyramidBag.quantity[gSaveBlock2Ptr->frontier.lvlMode];
+
+    u16 *newItems = Alloc(PYRAMID_BAG_ITEMS_COUNT * sizeof(*newItems));
+    u8 *newQuantities = Alloc(PYRAMID_BAG_ITEMS_COUNT * sizeof(*newQuantities));
+
+    memcpy(newItems, items, PYRAMID_BAG_ITEMS_COUNT * sizeof(*newItems));
+    memcpy(newQuantities, quantities, PYRAMID_BAG_ITEMS_COUNT * sizeof(*newQuantities));
+
+    for (i = 0; i < PYRAMID_BAG_ITEMS_COUNT; i++)
+    {
+        if (newItems[i] == itemId && newQuantities[i] < MAX_PYRAMID_BAG_ITEM_CAPACITY)
+        {
+            newQuantities[i] += count;
+            if (newQuantities[i] > MAX_PYRAMID_BAG_ITEM_CAPACITY)
+            {
+                count = newQuantities[i] - MAX_PYRAMID_BAG_ITEM_CAPACITY;
+                newQuantities[i] = MAX_PYRAMID_BAG_ITEM_CAPACITY;
+            }
+            else
+            {
+                count = 0;
+            }
+
+            if (count == 0)
+                break;
+        }
+    }
+
+    if (count > 0)
+    {
+        for (i = 0; i < PYRAMID_BAG_ITEMS_COUNT; i++)
+        {
+            if (newItems[i] == ITEM_NONE)
+            {
+                newItems[i] = itemId;
+                newQuantities[i] = count;
+                if (newQuantities[i] > MAX_PYRAMID_BAG_ITEM_CAPACITY)
+                {
+                    count = newQuantities[i] - MAX_PYRAMID_BAG_ITEM_CAPACITY;
+                    newQuantities[i] = MAX_PYRAMID_BAG_ITEM_CAPACITY;
+                }
+                else
+                {
+                    count = 0;
+                }
+
+                if (count == 0)
+                    break;
+            }
+        }
+    }
+
+    if (count == 0)
+    {
+        memcpy(items, newItems, PYRAMID_BAG_ITEMS_COUNT * sizeof(*items));
+        memcpy(quantities, newQuantities, PYRAMID_BAG_ITEMS_COUNT * sizeof(*quantities));
+        Free(newItems);
+        Free(newQuantities);
+        return TRUE;
+    }
+    else
+    {
+        Free(newItems);
+        Free(newQuantities);
+        return FALSE;
+    }
+}
+
+bool8 RemovePyramidBagItem(u16 itemId, u16 count)
+{
+    u16 i;
+
+    u16 *items = gSaveBlock2Ptr->frontier.pyramidBag.itemId[gSaveBlock2Ptr->frontier.lvlMode];
+    u8 *quantities = gSaveBlock2Ptr->frontier.pyramidBag.quantity[gSaveBlock2Ptr->frontier.lvlMode];
+
+    i = gPyramidBagMenuState.cursorPosition + gPyramidBagMenuState.scrollPosition;
+    if (items[i] == itemId && quantities[i] >= count)
+    {
+        quantities[i] -= count;
+        if (quantities[i] == 0)
+            items[i] = ITEM_NONE;
+        return TRUE;
+    }
+    else
+    {
+        u16 *newItems = Alloc(PYRAMID_BAG_ITEMS_COUNT * sizeof(*newItems));
+        u8 *newQuantities = Alloc(PYRAMID_BAG_ITEMS_COUNT * sizeof(*newQuantities));
+
+        memcpy(newItems, items, PYRAMID_BAG_ITEMS_COUNT * sizeof(*newItems));
+        memcpy(newQuantities, quantities, PYRAMID_BAG_ITEMS_COUNT * sizeof(*newQuantities));
+
+        for (i = 0; i < PYRAMID_BAG_ITEMS_COUNT; i++)
+        {
+            if (newItems[i] == itemId)
+            {
+                if (newQuantities[i] >= count)
+                {
+                    newQuantities[i] -= count;
+                    count = 0;
+                    if (newQuantities[i] == 0)
+                        newItems[i] = ITEM_NONE;
+                }
+                else
+                {
+                    count -= newQuantities[i];
+                    newQuantities[i] = 0;
+                    newItems[i] = ITEM_NONE;
+                }
+
+                if (count == 0)
+                    break;
+            }
+        }
+
+        if (count == 0)
+        {
+            memcpy(items, newItems, PYRAMID_BAG_ITEMS_COUNT * sizeof(*items));
+            memcpy(quantities, newQuantities, PYRAMID_BAG_ITEMS_COUNT * sizeof(*quantities));
+            Free(newItems);
+            Free(newQuantities);
+            return TRUE;
+        }
+        else
+        {
+            Free(newItems);
+            Free(newQuantities);
+            return FALSE;
+        }
+    }
 }

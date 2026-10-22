@@ -32,6 +32,7 @@ extern u8 gBattlePartyCurrentOrder[PARTY_SIZE / 2];
 extern void (*gItemUseCB)(u8, TaskFunc);
 
 void InitPartyMenu(u8 menuType, u8 layout, u8 partyAction, bool8 keepCursorPos, u8 messageId, TaskFunc task, MainCallback callback);
+bool8 CB2_FadeFromPartyMenu(void);
 void AnimatePartySlot(u8 slot, u8 animNum);
 bool8 IsMultiBattle(void);
 u8 GetCursorSelectionMonId(void);

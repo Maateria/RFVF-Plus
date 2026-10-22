@@ -12,4 +12,6 @@ void WriteFlashScanlineEffectBuffer(u8 flashLevel);
 
 extern const s32 gMaxFlashLevel;
 
+void WriteBattlePyramidViewScanlineEffectBuffer(void);
+
 #endif // GUARD_FIELD_SCREEN_EFFECT_H

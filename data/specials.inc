@@ -554,4 +554,13 @@ gSpecials::
 	def_special CallSlateportTentFunction
 	def_special CallBattleDomeFunction
 	def_special DoDomeConfetti
+	def_special CallBattlePikeFunction
+	def_special CallBattlePyramidFunction
+	def_special GetBattlePyramidHint
+	def_special CloseBattlePikeCurtain
+	def_special ChooseItemsToTossFromPyramidBag
+	def_special TryStoreHeldItemsInPyramidBag
+	def_special BattlePyramidChooseMonHeldItems
+	def_special DoBattlePyramidMonsHaveHeldItem
+	def_special ShowFrontierMapNamePopup
 gSpecialsEnd::

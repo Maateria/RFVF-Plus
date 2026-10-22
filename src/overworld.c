@@ -1,4 +1,6 @@
 #include "global.h"
+#include "battle_pyramid.h"
+#include "constants/layouts.h"
 #include "trainer_hill.h"
 #include "rotating_gate.h"
 #include "gflib.h"
@@ -465,6 +467,11 @@ void ApplyNewEncryptionKeyToGameStats(u32 newKey)
 static void LoadObjEventTemplatesFromHeader(void)
 {
     u8 i, j;
+    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR) // RFVF+: Emerald's, the floor's trainers and items
+    {
+        LoadBattlePyramidObjectEventTemplates();
+        return;
+    }
     if (InTrainerHill()) // RFVF+: Emerald's, the floor's two trainers come from its data
     {
         LoadTrainerHillObjectEventTemplates();
@@ -504,6 +511,11 @@ static void LoadSaveblockObjEventScripts(void)
     const struct ObjectEventTemplate * src = gMapHeader.events->objectEvents;
     struct ObjectEventTemplate * savObjTemplates = gSaveBlock1Ptr->objectEventTemplates;
 
+    if (gMapHeader.mapLayoutId == LAYOUT_BATTLE_FRONTIER_BATTLE_PYRAMID_FLOOR) // RFVF+: Emerald's
+    {
+        LoadBattlePyramidFloorObjectEventScripts();
+        return;
+    }
     if (InTrainerHill()) // the floor's trainers (their map has no objects)
     {
         for (i = 0; i < HILL_TRAINERS_PER_FLOOR; i++)
@@ -1978,9 +1990,12 @@ static void VBlankCB_Field(void)
 static void InitCurrentFlashLevelScanlineEffect(void)
 {
     u8 flashLevel = Overworld_GetFlashLevel();
-    if (flashLevel != 0)
+    if (InBattlePyramid_() || flashLevel != 0) // RFVF+: Emerald's Pyramid darkness
     {
-        WriteFlashScanlineEffectBuffer(flashLevel);
+        if (InBattlePyramid_())
+            WriteBattlePyramidViewScanlineEffectBuffer();
+        else
+            WriteFlashScanlineEffectBuffer(flashLevel);
         ScanlineEffect_SetParams((struct ScanlineEffectParams){
             .dmaDest = &REG_WIN0H,
             .dmaControl = (2 >> 1) | ((DMA_16BIT | DMA_DEST_RELOAD | DMA_SRC_INC | DMA_REPEAT | DMA_START_HBLANK | DMA_ENABLE) << 16),

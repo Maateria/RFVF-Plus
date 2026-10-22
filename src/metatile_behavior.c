@@ -757,6 +757,7 @@ bool8 MetatileBehavior_IsFallWarp(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsCrackedFloor(u8 metatileBehavior) { return metatileBehavior == MB_CRACKED_FLOOR; }
 bool8 MetatileBehavior_IsCrackedFloorHole(u8 metatileBehavior) { return metatileBehavior == MB_CRACKED_FLOOR_HOLE; }
+bool8 MetatileBehavior_IsBattlePyramidWarp(u8 metatileBehavior) { return metatileBehavior == MB_BATTLE_PYRAMID_WARP; } // RFVF+: Emerald's
 bool8 MetatileBehavior_IsMuddySlope(u8 metatileBehavior) { return metatileBehavior == MB_MUDDY_SLOPE; }
 bool8 MetatileBehavior_IsVase(u8 metatileBehavior) { return metatileBehavior == MB_VASE; }
 bool8 MetatileBehavior_IsClosedSootopolisDoor(u8 metatileBehavior) { return metatileBehavior == MB_CLOSED_SOOTOPOLIS_DOOR; }

@@ -645,6 +645,8 @@ static const u8 *const sDescriptionStringTable[] =
     [PARTYBOX_DESC_ABLE_2]     = gText_Able3,
     [PARTYBOX_DESC_NOT_ABLE_2] = gText_NotAble2,
     [PARTYBOX_DESC_LEARNED]    = gText_Learned,
+    [PARTYBOX_DESC_HAVE]       = gText_Have,
+    [PARTYBOX_DESC_DONT_HAVE]  = gText_DontHave,
 };
 
 static const u8 *const sFieldMoveDescriptionTable[] =
@@ -990,6 +992,7 @@ enum
     CURSOR_OPTION_REGISTER,
     CURSOR_OPTION_TRADE1,
     CURSOR_OPTION_TRADE2,
+    CURSOR_OPTION_TOSS, // RFVF+: Emerald's (Battle Pyramid)
     CURSOR_OPTION_FIELD_MOVES,
 };
 
@@ -1017,6 +1020,7 @@ static struct
     [CURSOR_OPTION_REGISTER]                             = {gText_Register,               CursorCB_Register },
     [CURSOR_OPTION_TRADE1]                               = {gText_Trade4,                 CursorCB_Trade1   },
     [CURSOR_OPTION_TRADE2]                               = {gText_Trade4,                 CursorCB_Trade2   },
+    [CURSOR_OPTION_TOSS]                                 = {gMenuText_Toss,               CursorCb_Toss     },
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_FLASH]       = {gMoveNames[MOVE_FLASH],       CursorCB_FieldMove},
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_CUT]         = {gMoveNames[MOVE_CUT],         CursorCB_FieldMove},
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_FLY]         = {gMoveNames[MOVE_FLY],         CursorCB_FieldMove},
@@ -1044,6 +1048,7 @@ static const u8 sPartyMenuAction_ReadTakeMailCancel[]    = {CURSOR_OPTION_READ, 
 static const u8 sPartyMenuAction_RegisterSummaryCancel[] = {CURSOR_OPTION_REGISTER, CURSOR_OPTION_SUMMARY,   CURSOR_OPTION_CANCEL1};
 static const u8 sPartyMenuAction_TradeSummaryCancel1[]   = {CURSOR_OPTION_TRADE1,   CURSOR_OPTION_SUMMARY,   CURSOR_OPTION_CANCEL1};
 static const u8 sPartyMenuAction_TradeSummaryCancel2[]   = {CURSOR_OPTION_TRADE2,   CURSOR_OPTION_SUMMARY,   CURSOR_OPTION_CANCEL1};
+static const u8 sPartyMenuAction_TakeItemTossCancel[]    = {CURSOR_OPTION_TAKE_ITEM, CURSOR_OPTION_TOSS,     CURSOR_OPTION_CANCEL1};
 
 // IDs for the action lists that appear when a party mon is selected
 enum
@@ -1061,6 +1066,7 @@ enum
     ACTIONS_REGISTER,
     ACTIONS_TRADE,
     ACTIONS_SPIN_TRADE,
+    ACTIONS_TAKEITEM_TOSS,
 };
 
 static const u8 *const sPartyMenuActions[] =
@@ -1078,6 +1084,7 @@ static const u8 *const sPartyMenuActions[] =
     [ACTIONS_REGISTER]      = sPartyMenuAction_RegisterSummaryCancel,
     [ACTIONS_TRADE]         = sPartyMenuAction_TradeSummaryCancel1,
     [ACTIONS_SPIN_TRADE]    = sPartyMenuAction_TradeSummaryCancel2,
+    [ACTIONS_TAKEITEM_TOSS] = sPartyMenuAction_TakeItemTossCancel,
 };
 
 static const u8 sPartyMenuActionCounts[] =
@@ -1095,6 +1102,7 @@ static const u8 sPartyMenuActionCounts[] =
     [ACTIONS_REGISTER]      = NELEMS(sPartyMenuAction_RegisterSummaryCancel),
     [ACTIONS_TRADE]         = NELEMS(sPartyMenuAction_TradeSummaryCancel1),
     [ACTIONS_SPIN_TRADE]    = NELEMS(sPartyMenuAction_TradeSummaryCancel2),
+    [ACTIONS_TAKEITEM_TOSS] = NELEMS(sPartyMenuAction_TakeItemTossCancel),
 };
 
 static const u16 sFieldMoves[] =

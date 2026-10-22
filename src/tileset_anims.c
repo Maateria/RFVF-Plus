@@ -1,4 +1,7 @@
 #include "global.h"
+#include "battle_transition.h"
+#include "palette.h"
+#include "util.h"
 
 static EWRAM_DATA struct {
     const u16 *src;
@@ -1050,6 +1053,48 @@ void InitTilesetAnim_SeviiIslands5(void)
     sSecondaryTilesetAnimCounter = sPrimaryTilesetAnimCounter;
     sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
     sSecondaryTilesetAnimCallback = TilesetAnim_SeviiIslands5;
+}
+
+// RFVF+: Emerald's Battle Dome floor lights (a palette animation, slot 8 here too); the lights stop blending during a
+// battle transition's intro, then run 32 more frames
+static const u16 sTilesetAnims_BattleDomeFloorLightPals[][16] = {
+    INCBIN_U16("graphics/battle_frontier/dome/anim1.gbapal"),
+    INCBIN_U16("graphics/battle_frontier/dome/anim2.gbapal"),
+    INCBIN_U16("graphics/battle_frontier/dome/anim3.gbapal"),
+    INCBIN_U16("graphics/battle_frontier/dome/anim4.gbapal"),
+};
+
+static void TilesetAnim_HoennBattleDome2(u16 timer)
+{
+    if (timer % 4 != 0)
+        return;
+    CpuCopy16(sTilesetAnims_BattleDomeFloorLightPals[(timer / 4) % ARRAY_COUNT(sTilesetAnims_BattleDomeFloorLightPals)], &gPlttBufferUnfaded[BG_PLTT_ID(8)], PLTT_SIZE_4BPP);
+    if (IsIntroTaskDone())
+    {
+        BlendPalette(BG_PLTT_ID(8), 16, gPaletteFade.y, gPaletteFade.blendColor & 0x7FFF);
+        if (!--sSecondaryTilesetAnimCounterMax)
+            sSecondaryTilesetAnimCallback = NULL;
+    }
+}
+
+static void TilesetAnim_HoennBattleDome(u16 timer)
+{
+    if (timer % 4 != 0)
+        return;
+    CpuCopy16(sTilesetAnims_BattleDomeFloorLightPals[(timer / 4) % ARRAY_COUNT(sTilesetAnims_BattleDomeFloorLightPals)], &gPlttBufferUnfaded[BG_PLTT_ID(8)], PLTT_SIZE_4BPP);
+    BlendPalette(BG_PLTT_ID(8), 16, gPaletteFade.y, gPaletteFade.blendColor & 0x7FFF);
+    if (!IsIntroTaskDone())
+    {
+        sSecondaryTilesetAnimCallback = TilesetAnim_HoennBattleDome2;
+        sSecondaryTilesetAnimCounterMax = 32;
+    }
+}
+
+void InitTilesetAnim_HoennBattleDome(void)
+{
+    sSecondaryTilesetAnimCounter = 0;
+    sSecondaryTilesetAnimCounterMax = sPrimaryTilesetAnimCounterMax;
+    sSecondaryTilesetAnimCallback = TilesetAnim_HoennBattleDome;
 }
 
 // Generated: InitTilesetAnim_Hoenn* of the Hoenn secondaries (tools/hoenn_import register_anims)

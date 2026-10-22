@@ -1,4 +1,5 @@
 #include "global.h"
+#include "battle_pyramid.h"
 #include "battle_setup.h"
 #include "event_object_movement.h"
 #include "field_effect.h"
@@ -147,6 +148,17 @@ bool8 CheckForTrainersWantingBattle(void)
     return FALSE;
 }
 
+// RFVF+: Emerald's (the Battle Pyramid)
+u8 GetChosenApproachingTrainerObjectEventId(u8 arrayId)
+{
+    if (arrayId >= ARRAY_COUNT(gApproachingTrainers))
+        return 0;
+    else if (arrayId == 0)
+        return gApproachingTrainers[0].objectEventId;
+    else
+        return gApproachingTrainers[1].objectEventId;
+}
+
 static u8 CheckTrainer(u8 trainerObjId)
 {
     const u8 *script;
@@ -157,7 +169,12 @@ static u8 CheckTrainer(u8 trainerObjId)
         script = GetTrainerHillTrainerScript();
     else
         script = GetObjectEventScriptPointerByObjectEventId(trainerObjId);
-    if (InTrainerHill() == TRUE)
+    if (CurrentBattlePyramidLocation() != PYRAMID_LOCATION_NONE) // RFVF+: Emerald's
+    {
+        if (GetBattlePyramidTrainerFlag(trainerObjId))
+            return 0;
+    }
+    else if (InTrainerHill() == TRUE)
     {
         if (GetHillTrainerFlag(trainerObjId))
             return 0;

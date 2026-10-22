@@ -25,4 +25,6 @@ u8 FldEff_XIcon(void);
 u8 FldEff_SmileyFaceIcon(void);
 u8 FldEff_QuestionMarkIcon(void);
 
+u8 GetChosenApproachingTrainerObjectEventId(u8 arrayId);
+
 #endif //GUARD_TRAINER_SEE_H

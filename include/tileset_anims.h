@@ -35,6 +35,7 @@ void InitTilesetAnim_HoennSootopolis(void);
 void InitTilesetAnim_HoennSootopolisGym(void);
 void InitTilesetAnim_HoennUnderwater(void);
 void InitTilesetAnim_HoennBattlePyramid(void);
+void InitTilesetAnim_HoennBattleDome(void);
 
 // BEGIN johto_import
 void InitTilesetAnim_AzaleaTownGym(void);

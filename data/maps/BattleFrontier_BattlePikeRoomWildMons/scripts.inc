@@ -1,4 +1,42 @@
 BattleFrontier_BattlePikeRoomWildMons_MapScripts::
+	map_script MAP_SCRIPT_ON_RESUME, BattleFrontier_BattlePikeRoomWildMons_OnResume
+	map_script MAP_SCRIPT_ON_FRAME_TABLE, BattleFrontier_BattlePikeRoomWildMons_OnFrame
+	map_script MAP_SCRIPT_ON_WARP_INTO_MAP_TABLE, BattleFrontier_BattlePikeRoomWildMons_OnWarp
 	.byte 0
-@ hoenn_import: Emerald map scripts not ported: ON_RESUME (BattleFrontier_BattlePikeRoomWildMons_OnResume), ON_FRAME_TABLE (BattleFrontier_BattlePikeRoomWildMons_OnFrame), ON_WARP_INTO_MAP_TABLE (BattleFrontier_BattlePikeRoomWildMons_OnWarp)
-@ hoenn_import: left out: trigger (4,3) VAR_TEMP_1==0 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_Exit; trigger (3,18) VAR_TEMP_2==0 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_SetEnteredRoom; trigger (4,18) VAR_TEMP_2==0 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_SetEnteredRoom; trigger (5,18) VAR_TEMP_2==0 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_SetEnteredRoom; trigger (3,19) VAR_TEMP_3==1 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_NoTurningBack; trigger (4,19) VAR_TEMP_3==1 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_NoTurningBack; trigger (5,19) VAR_TEMP_3==1 -> BattleFrontier_BattlePikeRoomWildMons_EventScript_NoTurningBack
+
+@ RFVF+: Emerald's scripts (batch 6, manual_b6.py)
+BattleFrontier_BattlePikeRoomWildMons_OnFrame:
+	map_script_2 VAR_TEMP_0, 0, BattleFrontier_BattlePikeRoomWildMons_EventScript_SetInWildMonRoom
+	map_script_2 VAR_TEMP_1, 1, BattleFrontier_BattlePikeRoomWildMons_EventScript_WarpToLobbyLost
+	.2byte 0
+
+BattleFrontier_BattlePikeRoomWildMons_EventScript_SetInWildMonRoom::
+	setvar VAR_TEMP_0, 1
+	pike_inwildmonroom
+	end
+
+BattleFrontier_BattlePikeRoomWildMons_EventScript_WarpToLobbyLost::
+	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, CHALLENGE_STATUS_LOST
+	warp MAP_BATTLE_FRONTIER_BATTLE_PIKE_LOBBY, 5, 6
+	waitstate
+	end
+
+BattleFrontier_BattlePikeRoomWildMons_OnWarp:
+	map_script_2 VAR_TEMP_4, 0, BattleFrontier_BattlePikeRoomWildMons_EventScript_TurnPlayerNorth
+	.2byte 0
+
+BattleFrontier_BattlePikeRoomWildMons_EventScript_TurnPlayerNorth::
+	setvar VAR_TEMP_4, 1
+	turnobject OBJ_EVENT_ID_PLAYER, DIR_NORTH
+	end
+
+BattleFrontier_BattlePikeRoomWildMons_OnResume:
+	call BattleFrontier_BattlePikeRoom_EventScript_ResetSketchedMoves
+	frontier_get FRONTIER_DATA_BATTLE_OUTCOME
+	goto_if_eq VAR_RESULT, B_OUTCOME_LOST, BattleFrontier_BattlePikeRoomWildMons_EventScript_SetLost
+	goto_if_eq VAR_RESULT, B_OUTCOME_DREW, BattleFrontier_BattlePikeRoomWildMons_EventScript_SetLost
+	end
+
+BattleFrontier_BattlePikeRoomWildMons_EventScript_SetLost::
+	setvar VAR_TEMP_1, 1
+	end
