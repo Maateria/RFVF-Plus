@@ -24,6 +24,7 @@
 #define INGAME_TRADE_SEEDOT    11 // Rustboro (Emerald's INGAME_TRADE_SEEDOT)
 #define INGAME_TRADE_PLUSLE    12 // Fortree
 #define INGAME_TRADE_HORSEA    13 // Pacifidlog
+#define INGAME_TRADE_MEOWTH    14 // Battle Frontier Lounge 6 (Emerald's)
 
 // Return values for CanTradeSelectedMon and CanSpinTradeMon
 #define CAN_TRADE_MON              0

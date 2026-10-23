@@ -160,6 +160,7 @@
 #define MULTI_BATTLE_PIKE_RULES                                152
 #define MULTI_BATTLE_PYRAMID_RULES                             153
 #define MULTI_FRONTIER_ITEM_CHOOSE                             154
+#define MULTI_FRONTIER_GAMBLER_BET                             155 // RFVF+: Emerald's (batch 6, session 7)
 
 
 #define MULTICHOICE_NONE                                      255
@@ -175,6 +176,12 @@
 #define LISTMENU_MASTER_TRAINER_TITLES     8
 #define LISTMENU_BF_RECEPTIONIST           9 // RFVF+: Emerald's SCROLL_MULTI_BF_RECEPTIONIST
 #define LISTMENU_BATTLE_TENT_RULES        10 // RFVF+: Emerald's SCROLL_MULTI_BATTLE_TENT_RULES
+#define LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_1 11 // RFVF+: Emerald's SCROLL_MULTI_* (the Exchange Corner, the tutors)
+#define LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_2 12
+#define LISTMENU_BF_EXCHANGE_CORNER_VITAMIN_VENDOR 13
+#define LISTMENU_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR 14
+#define LISTMENU_BF_MOVE_TUTOR_1          15
+#define LISTMENU_BF_MOVE_TUTOR_2          16
 
 // Std String Ids
 #define STDSTRING_COOL              0
@@ -213,5 +220,12 @@
 #define STDSTRING_DOUBLE            32
 #define STDSTRING_MULTI             33
 #define STDSTRING_MULTI_LINK        34
+#define STDSTRING_BATTLE_TOWER        35
+#define STDSTRING_BATTLE_DOME         36
+#define STDSTRING_BATTLE_FACTORY      37
+#define STDSTRING_BATTLE_PALACE       38
+#define STDSTRING_BATTLE_ARENA        39
+#define STDSTRING_BATTLE_PIKE         40
+#define STDSTRING_BATTLE_PYRAMID      41
 
 #endif //GUARD_CONSTANTS_MENU_H

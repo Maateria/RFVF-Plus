@@ -1,4 +1,5 @@
 #include "global.h"
+#include "recorded_battle.h"
 #include "battle_arena.h"
 #include "battle_gfx_sfx_util.h"
 #include "random.h"
@@ -216,6 +217,14 @@ static void PlayerBufferRunCommand(void)
 {
     if (gBattleControllerExecFlags & gBitTable[gActiveBattler])
     {
+        switch (RecordedBattle_AnswerController()) // RFVF+: a recording's playback (Emerald's recorded controllers)
+        {
+        case RECORDED_ANSWERED:
+            PlayerBufferExecCompleted();
+            return;
+        case RECORDED_WAIT:
+            return;
+        }
         if (gBattleBufferA[gActiveBattler][0] < NELEMS(sPlayerBufferCommands))
             sPlayerBufferCommands[gBattleBufferA[gActiveBattler][0]]();
         else

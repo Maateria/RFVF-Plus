@@ -1,4 +1,5 @@
 #include "global.h"
+#include "recorded_battle.h"
 #include "trainer_hill.h"
 #include "bg.h"
 #include "battle.h"
@@ -51,6 +52,7 @@ void AllocateBattleResources(void)
 
 void FreeBattleResources(void)
 {
+    RecordedBattle_EndBattle(); // RFVF+: Emerald's battle recordings (the pending recording, the heap buffers)
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_TOWER)
         FreeTrainerTowerBattleStruct();
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL)

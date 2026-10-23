@@ -27,6 +27,8 @@
 #define SECTOR_ID_HOF_2              29
 #define SECTOR_ID_TRAINER_TOWER_1    30
 #define SECTOR_ID_TRAINER_TOWER_2    31
+#define SECTOR_ID_RECORDED_BATTLE    SECTOR_ID_TRAINER_TOWER_2 // RFVF+: Emerald's battle recordings (the e-Reader is out)
+#define SECTOR_ID_PENDING_RECORDED_BATTLE SECTOR_ID_TRAINER_TOWER_1 // RFVF+: the last recordable battle's, until recorded
 #define SECTORS_COUNT                32
 
 #define NUM_HOF_SECTORS 2

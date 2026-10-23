@@ -840,8 +840,7 @@ static void GetFrontierData(void)
         gBattleOutcome = 0;
         break;
     case FRONTIER_DATA_RECORD_DISABLED:
-        // ponytail: TRUE until batch 6's session 7 ports the battle recordings (src/frontier_stubs.c)
-        gSpecialVar_Result = TRUE; // gSaveBlock2Ptr->frontier.disableRecordBattle;
+        gSpecialVar_Result = gSaveBlock2Ptr->frontier.disableRecordBattle;
         break;
     case FRONTIER_DATA_HEARD_BRAIN_SPEECH:
         gSpecialVar_Result = gSaveBlock2Ptr->frontier.battledBrainFlags & sBattledBrainBitFlags[facility][hasSymbol];

@@ -101,6 +101,8 @@ void HoennDays_OnStep(void)
         steps = 0;
         VarSet(VAR_HOENN_DAY_COUNT, VarGet(VAR_HOENN_DAY_COUNT) + 1);
         UpdateDewfordTrendPerDay(1);
+        UpdateFrontierManiac(1); // RFVF+: Emerald's daily Frontier lounge news (batch 6)
+        UpdateFrontierGambler(1);
         for (i = FLAG_HOENN_BERRY_TREES_START; i <= FLAG_HOENN_BERRY_TREES_END; i++) // the picked trees grow back
             FlagClear(i);
         for (i = FLAG_RECEIVED_SHOAL_SALT_1; i <= FLAG_RECEIVED_SHOAL_SHELL_4; i++) // Shoal Cave's salt and shells too

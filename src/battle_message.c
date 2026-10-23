@@ -2982,7 +2982,7 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     else
         gTextFlags.useAlternateDownArrow = TRUE;
 
-    if ((gBattleTypeFlags & BATTLE_TYPE_LINK) || ((gBattleTypeFlags & BATTLE_TYPE_POKEDUDE) && windowId != B_WIN_OAK_OLD_MAN))
+    if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED)) || ((gBattleTypeFlags & BATTLE_TYPE_POKEDUDE) && windowId != B_WIN_OAK_OLD_MAN)) // RFVF+: a recording plays by itself
         gTextFlags.autoScroll = TRUE;
     else
         gTextFlags.autoScroll = FALSE;

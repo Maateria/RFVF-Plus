@@ -1,4 +1,5 @@
 #include "global.h"
+#include "recorded_battle.h"
 #include "battle_pyramid.h"
 #include "gflib.h"
 #include "battle.h"
@@ -625,7 +626,7 @@ void CB2_InitBattle(void)
     AllocateBattleResources();
     AllocateBattleSpritesData();
     AllocateMonSpritesGfx();
-    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's: the salon partner's team is shown first
+    if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER && !(gBattleTypeFlags & BATTLE_TYPE_RECORDED)) // Emerald's: the salon partner's team is shown first
     {
         SetMainCallback2(CB2_PreInitIngamePlayerPartnerBattle);
         gBattleCommunication[MULTIUSE_STATE] = 0;
@@ -711,6 +712,8 @@ static void CB2_InitBattleInternal(void)
     gBattle_BG3_Y = 0;
 
     gBattleTerrain = BattleSetup_GetTerrainId();
+    if (gBattleTypeFlags & BATTLE_TYPE_RECORDED) // RFVF+: Emerald's
+        gBattleTerrain = BATTLE_TERRAIN_BUILDING;
 
     InitBattleBgsVideo();
     LoadBattleTextboxAndBackground();
@@ -726,7 +729,7 @@ static void CB2_InitBattleInternal(void)
         SetMainCallback2(CB2_HandleStartMultiBattle);
     else // RFVF+: the salon partner's battle starts as a plain one (Emerald's non-link CB2_HandleStartMultiPartnerBattle)
         SetMainCallback2(CB2_HandleStartBattle);
-    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK))
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED))) // RFVF+: a recording brings its parties
     {
         CreateNPCTrainerParty(&gEnemyParty[0], gTrainerBattleOpponent_A, TRUE);
         if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
@@ -735,6 +738,7 @@ static void CB2_InitBattleInternal(void)
     }
 
     gMain.inBattle = TRUE;
+    gSaveBlock2Ptr->frontier.disableRecordBattle = FALSE; // RFVF+: Emerald's
     for (i = 0; i < PARTY_SIZE; i++)
         AdjustFriendship(&gPlayerParty[i], FRIENDSHIP_EVENT_LEAGUE_BATTLE);
 
@@ -1080,6 +1084,7 @@ static void CB2_HandleStartBattle(void)
         break;
     case 15:
         InitBattleControllers();
+        RecordedBattle_SetTrainerInfo(); // RFVF+: Emerald's (the RNG seed of a recording)
         gBattleCommunication[MULTIUSE_STATE]++;
         gBattleCommunication[SPRITES_INIT_STATE1] = 0;
         gBattleCommunication[SPRITES_INIT_STATE2] = 0;
@@ -1540,6 +1545,27 @@ void BattleMainCB2(void)
         BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
         SetMainCallback2(CB2_QuitPokedudeBattle);
     }
+    if (JOY_HELD(B_BUTTON) && gBattleTypeFlags & BATTLE_TYPE_RECORDED && RecordedBattle_CanStopPlayback())
+    {
+        // RFVF+: Emerald's, B ends a recording's playback
+        gSpecialVar_Result = gBattleOutcome = B_OUTCOME_PLAYER_TELEPORTED;
+        ResetPaletteFadeControl();
+        BeginNormalPaletteFade(PALETTES_ALL, 0, 0, 16, RGB_BLACK);
+        SetMainCallback2(CB2_QuitRecordedBattle);
+    }
+}
+
+void CB2_QuitRecordedBattle(void)
+{
+    UpdatePaletteFade();
+    if (!gPaletteFade.active)
+    {
+        m4aMPlayStop(&gMPlayInfo_SE1);
+        m4aMPlayStop(&gMPlayInfo_SE2);
+        FreeRestoreBattleData();
+        FreeAllWindowBuffers();
+        SetMainCallback2(gMain.savedCallback);
+    }
 }
 
 void FreeRestoreBattleData(void)
@@ -1839,8 +1865,9 @@ static void HBlankCB_Battle(void)
 
 void VBlankCB_Battle(void)
 {
-    // Change gRngSeed every vblank.
-    Random();
+    // Change gRngSeed every vblank unless the battle could be recorded (RFVF+: Emerald's).
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_RECORDED)))
+        Random();
 
     SetGpuReg(REG_OFFSET_BG0HOFS, gBattle_BG0_X);
     SetGpuReg(REG_OFFSET_BG0VOFS, gBattle_BG0_Y);
@@ -2454,7 +2481,12 @@ static void BattleStartClearSetData(void)
 
     gHitMarker = 0;
 
-    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_POKEDUDE)) && gSaveBlock2Ptr->optionsBattleSceneOff)
+    if (gBattleTypeFlags & BATTLE_TYPE_RECORDED) // RFVF+: Emerald's, a recording keeps its battle scene option
+    {
+        if (GetBattleSceneInRecordedBattle())
+            gHitMarker |= HITMARKER_NO_ANIMATIONS;
+    }
+    else if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_POKEDUDE)) && gSaveBlock2Ptr->optionsBattleSceneOff)
         gHitMarker |= HITMARKER_NO_ANIMATIONS;
 
     gBattleScripting.battleStyle = gSaveBlock2Ptr->optionsBattleStyle;
@@ -3334,6 +3366,7 @@ void UpdatePartyOwnerOnSwitch_NonMulti(u8 battler)
 
 enum
 {
+    STATE_TURN_START_RECORD, // RFVF+: Emerald's (battle recordings: the moves at the turn's start)
     STATE_BEFORE_ACTION_CHOSEN,
     STATE_WAIT_ACTION_CHOSEN,
     STATE_WAIT_ACTION_CASE_CHOSEN,
@@ -3355,6 +3388,10 @@ static void HandleTurnActionSelectionState(void)
 
         switch (gBattleCommunication[gActiveBattler])
         {
+        case STATE_TURN_START_RECORD:
+            RecordedBattle_CopyBattlerMoves();
+            gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+            break;
         case STATE_BEFORE_ACTION_CHOSEN: // Choose an action.
             *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = PARTY_SIZE;
             if (gBattleTypeFlags & BATTLE_TYPE_MULTI
@@ -3390,6 +3427,7 @@ static void HandleTurnActionSelectionState(void)
         case STATE_WAIT_ACTION_CHOSEN: // Try to perform an action.
             if (!(gBattleControllerExecFlags & ((gBitTable[gActiveBattler]) | (0xF0000000) | (gBitTable[gActiveBattler] << 4) | (gBitTable[gActiveBattler] << 8) | (gBitTable[gActiveBattler] << 0xC))))
             {
+                RecordedBattle_SetBattlerAction(gActiveBattler, gBattleBufferB[gActiveBattler][1]);
                 gChosenActionByBattler[gActiveBattler] = gBattleBufferB[gActiveBattler][1];
                 switch (gBattleBufferB[gActiveBattler][1])
                 {
@@ -3431,6 +3469,7 @@ static void HandleTurnActionSelectionState(void)
                 case B_ACTION_USE_ITEM:
                     if ((gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER_NO_PYRAMID | BATTLE_TYPE_EREADER_TRAINER)) || FlagGet(FLAG_MASTER_TRAINER_BATTLE)) // RFVF+: the Pyramid has its bag
                     {
+                        RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
                         gSelectionBattleScripts[gActiveBattler] = BattleScript_ActionSelectionItemsCantBeUsed;
                         gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT;
                         *(gBattleStruct->selectionScriptFinished + gActiveBattler) = FALSE;
@@ -3482,18 +3521,31 @@ static void HandleTurnActionSelectionState(void)
                     }
                     break;
                 case B_ACTION_CANCEL_PARTNER:
-                    // RFVF+: the Battle Palace picks the partner's move again with the same luck (Emerald)
-                    if (gBattleTypeFlags & BATTLE_TYPE_PALACE
-                     && gChosenActionByBattler[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] == B_ACTION_USE_MOVE)
-                        gRngValue = gBattlePalaceMoveSelectionRngValue;
                     gBattleCommunication[gActiveBattler] = STATE_WAIT_SET_BEFORE_ACTION;
                     gBattleCommunication[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] = STATE_BEFORE_ACTION_CHOSEN;
+                    // RFVF+: Emerald's, the recording forgets both choices (the Palace picks the partner's move again
+                    // with the same luck)
+                    RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
+                    if (gChosenActionByBattler[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] == B_ACTION_SWITCH)
+                        RecordedBattle_ClearBattlerAction(GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler))), 2);
+                    else if (gChosenActionByBattler[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] == B_ACTION_RUN)
+                        RecordedBattle_ClearBattlerAction(GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler))), 1);
+                    else if (gChosenActionByBattler[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] == B_ACTION_USE_MOVE
+                          && (gProtectStructs[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))].noValidMoves || gDisableStructs[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))].encoredMove))
+                        RecordedBattle_ClearBattlerAction(GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler))), 1);
+                    else if (gBattleTypeFlags & BATTLE_TYPE_PALACE && gChosenActionByBattler[GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler)))] == B_ACTION_USE_MOVE)
+                    {
+                        gRngValue = gBattlePalaceMoveSelectionRngValue;
+                        RecordedBattle_ClearBattlerAction(GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler))), 1);
+                    }
+                    else
+                        RecordedBattle_ClearBattlerAction(GetBattlerAtPosition(BATTLE_PARTNER(GetBattlerPosition(gActiveBattler))), 3);
                     BtlController_EmitEndBounceEffect(0);
                     MarkBattlerForControllerExec(gActiveBattler);
                     return;
                 }
                 if (gBattleTypeFlags & BATTLE_TYPE_TRAINER
-                 && gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL
+                 && gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)
                  && gBattleBufferB[gActiveBattler][1] == B_ACTION_RUN)
                 {
                     gSelectionBattleScripts[gActiveBattler] = BattleScript_AskIfWantsToForfeitMatch;
@@ -3536,12 +3588,15 @@ static void HandleTurnActionSelectionState(void)
                         gChosenActionByBattler[gActiveBattler] = gBattleBufferB[gActiveBattler][1];
                         return;
                     default:
+                        RecordedBattle_CheckMovesetChanges(B_RECORD_MODE_PLAYBACK);
                         if ((gBattleBufferB[gActiveBattler][2] | (gBattleBufferB[gActiveBattler][3] << 8)) == 0xFFFF)
                         {
                             gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+                            RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
                         }
                         else if (TrySetCantSelectMoveBattleScript())
                         {
+                            RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
                             gBattleCommunication[gActiveBattler] = STATE_SELECTION_SCRIPT;
                             *(gBattleStruct->selectionScriptFinished + gActiveBattler) = FALSE;
                             gBattleBufferB[gActiveBattler][1] = 0;
@@ -3550,6 +3605,11 @@ static void HandleTurnActionSelectionState(void)
                         }
                         else
                         {
+                            if (!(gBattleTypeFlags & BATTLE_TYPE_PALACE))
+                            {
+                                RecordedBattle_SetBattlerAction(gActiveBattler, gBattleBufferB[gActiveBattler][2]);
+                                RecordedBattle_SetBattlerAction(gActiveBattler, gBattleBufferB[gActiveBattler][3]);
+                            }
                             *(gBattleStruct->chosenMovePositions + gActiveBattler) = gBattleBufferB[gActiveBattler][2];
                             gChosenMoveByBattler[gActiveBattler] = gBattleMons[gActiveBattler].moves[*(gBattleStruct->chosenMovePositions + gActiveBattler)];
                             *(gBattleStruct->moveTarget + gActiveBattler) = gBattleBufferB[gActiveBattler][3];
@@ -3573,10 +3633,12 @@ static void HandleTurnActionSelectionState(void)
                     if (gBattleBufferB[gActiveBattler][1] == PARTY_SIZE)
                     {
                         gBattleCommunication[gActiveBattler] = STATE_BEFORE_ACTION_CHOSEN;
+                        RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
                     }
                     else
                     {
                         *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = gBattleBufferB[gActiveBattler][1];
+                        RecordedBattle_SetBattlerAction(gActiveBattler, gBattleBufferB[gActiveBattler][1]);
                         if (gBattleTypeFlags & BATTLE_TYPE_MULTI)
                         {
                             *(gActiveBattler * 3 + (u8 *)(gBattleStruct->battlerPartyOrders) + 0) &= 0xF;
@@ -3659,6 +3721,7 @@ static void HandleTurnActionSelectionState(void)
                 }
                 else
                 {
+                    RecordedBattle_ClearBattlerAction(gActiveBattler, 1);
                     gBattleCommunication[gActiveBattler] = *(gBattleStruct->stateIdAfterSelScript + gActiveBattler);
                 }
             }
@@ -3676,6 +3739,7 @@ static void HandleTurnActionSelectionState(void)
     // Check if everyone chose actions.
     if (gBattleCommunication[ACTIONS_CONFIRMED_COUNT] == gBattlersCount)
     {
+        RecordedBattle_CheckMovesetChanges(B_RECORD_MODE_RECORDING);
         gBattleMainFunc = SetActionsAndBattlersTurnOrder;
         if (gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER) // Emerald's
         {
@@ -4141,6 +4205,14 @@ static void HandleEndTurn_BattleLost(void)
 static void HandleEndTurn_RanFromBattle(void)
 {
     gCurrentActionFuncId = 0;
+    if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER && gBattleTypeFlags & BATTLE_TYPE_TRAINER) // Emerald's
+    {
+        gBattlescriptCurrInstr = BattleScript_PrintPlayerForfeited;
+        gBattleOutcome = B_OUTCOME_FORFEITED;
+        gSaveBlock2Ptr->frontier.disableRecordBattle = TRUE;
+        gBattleMainFunc = HandleEndTurn_FinishBattle;
+        return;
+    }
     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER_HILL) // Emerald's
     {
         gBattlescriptCurrInstr = BattleScript_PrintPlayerForfeited;
@@ -4199,6 +4271,7 @@ static void HandleEndTurn_FinishBattle(void)
             TrySetQuestLogBattleEvent();
         if (gBattleTypeFlags & BATTLE_TYPE_TRAINER && !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_TRAINER_HILL)))
             ClearRematchStateByTrainerId();
+        RecordedBattle_SetPlaybackFinished(); // RFVF+: Emerald's
         BeginFastPaletteFade(3);
         FadeOutMapMusic(5);
         gBattleMainFunc = FreeResetData_ReturnToOvOrDoEvolutions;

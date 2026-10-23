@@ -381,7 +381,9 @@ static void VBlankIntr(void)
 #endif
 
     TryReceiveLinkBattleData();
-    Random();
+    // RFVF+: Emerald's, no per-frame luck in Frontier battles: a recording replays them as they went
+    if (!gMain.inBattle || !(gBattleTypeFlags & (BATTLE_TYPE_FRONTIER | BATTLE_TYPE_RECORDED)))
+        Random();
     UpdateWirelessStatusIndicatorSprite();
 
     INTR_CHECK |= INTR_FLAG_VBLANK;

@@ -1,4 +1,5 @@
 #include "global.h"
+#include "recorded_battle.h"
 #include "battle.h"
 #include "battle_ai_script_commands.h"
 #include "battle_anim.h"
@@ -66,6 +67,15 @@ void SetUpBattleVars(void)
 void InitBattleControllers(void)
 {
     s32 i;
+
+    // RFVF+: Emerald's battle recordings (a recording's playback goes through the usual controllers)
+    if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
+        RecordedBattle_Init(B_RECORD_MODE_RECORDING);
+    else
+        RecordedBattle_Init(B_RECORD_MODE_PLAYBACK);
+
+    if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED))
+        RecordedBattle_SaveParties();
 
     if (gBattleTypeFlags & BATTLE_TYPE_LINK)
         InitLinkBtlControllers();

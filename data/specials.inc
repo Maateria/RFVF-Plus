@@ -563,4 +563,21 @@ gSpecials::
 	def_special BattlePyramidChooseMonHeldItems
 	def_special DoBattlePyramidMonsHaveHeldItem
 	def_special ShowFrontierMapNamePopup
+	def_special BufferVarsForIVRater
+	def_special ScriptGetPartyMonSpecies
+	def_special ShowFrontierManiacMessage
+	def_special ShowNatureGirlMessage
+	def_special ShowFrontierGamblerLookingMessage
+	def_special ShowFrontierGamblerGoMessage
+	def_special UpdateBattlePointsWindow
+	def_special ShowBattlePointsWindow
+	def_special CloseBattlePointsWindow
+	def_special TakeFrontierBattlePoints
+	def_special GiveFrontierBattlePoints
+	def_special ShowFrontierExchangeCornerItemIconWindow
+	def_special CloseFrontierExchangeCornerItemIconWindow
+	def_special BufferBattleFrontierTutorMoveName
+	def_special CloseBattleFrontierTutorWindow
+	def_special GetBattleFrontierTutorMoveIndex
+	def_special GetFrontierBattlePoints
 gSpecialsEnd::

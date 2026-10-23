@@ -22,6 +22,8 @@
 #define VAR_TEMP_E                 (TEMP_VARS_START + 0xE)
 #define VAR_TEMP_F                 (TEMP_VARS_START + 0xF)
 #define VAR_TEMP_PLAYING_PYRAMID_MUSIC  VAR_TEMP_E // RFVF+: Emerald's alias (the Battle Pyramid)
+#define VAR_TEMP_FRONTIER_TUTOR_SELECTION  VAR_TEMP_D // RFVF+: Emerald's aliases (the Frontier's tutors)
+#define VAR_TEMP_FRONTIER_TUTOR_ID         VAR_TEMP_E
 #define TEMP_VARS_END              VAR_TEMP_F
 
 // Object event graphics IDs which can be changed by
@@ -260,12 +262,12 @@
 #define VAR_TEMP_CHALLENGE_STATUS VAR_TEMP_0 // RFVF+: Emerald's alias (Battle Frontier)
 #define VAR_FRONTIER_BATTLE_MODE                 0x40CE // RFVF+: Emerald's (batch 6)
 #define VAR_FRONTIER_FACILITY      0x40CF
-#define VAR_0x40D0                 0x40D0
-#define VAR_0x40D1                 0x40D1
-#define VAR_0x40D2                 0x40D2
-#define VAR_0x40D3                 0x40D3
-#define VAR_0x40D4                 0x40D4
-#define VAR_0x40D5                 0x40D5
+#define VAR_FRONTIER_MANIAC_FACILITY       0x40D0 // RFVF+: Emerald's (batch 6, the Frontier's services)
+#define VAR_FRONTIER_GAMBLER_CHALLENGE     0x40D1 // RFVF+: Emerald's (batch 6, the Frontier's services)
+#define VAR_FRONTIER_GAMBLER_SET_CHALLENGE 0x40D2 // RFVF+: Emerald's (batch 6, the Frontier's services)
+#define VAR_FRONTIER_GAMBLER_AMOUNT_BET    0x40D3 // RFVF+: Emerald's (batch 6, the Frontier's services)
+#define VAR_FRONTIER_GAMBLER_STATE         0x40D4 // RFVF+: Emerald's (batch 6, the Frontier's services)
+#define VAR_SCOTT_STATE                    0x40D5 // RFVF+: Emerald's (batch 6, the Frontier's services)
 #define VAR_0x40D6                 0x40D6
 #define VAR_0x40D7                 0x40D7
 #define VAR_0x40D8                 0x40D8

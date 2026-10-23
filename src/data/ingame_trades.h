@@ -217,11 +217,27 @@ static const struct InGameTrade sInGameTrades[] = {
         .conditions = {5, 5, 5, 5, 30},
         .personality = 0x7F,
         .heldItem = ITEM_WAVE_MAIL,
-        .mailNum = 1,
+        .mailNum = 2, // RFVF+: Emerald's own message (it shared the Plusle's)
         .otName = _("LUDOVIC"),
         .otGender = MALE,
         .sheen = 10,
         .requestedSpecies = SPECIES_BAGON
+    },
+    [INGAME_TRADE_MEOWTH] = // RFVF+: Emerald's, the Battle Frontier's Lounge 6 (French Emerald's nickname and OT)
+    {
+        .nickname = _("GNAGNAA"),
+        .species = SPECIES_MEOWTH,
+        .ivs = {4, 5, 4, 5, 4, 4},
+        .abilityNum = 0,
+        .otId = 91481,
+        .conditions = {5, 5, 5, 30, 5},
+        .personality = 0x8B,
+        .heldItem = ITEM_RETRO_MAIL,
+        .mailNum = 3,
+        .otName = _("ISIS"),
+        .otGender = FEMALE,
+        .sheen = 10,
+        .requestedSpecies = SPECIES_SKITTY
     }
 };
 
@@ -247,5 +263,27 @@ static const u16 sInGameTradeMailMessages[][10] = {
         EC_WORD_WILL,
         EC_WORD_BE,
         EC_WORD_FANTASTIC
+    },
+    {   // Emerald's sIngameTradeMail[1]: the Pacifidlog Horsea's Wave Mail
+        EC_WORD_I,
+        EC_WORD_WILL,
+        EC_WORD_MAKE,
+        EC_POKEMON(BAGON),
+        EC_WORD_TOUGH,
+        EC_WORD_PLEASE,
+        EC_WORD_TRAIN,
+        EC_POKEMON(HORSEA),
+        EC_WORD_WELL
+    },
+    {   // Emerald's sIngameTradeMail[2]: the Frontier Meowth's Retro Mail
+        EC_WORD_THANK_YOU,
+        EC_WORD_FOR,
+        EC_POKEMON(SKITTY),
+        EC_POKEMON(MEOWTH),
+        EC_WORD_CRIES,
+        EC_WORD_IN,
+        EC_WORD_A,
+        EC_WORD_CUTE,
+        EC_WORD_WAY
     }
 };

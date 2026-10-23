@@ -436,7 +436,7 @@ struct BattleStruct
     u8 field_8D; // unused
     u8 stringMoveType;
     u8 expGetterBattlerId;
-    u8 field_90; // unused
+    u8 switchChoiceRecorded; // RFVF+: Emerald's field_93 (battle recordings), FRLG's unused field_90
     u8 absentBattlerFlags;
     u8 AI_monToSwitchIntoId[MAX_BATTLERS_COUNT]; // RFVF+: per battler (Emerald's), the salon partner also switches
     u8 simulatedInputState[4];  // used by Oak/Old Man/Pokedude controllers

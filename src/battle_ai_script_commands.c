@@ -1,4 +1,5 @@
 #include "global.h"
+#include "recorded_battle.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "util.h"
@@ -356,6 +357,11 @@ void BattleAI_SetupAIDataMoves(u8 defaultScoreMoves)
 
     // Choose proper trainer ai scripts.
     // Fire Red, why all the returns?!?
+    if (gBattleTypeFlags & BATTLE_TYPE_RECORDED) // RFVF+: Emerald's, a recording keeps its AI
+    {
+        AI_THINKING_STRUCT->aiFlags = GetAiScriptsInRecordedBattle();
+        return;
+    }
     if (gBattleTypeFlags & BATTLE_TYPE_SAFARI)
     {
         AI_THINKING_STRUCT->aiFlags = AI_SCRIPT_SAFARI;

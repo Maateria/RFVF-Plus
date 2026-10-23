@@ -1,4 +1,5 @@
 #include "global.h"
+#include "recorded_battle.h"
 #include "battle_pyramid.h"
 #include "battle_pike.h"
 #include "gflib.h"
@@ -4791,6 +4792,7 @@ static void Cmd_jumpifcantswitch(void)
 static void ChooseMonToSendOut(u8 slotId)
 {
     *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
+    gBattleStruct->switchChoiceRecorded &= ~(gBitTable[gActiveBattler]); // RFVF+: Emerald's
     BtlController_EmitChoosePokemon(BUFFER_A, PARTY_ACTION_SEND_OUT, slotId, ABILITY_NONE, gBattleStruct->battlerPartyOrders[gActiveBattler]);
     MarkBattlerForControllerExec(gActiveBattler);
 }
@@ -5047,6 +5049,7 @@ static void Cmd_openpartyscreen(void)
         {
             gActiveBattler = battlerId;
             *(gBattleStruct->battlerPartyIndexes + gActiveBattler) = gBattlerPartyIndexes[gActiveBattler];
+            gBattleStruct->switchChoiceRecorded &= ~(gBitTable[gActiveBattler]); // RFVF+: Emerald's
 
             BtlController_EmitChoosePokemon(BUFFER_A, hitmarkerFaintBits, *(gBattleStruct->monToSwitchIntoId + (gActiveBattler ^ 2)), 0, gBattleStruct->battlerPartyOrders[gActiveBattler]);
             MarkBattlerForControllerExec(gActiveBattler);
@@ -5096,6 +5099,11 @@ static void Cmd_switchhandleorder(void)
             if (gBattleBufferB[i][0] == CONTROLLER_CHOSENMONRETURNVALUE)
             {
                 *(gBattleStruct->monToSwitchIntoId + i) = gBattleBufferB[i][1];
+                if (!(gBattleStruct->switchChoiceRecorded & gBitTable[i])) // RFVF+: Emerald's battle recordings
+                {
+                    RecordedBattle_SetBattlerAction(i, gBattleBufferB[i][1]);
+                    gBattleStruct->switchChoiceRecorded |= gBitTable[i];
+                }
             }
         }
         break;
@@ -5104,6 +5112,11 @@ static void Cmd_switchhandleorder(void)
             UpdatePartyOwnerOnSwitch_NonMulti(gActiveBattler);
         break;
     case 2:
+        if (!(gBattleStruct->switchChoiceRecorded & gBitTable[gActiveBattler])) // RFVF+: Emerald's (its case 2, not 3)
+        {
+            RecordedBattle_SetBattlerAction(gActiveBattler, gBattleBufferB[gActiveBattler][1]);
+            gBattleStruct->switchChoiceRecorded |= gBitTable[gActiveBattler];
+        }
         gBattleCommunication[0] = gBattleBufferB[gActiveBattler][1];
         *(gBattleStruct->monToSwitchIntoId + gActiveBattler) = gBattleBufferB[gActiveBattler][1];
 

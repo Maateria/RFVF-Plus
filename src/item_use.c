@@ -1,4 +1,6 @@
 #include "global.h"
+#include "constants/event_objects.h"
+#include "event_scripts.h"
 #include "gflib.h"
 #include "battle.h"
 #include "berry_pouch.h"
@@ -914,6 +916,41 @@ void ItemUseInBattle_EnigmaBerry(u8 taskId)
         BattleUseFunc_Ether(taskId);
         break;
     default:
+        FieldUseFunc_OakStopsYou(taskId);
+    }
+}
+
+// RFVF+: Emerald's Wailmer Pail: the Battle Frontier's Sudowoodo (no berry watering here: the Hoenn trees are ripe)
+static bool8 TryToWaterSudowoodo(void)
+{
+    s16 x, y;
+    u8 objId;
+    u16 gfx;
+
+    GetXYCoordsOneStepInFrontOfPlayer(&x, &y);
+    objId = GetObjectEventIdByPosition(x, y, PlayerGetElevation());
+    if (objId == OBJECT_EVENTS_COUNT)
+        return FALSE;
+    gfx = ObjGfxId(&gObjectEvents[objId]);
+    return gfx == OBJ_EVENT_GFX_SUDOWOODO || gfx == OBJ_EVENT_GFX_HOENN_SUDOWOODO;
+}
+
+static void ItemUseOnFieldCB_WailmerPailSudowoodo(u8 taskId)
+{
+    LockPlayerFieldControls();
+    ScriptContext_SetupScript(BattleFrontier_OutsideEast_EventScript_WaterSudowoodo);
+    DestroyTask(taskId);
+}
+
+void ItemUseOutOfBattle_WailmerPail(u8 taskId)
+{
+    if (TryToWaterSudowoodo() == TRUE)
+    {
+        sItemUseOnFieldCB = ItemUseOnFieldCB_WailmerPailSudowoodo;
+        SetUpItemUseOnFieldCallback(taskId);
+    }
+    else
+    {
         FieldUseFunc_OakStopsYou(taskId);
     }
 }

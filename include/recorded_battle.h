@@ -40,4 +40,11 @@ u8 GetRecordedBattleApprenticeLanguage(void);
 void RecordedBattle_SaveBattleOutcome(void);
 u16 *GetRecordedBattleEasyChatSpeech(void);
 
+// RFVF+: a recording's playback through the usual controllers
+#define RECORDED_NOT_HANDLED 0
+#define RECORDED_ANSWERED    1
+#define RECORDED_WAIT        2
+u8 RecordedBattle_AnswerController(void);
+void RecordedBattle_EndBattle(void);
+
 #endif // GUARD_RECORDED_BATTLE_H

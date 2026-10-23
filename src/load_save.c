@@ -37,6 +37,8 @@ EWRAM_DATA struct PokemonStorage gPokemonStorage = {0};
 EWRAM_DATA u8 gSaveBlock3_DMA[SAVEBLOCK_MOVE_RANGE] = {0};
 
 EWRAM_DATA struct LoadedSaveData gLoadedSaveData = {0};
+// RFVF+: a recorded battle's playback keeps the player's party in it (recorded_battle.c)
+STATIC_ASSERT(sizeof(struct LoadedSaveData) >= sizeof(struct Pokemon) * PARTY_SIZE, PlaybackPartyBackupTooSmall);
 EWRAM_DATA u32 gLastEncryptionKey = 0;
 
 // IWRAM common

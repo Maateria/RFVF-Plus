@@ -443,6 +443,25 @@ void CreateDecorMenuIcon(u8 decor, u8 idx)
     }
 }
 
+// RFVF+: Emerald's AddDecorationIconObject for the Battle Frontier's Exchange Corner: a decoration's 32x32 icon at (x, y)
+u8 AddDecorationIconObject(u8 decor, s16 x, s16 y, u8 priority, u16 tilesTag, u16 paletteTag)
+{
+    struct SpriteTemplate template;
+    struct CompressedSpriteSheet sheet = {sDecorIconTable[decor][0], 0x200, tilesTag};
+    struct CompressedSpritePalette palette = {sDecorIconTable[decor][1], paletteTag};
+    u8 spriteId;
+
+    LoadCompressedSpriteSheet(&sheet);
+    LoadCompressedSpritePalette(&palette);
+    template = sSpriteTemplate_ItemIcon;
+    template.tileTag = tilesTag;
+    template.paletteTag = paletteTag;
+    spriteId = CreateSprite(&template, x, y, 0);
+    if (spriteId != MAX_SPRITES)
+        gSprites[spriteId].oam.priority = priority;
+    return spriteId;
+}
+
 void DestroyItemMenuIcon(u8 idx)
 {
     u8 * spriteIds = &sItemMenuIconSpriteIds[SPR_ITEM_ICON];

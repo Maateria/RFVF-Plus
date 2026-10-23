@@ -1,4 +1,8 @@
 #include "global.h"
+#include "event_scripts.h"
+#include "constants/decorations.h"
+#include "international_string_util.h"
+#include "item_menu_icons.h"
 #include "constants/battle_frontier.h"
 #include "gflib.h"
 #include "quest_log.h"
@@ -68,6 +72,9 @@ static void Task_AnimateElevatorWindowView(u8 taskId);
 static void Task_CreateScriptListMenu(u8 taskId);
 static void CreateScriptListMenu(void);
 static void ScriptListMenuMoveCursorFunction(s32 nothing, bool8 is, struct ListMenu * used);
+static void FrontierListMenu_Open(u16 menu);
+static void FrontierListMenu_MoveCursor(u16 menu, u16 selection);
+static void FrontierListMenu_Close(u16 menu);
 static void Task_ListMenuHandleInput(u8 taskId);
 static void Task_DestroyListMenu(u8 taskId);
 static void Task_SuspendListMenu(u8 taskId);
@@ -1502,6 +1509,66 @@ void ListMenu(void)
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
+    case LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_1: // RFVF+: Emerald's scrollable multichoice
+        task->data[0] = 6;
+        task->data[1] = 11;
+        task->data[2] = 14;
+        task->data[3] = 1;
+        task->data[4] = 15;
+        task->data[5] = 12;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
+    case LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_2: // RFVF+: Emerald's scrollable multichoice
+        task->data[0] = 6;
+        task->data[1] = 6;
+        task->data[2] = 14;
+        task->data[3] = 1;
+        task->data[4] = 15;
+        task->data[5] = 12;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
+    case LISTMENU_BF_EXCHANGE_CORNER_VITAMIN_VENDOR: // RFVF+: Emerald's scrollable multichoice
+        task->data[0] = 6;
+        task->data[1] = 7;
+        task->data[2] = 14;
+        task->data[3] = 1;
+        task->data[4] = 15;
+        task->data[5] = 12;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
+    case LISTMENU_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR: // RFVF+: Emerald's scrollable multichoice
+        task->data[0] = 6;
+        task->data[1] = 10;
+        task->data[2] = 14;
+        task->data[3] = 1;
+        task->data[4] = 15;
+        task->data[5] = 12;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
+    case LISTMENU_BF_MOVE_TUTOR_1: // RFVF+: Emerald's scrollable multichoice
+        task->data[0] = 6;
+        task->data[1] = 11;
+        task->data[2] = 15;
+        task->data[3] = 1;
+        task->data[4] = 14;
+        task->data[5] = 12;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
+    case LISTMENU_BF_MOVE_TUTOR_2: // RFVF+: Emerald's scrollable multichoice
+        task->data[0] = 6;
+        task->data[1] = 11;
+        task->data[2] = 15;
+        task->data[3] = 1;
+        task->data[4] = 14;
+        task->data[5] = 12;
+        task->data[6] = 0;
+        task->data[15] = taskId;
+        break;
     case 99:
         break;
     default:
@@ -1621,6 +1688,80 @@ static const u8 *const sListMenuLabels[][12] = {
         gText_WhenInDanger,
         gText_Exit,
     },
+    [LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_1] =
+    {
+        gText_KissPoster16BP,
+        gText_KissCushion32BP,
+        gText_SmoochumDoll32BP,
+        gText_TogepiDoll48BP,
+        gText_MeowthDoll48BP,
+        gText_ClefairyDoll48BP,
+        gText_DittoDoll48BP,
+        gText_CyndaquilDoll80BP,
+        gText_ChikoritaDoll80BP,
+        gText_TotodileDoll80BP,
+        gText_Exit,
+    },
+    [LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_2] =
+    {
+        gText_LaprasDoll128BP,
+        gText_SnorlaxDoll128BP,
+        gText_VenusaurDoll256BP,
+        gText_CharizardDoll256BP,
+        gText_BlastoiseDoll256BP,
+        gText_Exit,
+    },
+    [LISTMENU_BF_EXCHANGE_CORNER_VITAMIN_VENDOR] =
+    {
+        gText_Protein1BP,
+        gText_Calcium1BP,
+        gText_Iron1BP,
+        gText_Zinc1BP,
+        gText_Carbos1BP,
+        gText_HpUp1BP,
+        gText_Exit,
+    },
+    [LISTMENU_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR] =
+    {
+        gText_Leftovers48BP,
+        gText_WhiteHerb48BP,
+        gText_QuickClaw48BP,
+        gText_MentalHerb48BP,
+        gText_BrightPowder64BP,
+        gText_ChoiceBand64BP,
+        gText_KingsRock64BP,
+        gText_FocusBand64BP,
+        gText_ScopeLens64BP,
+        gText_Exit,
+    },
+    [LISTMENU_BF_MOVE_TUTOR_1] =
+    {
+        gText_Softboiled16BP,
+        gText_SeismicToss24BP,
+        gText_DreamEater24BP,
+        gText_MegaPunch24BP,
+        gText_MegaKick48BP,
+        gText_BodySlam48BP,
+        gText_RockSlide48BP,
+        gText_Counter48BP,
+        gText_ThunderWave48BP,
+        gText_SwordsDance48BP,
+        gText_Exit,
+    },
+    [LISTMENU_BF_MOVE_TUTOR_2] =
+    {
+        gText_DefenseCurl16BP,
+        gText_Snore24BP,
+        gText_MudSlap24BP,
+        gText_Swift24BP,
+        gText_IcyWind24BP,
+        gText_Endure48BP,
+        gText_PsychUp48BP,
+        gText_IcePunch48BP,
+        gText_ThunderPunch48BP,
+        gText_FirePunch48BP,
+        gText_Exit,
+    },
 };
 
 // to figure out how big the title list should be
@@ -1737,6 +1878,7 @@ static void Task_CreateScriptListMenu(u8 taskId)
     sFieldSpecialsListMenuTemplate.maxShowed = task->data[0];
     sFieldSpecialsListMenuTemplate.windowId = task->data[13];
     Task_CreateMenuRemoveScrollIndicatorArrowPair(taskId);
+    FrontierListMenu_Open(gSpecialVar_0x8004); // RFVF+: the Exchange Corner's and the tutors' descriptions
     task->data[14] = ListMenuInit(&sFieldSpecialsListMenuTemplate, task->data[7], task->data[8]);
     PutWindowTilemap(task->data[13]);
     CopyWindowToVram(task->data[13], COPYWIN_FULL);
@@ -1769,13 +1911,15 @@ static void ScriptListMenuMoveCursorFunction(s32 nothing, bool8 is, struct ListM
 {
     u8 taskId;
     struct Task *task;
+    u16 row;
     PlaySE(SE_SELECT);
     taskId = FindTaskIdByFunc(Task_ListMenuHandleInput);
     if (taskId != 0xFF)
     {
         task = &gTasks[taskId];
-        ListMenuGetScrollAndRow(task->data[14], &sFieldSpecialsListMenuScrollBuffer, NULL);
+        ListMenuGetScrollAndRow(task->data[14], &sFieldSpecialsListMenuScrollBuffer, &row);
         sListMenuLastScrollPosition = sFieldSpecialsListMenuScrollBuffer;
+        FrontierListMenu_MoveCursor(gSpecialVar_0x8004, sFieldSpecialsListMenuScrollBuffer + row); // RFVF+
     }
 }
 
@@ -1819,6 +1963,7 @@ static void Task_ListMenuHandleInput(u8 taskId)
 static void Task_DestroyListMenu(u8 taskId)
 {
     struct Task *task = &gTasks[taskId];
+    FrontierListMenu_Close(gSpecialVar_0x8004); // RFVF+
     Task_ListMenuRemoveScrollIndicatorArrowPair(taskId);
     DestroyListMenuTask(task->data[14], NULL, NULL);
     Free(sListMenuItems);
@@ -3317,4 +3462,630 @@ void OffsetCameraForBattle(void)
 {
     SetCameraPanningCallback(NULL);
     SetCameraPanning(8, 0);
+}
+
+// ---- RFVF+: Emerald's Battle Frontier services (batch 6, session 7): Battle Points window, Exchange Corner, the
+// lounges' tutors, breeder (IV rater), maniac, gambler and nature girl. Emerald's scrollable multichoices are FRLG's
+// script list menus here (ListMenu): the Exchange Corner's and the tutors' hooks below follow its cursor.
+#define TAG_FRONTIER_EXCHANGE_ICON 0x5D0F
+
+static EWRAM_DATA u8 sBattlePointsWindowId = 0;
+static EWRAM_DATA u8 sFrontierExchangeCorner_ItemIconWindowId = 0;
+static EWRAM_DATA u8 sFrontierExchangeCorner_ItemSpriteId = MAX_SPRITES;
+static EWRAM_DATA u8 sTutorMoveWindowId = 0;
+
+void BufferVarsForIVRater(void)
+{
+    u8 i;
+    u32 ivStorage[NUM_STATS];
+
+    ivStorage[STAT_HP] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_HP_IV);
+    ivStorage[STAT_ATK] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_ATK_IV);
+    ivStorage[STAT_DEF] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_DEF_IV);
+    ivStorage[STAT_SPEED] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPEED_IV);
+    ivStorage[STAT_SPATK] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPATK_IV);
+    ivStorage[STAT_SPDEF] = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPDEF_IV);
+
+    gSpecialVar_0x8005 = 0;
+
+    for (i = 0; i < NUM_STATS; i++)
+        gSpecialVar_0x8005 += ivStorage[i];
+
+    gSpecialVar_0x8006 = 0;
+    gSpecialVar_0x8007 = ivStorage[STAT_HP];
+
+    for (i = 1; i < NUM_STATS; i++)
+    {
+        if (ivStorage[gSpecialVar_0x8006] < ivStorage[i])
+        {
+            gSpecialVar_0x8006 = i;
+            gSpecialVar_0x8007 = ivStorage[i];
+        }
+        else if (ivStorage[gSpecialVar_0x8006] == ivStorage[i])
+        {
+            u16 randomNumber = Random();
+            if (randomNumber & 1)
+            {
+                gSpecialVar_0x8006 = i;
+                gSpecialVar_0x8007 = ivStorage[i];
+            }
+        }
+    }
+}
+
+void ScriptGetPartyMonSpecies(void)
+{
+    gSpecialVar_Result = GetMonData(&gPlayerParty[gSpecialVar_0x8004], MON_DATA_SPECIES_OR_EGG, NULL);
+}
+
+void UpdateFrontierManiac(u16 daysSince)
+{
+    u16 *var = GetVarPointer(VAR_FRONTIER_MANIAC_FACILITY);
+    *var += daysSince;
+    *var %= FRONTIER_MANIAC_FACILITY_COUNT;
+}
+
+void ShowFrontierManiacMessage(void)
+{
+    static const u8 *const sFrontierManiacMessages[][FRONTIER_MANIAC_MESSAGE_COUNT] =
+    {
+        [FRONTIER_MANIAC_TOWER_SINGLES] =
+        {
+            BattleFrontier_Lounge2_Text_SalonMaidenIsThere,
+            BattleFrontier_Lounge2_Text_SalonMaidenSilverMons,
+            BattleFrontier_Lounge2_Text_SalonMaidenGoldMons
+        },
+        [FRONTIER_MANIAC_TOWER_DOUBLES] =
+        {
+            BattleFrontier_Lounge2_Text_DoubleBattleAdvice1,
+            BattleFrontier_Lounge2_Text_DoubleBattleAdvice2,
+            BattleFrontier_Lounge2_Text_DoubleBattleAdvice3
+        },
+        [FRONTIER_MANIAC_TOWER_MULTIS] =
+        {
+            BattleFrontier_Lounge2_Text_MultiBattleAdvice,
+            BattleFrontier_Lounge2_Text_MultiBattleAdvice,
+            BattleFrontier_Lounge2_Text_MultiBattleAdvice
+        },
+        [FRONTIER_MANIAC_TOWER_LINK] =
+        {
+            BattleFrontier_Lounge2_Text_LinkMultiBattleAdvice,
+            BattleFrontier_Lounge2_Text_LinkMultiBattleAdvice,
+            BattleFrontier_Lounge2_Text_LinkMultiBattleAdvice
+        },
+        [FRONTIER_MANIAC_DOME] =
+        {
+            BattleFrontier_Lounge2_Text_DomeAceIsThere,
+            BattleFrontier_Lounge2_Text_DomeAceSilverMons,
+            BattleFrontier_Lounge2_Text_DomeAceGoldMons
+        },
+        [FRONTIER_MANIAC_FACTORY] =
+        {
+            BattleFrontier_Lounge2_Text_FactoryHeadIsThere,
+            BattleFrontier_Lounge2_Text_FactoryHeadSilverMons,
+            BattleFrontier_Lounge2_Text_FactoryHeadGoldMons
+        },
+        [FRONTIER_MANIAC_PALACE] =
+        {
+            BattleFrontier_Lounge2_Text_PalaceMavenIsThere,
+            BattleFrontier_Lounge2_Text_PalaceMavenSilverMons,
+            BattleFrontier_Lounge2_Text_PalaceMavenGoldMons
+        },
+        [FRONTIER_MANIAC_ARENA] =
+        {
+            BattleFrontier_Lounge2_Text_ArenaTycoonIsThere,
+            BattleFrontier_Lounge2_Text_ArenaTycoonSilverMons,
+            BattleFrontier_Lounge2_Text_ArenaTycoonGoldMons
+        },
+        [FRONTIER_MANIAC_PIKE] =
+        {
+            BattleFrontier_Lounge2_Text_PikeQueenIsThere,
+            BattleFrontier_Lounge2_Text_PikeQueenSilverMons,
+            BattleFrontier_Lounge2_Text_PikeQueenGoldMons
+        },
+        [FRONTIER_MANIAC_PYRAMID] =
+        {
+            BattleFrontier_Lounge2_Text_PyramidKingIsThere,
+            BattleFrontier_Lounge2_Text_PyramidKingSilverMons,
+            BattleFrontier_Lounge2_Text_PyramidKingGoldMons
+        },
+    };
+
+    static const u8 sFrontierManiacStreakThresholds[][FRONTIER_MANIAC_MESSAGE_COUNT - 1] =
+    {
+        [FRONTIER_MANIAC_TOWER_SINGLES] = { 21, 56 },
+        [FRONTIER_MANIAC_TOWER_DOUBLES] = { 21, 35 },
+        [FRONTIER_MANIAC_TOWER_MULTIS]  = { 255, 255 },
+        [FRONTIER_MANIAC_TOWER_LINK]    = { 255, 255 },
+        [FRONTIER_MANIAC_DOME]          = { 2, 4 },
+        [FRONTIER_MANIAC_FACTORY]       = { 7, 21 },
+        [FRONTIER_MANIAC_PALACE]        = { 7, 21 },
+        [FRONTIER_MANIAC_ARENA]         = { 14, 28 },
+        [FRONTIER_MANIAC_PIKE]          = { 13, 112 }, // Emerald's (112 is probably a mistake there too)
+        [FRONTIER_MANIAC_PYRAMID]       = { 7, 56 }
+    };
+
+    u8 i;
+    u16 winStreak = 0;
+    u16 facility = VarGet(VAR_FRONTIER_MANIAC_FACILITY);
+
+    switch (facility)
+    {
+    case FRONTIER_MANIAC_TOWER_SINGLES:
+    case FRONTIER_MANIAC_TOWER_DOUBLES:
+    case FRONTIER_MANIAC_TOWER_MULTIS:
+    case FRONTIER_MANIAC_TOWER_LINK:
+        if (gSaveBlock2Ptr->frontier.towerWinStreaks[facility][FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.towerWinStreaks[facility][FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.towerWinStreaks[facility][FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.towerWinStreaks[facility][FRONTIER_LVL_OPEN];
+        break;
+    case FRONTIER_MANIAC_DOME:
+        if (gSaveBlock2Ptr->frontier.domeWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.domeWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.domeWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.domeWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_OPEN];
+        break;
+    case FRONTIER_MANIAC_FACTORY:
+        if (gSaveBlock2Ptr->frontier.factoryWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.factoryWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.factoryWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.factoryWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_OPEN];
+        break;
+    case FRONTIER_MANIAC_PALACE:
+        if (gSaveBlock2Ptr->frontier.palaceWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.palaceWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.palaceWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.palaceWinStreaks[FRONTIER_MODE_SINGLES][FRONTIER_LVL_OPEN];
+        break;
+    case FRONTIER_MANIAC_ARENA:
+        if (gSaveBlock2Ptr->frontier.arenaWinStreaks[FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.arenaWinStreaks[FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.arenaWinStreaks[FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.arenaWinStreaks[FRONTIER_LVL_OPEN];
+        break;
+    case FRONTIER_MANIAC_PIKE:
+        if (gSaveBlock2Ptr->frontier.pikeWinStreaks[FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.pikeWinStreaks[FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.pikeWinStreaks[FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.pikeWinStreaks[FRONTIER_LVL_OPEN];
+        break;
+    case FRONTIER_MANIAC_PYRAMID:
+        if (gSaveBlock2Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_50]
+            >= gSaveBlock2Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_OPEN])
+            winStreak = gSaveBlock2Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_50];
+        else
+            winStreak = gSaveBlock2Ptr->frontier.pyramidWinStreaks[FRONTIER_LVL_OPEN];
+        break;
+    }
+
+    for (i = 0; i < FRONTIER_MANIAC_MESSAGE_COUNT - 1 && sFrontierManiacStreakThresholds[facility][i] < winStreak; i++);
+
+    ShowFieldMessage(sFrontierManiacMessages[facility][i]);
+}
+
+void ShowNatureGirlMessage(void)
+{
+    static const u8 *const sNatureGirlMessages[NUM_NATURES] = {
+        [NATURE_HARDY]   = BattleFrontier_Lounge5_Text_NatureGirlHardy,
+        [NATURE_LONELY]  = BattleFrontier_Lounge5_Text_NatureGirlLonely,
+        [NATURE_BRAVE]   = BattleFrontier_Lounge5_Text_NatureGirlBrave,
+        [NATURE_ADAMANT] = BattleFrontier_Lounge5_Text_NatureGirlAdamant,
+        [NATURE_NAUGHTY] = BattleFrontier_Lounge5_Text_NatureGirlNaughty,
+        [NATURE_BOLD]    = BattleFrontier_Lounge5_Text_NatureGirlBold,
+        [NATURE_DOCILE]  = BattleFrontier_Lounge5_Text_NatureGirlDocileNaiveQuietQuirky,
+        [NATURE_RELAXED] = BattleFrontier_Lounge5_Text_NatureGirlRelaxed,
+        [NATURE_IMPISH]  = BattleFrontier_Lounge5_Text_NatureGirlImpish,
+        [NATURE_LAX]     = BattleFrontier_Lounge5_Text_NatureGirlLax,
+        [NATURE_TIMID]   = BattleFrontier_Lounge5_Text_NatureGirlTimid,
+        [NATURE_HASTY]   = BattleFrontier_Lounge5_Text_NatureGirlHasty,
+        [NATURE_SERIOUS] = BattleFrontier_Lounge5_Text_NatureGirlSerious,
+        [NATURE_JOLLY]   = BattleFrontier_Lounge5_Text_NatureGirlJolly,
+        [NATURE_NAIVE]   = BattleFrontier_Lounge5_Text_NatureGirlDocileNaiveQuietQuirky,
+        [NATURE_MODEST]  = BattleFrontier_Lounge5_Text_NatureGirlModest,
+        [NATURE_MILD]    = BattleFrontier_Lounge5_Text_NatureGirlMild,
+        [NATURE_QUIET]   = BattleFrontier_Lounge5_Text_NatureGirlDocileNaiveQuietQuirky,
+        [NATURE_BASHFUL] = BattleFrontier_Lounge5_Text_NatureGirlBashful,
+        [NATURE_RASH]    = BattleFrontier_Lounge5_Text_NatureGirlRash,
+        [NATURE_CALM]    = BattleFrontier_Lounge5_Text_NatureGirlCalm,
+        [NATURE_GENTLE]  = BattleFrontier_Lounge5_Text_NatureGirlGentle,
+        [NATURE_SASSY]   = BattleFrontier_Lounge5_Text_NatureGirlSassy,
+        [NATURE_CAREFUL] = BattleFrontier_Lounge5_Text_NatureGirlCareful,
+        [NATURE_QUIRKY]  = BattleFrontier_Lounge5_Text_NatureGirlDocileNaiveQuietQuirky,
+    };
+
+    u8 nature;
+
+    if (gSpecialVar_0x8004 >= PARTY_SIZE)
+        gSpecialVar_0x8004 = 0;
+
+    nature = GetNature(&gPlayerParty[gSpecialVar_0x8004]);
+    ShowFieldMessage(sNatureGirlMessages[nature]);
+}
+
+void UpdateFrontierGambler(u16 daysSince)
+{
+    u16 *var = GetVarPointer(VAR_FRONTIER_GAMBLER_CHALLENGE);
+    *var += daysSince;
+    *var %= FRONTIER_GAMBLER_CHALLENGE_COUNT;
+}
+
+void ShowFrontierGamblerLookingMessage(void)
+{
+    static const u8 *const sFrontierGamblerLookingMessages[] =
+    {
+        BattleFrontier_Lounge3_Text_ChallengeBattleTowerSingle,
+        BattleFrontier_Lounge3_Text_ChallengeBattleTowerDouble,
+        BattleFrontier_Lounge3_Text_ChallengeBattleTowerMulti,
+        BattleFrontier_Lounge3_Text_ChallengeBattleDomeSingle,
+        BattleFrontier_Lounge3_Text_ChallengeBattleDomeDouble,
+        BattleFrontier_Lounge3_Text_ChallengeBattleFactorySingle,
+        BattleFrontier_Lounge3_Text_ChallengeBattleFactoryDouble,
+        BattleFrontier_Lounge3_Text_ChallengeBattlePalaceSingle,
+        BattleFrontier_Lounge3_Text_ChallengeBattlePalaceDouble,
+        BattleFrontier_Lounge3_Text_ChallengeBattleArena,
+        BattleFrontier_Lounge3_Text_ChallengeBattlePike,
+        BattleFrontier_Lounge3_Text_ChallengeBattlePyramid,
+    };
+
+    u16 challenge = VarGet(VAR_FRONTIER_GAMBLER_CHALLENGE);
+    ShowFieldMessage(sFrontierGamblerLookingMessages[challenge]);
+    VarSet(VAR_FRONTIER_GAMBLER_SET_CHALLENGE, challenge);
+}
+
+void ShowFrontierGamblerGoMessage(void)
+{
+    static const u8 *const sFrontierGamblerGoMessages[] =
+    {
+        BattleFrontier_Lounge3_Text_GetToBattleTowerSingle,
+        BattleFrontier_Lounge3_Text_GetToBattleTowerDouble,
+        BattleFrontier_Lounge3_Text_GetToBattleTowerMulti,
+        BattleFrontier_Lounge3_Text_GetToBattleDomeSingle,
+        BattleFrontier_Lounge3_Text_GetToBattleDomeDouble,
+        BattleFrontier_Lounge3_Text_GetToBattleFactorySingle,
+        BattleFrontier_Lounge3_Text_GetToBattleFactoryDouble,
+        BattleFrontier_Lounge3_Text_GetToBattlePalaceSingle,
+        BattleFrontier_Lounge3_Text_GetToBattlePalaceDouble,
+        BattleFrontier_Lounge3_Text_GetToBattleArena,
+        BattleFrontier_Lounge3_Text_GetToBattlePike,
+        BattleFrontier_Lounge3_Text_GetToBattlePyramid,
+    };
+
+    ShowFieldMessage(sFrontierGamblerGoMessages[VarGet(VAR_FRONTIER_GAMBLER_SET_CHALLENGE)]);
+}
+
+void FrontierGamblerSetWonOrLost(bool8 won)
+{
+    static const u16 sFrontierChallenges[] =
+    {
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_TOWER,   FRONTIER_MODE_SINGLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_TOWER,   FRONTIER_MODE_DOUBLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_TOWER,   FRONTIER_MODE_MULTIS),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_DOME,    FRONTIER_MODE_SINGLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_DOME,    FRONTIER_MODE_DOUBLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_FACTORY, FRONTIER_MODE_SINGLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_FACTORY, FRONTIER_MODE_DOUBLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_PALACE,  FRONTIER_MODE_SINGLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_PALACE,  FRONTIER_MODE_DOUBLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_ARENA,   FRONTIER_MODE_SINGLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_PIKE,    FRONTIER_MODE_SINGLES),
+        FRONTIER_CHALLENGE(FRONTIER_FACILITY_PYRAMID, FRONTIER_MODE_SINGLES)
+    };
+
+    u16 battleMode = VarGet(VAR_FRONTIER_BATTLE_MODE);
+    u16 challenge = VarGet(VAR_FRONTIER_GAMBLER_SET_CHALLENGE);
+    u16 frontierFacilityId = VarGet(VAR_FRONTIER_FACILITY);
+
+    if (VarGet(VAR_FRONTIER_GAMBLER_STATE) == FRONTIER_GAMBLER_PLACED_BET)
+    {
+        if (sFrontierChallenges[challenge] == FRONTIER_CHALLENGE(frontierFacilityId, battleMode))
+        {
+            if (won)
+                VarSet(VAR_FRONTIER_GAMBLER_STATE, FRONTIER_GAMBLER_WON);
+            else
+                VarSet(VAR_FRONTIER_GAMBLER_STATE, FRONTIER_GAMBLER_LOST);
+        }
+    }
+}
+
+void UpdateBattlePointsWindow(void)
+{
+    u8 string[32];
+    u32 x;
+    StringCopy(ConvertIntToDecimalStringN(string, gSaveBlock2Ptr->frontier.battlePoints, STR_CONV_MODE_RIGHT_ALIGN, 4), gText_BP);
+    x = GetStringRightAlignXOffset(FONT_NORMAL, string, 48);
+    AddTextPrinterParameterized(sBattlePointsWindowId, FONT_NORMAL, string, x, 1, 0, NULL);
+}
+
+void ShowBattlePointsWindow(void)
+{
+    static const struct WindowTemplate sBattlePoints_WindowTemplate =
+    {
+        .bg = 0,
+        .tilemapLeft = 1,
+        .tilemapTop = 1,
+        .width = 6,
+        .height = 2,
+        .paletteNum = 15,
+        .baseBlock = 8,
+    };
+
+    sBattlePointsWindowId = AddWindow(&sBattlePoints_WindowTemplate);
+    SetStdWindowBorderStyle(sBattlePointsWindowId, FALSE);
+    UpdateBattlePointsWindow();
+    CopyWindowToVram(sBattlePointsWindowId, COPYWIN_GFX);
+}
+
+void CloseBattlePointsWindow(void)
+{
+    ClearStdWindowAndFrameToTransparent(sBattlePointsWindowId, TRUE);
+    RemoveWindow(sBattlePointsWindowId);
+}
+
+void TakeFrontierBattlePoints(void)
+{
+    if (gSaveBlock2Ptr->frontier.battlePoints < gSpecialVar_0x8004)
+        gSaveBlock2Ptr->frontier.battlePoints = 0;
+    else
+        gSaveBlock2Ptr->frontier.battlePoints -= gSpecialVar_0x8004;
+}
+
+u16 GetFrontierBattlePoints(void)
+{
+    return gSaveBlock2Ptr->frontier.battlePoints;
+}
+
+void GiveFrontierBattlePoints(void)
+{
+    if (gSaveBlock2Ptr->frontier.battlePoints + gSpecialVar_0x8004 > MAX_BATTLE_FRONTIER_POINTS)
+        gSaveBlock2Ptr->frontier.battlePoints = MAX_BATTLE_FRONTIER_POINTS;
+    else
+        gSaveBlock2Ptr->frontier.battlePoints = gSaveBlock2Ptr->frontier.battlePoints + gSpecialVar_0x8004;
+}
+
+void ShowFrontierExchangeCornerItemIconWindow(void)
+{
+    static const struct WindowTemplate sFrontierExchangeCorner_ItemIconWindowTemplate =
+    {
+        .bg = 0,
+        .tilemapLeft = 2,
+        .tilemapTop = 9,
+        .width = 4,
+        .height = 4,
+        .paletteNum = 15,
+        .baseBlock = 20,
+    };
+
+    sFrontierExchangeCorner_ItemIconWindowId = AddWindow(&sFrontierExchangeCorner_ItemIconWindowTemplate);
+    SetStdWindowBorderStyle(sFrontierExchangeCorner_ItemIconWindowId, FALSE);
+    CopyWindowToVram(sFrontierExchangeCorner_ItemIconWindowId, COPYWIN_GFX);
+}
+
+void CloseFrontierExchangeCornerItemIconWindow(void)
+{
+    ClearStdWindowAndFrameToTransparent(sFrontierExchangeCorner_ItemIconWindowId, TRUE);
+    RemoveWindow(sFrontierExchangeCorner_ItemIconWindowId);
+}
+
+static void ShowFrontierExchangeCornerItemIcon(u16 item)
+{
+    if (item == 0xFFFF) // Emerald's ITEM_LIST_END (EXIT): FRLG's return arrow
+        item = ITEMS_COUNT;
+    FreeSpriteTilesByTag(TAG_FRONTIER_EXCHANGE_ICON);
+    FreeSpritePaletteByTag(TAG_FRONTIER_EXCHANGE_ICON);
+    sFrontierExchangeCorner_ItemSpriteId = AddItemIconObject(TAG_FRONTIER_EXCHANGE_ICON, TAG_FRONTIER_EXCHANGE_ICON, item);
+
+    if (sFrontierExchangeCorner_ItemSpriteId != MAX_SPRITES)
+    {
+        gSprites[sFrontierExchangeCorner_ItemSpriteId].oam.priority = 0;
+        gSprites[sFrontierExchangeCorner_ItemSpriteId].x = 36;
+        gSprites[sFrontierExchangeCorner_ItemSpriteId].y = 92;
+    }
+}
+
+static void HideFrontierExchangeCornerItemIcon(void)
+{
+    if (sFrontierExchangeCorner_ItemSpriteId != MAX_SPRITES)
+    {
+        DestroySpriteAndFreeResources(&gSprites[sFrontierExchangeCorner_ItemSpriteId]);
+        sFrontierExchangeCorner_ItemSpriteId = MAX_SPRITES;
+    }
+}
+
+#define ITEM_LIST_END 0xFFFF
+
+static void FillFrontierExchangeCornerWindowAndItemIcon(u16 menu, u16 selection)
+{
+    #include "data/battle_frontier/battle_frontier_exchange_corner.h"
+
+    const u8 *desc;
+    u16 decor = ITEM_LIST_END, item = ITEM_LIST_END;
+
+    switch (menu)
+    {
+    case LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_1:
+        desc = sFrontierExchangeCorner_Decor1Descriptions[selection];
+        decor = sFrontierExchangeCorner_Decor1[selection];
+        break;
+    case LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_2:
+        desc = sFrontierExchangeCorner_Decor2Descriptions[selection];
+        decor = sFrontierExchangeCorner_Decor2[selection];
+        break;
+    case LISTMENU_BF_EXCHANGE_CORNER_VITAMIN_VENDOR:
+        desc = sFrontierExchangeCorner_VitaminsDescriptions[selection];
+        item = sFrontierExchangeCorner_Vitamins[selection];
+        break;
+    case LISTMENU_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR:
+        desc = sFrontierExchangeCorner_HoldItemsDescriptions[selection];
+        item = sFrontierExchangeCorner_HoldItems[selection];
+        break;
+    default:
+        return;
+    }
+    FillWindowPixelRect(0, PIXEL_FILL(1), 0, 0, 216, 32);
+    AddTextPrinterParameterized2(0, FONT_NORMAL, desc, 0, NULL, TEXT_COLOR_DARK_GRAY, TEXT_COLOR_WHITE, TEXT_COLOR_LIGHT_GRAY);
+    if (decor != ITEM_LIST_END)
+    {
+        FreeSpriteTilesByTag(TAG_FRONTIER_EXCHANGE_ICON);
+        FreeSpritePaletteByTag(TAG_FRONTIER_EXCHANGE_ICON);
+        sFrontierExchangeCorner_ItemSpriteId = AddDecorationIconObject(decor, 32, 88, 0, TAG_FRONTIER_EXCHANGE_ICON, TAG_FRONTIER_EXCHANGE_ICON);
+    }
+    else
+    {
+        ShowFrontierExchangeCornerItemIcon(item); // EXIT: the "return" icon
+    }
+}
+
+static const u16 sBattleFrontier_TutorMoves1[] =
+{
+    MOVE_SOFT_BOILED,
+    MOVE_SEISMIC_TOSS,
+    MOVE_DREAM_EATER,
+    MOVE_MEGA_PUNCH,
+    MOVE_MEGA_KICK,
+    MOVE_BODY_SLAM,
+    MOVE_ROCK_SLIDE,
+    MOVE_COUNTER,
+    MOVE_THUNDER_WAVE,
+    MOVE_SWORDS_DANCE
+};
+
+static const u16 sBattleFrontier_TutorMoves2[] =
+{
+    MOVE_DEFENSE_CURL,
+    MOVE_SNORE,
+    MOVE_MUD_SLAP,
+    MOVE_SWIFT,
+    MOVE_ICY_WIND,
+    MOVE_ENDURE,
+    MOVE_PSYCH_UP,
+    MOVE_ICE_PUNCH,
+    MOVE_THUNDER_PUNCH,
+    MOVE_FIRE_PUNCH
+};
+
+void BufferBattleFrontierTutorMoveName(void)
+{
+    if (gSpecialVar_0x8005 != 0)
+        StringCopy(gStringVar1, gMoveNames[sBattleFrontier_TutorMoves2[gSpecialVar_0x8004]]);
+    else
+        StringCopy(gStringVar1, gMoveNames[sBattleFrontier_TutorMoves1[gSpecialVar_0x8004]]);
+}
+
+static void ShowBattleFrontierTutorMoveDescription(u8 menu, u16 selection)
+{
+    static const u8 *const sBattleFrontier_TutorMoveDescriptions1[] =
+    {
+        BattleFrontier_Lounge7_Text_SoftboiledDesc,
+        BattleFrontier_Lounge7_Text_SeismicTossDesc,
+        BattleFrontier_Lounge7_Text_DreamEaterDesc,
+        BattleFrontier_Lounge7_Text_MegaPunchDesc,
+        BattleFrontier_Lounge7_Text_MegaKickDesc,
+        BattleFrontier_Lounge7_Text_BodySlamDesc,
+        BattleFrontier_Lounge7_Text_RockSlideDesc,
+        BattleFrontier_Lounge7_Text_CounterDesc,
+        BattleFrontier_Lounge7_Text_ThunderWaveDesc,
+        BattleFrontier_Lounge7_Text_SwordsDanceDesc,
+        gText_Exit,
+    };
+
+    static const u8 *const sBattleFrontier_TutorMoveDescriptions2[] =
+    {
+        BattleFrontier_Lounge7_Text_DefenseCurlDesc,
+        BattleFrontier_Lounge7_Text_SnoreDesc,
+        BattleFrontier_Lounge7_Text_MudSlapDesc,
+        BattleFrontier_Lounge7_Text_SwiftDesc,
+        BattleFrontier_Lounge7_Text_IcyWindDesc,
+        BattleFrontier_Lounge7_Text_EndureDesc,
+        BattleFrontier_Lounge7_Text_PsychUpDesc,
+        BattleFrontier_Lounge7_Text_IcePunchDesc,
+        BattleFrontier_Lounge7_Text_ThunderPunchDesc,
+        BattleFrontier_Lounge7_Text_FirePunchDesc,
+        gText_Exit,
+    };
+
+    if (menu == LISTMENU_BF_MOVE_TUTOR_1 || menu == LISTMENU_BF_MOVE_TUTOR_2)
+    {
+        FillWindowPixelRect(sTutorMoveWindowId, PIXEL_FILL(1), 0, 0, 96, 48);
+        if (menu == LISTMENU_BF_MOVE_TUTOR_2)
+            AddTextPrinterParameterized(sTutorMoveWindowId, FONT_NORMAL, sBattleFrontier_TutorMoveDescriptions2[selection], 0, 1, 0, NULL);
+        else
+            AddTextPrinterParameterized(sTutorMoveWindowId, FONT_NORMAL, sBattleFrontier_TutorMoveDescriptions1[selection], 0, 1, 0, NULL);
+    }
+}
+
+static void ShowBattleFrontierTutorWindow(u8 menu, u16 selection)
+{
+    static const struct WindowTemplate sBattleFrontierTutor_WindowTemplate =
+    {
+        .bg = 0,
+        .tilemapLeft = 1,
+        .tilemapTop = 7,
+        .width = 12,
+        .height = 6,
+        .paletteNum = 15,
+        .baseBlock = 28,
+    };
+
+    if (menu == LISTMENU_BF_MOVE_TUTOR_1 || menu == LISTMENU_BF_MOVE_TUTOR_2)
+    {
+        if (gSpecialVar_0x8006 == 0)
+        {
+            sTutorMoveWindowId = AddWindow(&sBattleFrontierTutor_WindowTemplate);
+            SetStdWindowBorderStyle(sTutorMoveWindowId, FALSE);
+        }
+        ShowBattleFrontierTutorMoveDescription(menu, selection);
+    }
+}
+
+void CloseBattleFrontierTutorWindow(void)
+{
+    ClearStdWindowAndFrameToTransparent(sTutorMoveWindowId, TRUE);
+    RemoveWindow(sTutorMoveWindowId);
+}
+
+void GetBattleFrontierTutorMoveIndex(void)
+{
+    u8 i;
+    u16 moveTutor = VarGet(VAR_TEMP_FRONTIER_TUTOR_ID);
+    u16 moveIndex = VarGet(VAR_TEMP_FRONTIER_TUTOR_SELECTION);
+    u16 move = moveTutor != 0 ? sBattleFrontier_TutorMoves2[moveIndex] : sBattleFrontier_TutorMoves1[moveIndex];
+
+    gSpecialVar_0x8005 = 0;
+    for (i = 0; i < TUTOR_MOVE_COUNT; i++)
+    {
+        if (GetTutorMove(i) == move)
+        {
+            gSpecialVar_0x8005 = i;
+            break;
+        }
+    }
+}
+
+// FRLG's script list menu (ListMenu): Emerald's scrollable multichoice hooks, on opening, on moving the cursor and on
+// closing (the Exchange Corner's description and icon, the tutors' move description)
+static void FrontierListMenu_Open(u16 menu)
+{
+    sFrontierExchangeCorner_ItemSpriteId = MAX_SPRITES;
+    FillFrontierExchangeCornerWindowAndItemIcon(menu, 0);
+    ShowBattleFrontierTutorWindow(menu, 0);
+}
+
+static void FrontierListMenu_MoveCursor(u16 menu, u16 selection)
+{
+    HideFrontierExchangeCornerItemIcon();
+    FillFrontierExchangeCornerWindowAndItemIcon(menu, selection);
+    ShowBattleFrontierTutorMoveDescription(menu, selection);
+}
+
+static void FrontierListMenu_Close(u16 menu)
+{
+    if (menu >= LISTMENU_BF_EXCHANGE_CORNER_DECOR_VENDOR_1 && menu <= LISTMENU_BF_EXCHANGE_CORNER_HOLD_ITEM_VENDOR)
+        HideFrontierExchangeCornerItemIcon();
 }

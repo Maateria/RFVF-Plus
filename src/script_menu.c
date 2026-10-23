@@ -769,6 +769,10 @@ static const struct MenuAction sMultichoiceList_FrontierItemChoose[] = {
     { gText_BattleBag }, { gText_HeldItem }, { gText_Exit }
 };
 
+static const struct MenuAction sMultichoiceList_FrontierGamblerBet[] = { // RFVF+: Emerald's
+    { gText_5BP }, { gText_10BP }, { gText_15BP }, { gText_Exit }
+};
+
 static const struct MenuAction sMultichoiceList_TagMatchType[] = {
     { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
 };
@@ -1235,6 +1239,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_BATTLE_PIKE_RULES] = MULTICHOICE(sMultichoiceList_BattlePikeRules),
 	[MULTI_BATTLE_PYRAMID_RULES] = MULTICHOICE(sMultichoiceList_BattlePyramidRules),
 	[MULTI_FRONTIER_ITEM_CHOOSE] = MULTICHOICE(sMultichoiceList_FrontierItemChoose),
+	[MULTI_FRONTIER_GAMBLER_BET] = MULTICHOICE(sMultichoiceList_FrontierGamblerBet),
 };
 
 // From Cool to Berries goes unused
@@ -1280,6 +1285,13 @@ const u8 *const gStdStringPtrs[] = {
     [STDSTRING_DOUBLE]           = sText_StdDouble,
     [STDSTRING_MULTI]            = sText_StdMulti,
     [STDSTRING_MULTI_LINK]       = sText_StdMultiLink,
+    [STDSTRING_BATTLE_TOWER] = gText_BattleTower2,
+    [STDSTRING_BATTLE_DOME] = gText_BattleDome,
+    [STDSTRING_BATTLE_FACTORY] = gText_BattleFactory,
+    [STDSTRING_BATTLE_PALACE] = gText_BattlePalace,
+    [STDSTRING_BATTLE_ARENA] = gText_BattleArena,
+    [STDSTRING_BATTLE_PIKE] = gText_BattlePike,
+    [STDSTRING_BATTLE_PYRAMID] = gText_BattlePyramid,
 };
 
 static const u8 *const sDescriptionPtrs_CableClub_TradeBattleCancel[] = {
