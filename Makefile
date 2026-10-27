@@ -228,6 +228,9 @@ include songs.mk
 %.gbapal: %.png ; $(GFX) $< $@
 %.lz: % ; $(GFX) $< $@
 %.rl: % ; $(GFX) $< $@
+# Emerald's 2x2 door (spritesheet_rules.mk): each frame is the door's left 16x32 column, then its right one
+graphics/door_anims/hoenn_battle_tower_multi_corridor.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 2 -mheight 4
 $(CRY_SUBDIR)/%.bin: $(CRY_SUBDIR)/%.aif ; $(AIF) $< $@ --compress
 sound/%.bin: sound/%.aif ; $(AIF) $< $@
 # PokemonHnS's HeartGold/SoulSilver samples (tools/johto_import/johto_music.py): WAV, converted as HnS does

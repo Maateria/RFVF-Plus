@@ -58,6 +58,7 @@ static const u32 gBattlePyramidBagInterface_Pal[] = INCBIN_U32("graphics/battle_
 #define TAG_PYRAMID_BAG   4132
 #define TAG_ITEM_ICON     4133
 #define TAG_ITEM_ICON_ALT 4134
+#define TAG_SWAP_LINE     109 // RFVF+: Emerald's (menu_helpers.c)
 
 #define POS_NONE ((u8)-1)
 
@@ -177,7 +178,7 @@ static const struct ListMenuTemplate sListMenuTemplate =
     .fillValue = 0,
     .cursorShadowPal = 3,
     .lettersSpacing = 0,
-    .itemVerticalPadding = 0,
+    .itemVerticalPadding = 2, // RFVF+: FRLG's FONT_NORMAL is 14 px tall, Emerald's FONT_NARROW 16: keep Emerald's 16-px rows
     .scrollMultiple = LIST_NO_MULTIPLE_SCROLL,
     .fontId = FONT_NORMAL,
     .cursorKind = 0
@@ -389,6 +390,47 @@ static const struct SpriteTemplate sSpriteTemplate_PyramidBag =
     .images = NULL,
     .affineAnims = sAffineAnims_PyramidBag,
     .callback = SpriteCallbackDummy
+};
+
+// RFVF+: Emerald's swap line (menu_helpers.c): 8 sprites across the 120-px list, FRLG's bag line is 9 wide
+static const struct OamData sOamData_SwapLine =
+{
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .shape = SPRITE_SHAPE(16x16),
+    .size = SPRITE_SIZE(16x16),
+    .priority = 0,
+};
+
+static const union AnimCmd sAnim_SwapLine_RightArrow[] =
+{
+    ANIMCMD_FRAME(0, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sAnim_SwapLine_Line[] =
+{
+    ANIMCMD_FRAME(4, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sAnims_SwapLine[] =
+{
+    sAnim_SwapLine_RightArrow,
+    sAnim_SwapLine_Line,
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_SwapLine = {gSwapLine_Gfx, 0x100, TAG_SWAP_LINE};
+static const struct CompressedSpritePalette sSpritePalette_SwapLine = {gSwapLine_Pal, TAG_SWAP_LINE};
+
+static const struct SpriteTemplate sSpriteTemplate_SwapLine =
+{
+    .tileTag = TAG_SWAP_LINE,
+    .paletteTag = TAG_SWAP_LINE,
+    .oam = &sOamData_SwapLine,
+    .anims = sAnims_SwapLine,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
 };
 
 void InitBattlePyramidBagCursorPosition(void)
@@ -617,8 +659,8 @@ static bool8 LoadPyramidBagGfx(void)
         gPyramidBagMenu->state++;
         break;
     default:
-        LoadCompressedSpriteSheet(&gBagSwapSpriteSheet); // RFVF+: FRLG's bag swap line
-        LoadCompressedSpritePalette(&gBagSwapSpritePalette);
+        LoadCompressedSpriteSheet(&sSpriteSheet_SwapLine); // Emerald's LoadListMenuSwapLineGfx
+        LoadCompressedSpritePalette(&sSpritePalette_SwapLine);
         gPyramidBagMenu->state = 0;
         return TRUE;
     }
@@ -673,7 +715,7 @@ static void BagCursorMoved(s32 itemIndex, bool8 onInit, struct ListMenu *list)
         if (itemIndex != LIST_CANCEL)
             ShowItemIcon(gSaveBlock2Ptr->frontier.pyramidBag.itemId[gSaveBlock2Ptr->frontier.lvlMode][itemIndex], gPyramidBagMenu->isAltIcon);
         else
-            ShowItemIcon(LIST_CANCEL, gPyramidBagMenu->isAltIcon); // Show exit arrow if on Cancel
+            ShowItemIcon(ITEMS_COUNT, gPyramidBagMenu->isAltIcon); // Show exit arrow if on Cancel (RFVF+: FRLG's return arrow id)
         gPyramidBagMenu->isAltIcon ^= 1;
         PrintItemDescription(itemIndex);
     }
@@ -700,7 +742,7 @@ static void PrintItemQuantity(u8 windowId, u32 itemIndex, u8 y)
                                STR_CONV_MODE_RIGHT_ALIGN,
                                2);
     StringExpandPlaceholders(gStringVar4, gText_xVar1);
-    xAlign = GetStringRightAlignXOffset(FONT_NORMAL, gStringVar4, 119);
+    xAlign = GetStringRightAlignXOffset(FONT_SMALL, gStringVar4, 119); // RFVF+: FRLG's bag quantity font for Emerald's FONT_NARROW
     PyramidBagPrint_Quantity(windowId, gStringVar4, xAlign, y, 0, 0, TEXT_SKIP_DRAW, COLORID_DARK_GRAY);
 }
 
@@ -728,7 +770,8 @@ static void PrintItemDescription(s32 listMenuId)
         desc = gStringVar4;
     }
     FillWindowPixelBuffer(WIN_INFO, PIXEL_FILL(0));
-    PyramidBagPrint(WIN_INFO, desc, 3, 0, 0, 1, 0, COLORID_DARK_GRAY);
+    // RFVF+: "à la LISTE POKéMON." is 111 px in FRLG's FONT_NORMAL, the 112-px window clips its period at x 3
+    PyramidBagPrint(WIN_INFO, desc, desc == gStringVar4 ? 1 : 3, 0, 0, 1, 0, COLORID_DARK_GRAY);
 }
 
 static void AddScrollArrows(void)
@@ -1475,7 +1518,7 @@ static void PyramidBagPrint(u8 windowId, const u8 *src, u8 x, u8 y, u8 letterSpa
 
 static void PyramidBagPrint_Quantity(u8 windowId, const u8 *src, u8 x, u8 y, u8 letterSpacing, u8 lineSpacing, u8 speed, u8 colorTableId)
 {
-    AddTextPrinterParameterized4(windowId, FONT_NORMAL, x, y, letterSpacing, lineSpacing, sTextColors[colorTableId], speed, src);
+    AddTextPrinterParameterized4(windowId, FONT_SMALL, x, y, letterSpacing, lineSpacing, sTextColors[colorTableId], speed, src);
 }
 
 static void DrawTossNumberWindow(u8 windowId)
@@ -1609,17 +1652,43 @@ static void FreeItemIconSpriteByAltId(bool8 isAlt)
     FreeItemIconSprite(isAlt + PBAG_SPRITE_ITEM_ICON);
 }
 
+// RFVF+: Emerald's CreateSwapLineSprites, SetSwapLineSpritesInvisibility and UpdateSwapLineSpritesPos (menu_helpers.c)
 static void PyramidBag_CreateSwapLine(void)
 {
-    CreateSwapLine(); // RFVF+: FRLG's bag swap line
+    u8 i;
+    u8 *spriteIds = &gPyramidBagMenu->spriteIds[PBAG_SPRITE_SWAP_LINE_START];
+
+    for (i = 0; i < NUM_SWAP_LINE_SPRITES; i++)
+    {
+        spriteIds[i] = CreateSprite(&sSpriteTemplate_SwapLine, i * 16, 0, 0);
+        if (i != 0)
+            StartSpriteAnim(&gSprites[spriteIds[i]], 1);
+
+        gSprites[spriteIds[i]].invisible = TRUE;
+    }
 }
 
 static void PyramidBag_SetSwapLineInvisibility(bool8 invisible)
 {
-    SetSwapLineInvisibility(invisible);
+    u8 i;
+
+    for (i = 0; i < NUM_SWAP_LINE_SPRITES; i++)
+        gSprites[gPyramidBagMenu->spriteIds[PBAG_SPRITE_SWAP_LINE_START + i]].invisible = invisible;
 }
 
 static void PyramidBag_UpdateSwapLinePos(u8 y)
 {
-    UpdateSwapLinePos(120 - 96, (y + 1) * 16); // FRLG's line starts at x 96
+    u8 i;
+    u8 *spriteIds = &gPyramidBagMenu->spriteIds[PBAG_SPRITE_SWAP_LINE_START];
+
+    for (i = 0; i < NUM_SWAP_LINE_SPRITES; i++)
+    {
+        // The list has a right margin: the last sprite is moved left to keep it out of it
+        if (i == NUM_SWAP_LINE_SPRITES - 1)
+            gSprites[spriteIds[i]].x2 = 120 - 8;
+        else
+            gSprites[spriteIds[i]].x2 = 120;
+
+        gSprites[spriteIds[i]].y = 1 + (y + 1) * 16;
+    }
 }

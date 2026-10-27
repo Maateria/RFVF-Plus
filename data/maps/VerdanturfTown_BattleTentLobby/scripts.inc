@@ -28,6 +28,7 @@ VerdanturfTown_BattleTentLobby_EventScript_GetChallengeStatus::
 	end
 
 VerdanturfTown_BattleTentLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox BattleFrontier_BattlePalaceLobby_Text_FailedToSaveBeforeEndingChallenge, MSGBOX_DEFAULT
 	closemessage
@@ -38,6 +39,7 @@ VerdanturfTown_BattleTentLobby_EventScript_QuitWithoutSaving::
 	end
 
 VerdanturfTown_BattleTentLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox VerdanturfTown_BattleTentLobby_Text_AchievedThreeWinStreak, MSGBOX_DEFAULT
 	message VerdanturfTown_BattleTentLobby_Text_FeatWillBeRecorded
@@ -54,10 +56,12 @@ VerdanturfTown_BattleTentLobby_EventScript_GivePrize::
 	switch VAR_RESULT
 	case FALSE, VerdanturfTown_BattleTentLobby_EventScript_NoRoomForPrize
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, 0
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	message BattleFrontier_BattleDomeLobby_Text_ReceivedPrize  @ Odd that it used Dome's copy instead of Palace's
 	waitmessage
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
+	call EventScript_RestorePrevTextColor
 	msgbox VerdanturfTown_BattleTentLobby_Text_ReturnFortified, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
@@ -79,6 +83,7 @@ VerdanturfTown_BattleTentLobby_EventScript_PrizeWaiting::
 	end
 
 VerdanturfTown_BattleTentLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message VerdanturfTown_BattleTentLobby_Text_ResultsWillBeRecorded
 	waitmessage
@@ -93,6 +98,7 @@ VerdanturfTown_BattleTentLobby_EventScript_LostChallenge::
 	end
 
 VerdanturfTown_BattleTentLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox BattleFrontier_BattlePalaceLobby_Text_WeHaveBeenWaiting, MSGBOX_DEFAULT
 	message BattleFrontier_BattlePalaceLobby_Text_MustSaveBeforeChallenge

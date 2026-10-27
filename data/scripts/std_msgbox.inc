@@ -61,8 +61,10 @@ EventScript_AskSaveGame::
 
 @ RFVF+: Emerald's (Battle Points, batch 6)
 Std_MsgboxGetPoints::
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	message 0x0
 	playfanfare MUS_OBTAIN_B_POINTS
 	waitfanfare
 	waitmessage
+	call EventScript_RestorePrevTextColor
 	return

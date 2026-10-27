@@ -55,9 +55,11 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_WonSingleBattle::
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterHardBattleRoom::
 	lockall
 	delay 16
+	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_BattleSomewhatToughTrainer, MSGBOX_DEFAULT
 	waitmessage
 	closemessage
+	call EventScript_RestorePrevTextColor
 	applymovement LOCALID_PIKE_ROOM_NPC_1, BattleFrontier_BattlePikeRoomNormal_Movement_ApproachPlayer
 	waitmovement 0
 	pike_gettrainerintro 0
@@ -81,6 +83,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_WonHardBattle::
 	waitmovement 0
 	lock
 	faceplayer
+	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_RestoreToFullHealth, MSGBOX_DEFAULT
 	playfanfare MUS_HEAL
 	waitfanfare
@@ -95,6 +98,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_WonHardBattle::
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterBrainRoom::
 	delay 22
 	lockall
+	textcolor NPC_TEXT_COLOR_FEMALE
 	applymovement LOCALID_PIKE_ROOM_NPC_2, BattleFrontier_BattlePikeRoomNormal_Movement_PreQueenHealNPCApproachPlayer
 	waitmovement 0
 	pike_prequeenheal
@@ -151,9 +155,11 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_DefeatedLucySilver::
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_LucyShowMeFrontierPass, MSGBOX_DEFAULT
 	waitmessage
 	playfanfare MUS_OBTAIN_SYMBOL
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	message BattleFrontier_BattlePikeRoomNormal_Text_ReceivedLuckSymbol
 	waitmessage
 	waitfanfare
+	call EventScript_RestorePrevTextColor
 	frontier_givesymbol
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_AllThereIsDisappear, MSGBOX_DEFAULT
 	closemessage
@@ -176,9 +182,11 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_DefeatedLucyGold::
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_LucyFrontierPass, MSGBOX_DEFAULT
 	waitmessage
 	playfanfare MUS_OBTAIN_SYMBOL
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	message BattleFrontier_BattlePikeRoomNormal_Text_LuckSymbolTookGoldenShine
 	waitmessage
 	waitfanfare
+	call EventScript_RestorePrevTextColor
 	frontier_givesymbol
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_IWontForget, MSGBOX_DEFAULT
 	closemessage
@@ -218,6 +226,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_PreQueenHealTwoMons::
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterFullHealRoom::
 	lockall
+	textcolor NPC_TEXT_COLOR_FEMALE
 	delay 16
 	applymovement LOCALID_PIKE_ROOM_NPC_1, BattleFrontier_BattlePikeRoomNormal_Movement_ApproachPlayer
 	waitmovement 0
@@ -278,6 +287,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_WonDoubleBattle::
 
 BattleFrontier_BattlePikeRoomNormal_EventScript_EnterStatusRoom::
 	lockall
+	textcolor NPC_TEXT_COLOR_MALE
 	message BattleFrontier_BattlePikeRoomNormal_Text_WatchOut
 	applymovement LOCALID_PIKE_ROOM_NPC_2, BattleFrontier_BattlePikeRoomNormal_Movement_MonApproachPlayer
 	waitmovement 0
@@ -296,6 +306,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_KirliaAttack::
 	waitse
 	playmoncry SPECIES_KIRLIA, CRY_MODE_NORMAL
 	waitmoncry
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	pike_getstatus
 	call_if_eq VAR_RESULT, PIKE_STATUS_TOXIC, BattleFrontier_BattlePikeRoomNormal_EventScript_KirliaUsedToxic
 	call_if_eq VAR_RESULT, PIKE_STATUS_BURN, BattleFrontier_BattlePikeRoomNormal_EventScript_KirliaUsedWillOWisp
@@ -310,6 +321,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_KirliaAttack::
 	waitse
 	playmoncry SPECIES_KIRLIA, CRY_MODE_NORMAL
 	waitmoncry
+	textcolor NPC_TEXT_COLOR_MALE
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_ThatsEnough, MSGBOX_DEFAULT
 	waitse
 	playmoncry SPECIES_KIRLIA, CRY_MODE_NORMAL
@@ -327,6 +339,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_DusclopsAttack::
 	waitse
 	playmoncry SPECIES_DUSCLOPS, CRY_MODE_NORMAL
 	waitmoncry
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	pike_getstatus
 	call_if_eq VAR_RESULT, PIKE_STATUS_FREEZE, BattleFrontier_BattlePikeRoomNormal_EventScript_DusclopsUsedIceBeam
 	call_if_eq VAR_RESULT, PIKE_STATUS_BURN, BattleFrontier_BattlePikeRoomNormal_EventScript_DusclopsUsedWillOWisp
@@ -339,6 +352,7 @@ BattleFrontier_BattlePikeRoomNormal_EventScript_DusclopsAttack::
 	waitse
 	playmoncry SPECIES_DUSCLOPS, CRY_MODE_NORMAL
 	waitmoncry
+	textcolor NPC_TEXT_COLOR_MALE
 	msgbox BattleFrontier_BattlePikeRoomNormal_Text_ThatsEnough, MSGBOX_DEFAULT
 	waitse
 	playmoncry SPECIES_DUSCLOPS, CRY_MODE_NORMAL

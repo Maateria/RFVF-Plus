@@ -602,6 +602,7 @@ BattleScript_EffectRoar::
 	jumpifstatus3 BS_TARGET, STATUS3_ROOTED, BattleScript_PrintMonIsRooted
 	accuracycheck BattleScript_ButItFailed, NO_ACC_CALC_CHECK_LOCK_ON
 	accuracycheck BattleScript_MoveMissedPause, ACC_CURR_MOVE
+	jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_ButItFailed @ RFVF+: Emerald's, no phasing in the Battle Arena
 	forcerandomswitch BattleScript_ButItFailed
 
 BattleScript_EffectMultiHit::
@@ -1698,6 +1699,7 @@ BattleScript_EffectBatonPass::
 	attackcanceler
 	attackstring
 	ppreduce
+	jumpifbattletype BATTLE_TYPE_ARENA, BattleScript_ButItFailed @ RFVF+: Emerald's, no switching in the Battle Arena
 	jumpifcantswitch SWITCH_IGNORE_ESCAPE_PREVENTION | BS_ATTACKER, BattleScript_ButItFailed
 	attackanimation
 	waitanimation
@@ -2961,7 +2963,7 @@ BattleScript_PickedUpItemSolo::
 
 BattleScript_LocalBattleLost::
 	jumpifbattletype BATTLE_TYPE_TRAINER_HILL, BattleScript_TrainerHillBattleLost
-	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_TrainerHillBattleLost @ RFVF+: Emerald's Frontier says its win text too
+	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_FrontierBattleLost
 	jumpifbattletype BATTLE_TYPE_TRAINER_TOWER, BattleScript_BattleTowerLost
 	jumpifbattletype BATTLE_TYPE_EREADER_TRAINER, BattleScript_EReaderOrSecretBaseTrainerEnd
 	jumpifhalfword CMP_EQUAL, gTrainerBattleOpponent_A, TRAINER_SECRET_BASE, BattleScript_EReaderOrSecretBaseTrainerEnd
@@ -3010,6 +3012,14 @@ BattleScript_AskIfWantsToForfeitMatch::
 
 BattleScript_PrintPlayerForfeited::
 	printstring STRINGID_FORFEITEDMATCH
+	waitmessage B_WAIT_TIME_LONG
+	end2
+
+BattleScript_FrontierBattleLost:: @ RFVF+: Emerald's, a wild Pike or Pyramid loss has no trainer
+	jumpifbattletype BATTLE_TYPE_TRAINER, BattleScript_TrainerHillBattleLost
+	printstring STRINGID_PLAYERWHITEOUT
+	waitmessage B_WAIT_TIME_LONG
+	printstring STRINGID_PLAYERWHITEDOUT
 	waitmessage B_WAIT_TIME_LONG
 	end2
 
@@ -3077,7 +3087,12 @@ BattleScript_LinkBattleWonOrLost::
 	end2
 
 BattleScript_BattleTowerTrainerBattleWon::
+	jumpifbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_BattleTowerTwoTrainersDefeated
 	printstring STRINGID_PLAYERDEFEATEDTRAINER1
+	goto BattleScript_BattleTowerWonSlideIn
+BattleScript_BattleTowerTwoTrainersDefeated:: @ RFVF+: Emerald's two opponents (Tower multis, Pike and Pyramid pairs)
+	printstring STRINGID_TWOENEMIESDEFEATED
+BattleScript_BattleTowerWonSlideIn::
 	trainerslidein BS_ATTACKER
 	waitstate
 	jumpifbattletype BATTLE_TYPE_FRONTIER, BattleScript_FrontierTrainerBattleWonText
@@ -3092,12 +3107,15 @@ BattleScript_BattleTowerEtcTrainerBattleWonSkipText::
 @ RFVF+: Emerald's Battle Frontier (BattleScript_FrontierTrainerBattleWon): the loser's speech, both trainers in multis
 BattleScript_FrontierTrainerBattleWonText::
 	printstring STRINGID_TRAINER1LOSETEXT
-	jumpifnotbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
+	jumpifnotbattletype BATTLE_TYPE_TWO_OPPONENTS, BattleScript_FrontierTrainerBattleWonTryPickup
 	trainerslideout B_POSITION_OPPONENT_LEFT
 	waitstate
 	trainerslidein BS_FAINTED
 	waitstate
 	printstring STRINGID_TRAINER2LOSETEXT
+BattleScript_FrontierTrainerBattleWonTryPickup:: @ RFVF+: Emerald's Pickup after a Battle Pyramid trainer
+	jumpifnotbattletype BATTLE_TYPE_PYRAMID, BattleScript_BattleTowerEtcTrainerBattleWonSkipText
+	pickup
 	end2
 
 BattleScript_MasterTrainerBattleWon::

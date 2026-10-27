@@ -3144,9 +3144,8 @@ void DexScreen_PrintMonCategory(u8 windowId, u16 species, u8 x, u8 y)
 
     categoryStr[index] = EOS;
 
+    // RFVF+: as in French FireRed/LeafGreen, the category alone ("GRAINE"), without " POKeMON"
     DexScreen_AddTextPrinterParameterized(windowId, FONT_SMALL, categoryStr, x, y, 0);
-    x += GetStringWidth(FONT_SMALL, categoryStr, 0);
-    DexScreen_AddTextPrinterParameterized(windowId, FONT_SMALL, gText_PokedexPokemon, x, y, 0);
 }
 
 void DexScreen_PrintMonHeight(u8 windowId, u16 species, u8 x, u8 y)

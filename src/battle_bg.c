@@ -500,6 +500,13 @@ static const u32 sBattleTerrainPalette_Plain[] = INCBIN_U32("graphics/battle_ter
 static const u32 sBattleTerrainTiles_Indoor[] = INCBIN_U32("graphics/battle_terrain/indoor/terrain.4bpp.lz");
 static const u32 sBattleTerrainTilemap_Indoor[] = INCBIN_U32("graphics/battle_terrain/indoor/terrain.bin.lz");
 
+// RFVF+: Emerald's building background with its Battle Frontier palette
+static const u32 sBattleTerrainPalette_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/stadium/battle_frontier.gbapal.lz");
+static const u32 sBattleTerrainTiles_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/tiles.4bpp.lz");
+static const u32 sBattleTerrainTilemap_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/map.bin.lz");
+static const u32 sBattleTerrainAnimTiles_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/anim_tiles.4bpp.lz");
+static const u32 sBattleTerrainAnimTilemap_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/anim_map.bin.lz");
+
 static const struct BattleBackground sBattleTerrainTable[] = {
     [BATTLE_TERRAIN_GRASS] =
     {
@@ -660,6 +667,14 @@ static const struct BattleBackground sBattleTerrainTable[] = {
         .entryTileset = sBattleTerrainAnimTiles_Building,
         .entryTilemap = sBattleTerrainAnimTilemap_Building,
         .palette = sBattleTerrainPalette_Champion
+    },
+    [BATTLE_TERRAIN_FRONTIER] =
+    {
+        .tileset = sBattleTerrainTiles_Frontier,
+        .tilemap = sBattleTerrainTilemap_Frontier,
+        .entryTileset = sBattleTerrainAnimTiles_Frontier,
+        .entryTilemap = sBattleTerrainAnimTilemap_Frontier,
+        .palette = sBattleTerrainPalette_Frontier
     }
 };
 
@@ -785,6 +800,13 @@ void LoadBattleMenuWindowGfx(void)
 
         gPlttBufferUnfaded[BG_PLTT_ID(7) + 6] = RGB( 0,  0,  0);
         CpuCopy16(&gPlttBufferUnfaded[BG_PLTT_ID(7) + 6], &gPlttBufferFaded[BG_PLTT_ID(7) + 6], PLTT_SIZEOF(1));
+
+        // RFVF+: red for the judgment's player Pokemon name (Emerald's battle text palette, entry 1)
+        if (gBattleTypeFlags & BATTLE_TYPE_ARENA)
+        {
+            gPlttBufferUnfaded[BG_PLTT_ID(5) + 1] = RGB(31,  0,  0);
+            CpuCopy16(&gPlttBufferUnfaded[BG_PLTT_ID(5) + 1], &gPlttBufferFaded[BG_PLTT_ID(5) + 1], PLTT_SIZEOF(1));
+        }
     }
 }
 
@@ -1058,9 +1080,9 @@ void InitLinkBattleVsScreen(u8 taskId)
     }
 }
 
-// RFVF+: Emerald's layout, drawn with FRLG's building battle background tiles
-static const u32 sMultiBattleIntroBg_Opponent_Tilemap[] = INCBIN_U32("graphics/battle_frontier/multi_battle_intro_bg_opponent.bin.lz");
-static const u32 sMultiBattleIntroBg_Player_Tilemap[] = INCBIN_U32("graphics/battle_frontier/multi_battle_intro_bg_player.bin.lz");
+// RFVF+: Emerald's, drawn with the Frontier background tiles (BATTLE_TERRAIN_FRONTIER)
+static const u32 sMultiBattleIntroBg_Opponent_Tilemap[] = INCBIN_U32("graphics/battle_terrain/frontier/multi_battle_intro_bg_opponent.bin.lz");
+static const u32 sMultiBattleIntroBg_Player_Tilemap[] = INCBIN_U32("graphics/battle_terrain/frontier/multi_battle_intro_bg_player.bin.lz");
 
 void DrawBattleEntryBackground(void)
 {
@@ -1102,7 +1124,11 @@ void DrawBattleEntryBackground(void)
         CopyBgTilemapBufferToVram(1);
         CopyBgTilemapBufferToVram(2);
     }
-    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
+    else if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+    {
+        LoadBattleTerrainEntryGfx(BATTLE_TERRAIN_FRONTIER);
+    }
+    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_EREADER_TRAINER))
     {
         LoadBattleTerrainEntryGfx(BATTLE_TERRAIN_BUILDING);
     }
@@ -1155,7 +1181,11 @@ static u8 GetBattleTerrainOverride(void)
     else
         sTrainers = (struct Trainer*)gTrainers;
 
-    if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER))
+    if (gBattleTypeFlags & BATTLE_TYPE_FRONTIER)
+    {
+        return BATTLE_TERRAIN_FRONTIER;
+    }
+    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_LINK | BATTLE_TYPE_EREADER_TRAINER))
     {
         return BATTLE_TERRAIN_LINK;
     }

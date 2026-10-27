@@ -4,6 +4,7 @@
 #include "quest_log.h"
 #include "graphics.h"
 #include "dynamic_placeholder_text_util.h"
+#include "battle.h"
 #include "constants/songs.h"
 
 #define TAG_CURSOR 0x8000
@@ -536,7 +537,7 @@ void TextPrinterClearDownArrow(struct TextPrinter *textPrinter)
 bool8 TextPrinterWaitAutoMode(struct TextPrinter *textPrinter)
 {
     struct TextPrinterSubStruct *subStruct = &textPrinter->subUnion.sub;
-    u8 delay = (gQuestLogState == QL_STATE_PLAYBACK) ? 50 : 120;
+    u8 delay = (gQuestLogState == QL_STATE_PLAYBACK) ? 50 : (gBattleTypeFlags & BATTLE_TYPE_RECORDED) ? 49 : 120; // RFVF+: Emerald's pace for recordings
 
     if (subStruct->autoScrollDelay == delay)
     {
@@ -652,7 +653,7 @@ u16 RenderText(struct TextPrinter *textPrinter)
             return RENDER_UPDATE;
         }
 
-        if (gTextFlags.autoScroll)
+        if (!(gBattleTypeFlags & BATTLE_TYPE_RECORDED) && gTextFlags.autoScroll) // RFVF+: Emerald's, a recording keeps its text speed
             textPrinter->delayCounter = 1;
         else
             textPrinter->delayCounter = textPrinter->textSpeed;

@@ -3114,6 +3114,10 @@ static void VBlankCB_FrontierLogoWave(void);
 static void HBlankCB_FrontierLogoWave(void);
 static bool8 FrontierLogoWiggle_Init(struct Task *);
 static bool8 FrontierLogoWiggle_SetGfx(struct Task *);
+static bool8 FrontierLogoWiggle_Blend1(struct Task *);
+static bool8 FrontierLogoWiggle_Blend2(struct Task *);
+static bool8 FrontierLogoWiggle_FinishAppear(struct Task *);
+static bool8 FrontierLogoWiggle_CircularMask(struct Task *);
 static bool8 FrontierLogoWave_Init(struct Task *);
 static bool8 FrontierLogoWave_SetGfx(struct Task *);
 static bool8 FrontierLogoWave_InitScanline(struct Task *);
@@ -3153,10 +3157,10 @@ static const TransitionStateFunc sFrontierLogoWiggle_Funcs[] =
 {
     FrontierLogoWiggle_Init,
     FrontierLogoWiggle_SetGfx,
-    PatternWeave_Blend1,
-    PatternWeave_Blend2,
-    PatternWeave_FinishAppear,
-    PatternWeave_CircularMask
+    FrontierLogoWiggle_Blend1,
+    FrontierLogoWiggle_Blend2,
+    FrontierLogoWiggle_FinishAppear,
+    FrontierLogoWiggle_CircularMask
 };
 
 static const TransitionStateFunc sFrontierLogoWave_Funcs[] =
@@ -3256,6 +3260,107 @@ static bool8 FrontierLogoWiggle_SetGfx(struct Task *task)
     task->tState++;
     return TRUE;
 }
+
+// Emerald's PatternWeave_* timings (FRLG's copies above are sped up for the Big Pokeball)
+#define tRadius      data[1]
+#define tRadiusDelta data[2]
+#define tVBlankSet   data[3]
+
+static bool8 FrontierLogoWiggle_Blend1(struct Task *task)
+{
+    sTransitionData->vblankDma = FALSE;
+    if (task->tBlendDelay == 0 || --task->tBlendDelay == 0)
+    {
+        task->tBlendTarget2++;
+        task->tBlendDelay = 2;
+    }
+    sTransitionData->bldAlpha = BLDALPHA_BLEND(task->tBlendTarget2, task->tBlendTarget1);
+    if (task->tBlendTarget2 > 15)
+        task->tState++;
+    task->tSinIndex += 8;
+    task->tAmplitude -= 256;
+
+    SetSinWave(gScanlineEffectRegBuffers[0], 0, task->tSinIndex, 132, task->tAmplitude >> 8, DISPLAY_HEIGHT);
+
+    sTransitionData->vblankDma++;
+    return FALSE;
+}
+
+static bool8 FrontierLogoWiggle_Blend2(struct Task *task)
+{
+    sTransitionData->vblankDma = FALSE;
+    if (task->tBlendDelay == 0 || --task->tBlendDelay == 0)
+    {
+        task->tBlendTarget1--;
+        task->tBlendDelay = 2;
+    }
+    sTransitionData->bldAlpha = BLDALPHA_BLEND(task->tBlendTarget2, task->tBlendTarget1);
+    if (task->tBlendTarget1 == 0)
+        task->tState++;
+    task->tSinIndex += 8;
+    task->tAmplitude -= 256;
+
+    SetSinWave(gScanlineEffectRegBuffers[0], 0, task->tSinIndex, 132, task->tAmplitude >> 8, DISPLAY_HEIGHT);
+
+    sTransitionData->vblankDma++;
+    return FALSE;
+}
+
+static bool8 FrontierLogoWiggle_FinishAppear(struct Task *task)
+{
+    sTransitionData->vblankDma = FALSE;
+    task->tSinIndex += 8;
+    task->tAmplitude -= 256;
+
+    SetSinWave(gScanlineEffectRegBuffers[0], 0, task->tSinIndex, 132, task->tAmplitude >> 8, DISPLAY_HEIGHT);
+
+    if (task->tAmplitude <= 0)
+    {
+        task->tState++;
+        task->tRadius = DISPLAY_HEIGHT;
+        task->tRadiusDelta = 1 << 8;
+        task->tVBlankSet = FALSE;
+    }
+
+    sTransitionData->vblankDma++;
+    return FALSE;
+}
+
+// Do a shrinking circular mask to go to a black screen after the pattern appears.
+static bool8 FrontierLogoWiggle_CircularMask(struct Task *task)
+{
+    sTransitionData->vblankDma = FALSE;
+    if (task->tRadiusDelta < (4 << 8))
+        task->tRadiusDelta += 128; // 256 is 1 unit of speed. Speed up every other frame (128 / 256)
+    if (task->tRadius != 0)
+    {
+        task->tRadius -= task->tRadiusDelta >> 8;
+        if (task->tRadius < 0)
+            task->tRadius = 0;
+    }
+    SetCircularMask(gScanlineEffectRegBuffers[0], DISPLAY_WIDTH / 2, DISPLAY_HEIGHT / 2, task->tRadius);
+    if (task->tRadius == 0)
+    {
+        SetVBlankCallback(NULL);
+        DmaStop(0);
+        FadeScreenBlack();
+        DestroyTask(FindTaskIdByFunc(task->func));
+    }
+    else
+    {
+        if (!task->tVBlankSet)
+        {
+            task->tVBlankSet++;
+            SetVBlankCallback(VBlankCB_CircularMask);
+        }
+        sTransitionData->vblankDma++;
+    }
+    return FALSE;
+}
+
+#undef tRadius
+#undef tRadiusDelta
+#undef tVBlankSet
 
 static void Task_FrontierLogoWiggle(u8 taskId)
 {

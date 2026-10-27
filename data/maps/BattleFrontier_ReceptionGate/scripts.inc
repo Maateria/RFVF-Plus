@@ -18,6 +18,7 @@ BattleFrontier_ReceptionGate_OnFrame:
 
 BattleFrontier_ReceptionGate_EventScript_FirstTimeEntering::
 	lockall
+	textcolor NPC_TEXT_COLOR_FEMALE
 	setvar VAR_HAS_ENTERED_BATTLE_FRONTIER, 1
 	playse SE_PIN
 	applymovement LOCALID_FRONTIER_RECEPTION_GREETER, Common_Movement_ExclamationMark
@@ -34,13 +35,16 @@ BattleFrontier_ReceptionGate_EventScript_FirstTimeEntering::
 BattleFrontier_ReceptionGate_EventScript_ScottScene::
 	msgbox BattleFrontier_ReceptionGate_Text_WelcomeToBattleFrontier, MSGBOX_DEFAULT
 	msgbox BattleFrontier_ReceptionGate_Text_IssueFrontierPass, MSGBOX_DEFAULT
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	playfanfare MUS_OBTAIN_ITEM
 	message BattleFrontier_ReceptionGate_Text_ObtainedFrontierPass
 	waitfanfare
 	waitmessage
 	msgbox BattleFrontier_ReceptionGate_Text_PlacedTrainerCardInFrontierPass, MSGBOX_DEFAULT
 	setflag FLAG_SYS_FRONTIER_PASS
+	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox BattleFrontier_ReceptionGate_Text_EnjoyBattleFrontier, MSGBOX_DEFAULT
+	textcolor NPC_TEXT_COLOR_MALE
 	msgbox BattleFrontier_ReceptionGate_Text_IfItIsntPlayerYouCame, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_FRONTIER_RECEPTION_GREETER, Common_Movement_WalkInPlaceFasterUp
@@ -52,6 +56,7 @@ BattleFrontier_ReceptionGate_EventScript_ScottScene::
 	applymovement LOCALID_FRONTIER_RECEPTION_GUIDE, Common_Movement_ExclamationMark
 	applymovement OBJ_EVENT_ID_PLAYER, Common_Movement_ExclamationMark
 	waitmovement 0
+	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox BattleFrontier_ReceptionGate_Text_OhMrScottGoodDay, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_FRONTIER_RECEPTION_GREETER, BattleFrontier_ReceptionGate_Movement_GreeterFaceScott
@@ -59,6 +64,7 @@ BattleFrontier_ReceptionGate_EventScript_ScottScene::
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_ReceptionGate_Movement_PlayerFaceScott
 	applymovement LOCALID_FRONTIER_RECEPTION_SCOTT, BattleFrontier_ReceptionGate_Movement_ScottEnter
 	waitmovement 0
+	textcolor NPC_TEXT_COLOR_MALE
 	msgbox BattleFrontier_ReceptionGate_Text_ScottGreatToSeeYouHere, MSGBOX_DEFAULT
 	closemessage
 	applymovement LOCALID_FRONTIER_RECEPTION_SCOTT, BattleFrontier_ReceptionGate_Movement_ScottExit

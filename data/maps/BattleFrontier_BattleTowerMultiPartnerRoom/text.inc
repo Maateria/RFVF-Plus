@@ -71,10 +71,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice1Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice1Mon1::
     .string "{STR_VAR_3} m'a conseillé. J'ai un\n"
-    .string "{STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "{STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice1Mon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}.\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\p"
     .string "Sniff…\n"
     .string "S'il te plaît, fais équipe avec moi!$"
 
@@ -97,10 +99,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice2Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice2Mon1::
     .string "{STR_VAR_3} a choisi mon équipe!\n"
-    .string "J'ai un {STR_VAR_2} avec {STR_VAR_1}$"
+    .string "J'ai un {STR_VAR_2}\l"
+    .string "avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice2Mon2Ask::
-    .string "et un {STR_VAR_2} avec {STR_VAR_1}!\n"
+    .string "et un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\l"
     .string "Plutôt pas mal, hein?\p"
     .string "Allez, vas-y!\n"
     .string "Fais équipe avec moi!$"
@@ -120,11 +124,13 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice3Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice3Mon1::
     .string "J'ai demandé conseil à {STR_VAR_3}.\n"
-    .string "Un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "Un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice3Mon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
-    .string "{STR_VAR_1}, voilà ce que j'ai.\p"
+    .string "{STR_VAR_1},\l"
+    .string "voilà ce que j'ai.\p"
     .string "S'il te plaît, tu veux bien faire\n"
     .string "équipe avec moi?$"
 
@@ -151,7 +157,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice4Mon1::
     .string "qui utilise {STR_VAR_1} et un$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice4Mon2Ask::
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1}.\n"
+    .string "{STR_VAR_2} qui utilise\n"
+    .string "{STR_VAR_1}.\l"
     .string "Je sais que j'en demande trop…\p"
     .string "Tu vas sûrement refuser, mais tu veux\n"
     .string "bien qu'on fasse équipe?$"
@@ -231,10 +238,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice7Intro::
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice7Mon1::
     .string "Ecoute, écoute! C'est {STR_VAR_3} qui\n"
     .string "a composé mon équipe POKéMON.\l"
-    .string "J'ai un {STR_VAR_2} avec {STR_VAR_1}$"
+    .string "J'ai un {STR_VAR_2}\l"
+    .string "avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice7Mon2Ask::
-    .string "et un {STR_VAR_2} avec {STR_VAR_1}.\n"
+    .string "et un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\l"
     .string "Je les ai bien dressés!\p"
     .string "Tu veux qu'on fasse équipe?\n"
     .string "Je suis sûre qu'on ira bien ensemble!$"
@@ -259,7 +268,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice8Mon1::
     .string "{STR_VAR_2} avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice8Mon2Ask::
-    .string "et un {STR_VAR_2} avec {STR_VAR_1}.\p"
+    .string "et un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\p"
     .string "On fait équipe ensemble?\n"
     .string "S'il te plaît!$"
 
@@ -282,7 +292,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice9Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice9Mon1::
     .string "J'ai écouté {STR_VAR_3} et j'ai dressé\n"
-    .string "un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice9Mon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
@@ -306,10 +317,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice10Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice10Mon1::
     .string "Mon mentor {STR_VAR_3} m'a conseillé\n"
-    .string "un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice10Mon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}.\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\p"
     .string "Pas mal, non?\n"
     .string "On fait équipe, alors?$"
 
@@ -333,11 +346,13 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice11Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice11Mon1::
     .string "{STR_VAR_3} m'a recommandé\n"
-    .string "les {STR_VAR_2} utilisant {STR_VAR_1}$"
+    .string "les {STR_VAR_2} utilisant\l"
+    .string "{STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice11Mon2Ask::
     .string "et les {STR_VAR_2} utilisant\n"
-    .string "{STR_VAR_1}. J'en ai dix de chaque.\l"
+    .string "{STR_VAR_1}.\l"
+    .string "J'en ai dix de chaque.\l"
     .string "Je rigole, j'en ai qu'un de chaque!\p"
     .string "Alors, on fait équipe, toi et moi?\n"
     .string "Qu'en dis-tu?$"
@@ -393,7 +408,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice13Intro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice13Mon1::
     .string "{STR_VAR_3} m'a dit quoi faire.\n"
-    .string "J'ai un {STR_VAR_2} avec {STR_VAR_1}$"
+    .string "J'ai un {STR_VAR_2}\l"
+    .string "avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice13Mon2Ask::
     .string "et un {STR_VAR_2} avec\n"
@@ -427,7 +443,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice14Mon1::
     .string "{STR_VAR_1} et aussi un$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice14Mon2Ask::
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1}.\p"
+    .string "{STR_VAR_2} qui utilise\n"
+    .string "{STR_VAR_1}.\p"
     .string "Je les entraîne tous les jours, qu'il\n"
     .string "pleuve, qu'il neige, qu'il vente!\p"
     .string "C'est d'ailleurs pour ça que j'ai pris\n"
@@ -457,7 +474,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice15Mon1::
     .string "avec {STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice15Mon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}.\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\p"
     .string "Ça me met mal à l'aise de te parler…\n"
     .string "Mais veux-tu qu'on fasse équipe?$"
 
@@ -480,7 +498,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice16Intro::
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice16Mon1::
     .string "Je dois mon équipe à {STR_VAR_3}.\p"
     .string "J'ai suivi ses conseils. J'ai un\n"
-    .string "{STR_VAR_2} avec {STR_VAR_1} et un$"
+    .string "{STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et un$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_Apprentice16Mon2Ask::
     .string "{STR_VAR_2} avec {STR_VAR_1}.\p"
@@ -506,7 +525,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_LassMon1::
     .string "{STR_VAR_1} et puis un$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_LassMon2Ask::
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1}.\n"
+    .string "{STR_VAR_2} qui utilise\n"
+    .string "{STR_VAR_1}.\l"
     .string "C'est tout ce que j'ai avec moi.\p"
     .string "On fait équipe?$"
 
@@ -525,10 +545,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_YoungsterIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_YoungsterMon1::
     .string "Tu veux savoir ce que j'ai?\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_YoungsterMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "On va faire équipe, toi et moi,\n"
     .string "non?$"
 
@@ -546,7 +568,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_HikerIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_HikerMon1::
     .string "Tu veux savoir ce que j'ai avec moi?\n"
-    .string "Un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "Un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_HikerMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
@@ -568,10 +591,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_BeautyIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BeautyMon1::
     .string "Tu sais ce que j'ai dressé?\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BeautyMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "Qu'en penses-tu?\n"
     .string "Tu veux qu'on fasse équipe?$"
 
@@ -594,7 +619,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_FishermanMon1::
     .string "{STR_VAR_2} avec {STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_FishermanMon2Ask::
-    .string "d'un {STR_VAR_2} avec {STR_VAR_1}.\p"
+    .string "d'un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\p"
     .string "Qu'en dis-tu?\n"
     .string "On fait équipe?$"
 
@@ -612,7 +638,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_LadyIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_LadyMon1::
     .string "Je suis accompagnée d'un\n"
-    .string "{STR_VAR_2} maîtrisant {STR_VAR_1}$"
+    .string "{STR_VAR_2} maîtrisant\l"
+    .string "{STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_LadyMon2Ask::
     .string "et d'un {STR_VAR_2} maîtrisant\n"
@@ -634,10 +661,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_CyclingTriathleteFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_CyclingTriathleteFMon1::
     .string "Voyons ce que j'ai…\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_CyclingTriathleteFMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\n"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\l"
     .string "C'est mon équipe!\p"
     .string "Dis, tu veux bien qu'on soit\n"
     .string "partenaires?$"
@@ -656,10 +685,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_BugCatcherIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BugCatcherMon1::
     .string "Regarde ce que j'ai!\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BugCatcherMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "Je te propose que nous fassions\n"
     .string "équipe, tous les\l"
     .string "deux! Tu es d'accord?$"
@@ -703,7 +734,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_RichBoyIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RichBoyMon1::
     .string "Tu ne devineras jamais ce que j'ai!\n"
-    .string "Un {STR_VAR_2} utilisant {STR_VAR_1}$"
+    .string "Un {STR_VAR_2} utilisant\l"
+    .string "{STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RichBoyMon2Ask::
     .string "et un {STR_VAR_2} utilisant\n"
@@ -748,10 +780,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_TuberFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_TuberFMon1::
     .string "Voilà ce que j'ai…\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_TuberFMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\n"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\l"
     .string "Tu veux bien qu'on fasse équipe?$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_TuberFAccept::
@@ -771,7 +805,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_HexManiacMon1::
     .string "utilise {STR_VAR_1} et un$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_HexManiacMon2Ask::
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1}…\p"
+    .string "{STR_VAR_2} qui utilise\n"
+    .string "{STR_VAR_1}…\p"
     .string "Je t'en supplie…\n"
     .string "Choisis-moi comme partenaire…$"
 
@@ -788,10 +823,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnBreederMIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnBreederMMon1::
     .string "J'ai deux POKéMON pas mal du tout!\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnBreederMMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "Qu'en penses-tu?\n"
     .string "Tu penses qu'on devrait faire équipe?$"
 
@@ -810,10 +847,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_RunningTriathleteFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RunningTriathleteFMon1::
     .string "Tu veux savoir ce que j'ai?\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RunningTriathleteFMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "Alors?\n"
     .string "On fait équipe?$"
 
@@ -831,7 +870,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_RunningTriathleteMIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RunningTriathleteMMon1::
     .string "J'ai bien entraîné mes POKéMON! J'ai\n"
-    .string "un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RunningTriathleteMMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
@@ -855,7 +895,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_BattleGirlMon1::
     .string "{STR_VAR_1} et un$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BattleGirlMon2Ask::
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1}!\p"
+    .string "{STR_VAR_2} qui utilise\n"
+    .string "{STR_VAR_1}!\p"
     .string "Alors, ça te plaît?\n"
     .string "Si on faisait équipe?$"
 
@@ -921,10 +962,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_GuitaristIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_GuitaristMon1::
     .string "Regarde qui est là…\n"
-    .string "Un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "Un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_GuitaristMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "On pourrait pas rêver mieux, non?\n"
     .string "Alors, on fait équipe?$"
 
@@ -1011,11 +1054,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_ExpertFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_ExpertFMon1::
     .string "J'ai élevé mes POKéMON avec soin.\n"
-    .string "J'ai un {STR_VAR_2} avec {STR_VAR_1}$"
+    .string "J'ai un {STR_VAR_2}\l"
+    .string "avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_ExpertFMon2Ask::
-    .string "et un {STR_VAR_2} avec {STR_VAR_1}.\n"
-    .string "Voilà!\p"
+    .string "et un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}. Voilà!\p"
     .string "Voudrais-tu faire équipe avec moi?$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_ExpertFAccept::
@@ -1056,7 +1100,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_BirdKeeperMon1::
     .string "{STR_VAR_2} avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BirdKeeperMon2Ask::
-    .string "et un {STR_VAR_2} avec {STR_VAR_1}.\p"
+    .string "et un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}.\p"
     .string "Tu ne penses pas qu'on ferait une\n"
     .string "bonne équipe, toi et moi?$"
 
@@ -1073,10 +1118,12 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_NinjaBoyIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_NinjaBoyMon1::
     .string "Mon équipe de POKéMON comporte\n"
-    .string "un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_NinjaBoyMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "Faisons équipe, tous les deux!$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_NinjaBoyAccept::
@@ -1117,7 +1164,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_BugManiacIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BugManiacMon1::
     .string "Oui, j'ai trouvé mes POKéMON.\n"
-    .string "J'ai un {STR_VAR_2} avec {STR_VAR_1}$"
+    .string "J'ai un {STR_VAR_2}\l"
+    .string "avec {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_BugManiacMon2Ask::
     .string "et {STR_VAR_2} avec {STR_VAR_1}.\n"
@@ -1165,7 +1213,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_CollectorMon1::
     .string "{STR_VAR_2} avec {STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_CollectorMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "C'est le nec plus ultra en matière de\n"
     .string "POKéMON, non? On fait équipe?$"
 
@@ -1184,7 +1233,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnRangerMIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnRangerMMon1::
     .string "Je suis escorté par un\n"
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1} et$"
+    .string "{STR_VAR_2} qui utilise\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnRangerMMon2Ask::
     .string "un {STR_VAR_2} qui\n"
@@ -1209,7 +1259,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnRangerFMon1::
     .string "{STR_VAR_2} avec {STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnRangerFMon2Ask::
-    .string "un {STR_VAR_2} avec {STR_VAR_1}!\p"
+    .string "un {STR_VAR_2} avec\n"
+    .string "{STR_VAR_1}!\p"
     .string "Tu veux faire équipe avec mes petits\n"
     .string "protégés et moi?$"
 
@@ -1249,7 +1300,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_RuinManiacIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RuinManiacMon1::
     .string "Les POKéMON qui m'accompagnent sont\n"
-    .string "un {STR_VAR_2} utilisant {STR_VAR_1}$"
+    .string "un {STR_VAR_2} utilisant\l"
+    .string "{STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_RuinManiacMon2Ask::
     .string "et un {STR_VAR_2} utilisant\n"
@@ -1292,7 +1344,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_CoolTrainerFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_CoolTrainerFMon1::
     .string "L'équipe que j'ai formée comporte un\n"
-    .string "{STR_VAR_2} utilisant {STR_VAR_1} et$"
+    .string "{STR_VAR_2} utilisant\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_CoolTrainerFMon2Ask::
     .string "un {STR_VAR_2}\n"
@@ -1314,11 +1367,13 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PokemaniacIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PokemaniacMon1::
     .string "Tu te demandes ce que j'ai?\n"
-    .string "Un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "Un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PokemaniacMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
-    .string "{STR_VAR_1}. Oui, rien que ça!\p"
+    .string "{STR_VAR_1}.\l"
+    .string "Oui, rien que ça!\p"
     .string "Je sais que ça t'impressionne.\n"
     .string "Allez, faisons équipe!$"
 
@@ -1336,7 +1391,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_KindlerIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_KindlerMon1::
     .string "Voici le fruit de mon entraînement:\n"
-    .string "un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_KindlerMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
@@ -1423,7 +1479,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PsychicFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PsychicFMon1::
     .string "J'ai avec moi…\n"
-    .string "un {STR_VAR_2} avec {STR_VAR_1} et$"
+    .string "un {STR_VAR_2} avec\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PsychicFMon2Ask::
     .string "un {STR_VAR_2} avec {STR_VAR_1}.\n"
@@ -1445,7 +1502,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_SchoolKidFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SchoolKidFMon1::
     .string "Mes POKéMON? J'ai un\n"
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1} et$"
+    .string "{STR_VAR_2} qui utilise\l"
+    .string "{STR_VAR_1} et$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SchoolKidFMon2Ask::
     .string "un {STR_VAR_2} qui utilise\n"
@@ -1467,7 +1525,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnBreederFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnBreederFMon1::
     .string "Voici les POKéMON que j'ai dressés:\n"
-    .string "un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PkmnBreederFMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
@@ -1489,7 +1548,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_PokefanFIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PokefanFMon1::
     .string "Mes POKéMON chéris sont un\n"
-    .string "{STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "{STR_VAR_2} qui utilise\l"
+    .string "{STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_PokefanFMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
@@ -1555,11 +1615,13 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmingTriathleteFIntro::
     .string "Je suis {STR_VAR_1}, une TRIATHLETE!$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmingTriathleteFMon1::
-    .string "Un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "Un {STR_VAR_2} qui\n"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmingTriathleteFMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"
-    .string "{STR_VAR_1}, voilà ce que j'ai.\p"
+    .string "{STR_VAR_1},\l"
+    .string "voilà ce que j'ai.\p"
     .string "Qu'en penses-tu?\n"
     .string "Je pense qu'on ferait\l"
     .string "une bonne équipe.$"
@@ -1578,7 +1640,8 @@ BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmerMIntro::
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmerMMon1::
     .string "Regarde quels POKéMON j'ai dressés!\n"
-    .string "Un {STR_VAR_2} qui utilise {STR_VAR_1}$"
+    .string "Un {STR_VAR_2} qui\l"
+    .string "utilise {STR_VAR_1}$"
 
 BattleFrontier_BattleTowerMultiPartnerRoom_Text_SwimmerMMon2Ask::
     .string "et un {STR_VAR_2} qui utilise\n"

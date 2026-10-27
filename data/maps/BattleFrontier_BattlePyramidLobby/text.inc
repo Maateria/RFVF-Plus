@@ -66,8 +66,7 @@ BattleFrontier_BattlePyramidLobby_Text_NotEnoughValidMonsLvOpen::
     .string "aptes à participer.\p"
     .string "Souvenez-vous que vous devez leur\n"
     .string "reprendre les objets qu'ils portent.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "On en reparlera quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -80,8 +79,7 @@ BattleFrontier_BattlePyramidLobby_Text_NotEnoughValidMonsLv50::
     .string "moins pour participer.\p"
     .string "Souvenez-vous que vous devez leur\n"
     .string "reprendre les objets qu'ils portent.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "On en reparlera quand vous aurez\n"
     .string "ce qu'il faut.$"
 

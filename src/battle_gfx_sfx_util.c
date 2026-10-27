@@ -27,6 +27,7 @@ static bool8 ShouldAnimBeDoneRegardlessOfSubsitute(u8 animId);
 static void Task_ClearBitWhenBattleTableAnimDone(u8 taskId);
 static void Task_ClearBitWhenSpecialAnimDone(u8 taskId);
 static void ClearSpritesBattlerHealthboxAnimData(void);
+static void SpriteCB_TrainerSlideVertical(struct Sprite *sprite);
 
 static const struct CompressedSpriteSheet sSpriteSheet_SinglesPlayerHealthbox =
 {
@@ -455,8 +456,21 @@ void SpriteCB_TrainerSlideIn(struct Sprite *sprite)
     {
         sprite->x2 += sprite->data[0];
         if (sprite->x2 == 0)
-            sprite->callback = SpriteCallbackDummy;
+        {
+            if (sprite->y2 != 0)
+                sprite->callback = SpriteCB_TrainerSlideVertical;
+            else
+                sprite->callback = SpriteCallbackDummy;
+        }
     }
+}
+
+// Emerald's: slide up to 0 if necessary (the multi battle intro's trainers start 48 px low)
+static void SpriteCB_TrainerSlideVertical(struct Sprite *sprite)
+{
+    sprite->y2 -= 2;
+    if (sprite->y2 == 0)
+        sprite->callback = SpriteCallbackDummy;
 }
 
 void InitAndLaunchChosenStatusAnimation(bool8 isStatus2, u32 status)

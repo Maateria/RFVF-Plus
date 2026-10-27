@@ -2431,7 +2431,8 @@ void CopyFrontierBrainTrainerName(u8 *dst)
     else
         facility = VarGet(VAR_FRONTIER_FACILITY);
 
-    for (i = 0; i < PLAYER_NAME_LENGTH; i++)
+    // RFVF+: whole trainer name like French Emerald, not PLAYER_NAME_LENGTH (CHARLINE has 8 letters)
+    for (i = 0; i < (s32)ARRAY_COUNT(gTrainers[0].trainerName) - 1; i++)
         dst[i] = gTrainers[sFrontierBrainTrainerIds[facility]].trainerName[i];
 
     dst[i] = EOS;

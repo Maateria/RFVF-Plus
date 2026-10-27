@@ -1,6 +1,8 @@
 #include "global.h"
 #include "window.h"
 #include "text.h"
+#include "battle.h"
+#include "recorded_battle.h"
 
 static EWRAM_DATA struct TextPrinter sTempTextPrinter = {0};
 static EWRAM_DATA struct TextPrinter sTextPrinters[NUM_TEXT_PRINTERS] = {0};
@@ -152,7 +154,7 @@ void RunTextPrinters(void)
         }
         if(numEmpty == 0x20)
             return;
-    }while(gSaveBlock2Ptr->optionsTextSpeed == OPTIONS_TEXT_SPEED_INSTANT);
+    }while(((gBattleTypeFlags & BATTLE_TYPE_RECORDED) ? GetTextSpeedInRecordedBattle() : gSaveBlock2Ptr->optionsTextSpeed) == OPTIONS_TEXT_SPEED_INSTANT); // RFVF+: a recording keeps its own text speed
 }
 
 bool16 IsTextPrinterActive(u8 id)

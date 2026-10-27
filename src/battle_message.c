@@ -21,6 +21,7 @@
 #include "graphics.h"
 #include "battle_ai_switch_items.h"
 #include "trainer_hill.h"
+#include "recorded_battle.h"
 #include "constants/moves.h"
 #include "constants/items.h"
 #include "constants/trainers.h"
@@ -123,7 +124,7 @@ static const u8 sText_PkmnInLove[] = _("{B_ATK_NAME_WITH_PREFIX} est\namoureux d
 static const u8 sText_PkmnImmobilizedByLove[] = _("{B_ATK_NAME_WITH_PREFIX} est\nimmobilisé par l'amour!");
 static const u8 sText_PkmnBlownAway[] = _("{B_DEF_NAME_WITH_PREFIX} est\néjecté!");
 static const u8 sText_PkmnChangedType[] = _("{B_ATK_NAME_WITH_PREFIX} se transforme\nen type {B_BUFF1}!");
-static const u8 sText_PkmnFlinched[] = _("{B_ATK_NAME_WITH_PREFIX} à peur!");
+static const u8 sText_PkmnFlinched[] = _("{B_ATK_NAME_WITH_PREFIX} a la trouille!");
 static const u8 sText_PkmnRegainedHealth[] = _("{B_DEF_NAME_WITH_PREFIX} restore\nses PV!");
 static const u8 sText_PkmnHPFull[] = _("Les PV de {B_DEF_NAME_WITH_PREFIX}\nsont déjà au maximum!");
 static const u8 sText_PkmnRaisedSpDef[] = _("Ah, la DEF. SPE. de {B_ATK_PREFIX2}\naugmente!");
@@ -163,7 +164,7 @@ static const u8 sText_PkmnSeeded[] = _("{B_DEF_NAME_WITH_PREFIX} est infecté!")
 static const u8 sText_PkmnEvadedAttack[] = _("{B_DEF_NAME_WITH_PREFIX} évite\nl'attaque!");
 static const u8 sText_PkmnSappedByLeechSeed[] = _("VAMPIGRAINE draine\nl'énergie de {B_ATK_NAME_WITH_PREFIX}!");
 static const u8 sText_PkmnFastAsleep[] = _("{B_ATK_NAME_WITH_PREFIX} est\nprofondément endormi.");
-static const u8 sText_PkmnWokeUp[] = _("{B_ATK_NAME_WITH_PREFIX} se réveil!");
+static const u8 sText_PkmnWokeUp[] = _("{B_ATK_NAME_WITH_PREFIX} se réveille!");
 static const u8 sText_PkmnUproarKeptAwake[] = _("Mais le BROUHAHA de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nle maintient éveillé!");
 static const u8 sText_PkmnWokeUpInUproar[] = _("{B_ATK_NAME_WITH_PREFIX} se réveille\nà cause du BROUHAHA!");
 static const u8 sText_PkmnCausedUproar[] = _("{B_ATK_NAME_WITH_PREFIX} fait\nun BROUHAHA!");
@@ -284,7 +285,7 @@ static const u8 sText_PkmnsXPreventsBurns[] = _("{B_EFF_ABILITY} de {B_EFF_NAME_
 static const u8 sText_PkmnsXBlocksY[] = _("{B_DEF_ABILITY} de {B_DEF_NAME_WITH_PREFIX}\nbloque {B_CURRENT_MOVE}!");
 static const u8 sText_PkmnsXBlocksY2[] = _("{B_SCR_ACTIVE_ABILITY} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nbloque {B_CURRENT_MOVE}!");
 static const u8 sText_PkmnsXRestoredHPALittle2[] = _("{B_ATK_ABILITY} de {B_ATK_NAME_WITH_PREFIX}\nrestaure un peu ses PV!");
-static const u8 sText_PkmnsXWhippedUpSandstorm[] = _("{B_SCR_ACTIVE_ABILITY} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\ndéclenche un tempête de sable!");
+static const u8 sText_PkmnsXWhippedUpSandstorm[] = _("{B_SCR_ACTIVE_ABILITY} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nprovoque une tempête de sable!");
 static const u8 sText_PkmnsXIntensifiedSun[] = _("{B_SCR_ACTIVE_ABILITY} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nintensifie les rayons du soleil!");
 static const u8 sText_PkmnsXPreventsYLoss[] = _("{B_SCR_ACTIVE_ABILITY} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nl'empêche de perdre {B_BUFF1}!");
 static const u8 sText_PkmnsXInfatuatedY[] = _("{B_DEF_ABILITY} de {B_DEF_NAME_WITH_PREFIX}\nrend amoureux {B_ATK_NAME_WITH_PREFIX}!");
@@ -347,9 +348,9 @@ static const u8 sText_RainStopped[] = _("La pluie prend fin.");
 static const u8 sText_SandstormBrewed[] = _("Une tempête de sable se lève!");
 static const u8 sText_SandstormRages[] = _("La tempête de sable fait rage.");
 static const u8 sText_SandstormSubsided[] = _("La tempête de sable prend fin.");
-static const u8 sText_SunlightGotBright[] = _("Les rayons de soleil brillent!");
-static const u8 sText_SunlightStrong[] = _("Les rayons de soleils sont forts.");
-static const u8 sText_SunlightFaded[] = _("Les rayons de soleil prennent fin.");
+static const u8 sText_SunlightGotBright[] = _("Les rayons du soleil brillent!");
+static const u8 sText_SunlightStrong[] = _("Les rayons du soleil sont forts.");
+static const u8 sText_SunlightFaded[] = _("Les rayons du soleil s'affaiblissent.");
 static const u8 sText_StartedHail[] = _("Il commence à grêler!");
 static const u8 sText_HailContinues[] = _("La grêle continue de tomber.");
 static const u8 sText_HailStopped[] = _("La grêle prend fin.");
@@ -537,7 +538,7 @@ static const u8 sText_PkmnsItemCuredParalysis[] = _("{B_LAST_ITEM} de {B_SCR_ACT
 static const u8 sText_PkmnsItemCuredPoison[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nsoigne le poison!");
 static const u8 sText_PkmnsItemHealedBurn[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nsoigne la brûlure!");
 static const u8 sText_PkmnsItemDefrostedIt[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nle dégèle!");
-static const u8 sText_PkmnsItemWokeIt[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nle réveil!");
+static const u8 sText_PkmnsItemWokeIt[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nle sort de son sommeil!");
 static const u8 sText_PkmnsItemSnappedOut[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nle sort de sa confusion!");
 static const u8 sText_PkmnsItemCuredProblem[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nsoigne son problème de statut!");
 static const u8 sText_PkmnsItemNormalizedStatus[] = _("{B_LAST_ITEM} de {B_SCR_ACTIVE_NAME_WITH_PREFIX}\nsoigne son problème de statut!");
@@ -550,7 +551,7 @@ static const u8 sText_PkmnHungOnWithX[] = _("{B_DEF_NAME_WITH_PREFIX} s'accroche
 const u8 gText_EmptyString3[] = _("");
 static const u8 sText_PlayedFluteCatchyTune[] = _("{B_PLAYER_NAME} utilise {B_LAST_ITEM}.\pC'est une chanson entraînante!");
 static const u8 sText_PlayedThe[] = _("{B_PLAYER_NAME} utilise\n{B_LAST_ITEM}.");
-static const u8 sText_PkmnHearingFluteAwoke[] = _("Le POKéMON se réveil!");
+static const u8 sText_PkmnHearingFluteAwoke[] = _("La FLUTE réveille\nle POKéMON!");
 static const u8 sText_YouThrowABallNowRight[] = _("Tu jetes une BALL maintenant?\nJe… Je vais faire de mon mieux!");
 const u8 gText_ForPetesSake[] = _("CHEN: {B_PLAYER_NAME}.\pTu n'avais encore jamais combattu\navec des POKéMON, n'est-ce pas?\pDans un combat, les DRESSEURS\nlancent leurs POKéMON pour\pqu'ils se battent les uns\ncontre les autres.\p");
 const u8 gText_TheTrainerThat[] = _("Le DRESSEUR qui parvient à\nréduire à zéro les PV des POKéMON\ladverses gagne le combat.\p");
@@ -2904,6 +2905,16 @@ static const u8 sNpcTextColorToFont[] =
     [NPC_TEXT_COLOR_NEUTRAL] = FONT_NORMAL,
 };
 
+// RFVF+: Emerald's, a recording plays at the text speed it was recorded with. INSTANT is 1 as in GetTextSpeedSetting:
+// Emerald's 0 would print a whole message, its \p pages included, in one go (a box ending in \p would stay blank).
+static const u8 sRecordedBattleTextSpeeds[] =
+{
+    [OPTIONS_TEXT_SPEED_SLOW]    = 8,
+    [OPTIONS_TEXT_SPEED_MID]     = 4,
+    [OPTIONS_TEXT_SPEED_FAST]    = 1,
+    [OPTIONS_TEXT_SPEED_INSTANT] = 1,
+};
+
 // windowId: Upper 2 bits are text flags
 //   x40: Use NPC context-defined font
 //   x80: Inhibit window clear
@@ -2991,6 +3002,8 @@ void BattlePutTextOnWindow(const u8 *text, u8 windowId) {
     {
         if (gBattleTypeFlags & BATTLE_TYPE_LINK)
             speed = 1;
+        else if (gBattleTypeFlags & BATTLE_TYPE_RECORDED)
+            speed = sRecordedBattleTextSpeeds[GetTextSpeedInRecordedBattle()];
         else
             speed = GetTextSpeedSetting();
         gTextFlags.canABSpeedUpPrint = TRUE;

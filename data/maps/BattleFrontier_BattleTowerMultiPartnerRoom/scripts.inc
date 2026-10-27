@@ -48,12 +48,14 @@ BattleFrontier_BattleTowerMultiPartnerRoom_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattleTowerMultiPartnerRoom_EventScript_ExitRoom::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	setvar VAR_TEMP_3, 0
 	goto BattleFrontier_BattleTowerMultiPartnerRoom_EventScript_EnterElevator
 	end
 
 BattleFrontier_BattleTowerMultiPartnerRoom_EventScript_EnterRoom::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattleTowerMultiPartnerRoom_Movement_PlayerEnterRoom
 	waitmovement 0

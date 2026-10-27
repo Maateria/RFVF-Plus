@@ -4392,7 +4392,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
 
     // Create trainer pic sprite
     if (trainerId == TRAINER_PLAYER)
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, FALSE), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE);
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
         sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 48, y + 64, palSlot + 12, TAG_NONE);
     else
@@ -4452,7 +4452,7 @@ static void DisplayTrainerInfoOnCard(u8 flags, u8 trainerTourneyId)
     // Get class and trainer name
     i = 0;
     if (trainerId == TRAINER_PLAYER)
-        j = gFacilityClassToTrainerClass[FACILITY_CLASS_BRENDAN];
+        j = TRAINER_CLASS_RIVAL; // RFVF+: Emerald's class for FACILITY_CLASS_BRENDAN ("DRESSEUR"); FRLG maps it to JOUEUR
     else if (trainerId == TRAINER_FRONTIER_BRAIN)
         j = GetDomeBrainTrainerClass();
     else
@@ -4866,7 +4866,7 @@ static void DisplayMatchInfoOnCard(u8 flags, u8 matchNo)
 
     // Draw left trainer sprite.
     if (trainerIds[0] == TRAINER_PLAYER)
-        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, FALSE), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE);
+        sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE);
     else if (trainerIds[0] == TRAINER_FRONTIER_BRAIN)
         sInfoCard->spriteIds[arrId] = CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 48, y + 88, palSlot + 12, TAG_NONE);
     else
@@ -4879,7 +4879,7 @@ static void DisplayMatchInfoOnCard(u8 flags, u8 matchNo)
 
     // Draw right trainer sprite.
     if (trainerIds[1] == TRAINER_PLAYER)
-        sInfoCard->spriteIds[1 + arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, FALSE), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE);
+        sInfoCard->spriteIds[1 + arrId] = CreateTrainerPicSprite(PlayerGenderToFrontTrainerPicId(gSaveBlock2Ptr->playerGender, TRUE), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE);
     else if (trainerIds[1] == TRAINER_FRONTIER_BRAIN)
         sInfoCard->spriteIds[1 + arrId] = CreateTrainerPicSprite(GetDomeBrainTrainerPicId(), TRUE, x + 192, y + 88, palSlot + 13, TAG_NONE);
     else
@@ -4985,6 +4985,9 @@ static void DisplayMatchInfoOnCard(u8 flags, u8 matchNo)
     textPrinter.currentChar = gStringVar4;
     textPrinter.windowId = windowId + WIN_MATCH_WIN_TEXT;
     textPrinter.fontId = FONT_NORMAL;
+    // RFVF+: French move names go up to 16 letters, use the small font when the line is wider than the window
+    if (GetStringWidth(FONT_NORMAL, gStringVar4, 0) > sInfoCardWindowTemplates[WIN_MATCH_WIN_TEXT].width * 8)
+        textPrinter.fontId = FONT_SMALL;
     PutWindowTilemap(windowId + WIN_MATCH_WIN_TEXT);
     CopyWindowToVram(windowId + WIN_MATCH_WIN_TEXT, COPYWIN_FULL);
     textPrinter.currentX = 0;

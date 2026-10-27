@@ -27,6 +27,7 @@ BattleFrontier_BattlePikeLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattlePikeLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	special HealPlayerParty
 	pike_resethelditems
 	lockall
@@ -40,6 +41,7 @@ BattleFrontier_BattlePikeLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattlePikeLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	frontier_isbrain
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePikeLobby_EventScript_DefeatedQueen
@@ -73,6 +75,7 @@ BattleFrontier_BattlePikeLobby_EventScript_GiveBattlePoints::
 	end
 
 BattleFrontier_BattlePikeLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	message BattleFrontier_BattlePikeLobby_Text_ChallengeEndedRecordResults
 	waitmessage

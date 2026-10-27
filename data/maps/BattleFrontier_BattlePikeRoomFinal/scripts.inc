@@ -16,6 +16,7 @@ BattleFrontier_BattlePikeRoomFinal_EventScript_EnterRoom::
 	waitmovement 0
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, CHALLENGE_STATUS_WON
 	lockall
+	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox BattleFrontier_BattlePikeRoomFinal_Text_CongratsThisWayPlease, MSGBOX_DEFAULT
 	closemessage
 	releaseall

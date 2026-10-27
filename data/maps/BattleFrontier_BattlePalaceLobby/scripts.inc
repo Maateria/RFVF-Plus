@@ -29,6 +29,7 @@ BattleFrontier_BattlePalaceLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattlePalaceLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox BattleFrontier_BattlePalaceLobby_Text_FailedToSaveBeforeEndingChallenge, MSGBOX_DEFAULT
 	closemessage
@@ -40,6 +41,7 @@ BattleFrontier_BattlePalaceLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattlePalaceLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	frontier_isbrain
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePalaceLobby_EventScript_DefeatedMaven
@@ -62,6 +64,7 @@ BattleFrontier_BattlePalaceLobby_EventScript_GiveBattlePoints::
 	end
 
 BattleFrontier_BattlePalaceLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message BattleFrontier_BattlePalaceLobby_Text_ResultsWillBeRecorded
 	waitmessage
@@ -96,6 +99,7 @@ BattleFrontier_BattlePalaceLobby_EventScript_EndSaveAfterChallenge::
 	return
 
 BattleFrontier_BattlePalaceLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox BattleFrontier_BattlePalaceLobby_Text_WeHaveBeenWaiting, MSGBOX_DEFAULT
 	message BattleFrontier_BattlePalaceLobby_Text_MustSaveBeforeChallenge

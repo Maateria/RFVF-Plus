@@ -34,6 +34,7 @@ BattleFrontier_BattlePikeThreePathRoom_EventScript_WarpToLobby::
 	end
 
 BattleFrontier_BattlePikeThreePathRoom_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	message BattleFrontier_BattlePikeThreePathRoom_Text_AwaitingReturnSaveBeforeResume
 	waitmessage
@@ -161,6 +162,7 @@ BattleFrontier_BattlePikeThreePathRoom_EventScript_SetPikeQueenHint::
 	end
 
 BattleFrontier_BattlePikeThreePathRoom_EventScript_GivePikeQueenHint::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	applymovement LOCALID_PIKE_HINT_GIVER, BattleFrontier_BattlePikeThreePathRoom_Movement_HintGiverApproachPlayer
 	waitmovement 0
 	lockall

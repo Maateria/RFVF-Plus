@@ -8,7 +8,7 @@ Usage (Git Bash, from the repo root):
         DIR/LilycoveCity_fr_texts.json (+ English). Default DIR: build/hoenn_texts.
         --write: also appends to data/maps/<Map>/text.inc, for each map of this repo starting with the prefix, every
         extracted text its scripts.inc names and neither file defines yet (so: write scripts.inc with Emerald's text
-        labels first). A text already in text.inc whose words are still the official ones is re-wrapped in place
+        labels first). A text already in text.inc whose words are still the official ones and that overflows is re-wrapped in place
         (so a re-wrap fix reaches it); one adapted by hand is never touched (listed, check it with --check). A new
         text.inc gets its .include in data/event_scripts.s, right after the map's scripts.inc.
     uv run --no-project python tools/hoenn_import/hoenn_texts.py --check data/maps/LilycoveCity*/text.inc
@@ -101,6 +101,8 @@ def printed_lines(s):
 
 def too_wide(s):
     """(line, px, limit) of each printed line of s over its limit: the box, minus the down arrow if it waits for A."""
+    if "OEUFS{STR_VAR_1}" in s:  # the Frontier's "no eligible Pokemon" line: STR_VAR_1 brings its own \n/\l breaks
+        return []
     parts = re.split(r"(\\[nlp])", s.replace("$", ""))
     lims = (BOX_PX - ARROW_PX * (brk in ("\\l", "\\p")) for brk in parts[1::2] + [""])
     return [(x, line_px(x), lim) for x, lim in zip(parts[0::2], lims) if line_px(x) > lim]
@@ -557,6 +559,8 @@ def write_texts(rows, prefix):
         body, redone = old, []
         for label, cur in (read_inc_texts(text_inc) if old else {}).items():
             if label not in by_label or cur == by_label[label]:
+                continue
+            if not too_wide(cur):  # already fits: keep its breaks (STR_VAR lines re-broken by hand for real worst cases)
                 continue
             if words(repo_form(cur)) != official[label]:
                 print("%s: %s adapted by hand, kept" % (text_inc.relative_to(REPO).as_posix(), label))

@@ -1515,7 +1515,7 @@ void ListMenu(void)
         task->data[2] = 14;
         task->data[3] = 1;
         task->data[4] = 15;
-        task->data[5] = 12;
+        task->data[5] = 11;
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
@@ -1525,7 +1525,7 @@ void ListMenu(void)
         task->data[2] = 14;
         task->data[3] = 1;
         task->data[4] = 15;
-        task->data[5] = 12;
+        task->data[5] = 11;
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
@@ -1535,7 +1535,7 @@ void ListMenu(void)
         task->data[2] = 14;
         task->data[3] = 1;
         task->data[4] = 15;
-        task->data[5] = 12;
+        task->data[5] = 11;
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
@@ -1545,7 +1545,7 @@ void ListMenu(void)
         task->data[2] = 14;
         task->data[3] = 1;
         task->data[4] = 15;
-        task->data[5] = 12;
+        task->data[5] = 11;
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
@@ -1555,7 +1555,7 @@ void ListMenu(void)
         task->data[2] = 15;
         task->data[3] = 1;
         task->data[4] = 14;
-        task->data[5] = 12;
+        task->data[5] = 11;
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
@@ -1565,7 +1565,7 @@ void ListMenu(void)
         task->data[2] = 15;
         task->data[3] = 1;
         task->data[4] = 14;
-        task->data[5] = 12;
+        task->data[5] = 11;
         task->data[6] = 0;
         task->data[15] = taskId;
         break;
@@ -1871,7 +1871,8 @@ static void Task_CreateScriptListMenu(u8 taskId)
     task->data[4] = (mwidth + 9) / 8 + 1;
     if (task->data[2] + task->data[4] > 29)
         task->data[2] = 29 - task->data[4];
-    template = SetWindowTemplateFields(0, task->data[2], task->data[3], task->data[4], task->data[5], 15, 0x038);
+    // RFVF+: Emerald's scrollable multichoice tiles (0x64), after the Frontier tutor description window (tiles 28-99)
+    template = SetWindowTemplateFields(0, task->data[2], task->data[3], task->data[4], task->data[5], 15, 0x064);
     task->data[13] = windowId = AddWindow(&template);
     SetStdWindowBorderStyle(task->data[13], 0);
     sFieldSpecialsListMenuTemplate.totalItems = task->data[1];

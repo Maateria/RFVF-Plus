@@ -9,7 +9,7 @@ BattleDome_Text_Potential3::
     .string "Finira sûrement dans le trio gagnant.$"
 
 BattleDome_Text_Potential4::
-    .string "Candidat potentiel à la première place.$"
+    .string "Candidat potentiel à la 1{SUPER_RE} place.$"
 
 BattleDome_Text_Potential5::
     .string "Equipe à très fort potentiel.$"
@@ -42,7 +42,7 @@ BattleDome_Text_Potential14::
     .string "Equipe à potentiel très faible.$"
 
 BattleDome_Text_Potential15::
-    .string "Equipe qui n'ira sûrement pas en finale.$"
+    .string "N'ira sûrement pas en finale.$"
 
 BattleDome_Text_Potential16::
     .string "Equipe au potentiel le plus faible.$"
@@ -57,19 +57,19 @@ BattleDome_Text_StyleEndureLongBattles::
     .string "Fait preuve d'endurance au combat.$"
 
 BattleDome_Text_StyleVariesTactics::
-    .string "Change de tactique selon l'adversaire.$"
+    .string "Change de tactique selon l'ennemi.$"
 
 BattleDome_Text_StyleToughWinningPattern::
     .string "Profil de gagnant très prononcé.$"
 
 BattleDome_Text_StyleUsesVeryRareMove::
-    .string "Utilise parfois de très rares attaques.$"
+    .string "Utilise parfois de rares attaques.$"
 
 BattleDome_Text_StyleUsesStartlingMoves::
     .string "Aime faire sursauter et déranger.$"
 
 BattleDome_Text_StyleConstantlyWatchesHP::
-    .string "Observe tout le temps les PV au combat.$"
+    .string "Observe toujours les PV au combat.$"
 
 BattleDome_Text_StyleStoresAndLoosesPower::
     .string "Stocke puis relâche de la puissance.$"
@@ -273,7 +273,7 @@ BattleDome_Text_NeglectsSpDef::
     .string "Néglige la DEF. SPE.$"
 
 BattleDome_Text_RaisesMonsWellBalanced::
-    .string "Elève ses POKéMON de façon équilibrée.$"
+    .string "Elève ses POKéMON avec équilibre.$"
 
 BattleDome_Text_LetTheBattleBegin::
     .string "Que le combat commence!$"

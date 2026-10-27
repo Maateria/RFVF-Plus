@@ -311,7 +311,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Single_7 = {
 					.spDefenseIV = 10,
 					.abilityNum = 0,
 					.personality = 0x82, // MALE BOLD
-					.nickname = _("MR. MIME"),
+					.nickname = _("M. MIME"),
 					.friendship = 255
 				},
 			}
@@ -1215,7 +1215,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Double_2 = {
 					.spDefenseIV = 20,
 					.abilityNum = 0,
 					.personality = 0x05, // FEMALE BOLD
-					.nickname = _("MR. MIME"),
+					.nickname = _("M. MIME"),
 					.friendship = 255
 				},
 			}
@@ -7058,7 +7058,7 @@ static const struct TrainerTowerFloor sTrainerTowerFloor_Mixed_2 = {
 					.spDefenseIV = 15,
 					.abilityNum = 0,
 					.personality = 0x07, // FEMALE RELAXED
-					.nickname = _("MR. MIME"),
+					.nickname = _("M. MIME"),
 					.friendship = 255
 				},
 				{

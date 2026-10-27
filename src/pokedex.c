@@ -10,10 +10,10 @@ const u8 *GetPokedexCategoryName(u16 dexNum)
     return gPokedexEntries[dexNum].categoryName;
 }
 
-// RFVF+: Emerald's (the Battle Factory's screens), worded as this Pokedex's "<category> POKeMON"
+// RFVF+: Emerald's (the Battle Factory's screens); French Emerald prints the category alone ("GRAINE")
 void CopyMonCategoryText(u16 dexNum, u8 *dst)
 {
-    StringCopy(StringCopy(dst, gPokedexEntries[dexNum].categoryName), gText_PokedexPokemon);
+    StringCopy(dst, gPokedexEntries[dexNum].categoryName);
 }
 
 u16 GetPokedexHeightWeight(u16 dexNum, u8 data)

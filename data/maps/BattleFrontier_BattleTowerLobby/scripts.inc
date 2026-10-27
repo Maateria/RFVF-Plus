@@ -43,6 +43,7 @@ BattleFrontier_BattleTowerLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lock
 	faceplayer
 	msgbox BattleFrontier_BattleTowerLobby_Text_DidntSaveBeforeQuitting, MSGBOX_DEFAULT
@@ -55,6 +56,7 @@ BattleFrontier_BattleTowerLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lock
 	faceplayer
 	frontier_isbrain
@@ -68,11 +70,14 @@ BattleFrontier_BattleTowerLobby_EventScript_DefeatedMaiden::
 BattleFrontier_BattleTowerLobby_EventScript_GiveRibbons::
 	tower_giveribbons
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_BattleTowerLobby_EventScript_GiveBattlePoints
-	message BattleFrontier_BattleTowerLobby_Text_HereAreSomeRibbons
+	msgbox BattleFrontier_BattleTowerLobby_Text_HereAreSomeRibbons, MSGBOX_DEFAULT
+	textcolor NPC_TEXT_COLOR_NEUTRAL
+	message BattleFrontier_BattleTowerLobby_Text_ReceivedRibbons
 	waitmessage
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
 	msgbox BattleFrontier_BattleTowerLobby_Text_PutRibbonOnMons, MSGBOX_DEFAULT
+	call EventScript_RestorePrevTextColor
 BattleFrontier_BattleTowerLobby_EventScript_GiveBattlePoints::
 	msgbox BattleFrontier_BattleTowerLobby_Text_AwardYouTheseBattlePoints, MSGBOX_DEFAULT
 	frontier_givepoints
@@ -89,6 +94,7 @@ BattleFrontier_BattleTowerLobby_EventScript_LookForwardToChallenge::
 	end
 
 BattleFrontier_BattleTowerLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	goto_if_ne VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_MULTIS, BattleFrontier_BattleTowerLobby_EventScript_CancelWinStreak
 	goto_if_set FLAG_CHOSEN_MULTI_BATTLE_NPC_PARTNER, BattleFrontier_BattleTowerLobby_EventScript_CancelWinStreak
 	tower_get TOWER_DATA_WIN_STREAK
@@ -128,13 +134,16 @@ BattleFrontier_BattleTowerLobby_EventScript_AskSaveBattle::
 
 BattleFrontier_EventScript_SaveBattle::
 	frontier_savebattle
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_EventScript_BattleSaveFailed
 	playse SE_SAVE
 	msgbox BattleFrontier_BattleTowerLobby_Text_BattleRecordedOnPass, MSGBOX_DEFAULT
+	call EventScript_RestorePrevTextColor
 	goto BattleFrontier_BattleTowerLobby_EventScript_EndSaveBattle
 
 BattleFrontier_EventScript_BattleSaveFailed::
 	msgbox BattleFrontier_BattleTowerBattleRoom_Text_RecordCouldntBeSaved, MSGBOX_DEFAULT
+	call EventScript_RestorePrevTextColor
 BattleFrontier_BattleTowerLobby_EventScript_EndSaveBattle::
 	return
 
@@ -143,6 +152,7 @@ BattleFrontier_EventScript_GetCantRecordBattle::
 	return
 
 BattleFrontier_BattleTowerLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lock
 	faceplayer
 	call_if_eq VAR_FRONTIER_BATTLE_MODE, FRONTIER_MODE_SINGLES, BattleFrontier_BattleTowerLobby_EventScript_SetBravoTrainerOn

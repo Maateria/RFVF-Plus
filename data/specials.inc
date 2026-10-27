@@ -580,4 +580,5 @@ gSpecials::
 	def_special CloseBattleFrontierTutorWindow
 	def_special GetBattleFrontierTutorMoveIndex
 	def_special GetFrontierBattlePoints
+	def_special IsHoennMapLayout
 gSpecialsEnd::

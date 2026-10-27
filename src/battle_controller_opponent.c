@@ -232,10 +232,17 @@ static void Intro_WaitForShinyAnimAndHealthbox(void)
     {
         if (!gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim)
             return;
+        // Emerald's: only the right one frees the stars, once the left one is done with them
+        if (GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
+        {
+            if (gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].triedShinyMonAnim
+             || gBattleSpritesDataPtr->healthBoxesData[gActiveBattler ^ BIT_FLANK].finishedShinyMonAnim)
+                return;
+            FreeSpriteTilesByTag(ANIM_TAG_GOLD_STARS);
+            FreeSpritePaletteByTag(ANIM_TAG_GOLD_STARS);
+        }
         gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].triedShinyMonAnim = FALSE;
         gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].finishedShinyMonAnim = FALSE;
-        FreeSpriteTilesByTag(ANIM_TAG_GOLD_STARS);
-        FreeSpritePaletteByTag(ANIM_TAG_GOLD_STARS);
         m4aMPlayVolumeControl(&gMPlayInfo_BGM, TRACKS_ALL, 256);
         gBattleSpritesDataPtr->healthBoxesData[gActiveBattler].introEndDelay = 3;
         gBattlerControllerFuncs[gActiveBattler] = Intro_DelayAndEnd;
@@ -1180,7 +1187,8 @@ static void OpponentHandleDrawTrainerPic(void)
                                                      GetBattlerSpriteSubpriority(gActiveBattler));
     gSprites[gBattlerSpriteIds[gActiveBattler]].x2 = -DISPLAY_WIDTH;
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 2;
-    if(gSaveBlock2Ptr->optionsBattleIntroAnim)
+    // The salon partner intro (BattleIntroSlidePartner) has no fast mode: its opponents slide with everyone else
+    if(gSaveBlock2Ptr->optionsBattleIntroAnim && !(gBattleTypeFlags & BATTLE_TYPE_INGAME_PARTNER))
         gSprites[gBattlerSpriteIds[gActiveBattler]].data[0] = 240;
     gSprites[gBattlerSpriteIds[gActiveBattler]].oam.paletteNum = IndexOfSpritePaletteTag(gTrainerFrontPicPaletteTable[trainerPicId].tag);
     gSprites[gBattlerSpriteIds[gActiveBattler]].data[5] = gSprites[gBattlerSpriteIds[gActiveBattler]].oam.tileNum;

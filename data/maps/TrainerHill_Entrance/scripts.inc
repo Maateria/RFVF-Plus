@@ -152,12 +152,14 @@ TrainerHill_Entrance_EventScript_ExitChallenge::
 	case TRAINER_HILL_PLAYER_STATUS_NORMAL, TrainerHill_Entrance_EventScript_EndExitChallenge
 
 TrainerHill_Entrance_EventScript_ExitChallengeLost::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, TrainerHill_Entrance_Movement_PlayerFaceAttendant
 	msgbox TrainerHill_Entrance_Text_TooBadTremendousEffort, MSGBOX_DEFAULT
 	goto TrainerHill_Entrance_EventScript_PlayerExitChallenge
 
 TrainerHill_Entrance_EventScript_ExitChallengeECard::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, TrainerHill_Entrance_Movement_PlayerFaceAttendant
 	msgbox TrainerHill_Entrance_Text_MovedReceptionHereForSwitch, MSGBOX_DEFAULT
@@ -186,6 +188,7 @@ TrainerHill_Entrance_EventScript_AttendantEnd::
 	end
 
 TrainerHill_Entrance_EventScript_EntryTrigger::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	applymovement OBJ_EVENT_ID_PLAYER, TrainerHill_Entrance_Movement_PlayerFaceAttendant
 	goto_if_unset FLAG_HOENN_GAME_CLEAR, TrainerHill_Entrance_EventScript_Closed

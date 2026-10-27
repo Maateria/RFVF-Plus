@@ -321,6 +321,7 @@
 #define BATTLE_TERRAIN_AGATHA      17
 #define BATTLE_TERRAIN_LANCE       18
 #define BATTLE_TERRAIN_CHAMPION    19
+#define BATTLE_TERRAIN_FRONTIER    20 // RFVF+: Emerald's Battle Frontier background, graphics only (never in gBattleTerrain)
 
 #define B_WAIT_TIME_LONG  64
 #define B_WAIT_TIME_MED   48

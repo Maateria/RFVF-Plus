@@ -15,6 +15,7 @@ BattleFrontier_BattlePalaceCorridor_EventScript_WalkThroughCorridor::
 	applymovement OBJ_EVENT_ID_PLAYER, BattleFrontier_BattlePalaceCorridor_Movement_EnterCorridor
 	waitmovement 0
 	lockall
+	textcolor NPC_TEXT_COLOR_MALE
 	palace_getcomment
 	call_if_eq VAR_RESULT, 0, BattleFrontier_BattlePalaceCorridor_EventScript_RandomComment1
 	call_if_eq VAR_RESULT, 1, BattleFrontier_BattlePalaceCorridor_EventScript_RandomComment2

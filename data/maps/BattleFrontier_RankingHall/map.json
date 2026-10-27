@@ -16,7 +16,7 @@
   "connections": 0,
   "object_events": [
     {
-      "graphics_id": "OBJ_EVENT_GFX_CABLE_CLUB_RECEPTIONIST",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_TEALA",
       "in_connection": false,
       "x": 21,
       "y": 13,
@@ -30,7 +30,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_LITTLE_BOY",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_NINJA_BOY",
       "in_connection": false,
       "x": 1,
       "y": 10,
@@ -44,7 +44,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SUPER_NERD",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_BOY_3",
       "in_connection": false,
       "x": 41,
       "y": 11,

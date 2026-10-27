@@ -102,8 +102,7 @@ BattleFrontier_BattlePalaceLobby_Text_NotEnoughValidMonsLv50::
     .string "50 ou moins.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -115,8 +114,7 @@ BattleFrontier_BattlePalaceLobby_Text_NotEnoughValidMonsLvOpen::
     .string "pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 

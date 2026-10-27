@@ -2337,6 +2337,17 @@ static void InitOverworldGraphicsRegisters(void)
     ChangeBgY(3, 0, 0);
 }
 
+// RFVF+: Emerald's Battle Frontier, its FRLG-Plus maps on Kanto tilesets included (not FRLG-Plus's RS Battle Tower,
+// same mapsec): Emerald's NPCs there. Only their object palettes: the field code with hard-coded metatile ids (doors,
+// PCs, elevators, Cut) keeps IsHoennMapLayout().
+static bool32 IsEmeraldFrontierMap(void)
+{
+    if (gMapHeader.regionMapSectionId != MAPSEC_BATTLE_FRONTIER)
+        return FALSE;
+    return !(gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(RS_BATTLE_TOWER)
+             && gSaveBlock1Ptr->location.mapNum <= MAP_NUM(RS_BATTLE_TOWER_BATTLE_ROOM));
+}
+
 static void ResumeMap(bool32 inLink)
 {
     ResetTasks();
@@ -2348,7 +2359,7 @@ static void ResumeMap(bool32 inLink)
     InstallCameraPanAheadCallback();
     if (inLink)
         InitObjectEventPalettes(1);
-    else if (IsHoennMapLayout())
+    else if (IsHoennMapLayout() || IsEmeraldFrontierMap())
         InitObjectEventPalettes(OBJ_PAL_MODE_HOENN);
     else if (IsJohtoMapLayout())
         InitObjectEventPalettes(OBJ_PAL_MODE_JOHTO);

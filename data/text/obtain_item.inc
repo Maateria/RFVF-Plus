@@ -8,6 +8,11 @@ Text_PutItemAway::
 	.string "{PLAYER} place {STR_VAR_2}\n"
 	.string "dans {STR_VAR_3}.$"
 
+@ RFVF+: French Emerald's (Battle Pyramid floor item balls)
+gText_PlayerPutItemInBag::
+	.string "{PLAYER} met {STR_VAR_2} dans\n"
+	.string "le SAC.$"
+
 Text_FoundOneItem::
 	.string "{PLAYER} trouve {STR_VAR_2}!$"
 

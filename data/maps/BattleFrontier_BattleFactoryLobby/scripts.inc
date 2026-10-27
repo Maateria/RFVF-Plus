@@ -29,6 +29,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox BattleFrontier_BattleFactoryLobby_Text_DidntSaveBeforeQuitting, MSGBOX_DEFAULT
 	closemessage
@@ -42,6 +43,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	frontier_isbrain
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattleFactoryLobby_EventScript_DefeatedFactoryHead
@@ -67,6 +69,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_GiveBattlePoints::
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message BattleFrontier_BattleFactoryLobby_Text_ReturnMonsSaveResults
 	waitmessage
@@ -98,6 +101,7 @@ BattleFrontier_BattleFactoryLobby_EventScript_EndRecordBattle::
 	end
 
 BattleFrontier_BattleFactoryLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message BattleFrontier_BattleFactoryLobby_Text_WaitingForYouToResume
 	waitmessage

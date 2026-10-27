@@ -20,6 +20,7 @@ BattleFrontier_BattleDomePreBattleRoom_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattleDomePreBattleRoom_EventScript_EnterRoom::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	goto_if_eq VAR_0x8006, 1, BattleFrontier_BattleDomePreBattleRoom_EventScript_ReturnFromBattle
 	frontier_set FRONTIER_DATA_RECORD_DISABLED, TRUE
 	setvar VAR_TEMP_0, 1

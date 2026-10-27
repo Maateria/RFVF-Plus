@@ -9,7 +9,7 @@ BattleFrontier_OutsideWest_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_OutsideWest_OnTransition
 	.byte 0
 
-@ RFVF+: Emerald's scripts (batch 6, manual_b6.py --session7); the quay is RF's (Seagallop)
+@ RFVF+: Emerald's scripts (batch 6, manual_b6.py --session7); the quay sails RF's Seagallop
 BattleFrontier_OutsideWest_OnTransition:
 	setvar VAR_BRAVO_TRAINER_BATTLE_TOWER_ON, 0
 	end
@@ -237,11 +237,13 @@ BattleFrontier_OutsideWest_EventScript_PokefanF::
 	msgbox BattleFrontier_OutsideWest_Text_MonWithLongTailInFrontier, MSGBOX_NPC
 	end
 
-@ RFVF+: the quay's Seagallop sails to Vermilion and to Hoenn's harbors (user's choice)
-BattleFrontier_OutsideWest_EventScript_Sailor::
+@ RFVF+: the quay's Seagallop sails to Vermilion and to Hoenn's harbors (user's choice); Emerald's ferry attendant
+@ and her texts, as at Slateport's and Lilycove's harbors
+BattleFrontier_OutsideWest_EventScript_FerryAttendant::
 	lock
 	faceplayer
-	message Text_WhereDoYouWantToSail
+	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
+	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
 	waitmessage
 	setvar VAR_0x8004, SEAGALLOP_BATTLE_FRONTIER
 	multichoice 18, 4, MULTI_SEAGALLOP_FROM_FRONTIER, FALSE

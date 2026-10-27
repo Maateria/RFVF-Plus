@@ -150,7 +150,14 @@ EventScript_PickUpItem::
 	call_if_eq VAR_0x8008, FALSE, EventScript_FoundItem
 	waitfanfare
 	waitmessage
+	@ RFVF+: Emerald's Pyramid branch (the item goes into the pocketless Pyramid bag)
+	pyramid_getlocation
+	goto_if_eq VAR_RESULT, PYRAMID_LOCATION_FLOOR, EventScript_PutBattlePyramidItemInBag
 	msgbox Text_PutItemAway
+	return
+
+EventScript_PutBattlePyramidItemInBag::
+	msgbox gText_PlayerPutItemInBag
 	return
 
 EventScript_FoundTMHM::

@@ -26,6 +26,7 @@ SlateportCity_BattleTentCorridor_OnFrame:
 	.2byte 0
 
 SlateportCity_BattleTentCorridor_EventScript_EnterCorridor::
+	textcolor NPC_TEXT_COLOR_MALE
 	goto_if_eq VAR_0x8006, 1, SlateportCity_BattleTentCorridor_EventScript_ReturnToRoomFromBattle
 	setvar VAR_TEMP_0, 1
 	applymovement LOCALID_SLATEPORT_TENT_CORRIDOR_ATTENDANT, SlateportCity_BattleTentCorridor_Movement_AttendantEnter

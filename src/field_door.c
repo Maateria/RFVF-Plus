@@ -17,6 +17,7 @@ enum {
 enum {
     DOOR_SIZE_1x1,
     DOOR_SIZE_1x2,
+    DOOR_SIZE_2x2, // RFVF+: Emerald's size 2 (Battle Tower multi corridor)
 };
 
 struct DoorAnimFrame
@@ -36,7 +37,7 @@ struct DoorGraphics
 };
 
 static void DrawClosedDoorTiles(const struct DoorGraphics *gfx, int x, int y);
-static void CopyDoorTilesToVram(const u8 *tiles);
+static void CopyDoorTilesToVram(const struct DoorGraphics *gfx, const struct DoorAnimFrame *frame);
 static void DrawCurrentDoorAnimFrame(const struct DoorGraphics *gfx, int x, int y, const u8 *paletteNums);
 static void BuildDoorTiles(u16 *tiles, u16 tileNum, const u8 *paletteNums);
 static bool32 AnimateDoorFrame(const struct DoorGraphics *gfx, const struct DoorAnimFrame *frames, s16 *data);
@@ -223,12 +224,12 @@ static const u8 sDoorAnimTiles_HoennSootopolis[] = INCBIN_U8("graphics/door_anim
 static const u8 sDoorAnimTiles_HoennVerdanturf[] = INCBIN_U8("graphics/door_anims/hoenn_verdanturf.4bpp");
 static const u8 sDoorAnimTiles_HoennTrainerHillRoofElevator[] = INCBIN_U8("graphics/door_anims/hoenn_trainer_hill_roof_elevator.4bpp");
 static const u8 sDoorAnimTiles_HoennBattlePalaceLobby[] = INCBIN_U8("graphics/door_anims/hoenn_battle_palace_lobby.4bpp");
-static const u8 sDoorAnimTiles_FrontierArena[] = INCBIN_U8("graphics/door_anims/frontier_arena.4bpp");
+static const u8 sDoorAnimTiles_HoennBattleArena[] = INCBIN_U8("graphics/door_anims/hoenn_battle_arena.4bpp");
 static const u8 sDoorAnimTiles_FrontierDome[] = INCBIN_U8("graphics/door_anims/frontier_dome.4bpp");
-static const u8 sDoorAnimTiles_FrontierFactory[] = INCBIN_U8("graphics/door_anims/frontier_factory.4bpp");
-static const u8 sDoorAnimPalettes_FrontierArena[] = {7, 7, 7, 7, 7, 7, 7, 7};
+static const u8 sDoorAnimTiles_HoennBattleFactory[] = INCBIN_U8("graphics/door_anims/hoenn_battle_factory.4bpp");
+static const u8 sDoorAnimPalettes_HoennBattleArena[] = {7, 7, 7, 7, 7, 7, 7, 7}; // Emerald {5, ...}: FRLG-Plus's slot 7 has its colours
 static const u8 sDoorAnimPalettes_FrontierDome[] = {3, 3, 3, 3, 3, 3, 3, 3};
-static const u8 sDoorAnimPalettes_FrontierFactory[] = {9, 9, 9, 9, 9, 9, 9, 9};
+static const u8 sDoorAnimPalettes_HoennBattleFactory[] = {9, 9, 9, 9, 9, 9, 9, 9};
 extern const struct Tileset gTileset_BattleFrontierOutsideEast;
 extern const struct Tileset gTileset_BattleFrontierOutsideWest;
 extern const struct Tileset gTileset_BattleFrontier;
@@ -255,6 +256,23 @@ static const struct DoorAnimFrame sDoorAnimFrames_OpenLarge[] = {
     {4, 0 * TILE_SIZE_4BPP},
     {4, 8 * TILE_SIZE_4BPP},
     {4, 16 * TILE_SIZE_4BPP},
+    {}
+};
+
+// RFVF+: Emerald's big door frames (DOOR_SIZE_2x2: 16 tiles per frame)
+static const struct DoorAnimFrame sDoorAnimFrames_OpenBig[] = {
+    {4, CLOSED_DOOR_TILES_OFFSET},
+    {4, 0 * TILE_SIZE_4BPP},
+    {4, 16 * TILE_SIZE_4BPP},
+    {4, 32 * TILE_SIZE_4BPP},
+    {}
+};
+
+static const struct DoorAnimFrame sDoorAnimFrames_CloseBig[] = {
+    {4, 32 * TILE_SIZE_4BPP},
+    {4, 16 * TILE_SIZE_4BPP},
+    {4, 0 * TILE_SIZE_4BPP},
+    {4, CLOSED_DOOR_TILES_OFFSET},
     {}
 };
 
@@ -389,10 +407,11 @@ static const struct DoorGraphics sDoorGraphics[] = {
     {METATILE_BerryForest_Door,                            DOOR_SOUND_NORMAL,  DOOR_SIZE_1x1, sDoorAnimTiles_Sevii45, sDoorAnimPalettes_Sevii45},
     {METATILE_BattleFrontierOutsideEast_BattleTower,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTower, sDoorAnimPalettes_SlidingSingle, &gTileset_BattleFrontierOutsideEast},
     {METATILE_BattleFrontier_BattleTowerElevator,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_BattleTowerElevator, sDoorAnimPalettes_SSAnne, &gTileset_BattleFrontier},
-    // RFVF+: FRLG-Plus's Battle Frontier doors had no animation (frames drawn from their own tiles, work/hoenn_scripts/frontier_doors.py)
-    {METATILE_BattleFrontierOutsideEast_Door_BattleArena,  DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_FrontierArena, sDoorAnimPalettes_FrontierArena, &gTileset_BattleFrontierOutsideEast},
+    // RFVF+: FRLG-Plus's Battle Frontier doors had no animation. The Arena and Factory doors are Emerald's, so they take Emerald's frames;
+    // the Dome door is FRLG-Plus's own (frames drawn from its tiles, work/hoenn_scripts/frontier_doors.py)
+    {METATILE_BattleFrontierOutsideEast_Door_BattleArena,  DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleArena, sDoorAnimPalettes_HoennBattleArena, &gTileset_BattleFrontierOutsideEast},
     {METATILE_BattleFrontierOutsideWest_Door_BattleDome,   DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_FrontierDome, sDoorAnimPalettes_FrontierDome, &gTileset_BattleFrontierOutsideWest},
-    {METATILE_BattleFrontierOutsideWest_Door_BattleFactory, DOOR_SOUND_SLIDING, DOOR_SIZE_1x1, sDoorAnimTiles_FrontierFactory, sDoorAnimPalettes_FrontierFactory, &gTileset_BattleFrontierOutsideWest},
+    {METATILE_BattleFrontierOutsideWest_Door_BattleFactory, DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleFactory, sDoorAnimPalettes_HoennBattleFactory, &gTileset_BattleFrontierOutsideWest},
     {}
 };
 
@@ -456,7 +475,7 @@ static const struct DoorGraphics sDoorGraphics_Hoenn[] = {
     {METATILE_HoennMauville_Door_Verdanturf,                DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennVerdanturf, sDoorAnimPalettes_HoennVerdanturf, &gTileset_HoennMauville},
     {METATILE_HoennTrainerHill_Door_Elevator_Roof,          DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennTrainerHillRoofElevator, sDoorAnimPalettes_HoennTrainerHillRoofElevator, &gTileset_HoennTrainerHill},
     {METATILE_HoennBattlePalace_Door,                       DOOR_SOUND_NORMAL,  DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattlePalaceLobby, sDoorAnimPalettes_HoennBattlePalaceLobby, &gTileset_HoennBattlePalace},
-    {METATILE_HoennBattleFrontier_Door_MultiCorridor,       DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTowerMultiCorridor, sDoorAnimPalettes_HoennBattleTowerMultiCorridor, &gTileset_HoennBattleFrontier},
+    {METATILE_HoennBattleFrontier_Door_MultiCorridor,       DOOR_SOUND_SLIDING, DOOR_SIZE_2x2, sDoorAnimTiles_HoennBattleTowerMultiCorridor, sDoorAnimPalettes_HoennBattleTowerMultiCorridor, &gTileset_HoennBattleFrontier},
     {METATILE_HoennBattleFrontier_Door_Elevator,      DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleTowerElevator, sDoorAnimPalettes_HoennBattleTowerElevator, &gTileset_HoennBattleFrontier},
     {METATILE_HoennBattleArena_Door,                  DOOR_SOUND_ARENA, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleArenaLobby, sDoorAnimPalettes_HoennBattleArenaLobby, &gTileset_HoennBattleArena},
     {METATILE_HoennBattleDome_Door_Lobby,             DOOR_SOUND_SLIDING, DOOR_SIZE_1x2, sDoorAnimTiles_HoennBattleDomeLobby, sDoorAnimPalettes_HoennBattleDomeLobby, &gTileset_HoennBattleDome},
@@ -498,7 +517,7 @@ static void DrawDoor(const struct DoorGraphics *gfx, const struct DoorAnimFrame 
     }
     else
     {
-        CopyDoorTilesToVram(&gfx->tiles[frames->tileOffset]);
+        CopyDoorTilesToVram(gfx, frames);
         DrawCurrentDoorAnimFrame(gfx, x, y, gfx->paletteNums);
         if (ShouldUseMultiCorridorDoor())
             DrawCurrentDoorAnimFrame(gfx, gSpecialVar_0x8004 + MAP_OFFSET, gSpecialVar_0x8005 + MAP_OFFSET, gfx->paletteNums);
@@ -513,6 +532,11 @@ static void DrawClosedDoorTiles(const struct DoorGraphics *gfx, int x, int y)
     {
         CurrentMapDrawMetatileAt(x, y);
         CurrentMapDrawMetatileAt(x, y - 1);
+        if (gfx->size == DOOR_SIZE_2x2)
+        {
+            CurrentMapDrawMetatileAt(x + 1, y - 1);
+            CurrentMapDrawMetatileAt(x + 1, y);
+        }
     }
 }
 
@@ -523,10 +547,14 @@ static void DrawClosedDoorTiles(const struct DoorGraphics *gfx, int x, int y)
 //       Johto's tilesets (from HnS) use 1016-1023 and keep tiles 434-441 of their outdoor primaries free for doors.
 #define DOOR_TILE_START_JOHTO 434
 #define DOOR_TILE_START (IsJohtoMapLayout() ? DOOR_TILE_START_JOHTO : NUM_TILES_TOTAL - 8)
+#define DOOR_TILE_START_2x2 (NUM_TILES_TOTAL - 16) // Emerald's DOOR_TILE_START_SIZE2 (no 2x2 door in Johto)
 
-static void CopyDoorTilesToVram(const u8 *tiles)
+static void CopyDoorTilesToVram(const struct DoorGraphics *gfx, const struct DoorAnimFrame *frame)
 {
-    CpuFastCopy(tiles, (void *)(VRAM + TILE_OFFSET_4BPP(DOOR_TILE_START)), 8 * TILE_SIZE_4BPP);
+    if (gfx->size == DOOR_SIZE_2x2)
+        CpuFastCopy(&gfx->tiles[frame->tileOffset], (void *)(VRAM + TILE_OFFSET_4BPP(DOOR_TILE_START_2x2)), 16 * TILE_SIZE_4BPP);
+    else
+        CpuFastCopy(&gfx->tiles[frame->tileOffset], (void *)(VRAM + TILE_OFFSET_4BPP(DOOR_TILE_START)), 8 * TILE_SIZE_4BPP);
 }
 
 static void DrawCurrentDoorAnimFrame(const struct DoorGraphics *gfx, int x, int y, const u8 *paletteNums)
@@ -534,7 +562,19 @@ static void DrawCurrentDoorAnimFrame(const struct DoorGraphics *gfx, int x, int 
     u16 tiles[8];
     if (gfx->size == DOOR_SIZE_1x1)
         BuildDoorTiles(tiles, DOOR_TILE_START, paletteNums);
-
+    else if (gfx->size == DOOR_SIZE_2x2)
+    {
+        // Emerald's order: left column (top, bottom), then right column
+        BuildDoorTiles(tiles, DOOR_TILE_START_2x2 + 0, &paletteNums[0]);
+        DrawDoorMetatileAt(x, y - 1, tiles);
+        BuildDoorTiles(tiles, DOOR_TILE_START_2x2 + 4, &paletteNums[4]);
+        DrawDoorMetatileAt(x, y, tiles);
+        BuildDoorTiles(tiles, DOOR_TILE_START_2x2 + 8, &paletteNums[0]);
+        DrawDoorMetatileAt(x + 1, y - 1, tiles);
+        BuildDoorTiles(tiles, DOOR_TILE_START_2x2 + 12, &paletteNums[4]);
+        DrawDoorMetatileAt(x + 1, y, tiles);
+        return;
+    }
     else
     {
         BuildDoorTiles(tiles, DOOR_TILE_START, paletteNums);
@@ -658,7 +698,8 @@ static void DrawOpenedDoor(const struct DoorGraphics *gfx, int x, int y)
     gfx = GetDoorGraphics(gfx, MapGridGetMetatileIdAt(x, y));
     if (gfx != NULL)
     {
-        const struct DoorAnimFrame *frames = gfx->size == DOOR_SIZE_1x1 ? sDoorAnimFrames_OpenSmall : sDoorAnimFrames_OpenLarge;
+        const struct DoorAnimFrame *frames = gfx->size == DOOR_SIZE_1x1 ? sDoorAnimFrames_OpenSmall
+                                           : gfx->size == DOOR_SIZE_2x2 ? sDoorAnimFrames_OpenBig : sDoorAnimFrames_OpenLarge;
         DrawDoor(gfx, GetLastDoorAnimFrame(frames), x, y);
     }
 }
@@ -677,6 +718,8 @@ static s8 AnimateDoorOpenInternal(const struct DoorGraphics *gfx, int x, int y)
         return -1;
     else if (gfx->size == DOOR_SIZE_1x1)
         return StartDoorAnimationTask(gfx, sDoorAnimFrames_OpenSmall, x, y);
+    else if (gfx->size == DOOR_SIZE_2x2)
+        return StartDoorAnimationTask(gfx, sDoorAnimFrames_OpenBig, x, y);
     else
         return StartDoorAnimationTask(gfx, sDoorAnimFrames_OpenLarge, x, y);
 }
@@ -688,6 +731,8 @@ static s8 StartDoorCloseAnimation(const struct DoorGraphics *gfx, int x, int y)
         return -1;
     else if (gfx->size == DOOR_SIZE_1x1)
         return StartDoorAnimationTask(gfx, sDoorAnimFrames_CloseSmall, x, y);
+    else if (gfx->size == DOOR_SIZE_2x2)
+        return StartDoorAnimationTask(gfx, sDoorAnimFrames_CloseBig, x, y);
     else
         return StartDoorAnimationTask(gfx, sDoorAnimFrames_CloseLarge, x, y);
 }

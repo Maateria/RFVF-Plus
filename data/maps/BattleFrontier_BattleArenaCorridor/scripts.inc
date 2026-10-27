@@ -17,6 +17,7 @@ BattleFrontier_BattleArenaCorridor_EventScript_WalkToBattleRoom::
 	waitmovement 0
 	applymovement LOCALID_ARENA_CORRIDOR_ATTENDANT, BattleFrontier_BattleArenaCorridor_Movement_AttendantFacePlayer
 	waitmovement 0
+	textcolor NPC_TEXT_COLOR_MALE
 	msgbox BattleFrontier_BattleArenaCorridor_Text_PleaseStepIn, MSGBOX_SIGN
 	applymovement LOCALID_ARENA_CORRIDOR_ATTENDANT, BattleFrontier_BattleArenaCorridor_Movement_AttendantMoveOutOfWay
 	waitmovement 0

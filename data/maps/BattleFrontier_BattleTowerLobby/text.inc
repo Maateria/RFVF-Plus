@@ -33,7 +33,9 @@ BattleFrontier_BattleTowerLobby_Text_CongratsDefeatedMaiden::
 BattleFrontier_BattleTowerLobby_Text_HereAreSomeRibbons::
     .string "Voici des RUBANS pour avoir battu\n"
     .string "sept DRESSEURS\l"
-    .string "costauds à la suite.\p"
+    .string "costauds à la suite.$"
+
+BattleFrontier_BattleTowerLobby_Text_ReceivedRibbons::
     .string "{PLAYER} reçoit des RUBANS!$"
 
 BattleFrontier_BattleTowerLobby_Text_PutRibbonOnMons::
@@ -176,8 +178,7 @@ BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLv50Multis::
     .string "moins pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -190,8 +191,7 @@ BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLv50Singles::
     .string "moins pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -204,8 +204,7 @@ BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLv50Doubles::
     .string "ou moins pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -217,8 +216,7 @@ BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLvOpenMultis::
     .string "pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -230,8 +228,7 @@ BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLvOpenSingles::
     .string "pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 
@@ -243,8 +240,7 @@ BattleFrontier_BattleTowerLobby_Text_NotEnoughValidMonsLvOpenDoubles::
     .string "différents pour participer.\p"
     .string "Ils doivent aussi tenir des objets\n"
     .string "différents.\p"
-    .string "Les OEUFS{STR_VAR_1}\n"
-    .string "inaptes au combat.\p"
+    .string "Les OEUFS{STR_VAR_1} inaptes au combat.\p"
     .string "Revenez me voir quand vous aurez\n"
     .string "ce qu'il faut.$"
 

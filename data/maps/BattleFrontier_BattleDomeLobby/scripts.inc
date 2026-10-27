@@ -34,6 +34,7 @@ BattleFrontier_BattleDomeLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	msgbox BattleFrontier_BattleDomeLobby_Text_DidntSaveBeforeQuitting, MSGBOX_DEFAULT
 	closemessage
@@ -46,6 +47,7 @@ BattleFrontier_BattleDomeLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	call BattleFrontier_EventScript_IncrementWinStreak
 	lockall
 	frontier_isbrain
@@ -72,6 +74,7 @@ BattleFrontier_BattleDomeLobby_EventScript_GiveBattlePoints::
 	goto BattleFrontier_BattleDomeLobby_EventScript_AskRecordBattle
 
 BattleFrontier_BattleDomeLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	msgbox BattleFrontier_BattleDomeLobby_Text_ThankYouForPlaying, MSGBOX_DEFAULT
 	message BattleFrontier_BattleDomeLobby_Text_RecordWillBeSaved
@@ -107,6 +110,7 @@ BattleFrontier_BattleDomeLobby_EventScript_EndChallenge::
 	end
 
 BattleFrontier_BattleDomeLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_FEMALE
 	lockall
 	msgbox BattleFrontier_BattleDomeLobby_Text_WeveBeenWaitingForYou, MSGBOX_DEFAULT
 	message BattleFrontier_BattleDomeLobby_Text_OkayToSaveBeforeChallenge2

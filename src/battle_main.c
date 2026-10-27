@@ -3004,35 +3004,29 @@ static void BattleIntroOpponentSendsOutMonAnimation(void)
             {
                 BtlController_EmitIntroTrainerBallThrow(0);
                 MarkBattlerForControllerExec(gActiveBattler);
-            }
-            if (gBattleTypeFlags & BATTLE_TYPE_MULTI && GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
-            {
-                BtlController_EmitIntroTrainerBallThrow(0);
-                MarkBattlerForControllerExec(gActiveBattler);
-            }
-        }
-        if (gBattleTypeFlags & BATTLE_TYPE_TWO_OPPONENTS)
-            gBattleMainFunc = BattleIntroOpponent2SendsOutMonAnimation;
-        else
-            gBattleMainFunc = BattleIntroRecordMonsToDex;
-    }
-}
-
-// Emerald: the second of two opponents throws after the first
-static void BattleIntroOpponent2SendsOutMonAnimation(void)
-{
-    if (gBattleControllerExecFlags == 0)
-    {
-        for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
-        {
-            if (GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
-            {
-                BtlController_EmitIntroTrainerBallThrow(0);
-                MarkBattlerForControllerExec(gActiveBattler);
+                if (gBattleTypeFlags & (BATTLE_TYPE_MULTI | BATTLE_TYPE_TWO_OPPONENTS)) // Emerald's
+                {
+                    gBattleMainFunc = BattleIntroOpponent2SendsOutMonAnimation;
+                    return;
+                }
             }
         }
         gBattleMainFunc = BattleIntroRecordMonsToDex;
     }
+}
+
+// Emerald's: the right opponent throws once, on the next frame (it does not wait for the left one)
+static void BattleIntroOpponent2SendsOutMonAnimation(void)
+{
+    for (gActiveBattler = 0; gActiveBattler < gBattlersCount; gActiveBattler++)
+    {
+        if (GetBattlerPosition(gActiveBattler) == B_POSITION_OPPONENT_RIGHT)
+        {
+            BtlController_EmitIntroTrainerBallThrow(0);
+            MarkBattlerForControllerExec(gActiveBattler);
+        }
+    }
+    gBattleMainFunc = BattleIntroRecordMonsToDex;
 }
 
 static void BattleIntroRecordMonsToDex(void)
@@ -3802,8 +3796,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         holdEffect = ItemId_GetHoldEffect(gBattleMons[battler1].item);
         holdEffectParam = ItemId_GetHoldEffectParam(gBattleMons[battler1].item);
     }
-    // badge boost
-    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK) && gSaveBlock1Ptr->keyFlags.difficulty != DIFFICULTY_CHALLENGE
+    // badge boost (Emerald's: none in the Frontier)
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER)) && gSaveBlock1Ptr->keyFlags.difficulty != DIFFICULTY_CHALLENGE
      && FlagGet(FLAG_BADGE03_GET)
      && GetBattlerSide(battler1) == B_SIDE_PLAYER)
         speedBattler1 = (speedBattler1 * 110) / 100;
@@ -3827,8 +3821,8 @@ u8 GetWhoStrikesFirst(u8 battler1, u8 battler2, bool8 ignoreChosenMoves)
         holdEffect = ItemId_GetHoldEffect(gBattleMons[battler2].item);
         holdEffectParam = ItemId_GetHoldEffectParam(gBattleMons[battler2].item);
     }
-    // badge boost
-    if (!(gBattleTypeFlags & BATTLE_TYPE_LINK)
+    // badge boost (Emerald's: none in the Frontier)
+    if (!(gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_FRONTIER | BATTLE_TYPE_EREADER_TRAINER)) && gSaveBlock1Ptr->keyFlags.difficulty != DIFFICULTY_CHALLENGE
      && FlagGet(FLAG_BADGE03_GET)
      && GetBattlerSide(battler2) == B_SIDE_PLAYER)
         speedBattler2 = (speedBattler2 * 110) / 100;
@@ -4103,7 +4097,8 @@ static void HandleEndTurn_BattleWon(void)
         gBattlescriptCurrInstr = BattleScript_LinkBattleWonOrLost;
         gBattleOutcome &= ~(B_OUTCOME_LINK_BATTLE_RAN);
     }
-    else if (gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER))
+    else if (gBattleTypeFlags & BATTLE_TYPE_TRAINER // Emerald's: the Pike and Pyramid wild battles end as wild ones
+          && gBattleTypeFlags & (BATTLE_TYPE_TRAINER_TOWER | BATTLE_TYPE_EREADER_TRAINER | BATTLE_TYPE_FRONTIER))
     {
         BattleStopLowHpSound();
         PlayBGM(MUS_VICTORY_TRAINER);

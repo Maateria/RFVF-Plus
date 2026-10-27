@@ -435,10 +435,10 @@ OneIsland_KindleRoad_GlassWorkshop_Text_FunToBlowGlassFlute:
 	.string "J'apprends à fabriquer des objets\n"
 	.string "à partir de cendres volcaniques.\p"
 	.string "Savais-tu que la FLUTE BLEUE\n"
-	.string "réveil les POKéMON endormis?\p"
+	.string "réveille les POKéMON endormis?\p"
 	.string "Mais pour moi la meilleure FLUTE\n"
 	.string "pour réveiller les POKéMON endormis\l"
-	.string "c'est la POKé FLUTE!\p"
+	.string "c'est la POKéFLUTE!\p"
 	.string "…J'espère qu'un jour je saurais\n"
 	.string "fabriquer des FLUTES.$"
 

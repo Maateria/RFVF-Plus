@@ -5233,10 +5233,8 @@ static void Cmd_switchineffects(void)
 
 static void Cmd_trainerslidein(void)
 {
-    if (!gBattlescriptCurrInstr[1])
-        gActiveBattler = GetBattlerAtPosition(B_POSITION_PLAYER_LEFT);
-    else
-        gActiveBattler = GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT);
+    // RFVF+: Emerald's, the argument is a position (3 = B_POSITION_OPPONENT_RIGHT slides trainer B in)
+    gActiveBattler = GetBattlerAtPosition(gBattlescriptCurrInstr[1]);
     BtlController_EmitTrainerSlide(BUFFER_A);
     MarkBattlerForControllerExec(gActiveBattler);
 

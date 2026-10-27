@@ -1107,20 +1107,49 @@ CableClub_EventScript_AdapterNotConnected::
 	releaseall
 	end
 
+@ RFVF+: Hoenn layouts (the Battle Frontier's Pokemon Center 2F) reuse Kanto metatile ids: Emerald's barrier metatiles there
 CableClub_EventScript_OpenUnionRoomBarrier::
+	specialvar VAR_RESULT, IsHoennMapLayout
+	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_OpenUnionRoomBarrierHoenn
 	setmetatile 5, 3, METATILE_PokemonCenter_Floor_ShadeLeft, 0
 	return
 
+CableClub_EventScript_OpenUnionRoomBarrierHoenn::
+	setmetatile 5, 2, METATILE_HoennPokemonCenter_Floor_ShadowTop_Alt, 0
+	setmetatile 5, 3, METATILE_HoennPokemonCenter_Floor_Plain_Alt, 0
+	return
+
 CableClub_EventScript_CloseUnionRoomBarrier::
+	specialvar VAR_RESULT, IsHoennMapLayout
+	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_CloseUnionRoomBarrierHoenn
 	setmetatile 5, 3, METATILE_PokemonCenter_CounterBarrier, 1
 	return
 
+CableClub_EventScript_CloseUnionRoomBarrierHoenn::
+	setmetatile 5, 2, METATILE_HoennPokemonCenter_Floor_ShadowTop, 1
+	setmetatile 5, 3, METATILE_HoennPokemonCenter_CounterBarrier, 1
+	return
+
 CableClub_EventScript_OpenDirectCornerBarrier::
+	specialvar VAR_RESULT, IsHoennMapLayout
+	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_OpenDirectCornerBarrierHoenn
 	setmetatile 9, 3, METATILE_PokemonCenter_Floor_ShadeLeft, 0
 	return
 
+CableClub_EventScript_OpenDirectCornerBarrierHoenn::
+	setmetatile 9, 2, METATILE_HoennPokemonCenter_Floor_ShadowTop_Alt, 0
+	setmetatile 9, 3, METATILE_HoennPokemonCenter_Floor_Plain_Alt, 0
+	return
+
 CableClub_EventScript_CloseDirectCornerBarrier::
+	specialvar VAR_RESULT, IsHoennMapLayout
+	goto_if_eq VAR_RESULT, TRUE, CableClub_EventScript_CloseDirectCornerBarrierHoenn
 	setmetatile 9, 3, METATILE_PokemonCenter_CounterBarrier, 1
+	return
+
+CableClub_EventScript_CloseDirectCornerBarrierHoenn::
+	setmetatile 9, 2, METATILE_HoennPokemonCenter_Floor_ShadowTop, 1
+	setmetatile 9, 3, METATILE_HoennPokemonCenter_CounterBarrier, 1
 	return
 
 CableClub_EventScript_OpenGameCornerBarrier::

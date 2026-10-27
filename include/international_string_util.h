@@ -5,7 +5,8 @@
 #include "text.h"
 #include "string_util.h"
 
-#define GetStringRightAlignXOffset(fontId, str, totalWidth) ((totalWidth) - GetStringWidth(fontId, str, 0))
+// Emerald's: 0 when the string is wider than totalWidth (a negative x would wrap as a u8)
+#define GetStringRightAlignXOffset(fontId, str, totalWidth) GetStringWidthDifference(fontId, str, totalWidth, 0)
 // Emerald converts Japanese record-mixing names; no record mixing here: a plain copy
 #define TVShowConvertInternationalString(dest, src, language) StringCopy(dest, src)
 

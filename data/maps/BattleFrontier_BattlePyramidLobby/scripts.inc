@@ -30,6 +30,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattlePyramidLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message BattleFrontier_BattlePyramidLobby_Text_DidntSaveBeforeQuittingTakeBag
 	waitmessage
@@ -44,6 +45,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattlePyramidLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	frontier_isbrain
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattlePyramidLobby_EventScript_DefeatedKing
@@ -80,6 +82,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_GiveBattlePoints::
 	end
 
 BattleFrontier_BattlePyramidLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	frontier_checkairshow
 	special LoadPlayerParty
 	pyramid_clearhelditems
@@ -102,6 +105,7 @@ BattleFrontier_BattlePyramidLobby_EventScript_LostChallenge::
 	end
 
 BattleFrontier_BattlePyramidLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	goto BattleFrontier_BattlePyramidLobby_EventScript_EnterChallenge
 
 BattleFrontier_BattlePyramidLobby_EventScript_Attendant::

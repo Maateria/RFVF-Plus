@@ -28,6 +28,7 @@ BattleFrontier_BattleArenaLobby_EventScript_GetChallengeStatus::
 	end
 
 BattleFrontier_BattleArenaLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox BattleFrontier_BattleArenaLobby_Text_DidntSaveBeforeShuttingDown, MSGBOX_DEFAULT
 	closemessage
@@ -39,6 +40,7 @@ BattleFrontier_BattleArenaLobby_EventScript_QuitWithoutSaving::
 	end
 
 BattleFrontier_BattleArenaLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	frontier_isbrain
 	goto_if_eq VAR_RESULT, TRUE, BattleFrontier_BattleArenaLobby_EventScript_DefeatedTycoon
@@ -61,6 +63,7 @@ BattleFrontier_BattleArenaLobby_EventScript_GiveBattlePoints::
 	end
 
 BattleFrontier_BattleArenaLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message BattleFrontier_BattleArenaLobby_Text_ThankYouWaitWhileSave
 	waitmessage
@@ -95,6 +98,7 @@ BattleFrontier_BattleArenaLobby_EventScript_EndSaveAfterChallenge::
 	return
 
 BattleFrontier_BattleArenaLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message BattleFrontier_BattleArenaLobby_Text_LookingForwardToArrivalSaveGame
 	waitmessage

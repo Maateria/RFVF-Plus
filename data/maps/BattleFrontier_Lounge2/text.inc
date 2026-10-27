@@ -21,7 +21,8 @@ BattleFrontier_Lounge2_Text_MyInformationsBeenUsefulRight::
 BattleFrontier_Lounge2_Text_FacilityIsHottest::
     .string "Voyons voir…\p"
     .string "L'endroit le plus en vue en ce\n"
-    .string "moment… {STR_VAR_1}, sans hésitation.$"
+    .string "moment… {STR_VAR_1},\l"
+    .string "sans hésitation.$"
 
 BattleFrontier_Lounge2_Text_BattleTowerIsHottest::
     .string "Voyons voir…\p"

@@ -19,6 +19,7 @@ BattleFrontier_BattlePikeCorridor_EventScript_EnterCorridor::
 	applymovement LOCALID_PIKE_CORRIDOR_ATTENDANT, BattleFrontier_BattlePikeCorridor_Movement_AttendantEnterCorridor
 	waitmovement 0
 	lockall
+	textcolor NPC_TEXT_COLOR_FEMALE
 	msgbox BattleFrontier_BattlePikeCorridor_Text_YourChallengeHasBegun, MSGBOX_DEFAULT
 	closemessage
 	releaseall

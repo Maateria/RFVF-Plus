@@ -191,11 +191,13 @@ static void PrintAreaDescription(u8);
 static void ShowHideZoomingArea(bool8, bool8);
 static void SpriteCB_PlayerHead(struct Sprite *);
 
-static const u16 sMaleHead_Pal[]                 = INCBIN_U16("graphics/frontier_pass/map_heads.gbapal");
-static const u16 sFemaleHead_Pal[]               = INCBIN_U16("graphics/frontier_pass/map_heads_female.gbapal");
+// RFVF+: Red's and Leaf's heads from FRLG's region map instead of Emerald's Brendan / May map_heads
+static const u16 sMaleHead_Pal[]                 = INCBIN_U16("graphics/region_map/player_icon_red.gbapal");
+static const u16 sFemaleHead_Pal[]               = INCBIN_U16("graphics/region_map/player_icon_leaf.gbapal");
 static const u32 sMapScreen_Gfx[]                = INCBIN_U32("graphics/frontier_pass/map_screen.4bpp.lz");
 static const u32 sCursor_Gfx[]                   = INCBIN_U32("graphics/frontier_pass/cursor.4bpp.lz");
-static const u32 sHeads_Gfx[]                    = INCBIN_U32("graphics/frontier_pass/map_heads.4bpp.lz");
+static const u32 sMaleHead_Gfx[]                 = INCBIN_U32("graphics/region_map/player_icon_red.4bpp.lz");
+static const u32 sFemaleHead_Gfx[]               = INCBIN_U32("graphics/region_map/player_icon_leaf.4bpp.lz");
 static const u32 sMapCursor_Gfx[]                = INCBIN_U32("graphics/frontier_pass/map_cursor.4bpp.lz");
 static const u32 sMapScreen_Tilemap[]            = INCBIN_U32("graphics/frontier_pass/map_screen.bin.lz");
 static const u32 sMapAndCard_ZoomedOut_Tilemap[] = INCBIN_U32("graphics/frontier_pass/small_map_and_card.bin.lz");
@@ -382,10 +384,11 @@ static const struct CompressedSpriteSheet sCursorSpriteSheets[] =
     {gFrontierPassMedals_Gfx, 0x380, TAG_MEDAL_SILVER},
 };
 
-static const struct CompressedSpriteSheet sHeadsSpriteSheet[] =
+// One 16x16 frame each, indexed by playerGender
+static const struct CompressedSpriteSheet sHeadsSpriteSheet[GENDER_COUNT] =
 {
-    {sHeads_Gfx, 0x100, TAG_HEAD_MALE},
-    {}
+    [MALE]   = {sMaleHead_Gfx, 0x80, TAG_HEAD_MALE},
+    [FEMALE] = {sFemaleHead_Gfx, 0x80, TAG_HEAD_MALE},
 };
 
 static const struct SpritePalette sSpritePalettes[] =
@@ -1706,7 +1709,7 @@ static void InitFrontierMapSprites(void)
             }
         }
 
-        LoadCompressedSpriteSheet(sHeadsSpriteSheet);
+        LoadCompressedSpriteSheet(&sHeadsSpriteSheet[gSaveBlock2Ptr->playerGender]);
         sprite = sSpriteTemplate_PlayerHead;
         sprite.paletteTag = gSaveBlock2Ptr->playerGender + TAG_HEAD_MALE; // TAG_HEAD_FEMALE if gender is FEMALE
         if (id != 0)
@@ -1722,8 +1725,6 @@ static void InitFrontierMapSprites(void)
 
         sMapData->playerHeadSprite = &gSprites[spriteId];
         sMapData->playerHeadSprite->oam.priority = 0;
-        if (gSaveBlock2Ptr->playerGender != MALE)
-            StartSpriteAnim(sMapData->playerHeadSprite, 1);
     }
 }
 

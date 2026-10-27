@@ -81,7 +81,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 24,
                         .abilityNum = 0,
                         .personality = 0x0,
-                        .nickname = _("FEUFOREVE"),
+                        .nickname = _("FEUFORÊVE"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [1] =
@@ -163,7 +163,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 24,
                         .abilityNum = 0,
                         .personality = 0xF,
-                        .nickname = _("SELEROC"),
+                        .nickname = _("SÉLÉROC"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [5] =
@@ -183,7 +183,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 24,
                         .abilityNum = 0,
                         .personality = 0x83,
-                        .nickname = _("LIBEGON"),
+                        .nickname = _("LIBÉGON"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                 },
@@ -290,7 +290,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 15,
                         .abilityNum = 0,
                         .personality = 0x0,
-                        .nickname = _("MAGNETON"),
+                        .nickname = _("MAGNÉTON"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [5] =
@@ -357,7 +357,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 20,
                         .abilityNum = 0,
                         .personality = 0x80,
-                        .nickname = _("MEDITIKKA"),
+                        .nickname = _("MÉDITIKKA"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [1] =
@@ -509,7 +509,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 15,
                         .abilityNum = 0,
                         .personality = 0x8C,
-                        .nickname = _("NEGAPI"),
+                        .nickname = _("NÉGAPI"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [2] =
@@ -529,7 +529,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 15,
                         .abilityNum = 1,
                         .personality = 0xF,
-                        .nickname = _("ROSELIA"),
+                        .nickname = _("ROSÉLIA"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [3] =
@@ -736,7 +736,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 15,
                         .abilityNum = 0,
                         .personality = 0x8,
-                        .nickname = _("LINEON"),
+                        .nickname = _("LINÉON"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                 },
@@ -991,7 +991,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 5,
                         .abilityNum = 0,
                         .personality = 0x80,
-                        .nickname = _("AEROMITE"),
+                        .nickname = _("AÉROMITE"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                     [5] =
@@ -1138,7 +1138,7 @@ static const struct TrainerHillChallengeData sChallenge_Normal =
                         .spDefenseIV = 15,
                         .abilityNum = 0,
                         .personality = 0x1F,
-                        .nickname = _("MEGANIUM"),
+                        .nickname = _("MÉGANIUM"),
                         .friendship = MAX_FRIENDSHIP,
                     },
                 },
@@ -1216,7 +1216,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0xD,
-                                            .nickname = _("MELOFEE"),
+                                            .nickname = _("MÉLOFÉE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [2] =
@@ -1342,7 +1342,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 5,
                                             .abilityNum = 0,
                                             .personality = 0x87,
-                                            .nickname = _("TENEFIX"),
+                                            .nickname = _("TÉNÉFIX"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [2] =
@@ -1615,7 +1615,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 5,
                                             .abilityNum = 0,
                                             .personality = 0xD,
-                                            .nickname = _("EOKO"),
+                                            .nickname = _("ÉOKO"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [1] =
@@ -1822,7 +1822,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0x96,
-                                            .nickname = _("RHINOFEROS"),
+                                            .nickname = _("RHINOFÉROS"),
                                             .friendship = 0,
                                         },
                                     [4] =
@@ -1894,7 +1894,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0x8C,
-                                            .nickname = _("MAGNETI"),
+                                            .nickname = _("MAGNÉTI"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [1] =
@@ -1914,7 +1914,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0x41,
-                                            .nickname = _("ELEKTEK"),
+                                            .nickname = _("ÉLEKTEK"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [2] =
@@ -2186,7 +2186,7 @@ static const struct TrainerHillChallengeData sChallenge_Variety =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0x8C,
-                                            .nickname = _("NEGAPI"),
+                                            .nickname = _("NÉGAPI"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [2] =
@@ -2322,7 +2322,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0x0,
-                                            .nickname = _("HELIATRONC"),
+                                            .nickname = _("HÉLIATRONC"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [1] =
@@ -2401,7 +2401,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = 15,
                                             .abilityNum = 1,
                                             .personality = 0xF,
-                                            .nickname = _("ELECSPRINT"),
+                                            .nickname = _("ÉLECSPRINT"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [5] =
@@ -2766,7 +2766,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = 5,
                                             .abilityNum = 0,
                                             .personality = 0x28,
-                                            .nickname = _("BRASEGALI"),
+                                            .nickname = _("BRASÉGALI"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [3] =
@@ -3043,7 +3043,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x0,
-                                            .nickname = _("ELEKID"),
+                                            .nickname = _("ÉLEKID"),
                                             .friendship = 50,
                                         },
                                     [3] =
@@ -3063,7 +3063,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x0,
-                                            .nickname = _("MELO"),
+                                            .nickname = _("MÉLO"),
                                             .friendship = 50,
                                         },
                                     [4] =
@@ -3083,7 +3083,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x84,
-                                            .nickname = _("OKEOKE"),
+                                            .nickname = _("OKÉOKÉ"),
                                             .friendship = 50,
                                         },
                                     [5] =
@@ -3226,7 +3226,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = 15,
                                             .abilityNum = 1,
                                             .personality = 0x6,
-                                            .nickname = _("DEMANTA"),
+                                            .nickname = _("DÉMANTA"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [5] =
@@ -3245,7 +3245,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = 15,
                                             .abilityNum = 0,
                                             .personality = 0x18,
-                                            .nickname = _("ELECTHOR"),
+                                            .nickname = _("ÉLECTHOR"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                 },
@@ -3333,7 +3333,7 @@ static const struct TrainerHillChallengeData sChallenge_Unique =
                                             .spDefenseIV = 15,
                                             .abilityNum = 1,
                                             .personality = 0xF,
-                                            .nickname = _("DEMOLOSSE"),
+                                            .nickname = _("DÉMOLOSSE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [4] =
@@ -3451,7 +3451,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x3,
-                                            .nickname = _("ECREMEUH"),
+                                            .nickname = _("ÉCRÉMEUH"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [2] =
@@ -3491,7 +3491,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x80,
-                                            .nickname = _("MONAFLEMIT"),
+                                            .nickname = _("MONAFLÈMIT"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [4] =
@@ -3710,7 +3710,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x3,
-                                            .nickname = _("HELEDELLE"),
+                                            .nickname = _("HÉLÉDELLE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [1] =
@@ -3902,7 +3902,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x82,
-                                            .nickname = _("TERACLOPE"),
+                                            .nickname = _("TÉRACLOPE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [4] =
@@ -3989,7 +3989,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x94,
-                                            .nickname = _("QULBUTOKE"),
+                                            .nickname = _("QULBUTOKÉ"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [1] =
@@ -4069,7 +4069,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x5,
-                                            .nickname = _("ELECTRODE"),
+                                            .nickname = _("ÉLECTRODE"),
                                             .friendship = 0,
                                         },
                                     [5] =
@@ -4287,7 +4287,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 1,
                                             .personality = 0xC,
-                                            .nickname = _("ELECTRODE"),
+                                            .nickname = _("ÉLECTRODE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [2] =
@@ -4326,7 +4326,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x93,
-                                            .nickname = _("TERACLOPE"),
+                                            .nickname = _("TÉRACLOPE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [4] =
@@ -4433,7 +4433,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x3,
-                                            .nickname = _("LEVIATOR"),
+                                            .nickname = _("LÉVIATOR"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [3] =
@@ -4472,7 +4472,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x14,
-                                            .nickname = _("TERACLOPE"),
+                                            .nickname = _("TÉRACLOPE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                     [5] =
@@ -4492,7 +4492,7 @@ static const struct TrainerHillChallengeData sChallenge_Expert =
                                             .spDefenseIV = MAX_PER_STAT_IVS,
                                             .abilityNum = 0,
                                             .personality = 0x85,
-                                            .nickname = _("FEUFOREVE"),
+                                            .nickname = _("FEUFORÊVE"),
                                             .friendship = MAX_FRIENDSHIP,
                                         },
                                 },

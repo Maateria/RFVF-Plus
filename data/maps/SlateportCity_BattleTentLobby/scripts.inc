@@ -28,6 +28,7 @@ SlateportCity_BattleTentLobby_EventScript_GetChallengeStatus::
 	end
 
 SlateportCity_BattleTentLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox SlateportCity_BattleTentLobby_Text_DidntSaveBeforeQuitting, MSGBOX_DEFAULT
 	closemessage
@@ -38,6 +39,7 @@ SlateportCity_BattleTentLobby_EventScript_QuitWithoutSaving::
 	end
 
 SlateportCity_BattleTentLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message SlateportCity_BattleTentLobby_Text_WonThreeMatchesReturnMons
 	waitmessage
@@ -52,10 +54,12 @@ SlateportCity_BattleTentLobby_EventScript_GivePrize::
 	switch VAR_RESULT
 	case FALSE, SlateportCity_BattleTentLobby_EventScript_NoRoomForPrize
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, 0
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	message BattleFrontier_BattleTowerLobby_Text_ReceivedPrize  @ Odd that it uses Tower's instead of Factory's or its own
 	waitmessage
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
+	call EventScript_RestorePrevTextColor
 	goto SlateportCity_BattleTentLobby_EventScript_EndGivePrize
 
 SlateportCity_BattleTentLobby_EventScript_NoRoomForPrize::
@@ -63,6 +67,7 @@ SlateportCity_BattleTentLobby_EventScript_NoRoomForPrize::
 	goto SlateportCity_BattleTentLobby_EventScript_EndGivePrize
 
 SlateportCity_BattleTentLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message SlateportCity_BattleTentLobby_Text_ReturnRentalMonsSaveResults
 	waitmessage
@@ -79,6 +84,7 @@ SlateportCity_BattleTentLobby_EventScript_EndGivePrize::
 	end
 
 SlateportCity_BattleTentLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message SlateportCity_BattleTentLobby_Text_BeenWaitingForYou
 	waitmessage

@@ -99,14 +99,14 @@ BattleFrontier_Lounge7_Text_LadiesWereStrongAndBeautiful::
     .string "Vieillir, c'est bien cruel…$"
 
 BattleFrontier_Lounge7_Text_SoftboiledDesc::
-    .string "Regagne jusqu'à la\n"
-    .string "moitié des PV max\n"
-    .string "du lanceur.$"
+    .string "Regagne jusqu'à\n"
+    .string "la moitié des PV\n"
+    .string "max du lanceur.$"
 
 BattleFrontier_Lounge7_Text_SeismicTossDesc::
-    .string "Inflige des\n"
-    .string "dégâts selon le\n"
-    .string "niveau du lanceur.$"
+    .string "Inflige des dé-\n"
+    .string "gâts selon le ni-\n"
+    .string "veau du lanceur.$"
 
 BattleFrontier_Lounge7_Text_DreamEaterDesc::
     .string "Aspire la moitié\n"
@@ -146,20 +146,20 @@ BattleFrontier_Lounge7_Text_ThunderWaveDesc::
 BattleFrontier_Lounge7_Text_SwordsDanceDesc::
     .string "Une danse de\n"
     .string "combat pour\n"
-    .string "booster l'ATTAQUE.$"
+    .string "monter l'ATTAQUE.$"
 
 BattleFrontier_Lounge7_Text_DefenseCurlDesc::
     .string "S'enroule, cache\n"
     .string "les faiblesses.\n"
-    .string "Monte la DEFENSE.$"
+    .string "Monte la DEF.$"
 
 BattleFrontier_Lounge7_Text_SnoreDesc::
     .string "Attaque sonore\n"
-    .string "qui ne peut être\n"
-    .string "lancée qu'endormi.$"
+    .string "qui ne s'utilise\n"
+    .string "qu'endormi.$"
 
 BattleFrontier_Lounge7_Text_MudSlapDesc::
-    .string "Envoie de la boue\n"
+    .string "Lance de la boue\n"
     .string "au visage et rend\n"
     .string "moins précis.$"
 
@@ -170,8 +170,8 @@ BattleFrontier_Lounge7_Text_SwiftDesc::
 
 BattleFrontier_Lounge7_Text_IcyWindDesc::
     .string "Attaque glaciale.\n"
-    .string "Baisse la VITESSE\n"
-    .string "de l'ennemi.$"
+    .string "Baisse la VITES-\n"
+    .string "SE de l'ennemi.$"
 
 BattleFrontier_Lounge7_Text_EndureDesc::
     .string "Encaisse les\n"
@@ -180,18 +180,18 @@ BattleFrontier_Lounge7_Text_EndureDesc::
 
 BattleFrontier_Lounge7_Text_PsychUpDesc::
     .string "Copie les effets\n"
-    .string "de l'ennemi et les\n"
+    .string "de l'ennemi, les\n"
     .string "passe au lanceur.$"
 
 BattleFrontier_Lounge7_Text_IcePunchDesc::
-    .string "Un poing de glace\n"
-    .string "pouvant geler\n"
-    .string "l'ennemi.$"
+    .string "Un poing de\n"
+    .string "glace pouvant\n"
+    .string "geler l'ennemi.$"
 
 BattleFrontier_Lounge7_Text_ThunderPunchDesc::
     .string "Un poing électri-\n"
-    .string "que pouvant para-\n"
-    .string "lyser l'ennemi.$"
+    .string "que pouvant pa-\n"
+    .string "ralyser l'ennemi.$"
 
 BattleFrontier_Lounge7_Text_FirePunchDesc::
     .string "Un poing de feu\n"

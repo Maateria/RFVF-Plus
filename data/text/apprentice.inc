@@ -612,8 +612,8 @@ gText_ApprenticeWhichLevelMode13::
     .string "niveau 50 ou niveau libre?$"
 
 gText_ApprenticeLevelModeThanks13::
-    .string "D'accord, je vais choisir {STR_VAR_1}.\n"
-    .string "Bon, j'y vais.\p"
+    .string "D'accord, je vais choisir\n"
+    .string "{STR_VAR_1}. Bon, j'y vais.\p"
     .string "Ça fait plaisir de pouvoir compter\n"
     .string "sur son mentor. Merci!$"
 
@@ -727,8 +727,8 @@ gText_ApprenticeThanksHeldItem0::
 
 gText_ApprenticeItemAlreadyRecommended0::
     .string "Comment? Tu te moques de moi…\p"
-    .string "On m'a déjà recommandé {STR_VAR_1},\n"
-    .string "sniff…\p"
+    .string "On m'a déjà recommandé\n"
+    .string "{STR_VAR_1}, sniff…\p"
     .string "Tu veux peut-être dire que mon\n"
     .string "{STR_VAR_2} ne devrait rien porter?$"
 
@@ -861,8 +861,8 @@ gText_ApprenticeThanksHeldItem4::
     .string "entièrement confiance. Salut!$"
 
 gText_ApprenticeItemAlreadyRecommended4::
-    .string "{STR_VAR_1}? Mais tu m'as déjà parlé\n"
-    .string "de cet objet.\l"
+    .string "{STR_VAR_1}? Mais tu m'as déjà\n"
+    .string "parlé de cet objet.\l"
     .string "Tu as oublié?\p"
     .string "A moins que tu ne veuilles\n"
     .string "dire que mon {STR_VAR_2}\l"
@@ -899,8 +899,8 @@ gText_ApprenticeThanksHeldItem5::
     .string "Merci! Et à la prochaine!$"
 
 gText_ApprenticeItemAlreadyRecommended5::
-    .string "{STR_VAR_1}? Mais je connais déjà, je\n"
-    .string "voulais un autre objet.\p"
+    .string "{STR_VAR_1}? Mais je connais déjà,\n"
+    .string "je voulais un autre objet.\p"
     .string "Tu crois qu'il vaut mieux que mon\n"
     .string "{STR_VAR_2} ne porte rien, c'est ça?$"
 
@@ -935,8 +935,8 @@ gText_ApprenticeThanksHeldItem6::
     .string "Merci!$"
 
 gText_ApprenticeItemAlreadyRecommended6::
-    .string "{STR_VAR_1}? Mais tu m'as déjà parlé\n"
-    .string "de cet objet!\l"
+    .string "{STR_VAR_1}? Mais tu m'as déjà\n"
+    .string "parlé de cet objet!\l"
     .string "Tu as oublié?\p"
     .string "Tu te sens bien, {PLAYER}?\p"
     .string "Ah, tu veux dire que mon {STR_VAR_2}\n"
@@ -1040,8 +1040,8 @@ gText_ApprenticeThanksHeldItem9::
     .string "Hasta la vista!$"
 
 gText_ApprenticeItemAlreadyRecommended9::
-    .string "{STR_VAR_1}? Tu m'en as déjà parlé,\n"
-    .string "tu as oublié?\p"
+    .string "{STR_VAR_1}? Tu m'en as déjà\n"
+    .string "parlé, tu as oublié?\p"
     .string "Attends…\n"
     .string "Tu veux dire que mon {STR_VAR_2}\l"
     .string "peut gagner sans objet?$"
@@ -1073,8 +1073,8 @@ gText_ApprenticeThanksNoHeldItem10::
     .string "encore plein d'autres choses!$"
 
 gText_ApprenticeThanksHeldItem10::
-    .string "{STR_VAR_1}? Je vais lui faire porter\n"
-    .string "autre chose, alors!\p"
+    .string "{STR_VAR_1}? Je vais lui faire\n"
+    .string "porter autre chose, alors!\p"
     .string "Je rigole, bien sûr que je vais\n"
     .string "suivre ton conseil!\p"
     .string "Merci! J'espère que tu m'apprendras\n"
@@ -1153,7 +1153,8 @@ gText_ApprenticeThanksNoHeldItem12::
     .string "A bientôt, j'espère!$"
 
 gText_ApprenticeThanksHeldItem12::
-    .string "{STR_VAR_1}? Quel précieux conseil…\n"
+    .string "{STR_VAR_1}?\n"
+    .string "Quel précieux conseil…\l"
     .string "A chaque fois, je m'émerveille!\p"
     .string "{PLAYER}, je dois y aller!\n"
     .string "Pense à moi!\p"
@@ -1191,8 +1192,8 @@ gText_ApprenticeThanksNoHeldItem13::
     .string "sur quelqu'un. Merci!$"
 
 gText_ApprenticeThanksHeldItem13::
-    .string "{STR_VAR_1}? Très bien. Mon bras va\n"
-    .string "déjà mieux. Je vais donner cet\l"
+    .string "{STR_VAR_1}? Très bien. Mon bras\n"
+    .string "va déjà mieux. Je vais donner cet\l"
     .string "objet à mon POKéMON.\p"
     .string "Ça fait plaisir de pouvoir compter\n"
     .string "sur quelqu'un. Merci!$"
@@ -1921,7 +1922,8 @@ gText_ApprenticeWhichMove0::
     .string "Est-ce que tu peux\l"
     .string "décider pour moi?\p"
     .string "Pour mon {STR_VAR_1}, je dois choisir\n"
-    .string "{STR_VAR_2} ou {STR_VAR_3}?$"
+    .string "{STR_VAR_2}\l"
+    .string "ou {STR_VAR_3}?$"
 
 gText_ApprenticeMoveThanks0::
     .string "{STR_VAR_1}?\n"
@@ -1939,7 +1941,8 @@ gText_ApprenticeWhichMove1::
     .string "Je veux apprendre une capacité sympa\n"
     .string "à mon {STR_VAR_1}.\p"
     .string "J'aime autant {STR_VAR_2} que\n"
-    .string "{STR_VAR_3}. Laquelle tu choisirais?$"
+    .string "{STR_VAR_3}.\l"
+    .string "Laquelle tu choisirais?$"
 
 gText_ApprenticeMoveThanks1::
     .string "Tu préfères {STR_VAR_1}?\n"
@@ -1952,8 +1955,9 @@ gText_ApprenticeWhichMove2::
     .string "Bonjour, {PLAYER}!\n"
     .string "Je ne sais pas quelle capacité mon\l"
     .string "{STR_VAR_1} devrait apprendre.\p"
-    .string "Tu vois, j'hésite entre {STR_VAR_2}\n"
-    .string "et {STR_VAR_3}.\p"
+    .string "Tu vois, j'hésite entre\n"
+    .string "{STR_VAR_2} et\l"
+    .string "{STR_VAR_3}.\p"
     .string "Laquelle de ces deux capacités\n"
     .string "convient mieux à mon {STR_VAR_1}?$"
 
@@ -1976,8 +1980,9 @@ gText_ApprenticeWhichMove3::
     .string "Mais pour moi, c'est important…\p"
     .string "Dis, {PLAYER}. Tu pourrais choisir une\n"
     .string "capacité pour mon {STR_VAR_1}?\p"
-    .string "En fait, j'hésite entre {STR_VAR_2} et\n"
-    .string "{STR_VAR_3}…$"
+    .string "En fait, j'hésite entre\n"
+    .string "{STR_VAR_2}\l"
+    .string "et {STR_VAR_3}…$"
 
 gText_ApprenticeMoveThanks3::
     .string "D'accord!\p"
@@ -1992,7 +1997,8 @@ gText_ApprenticeWhichMove4::
     .string "devrais enseigner à mon {STR_VAR_1}.\p"
     .string "Je n'arrive pas à me décider.\n"
     .string "Tu décides pour moi?\p"
-    .string "{STR_VAR_2} ou {STR_VAR_3}?$"
+    .string "{STR_VAR_2} ou\n"
+    .string "{STR_VAR_3}?$"
 
 gText_ApprenticeMoveThanks4::
     .string "{STR_VAR_1}? Super!\p"
@@ -2012,8 +2018,8 @@ gText_ApprenticeWhichMove5::
     .string "à faire!\p"
     .string "Je n'ai même pas le temps de choisir\n"
     .string "une capacité pour mon {STR_VAR_1}!\p"
-    .string "{STR_VAR_2} est pas mal, mais j'aime\n"
-    .string "aussi {STR_VAR_3}.\p"
+    .string "{STR_VAR_2} est pas mal, mais\n"
+    .string "j'aime aussi {STR_VAR_3}.\p"
     .string "{PLAYER}{KUN}, choisis une de ces\n"
     .string "deux capacités pour\l"
     .string "moi, s'il te plaît!$"
@@ -2032,8 +2038,8 @@ gText_ApprenticeWhichMove6::
     .string "J'aimerais te poser une question.\n"
     .string "La voici…\p"
     .string "Quelle capacité convient le mieux à\n"
-    .string "mon {STR_VAR_1}? {STR_VAR_2} ou\l"
-    .string "{STR_VAR_3}?$"
+    .string "mon {STR_VAR_1}? {STR_VAR_2}\l"
+    .string "ou {STR_VAR_3}?$"
 
 gText_ApprenticeMoveThanks6::
     .string "Ah!\n"
@@ -2051,7 +2057,8 @@ gText_ApprenticeWhichMove7::
     .string "C'est au sujet de mon\l"
     .string "{STR_VAR_1} adoré.\p"
     .string "Quelle est la capacité idéale pour\n"
-    .string "mon petit {STR_VAR_1}, {STR_VAR_2}\l"
+    .string "mon petit {STR_VAR_1},\l"
+    .string "{STR_VAR_2}\l"
     .string "ou {STR_VAR_3}?$"
 
 gText_ApprenticeMoveThanks7::
@@ -2073,11 +2080,13 @@ gText_ApprenticeWhichMove8::
     .string "Je ne sais pas laquelle je devrais\n"
     .string "enseigner à mon {STR_VAR_1}!\p"
     .string "J'hésite entre {STR_VAR_2} et\n"
-    .string "{STR_VAR_3}. Peux-tu en choisir une?$"
+    .string "{STR_VAR_3}.\l"
+    .string "Peux-tu en choisir une?$"
 
 gText_ApprenticeMoveThanks8::
     .string "Oh! Merci!\n"
-    .string "Je vais lui enseigner {STR_VAR_1}!\l"
+    .string "Je vais lui enseigner\l"
+    .string "{STR_VAR_1}!\l"
     .string "C'est un très bon choix!\p"
     .string "J'espère que tu me donneras encore\n"
     .string "plein de conseils!$"
@@ -2091,8 +2100,8 @@ gText_ApprenticeWhichMove9::
     .string "Il me faut une capacité\n"
     .string "qui me permette de\l"
     .string "gagner à tous les coups!\p"
-    .string "Je devrais choisir {STR_VAR_2} ou\n"
-    .string "{STR_VAR_3}, d'après toi?$"
+    .string "Je devrais choisir {STR_VAR_2}\n"
+    .string "ou {STR_VAR_3}, d'après toi?$"
 
 gText_ApprenticeMoveThanks9::
     .string "Va pour {STR_VAR_1}!\n"
@@ -2114,7 +2123,8 @@ gText_ApprenticeWhichMove10::
     .string "Ce serait sympa si tu pouvais m'aider\n"
     .string "un peu.\p"
     .string "Je dois choisir {STR_VAR_2} ou\n"
-    .string "{STR_VAR_3} pour mon {STR_VAR_1}?$"
+    .string "{STR_VAR_3}\l"
+    .string "pour mon {STR_VAR_1}?$"
 
 gText_ApprenticeMoveThanks10::
     .string "D'accord, tu dis {STR_VAR_1}?\n"
@@ -2172,12 +2182,14 @@ gText_ApprenticeWhichMove13::
     .string "Je crois bien que j'ai besoin de ton\n"
     .string "aide.\p"
     .string "{PLAYER}{KUN}, me conseilles-tu\n"
-    .string "{STR_VAR_2} ou {STR_VAR_3}\l"
+    .string "{STR_VAR_2}\l"
+    .string "ou {STR_VAR_3}\l"
     .string "pour mon {STR_VAR_1}?$"
 
 gText_ApprenticeMoveThanks13::
-    .string "Cof! D'accord, {STR_VAR_1}. Dès que\n"
-    .string "je serai guéri, je lui enseignerai.\p"
+    .string "Cof! D'accord, {STR_VAR_1}.\n"
+    .string "Dès que je serai guéri,\l"
+    .string "je lui enseignerai.\p"
     .string "Ça fait plaisir de pouvoir compter\n"
     .string "sur quelqu'un. Merci!$"
 
@@ -2211,7 +2223,8 @@ gText_ApprenticeWhichMove15::
     .string "J'ai justement un\n"
     .string "conseil à te demander.\p"
     .string "C'est au sujet de mon {STR_VAR_1}.\p"
-    .string "Dois-je lui enseigner {STR_VAR_2} ou\n"
+    .string "Dois-je lui enseigner\n"
+    .string "{STR_VAR_2} ou\l"
     .string "{STR_VAR_3}? Qu'en penses-tu?$"
 
 gText_ApprenticeMoveThanks15::

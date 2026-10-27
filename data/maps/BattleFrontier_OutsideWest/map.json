@@ -36,21 +36,21 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SEAGALLOP",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_SS_TIDAL",
       "in_connection": false,
-      "x": 19,
+      "x": 20,
       "y": 70,
-      "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_LEFT",
+      "elevation": 1,
+      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "NULL",
+      "script": "0x0",
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_SAILOR",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_BEAUTY",
       "in_connection": false,
       "x": 19,
       "y": 68,
@@ -60,7 +60,7 @@
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
-      "script": "BattleFrontier_OutsideWest_EventScript_Sailor",
+      "script": "BattleFrontier_OutsideWest_EventScript_FerryAttendant",
       "flag": "0"
     },
     {
@@ -106,7 +106,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_FAT_MAN",
       "in_connection": false,
       "x": 28,
       "y": 43,
@@ -120,7 +120,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_GENTLEMAN",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_GENTLEMAN",
       "in_connection": false,
       "x": 17,
       "y": 20,
@@ -190,7 +190,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_3",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_3",
       "in_connection": false,
       "x": 45,
       "y": 18,
@@ -204,12 +204,12 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_CAMPER",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_CAMPER",
       "in_connection": false,
       "x": 9,
       "y": 47,
       "elevation": 3,
-      "movement_type": "MOVEMENT_TYPE_FACE_UP",
+      "movement_type": "MOVEMENT_TYPE_FACE_UP_AND_LEFT",
       "movement_range_x": 0,
       "movement_range_y": 0,
       "trainer_type": "TRAINER_TYPE_NONE",
@@ -218,7 +218,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_LASS",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_LASS",
       "in_connection": false,
       "x": 35,
       "y": 5,
@@ -274,7 +274,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_FAT_MAN",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_FAT_MAN",
       "in_connection": false,
       "x": 38,
       "y": 22,
@@ -288,7 +288,7 @@
       "flag": "0"
     },
     {
-      "graphics_id": "OBJ_EVENT_GFX_WOMAN_2",
+      "graphics_id": "OBJ_EVENT_GFX_HOENN_WOMAN_2",
       "in_connection": false,
       "x": 12,
       "y": 9,
@@ -355,20 +355,6 @@
       "trainer_type": "TRAINER_TYPE_NONE",
       "trainer_sight_or_berry_tree_id": "0",
       "script": "BattleFrontier_OutsideWest_EventScript_PokefanF",
-      "flag": "0"
-    },
-    {
-      "type": "object",
-      "graphics_id": "OBJ_EVENT_GFX_HOENN_SS_TIDAL",
-      "x": 20,
-      "y": 70,
-      "elevation": 1,
-      "movement_type": "MOVEMENT_TYPE_FACE_RIGHT",
-      "movement_range_x": 0,
-      "movement_range_y": 0,
-      "trainer_type": "TRAINER_TYPE_NONE",
-      "trainer_sight_or_berry_tree_id": "0",
-      "script": "0x0",
       "flag": "0"
     }
   ],

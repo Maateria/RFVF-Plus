@@ -28,6 +28,7 @@ FallarborTown_BattleTentLobby_EventScript_GetChallengeStatus::
 	end
 
 FallarborTown_BattleTentLobby_EventScript_QuitWithoutSaving::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox FallarborTown_BattleTentLobby_Text_DidntSaveBeforeQuitting, MSGBOX_DEFAULT
 	closemessage
@@ -38,6 +39,7 @@ FallarborTown_BattleTentLobby_EventScript_QuitWithoutSaving::
 	end
 
 FallarborTown_BattleTentLobby_EventScript_WonChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	msgbox FallarborTown_BattleTentLobby_Text_BeatThreeTrainers, MSGBOX_DEFAULT
 	message FallarborTown_BattleTentLobby_Text_WaitWhileSaveGame
@@ -54,10 +56,12 @@ FallarborTown_BattleTentLobby_EventScript_GivePrize::
 	switch VAR_RESULT
 	case FALSE, FallarborTown_BattleTentLobby_EventScript_NoRoomForPrize
 	frontier_set FRONTIER_DATA_CHALLENGE_STATUS, 0
+	textcolor NPC_TEXT_COLOR_NEUTRAL
 	message FallarborTown_BattleTentLobby_Text_ReceivedPrize
 	waitmessage
 	playfanfare MUS_OBTAIN_ITEM
 	waitfanfare
+	call EventScript_RestorePrevTextColor
 	msgbox FallarborTown_BattleTentLobby_Text_AwaitAnotherChallenge2, MSGBOX_DEFAULT
 	closemessage
 	setvar VAR_TEMP_CHALLENGE_STATUS, 255
@@ -79,6 +83,7 @@ FallarborTown_BattleTentLobby_EventScript_PrizeWaiting::
 	end
 
 FallarborTown_BattleTentLobby_EventScript_LostChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message FallarborTown_BattleTentLobby_Text_ThankYouWaitWhileSaving
 	waitmessage
@@ -93,6 +98,7 @@ FallarborTown_BattleTentLobby_EventScript_LostChallenge::
 	end
 
 FallarborTown_BattleTentLobby_EventScript_ResumeChallenge::
+	textcolor NPC_TEXT_COLOR_MALE
 	lockall
 	message FallarborTown_BattleTentLobby_Text_LookingForwardToArrival
 	waitmessage

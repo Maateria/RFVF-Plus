@@ -24,6 +24,7 @@ BattleFrontier_BattleFactoryPreBattleRoom_OnFrame:
 	.2byte 0
 
 BattleFrontier_BattleFactoryPreBattleRoom_EventScript_EnterRoom::
+	textcolor NPC_TEXT_COLOR_MALE
 	goto_if_eq VAR_0x8006, 1, BattleFrontier_BattleFactoryPreBattleRoom_EventScript_ReturnToRoomFromBattle
 	setvar VAR_TEMP_0, 1
 	applymovement LOCALID_FACTORY_PRE_BATTLE_ATTENDANT, BattleFrontier_BattleFactoryPreBattleRoom_Movement_AttendantEnterRoom
