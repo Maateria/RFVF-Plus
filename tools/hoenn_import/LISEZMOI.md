@@ -244,6 +244,25 @@ uv run --no-project --with pyelftools python tools/hoenn_import/hoenn_trainers.p
 uv run --no-project --with pyelftools python tools/hoenn_import/hoenn_texts.py Route1 --write
 ```
 
+## Les bases secrètes : `secret_bases.py`
+
+`import_map.py` ne prend pas les bases secrètes : leurs six tilesets partagent les mêmes métatiles. `secret_bases.py`
+fait trois choses, et sa relance ne change plus rien :
+- il donne les comportements de base secrète (entrées, tapis, murs) aux tilesets Hoenn déjà importés, qui avaient
+  reçu `MB_NORMAL` avant que ces comportements existent ici ;
+- il pose les 75 entrées d'Émeraude sur les routes (évènements `secret_base`), chacune vérifiée sur sa case ;
+- il importe les 24 cartes `SecretBase_*` (groupe `gMapGroup_SecretBases`, ordre d'Émeraude) avec leurs tilesets
+  `gTileset_HoennSecretBase*` et les labels `METATILE_HoennSecretBase_*`, contrôlées pixel par pixel, avec
+  leurs 14 objets de décoration (poupées, coussins : `OBJ_EVENT_GFX_VAR_0` à `D`, `FLAG_DECORATION_1` à `14`) ;
+  pas le propriétaire d'Émeraude (aucune base d'un autre joueur ici).
+
+Les sprites des poupées et des coussins viennent de `hoenn_sprites.py` comme les autres sprites d'Émeraude.
+
+```bash
+uv run tools/hoenn_import/secret_bases.py --dry-run
+uv run tools/hoenn_import/secret_bases.py
+```
+
 ## Vos modifications dans Porymap sont gardées
 
 L'outil ne réécrit jamais ce qui existe déjà. Les imports suivants gardent donc :

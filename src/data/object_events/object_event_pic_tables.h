@@ -3954,6 +3954,186 @@ static const struct SpriteFrameImage sPicTable_HoennSubmarineShadow[] = {
     obj_frame_tiles(gObjectEventPic_HoennSubmarineShadow),
 };
 
+static const struct SpriteFrameImage sPicTable_HoennPichuDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennPichuDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennPikachuDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennPikachuDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMarillDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennMarillDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennTogepiDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennTogepiDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennCyndaquilDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennCyndaquilDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennChikoritaDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennChikoritaDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennTotodileDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennTotodileDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennJigglypuffDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennJigglypuffDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMeowthDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennMeowthDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennClefairyDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennClefairyDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennDittoDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennDittoDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSmoochumDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennSmoochumDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennTreeckoDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennTreeckoDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennTorchicDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennTorchicDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennMudkipDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennMudkipDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennDuskullDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennDuskullDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWynautDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennWynautDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBaltoyDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBaltoyDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennKecleonDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennKecleonDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennAzurillDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennAzurillDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSkittyDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennSkittyDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSwabluDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennSwabluDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGulpinDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennGulpinDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennLotadDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennLotadDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSeedotDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennSeedotDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennPikaCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennPikaCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennRoundCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennRoundCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennKissCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennKissCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennZigzagCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennZigzagCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennSpinCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennSpinCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennDiamondCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennDiamondCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBallCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBallCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennGrassCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennGrassCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennFireCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennFireCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennWaterCushion[] = {
+    obj_frame_tiles(gObjectEventPic_HoennWaterCushion),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigSnorlaxDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigSnorlaxDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigRhydonDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigRhydonDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigLaprasDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigLaprasDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigVenusaurDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigVenusaurDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigCharizardDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigCharizardDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigBlastoiseDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigBlastoiseDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigWailmerDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigWailmerDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigRegirockDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigRegirockDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigRegiceDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigRegiceDoll),
+};
+
+static const struct SpriteFrameImage sPicTable_HoennBigRegisteelDoll[] = {
+    obj_frame_tiles(gObjectEventPic_HoennBigRegisteelDoll),
+};
+
 static const struct SpriteFrameImage sPicTable_HoennLatiasLatios[] = {
     overworld_frame(gObjectEventPic_HoennLatiasLatios, 4, 4, 0),
     overworld_frame(gObjectEventPic_HoennLatiasLatios, 4, 4, 0),

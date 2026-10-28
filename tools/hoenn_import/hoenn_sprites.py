@@ -7,7 +7,7 @@ Usage (Git Bash, from the repo root), then build as usual:
     nothing).
 
 Every Emerald object graphic is imported but those skipped() leaves out (player avatar states, link avatars, berry
-trees, secret base decorations): OBJ_EVENT_GFX_HOENN_X shows Emerald's OBJ_EVENT_GFX_X with Emerald's pixels, palettes,
+trees, the unused dolls): OBJ_EVENT_GFX_HOENN_X shows Emerald's OBJ_EVENT_GFX_X with Emerald's pixels, palettes,
 frames and animations. Hoenn layouts load Emerald's NPC palettes (InitObjectEventPalettes(OBJ_PAL_MODE_HOENN)), so a Hoenn
 map uses these ids (hoenn_import.py maps Emerald objects to them) and a Kanto map never does (--check-gfx).
 
@@ -63,9 +63,10 @@ INFO_FIELDS = ["tileTag", "paletteTag", "reflectionPaletteTag", "size", "width",
 
 def skipped(name):
     """Emerald gfx not imported: the player is Red/Leaf, link partners are drawn by FRLG's own code, FRLG has no
-    berry trees nor secret bases."""
+    Emerald's berry trees (berry_trees.py draws them), the dolls no decoration shows. The decorations' dolls and
+    cushions are imported (secret bases, session 2)."""
     return bool(re.fullmatch(r"(BRENDAN|MAY)_(NORMAL|MACH_BIKE|ACRO_BIKE|SURFING|FIELD_MOVE|UNDERWATER|FISHING|"
-                             r"WATERING|DECORATING)|LINK_(RS_)?(BRENDAN|MAY)|RED|LEAF|BERRY_TREE\w*|\w+_(DOLL|CUSHION)",
+                             r"WATERING|DECORATING)|LINK_(RS_)?(BRENDAN|MAY)|RED|LEAF|BERRY_TREE\w*|UNUSED_\w+_DOLL",
                              name))
 
 
@@ -78,7 +79,8 @@ FEMALE = {
     "RIVAL_MAY_SURFING", "RIVAL_MAY_FIELD_MOVE", "AQUA_MEMBER_F", "MAGMA_MEMBER_F", "PHOEBE", "GLACIA", "ROXANNE",
     "FLANNERY", "WINONA", "LIZA", "HOT_SPRINGS_OLD_WOMAN", "MOM", "UNION_ROOM_NURSE",
 }
-COLOR_BY_FOLDER = {"pokemon": "NPC_TEXT_COLOR_MON", "misc": "NPC_TEXT_COLOR_NEUTRAL"}
+COLOR_BY_FOLDER = {"pokemon": "NPC_TEXT_COLOR_MON", "misc": "NPC_TEXT_COLOR_NEUTRAL", "dolls": "NPC_TEXT_COLOR_NEUTRAL",
+                   "cushions": "NPC_TEXT_COLOR_NEUTRAL"}  # decorations: objects, like misc/
 
 # Kanto id -> Emerald gfx of the same character class, both sheets looked at side by side (same gender; a named
 # character only with itself). Only ids drawn with an NPC palette slot need one: a Hoenn map loads Emerald's palettes
@@ -264,13 +266,18 @@ class Generator:
         # an id read wrong would be appended again under a new number: stop instead (saves store the numbers)
         assert len(ids) == len(found) == len(re.findall(define, self.fr.ids_text, re.M)), \
             "an OBJ_EVENT_GFX_HOENN_ define is not '#define OBJ_EVENT_GFX_HOENN_X <decimal>', or is defined twice"
+        # berry_trees.py's hand-made ids sit at the top of the block (490-507): not this tool's
+        hand_made = {n: v for n, v in ids.items() if skipped(n)}
+        assert all(v >= 490 for v in hand_made.values()), "a skipped gfx has an id below 490: %s" % hand_made
+        ids = {n: v for n, v in ids.items() if n not in hand_made}
         assert sorted(ids.values()) == list(range(HOENN_IDS.start, HOENN_IDS.start + len(ids))), \
             "OBJ_EVENT_GFX_HOENN_ ids are not %d.. without gaps: a number was edited or removed" % HOENN_IDS.start
         assert set(ids) <= set(self.scope), "ids of gfx no longer imported: %s" % sorted(set(ids) - set(self.scope))
         for g in self.scope:
             if g not in ids:
                 ids[g] = max(ids.values(), default=HOENN_IDS.start - 1) + 1
-        assert all(i in HOENN_IDS for i in ids.values()) and len(set(ids.values())) == len(ids), "Hoenn block full"
+        assert all(i in range(HOENN_IDS.start, 490) for i in ids.values()) and len(set(ids.values())) == len(ids), \
+            "Hoenn block full (490-511: berry trees)"
         return ids
 
     # --- palettes
@@ -405,7 +412,7 @@ class Generator:
                 info_name, "".join("\t.%s = %s,\n" % (k, fields[k]) for k in INFO_FIELDS)))
             folder = pic_names[em.pic_tables[em_pic_table][0][1].split(",")[0].strip()][2]
             color = COLOR_BY_FOLDER.get(folder, "NPC_TEXT_COLOR_FEMALE" if g in FEMALE else "NPC_TEXT_COLOR_MALE")
-            assert folder in ("people", "pokemon", "misc") and (folder == "people" or g not in FEMALE), (g, folder)
+            assert folder in ("people", "pokemon", "misc", "dolls", "cushions") and (folder == "people" or g not in FEMALE), (g, folder)
             rows.append(dict(gfx=g, id=self.ids[g], info=info_name, slot=info["paletteSlot"], tag=pals[tag][0],
                              frames=pic_tables[em_pic_table], em_frames=len(em.pic_tables[em_pic_table]),
                              size="%sx%s" % (info["width"], info["height"]), color=color, anims=fields["anims"]))

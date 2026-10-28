@@ -44,6 +44,8 @@
 #define PARTY_NOTHING_CHOSEN (PARTY_SIZE + 1) // Emerald's name for FRLG's cancel slot (src/party_menu.c SLOT_CANCEL)
 #define PC_MAIL_NUM(i)     (PARTY_SIZE + (i))
 #define DECOR_MAX_SECRET_BASE 16
+#define DECOR_MAX_PLAYERS_HOUSE 12
+#define SECRET_BASES_COUNT 1 // RFVF+: Emerald's 20, the player's base only (no record mixing)
 #define DECOR_INVENTORY_SIZE 150 // RFVF+: Emerald's 10 desks, 10 chairs, 10 plants, 30 ornaments, 30 mats, 10 posters, 40 dolls, 10 cushions
 #define MAX_REMATCH_ENTRIES 100
 #define UNION_ROOM_KB_ROW_COUNT 10

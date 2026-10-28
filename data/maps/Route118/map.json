@@ -280,6 +280,41 @@
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_118_HEART_SCALE",
       "quantity": 1,
       "underfoot": false
+    },
+    {
+      "type": "secret_base",
+      "x": 47,
+      "y": 14,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_RED_CAVE1_1"
+    },
+    {
+      "type": "secret_base",
+      "x": 67,
+      "y": 6,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_RED_CAVE2_1"
+    },
+    {
+      "type": "secret_base",
+      "x": 29,
+      "y": 5,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_YELLOW_CAVE1_2"
+    },
+    {
+      "type": "secret_base",
+      "x": 47,
+      "y": 5,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_TREE1_3"
+    },
+    {
+      "type": "secret_base",
+      "x": 46,
+      "y": 5,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_TREE2_1"
     }
   ],
   "level_scaling": "5"

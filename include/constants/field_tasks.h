@@ -7,7 +7,7 @@
 #define STEP_CB_PACIFIDLOG_BRIDGE   3 // Unused, dummied
 #define STEP_CB_ICE                 4
 #define STEP_CB_TRUCK               5 // Unused, dummied
-#define STEP_CB_SECRET_BASE         6 // Unused, dummied
+#define STEP_CB_SECRET_BASE         6 // RFVF+: Emerald's (balloons, breakable doors)
 #define STEP_CB_CRACKED_FLOOR       7 // Unused
 #define STEP_CB_SOOTOPOLIS_ICE      8 // Emerald's (src/hoenn_gyms.c)
 

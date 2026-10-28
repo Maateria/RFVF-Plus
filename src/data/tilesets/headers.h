@@ -2257,3 +2257,81 @@ const struct Tileset gTileset_Johtossaqua =
 };
 
 // END johto_import
+
+const struct Tileset gTileset_HoennSecretBase = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = FALSE,
+	.tiles = gTilesetTiles_HoennSecretBase,
+	.palettes = gTilesetPalettes_HoennSecretBase,
+	.metatiles = gMetatiles_HoennSecretBase,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBase,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSecretBaseRedCave = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSecretBaseRedCave,
+	.palettes = gTilesetPalettes_HoennSecretBaseRedCave,
+	.metatiles = gMetatiles_HoennSecretBaseSecondary,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBaseSecondary,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSecretBaseBrownCave = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSecretBaseBrownCave,
+	.palettes = gTilesetPalettes_HoennSecretBaseBrownCave,
+	.metatiles = gMetatiles_HoennSecretBaseSecondary,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBaseSecondary,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSecretBaseBlueCave = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSecretBaseBlueCave,
+	.palettes = gTilesetPalettes_HoennSecretBaseBlueCave,
+	.metatiles = gMetatiles_HoennSecretBaseSecondary,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBaseSecondary,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSecretBaseYellowCave = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSecretBaseYellowCave,
+	.palettes = gTilesetPalettes_HoennSecretBaseYellowCave,
+	.metatiles = gMetatiles_HoennSecretBaseSecondary,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBaseSecondary,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSecretBaseTree = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSecretBaseTree,
+	.palettes = gTilesetPalettes_HoennSecretBaseTree,
+	.metatiles = gMetatiles_HoennSecretBaseSecondary,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBaseSecondary,
+	.callback = NULL
+};
+
+const struct Tileset gTileset_HoennSecretBaseShrub = 
+{
+	.isCompressed = TRUE,
+	.isSecondary = TRUE,
+	.tiles = gTilesetTiles_HoennSecretBaseShrub,
+	.palettes = gTilesetPalettes_HoennSecretBaseShrub,
+	.metatiles = gMetatiles_HoennSecretBaseSecondary,
+	.metatileAttributes = gMetatileAttributes_HoennSecretBaseSecondary,
+	.callback = NULL
+};
+

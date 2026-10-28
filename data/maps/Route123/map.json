@@ -896,6 +896,27 @@
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_123_RARE_CANDY",
       "quantity": 1,
       "underfoot": false
+    },
+    {
+      "type": "secret_base",
+      "x": 47,
+      "y": 3,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_BLUE_CAVE1_2"
+    },
+    {
+      "type": "secret_base",
+      "x": 49,
+      "y": 3,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_BLUE_CAVE2_2"
+    },
+    {
+      "type": "secret_base",
+      "x": 57,
+      "y": 5,
+      "elevation": 0,
+      "secret_base_id": "SECRET_BASE_BLUE_CAVE1_3"
     }
   ],
   "level_scaling": "5"

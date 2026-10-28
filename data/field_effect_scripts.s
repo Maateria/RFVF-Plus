@@ -118,7 +118,8 @@ gFldEffScript_Dust::
 	end 
 
 gFldEffScript_UseSecretPowerCave::
-	end 
+	callnative FldEff_UseSecretPowerCave
+	end
 
 gFldEffScript_JumpTallGrass::
 	loadfadedpal_callnative gSpritePalette_GeneralFieldEffect1, FldEff_JumpTallGrass
@@ -178,10 +179,12 @@ gFldEffScript_PokecenterHeal::
 	end 
 
 gFldEffScript_UseSecretPowerTree::
-	end 
+	callnative FldEff_UseSecretPowerTree
+	end
 
 gFldEffScript_UseSecretPowerShrub::
-	end 
+	callnative FldEff_UseSecretPowerShrub
+	end
 
 gFldEffScript_TreeDisguise::
 	callnative ShowTreeDisguiseFieldEffect
@@ -279,7 +282,8 @@ gFldEffScript_SweetScent::
 	end 
 
 gFldEffScript_SandPillar::
-	end 
+	loadfadedpal_callnative gSpritePalette_SandPillar, FldEff_SandPillar
+	end
 
 gFldEffScript_Bubbles::
 	loadfadedpal_callnative gSpritePalette_GeneralFieldEffect0, FldEff_Bubbles
@@ -290,13 +294,16 @@ gFldEffScript_Sparkle::
 	end 
 
 gFldEffScript_SecretPowerCave::
-	end 
+	loadfadedpal_callnative gSpritePalette_SecretPower_Cave, FldEff_SecretPowerCave
+	end
 
 gFldEffScript_SecretPowerTree::
-	end 
+	loadfadedpal_callnative gSpritePalette_SecretPower_Plant, FldEff_SecretPowerTree
+	end
 
 gFldEffScript_SecretPowerShrub::
-	end 
+	loadfadedpal_callnative gSpritePalette_SecretPower_Plant, FldEff_SecretPowerShrub
+	end
 
 gFldEffScript_CutGrass::
 	loadfadedpal_callnative gFldEffPalette_CutGrass, FldEff_CutGrass
@@ -310,7 +317,8 @@ gFldEffScript_UseFlyAncientTomb::
 	end 
 
 gFldEffScript_PcturnOn::
-	end 
+	callnative FldEff_SecretBasePCTurnOn
+	end
 
 gFldEffScript_HallOfFameRecord::
 	loadfadedpal gSpritePalette_PokeballGlow 

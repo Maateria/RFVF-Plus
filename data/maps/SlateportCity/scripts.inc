@@ -266,11 +266,17 @@ SlateportCity_PokemartDecor_Dolls::
 	.2byte DECOR_SKITTY_DOLL
 	pokemartlistend
 
-@ Emerald sells these only once the player has Secret Power; RFVF+: always (the secret bases come later)
+SlateportCity_EventScript_ComeBackWithSecretPower::
+	msgbox SlateportCity_Text_ComeBackWithSecretPower, MSGBOX_DEFAULT
+	release
+	end
+
+@ Emerald's: he sells only once the player has Secret Power (the Route 111 man's TM, or a base made)
 SlateportCity_EventScript_DecorClerk::
 	lock
 	faceplayer
 	goto_if_questlog EventScript_ReleaseEnd
+	goto_if_unset FLAG_RECEIVED_SECRET_POWER, SlateportCity_EventScript_ComeBackWithSecretPower
 	message Text_MayIHelpYou
 	waitmessage
 	pokemartdecoration SlateportCity_PokemartDecor

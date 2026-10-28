@@ -258,9 +258,13 @@ static void Task_PlayerPcMailbox(u8 taskId)
     }
 }
 
+// RFVF+: Emerald's DECORATION: DECORER / RANGER / JETER in the Pallet Town bedroom, JETER only elsewhere
 static void Task_PlayerPcDecoration(u8 taskId)
 {
-    DoDecorationPCMenu(taskId, Task_ReturnToTopMenu);
+    if (gPlayerPcMenuManager.notInRoom == FALSE)
+        DoPlayerRoomDecorationMenu(taskId, Task_ReturnToTopMenu);
+    else
+        DoDecorationPCMenu(taskId, Task_ReturnToTopMenu);
 }
 
 static void Task_PlayerPcTurnOff(u8 taskId)

@@ -48,6 +48,7 @@
 #include "save_location.h"
 #include "scanline_effect.h"
 #include "script.h"
+#include "secret_base.h"
 #include "script_pokemon_util.h"
 #include "start_menu.h"
 #include "tileset_anims.h"
@@ -982,6 +983,7 @@ static void LoadMapFromWarp(bool32 unused)
     RoamerMoveToOtherLocationSet();
     QL_ResetDefeatedWildMonRecord();
     InitMap();
+    InitSecretBaseAppearance(TRUE); // RFVF+: Emerald's (the PC of a base not made yet)
 }
 
 static void QL_LoadMapNormal(void)
@@ -2154,7 +2156,8 @@ static bool32 LoadMapInStepsLocal(u8 *state, bool32 inLink)
             MapPreview_LoadGfx(gMapHeader.regionMapSectionId);
             MapPreview_StartForestTransition(gMapHeader.regionMapSectionId);
         }
-        else if (gMapHeader.showMapName == TRUE && !(FlagGet(FLAG_SYS_CRUISE_MODE) && gMapHeader.mapType == MAP_TYPE_OCEAN_ROUTE)) // not the S.S. Tidal's porthole view
+        else if (gMapHeader.showMapName == TRUE && !(FlagGet(FLAG_SYS_CRUISE_MODE) && gMapHeader.mapType == MAP_TYPE_OCEAN_ROUTE) // not the S.S. Tidal's porthole view
+                 && SecretBaseMapPopupEnabled())
         {
             ShowMapNamePopup(FALSE);
         }
@@ -2359,7 +2362,7 @@ static void ResumeMap(bool32 inLink)
     InstallCameraPanAheadCallback();
     if (inLink)
         InitObjectEventPalettes(1);
-    else if (IsHoennMapLayout() || IsEmeraldFrontierMap())
+    else if (IsHoennMapLayout() || IsEmeraldFrontierMap() || UsesDecorationObjects()) // the dolls, cushions: Hoenn sprites
         InitObjectEventPalettes(OBJ_PAL_MODE_HOENN);
     else if (IsJohtoMapLayout())
         InitObjectEventPalettes(OBJ_PAL_MODE_JOHTO);

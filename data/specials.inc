@@ -581,4 +581,20 @@ gSpecials::
 	def_special GetBattleFrontierTutorMoveIndex
 	def_special GetFrontierBattlePoints
 	def_special IsHoennMapLayout
+	@ RFVF+: Emerald's secret bases (src/secret_base.c, src/fldeff_secretpower.c)
+	def_special GetSecretBaseTypeInFrontOfPlayer
+	def_special CheckPlayerHasSecretBase
+	def_special SetPlayerSecretBase
+	def_special EnterSecretBase
+	def_special EnterNewlyCreatedSecretBase
+	def_special ClearAndLeaveSecretBase
+	def_special MoveOutOfSecretBase
+	def_special MoveOutOfSecretBaseFromOutside
+	def_special GetSecretBaseNearbyMapName
+	def_special ShowSecretBaseDecorationMenu
+	def_special DoSecretBasePCTurnOffEffect
+	def_special InitSecretBaseDecorationSprites
+	def_special SetDecoration
+	def_special PutAwayDecorationIteration
+	def_special InteractWithShieldOrTVDecoration
 gSpecialsEnd::

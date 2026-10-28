@@ -1460,4 +1460,18 @@ extern const u8 BattleFrontier_Lounge7_Text_ThunderWaveDesc[];
 
 extern const u8 BattleFrontier_OutsideEast_EventScript_WaterSudowoodo[];
 
+// secret bases (data/scripts/secret_base.inc)
+extern const u8 SecretBase_EventScript_CheckEntrance[];
+extern const u8 SecretBase_EventScript_Enter[];
+extern const u8 SecretBase_EventScript_PC[];
+extern const u8 SecretBase_EventScript_PCCancel[];
+extern const u8 SecretBase_EventScript_CaveUseSecretPower[];
+extern const u8 SecretBase_EventScript_TreeUseSecretPower[];
+extern const u8 SecretBase_EventScript_ShrubUseSecretPower[];
+extern const u8 SecretBase_EventScript_InitDecorations[];
+extern const u8 SecretBase_EventScript_SetDecoration[];
+extern const u8 SecretBase_EventScript_PutAwayDecoration[];
+extern const u8 SecretBase_EventScript_SandOrnament[];
+extern const u8 SecretBase_EventScript_ShieldOrToyTV[];
+
 #endif //GUARD_EVENT_SCRIPTS_H

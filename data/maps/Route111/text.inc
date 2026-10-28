@@ -410,3 +410,42 @@ Route111_Text_GoingToTryToMakeDifferentColorBerries::
 Route111_Text_WhatColorBerriesToLookForToday::
     .string "Je vais chercher des BAIES de quelle\n"
     .string "couleur aujourd'hui?$"
+
+Route111_Text_MakingRoomUseTMToMakeYourOwn::
+    .string "Qu'est-ce que c'est?\n"
+    .string "Qu'est-ce que je fais?\p"
+    .string "Je vais me créer ma propre\n"
+    .string "pièce ici, en utilisant la\l"
+    .string "capacité d'un POKéMON.\p"
+    .string "Je sais! Je vais te donner cette CT.\n"
+    .string "Tu vas l'utiliser pour avoir ta pièce?$"
+
+Route111_Text_ExplainSecretPower::
+    .string "Trouve un grand arbre qui pourrait\n"
+    .string "avoir des lianes.\p"
+    .string "Utilise FORCE CACHEE devant l'arbre.\n"
+    .string "Des lianes peuvent en tomber\l"
+    .string "et te permettre de monter.\p"
+    .string "Tu trouveras toute la place qu'il te\n"
+    .string "faut pour y mettre\l"
+    .string "tes objets préférés.\p"
+    .string "Ce sera ta pièce secrète…\n"
+    .string "Ta BASE SECRETE!\p"
+    .string "Tu devrais t'en créer une!\p"
+    .string "Autre chose: une BASE SECRETE ne se\n"
+    .string "construit pas toujours\l"
+    .string "dans un arbre.\p"
+    .string "Essaie d'utiliser FORCE CACHEE sur\n"
+    .string "des façades rocheuses fissurées.\p"
+    .string "Je vais aussi chercher d'autres\n"
+    .string "lieux. Salut!$"
+
+Route111_Text_DontWantThis::
+    .string "Oh, tu n'en veux pas? Si tu changes\n"
+    .string "d'avis, fais-moi signe, OK?$"
+
+Route111_Text_DontHaveAnyRoom::
+    .string "Oh, tu n'as pas de place pour ça.\p"
+    .string "Bon, je vais la garder et tu pourras\n"
+    .string "la prendre une autre fois, d'accord?$"
+

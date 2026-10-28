@@ -204,17 +204,17 @@ DEGRADED = {
     "MB_WATER_SOUTH_ARROW_WARP": "MB_OCEAN_WATER",
 }
 WATER_DOORS = {"MB_WATER_DOOR", "MB_WATER_SOUTH_ARROW_WARP"}
-# Emerald behaviors with no counterpart here: MB_NORMAL (listed in the report, with this reason). MB_SECRET_BASE_*
-# too. A warp tile among them is refused by the dead-warp check.
+# Emerald behaviors with no counterpart here: MB_NORMAL (listed in the report, with this reason). The secret base ones
+# (MB_SECRET_BASE_*, MB_HOLDS_*, MB_PLAYER_ROOM_PC_ON) exist since secret_bases.py. A warp tile among them is refused
+# by the dead-warp check.
 NO_COUNTERPART = dict(
     {b: "diagonal jump, no effect in Emerald either" for b in ("MB_JUMP_NORTHEAST", "MB_JUMP_NORTHWEST",
                                                                  "MB_JUMP_SOUTHEAST", "MB_JUMP_SOUTHWEST")},
     MB_BERRY_TREE_SOIL="berry soil",
-    MB_HOLDS_LARGE_DECORATION="secret base", MB_HOLDS_SMALL_DECORATION="secret base",
     MB_LONG_GRASS_SOUTH_EDGE="grass edge",
     MB_ROULETTE="game corner", MB_SLOT_MACHINE="game corner, the machines are bg events",
     MB_PETALBURG_GYM_DOOR="gym door, a script opens it", MB_POKEBLOCK_FEEDER="Safari feeder",
-    MB_PLAYER_ROOM_PC_ON="bedroom PC", MB_RUNNING_SHOES_INSTRUCTION="tutorial sign", MB_TRAINER_HILL_TIMER="Trainer Hill",
+    MB_RUNNING_SHOES_INSTRUCTION="tutorial sign", MB_TRAINER_HILL_TIMER="Trainer Hill",
     MB_UNUSED_SOOTOPOLIS_DEEP_WATER="unused water, not surfable in Emerald",  # MB_BATTLE_PYRAMID_WARP: defined here since batch 6
     MB_UNUSED_SOOTOPOLIS_DEEP_WATER_2="unused water, not surfable in Emerald",
     MB_LAVARIDGE_GYM_B1F_WARP="Lavaridge Gym B1F geyser (engine E3)",
@@ -508,7 +508,7 @@ class Behaviors:
             return DEGRADED[em_name], "DEGRADED"
         if em_name in self.fr_values:
             return em_name, None
-        why = NO_COUNTERPART.get(em_name) or ("secret base" if em_name.startswith("MB_SECRET_BASE_") else None)
+        why = NO_COUNTERPART.get(em_name)
         if not why:
             refuse("unknown Emerald behavior %s: map it in hoenn_import.py (BEHAVIOR_OVERRIDES, DEGRADED or "
                    "NO_COUNTERPART)" % em_name)

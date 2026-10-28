@@ -50,6 +50,7 @@
 #include "constants/battle_tent.h"
 #include "constants/battle_tower.h"
 #include "constants/frontier_util.h"
+#include "constants/secret_bases.h"
 	.include "asm/macros.inc"
 	.include "asm/macros/event.inc"
 	.set FALSE, 0
@@ -1013,6 +1014,7 @@ Common_EventScript_BufferTrendyPhrase::
 	.include "data/scripts/set_gym_trainers.inc"
 	.include "data/scripts/hoenn_gyms.inc"
 	.include "data/scripts/mauville_man.inc"
+	.include "data/scripts/secret_base.inc"
 	.include "data/scripts/hoenn_berry_trees.inc"
 	.include "data/scripts/hoenn_dungeons.inc"
 	.include "data/scripts/bag_full.inc"

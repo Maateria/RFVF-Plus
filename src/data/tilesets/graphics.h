@@ -4381,3 +4381,158 @@ const u16 gTilesetPalettes_Johtossaqua[][16] =
 };
 
 // END johto_import
+
+const u32 gTilesetTiles_HoennSecretBase[] = INCBIN_U32("data/tilesets/primary/hoenn_secret_base/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBase[][16] =
+{
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/primary/hoenn_secret_base/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSecretBaseRedCave[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/red_cave/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBaseRedCave[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/red_cave/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSecretBaseBrownCave[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/brown_cave/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBaseBrownCave[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/brown_cave/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSecretBaseBlueCave[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/blue_cave/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBaseBlueCave[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/blue_cave/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSecretBaseYellowCave[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/yellow_cave/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBaseYellowCave[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/yellow_cave/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSecretBaseTree[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/tree/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBaseTree[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/tree/palettes/15.gbapal"),
+};
+
+const u32 gTilesetTiles_HoennSecretBaseShrub[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/shrub/tiles.4bpp.lz");
+
+const u16 gTilesetPalettes_HoennSecretBaseShrub[][16] =
+{
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/00.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/01.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/02.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/03.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/04.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/05.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/06.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/07.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/08.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/09.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/10.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/11.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/12.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/13.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/14.gbapal"),
+	INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/shrub/palettes/15.gbapal"),
+};
+

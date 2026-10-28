@@ -5,6 +5,8 @@
 #include "gflib.h"
 #include "overworld.h"
 #include "script.h"
+#include "secret_base.h"
+#include "fldeff.h"
 #include "new_menu_helpers.h"
 #include "quest_log.h"
 #include "fieldmap.h"
@@ -107,6 +109,7 @@ void InitMap(void)
     }
     InitMapLayoutData(&gMapHeader);
     GenerateTrainerHillFloorLayout(); // RFVF+: Emerald's InitTrainerHillMap
+    SetOccupiedSecretBaseEntranceMetatiles(gMapHeader.events); // RFVF+: Emerald's
     RunOnLoadMapScript();
 }
 
@@ -119,6 +122,8 @@ void InitMapFromSavedGame(void)
     }
     InitMapLayoutData(&gMapHeader);
     GenerateTrainerHillFloorLayout();
+    InitSecretBaseAppearance(FALSE); // RFVF+: Emerald's
+    SetOccupiedSecretBaseEntranceMetatiles(gMapHeader.events);
     LoadSavedMapView();
     RunOnLoadMapScript();
 }
@@ -546,12 +551,26 @@ static void ClearSavedMapView(void)
     CpuFill16(0, gSaveBlock2Ptr->mapView, sizeof(gSaveBlock2Ptr->mapView));
 }
 
+// RFVF+: Emerald's. On the view's top (yMode 0) or bottom (1) row, a secret base's sand ornament or breakable door
+// whose other half is out of the view keeps its layout state: never half broken.
+static bool8 SkipCopyingMetatileFromSavedMap(u16 *mapBlock, u16 mapWidth, u8 yMode)
+{
+    if (yMode == 0xFF)
+        return FALSE;
+    if (yMode == 0)
+        mapBlock -= mapWidth;
+    else
+        mapBlock += mapWidth;
+    return IsLargeBreakableDecoration(*mapBlock & MAPGRID_METATILE_ID_MASK, yMode);
+}
+
 static void LoadSavedMapView(void)
 {
     s32 i, j;
     s32 x, y;
     u16 *mapView;
     s32 width;
+    u8 yMode;
     mapView = gSaveBlock2Ptr->mapView;
     if (!SavedMapViewIsEmpty())
     {
@@ -560,9 +579,16 @@ static void LoadSavedMapView(void)
         y = gSaveBlock1Ptr->pos.y;
         for (i = y; i < y + MAP_OFFSET_H; i++)
         {
+            if (i == y && i != 0)
+                yMode = 0;
+            else if (i == y + MAP_OFFSET_H - 1 && i != gMapHeader.mapLayout->height - 1)
+                yMode = 1;
+            else
+                yMode = 0xFF;
             for (j = x; j < x + MAP_OFFSET_W; j++)
             {
-                gBackupMapData[j + width * i] = *mapView;
+                if (!SkipCopyingMetatileFromSavedMap(&gBackupMapData[j + width * i], width, yMode))
+                    gBackupMapData[j + width * i] = *mapView;
                 mapView++;
             }
         }

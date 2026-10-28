@@ -496,6 +496,24 @@ struct BattleFrontier
     struct DomeMonData domePlayerPartyData[FRONTIER_PARTY_SIZE];
 };
 
+// RFVF+: Emerald's secret base without its party (no record mixing: the player's base only, SECRET_BASES_COUNT 1)
+struct SecretBase
+{
+    /*0x00*/ u8 secretBaseId; // 0: none
+    /*0x01*/ bool8 toRegister:4;
+    /*0x01*/ u8 gender:1;
+    /*0x01*/ u8 battledOwnerToday:1;
+    /*0x01*/ u8 registryStatus:2;
+    /*0x02*/ u8 trainerName[PLAYER_NAME_LENGTH];
+    /*0x09*/ u8 trainerId[TRAINER_ID_LENGTH];
+    /*0x0D*/ u8 language;
+    /*0x0E*/ u16 numSecretBasesReceived;
+    /*0x10*/ u8 numTimesEntered;
+    /*0x11*/ u8 unused;
+    /*0x12*/ u8 decorations[DECOR_MAX_SECRET_BASE];
+    /*0x22*/ u8 decorationPositions[DECOR_MAX_SECRET_BASE];
+}; // size: 0x34 (agbcc rounds structs to 4 bytes)
+
 struct SaveBlock2
 {
     /*0x000*/ u8 playerName[PLAYER_NAME_LENGTH + 1];
@@ -535,7 +553,11 @@ struct SaveBlock2
     /*0xB10*/ struct BerryPickingResults berryPick;
     /*0xB20*/ u8 extFlags[EXT_FLAGS_COUNT / 8]; // was filler_B20, never written: zero in older saves
     /*0xF20*/ u32 encryptionKey;
-}; // size: 0xF24
+    /*0xF24*/ struct SecretBase secretBases[SECRET_BASES_COUNT]; // RFVF+: Emerald's (SaveBlock1 there). Past the old
+              // end: older saves read zeros there (save.c clears a sector before writing it), i.e. no base
+    /*0xF58*/ u8 playerRoomDecorations[DECOR_MAX_PLAYERS_HOUSE]; // RFVF+: Emerald's, the Pallet Town bedroom
+    /*0xF64*/ u8 playerRoomDecorationPositions[DECOR_MAX_PLAYERS_HOUSE];
+}; // size: 0xF70
 
 extern struct SaveBlock2 *gSaveBlock2Ptr;
 

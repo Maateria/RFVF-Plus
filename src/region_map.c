@@ -19,6 +19,7 @@
 #include "constants/heal_locations.h"
 #include "constants/maps.h"
 #include "hoenn_specials.h"
+#include "secret_base.h"
 
 #define MAP_WIDTH 22  // FRLG's region layouts (region_map_layout_*.h)
 #define MAP_HEIGHT 15
@@ -3860,6 +3861,8 @@ u8 *GetMapName(u8 *dst0, u16 mapsec, u16 fill)
     {
         if (IsCeladonDeptStoreMapsec(mapsec) == TRUE)
             dst = StringCopy(dst0, sMapsecName_CENTCOMMERCIAL);
+        else if (mapsec == MAPSEC_SECRET_BASE) // RFVF+: Emerald's, "BASE DE <owner>"
+            dst = GetSecretBaseMapName(dst0);
         else
             dst = StringCopy(dst0, sMapNames[idx]);
     }

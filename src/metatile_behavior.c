@@ -691,8 +691,8 @@ bool8 MetatileBehavior_IsRegionMap(u8 metatileBehavior)
 
 bool8 MetatileBehavior_IsRoulette(u8 metatileBehavior) { return FALSE; }
 bool8 MetatileBehavior_IsPokeblockFeeder(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsSecretBaseJumpMat(u8 metatileBehavior) { return FALSE; }
-bool8 MetatileBehavior_IsSecretBaseSpinMat(u8 metatileBehavior) { return FALSE; }
+bool8 MetatileBehavior_IsSecretBaseJumpMat(u8 metatileBehavior) { return metatileBehavior == MB_SECRET_BASE_JUMP_MAT; } // RFVF+: Emerald's mats
+bool8 MetatileBehavior_IsSecretBaseSpinMat(u8 metatileBehavior) { return metatileBehavior == MB_SECRET_BASE_SPIN_MAT; }
 
 bool8 MetatileBehavior_IsLavaridgeB1FWarp(u8 metatileBehavior)
 {
@@ -1158,4 +1158,39 @@ bool8 MetatileBehavior_IsAshGrass(u8 metatileBehavior)
         return TRUE;
     else
         return FALSE;
+}
+
+// RFVF+: Emerald's secret bases (secret_base.c, fldeff_misc.c)
+bool8 MetatileBehavior_IsOpenSecretBaseDoor(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_SECRET_BASE_SPOT_RED_CAVE_OPEN
+        || metatileBehavior == MB_SECRET_BASE_SPOT_BROWN_CAVE_OPEN
+        || metatileBehavior == MB_SECRET_BASE_SPOT_YELLOW_CAVE_OPEN
+        || metatileBehavior == MB_SECRET_BASE_SPOT_TREE_LEFT_OPEN
+        || metatileBehavior == MB_SECRET_BASE_SPOT_SHRUB_OPEN
+        || metatileBehavior == MB_SECRET_BASE_SPOT_BLUE_CAVE_OPEN
+        || metatileBehavior == MB_SECRET_BASE_SPOT_TREE_RIGHT_OPEN;
+}
+
+bool8 MetatileBehavior_IsSecretBaseCave(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_SECRET_BASE_SPOT_RED_CAVE
+        || metatileBehavior == MB_SECRET_BASE_SPOT_BROWN_CAVE
+        || metatileBehavior == MB_SECRET_BASE_SPOT_YELLOW_CAVE
+        || metatileBehavior == MB_SECRET_BASE_SPOT_BLUE_CAVE;
+}
+
+bool8 MetatileBehavior_IsSecretBaseTree(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_SECRET_BASE_SPOT_TREE_LEFT || metatileBehavior == MB_SECRET_BASE_SPOT_TREE_RIGHT;
+}
+
+bool8 MetatileBehavior_IsSecretBaseShrub(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_SECRET_BASE_SPOT_SHRUB;
+}
+
+bool8 MetatileBehavior_IsSecretBasePC(u8 metatileBehavior)
+{
+    return metatileBehavior == MB_SECRET_BASE_PC;
 }

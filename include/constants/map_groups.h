@@ -1317,6 +1317,32 @@
 #define MAP_SAFARI_ZONE_TOP_MID   (16 | (88 << 8))
 #define MAP_SAFARI_ZONE_TOP_RIGHT (17 | (88 << 8))
 
-#define MAP_GROUPS_COUNT 89
+// gMapGroup_SecretBases
+#define MAP_SECRET_BASE_RED_CAVE1    (0 | (89 << 8))
+#define MAP_SECRET_BASE_BROWN_CAVE1  (1 | (89 << 8))
+#define MAP_SECRET_BASE_BLUE_CAVE1   (2 | (89 << 8))
+#define MAP_SECRET_BASE_YELLOW_CAVE1 (3 | (89 << 8))
+#define MAP_SECRET_BASE_TREE1        (4 | (89 << 8))
+#define MAP_SECRET_BASE_SHRUB1       (5 | (89 << 8))
+#define MAP_SECRET_BASE_RED_CAVE2    (6 | (89 << 8))
+#define MAP_SECRET_BASE_BROWN_CAVE2  (7 | (89 << 8))
+#define MAP_SECRET_BASE_BLUE_CAVE2   (8 | (89 << 8))
+#define MAP_SECRET_BASE_YELLOW_CAVE2 (9 | (89 << 8))
+#define MAP_SECRET_BASE_TREE2        (10 | (89 << 8))
+#define MAP_SECRET_BASE_SHRUB2       (11 | (89 << 8))
+#define MAP_SECRET_BASE_RED_CAVE3    (12 | (89 << 8))
+#define MAP_SECRET_BASE_BROWN_CAVE3  (13 | (89 << 8))
+#define MAP_SECRET_BASE_BLUE_CAVE3   (14 | (89 << 8))
+#define MAP_SECRET_BASE_YELLOW_CAVE3 (15 | (89 << 8))
+#define MAP_SECRET_BASE_TREE3        (16 | (89 << 8))
+#define MAP_SECRET_BASE_SHRUB3       (17 | (89 << 8))
+#define MAP_SECRET_BASE_RED_CAVE4    (18 | (89 << 8))
+#define MAP_SECRET_BASE_BROWN_CAVE4  (19 | (89 << 8))
+#define MAP_SECRET_BASE_BLUE_CAVE4   (20 | (89 << 8))
+#define MAP_SECRET_BASE_YELLOW_CAVE4 (21 | (89 << 8))
+#define MAP_SECRET_BASE_TREE4        (22 | (89 << 8))
+#define MAP_SECRET_BASE_SHRUB4       (23 | (89 << 8))
+
+#define MAP_GROUPS_COUNT 90
 
 #endif // GUARD_CONSTANTS_MAP_GROUPS_H

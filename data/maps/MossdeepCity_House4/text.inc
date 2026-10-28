@@ -15,3 +15,7 @@ MossdeepCity_House4_Text_MakeSecretBase::
     .string "Tu devrais t'aménager une\n"
     .string "BASE SECRETE quelque\l"
     .string "part. J'irai la chercher!$"
+
+MossdeepCity_House4_Text_YouMadeSecretBaseNearX::
+    .string "C'est toi qui as aménagé une BASE\n"
+    .string "SECRETE {STR_VAR_1}?$"

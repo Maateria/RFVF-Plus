@@ -24,6 +24,8 @@
 #include "quest_log.h"
 #include "safari_zone.h"
 #include "script.h"
+#include "secret_base.h"
+#include "fldeff.h"
 #include "start_menu.h"
 #include "trainer_see.h"
 #include "vs_seeker.h"
@@ -401,7 +403,8 @@ static bool8 TryStartInteractionScript(struct MapPosition *position, u16 metatil
 
     // Don't play interaction sound for certain scripts.
     if (script != PalletTown_PlayersHouse_2F_EventScript_PC
-        && script != EventScript_PC)
+        && script != EventScript_PC
+        && script != SecretBase_EventScript_PC)
         PlaySE(SE_SELECT);
 
     ScriptContext_SetupScript(script);
@@ -532,6 +535,14 @@ static const u8 *GetInteractedBackgroundEventScript(struct MapPosition *position
             return NULL;
         gSpecialVar_Facing = direction;
         return EventScript_HiddenItemScript;
+    case BG_EVENT_SECRET_BASE: // RFVF+: Emerald's, a free entrance (the player's own is open: TryDoorWarp)
+        if (direction == DIR_NORTH)
+        {
+            gSpecialVar_0x8004 = bgEvent->bgUnion.secretBaseId;
+            if (TrySetCurSecretBase())
+                return SecretBase_EventScript_CheckEntrance;
+        }
+        return NULL;
     }
 
     if (signpostType != SIGNPOST_NA)
@@ -545,6 +556,15 @@ static const u8 *GetInteractedMetatileScript(struct MapPosition *position, u8 me
     gSpecialVar_Facing = direction;
     if (MetatileBehavior_IsPC(metatileBehavior) == TRUE)
         return EventScript_PC;
+    if (MetatileBehavior_IsSecretBasePC(metatileBehavior) == TRUE)
+        return SecretBase_EventScript_PC;
+    if (position->elevation == MapGridGetElevationAt(position->x, position->y)) // RFVF+: Emerald's decorations
+    {
+        if (metatileBehavior == MB_SECRET_BASE_SAND_ORNAMENT)
+            return SecretBase_EventScript_SandOrnament;
+        if (metatileBehavior == MB_SECRET_BASE_TV_SHIELD)
+            return SecretBase_EventScript_ShieldOrToyTV;
+    }
     if (MetatileBehavior_IsTrickHousePuzzleDoor(metatileBehavior) == TRUE)
         return Route110_TrickHousePuzzle_EventScript_Door;
     if (MetatileBehavior_IsHeadbuttTree(metatileBehavior) == TRUE)
@@ -696,6 +716,19 @@ static bool8 TryStartMiscWalkingScripts(u16 metatileBehavior)
     {
         ScriptContext_SetupScript(BattlePyramid_WarpToNextFloor);
         return TRUE;
+    }
+    else if (metatileBehavior == MB_SECRET_BASE_GLITTER_MAT) // RFVF+: Emerald's decorations
+    {
+        DoSecretBaseGlitterMatSparkle();
+        return FALSE;
+    }
+    else if (metatileBehavior == MB_SECRET_BASE_SOUND_MAT)
+    {
+        s16 x, y;
+
+        PlayerGetDestCoords(&x, &y);
+        PlaySecretBaseMusicNoteMatSound(MapGridGetMetatileIdAt(x, y));
+        return FALSE;
     }
     return FALSE;
 }
@@ -1070,6 +1103,11 @@ static bool8 TryDoorWarp(struct MapPosition *position, u16 metatileBehavior, u8 
 
     if (direction == DIR_NORTH)
     {
+        if (MetatileBehavior_IsOpenSecretBaseDoor(metatileBehavior) == TRUE)
+        {
+            WarpIntoSecretBase(position, gMapHeader.events);
+            return TRUE;
+        }
         if (MetatileBehavior_IsWarpDoor(metatileBehavior) == TRUE)
         {
             warpEventId = GetWarpEventAtMapPosition(&gMapHeader, position);

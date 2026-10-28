@@ -88,7 +88,8 @@
     "gMapGroup_JohtoIndoorBlackthorn",
     "gMapGroup_JohtoIndoorRoutes",
     "gMapGroup_JohtoDungeons",
-    "gMapGroup_JohtoSpecialArea"
+    "gMapGroup_JohtoSpecialArea",
+    "gMapGroup_SecretBases"
   ],
   "gMapGroup_Link": [
     "BattleColosseum_2P",
@@ -1401,5 +1402,31 @@
     "SafariZone_Low_Right",
     "SafariZone_Top_Mid",
     "SafariZone_Top_Right"
+  ],
+  "gMapGroup_SecretBases": [
+    "SecretBase_RedCave1",
+    "SecretBase_BrownCave1",
+    "SecretBase_BlueCave1",
+    "SecretBase_YellowCave1",
+    "SecretBase_Tree1",
+    "SecretBase_Shrub1",
+    "SecretBase_RedCave2",
+    "SecretBase_BrownCave2",
+    "SecretBase_BlueCave2",
+    "SecretBase_YellowCave2",
+    "SecretBase_Tree2",
+    "SecretBase_Shrub2",
+    "SecretBase_RedCave3",
+    "SecretBase_BrownCave3",
+    "SecretBase_BlueCave3",
+    "SecretBase_YellowCave3",
+    "SecretBase_Tree3",
+    "SecretBase_Shrub3",
+    "SecretBase_RedCave4",
+    "SecretBase_BrownCave4",
+    "SecretBase_BlueCave4",
+    "SecretBase_YellowCave4",
+    "SecretBase_Tree4",
+    "SecretBase_Shrub4"
   ]
 }

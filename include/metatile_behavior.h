@@ -160,5 +160,10 @@ bool8 MetatileBehavior_IsTrainerHillTimer(u8 metatileBehavior);
 bool8 MetatileBehavior_IsAshGrass(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSecretBaseJumpMat(u8 metatileBehavior);
 bool8 MetatileBehavior_IsSecretBaseSpinMat(u8 metatileBehavior);
+bool8 MetatileBehavior_IsOpenSecretBaseDoor(u8 metatileBehavior);
+bool8 MetatileBehavior_IsSecretBaseCave(u8 metatileBehavior);
+bool8 MetatileBehavior_IsSecretBaseTree(u8 metatileBehavior);
+bool8 MetatileBehavior_IsSecretBaseShrub(u8 metatileBehavior);
+bool8 MetatileBehavior_IsSecretBasePC(u8 metatileBehavior);
 
 #endif // GUARD_METATILE_BEHAVIOR

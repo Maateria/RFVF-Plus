@@ -5,6 +5,8 @@ PalletTown_PlayersHouse_2F_MapScripts::
 
 PalletTown_PlayersHouse_2F_OnTransition::
 	call_if_eq VAR_MAP_SCENE_PALLET_TOWN_PLAYERS_HOUSE_2F, 0, PalletTown_PlayersHouse_2F_EventScript_SetRespawn
+	call SecretBase_EventScript_SetDecorationFlags
+	setvar VAR_SECRET_BASE_INITIALIZED, 0
 	end
 
 PalletTown_PlayersHouse_2F_EventScript_SetRespawn::
@@ -13,6 +15,7 @@ PalletTown_PlayersHouse_2F_EventScript_SetRespawn::
 
 PalletTown_PlayersHouse_2F_OnWarp::
 	map_script_2 VAR_MAP_SCENE_PALLET_TOWN_PLAYERS_HOUSE_2F, 0, PalletTown_PlayersHouse_2F_FirstWarpIn
+	map_script_2 VAR_SECRET_BASE_INITIALIZED, 0, SecretBase_EventScript_InitDecorations @ RFVF+: Emerald's dolls, cushions
 	.2byte 0
 
 PalletTown_PlayersHouse_2F_FirstWarpIn::

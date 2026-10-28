@@ -27,6 +27,14 @@ bool8 FldEff_UseDig(void);
 
 // rocksmash
 bool8 SetUpFieldMove_RockSmash(void);
+bool8 SetUpFieldMove_SecretPower(void);
+void DoSecretBasePCTurnOffEffect(void);
+void PopSecretBaseBalloon(s16 metatileId, s16 x, s16 y);
+void ShatterSecretBaseBreakableDoor(s16 x, s16 y);
+void PlaySecretBaseMusicNoteMatSound(s16 metatileId);
+void DoSecretBaseGlitterMatSparkle(void);
+void InteractWithShieldOrTVDecoration(void);
+bool8 IsLargeBreakableDecoration(u16 metatileId, bool8 checkBase);
 bool8 FldEff_UseRockSmash(void);
 
 // berrytree

@@ -589,3 +589,25 @@ $(TILESETGFXDIR)/secondary/johtossaqua/tiles.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -num_tiles 384 -Wnum_tiles
 
 # END johto_import
+
+$(TILESETGFXDIR)/primary/hoenn_secret_base/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 512 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_secret_base/red_cave/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 96 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_secret_base/brown_cave/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 96 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_secret_base/blue_cave/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 96 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_secret_base/yellow_cave/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 96 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_secret_base/tree/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 96 -Wnum_tiles
+
+$(TILESETGFXDIR)/secondary/hoenn_secret_base/shrub/tiles.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -num_tiles 96 -Wnum_tiles
+

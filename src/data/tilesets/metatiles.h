@@ -613,3 +613,8 @@ const u16 gMetatiles_Johtossaqua[] = INCBIN_U16("data/tilesets/secondary/johtoss
 const u32 gMetatileAttributes_Johtossaqua[] = INCBIN_U32("data/tilesets/secondary/johtossaqua/metatile_attributes.bin");
 
 // END johto_import
+
+const u16 gMetatiles_HoennSecretBase[] = INCBIN_U16("data/tilesets/primary/hoenn_secret_base/metatiles.bin");
+const u32 gMetatileAttributes_HoennSecretBase[] = INCBIN_U32("data/tilesets/primary/hoenn_secret_base/metatile_attributes.bin");
+const u16 gMetatiles_HoennSecretBaseSecondary[] = INCBIN_U16("data/tilesets/secondary/hoenn_secret_base/metatiles.bin");
+const u32 gMetatileAttributes_HoennSecretBaseSecondary[] = INCBIN_U32("data/tilesets/secondary/hoenn_secret_base/metatile_attributes.bin");

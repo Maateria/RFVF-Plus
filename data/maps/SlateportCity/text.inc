@@ -217,3 +217,14 @@ SlateportCity_Text_ExplainBerryPowder::
 
 SlateportCity_Text_BroughtMeSomeBerryPowder::
     .string "M'as-tu amené de la POUDRE BAIE?$"
+
+SlateportCity_Text_ComeBackWithSecretPower::
+    .string "Tu connais la CT FORCE CACHEE?\p"
+    .string "Dans notre groupe, on aime bien la CT\n"
+    .string "FORCE CACHEE.\p"
+    .string "L'un de nos membres va te la\n"
+    .string "donner.Tu viendras me la\l"
+    .string "montrer quand tu l'auras.\p"
+    .string "On t'acceptera en tant que membre et\n"
+    .string "on te vendra de\l"
+    .string "super trucs en secret.$"

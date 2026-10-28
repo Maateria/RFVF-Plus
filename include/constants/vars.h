@@ -268,10 +268,10 @@
 #define VAR_FRONTIER_GAMBLER_AMOUNT_BET    0x40D3 // RFVF+: Emerald's (batch 6, the Frontier's services)
 #define VAR_FRONTIER_GAMBLER_STATE         0x40D4 // RFVF+: Emerald's (batch 6, the Frontier's services)
 #define VAR_SCOTT_STATE                    0x40D5 // RFVF+: Emerald's (batch 6, the Frontier's services)
-#define VAR_0x40D6                 0x40D6
-#define VAR_0x40D7                 0x40D7
-#define VAR_0x40D8                 0x40D8
-#define VAR_0x40D9                 0x40D9
+#define VAR_CURRENT_SECRET_BASE    0x40D6 // RFVF+: Emerald's secret base vars (secret_base.c)
+#define VAR_SECRET_BASE_MAP        0x40D7
+#define VAR_INIT_SECRET_BASE       0x40D8
+#define VAR_SECRET_BASE_INITIALIZED 0x40D9
 #define VAR_0x40DA                 0x40DA
 #define VAR_0x40DB                 0x40DB
 #define VAR_0x40DC                 0x40DC

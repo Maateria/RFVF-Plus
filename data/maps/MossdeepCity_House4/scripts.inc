@@ -23,8 +23,18 @@ MossdeepCity_House4_EventScript_Skitty::
 	release
 	end
 
-@ Basic text instead of the secret base check (user's choice)
 MossdeepCity_House4_EventScript_NinjaBoy::
-	msgbox MossdeepCity_House4_Text_MakeSecretBase, MSGBOX_NPC
+	lock
+	faceplayer
+	special CheckPlayerHasSecretBase
+	goto_if_eq VAR_RESULT, FALSE, MossdeepCity_House4_EventScript_NoSecretBase
+	special GetSecretBaseNearbyMapName
+	msgbox MossdeepCity_House4_Text_YouMadeSecretBaseNearX, MSGBOX_DEFAULT
+	release
+	end
+
+MossdeepCity_House4_EventScript_NoSecretBase::
+	msgbox MossdeepCity_House4_Text_MakeSecretBase, MSGBOX_DEFAULT
+	release
 	end
 

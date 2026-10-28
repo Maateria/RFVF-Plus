@@ -492,6 +492,13 @@
       "flag": "FLAG_HIDDEN_ITEM_ROUTE_113_NUGGET",
       "quantity": 1,
       "underfoot": false
+    },
+    {
+      "type": "secret_base",
+      "x": 49,
+      "y": 8,
+      "elevation": 3,
+      "secret_base_id": "SECRET_BASE_RED_CAVE1_3"
     }
   ],
   "level_scaling": "5"

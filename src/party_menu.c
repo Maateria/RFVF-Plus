@@ -4207,8 +4207,11 @@ static void SetSwappedHeldItemQuestLogEvent(struct Pokemon *mon, u16 item, u16 i
 
 static void SetUsedFieldMoveQuestLogEvent(struct Pokemon *mon, u8 fieldMove)
 {
-    struct QuestLogEvent_FieldMove *data = Alloc(sizeof(*data));
+    struct QuestLogEvent_FieldMove *data;
 
+    if (fieldMove > FIELD_MOVE_SWEET_SCENT) // RFVF+: Dive, Secret Power: no text in sUsedFieldMoveTexts (quest_log_events.c)
+        return;
+    data = Alloc(sizeof(*data));
     data->species = GetMonData(mon, MON_DATA_SPECIES_OR_EGG);
     data->fieldMove = fieldMove;
     switch (data->fieldMove)

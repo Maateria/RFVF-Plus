@@ -161,6 +161,7 @@
 #define MULTI_BATTLE_PYRAMID_RULES                             153
 #define MULTI_FRONTIER_ITEM_CHOOSE                             154
 #define MULTI_FRONTIER_GAMBLER_BET                             155 // RFVF+: Emerald's (batch 6, session 7)
+#define MULTI_BASE_PC_WITH_REGISTRY                            156 // RFVF+: Emerald's (secret bases)
 
 
 #define MULTICHOICE_NONE                                      255

@@ -16,6 +16,7 @@
 #include "constants/field_tasks.h"
 #include "constants/flags.h"
 #include "constants/items.h"
+#include "secret_base.h"
 #include "constants/metatile_labels.h"
 #include "constants/songs.h"
 
@@ -52,7 +53,7 @@ static const TaskFunc sPerStepCallbacks[] =
     [STEP_CB_PACIFIDLOG_BRIDGE] = PacifidlogBridgePerStepCallback,
     [STEP_CB_ICE]               = IcefallCaveIcePerStepCallback,
     [STEP_CB_TRUCK]             = DummyPerStepCallback,
-    [STEP_CB_SECRET_BASE]       = DummyPerStepCallback,
+    [STEP_CB_SECRET_BASE]       = SecretBasePerStepCallback, // RFVF+: Emerald's (secret_base.c)
     [STEP_CB_CRACKED_FLOOR]     = CrackedFloorPerStepCallback,
     [STEP_CB_SOOTOPOLIS_ICE]    = SootopolisGymIcePerStepCallback,
 };

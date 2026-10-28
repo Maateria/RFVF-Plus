@@ -20,6 +20,7 @@
 // should be used, at which point the warp id is ignored. It can be passed to SetDynamicWarp
 // or SetDynamicWarpWithCoords as the first argument, but this argument is unused.
 #define WARP_ID_DYNAMIC     0x7F
+#define WARP_ID_SECRET_BASE 0x7E // RFVF+: Emerald's, the exit of a secret base (src/secret_base.c)
 
 // Used to indicate an invalid warp id, for dummy warps or when a warp should
 // use the given coordinates rather than the coordinates of a target warp.

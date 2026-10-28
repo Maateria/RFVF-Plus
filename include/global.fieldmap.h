@@ -161,6 +161,7 @@ struct BgEvent
     union {
         const u8 *script;
         u32 hiddenItem; // Contains all the hidden item data. See GET_HIDDEN_ITEM_* defines further up
+        u32 secretBaseId; // RFVF+: Emerald's BG_EVENT_SECRET_BASE (constants/secret_bases.h)
     } bgUnion;
 };
 

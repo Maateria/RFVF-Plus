@@ -773,6 +773,12 @@ static const struct MenuAction sMultichoiceList_FrontierGamblerBet[] = { // RFVF
     { gText_5BP }, { gText_10BP }, { gText_15BP }, { gText_Exit }
 };
 
+static const u8 sText_PackUp[] = _("PLIER BAGAGE"); // RFVF+: French Emerald's (secret base PC)
+static const u8 sText_Registry[] = _("REGISTRE");
+static const struct MenuAction sMultichoiceList_BasePCWithRegistry[] = {
+    { gText_Decoration }, { sText_PackUp }, { sText_Registry }, { gText_Cancel3 }
+};
+
 static const struct MenuAction sMultichoiceList_TagMatchType[] = {
     { gText_NormalTagMatch }, { gText_VarietyTagMatch }, { gText_UniqueTagMatch }, { gText_ExpertTagMatch }, { gText_Exit }
 };
@@ -1240,6 +1246,7 @@ static const struct MultichoiceListStruct sMultichoiceLists[] = {
 	[MULTI_BATTLE_PYRAMID_RULES] = MULTICHOICE(sMultichoiceList_BattlePyramidRules),
 	[MULTI_FRONTIER_ITEM_CHOOSE] = MULTICHOICE(sMultichoiceList_FrontierItemChoose),
 	[MULTI_FRONTIER_GAMBLER_BET] = MULTICHOICE(sMultichoiceList_FrontierGamblerBet),
+	[MULTI_BASE_PC_WITH_REGISTRY] = MULTICHOICE(sMultichoiceList_BasePCWithRegistry),
 };
 
 // From Cool to Berries goes unused

@@ -664,6 +664,7 @@ static const u8 *const sFieldMoveDescriptionTable[] =
     [FIELD_MOVE_SOFT_BOILED] = gText_ShareHp,
     [FIELD_MOVE_SWEET_SCENT] = gText_LureWildPokemon,
     [FIELD_MOVE_DIVE]        = gText_DiveUnderwater,
+    [FIELD_MOVE_SECRET_POWER] = gText_MakeASecretBase,
 };
 
 static const u32 sHeldItemGfx[] = INCBIN_U32("graphics/party_menu/hold_icons.4bpp");
@@ -1034,6 +1035,7 @@ static struct
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_SOFT_BOILED] = {gMoveNames[MOVE_SOFT_BOILED], CursorCB_FieldMove},
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_SWEET_SCENT] = {gMoveNames[MOVE_SWEET_SCENT], CursorCB_FieldMove},
     [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_DIVE]        = {gMoveNames[MOVE_DIVE],        CursorCB_FieldMove},
+    [CURSOR_OPTION_FIELD_MOVES + FIELD_MOVE_SECRET_POWER] = {gMoveNames[MOVE_SECRET_POWER], CursorCB_FieldMove},
 };
 
 static const u8 sPartyMenuAction_SummarySwitchCancel[]   = {CURSOR_OPTION_SUMMARY,  CURSOR_OPTION_SWITCH,    CURSOR_OPTION_CANCEL1};
@@ -1120,6 +1122,7 @@ static const u16 sFieldMoves[] =
     MOVE_SOFT_BOILED, 
     MOVE_SWEET_SCENT, 
     MOVE_DIVE, 
+    MOVE_SECRET_POWER,
     FIELD_MOVE_END // this may be misuse of enum. same in emerald
 };
 
@@ -1142,6 +1145,7 @@ static struct
     [FIELD_MOVE_SOFT_BOILED]  = {SetUpFieldMove_SoftBoiled,  PARTY_MSG_NOT_ENOUGH_HP},
     [FIELD_MOVE_SWEET_SCENT]  = {SetUpFieldMove_SweetScent,  PARTY_MSG_CANT_USE_HERE},
     [FIELD_MOVE_DIVE]         = {SetUpFieldMove_Dive,        PARTY_MSG_CANT_USE_HERE},
+    [FIELD_MOVE_SECRET_POWER] = {SetUpFieldMove_SecretPower, PARTY_MSG_CANT_USE_HERE},
 };
 
 static const u8 *const sUnionRoomTradeMessages[] =

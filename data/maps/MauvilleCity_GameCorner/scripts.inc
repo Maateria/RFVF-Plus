@@ -2,7 +2,7 @@ MauvilleCity_GameCorner_MapScripts::
 	.byte 0
 
 @ pokeemerald data/maps/MauvilleCity_GameCorner/scripts.inc. RFVF+: the doll counter and the girl give Hoenn's
-@ starters (level 5, the PC if the party is full): this game has no decorations
+@ starters (level 5, the PC if the party is full)
 	@ Game Corner prices
 	.set TM_DOUBLE_TEAM_COINS, 1500
 	.set TM_PSYCHIC_COINS, 3500

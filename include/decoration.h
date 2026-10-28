@@ -57,7 +57,12 @@ struct Decoration
 extern const struct Decoration gDecorations[];
 
 void DoDecorationPCMenu(u8 taskId, TaskFunc exitFunc);
+void DoPlayerRoomDecorationMenu(u8 taskId, TaskFunc exitFunc);
+void DoSecretBaseDecorationMenu(u8 taskId);
 void ShowDecorationCategoriesWindow(u8 taskId);
 void CopyDecorationCategoryName(u8 *dest, u8 category);
+void ShowDecorationOnMap(u16 mapX, u16 mapY, u16 decoration);
+void SetDecoration(void);
+void PutAwayDecorationIteration(void);
 
 #endif //GUARD_DECORATION_H
