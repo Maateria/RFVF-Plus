@@ -75,6 +75,8 @@ struct
 STATIC_ASSERT(sizeof(struct SaveBlock2) <= SECTOR_DATA_SIZE, SaveBlock2FreeSpace);
 STATIC_ASSERT(sizeof(struct SaveBlock1) <= SECTOR_DATA_SIZE * (SECTOR_ID_SAVEBLOCK1_END - SECTOR_ID_SAVEBLOCK1_START + 1), SaveBlock1FreeSpace);
 STATIC_ASSERT(sizeof(struct PokemonStorage) <= SECTOR_DATA_SIZE * (SECTOR_ID_PKMN_STORAGE_END - SECTOR_ID_PKMN_STORAGE_START + 1), PokemonStorageFreeSpace);
+STATIC_ASSERT(offsetof(struct PokemonStorage, pokeblocks) == 0x83D0 && offsetof(struct PokemonStorage, contestWinners) == 0x8510
+              && offsetof(struct PokemonStorage, berryBlenderRecords) == 0x86B0 && sizeof(struct PokemonStorage) == 0x86B8, PokemonStorageContestLayout);
 // Graphics ids >= 256 keep their high byte in former padding bytes, and existing saves hold these structs at these
 // offsets: the save layout must not move
 STATIC_ASSERT(offsetof(struct SaveBlock2, mapView) == 0x898, SaveBlock2FrontierLayout); // RFVF+: frontier in R/S's tower data

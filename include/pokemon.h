@@ -424,6 +424,7 @@ const struct CompressedSpritePalette *GetMonSpritePalStructFromOtIdPersonality(u
 bool32 IsHMMove2(u16 move);
 bool8 IsMonSpriteNotFlipped(u16 species);
 s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor);
+s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor);
 bool8 IsTradedMon(struct Pokemon *mon);
 bool8 IsOtherTrainer(u32 otId, u8 *otName);
 void MonRestorePP(struct Pokemon *mon);

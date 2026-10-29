@@ -20,6 +20,7 @@ bool8 MenuHelpers_ShouldWaitForLinkRecv(void);
 bool8 MenuHelpers_IsLinkActive(void);
 void SetVBlankHBlankCallbacksToNull(void);
 void ResetAllBgsCoordinatesAndBgCntRegs(void);
+void ResetAllBgsCoordinates(void);
 u8 GetDialogBoxFontId(void);
 bool8 AdjustQuantityAccordingToDPadInput(s16 *quantity_p, u16 qmax);
 void DisplayMessageAndContinueTask(u8 taskId, u8 windowId, u16 tileNum, u8 paletteNum, u8 fontId, u8 textSpeed, const u8 *string, void *taskFunc);
@@ -29,5 +30,12 @@ u8 GetLRKeysPressedAndHeld(void);
 bool8 IsHoldingItemAllowed(u16 itemId);
 bool8 IsWritingMailAllowed(u16 itemId);
 void ResetVramOamAndBgCntRegs(void);
+
+#define SWAP_LINE_HAS_MARGIN (1 << 7)
+void LoadListMenuSwapLineGfx(void);
+void CreateSwapLineSprites(u8 *spriteIds, u8 count);
+void DestroySwapLineSprites(u8 *spriteIds, u8 count);
+void SetSwapLineSpritesInvisibility(u8 *spriteIds, u8 count, bool8 invisible);
+void UpdateSwapLineSpritesPos(u8 *spriteIds, u8 count, s16 x, u16 y);
 
 #endif //GUARD_MENU_HELPERS_H

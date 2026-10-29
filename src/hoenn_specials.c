@@ -1,5 +1,7 @@
 // Emerald's field specials used by Hoenn's NPCs (point 1 scripts), and RFVF+'s replacements for what needs a clock.
 #include "global.h"
+#include "pokeblock.h"
+#include "random.h"
 #include "battle.h"
 #include "characters.h"
 #include "event_data.h"
@@ -53,39 +55,10 @@ bool8 FoundBlackGlasses(void)
     return FlagGet(FLAG_HIDDEN_ITEM_ROUTE_116_BLACK_GLASSES);
 }
 
-// Emerald's CopyMonFavoritePokeblockName: the first flavor the lead Pokemon's nature likes (official French names).
-static const u8 sText_RedPokeblock[] = _("POKéBLOC ROUGE");
-static const u8 sText_BluePokeblock[] = _("POKéBLOC BLEU");
-static const u8 sText_PinkPokeblock[] = _("POKéBLOC ROSE");
-static const u8 sText_GreenPokeblock[] = _("POKéBLOC VERT");
-static const u8 sText_YellowPokeblock[] = _("POKéBLOC JAUNE");
-static const u8 *const sFavoritePokeblockNames[] = {
-    sText_RedPokeblock, sText_BluePokeblock, sText_PinkPokeblock, sText_GreenPokeblock, sText_YellowPokeblock
-};
-
-// Emerald's gPokeblockFlavorCompatibilityTable: spicy, dry, sweet, bitter, sour, for each nature
-static const s8 sNatureFlavorLikes[NUM_NATURES][5] = {
-    { 0,  0,  0,  0,  0}, { 1,  0,  0,  0, -1}, { 1,  0, -1,  0,  0}, { 1, -1,  0,  0,  0}, { 1,  0,  0, -1,  0},
-    {-1,  0,  0,  0,  1}, { 0,  0,  0,  0,  0}, { 0,  0, -1,  0,  1}, { 0, -1,  0,  0,  1}, { 0,  0,  0, -1,  1},
-    {-1,  0,  1,  0,  0}, { 0,  0,  1,  0, -1}, { 0,  0,  0,  0,  0}, { 0, -1,  1,  0,  0}, { 0,  0,  1, -1,  0},
-    {-1,  1,  0,  0,  0}, { 0,  1,  0,  0, -1}, { 0,  1, -1,  0,  0}, { 0,  0,  0,  0,  0}, { 0,  1,  0, -1,  0},
-    {-1,  0,  0,  1,  0}, { 0,  0,  0,  1, -1}, { 0,  0, -1,  1,  0}, { 0, -1,  0,  1,  0}, { 0,  0,  0,  0,  0},
-};
-
+// Emerald's special
 u8 GetPokeblockNameByMonNature(void)
 {
-    u8 nature = GetNature(&gPlayerParty[GetLeadMonIndex()]);
-    u8 i;
-
-    for (i = 0; i < ARRAY_COUNT(sFavoritePokeblockNames); i++)
-    {
-        if (sNatureFlavorLikes[nature][i] > 0)
-        {
-            StringCopy(gStringVar1, sFavoritePokeblockNames[i]);
-            return TRUE;
-        }
-    }
-    return FALSE;
+    return CopyMonFavoritePokeblockName(GetNature(&gPlayerParty[GetLeadMonIndex()]), gStringVar1);
 }
 
 // RFVF+: no clock, a "day" is 1,000 steps (user's choice, 2026-10-19).
@@ -108,6 +81,11 @@ void HoennDays_OnStep(void)
         for (i = FLAG_RECEIVED_SHOAL_SALT_1; i <= FLAG_RECEIVED_SHOAL_SHELL_4; i++) // Shoal Cave's salt and shells too
             FlagClear(i);
         FlagClear(FLAG_DAILY_APPRENTICE_LEAVES); // the Battle Tower apprentice is back
+        // Lilycove's Blend Master (Emerald: a PokeNews on TV, about 1 day in 5, after the Hall of Fame)
+        if (FlagGet(FLAG_HOENN_GAME_CLEAR) && Random() % 5 == 0)
+            FlagSet(FLAG_BLEND_MASTER_TODAY);
+        else
+            FlagClear(FLAG_BLEND_MASTER_TODAY);
     }
     VarSet(VAR_HOENN_DAY_STEPS, steps);
 }
@@ -416,4 +394,35 @@ u8 GetSSTidalLocation(s8 *mapGroup, s8 *mapNum, s16 *x, s16 *y)
     *mapGroup = MAP_GROUP(ROUTE132);
     *y = 20;
     return SS_TIDAL_LOCATION_CURRENTS;
+}
+
+// Emerald's Fan Club chairman checks (contests session 2): a lead Pokemon condition of 200 or more earns its scarf
+static bool8 CheckLeadMonCondition(s32 condition)
+{
+    return GetMonData(&gPlayerParty[GetLeadMonIndex()], condition) >= 200;
+}
+
+bool8 CheckLeadMonCool(void)
+{
+    return CheckLeadMonCondition(MON_DATA_COOL);
+}
+
+bool8 CheckLeadMonBeauty(void)
+{
+    return CheckLeadMonCondition(MON_DATA_BEAUTY);
+}
+
+bool8 CheckLeadMonCute(void)
+{
+    return CheckLeadMonCondition(MON_DATA_CUTE);
+}
+
+bool8 CheckLeadMonSmart(void)
+{
+    return CheckLeadMonCondition(MON_DATA_SMART);
+}
+
+bool8 CheckLeadMonTough(void)
+{
+    return CheckLeadMonCondition(MON_DATA_TOUGH);
 }

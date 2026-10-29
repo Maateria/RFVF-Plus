@@ -597,4 +597,12 @@ gSpecials::
 	def_special SetDecoration
 	def_special PutAwayDecorationIteration
 	def_special InteractWithShieldOrTVDecoration
+	def_special CheckLeadMonCool
+	def_special CheckLeadMonBeauty
+	def_special CheckLeadMonCute
+	def_special CheckLeadMonSmart
+	def_special CheckLeadMonTough
+	def_special DoBerryBlending
+	def_special GetFirstFreePokeblockSlot
+	def_special ShowBerryBlenderRecordWindow
 gSpecialsEnd::

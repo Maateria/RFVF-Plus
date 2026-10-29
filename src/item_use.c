@@ -35,6 +35,7 @@
 #include "vs_seeker.h"
 #include "constants/sound.h"
 #include "constants/items.h"
+#include "pokeblock.h"
 #include "constants/item_effects.h"
 #include "constants/maps.h"
 #include "constants/moves.h"
@@ -521,6 +522,38 @@ static void Task_InitBerryPouchFromField(u8 taskId)
         SetFieldCallback2ForItemUse();
         InitBerryPouch(BERRYPOUCH_FROMFIELD, CB2_ReturnToField, 1);
         DestroyTask(taskId);
+    }
+}
+
+// RFVF+: Emerald's ItemUseOutOfBattle_PokeblockCase on FRLG's bag / registered item flow (the Berry Pouch's)
+static void CB2_OpenPokeblockCaseFromBag(void)
+{
+    OpenPokeblockCase(PBLOCK_CASE_FIELD, CB2_BagMenuFromStartMenu);
+}
+
+static void Task_OpenPokeblockCaseFromField(u8 taskId)
+{
+    if (!gPaletteFade.active)
+    {
+        CleanupOverworldWindowsAndTilemaps();
+        SetFieldCallback2ForItemUse();
+        OpenPokeblockCase(PBLOCK_CASE_FIELD, CB2_ReturnToField);
+        DestroyTask(taskId);
+    }
+}
+
+void FieldUseFunc_PokeblockCase(u8 taskId)
+{
+    if (gTasks[taskId].data[3] == 0)
+    {
+        ItemMenu_SetExitCallback(CB2_OpenPokeblockCaseFromBag);
+        ItemMenu_StartFadeToExitCallback(taskId);
+    }
+    else
+    {
+        StopPokemonLeagueLightingEffectTask();
+        FadeScreen(FADE_TO_BLACK, 0);
+        gTasks[taskId].func = Task_OpenPokeblockCaseFromField;
     }
 }
 

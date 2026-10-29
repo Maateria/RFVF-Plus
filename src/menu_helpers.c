@@ -3,6 +3,8 @@
 #include "task.h"
 #include "menu.h"
 #include "menu_helpers.h"
+#include "graphics.h"
+#include "decompress.h"
 #include "new_menu_helpers.h"
 #include "link.h"
 #include "overworld.h"
@@ -240,4 +242,145 @@ u8 GetDialogBoxFontId(void)
         return FONT_MALE;
     else
         return FONT_FEMALE;
+}
+
+// RFVF+: Emerald's list menu swap line (Pokeblock case), drawn with FRLG's bag swap line
+#define TAG_SWAP_LINE 109
+
+static const struct OamData sOamData_SwapLine =
+{
+    .y = 0,
+    .affineMode = ST_OAM_AFFINE_OFF,
+    .objMode = ST_OAM_OBJ_NORMAL,
+    .mosaic = FALSE,
+    .bpp = ST_OAM_4BPP,
+    .shape = SPRITE_SHAPE(16x16),
+    .x = 0,
+    .matrixNum = 0,
+    .size = SPRITE_SIZE(16x16),
+    .tileNum = 0,
+    .priority = 0,
+    .paletteNum = 0,
+    .affineParam = 0
+};
+
+static const union AnimCmd sAnim_SwapLine_RightArrow[] =
+{
+    ANIMCMD_FRAME(0, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sAnim_SwapLine_Line[] =
+{
+    ANIMCMD_FRAME(4, 0),
+    ANIMCMD_END
+};
+
+static const union AnimCmd sAnim_SwapLine_LeftArrow[] =
+{
+    ANIMCMD_FRAME(0, 0, .hFlip = TRUE),
+    ANIMCMD_END
+};
+
+static const union AnimCmd *const sAnims_SwapLine[] =
+{
+    sAnim_SwapLine_RightArrow,
+    sAnim_SwapLine_Line,
+    sAnim_SwapLine_LeftArrow
+};
+
+static const struct CompressedSpriteSheet sSpriteSheet_SwapLine =
+{
+    gSwapLine_Gfx, 0x100, TAG_SWAP_LINE
+};
+
+static const struct CompressedSpritePalette sSpritePalette_SwapLine =
+{
+    gSwapLine_Pal, TAG_SWAP_LINE
+};
+
+static const struct SpriteTemplate sSpriteTemplate_SwapLine =
+{
+    .tileTag = TAG_SWAP_LINE,
+    .paletteTag = TAG_SWAP_LINE,
+    .oam = &sOamData_SwapLine,
+    .anims = sAnims_SwapLine,
+    .images = NULL,
+    .affineAnims = gDummySpriteAffineAnimTable,
+    .callback = SpriteCallbackDummy,
+};
+
+void LoadListMenuSwapLineGfx(void)
+{
+    LoadCompressedSpriteSheet(&sSpriteSheet_SwapLine);
+    LoadCompressedSpritePalette(&sSpritePalette_SwapLine);
+}
+
+void CreateSwapLineSprites(u8 *spriteIds, u8 count)
+{
+    u8 i;
+
+    for (i = 0; i < count; i++)
+    {
+        spriteIds[i] = CreateSprite(&sSpriteTemplate_SwapLine, i * 16, 0, 0);
+        if (i != 0)
+            StartSpriteAnim(&gSprites[spriteIds[i]], 1);
+
+        gSprites[spriteIds[i]].invisible = TRUE;
+    }
+}
+
+void DestroySwapLineSprites(u8 *spriteIds, u8 count)
+{
+    u8 i;
+
+    for (i = 0; i < count; i++)
+    {
+        if (i == count - 1)
+            DestroySpriteAndFreeResources(&gSprites[spriteIds[i]]);
+        else
+            DestroySprite(&gSprites[spriteIds[i]]);
+    }
+}
+
+void SetSwapLineSpritesInvisibility(u8 *spriteIds, u8 count, bool8 invisible)
+{
+    u8 i;
+
+    for (i = 0; i < count; i++)
+        gSprites[spriteIds[i]].invisible = invisible;
+}
+
+void UpdateSwapLineSpritesPos(u8 *spriteIds, u8 count, s16 x, u16 y)
+{
+    u8 i;
+    bool8 hasMargin = count & SWAP_LINE_HAS_MARGIN;
+    count &= ~SWAP_LINE_HAS_MARGIN;
+
+    for (i = 0; i < count; i++)
+    {
+        // If the list menu has a right margin, the swap line
+        // shouldn't extend all the way to the edge of the screen.
+        // If this is the last sprite in the line, move it a bit
+        // to the left to keep it out of the margin.
+        if (i == count - 1 && hasMargin)
+            gSprites[spriteIds[i]].x2 = x - 8;
+        else
+            gSprites[spriteIds[i]].x2 = x;
+
+        gSprites[spriteIds[i]].y = 1 + y;
+    }
+}
+
+// RFVF+: Emerald's
+void ResetAllBgsCoordinates(void)
+{
+    ChangeBgX(0, 0, BG_COORD_SET);
+    ChangeBgY(0, 0, BG_COORD_SET);
+    ChangeBgX(1, 0, BG_COORD_SET);
+    ChangeBgY(1, 0, BG_COORD_SET);
+    ChangeBgX(2, 0, BG_COORD_SET);
+    ChangeBgY(2, 0, BG_COORD_SET);
+    ChangeBgX(3, 0, BG_COORD_SET);
+    ChangeBgY(3, 0, BG_COORD_SET);
 }

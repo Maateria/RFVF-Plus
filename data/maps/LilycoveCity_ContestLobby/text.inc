@@ -71,3 +71,31 @@ BerryBlender_Text_DontHaveAnyBerriesNoneToSpare::
     .string "une avec grand plaisir…\p"
     .string "Mais je n'en ai aucune en réserve\n"
     .string "aujourd'hui. Désolé.$"
+
+LilycoveCity_ContestLobby_Text_ReceptionDontHavePokeblockCase::
+    .string "Bonjour!\p"
+    .string "Vous êtes à la réception des\n"
+    .string "CONCOURS POKéMON.\p"
+    .string "Oh? Mais vous n'avez pas encore\n"
+    .string "de BOITE POKéBLOC.\p"
+    .string "Dans ce cas, nous allons vous en\n"
+    .string "fournir une!$"
+
+LilycoveCity_ContestLobby_Text_NowThatWeveClearedThatUp::
+    .string "OK, maintenant que le problème\n"
+    .string "est réglé…\p"
+    .string "Bonjour!\p"
+    .string "Vous êtes à la réception des\n"
+    .string "CONCOURS POKéMON.$"
+
+LilycoveCity_ContestLobby_Text_ContestReception::
+    .string "Bonjour!\p"
+    .string "Nous prenons les inscriptions aux\n"
+    .string "CONCOURS POKéMON.$"
+
+LilycoveCity_ContestLobby_Text_MakePokeblocksDifferentBerries::
+    .string "Fais des POKéBLOCS et mets-les\n"
+    .string "dans la BOITE POKéBLOCS.\p"
+    .string "Pour faire un POKéBLOC, chacun\n"
+    .string "doit mettre une BAIE différente.$"
+

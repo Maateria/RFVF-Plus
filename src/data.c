@@ -7,6 +7,9 @@
 #include "constants/moves.h"
 #include "constants/battle_ai.h"
 #include "constants/trainers.h"
+#include "contest_effect.h"
+#include "strings.h"
+#include "constants/contest.h"
 
 #define BATTLER_OFFSET(i) (gHeap + 0x8000 + MON_PIC_SIZE * (i))
 
@@ -321,3 +324,4 @@ const union AnimCmd *const gAnims_MonPic[] =
 #include "data/master_trainers.h"
 #include "data/text/species_names.h"
 #include "data/text/move_names.h"
+#include "data/contest_moves.h" // RFVF+: Emerald's contest move data (summary screen, contests)

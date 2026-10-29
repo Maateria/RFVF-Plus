@@ -42,6 +42,8 @@
 #include "constants/weather.h"
 #include "field_weather.h"
 #include "battle_setup.h"
+#include "contest_effect.h"
+#include "constants/contest.h"
 
 // needs conflicting header to match (curIndex is s8 in the function, but has to be defined as u8 here)
 extern s16 SeekToNextMonInBox(struct BoxPokemon * boxMons, u8 curIndex, u8 maxIndex, u8 flags);
@@ -135,6 +137,10 @@ static bool32 CurrentMonIsFromGBA(void);
 static u8 PokeSum_BufferOtName_IsEqualToCurrentOwner(struct Pokemon * mon);
 static void PokeSum_PrintAbilityNameAndDesc(void);
 static void PokeSum_DrawMoveTypeIcons(void);
+static const u32 *PokeSum_MovesInfoTilemap(void);
+static const u8 *PokeSum_MovesPageName(void);
+static void PokeSum_ToggleContestView(bool8 withMovesInfo);
+static void PokeSum_PrintContestMoveStats(u16 move);
 static void PokeSum_DestroySprites(void);
 static void PokeSum_FlipPages_HandleBgHofs(void);
 static void SwapMonMoveSlots(void);
@@ -256,6 +262,7 @@ struct PokemonSummaryScreenData
 
     u8 ALIGNED(4) lastPageFlipDirection; /* 0x3300 */
     u8 ALIGNED(4) unk3304; /* 0x3304 */
+    bool8 contestView; // RFVF+: SELECT on the moves pages shows contest data (Emerald's contest moves page)
 };
 
 struct Struct203B144
@@ -345,6 +352,7 @@ extern const u32 gSummaryScreen_PageSkills_Tilemap[];
 extern const u32 gSummaryScreen_PageMoves_Tilemap[];
 extern const u32 gSummaryScreen_PageInfo_Tilemap[];
 extern const u32 gSummaryScreen_PageMovesInfo_Tilemap[];
+extern const u32 gSummaryScreen_PageMovesInfoContest_Tilemap[];
 extern const u32 gSummaryScreen_PageEgg_Tilemap[];
 extern const u16 gSummaryScreen_Bg_Pal[];
 extern const u32 gSummaryScreen_Bg_Gfx[];
@@ -1210,6 +1218,12 @@ static void Task_InputHandler_Info(u8 taskId)
             {
                 sMonSummaryScreen->state3270 = PSS_STATE3270_ATEXIT_FADEOUT;
             }
+            else if (JOY_NEW(SELECT_BUTTON) && sMonSummaryScreen->curPageIndex == PSS_PAGE_MOVES)
+            {
+                PokeSum_ToggleContestView(FALSE);
+                PokeSum_PrintAbilityDataOrMoveTypes();
+                CopyWindowToVram(sMonSummaryScreen->windowIds[5], 2);
+            }
         }
         break;
     case PSS_STATE3270_FLIPPAGES:
@@ -1375,7 +1389,7 @@ static void Task_FlipPages_FromInfo(u8 taskId)
         PokeSum_CopyNewBgTilemapBeforePageFlip_2();
         break;
     case 3:
-        PokeSum_PrintPageName(gText_PokeSum_PageName_KnownMoves);
+        PokeSum_PrintPageName(PokeSum_MovesPageName());
         if (!(gMain.inBattle || gReceivedRemoteLinkPlayers))
             PokeSum_PrintControlsString(gText_PokeSum_Controls_PickSwitch);
         else
@@ -1490,7 +1504,7 @@ static void Task_BackOutOfSelectMove(u8 taskId)
         CopyBgTilemapBufferToVram(0);
         break;
     case 4:
-        PokeSum_PrintPageName(gText_PokeSum_PageName_KnownMoves);
+        PokeSum_PrintPageName(PokeSum_MovesPageName());
         PokeSum_PrintControlsString(gText_PokeSum_Controls_PageDetail);
         break;
     case 5:
@@ -1862,13 +1876,14 @@ static void PokeSum_CopyNewBgTilemapBeforePageFlip_2(void)
         break;
     case PSS_PAGE_MOVES:
         if (sMonSummaryScreen->pageFlipDirection == 1)
-            CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, gSummaryScreen_PageMovesInfo_Tilemap, 0, 0);
+            CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, PokeSum_MovesInfoTilemap(), 0, 0);
         else
             CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, gSummaryScreen_PageSkills_Tilemap, 0, 0);
 
         break;
     case PSS_PAGE_MOVES_INFO:
         CopyToBgTilemapBuffer(sMonSummaryScreen->skillsPageBgNum, gSummaryScreen_PageMoves_Tilemap, 0, 0);
+        CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, PokeSum_MovesInfoTilemap(), 0, 0); // RFVF+: SELECT may have changed it
         break;
     }
 }
@@ -1956,7 +1971,7 @@ static void CB2_SetUpPSS(void)
             if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE || sMonSummaryScreen->mode == PSS_MODE_FORGET_MOVE)
             {
                 CopyToBgTilemapBuffer(sMonSummaryScreen->skillsPageBgNum, gSummaryScreen_PageMoves_Tilemap, 0, 0);
-                CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, gSummaryScreen_PageMovesInfo_Tilemap, 0, 0);
+                CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, PokeSum_MovesInfoTilemap(), 0, 0);
             }
             else
             {
@@ -3160,6 +3175,12 @@ static void PokeSum_PrintSelectedMoveStats(void)
         if (sMonSummaryScreen->mode != PSS_MODE_SELECT_MOVE && sMoveSelectionCursorPos == 4)
             return;
 
+        if (sMonSummaryScreen->contestView)
+        {
+            PokeSum_PrintContestMoveStats(sMonSummaryScreen->moveIds[sMoveSelectionCursorPos]);
+            return;
+        }
+
         AddTextPrinterParameterized3(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], FONT_NORMAL,
                                      57, 1,
                                      sLevelNickTextColors[0], TEXT_SKIP_DRAW,
@@ -3221,12 +3242,97 @@ static void PokeSum_DrawMoveTypeIcons(void)
         if (sMonSummaryScreen->moveIds[i] == MOVE_NONE)
             continue;
 
+        if (sMonSummaryScreen->contestView)
+        {
+            BlitMoveInfoIcon(sMonSummaryScreen->windowIds[5], MENU_INFO_ICON_CONTEST_COOL + gContestMoves[sMonSummaryScreen->moveIds[i]].contestCategory, 3, GetMoveNamePrinterYpos(i));
+            continue;
+        }
+
         BlitMoveInfoIcon(sMonSummaryScreen->windowIds[5], sMonSummaryScreen->moveTypes[i] + 1, 3, GetMoveNamePrinterYpos(i));
         BlitMoveInfoIcon(sMonSummaryScreen->windowIds[5], sMonSummaryScreen->moveCats[i] + 24, 3, GetMoveCatPrinterYpos(i));
     }
 
-    if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE)
+    if (sMonSummaryScreen->mode == PSS_MODE_SELECT_MOVE && !sMonSummaryScreen->contestView)
         BlitMoveInfoIcon(sMonSummaryScreen->windowIds[5], sMonSummaryScreen->moveTypes[4] + 1, 3, GetMoveNamePrinterYpos(4));
+}
+
+// RFVF+: SELECT on the moves pages toggles Emerald's contest view: contest category icons, then for the selected
+// move its appeal / jam hearts and contest effect (French Emerald's texts and labels CHARME / BLOCAG.)
+static const u32 *PokeSum_MovesInfoTilemap(void)
+{
+    return sMonSummaryScreen->contestView ? gSummaryScreen_PageMovesInfoContest_Tilemap : gSummaryScreen_PageMovesInfo_Tilemap;
+}
+
+static const u8 *PokeSum_MovesPageName(void)
+{
+    return sMonSummaryScreen->contestView ? gText_PokeSum_PageName_ContestMoves : gText_PokeSum_PageName_KnownMoves;
+}
+
+// withMovesInfo: the move details pane is up (its labels live in the BG tilemap); the caller redraws the windows
+static void PokeSum_ToggleContestView(bool8 withMovesInfo)
+{
+    PlaySE(SE_SELECT);
+    sMonSummaryScreen->contestView ^= TRUE;
+    PokeSum_PrintPageName(PokeSum_MovesPageName());
+    CopyWindowToVram(sMonSummaryScreen->windowIds[POKESUM_WIN_PAGE_NAME], 2);
+    if (withMovesInfo)
+    {
+        CopyToBgTilemapBuffer(sMonSummaryScreen->infoAndMovesPageBgNum, PokeSum_MovesInfoTilemap(), 0, 0);
+        CopyBgTilemapBufferToVram(sMonSummaryScreen->infoAndMovesPageBgNum);
+    }
+}
+
+static void PokeSum_DrawContestHearts(u8 value, u8 heartIcon, u16 y)
+{
+    u32 i, filled = (value == 0xFF) ? 0 : value / 10;
+
+    for (i = 0; i < MAX_CONTEST_MOVE_HEARTS; i++) // 8-px hearts overlapping on their transparent edge
+        BlitMoveInfoIcon(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], i < filled ? heartIcon : MENU_INFO_ICON_HEART_EMPTY, 51 + i * 7, y);
+}
+
+// French Emerald cut these lines for a wider box: join them, then cut again at the pane's width
+static void PokeSum_WrapText(u8 *dst, const u8 *src, u32 maxWidth)
+{
+    u8 *lineStart = dst, *lastSpace = NULL;
+
+    for (; *src != EOS; src++)
+    {
+        if (*src == CHAR_NEWLINE && dst > lineStart && dst[-1] == CHAR_HYPHEN)
+        {
+            dst--; // "condi-\ntion"
+            continue;
+        }
+        if (*src == CHAR_NEWLINE || *src == CHAR_SPACE)
+        {
+            *dst = EOS;
+            if (lastSpace != NULL && GetStringWidth(FONT_NORMAL, lineStart, 0) > maxWidth)
+            {
+                *lastSpace = CHAR_NEWLINE;
+                lineStart = lastSpace + 1;
+            }
+            lastSpace = dst;
+            *dst++ = CHAR_SPACE;
+            continue;
+        }
+        *dst++ = *src;
+    }
+    *dst = EOS;
+    if (lastSpace != NULL && GetStringWidth(FONT_NORMAL, lineStart, 0) > maxWidth)
+        *lastSpace = CHAR_NEWLINE;
+}
+
+static void PokeSum_PrintContestMoveStats(u16 move)
+{
+    const struct ContestEffect *effect = &gContestEffects[gContestMoves[move].effect];
+
+    PokeSum_DrawContestHearts(effect->appeal, MENU_INFO_ICON_HEART_APPEAL, 3);
+    PokeSum_DrawContestHearts(effect->jam, MENU_INFO_ICON_HEART_JAM, 17);
+    PokeSum_WrapText(gStringVar4, gContestEffectDescriptionPointers[gContestMoves[move].effect], 15 * 8 - 7 - 2);
+    AddTextPrinterParameterized4(sMonSummaryScreen->windowIds[POKESUM_WIN_TRAINER_MEMO], FONT_NORMAL,
+                                 7, 42,
+                                 0, 0,
+                                 sLevelNickTextColors[0], TEXT_SKIP_DRAW,
+                                 gStringVar4);
 }
 
 static void PokeSum_PrintPageHeaderText(u8 curPageIndex)
@@ -3248,12 +3354,12 @@ static void PokeSum_PrintPageHeaderText(u8 curPageIndex)
         PrintMonLevelNickOnWindow2(gText_PokeSum_NoData);
         break;
     case PSS_PAGE_MOVES:
-        PokeSum_PrintPageName(gText_PokeSum_PageName_KnownMoves);
+        PokeSum_PrintPageName(PokeSum_MovesPageName());
         PokeSum_PrintControlsString(gText_PokeSum_Controls_PageDetail);
         PrintMonLevelNickOnWindow2(gText_PokeSum_NoData);
         break;
     case PSS_PAGE_MOVES_INFO:
-        PokeSum_PrintPageName(gText_PokeSum_PageName_KnownMoves);
+        PokeSum_PrintPageName(PokeSum_MovesPageName());
         if (!gMain.inBattle)
             PokeSum_PrintControlsString(gText_PokeSum_Controls_PickSwitch);
         else
@@ -3261,7 +3367,7 @@ static void PokeSum_PrintPageHeaderText(u8 curPageIndex)
         PrintMonLevelNickOnWindow2(gText_PokeSum_NoData);
         break;
     case PSS_PAGE_MOVE_DELETER:
-        PokeSum_PrintPageName(gText_PokeSum_PageName_KnownMoves);
+        PokeSum_PrintPageName(PokeSum_MovesPageName());
         PokeSum_PrintControlsString(gText_PokeSum_Controls_PickDelete);
         PrintMonLevelNickOnWindow2(gText_PokeSum_NoData);
         break;
@@ -3953,6 +4059,11 @@ static void Task_HandleInput_SelectMove(u8 taskId)
             sMonSummaryScreen->curPageIndex--;
             sMonSummaryScreen->selectMoveInputHandlerState = 1;
         }
+        else if (JOY_NEW(SELECT_BUTTON))
+        {
+            PokeSum_ToggleContestView(TRUE);
+            sMonSummaryScreen->selectMoveInputHandlerState = 2;
+        }
         break;
     case 1:
         gTasks[sMonSummaryScreen->inputHandlerTaskId].func = Task_BackOutOfSelectMove;
@@ -4181,6 +4292,11 @@ static void Task_InputHandler_SelectOrForgetMove(u8 taskId)
             sMoveSwapCursorPos = 4;
             gSpecialVar_0x8005 = (u16)sMoveSwapCursorPos;
             sMonSummaryScreen->selectMoveInputHandlerState = 6;
+        }
+        else if (JOY_NEW(SELECT_BUTTON))
+        {
+            PokeSum_ToggleContestView(TRUE);
+            sMonSummaryScreen->selectMoveInputHandlerState = 3;
         }
         break;
     case 3:

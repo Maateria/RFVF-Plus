@@ -106,6 +106,14 @@ const struct MoveMenuInfoIcon gMoveMenuInfoIcons[] =
     { 32, 12, 0x120 },      // Physical icon
     { 32, 12, 0x124 },      // Special icon
     { 32, 12, 0x128 },      // Status icon
+    { 32, 14, 0x140 },      // RFVF+: contest category icons (French Emerald), 2 rows taller than the types: Cool
+    { 32, 14, 0x144 },      // Beauty
+    { 32, 14, 0x148 },      // Cute
+    { 32, 14, 0x14C },      // Smart
+    { 32, 14, 0x160 },      // Tough
+    {  8,  8, 0x164 },      // appeal heart
+    {  8,  8, 0x165 },      // jam heart
+    {  8,  8, 0x166 },      // empty heart
 };
 
 static void ListMenuDummyTask(u8 taskId)

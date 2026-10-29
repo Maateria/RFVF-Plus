@@ -144,6 +144,7 @@ void NewGameInitData(void)
     gPlayerPartyCount = 0;
     ZeroPlayerPartyMons();
     ResetPokemonStorageSystem();
+    memset(gPokemonStoragePtr->pokeblocks, 0, sizeof(struct PokemonStorage) - offsetof(struct PokemonStorage, pokeblocks)); // RFVF+: contest data after the boxes
     ClearRoamerData();
     gSaveBlock1Ptr->registeredItem = 0;
     ClearBag();

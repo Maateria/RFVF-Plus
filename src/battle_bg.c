@@ -501,8 +501,8 @@ static const u32 sBattleTerrainTiles_Indoor[] = INCBIN_U32("graphics/battle_terr
 static const u32 sBattleTerrainTilemap_Indoor[] = INCBIN_U32("graphics/battle_terrain/indoor/terrain.bin.lz");
 
 // RFVF+: Emerald's building background with its Battle Frontier palette
-static const u32 sBattleTerrainPalette_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/stadium/battle_frontier.gbapal.lz");
-static const u32 sBattleTerrainTiles_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/tiles.4bpp.lz");
+const u32 gBattleTerrainPalette_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/stadium/battle_frontier.gbapal.lz");
+const u32 gBattleTerrainTiles_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/tiles.4bpp.lz");
 static const u32 sBattleTerrainTilemap_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/map.bin.lz");
 static const u32 sBattleTerrainAnimTiles_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/anim_tiles.4bpp.lz");
 static const u32 sBattleTerrainAnimTilemap_Frontier[] = INCBIN_U32("graphics/battle_terrain/unused/building/anim_map.bin.lz");
@@ -670,11 +670,11 @@ static const struct BattleBackground sBattleTerrainTable[] = {
     },
     [BATTLE_TERRAIN_FRONTIER] =
     {
-        .tileset = sBattleTerrainTiles_Frontier,
+        .tileset = gBattleTerrainTiles_Frontier,
         .tilemap = sBattleTerrainTilemap_Frontier,
         .entryTileset = sBattleTerrainAnimTiles_Frontier,
         .entryTilemap = sBattleTerrainAnimTilemap_Frontier,
-        .palette = sBattleTerrainPalette_Frontier
+        .palette = gBattleTerrainPalette_Frontier
     }
 };
 

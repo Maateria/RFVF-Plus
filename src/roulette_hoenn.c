@@ -60,18 +60,6 @@ static void DoYesNoFuncWithChoice(u8 taskId, const struct YesNoFuncTable *data)
     gTasks[taskId].func = Task_CallYesOrNoCallback;
 }
 
-static void ResetAllBgsCoordinates(void)
-{
-    ChangeBgX(0, 0, BG_COORD_SET);
-    ChangeBgY(0, 0, BG_COORD_SET);
-    ChangeBgX(1, 0, BG_COORD_SET);
-    ChangeBgY(1, 0, BG_COORD_SET);
-    ChangeBgX(2, 0, BG_COORD_SET);
-    ChangeBgY(2, 0, BG_COORD_SET);
-    ChangeBgX(3, 0, BG_COORD_SET);
-    ChangeBgY(3, 0, BG_COORD_SET);
-}
-
 // RFVF+: Emerald's roulette (pokeemerald src/roulette.c, its graphics from src/graphics.c, the French texts of
 // data/scripts/roulette.inc), for Mauville's Game Corner. No clock: the time of day it reads is noon; no TV,
 // no Pokenews service day, no daily or win-streak game stats

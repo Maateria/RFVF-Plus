@@ -10,6 +10,7 @@
 #include "random.h"
 #include "text.h"
 #include "data.h"
+#include "pokeblock.h"
 #include "battle.h"
 #include "battle_anim.h"
 #include "battle_setup.h"
@@ -2469,36 +2470,6 @@ const s8 gNatureStatTable[NUM_NATURES][NUM_NATURE_STATS] = // RFVF+: exported as
 #include "data/pokemon/level_up_learnsets.h"
 #include "data/pokemon/evolution.h"
 #include "data/pokemon/level_up_learnset_pointers.h"
-
-static const s8 sPokeblockFlavorCompatibilityTable[NUM_NATURES * FLAVOR_COUNT] =
-{
-    // Cool, Beauty, Cute, Smart, Tough
-          0,      0,    0,     0,     0, // Hardy
-          1,      0,    0,     0,    -1, // Lonely
-          1,      0,   -1,     0,     0, // Brave
-          1,     -1,    0,     0,     0, // Adamant
-          1,      0,    0,    -1,     0, // Naughty
-         -1,      0,    0,     0,     1, // Bold
-          0,      0,    0,     0,     0, // Docile
-          0,      0,   -1,     0,     1, // Relaxed
-          0,     -1,    0,     0,     1, // Impish
-          0,      0,    0,    -1,     1, // Lax
-         -1,      0,    1,     0,     0, // Timid
-          0,      0,    1,     0,    -1, // Hasty
-          0,      0,    0,     0,     0, // Serious
-          0,     -1,    1,     0,     0, // Jolly
-          0,      0,    1,    -1,     0, // Naive
-         -1,      1,    0,     0,     0, // Modest
-          0,      1,    0,     0,    -1, // Mild
-          0,      1,   -1,     0,     0, // Quiet
-          0,      0,    0,     0,     0, // Bashful
-          0,      1,    0,    -1,     0, // Rash
-         -1,      0,    0,     1,     0, // Calm
-          0,      0,    0,     1,    -1, // Gentle
-          0,      0,   -1,     1,     0, // Sassy
-          0,     -1,    0,     1,     0, // Careful
-          0,      0,    0,     0,     0  // Quirky
-};
 
 #define PP_UP_SHIFTS(val)           val,        (val) << 2,        (val) << 4,        (val) << 6
 #define PP_UP_SHIFTS_INV(val) (u8)~(val), (u8)~((val) << 2), (u8)~((val) << 4), (u8)~((val) << 6)
@@ -7985,16 +7956,16 @@ bool8 IsMonSpriteNotFlipped(u16 species)
     return gSpeciesInfo[species].noFlip;
 }
 
-static s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor)
+s8 GetMonFlavorRelation(struct Pokemon *mon, u8 flavor)
 {
     u8 nature = GetNature(mon);
-    return sPokeblockFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
+    return gPokeblockFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
 }
 
 s8 GetFlavorRelationByPersonality(u32 personality, u8 flavor)
 {
     u8 nature = GetNatureFromPersonality(personality);
-    return sPokeblockFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
+    return gPokeblockFlavorCompatibilityTable[nature * FLAVOR_COUNT + flavor];
 }
 
 bool8 IsTradedMon(struct Pokemon *mon)

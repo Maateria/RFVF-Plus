@@ -1015,6 +1015,7 @@ Common_EventScript_BufferTrendyPhrase::
 	.include "data/scripts/hoenn_gyms.inc"
 	.include "data/scripts/mauville_man.inc"
 	.include "data/scripts/secret_base.inc"
+	.include "data/scripts/berry_blender.inc"
 	.include "data/scripts/hoenn_berry_trees.inc"
 	.include "data/scripts/hoenn_dungeons.inc"
 	.include "data/scripts/bag_full.inc"

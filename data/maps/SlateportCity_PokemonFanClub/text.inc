@@ -76,3 +76,84 @@ SlateportCity_PokemonFanClub_Text_PokemonAdoresYou::
     .string "Voilà un cadeau de la part\n"
     .string "du FAN CLUB pour toi,\l"
     .string "le DRESSEUR attentionné!$"
+SlateportCity_PokemonFanClub_Text_AllowMeToExamineYourPokemon::
+    .string "Hum, je vois que tu as participé à\n"
+    .string "un CONCOURS POKéMON!\p"
+    .string "S'il te plaît, laisse-moi voir comme\n"
+    .string "tu as dressé tes POKéMON.\p"
+    .string "J'adore voir comment les autres\n"
+    .string "dressent leurs POKéMON.\p"
+    .string "L'enthousiasme des POKéMON\n"
+    .string "bien dressés…\p"
+    .string "Les regards attentionnés et\n"
+    .string "affectueux des DRESSEURS…\p"
+    .string "Mon cœur déborde. C'est un bonheur\n"
+    .string "intense!\p"
+    .string "Oh, pardon! Ça fait déjà trop\n"
+    .string "longtemps que je parle!\p"
+    .string "Pourrais-je examiner tes POKéMON\n"
+    .string "pour voir s'ils progressent bien?$"
+
+SlateportCity_PokemonFanClub_Text_ExplainBlueScarf::
+    .string "Fais porter ce FOUL. BLEU\n"
+    .string "à un POKéMON.\p"
+    .string "Sa BEAUTE n'en sera qu'accentuée!$"
+
+SlateportCity_PokemonFanClub_Text_ExplainGreenScarf::
+    .string "Fais porter ce FOUL. VERT\n"
+    .string "à un POKéMON.\p"
+    .string "Ça augmentera son INTELLIGENCE!$"
+
+SlateportCity_PokemonFanClub_Text_ExplainPinkScarf::
+    .string "Fais porter ce FOUL. ROSE\n"
+    .string "à un POKéMON.\p"
+    .string "Ça fera un peu ressortir sa GRACE!$"
+
+SlateportCity_PokemonFanClub_Text_ExplainRedScarf::
+    .string "Fais porter ce FOUL. ROUGE\n"
+    .string "à un POKéMON.\p"
+    .string "Tout le monde reconnaîtra son\n"
+    .string "SANG-FROID!$"
+
+SlateportCity_PokemonFanClub_Text_ExplainYellowScarf::
+    .string "Fais porter ce FOUL. JAUNE\n"
+    .string "à un POKéMON.\p"
+    .string "Ça lui redonnera de la ROBUSTESSE!$"
+
+SlateportCity_PokemonFanClub_Text_GiveMonMorePokeblocks::
+    .string "Hum… Ce n'est pas trop mal, mais cela\n"
+    .string "dit, ce n'est pas\l"
+    .string "excellent non plus…\p"
+    .string "Toi, le DRESSEUR, tu dois t'efforcer\n"
+    .string "de faire progresser tes POKéMON!\p"
+    .string "Tu devrais, par exemple, leur donner\n"
+    .string "plus de POKéBLOCS.$"
+
+SlateportCity_PokemonFanClub_Text_HmHmISee::
+    .string "Hum, hum…\n"
+    .string "Je vois…$"
+
+SlateportCity_PokemonFanClub_Text_HowIsYourPokemonGrowing::
+    .string "Ton POKéMON se développe-t-il bien?\n"
+    .string "Laisse-moi l'examiner!$"
+
+SlateportCity_PokemonFanClub_Text_MonMostImpressiveGiveItThis::
+    .string "Ton {STR_VAR_1}, il progresse\n"
+    .string "tellement vite! Quel spécimen!\p"
+    .string "Mais si tu lui donnes ça, il grandira\n"
+    .string "encore plus vite! C'est garanti!$"
+
+SlateportCity_PokemonFanClub_Text_NoSpaceForReward::
+    .string "Oh, ça alors…\p"
+    .string "Tes POKéMON progressent vite.\n"
+    .string "Tu mérites une récompense.\p"
+    .string "Mais tu n'as pas assez de place dans\n"
+    .string "ton SAC pour la recevoir.$"
+
+SlateportCity_PokemonFanClub_Text_NothingElseToGiveYou::
+    .string "Désolé, mais je n'ai rien d'autre à\n"
+    .string "te donner! Rien du tout!\p"
+    .string "Après tout, tu as aussi la possibilité\n"
+    .string "de dresser tes POKéMON sans avoir \l"
+    .string "recours au moindre objet.$"
+

@@ -48,6 +48,10 @@ struct PokemonStorage
     /*0x0001*/ struct BoxPokemon boxes[TOTAL_BOXES_COUNT][IN_BOX_COUNT];
     /*0x8344*/ u8 boxNames[TOTAL_BOXES_COUNT][BOX_NAME_LENGTH + 1];
     /*0x83C2*/ u8 boxWallpapers[TOTAL_BOXES_COUNT];
+    // RFVF+: Emerald's contest data, in the storage sectors' free tail (older saves read zeros there)
+    /*0x83D0*/ struct Pokeblock pokeblocks[POKEBLOCKS_COUNT];
+    /*0x8510*/ struct ContestWinner contestWinners[NUM_CONTEST_WINNERS]; // see CONTEST_WINNER_*
+    /*0x86B0*/ u16 berryBlenderRecords[3];
 };
 
 u8 *GetBoxNamePtr(u8 boxNumber);
@@ -55,6 +59,7 @@ struct BoxPokemon *GetBoxedMonPtr(u8 boxId, u8 monPosition);
 void SetBoxMonNickAt(u8 boxId, u8 monPosition, const u8 *newNick);
 s16 CompactPartySlots(void);
 u32 GetBoxMonDataAt(u8 boxId, u8 monPosition, s32 request);
+u32 GetAndCopyBoxMonDataAt(u8 boxId, u8 boxPosition, s32 request, void *dst);
 void ZeroBoxMonAt(u8 boxId, u8 monPosition);
 void CB2_ReturnToPokeStorage(void);
 void ResetPokemonStorageSystem(void);

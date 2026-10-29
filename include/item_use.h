@@ -22,6 +22,7 @@ void FieldUseFunc_EvoItem(u8 taskId);
 void FieldUseFunc_SacredAsh(u8 taskId);
 void FieldUseFunc_TmCase(u8 taskId);
 void FieldUseFunc_BerryPouch(u8 taskId);
+void FieldUseFunc_PokeblockCase(u8 taskId);
 void BattleUseFunc_BerryPouch(u8 taskId);
 void FieldUseFunc_TeachyTv(u8 taskId);
 void FieldUseFunc_Repel(u8 taskId);

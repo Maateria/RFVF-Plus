@@ -4369,17 +4369,17 @@
       "secondaryId": 1
     },
     {
-      "english": "BOITE {POKEBLOCK}",
+      "english": "BOITE {POKEBLOCK}S",
       "itemId": "ITEM_POKEBLOCK_CASE",
       "price": 0,
       "holdEffect": "HOLD_EFFECT_NONE",
       "holdEffectParam": 0,
-      "description_english": "Boîte pour ranger les Pokéblocs\\ncréés avec le Mixeur",
+      "description_english": "Boîte pour ranger\\nles {POKEBLOCK}S créés\\navec le MIXEUR.",
       "importance": 1,
       "registrability": 1,
       "pocket": "POCKET_KEY_ITEMS",
       "type": "ITEM_TYPE_BAG_MENU",
-      "fieldUseFunc": "FieldUseFunc_OakStopsYou",
+      "fieldUseFunc": "FieldUseFunc_PokeblockCase",
       "battleUsage": 0,
       "battleUseFunc": "NULL",
       "secondaryId": 0

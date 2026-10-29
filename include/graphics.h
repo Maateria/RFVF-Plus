@@ -4619,4 +4619,52 @@ extern const u32 gCableCarDoor_Gfx[];
 extern const u32 gCableCarCable_Gfx[];
 extern const u16 gCableCar_Pal[];
 
+
+// RFVF+: Emerald's Pokeblock graphics (contests, session 2)
+extern const u32 gMenuPokeblock_Gfx[];
+extern const u32 gMenuPokeblock_Pal[];
+extern const u32 gMenuPokeblock_Tilemap[];
+extern const u32 gMenuPokeblockDevice_Gfx[];
+extern const u32 gMenuPokeblockDevice_Pal[];
+extern const u32 gPokeblockRed_Pal[];
+extern const u32 gPokeblockBlue_Pal[];
+extern const u32 gPokeblockPink_Pal[];
+extern const u32 gPokeblockGreen_Pal[];
+extern const u32 gPokeblockYellow_Pal[];
+extern const u32 gPokeblockPurple_Pal[];
+extern const u32 gPokeblockIndigo_Pal[];
+extern const u32 gPokeblockBrown_Pal[];
+extern const u32 gPokeblockLiteBlue_Pal[];
+extern const u32 gPokeblockOlive_Pal[];
+extern const u32 gPokeblockGray_Pal[];
+extern const u32 gPokeblockBlack_Pal[];
+extern const u32 gPokeblockWhite_Pal[];
+extern const u32 gPokeblockGold_Pal[];
+extern const u32 gPokeblock_Gfx[];
+extern const u32 gPokeblockFeedBg_Tilemap[];
+extern const u32 gUsePokeblockGraph_Gfx[];
+extern const u32 gUsePokeblockGraph_Tilemap[];
+extern const u16 gUsePokeblockGraph_Pal[];
+extern const u16 gUsePokeblockNatureWin_Pal[];
+extern const u32 gUsePokeblockCondition_Gfx[];
+extern const u8 gUsePokeblockUpDown_Gfx[];
+extern const u16 gUsePokeblockUpDown_Pal[];
+extern const u16 gUsePokeblockCondition_Pal[];
+extern const u16 gPokenavConditionCancel_Pal[];
+extern const u8 gPokenavConditionCancel_Gfx[];
+extern const u32 gBattleTerrainTiles_Frontier[];
+extern const u32 gBattleTerrainPalette_Frontier[];
+
+// Berry Blender (Emerald's)
+extern const u8 gBerryBlenderPlayerArrow_Gfx[];
+extern const u8 gBerryBlenderStart_Gfx[];
+extern const u8 gBerryBlenderScoreSymbols_Gfx[];
+extern const u8 gBerryBlenderParticles_Gfx[];
+extern const u8 gBerryBlenderCountdownNumbers_Gfx[];
+extern const u16 gBerryBlenderMiscPalette[];
+extern const u16 gBerryBlenderArrowPalette[];
+extern const u32 gBerryBlenderCenter_Gfx[];
+extern const u32 gBerryBlenderOuter_Gfx[];
+extern const u32 gBerryBlenderOuter_Tilemap[];
+
 #endif //GUARD_GRAPHICS_H
